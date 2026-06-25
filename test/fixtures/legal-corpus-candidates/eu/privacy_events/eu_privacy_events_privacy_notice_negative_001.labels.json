@@ -1,0 +1,260 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 10,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 16,
+    "previous_ideal_must_detect_count": 6,
+    "previous_must_detect_count": 5,
+    "previous_must_not_detect_count": 16
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@meridian-green.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insider.compliance@meridian-green.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed Period Policy",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health attestations",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "right to object",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "right to object",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Meridian Green Metals SE; Processors: CloudForge GmbH (hosting, Euravia-East region), Atlas Metrics Oy (ESG analytics); Subprocessors restricted to EU/EFTA with prior notice.\nScope of PII under GDPR includes shareholder registry and employee HR data; Art 9 data is not intentionally collected beyond limited occupational health attestations required by law and is minimised and shielded from analytics workflows.\nLawful bases: contractual necessity and legal obligation for registry and MAR records; consent only for optional newsletters; consent withdrawals are actioned via Form DCW-07 and there are currently no open withdrawals.\nDSARs are received via the portal at privacy.meridian-green.example; no DSARs are pending and one erasure request was completed on 2026-04-12 under Art 17 with audit trail retained.\nCross-border transfer: Data Export Approval EU-XB-214 authorised a one-off export of limited HR contact fields to Nuvania (no adequacy decision) using 2021 SCCs (Module Two) and a documented TIA; export completed and no ongoing replication is configured.\nTechnical and organisational measures for EU-XB-214 include encryption in transit and at rest, key control by Meridian, and access limited to role accounts; no onward transfers to additional third countries are permitted.\nRetention schedule (policy-only): insider lists (EU MAR) retained 5 years after last update; HR files retained 6 years; investor communications logs retained 3 years; retention holds may apply for regulatory preservation and are recorded in RH-LOG-09.\nData minimisation: analytics receives pseudonymised user IDs and hashed emails; special-category elements are redacted at source and logging excludes full IP addresses by default.\nMAR governance: insider lists maintained in SecureSheet with time-stamping; PDMR dealings pre-cleared under the Closed Period Policy; this note contains no inside information and references only public, previously announced matters.\nCSRD/SFDR workflows: sustainability KPIs are aggregated at entity level; personal data is excluded from external ESG API calls; due diligence records are access-controlled and not exported outside the EU without a fresh approval.\nLocalisation: primary processing region is Euravia-East; disaster recovery is within EU/EFTA only; subprocessor changes require 30 days\u2019 notice and a right to object.\nPlaceholders for illustration only: ISIN ZZ-TEST-000000, Account ACCT-XXXX-0000, Ticket REF-NIL-123; these are invalid and non-live and should not be treated as active identifiers.\nInternational transfer posture: UK destinations are treated as adequate; US destinations are restricted and the legacy EU\u2013US pipeline was decommissioned in Q4 2025; no cookies used for cross-border analytics.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Processors",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Subprocessors",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Cross-border transfer",
+      "reason": "Describes a completed transfer; not a live cross-border marker"
+    },
+    {
+      "matched_text": "export completed",
+      "reason": "Completed event; not a live cross-border marker"
+    },
+    {
+      "matched_text": "no ongoing replication is configured",
+      "reason": "Negated/absent transfer activity; not a live marker"
+    },
+    {
+      "matched_text": "no open withdrawals",
+      "reason": "Negated consent withdrawal; not a live event"
+    },
+    {
+      "matched_text": "no DSARs are pending",
+      "reason": "Negated DSAR state; not a live event"
+    },
+    {
+      "matched_text": "one erasure request was completed on 2026-04-12",
+      "reason": "Completed erasure; not a live Art 17 event"
+    },
+    {
+      "matched_text": "this note contains no inside information",
+      "reason": "Negated MNPI; should not be classified as nonpublic marker"
+    },
+    {
+      "matched_text": "ISIN ZZ-TEST-000000",
+      "reason": "Explicit placeholder/invalid identifier"
+    },
+    {
+      "matched_text": "Account ACCT-XXXX-0000",
+      "reason": "Explicit placeholder/invalid identifier"
+    },
+    {
+      "matched_text": "Ticket REF-NIL-123",
+      "reason": "Explicit placeholder/invalid identifier"
+    },
+    {
+      "matched_text": "decommissioned in Q4 2025",
+      "reason": "Legacy pipeline removed; not an active transfer"
+    },
+    {
+      "matched_text": "no cookies used for cross-border analytics",
+      "reason": "Negated cross-border analytics; not a live transfer marker"
+    },
+    {
+      "matched_text": "does not approve any ongoing mass deletion, emergency transfer, or live disclosure",
+      "reason": "Explicit negation of live privacy events"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "cross-border transfer approval code",
+      "matched_text": "Data Export Approval EU-XB-214",
+      "reason": "Indicates a specific transfer approval; event is completed so not clearly covered by allowed live marker rule"
+    },
+    {
+      "concept": "third-country destination without adequacy",
+      "matched_text": "Nuvania (no adequacy decision)",
+      "reason": "Cross-border context relevant to GDPR but not a live transfer marker"
+    },
+    {
+      "concept": "transfer safeguard mechanism",
+      "matched_text": "2021 SCCs (Module Two)",
+      "reason": "Legally relevant to cross-border transfers but not an allowed rule label"
+    },
+    {
+      "concept": "transfer impact assessment",
+      "matched_text": "documented TIA",
+      "reason": "Relevant to cross-border compliance; no direct allowed rule"
+    },
+    {
+      "concept": "DSAR portal URL",
+      "matched_text": "privacy.meridian-green.example",
+      "reason": "Operational DSAR intake location; no specific DSAR marker rule and domain itself is not PII"
+    },
+    {
+      "concept": "insider dealing compliance reference",
+      "matched_text": "PDMR dealings",
+      "reason": "MAR-relevant process reference; not a defined marker in allowed rules apart from blackout/insider list"
+    },
+    {
+      "concept": "retention hold log reference",
+      "matched_text": "RH-LOG-09",
+      "reason": "Privacy governance identifier; no matching allowed rule"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Operational Incident Report — Thanh Nam Green Energy JSC (Ticker: TNGVN) — 11/06/2026
+Summary: A misconfigured SFTP job copied internal payroll onboarding form audit logs to an analytics sandbox; no external distribution occurred and access was contained.
+Scope: The affected dataset comprised generic form labels only (Full Name, ID Number, Bank Branch, Payroll Account), with fields unpopulated due to data minimisation controls.
+MNPI assessment: No MNPI implicated; issuer operational metrics referenced were publicly disclosed under Vietnam Securities Law and Mekong Securities Exchange Listing Rules (Q1/2026 and 2025 ESG update).
+Banking context: Placeholder test account strings (e.g., 123-456-XYZ, 00-8888-XX) in the logs did not correspond to any live transactions at Kien River Bank.
+Privacy controls: Masking remained in force; “ID Number” and “Payroll Account” columns contained invalid tokens (VN-0000-123X, ACCT-XX-000) by design.
+DSAR status: dsar@thanhnam.vn shows zero open requests; no DSAR was triggered by this event.
+Consent status: No active consent withdrawal; prior consent withdrawal case CW-2026-004 is closed and unrelated to this incident.
+Erasure status: Erasure not required; reference ER-2026-017 documents a completed erasure in January 2026 under Policy PR-07.
+Retention markers: Sandbox log retention remains 90 days; no retention expiry missed; retention exception request REX-2026-02 was declined and is not applicable.
+Cross-border transfer: Data-export approval DEA-2026-05-27 authorises transfer of anonymised telemetry to CloudBridge Data Pte Ltd (SG) under DPA Schedule 3; execution completed over encrypted channels.
+Disclosure handling: Compliance memo 2026-OP-014 filed with the internal listing office; public notice prepared for the issuer portal confirming no customer or employee PII exposure.
+Controls verification: Audit trail confirms completed-control language only; automated alerts tested, and access revocation completed for the sandbox service account.
+ESG note: No environmental impact; classified as operational; incident closed by Operations at 14:20 ICT on 10/06/2026.
+Contact: privacy@thanhnam.vn and hotline 1800 000 000 for general queries; do not include personal contact details in correspondence.

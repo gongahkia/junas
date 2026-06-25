@@ -1,0 +1,431 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_universal_mnpi_memo_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/universal_mnpi/au_universal_mnpi_memo_default_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_universal_mnpi_memo_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_universal_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INTERNAL ONLY",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Wattle",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "strictly not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AUD 185,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AUD 120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "52%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lila.tran@quendarobotics.au.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "owen.merrick@quendarobotics.au.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Tran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Merrick",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Priya Eltham",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 14:00 AEST, 18 July 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate externally",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scheme Implementation Deed",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SID",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to confirmatory tax and accounting sign-offs",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "66\u2154%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has delivered a draft \u201cfair and reasonable\u201d opinion",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the Board intends to unanimously recommend",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aggregated, de-identified form only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not to be discussed in deal forums",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "execution targeted 18 July 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: AUD 120,000,000 committed bridge from Wallaby Ridge Bank Pty Ltd (definitive commitment letter executed); conditions limited to SID execution and customary bring-downs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "185,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lila.tran@quendarobotics.au.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "owen.merrick@quendarobotics.au.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Tran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Merrick",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Priya Eltham",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Tran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Merrick",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: AUD 120,000,000 committed bridge from Wallaby Ridge Bank Pty Ltd (definitive commitment letter executed); conditions limited to SID execution and customary bring-downs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INTERNAL ONLY",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Wattle",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Wattle",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AUD 185,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AUD 120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "52%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "185,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 INTERNAL ONLY \u2014 Embargo until 14:00 AEST, 18 July 2026; do not circulate externally.\nBoard Briefing: Project Wattle \u2014 proposed Scheme Implementation Deed between Quenda Robotics Pty Ltd and Gidgee Capital Partners Pty Ltd (parent: Monarto Holdings Limited, SBX-listed).\nPresenter: Ms. Lila Tran (CFO); attendees include Mr. Owen Merrick (Legal Counsel) and Dr. Priya Eltham (Chair).\nKey economics (strictly not generally available): EV AUD 185,000,000; 52% premium to 20-day VWAP; consideration 60% cash / 40% Monarto scrip; expected completion late Q3 FY26.\nDefinitive agreements: SID in substantially final form as at 17 July 2026; execution targeted 18 July 2026 subject to confirmatory tax and accounting sign-offs.\nMAC clause summary: no Material Adverse Change has occurred; for clarity, changes in general economic/market conditions or pandemics will not constitute a MAC for the target.\nDisclosure and IR: continuous disclosure obligations under SBX Listing Rule 3.1A (analogue) considered; draft exchange announcement and investor-relations Q&A prepared and embargoed to the above time.\nRegulatory: notification to the Commonwealth Markets Commission; no foreign investment issues; if contested, escalation path to Commonwealth Takeovers Chamber noted.\nFinancing: AUD 120,000,000 committed bridge from Wallaby Ridge Bank Pty Ltd (definitive commitment letter executed); conditions limited to SID execution and customary bring-downs.\nEmployment/health: no planned redundancies; equity awards to roll on equivalent terms; OH&S health metrics provided to diligence room in aggregated, de-identified form only.\nCredit/transaction: under Senior Facilities Agreement with Mintbush Finance No.1 Pty Ltd, 66\u2154% lender consent required; soft-soundings indicate support; draft waiver letter and consent checklist attached.\nPublic-source reference: commodity outlook assumptions drawn from the 2025 Mallee Coast University Resources Survey (publicly available), which is not MNPI.\nNegated MAC note: the Q4 slowdown in a single customer pilot is not expected to be a MAC under the SID.\nlowercase pm: todo: update gantt, circulate clean redline to directors, and confirm videoconference links for execution.\nBenign HR reminder: staff wellness \u201cspa-day\u201d voucher raffle on 19 July; unrelated to Project Wattle and not to be discussed in deal forums.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Senior Facilities Agreement with Mintbush Finance No.1 Pty Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Tran (CFO); attendees include Mr. Owen Merrick (Legal Counsel) and Dr. Priya Eltham (Chair).\nKey economics (strictly not generally available): EV AUD 185,000,000; 52% premium to 20-day VWAP; consideration 60% cash / 40% Monarto scrip; expected completion late Q3 FY26.\nDefinitive agreements: SID in substantially final form as at 17 July 2026; execution targeted 18 July 2026 subject to confirmatory tax and accounting sign-offs.\nMAC clause summary: no Material Adverse Change has occurred; for clarity, changes in general economic/market conditions or pandemics will not constitute a MAC for the target.\nDisclosure and IR: continuous disclosure obligations under SBX Listing Rule 3.1A (analogue) considered; draft exchange announcement and investor-relations Q&A prepared and embargoed to the above time.\nRegulatory: notification to the Commonwealth Markets Commission; no foreign investment issues; if contested, escalation path to Commonwealth Takeovers Chamber noted.\nFinancing: AUD 120,000,000 committed bridge from Wallaby Ridge Bank Pty Ltd (definitive commitment letter executed); conditions limited to SID execution and customary bring-downs.\nEmployment/health: no planned redundancies; equity awards to roll on equivalent terms; OH&S health metrics provided to diligence room in aggregated, de-identified form only.\nCredit/transaction: under Senior Facilities Agreement with Mintbush Finance No.1 Pty Ltd, 66\u2154% lender consent required; soft-soundings indicate support; draft waiver letter and consent checklist attached.\nPublic-source reference: commodity outlook assumptions drawn from the 2025 Mallee Coast University Resources Survey (publicly available), which is not MNPI.\nNegated MAC note: the Q4 slowdown in a single customer pilot is not expected to be a MAC under the SID.\nlowercase pm: todo: update gantt, circulate clean redline to directors, and confirm videoconference links for execution.\nBenign HR reminder: staff wellness \u201cspa-day\u201d voucher raffle on 19 July; unrelated to Project Wattle and not to be discussed in deal forums.\nGovernance: Karrinyup Advisory (independent expert) has delivered a draft \u201cfair and reasonable\u201d opinion; the Board intends to unanimously recommend, subject to no superior proposal and usual carve-outs.\nContact: Ms. Lila Tran (CFO) \u2014 lila.tran@quendarobotics.au.example; Mr. Owen Merrick (Legal) \u2014 owen.merrick@quendarobotics.au.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Board",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "Benign HR bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role title descriptor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Legal Counsel",
+      "reason": "Role title descriptor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Chair",
+      "reason": "Role title descriptor; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "SBX Listing Rule 3.1A",
+      "reason": "References continuous disclosure obligations may indicate market-sensitive handling, but not an explicit allowed marker."
+    },
+    {
+      "concept": "regulatory_notification",
+      "matched_text": "notification to the Commonwealth Markets Commission",
+      "reason": "Regulatory filings can be material; not explicitly covered by allowed MNPI rules."
+    },
+    {
+      "concept": "material_adverse_change (negated)",
+      "matched_text": "no Material Adverse Change has occurred",
+      "reason": "Contains MAC term but negated; excluded from strict detection per rule yet legally relevant."
+    },
+    {
+      "concept": "material_adverse_change (negated)",
+      "matched_text": "not expected to be a MAC under the SID",
+      "reason": "Negated MAC assessment; contextually important but excluded by rule."
+    }
+  ]
+}

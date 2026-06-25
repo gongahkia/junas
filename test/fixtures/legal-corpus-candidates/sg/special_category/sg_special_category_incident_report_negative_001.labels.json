@@ -1,0 +1,181 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_special_category_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Employee ID E-0482",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID E-0482 as a member of the Harbourlight Staff Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurorakinetics.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investorrelations@aurorakinetics.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-555-0101",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SGX: AKLX",
+      "rule": "sg_sgx_counter"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-0482",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AKLX",
+      "rule": "sg_sgx_counter"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "E-0482",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AKLX",
+      "rule": "sg_sgx_counter"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Orchid Shield",
+      "reason": "Product or system name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Lotus Firewall",
+      "reason": "Product or system name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Diversity & Belonging Charter",
+      "reason": "Policy name; not PII or MNPI"
+    },
+    {
+      "matched_text": "GreenStep ESG Policy",
+      "reason": "Policy name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Bukit Breeze Badgers",
+      "reason": "Sports team/club name; not PII or MNPI"
+    },
+    {
+      "matched_text": "City Merlions Basketball",
+      "reason": "Sports team/club name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Jurong",
+      "reason": "Place name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Form field label without any personal value"
+    },
+    {
+      "matched_text": "NRIC/FIN",
+      "reason": "Form field label without any personal value"
+    },
+    {
+      "matched_text": "Date of Birth",
+      "reason": "Form field label without any personal value"
+    },
+    {
+      "matched_text": "Nimbus Rivet Pte. Ltd",
+      "reason": "Company name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Aurora Kinetics Ltd",
+      "reason": "Company name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Harbourlight Staff Union",
+      "reason": "Organisation name alone is not personal data"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "internal identifier",
+      "matched_text": "SEC-ID ZZ-000-000",
+      "reason": "May be an internal system or session identifier; potentially PII as internal_session_id but not clearly mapped to an allowed rule and stated as placeholder."
+    },
+    {
+      "concept": "financial instrument identifier",
+      "matched_text": "ISIN ZZ0000000000",
+      "reason": "ISINs can be market-sensitive identifiers but are not in the allowed rule set; also described as placeholder and not linked to any real security."
+    }
+  ]
+}

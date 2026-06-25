@@ -1,0 +1,592 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 55,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 55,
+    "old_must_detect_count": 24,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance@yunlanharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "generalcounsel@yunlanharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "qin@qzlaw.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liao Wen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao He",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tang Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9X1A8QZ7L3P6D2R5Y",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 (<14) information",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "<14",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "proposed sharing with a Singapore-based SOC",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no cross-border HR transfer without CAC filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limit collection to necessary employment data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only retain employee resident ID numbers in hashed form",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID numbers",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID scans",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial images",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device identifiers",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not export facial images, resident ID scans, or salary data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "store resident ID numbers as masked fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A non-public cyber incident occurred",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware affected OT systems at the Nanting wind farm SCADA for 11 hours",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet disclosed to the market or CSRC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "loss estimates are preliminary",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "utility token pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this remains inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft restatement of Scope 2/3 data",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft restatement of Scope 2/3 data",
+      "rule": "esg_target_revision"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 600m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability-linked bond",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "separate floors and systems",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no forwarding of cyber reports or token drafts outside the restricted \u201cSeabird\u201d workspace",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "diligence calls are to be chaperoned",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no off-the-record briefings",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any inquiries from analysts are to be directed to IR",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 18.50 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must be briefed not to discuss the incident or token pilot",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Qin",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI controls, PIPL/CAC considerations, and pre-IPO safeguards for prospective STAR Market listing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12) Financing context: A draft term sheet with Haiyu Capital for a pre-IPO Series D contemplates a price floor of RMB 18.50 per share and an earn-out tied to CSRC registration milestones; NDA is executed, and documents must remain within the Seabird restricted drive.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 18.50",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "generalcounsel@yunlanharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "qin@qzlaw.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liao Wen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liao Wen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao He",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tang Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Qin",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: MNPI controls, PIPL/CAC considerations, and pre-IPO safeguards for prospective STAR Market listing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12) Financing context: A draft term sheet with Haiyu Capital for a pre-IPO Series D contemplates a price floor of RMB 18.50 per share and an earn-out tied to CSRC registration milestones; NDA is executed, and documents must remain within the Seabird restricted drive.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12) Financing context: A draft term sheet with Haiyu Capital for a pre-IPO Series D contemplates a price floor of RMB 18.50 per share and an earn-out tied to CSRC registration milestones; NDA is executed, and documents must remain within the Seabird restricted drive.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 600m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 18.50",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Ms. Liao Wen, Chief Compliance Officer, Yunlan Harbor Renewables Co., Ltd. (USCC: 9X1A8QZ7L3P6D2R5Y) \u2014 contact: compliance@yunlanharbor.cn\nSubject: MNPI controls, PIPL/CAC considerations, and pre-IPO safeguards for prospective STAR Market listing\n\n1) MNPI: A non-public cyber incident occurred on 23 May; ransomware affected OT systems at the Nanting wind farm SCADA for 11 hours; root-cause and loss estimates are preliminary and not yet disclosed to the market or CSRC.\n2) Crypto/DPT adjacency: Our subsidiary Shenzhen LumenChain Technology Co., Ltd. is drafting an internal whitepaper for a utility token pilot to settle carbon-credit transfers on a permissioned chain; no regulatory filings have been made with PBoC/CSRC and this remains inside information.\n3) ESG/climate: Draft restatement of Scope 2/3 data and a contemplated RMB 600m sustainability-linked bond include a KPI-linked step-up of 25 bps and early redemption features; these commercial terms are in negotiation and are non-public.\n4) Insider list: Update and circulate the insider list per CSRC Administrative Measures on Information Disclosure; include Ms. Liao Wen, Mr. Zhao He (CIO), Ms. Tang Rui (Treasury), and external counsel; store resident ID numbers as masked fields and avoid collecting minors\u2019 (<14) information per PIPL.\n5) Information barriers: Research and investment teams must remain on separate floors and systems; use a clean team for data rooms; diligence calls are to be chaperoned; no forwarding of cyber reports or token drafts outside the restricted \u201cSeabird\u201d workspace.\n6) Blackout window: Effective immediately, impose a trading blackout for all designated insiders and directors until public announcement and, for equity-linked instruments, until CSRC acceptance is posted on the exchange website; suspend ESPP transactions for affected employees.\n7) Tipping/selective disclosure: Vendors (SOC, cloud) and counterparties must be briefed not to discuss the incident or token pilot; any inquiries from analysts are to be directed to IR; no off-the-record briefings or sharing of draft KPI targets.\n8) Cross-border transfer: The incident log contains employee device identifiers and emails; proposed sharing with a Singapore-based SOC requires CAC security assessment or the Standard Contract, plus PIPL consent notices; do not export facial images, resident ID scans, or salary data.\n9) HR workflow: For onboarding and disciplinary reviews, limit collection to necessary employment data; store USCC copies for counterparties but only retain employee resident ID numbers in hashed form; no cross-border HR transfer without CAC filing.\n10) Education/marketing (benign): The sustainability team will host an ESG webinar explaining climate risk metrics and a demo carbon ledger; materials use synthetic data and do not reference any issuer names, token economics, or commercial terms.\n11) Operations-only (benign): IT will run a phishing simulation and a tabletop incident drill; these are training exercises and do not indicate any current or future incident severity.\n12) Financing context: A draft term sheet with Haiyu Capital for a pre-IPO Series D contemplates a price floor of RMB 18.50 per share and an earn-out tied to CSRC registration milestones; NDA is executed, and documents must remain within the Seabird restricted drive.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Liao Wen, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Education/marketing (benign)",
+      "reason": "Benign educational activity; not market sensitive MNPI"
+    },
+    {
+      "matched_text": "Operations-only (benign)",
+      "reason": "Training/testing context; not indicative of an incident"
+    },
+    {
+      "matched_text": "ESG webinar",
+      "reason": "Educational/marketing event; not MNPI"
+    },
+    {
+      "matched_text": "phishing simulation",
+      "reason": "Training exercise, not a real cyber incident"
+    },
+    {
+      "matched_text": "demo carbon ledger",
+      "reason": "Marketing demo; not MNPI"
+    },
+    {
+      "matched_text": "Vendors",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "counterparties",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "external counsel",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Seabird",
+      "reason": "Not a transaction codename; lacks 'Project ' pattern"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "material financing event",
+      "matched_text": "pre-IPO Series D",
+      "reason": "Likely MNPI in financing context but not explicitly labeled non-public in text"
+    },
+    {
+      "concept": "contingent deal term MNPI",
+      "matched_text": "earn-out tied to CSRC registration milestones",
+      "reason": "Material contingent consideration terms prior to disclosure; not covered by a specific rule beyond generic contingent MNPI"
+    },
+    {
+      "concept": "gating event/embargo timing",
+      "matched_text": "CSRC acceptance is posted on the exchange website",
+      "reason": "Timing condition for lifting blackout resembles an embargo trigger but not one of the enumerated embargo markers"
+    },
+    {
+      "concept": "DPT development signal",
+      "matched_text": "internal whitepaper",
+      "reason": "Suggests crypto/token development activity that could be sensitive but not directly mapped to a specific allowed rule"
+    }
+  ]
+}

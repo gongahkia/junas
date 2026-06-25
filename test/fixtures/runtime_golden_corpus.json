@@ -1,0 +1,46 @@
+{
+  "classification_cases": [
+    {
+      "name": "safe_public_update",
+      "text": "The company published its annual sustainability report and thanked employees for the launch event.",
+      "expected_classification": "SAFE"
+    },
+    {
+      "name": "low_risk_pricing_review",
+      "text": "Finance is reviewing tentative pricing scenarios before the public launch.",
+      "expected_classification": "LOW_RISK"
+    },
+    {
+      "name": "high_risk_secret_acquisition",
+      "text": "We are planning to acquire BetaCorp for $500 million in secret next Tuesday.",
+      "expected_classification": "HIGH_RISK"
+    }
+  ],
+  "mosaic_scenario": {
+    "entity_id": "Acme Corp",
+    "threshold": 2,
+    "events": [
+      {
+        "request_id": "evt-1",
+        "text": "Finance is reviewing tentative pricing scenarios before the public launch.",
+        "expected_recent_event_count": 1,
+        "expected_unique_fragment_count": 1,
+        "expected_escalated": false
+      },
+      {
+        "request_id": "evt-1-dup",
+        "text": "Finance is reviewing tentative pricing scenarios before the public launch.",
+        "expected_recent_event_count": 2,
+        "expected_unique_fragment_count": 1,
+        "expected_escalated": false
+      },
+      {
+        "request_id": "evt-2",
+        "text": "A supplier contract may be renewed under similar terms next quarter.",
+        "expected_recent_event_count": 3,
+        "expected_unique_fragment_count": 2,
+        "expected_escalated": true
+      }
+    ]
+  }
+}

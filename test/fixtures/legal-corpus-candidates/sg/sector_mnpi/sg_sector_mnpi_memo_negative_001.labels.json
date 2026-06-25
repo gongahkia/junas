@@ -1,0 +1,394 @@
+{
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "devraj.tham@kestrelwave.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serene Toh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Iqram Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devraj Tham",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "share only de-identified samples",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Auric DPT Services Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have executed a non-binding term sheet to acquire 70% of Auric DPT Services Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$84",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this is not generally available information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,104",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers apply",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping is prohibited under the SFA",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not selectively disclose any ratchet terms",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure of commercial terms",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "emissions disclosure restatement",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contingent on conditions precedent",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "devraj.tham@kestrelwave.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serene Toh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Iqram Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devraj Tham",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$84",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Confidential update on proposed acquisition of Auric DPT Services Pte. Ltd., cyber remediation, ESG metrics, and disclosure controls under SFA/SGX rules",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have executed a non-binding term sheet to acquire 70% of Auric DPT Services Pte. Ltd. for S$84\u2013S$96 million, subject to MAS fit-and-proper and SGX classification; this is not generally available information.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$96 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Ms. Serene Toh, General Counsel; contact: compliance@kestrelwave.sg\nSubject: Confidential update on proposed acquisition of Auric DPT Services Pte. Ltd., cyber remediation, ESG metrics, and disclosure controls under SFA/SGX rules\nWe have executed a non-binding term sheet to acquire 70% of Auric DPT Services Pte. Ltd. for S$84\u2013S$96 million, subject to MAS fit-and-proper and SGX classification; this is not generally available information.\nDraft SPA provides an earn-out linked to DPT wallet AUM and tokenised-carbon marketplace volumes, and our diligence indicates an emissions disclosure restatement may be required by the target (not yet public).\nA ransomware incident at our cloud vendor ZephyraGrid (undisclosed externally) affected 2,104 DPT wallet logs and certain vendor credentials; no NRICs are stored, but PDPA risk arises from IP addresses and device IDs.\nUntil an SGX announcement under Listing Manual Rule 703 is approved, implement a trading blackout for all designated persons and update the insider list maintained by Company Secretary Mr. Iqram Salleh.\nInformation barriers apply: the Auric diligence room is wall-crossed; only those on the insider list may access the cyber and ESG notes, and tipping is prohibited under the SFA.\nFor PDPA compliance, share only de-identified samples and encrypt any DPT log extracts; Auric\u2019s counsel BrightRidge Law LLP may review via clean team only, with no access by their business unit.\nIf the Scope 2 recalculation reduces the margin on our sustainability-linked loan, finance may renegotiate the step-downs; do not selectively disclose any ratchet terms in investor interactions before a formal SGX release.\nPlease note the ESG community webinar next week is purely educational and will describe climate transition risks and what an \u201cinsider list\u201d is without referencing any live transactions or pricing.\nMarketing has a blog on cyber hygiene and crypto custody best practices for retail users that contains no breach specifics and should be checked solely for PDPA compliance language.\nOperations reminder: the \u201cCrypto Insider\u201d training module uses simulated trade scenarios and dummy deal codenames, and no one should infer market sensitivity from that content.\nLegal will prepare a draft announcement and seek pre-clearance, and we will file an MAS pre-notification regarding the change in control of a DPT-related business.\nAny media queries must be routed to IR; no off-the-record confirmations or selective disclosure of commercial terms are permitted.\nTarget timeline remains indicative and contingent on conditions precedent, with public release of any material terms only after board approval and counsel sign-off.\nDirect queries to Ms. Serene Toh or to Mr. Devraj Tham, CFO, at devraj.tham@kestrelwave.sg; do not forward this memo outside the information barrier.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Serene Toh, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Devraj Tham, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serene Toh, General Counsel; contact: compliance@kestrelwave.sg\nSubject: Confidential update on proposed acquisition of Auric DPT Services Pte. Ltd., cyber remediation, ESG metrics, and disclosure controls under SFA/SGX rules\nWe have executed a non-binding term sheet to acquire 70% of Auric DPT Services Pte. Ltd. for S$84\u2013S$96 million, subject to MAS fit-and-proper and SGX classification; this is not generally available information.\nDraft SPA provides an earn-out linked to DPT wallet AUM and tokenised-carbon marketplace volumes, and our diligence indicates an emissions disclosure restatement may be required by the target (not yet public).\nA ransomware incident at our cloud vendor ZephyraGrid (undisclosed externally) affected 2,104 DPT wallet logs and certain vendor credentials; no NRICs are stored, but PDPA risk arises from IP addresses and device IDs.\nUntil an SGX announcement under Listing Manual Rule 703 is approved, implement a trading blackout for all designated persons and update the insider list maintained by Company Secretary Mr. Iqram Salleh.\nInformation barriers apply: the Auric diligence room is wall-crossed; only those on the insider list may access the cyber and ESG notes, and tipping is prohibited under the SFA.\nFor PDPA compliance, share only de-identified samples and encrypt any DPT log extracts; Auric\u2019s counsel BrightRidge Law LLP may review via clean team only, with no access by their business unit.\nIf the Scope 2 recalculation reduces the margin on our sustainability-linked loan, finance may renegotiate the step-downs; do not selectively disclose any ratchet terms in investor interactions before a formal SGX release.\nPlease note the ESG community webinar next week is purely educational and will describe climate transition risks and what an \u201cinsider list\u201d is without referencing any live transactions or pricing.\nMarketing has a blog on cyber hygiene and crypto custody best practices for retail users that contains no breach specifics and should be checked solely for PDPA compliance language.\nOperations reminder: the \u201cCrypto Insider\u201d training module uses simulated trade scenarios and dummy deal codenames, and no one should infer market sensitivity from that content.\nLegal will prepare a draft announcement and seek pre-clearance, and we will file an MAS pre-notification regarding the change in control of a DPT-related business.\nAny media queries must be routed to IR; no off-the-record confirmations or selective disclosure of commercial terms are permitted.\nTarget timeline remains indicative and contingent on conditions precedent, with public release of any material terms only after board approval and counsel sign-off.\nDirect queries to Ms. Serene Toh or to Mr. Devraj Tham, CFO, at devraj.tham@kestrelwave.sg",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "compliance@kestrelwave.sg",
+      "reason": "Functional or role mailbox; not an individual email address for strict SG PII labels."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "regulatory_pre-notification (MAS)",
+      "matched_text": "MAS pre-notification",
+      "reason": "Regulatory filing step that may be sensitive but not explicitly listed in allowed MNPI rules."
+    },
+    {
+      "concept": "commercial_term_signal (earn-out)",
+      "matched_text": "earn-out",
+      "reason": "Deal term indicating contingent consideration; commercially sensitive but not in specified MNPI term list."
+    },
+    {
+      "concept": "crypto_metric_signal",
+      "matched_text": "DPT wallet AUM",
+      "reason": "Non-public crypto business metric referenced for earn-out; not a defined MNPI rule."
+    },
+    {
+      "concept": "esg/market_metric_signal",
+      "matched_text": "tokenised-carbon marketplace volumes",
+      "reason": "Non-public volume metric relevant to ESG/crypto business; not covered by specified MNPI rules."
+    }
+  ]
+}

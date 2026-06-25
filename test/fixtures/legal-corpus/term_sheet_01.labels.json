@@ -1,0 +1,17 @@
+{
+  "doc_id": "term_sheet_01",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "sg_uen", "matched_text": "200998877K"},
+    {"rule": "named_person", "matched_text": "Mr David Lee"},
+    {"rule": "financial_amount", "matched_text": "$40 million"},
+    {"rule": "financial_amount", "matched_text": "$160 million"},
+    {"rule": "financial_percentage", "matched_text": "20%"},
+    {"rule": "definitive_agreement", "matched_text": "TERM SHEET"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "Lead Investor", "reason": "defined term"}
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 25,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ciso@pmhealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCCs in place",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent was withdrawn",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal information",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Trevor Ives",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Cortez",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rohan Ames",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Policy reference (benign): we do not sell personal information under CCPA and we disclose financial updates only via scheduled public webcasts; all references herein to controls are descriptive and not indicative of a current breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@pmhealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation\u2014only tokenized PANs (\u2022\u2022\u2022\u2022 6 8 2 9) and truncated SSN (***\u2011**\u20117 1) were processed",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1\u2011855\u2011555\u20110 1 18",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Patient ref Mx\u201193__17",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "truncated SSN (***\u2011**\u20117 1)",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tokenized PANs (\u2022\u2022\u2022\u2022 6 8 2 9)",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct: 7X\u20114 9 2 1 \u2011AA",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "x\u2011xxx\u20114 3 2 1",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell\u2011side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential\u2011stuffing attempt",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ciso@pmhealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCCs in place",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent was withdrawn",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal information",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Trevor Ives",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Cortez",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rohan Ames",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Policy reference (benign): we do not sell personal information under CCPA and we disclose financial updates only via scheduled public webcasts; all references herein to controls are descriptive and not indicative of a current breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: per SEC Reg FD policy PMHB\u2011 FD \u201110, sell\u2011side analyst access was suspended pending verification; Mr. Trevor Ives, VP Compliance, documented that no selective disclosure occurred.\nControl status: patches from Advisory CS\u20112026\u201112 were applied before the event; this is a completed\u2011control note and not a live risk indicator.\nESG/other: there is no material adverse change in cyber posture, and no safety or environmental impacts were implicated by this event.\nContacts: Ms. Lila Cortez, DPO, privacy@pmhealthbank.example; Dr. Rohan Ames, CISO, ciso@pmhealthbank.example; hotline 1\u2011855\u2011555\u20110 1 18 for employees and affected consumers.\nPolicy reference (benign): we do not sell personal information under CCPA and we disclose financial updates only via scheduled public webcasts; all references herein to controls are descriptive and not indicative of a current breach.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC language; do not label per rule 8"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR R\u201100 7a",
+      "reason": "DSAR submission identifiers are privacy-handling events but no explicit DSAR rule is available in the allowed list"
+    },
+    {
+      "concept": "DSAR submission URL",
+      "matched_text": "https://privacy.pmhealthbank.example/dsar?id=R-00 7a",
+      "reason": "URL with DSAR record identifier may be personal data but not mapped to an allowed rule"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "retention set to 18 months with auto\u2011purge at month 19",
+      "reason": "Retention/auto-purge is a privacy handling event but no retention-specific rule is provided"
+    },
+    {
+      "concept": "Legal hold/retention exception",
+      "matched_text": "Legal Hold LH\u201122\u2011019",
+      "reason": "Legal hold identifiers affect retention but are not covered by an allowed rule"
+    },
+    {
+      "concept": "Device identifiers export",
+      "matched_text": "device IDs",
+      "reason": "Generic device ID reference may imply advertising or device identifiers but no specific allowed rule applies without concrete IDs"
+    },
+    {
+      "concept": "Information barrier control",
+      "matched_text": "sell\u2011side analyst access was suspended",
+      "reason": "Suspending analyst access functions like an information barrier/blackout control but no explicit keyword-based rule matches"
+    },
+    {
+      "concept": "Data export approval ID",
+      "matched_text": "DEA\u20112026\u2011014",
+      "reason": "Governance ID for cross-border approval is relevant compliance metadata but not in allowed rules"
+    },
+    {
+      "concept": "Reg FD policy code",
+      "matched_text": "PMHB\u2011 FD \u201110",
+      "reason": "Internal policy identifier indicates disclosure controls but lacks a corresponding allowed rule"
+    },
+    {
+      "concept": "Security patch advisory ID",
+      "matched_text": "Advisory CS\u20112026\u201112",
+      "reason": "Security advisory identifiers are operationally sensitive but not mapped to an allowed rule"
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_privacy_events_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/privacy_events/vn_privacy_events_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_privacy_events_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "VND 180,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 900,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tr\u1ea7n Lan H\u00f2a",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "staff-ID e3- VN -  991",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation tag: \u201cstaff-ID only; no biometric\u201d",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@anphuc-capital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84  28 3  19  007",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data-export approval ref: DE- 2026 /05 -SG",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal circulation limited to deal team and legal",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contingent option",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal fields minimised per Decree 13",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ES- 09   BV- 22",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet \u2014 Ho\u00e0n Th\u1ecbnh Technology JSC (issuer) and An Ph\u00fac Capital LLC (investor); transaction type: growth financing with contingent option to acquire up to 51% post-listing on a domestic VN exchange, subject to VN securities regulator clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed investment: VND 180,000,000,000 at a pre-money valuation of VND 900,000,000,000; closing target 30 September 2026; conditions precedent include delivery of Gi\u1ea5y ch\u1ee9ng nh\u1eadn \u0111\u0103ng k\u00fd doanh nghi\u1ec7p and updated \u0110i\u1ec1u l\u1ec7 c\u00f4ng ty.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: under VN Securities Law, the draft Q3 revenue forecast and preliminary margin model remain non-public and are classified MNPI until issuer\u2019s disclosure window opens (expected 15 October 2026); internal circulation limited to deal team and legal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Securities disclosure covenant: issuer to file price-sensitive information with the VN regulator and publish summary on investor portal prior to closing; any reference to public VN industry indices is non-MNPI and purely illustrative.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timeline: signing on satisfaction of conditions; if VN regulator postpones disclosure window, closing defers automatically without penalty and no consent re-collection is required under our grandfathered onboarding policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+84  28 3  19  007",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet \u2014 Ho\u00e0n Th\u1ecbnh Technology JSC (issuer) and An Ph\u00fac Capital LLC (investor); transaction type: growth financing with contingent option to acquire up to 51% post-listing on a domestic VN exchange, subject to VN securities regulator clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed investment: VND 180,000,000,000 at a pre-money valuation of VND 900,000,000,000; closing target 30 September 2026; conditions precedent include delivery of Gi\u1ea5y ch\u1ee9ng nh\u1eadn \u0111\u0103ng k\u00fd doanh nghi\u1ec7p and updated \u0110i\u1ec1u l\u1ec7 c\u00f4ng ty.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: under VN Securities Law, the draft Q3 revenue forecast and preliminary margin model remain non-public and are classified MNPI until issuer\u2019s disclosure window opens (expected 15 October 2026); internal circulation limited to deal team and legal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Securities disclosure covenant: issuer to file price-sensitive information with the VN regulator and publish summary on investor portal prior to closing; any reference to public VN industry indices is non-MNPI and purely illustrative.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timeline: signing on satisfaction of conditions; if VN regulator postpones disclosure window, closing defers automatically without penalty and no consent re-collection is required under our grandfathered onboarding policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 180,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 900,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet \u2014 Ho\u00e0n Th\u1ecbnh Technology JSC (issuer) and An Ph\u00fac Capital LLC (investor); transaction type: growth financing with contingent option to acquire up to 51% post-listing on a domestic VN exchange, subject to VN securities regulator clearance.\nProposed investment: VND 180,000,000,000 at a pre-money valuation of VND 900,000,000,000; closing target 30 September 2026; conditions precedent include delivery of Gi\u1ea5y ch\u1ee9ng nh\u1eadn \u0111\u0103ng k\u00fd doanh nghi\u1ec7p and updated \u0110i\u1ec1u l\u1ec7 c\u00f4ng ty.\nMNPI handling: under VN Securities Law, the draft Q3 revenue forecast and preliminary margin model remain non-public and are classified MNPI until issuer\u2019s disclosure window opens (expected 15 October 2026); internal circulation limited to deal team and legal.\nCompliance memo DP-2026 and DPA Schedule 2 (data minimisation, role-based access) are appended; data-export approval ref: DE- 2026 /05 -SG is recorded in the privacy register.\nCross-border transfer: limited staff payroll fields and hashed employee codes may be processed in Singapore and Korea for backup and reconciliation; retention marker: 24 months; data minimisation tag: \u201cstaff-ID only; no biometric\u201d.\nConsent withdrawal: Ms. Tr\u1ea7n Lan H\u00f2a (staff-ID e3- VN -  991) withdrew marketing consent on 12 May 2026; DSAR ref: DS- 26  -041 closed on 25 May 2026 with erasure of recruiter notes (erasure event logged at 13:42 ICT).\nPolicy-only control: no material adverse change (MAC) covenant is waived for non-financial KPIs and does not indicate any current default; this clause is informational and not a live risk trigger.\nOnboarding forms: HR form OF-  2026  -A includes bank field placeholders only (acc: 00 7 9\u2014Z); personal fields minimised per Decree 13; retention clock starts at contract signing for 12 months for applicants.\nSettlement: cash funded via Ng\u00e2n H\u00e0ng Ph\u00e1t Tri\u1ec3n B\u00e1ch Vi\u1ec7t escrow account ES- 09   BV- 22; contact channel for funding notices: investor.relations@anphuc-capital.example; backup contact: +84  28 3  19  007 (dummy).\nSecurities disclosure covenant: issuer to file price-sensitive information with the VN regulator and publish summary on investor portal prior to closing; any reference to public VN industry indices is non-MNPI and purely illustrative.\nCompleted control: last cross-border data transfer batch completed on 31 May 2026; no live transfers occur outside SG/KR per current policy; all third-country routing is blocked at the gateway.\nTech stack note: Orchid Ledger v2 and GreenRice ERP are approved processors under Annex B; log retention set to 180 days; vendor onboarding checklist complete; no blocking issues in today\u2019s project-management run.\nDeliverables: board resolutions, comfort letter, and internal audit confirmation; compliance confirms privacy-by-design controls and DPIA summary, with PII categories listed at high level only.\nAccess link (internal): https://portal.vn/issuer/HoanThinh/terms?ref=TS- 2026 _VN &seq=0 9; contract no.: TS- VN / 2026 - 07   1; please avoid printing; OCR copy shows broken line runs.\nTimeline: signing on satisfaction of conditions; if VN regulator postpones disclosure window, closing defers automatically without penalty and no consent re-collection is required under our grandfathered onboarding policy.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun/defined party label, not a person\u2019s name or PII"
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun/defined party label, not a person\u2019s name or PII"
+    },
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated/informational clause; not a live MAC trigger per instruction"
+    },
+    {
+      "matched_text": "no biometric",
+      "reason": "Negated collection; not sensitive data present"
+    },
+    {
+      "matched_text": "closing target",
+      "reason": "Not a supported embargo marker like Closing Date/Signing Date"
+    },
+    {
+      "matched_text": "last cross-border data transfer batch completed on 31 May 2026",
+      "reason": "Completed control; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "non-MNPI",
+      "reason": "Explicitly stated non-MNPI; should not be flagged as MNPI"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention marker: 24 months",
+      "reason": "Privacy retention indicator but no explicit retention_marker rule in allowed list"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention clock starts at contract signing for 12 months for applicants",
+      "reason": "Specifies retention duration; category not in allowed rules"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DS- 26  -041",
+      "reason": "DSAR reference suggests data subject request; no DSAR rule provided"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "erasure event logged at 13:42 ICT",
+      "reason": "Erasure event timing; no erasure_marker rule provided"
+    },
+    {
+      "concept": "bank_account_placeholder",
+      "matched_text": "acc: 00 7 9\u2014Z",
+      "reason": "Bank field placeholder, may resemble account data but not actual PII"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "Access link (internal): https://portal.vn/issuer/HoanThinh/terms?ref=TS- 2026 _VN &seq=0 9",
+      "reason": "Internal link with query refs could embed internal identifiers; not clearly covered"
+    },
+    {
+      "concept": "hashed_identifier",
+      "matched_text": "hashed employee codes",
+      "reason": "Pseudonymous identifiers referenced but not specific values; category not explicit"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "log retention set to 180 days",
+      "reason": "Indicates system log retention period; retention marker not in allowed rule list"
+    }
+  ]
+}

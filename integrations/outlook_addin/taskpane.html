@@ -1,0 +1,15 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Kaypoh Review</title>
+<label>Endpoint <input id="endpoint" size="34" value="http://127.0.0.1:8765"></label>
+<label>Token <input id="token" size="34" type="password"></label>
+<label>Send hook timeout ms <input id="sendHookTimeoutMs" size="6" type="number" min="1000" max="8000" step="500" value="4000"></label>
+<button id="saveSettings">Save settings</button>
+<button id="checkPairing">Check pairing</button>
+<button id="startPairing">Start pairing</button>
+<button id="completePairing">Complete pairing</button>
+<button id="review">Review draft</button>
+<button id="redact">Redact draft</button>
+<pre id="output"></pre>
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<script src="taskpane.js"></script>

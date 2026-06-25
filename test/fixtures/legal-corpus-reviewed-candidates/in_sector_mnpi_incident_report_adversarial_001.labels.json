@@ -1,0 +1,386 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_sector_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/sector_mnpi/in_sector_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_sector_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_sector_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "leena.pathak@navprithvi.green",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-80-4000-8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leena Pathak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Cyber incident with ESG data touch; potential UPSI relating to undisclosed carbon-credit/crypto token pilot and third-party vendor breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@navprithvi.green",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Shri R. Devendra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. K. Aarav",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "one child user (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar redacted (**** **** 6 7 8 9)",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN ~ P Q Z P? 1 2 3 4 ?",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "G S T I N: 29 A B C D X 9 9 9 9 Z 5 (illegible OCR)",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-0 1 7 5 4",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct 9 9 3 0 1 1 -TEST",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not request full Aadhaar",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any Aadhaar fields remain tokenised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "strip before any Reg. 30 draft or investor call notes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident with ESG data touch",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential-stuffing",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anomalous egress",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential UPSI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "crypto token pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenised REC pilot with Trinetra Crypto Labs Pvt Ltd is not public",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List Annexure v3.2 updated",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window/blackout remains closed through 15 Jun or 48h post Board outcome filing to BSE/NSE",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers: wall-crossed advisors restricted to need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no sharing on WhatsApp/Signal",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list sign-off",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential impact ranges attached as UPSI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "vendor remediation credits are unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft green PPA addendum (step-up pricing; carbon floor)",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "leena.pathak@navprithvi.green",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-80-4000-8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leena Pathak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Cyber incident with ESG data touch; potential UPSI relating to undisclosed carbon-credit/crypto token pilot and third-party vendor breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 NavPrithvi GreenTech Limited (fictional NSE/BSE-listed), Date: 04 Jun 2026, Confidential under SEBI PIT Regulations.\nSubject: Cyber incident with ESG data touch; potential UPSI relating to undisclosed carbon-credit/crypto token pilot and third-party vendor breach.\nSummary: On 03 Jun 2026 23:40 IST, supplier SaffronCloud Managed Services Pvt Ltd flagged anomalous egress; our SOC linked it to credential-stuffing on the Carbon Ledger sandbox.\nData touch: limited logs contained masked identifiers of Designated Persons; PAN ~ P Q Z P? 1 2 3 4 ?; Aadhaar redacted (**** **** 6 7 8 9); G S T I N: 29 A B C D X 9 9 9 9 Z 5 (illegible OCR).\nDPDPA: treat as personal data; one child user (under 18) in the employee family portal was in the same bucket; parental consent refreshed and notice sent 04 Jun.\nMarket sensitivity: the tokenised REC pilot with Trinetra Crypto Labs Pvt Ltd is not public; Insider List Annexure v3.2 updated; trading window/blackout remains closed through 15 Jun or 48h post Board outcome filing to BSE/NSE.\nInformation barriers: wall-crossed advisors restricted to need-to-know; no sharing on WhatsApp/Signal; communicate only via compliance@navprithvi.green and +91-80-4000-8899.\nForensics: no ransomware execution, no repo access; 12 ESG supplier audit records viewed; no material adverse change clause was triggered in any draft term sheet.\nCommercial terms: draft green PPA addendum (step-up pricing; carbon floor) and vendor remediation credits are unannounced; selective disclosure is prohibited; potential impact ranges attached as UPSI.\nRegulatory: assess under SEBI PIT and Reg. 30 of SEBI LODR; avoid tipping; prepare holding statement only if materiality thresholds met per policy.\nKYC/Tax: vendor master indicates placeholder PANs/GSTINs in sandbox; any Aadhaar fields remain tokenised; do not request full Aadhaar; URL https://intranet.navprithvi.local/ir?upsid=UPSI-2026-06-04&case=CYB-045.\nEducation/marketing note: our crypto wallet and ESG-token webinar for campus hires is purely educational and contains no investment advice or price signals.\nPublic reference: benchmarking used public exchange notices by fictional peers for incident timelines; none of those materials constitute our UPSI.\nproject mgmt: continue ui tweaks, sla review, and vendor hardening as scheduled; this is operational and not tied to listing milestones.\nInsider-list sign-off: Shri R. Devendra (CISO), Ms. Leena Pathak (Company Secretary), Mr. K. Aarav (Head\u2013ESG); contact: leena.pathak@navprithvi.green.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Designated Persons",
+      "reason": "Role noun/defined class, not PII"
+    },
+    {
+      "matched_text": "no material adverse change clause",
+      "reason": "Negated MAC phrase should not be labeled (rule 8)"
+    },
+    {
+      "matched_text": "our crypto wallet and ESG-token webinar for campus hires is purely educational and contains no investment advice or price signals",
+      "reason": "Educational/marketing context; not market-sensitive MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "partial_aadhaar",
+      "matched_text": "Aadhaar redacted (**** **** 6 7 8 9)",
+      "reason": "Aadhaar referenced with masked digits; lacks full 12-digit pattern for strict local ID rule"
+    },
+    {
+      "concept": "corrupted_pan",
+      "matched_text": "PAN ~ P Q Z P? 1 2 3 4 ?",
+      "reason": "PAN appears obfuscated/spaced and does not match standard 10-character PAN pattern"
+    },
+    {
+      "concept": "spaced_gstin",
+      "matched_text": "G S T I N: 29 A B C D X 9 9 9 9 Z 5 (illegible OCR)",
+      "reason": "GSTIN present but with spaces/OCR note; may not match strict 15-char GSTIN pattern"
+    },
+    {
+      "concept": "consent_refresh_notice",
+      "matched_text": "parental consent refreshed and notice sent 04 Jun",
+      "reason": "Indicates consent/notice activity but allowed rules only specify consent withdrawal marker"
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "EMP-0 1 7 5 4",
+      "reason": "Looks like an employee identifier but spaced and described as internal id"
+    },
+    {
+      "concept": "account_identifier",
+      "matched_text": "acct 9 9 3 0 1 1 -TEST",
+      "reason": "Appears to be an internal account reference; mapping to a specific PII rule is ambiguous"
+    },
+    {
+      "concept": "internal_mnpi_case_id",
+      "matched_text": "UPSI-2026-06-04",
+      "reason": "Internal UPSI case tag; relevant to MNPI tracking but not covered by a listed MNPI rule"
+    }
+  ]
+}

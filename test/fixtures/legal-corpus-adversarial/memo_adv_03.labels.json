@@ -1,0 +1,82 @@
+{
+  "doc_id": "memo_adv_03",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "transaction_codename",
+      "matched_text": "Project Nebula"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T23FC1234A"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Jonathan Orion"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 45,000,000"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678I"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Celia Star"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "c.star@nebula.synthesis.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Stella Galaxy"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "s.galaxy@comet.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S8765432Z"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6789 4321"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\"Comet\"",
+      "reason": "defined term usage"
+    },
+    {
+      "matched_text": "Comet",
+      "reason": "defined term usage"
+    },
+    {
+      "matched_text": "\"SPA\"",
+      "reason": "defined term abbreviation"
+    },
+    {
+      "matched_text": "SPA",
+      "reason": "defined term abbreviation"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

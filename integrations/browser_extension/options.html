@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Kaypoh GenAI Prompt Review</title>
+<label>Backend URL <input id="endpoint" size="40"></label>
+<label>Backend mode
+  <select id="backendMode">
+    <option value="local_daemon">local daemon</option>
+    <option value="hosted_server">hosted server</option>
+  </select>
+</label>
+<label>Tenant auth mode
+  <select id="authMode">
+    <option value="local_token">local daemon pairing token</option>
+    <option value="bearer_token">hosted tenant bearer token</option>
+    <option value="none">none / dev only</option>
+  </select>
+</label>
+<label>Token <input id="token" size="40" type="password"></label>
+<label>Operation
+  <select id="operation">
+    <option value="review">review</option>
+    <option value="pseudonymize">pseudonymize</option>
+    <option value="anonymize">anonymize</option>
+    <option value="redact">redact</option>
+  </select>
+</label>
+<label><input id="interceptPaste" type="checkbox"> Review pasted GenAI prompts on ChatGPT/Claude/Gemini</label>
+<label><input id="reviewBeforeSubmit" type="checkbox"> Review before GenAI prompt submit</label>
+<button id="save">Save</button>
+<button id="checkConnection">Check connection</button>
+<button id="startPairing">Start pairing</button>
+<button id="completePairing">Complete pairing</button>
+<pre id="healthStatus"></pre>
+<pre id="pairingStatus"></pre>
+<script src="options.js"></script>

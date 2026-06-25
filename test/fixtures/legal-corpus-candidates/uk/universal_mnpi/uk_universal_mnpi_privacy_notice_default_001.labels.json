@@ -1,0 +1,417 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 37,
+    "current_must_detect_count": 17,
+    "current_must_not_detect_count": 9,
+    "previous_ideal_must_detect_count": 26,
+    "previous_must_detect_count": 17,
+    "previous_must_not_detect_count": 9
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_universal_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EMBARGOED until 15 July 2026 07:00 BST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution limited to Thornwick Financial Services plc (the \u201cCompany\u201d) IR, Legal, and M&A",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Heather",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject Heather\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3145,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Sale and Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted under the Market Conduct Policy",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until the Linton Securities Exchange (LSE) Regulatory Notice Service (RNS) is released",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not disclose price, % stake, or counterparty prior to RNS",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to completion",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Upon completion announcement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "redact insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Gideon Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Omondi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Nair",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sir Rowan Pritchard",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@thornwickfin.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "names, work emails, and role history",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymised analytics",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA in place",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution limited",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "International transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention & DSAR workflow note re Project Heather \u2014 proposed acquisition of a 17.5% stake in Holmcroft Payments Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EMBARGOED",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Gideon Vale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Omondi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Nair",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention & DSAR workflow note re Project Heather \u2014 proposed acquisition of a 17.5% stake in Holmcroft Payments Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Heather",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EMBARGOED",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3145,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 EMBARGOED until 15 July 2026 07:00 BST; distribution limited to Thornwick Financial Services plc (the \u201cCompany\u201d) IR, Legal, and M&A.\nRetention & DSAR workflow note re Project Heather \u2014 proposed acquisition of a 17.5% stake in Holmcroft Payments Ltd.\nOn 12 July 2026 the Company executed a binding Sale and Purchase Agreement with Kellington Ventures SPC; consideration \u00a3145,000,000 subject to completion.\nA standard MAE clause applies, and no MAC will be deemed to have occurred due to general market downturns or changes in UK tax law.\nUntil the Linton Securities Exchange (LSE) Regulatory Notice Service (RNS) is released, all drafts, board packs, and term sheets are restricted under the Market Conduct Policy.\nLawful basis: legitimate interests for transaction readiness and legal obligation under the Data Protection Act 2018 and UK GDPR Articles 13\u201315 for any data subject access request.\nData categories in scope include names, work emails, and role history of deal-team staff, plus vendor KYC data for directors, e.g., Mr. Gideon Vale and Ms. Saira Omondi.\nDPO contact: Ms. Eliza Nair, dpo@thornwickfin.co.uk; postal: 1 Fern Yard, Eastmere, EL4 8QH.\nRetention: IR drafts and board memos stored in Vault R11, redlined versions retained 6 years post-completion per Records Schedule FIN-MA-06.\nPublic-source exception: legacy 2023 governance statements and a 2022 press quote by Sir Rowan Pritchard are already public and outside the embargo.\nNote that Sir Rowan Pritchard\u2019s public biography on the corporate registry is not MNPI and may be shared with media.\nlowercase pm note: todo capture meeting minutes, scrub personal mail headers, and file under heather/data-room v3.\nInvestor-relations draft Q&A references the codename only (\u201cProject Heather\u201d) and must not disclose price, % stake, or counterparty prior to RNS.\nFor avoidance of doubt, spa-day vouchers for the Wellvale Baths team event are unrelated to the transaction and not price-sensitive.\nInternational transfers to our processor, Millbridge Analytics BV (UK IDTA in place), are limited to pseudonymised analytics from the diligence tracker.\nIn the event of a DSAR, extract data from M&A drive \u201cHawthorn\u201d using the DSAR playbook; exclude privileged legal advice and redact insider lists.\nUpon completion announcement, convert \u201cProject Heather\u201d labels to real-entity names within 48 hours and update the insider list filed with the Fallowshire Conduct Authority (FCA).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Defined term role noun"
+    },
+    {
+      "matched_text": "RNS",
+      "reason": "Defined abbreviation in parentheses"
+    },
+    {
+      "matched_text": "LSE",
+      "reason": "Defined abbreviation in parentheses"
+    },
+    {
+      "matched_text": "FCA",
+      "reason": "Defined abbreviation in parentheses"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC language per rule 8"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "Non-MNPI bait unrelated to transaction"
+    },
+    {
+      "matched_text": "lowercase pm note",
+      "reason": "Lowercase project-management prose bait"
+    },
+    {
+      "matched_text": "are already public",
+      "reason": "Public-source reference outside embargo"
+    },
+    {
+      "matched_text": "public biography",
+      "reason": "Public-source reference; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "UK postal code",
+      "matched_text": "EL4 8QH",
+      "reason": "UK postcode is personal data contextually, but no explicit UK postal-address rule provided"
+    },
+    {
+      "concept": "Postal address",
+      "matched_text": "1 Fern Yard, Eastmere, EL4 8QH",
+      "reason": "Addresses can be PII under UK GDPR; no postal-address rule in allowed set"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "Retention: IR drafts and board memos stored in Vault R11, redlined versions retained 6 years post-completion per Records Schedule FIN-MA-06",
+      "reason": "Retention is a privacy-event marker but no 'retention_marker' rule enumerated"
+    },
+    {
+      "concept": "DSAR/subject access request",
+      "matched_text": "In the event of a DSAR",
+      "reason": "DSAR is a privacy-event; no specific DSAR rule enumerated"
+    },
+    {
+      "concept": "Lawful basis",
+      "matched_text": "Lawful basis: legitimate interests",
+      "reason": "Privacy compliance signal; not mapped to an allowed rule"
+    },
+    {
+      "concept": "GDPR rights reference",
+      "matched_text": "UK GDPR Articles 13\u201315",
+      "reason": "Relates to data subject rights; no direct allowed rule mapping"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Kaypoh Local Review",
+  "version": "0.1.0",
+  "description": "Pre-send review for GenAI prompts on managed browser surfaces.",
+  "permissions": ["storage", "contextMenus", "activeTab"],
+  "host_permissions": ["http://127.0.0.1:8765/*"],
+  "background": {
+    "service_worker": "service_worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://claude.ai/*", "https://gemini.google.com/*"],
+      "js": ["adapters.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html"
+}

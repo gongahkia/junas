@@ -1,0 +1,250 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tran My Duyen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@lanphong.ag",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Pham Quang Huy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LP-EMP 12 0 09",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Bao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lanphong.ag",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84-0-xxx- 8899 (masked)",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct pattern 3x-****-**77",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct: 88-xx- 9012",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Q\u2014VN\u201408 7",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Q\u2014VN\u201408%207",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LP-TOK-88 x9",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "withheld from any export",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer disclosure to Saigon Growth Market (SGM) follows VSCA guidance; draft earnings guidance v3 was withheld from any export; public announcements will be posted after T+2 filing window",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tran My Duyen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Pham Quang Huy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Bao",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer disclosure to Saigon Growth Market (SGM) follows VSCA guidance; draft earnings guidance v3 was withheld from any export; public announcements will be posted after T+2 filing window",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Tran My Duyen, Data Protection Officer, privacy@lanphong.ag; hotline: +84-0-xxx- 8899 (masked)\nPer Decree 13, personal data means information associated with or helping identify a specific person; minimisation applied to employee onboarding fields in FieldRice CRM\nCross-border transfer: approved on 2026-05-28 for payroll name + VND account digits masked (acct pattern 3x-****-**77) to CloudRice Data Services Pte. Ltd. (SG), export link: https://export.lanphong.ag/tx?rid=LP_TR x_20 26\u201405 28\nPer VN Securities Law, issuer/securities information not yet public that may impact price is MNPI; this transfer did not include MNPI and relates only to HR payroll\nDSAR received from Mr. Pham Quang Huy (employee id LP-EMP 12 0 09), completed on 2026-06-01; response filed at https://portal.lanphong.ag/docs?s=VN&ref=LP%2FEMP%2F12%200%2009\nConsent withdrawal: Ms. Nguyen Thi Bao requested to withdraw marketing consent; action completed and logged, marketing flags set to opt-out; no ongoing processing occurs post-withdrawal\nErasure: bank card token (non-PAN) LP-TOK-88 x9 was purged at 02:14 ICT; note that actual card numbers are never stored in Lan Phong systems\nRetention: employee tax forms retained 10 years per internal policy; retention timer already started 2026-01-31; legal hold applied to audit bundle LP-AUD\u2014VN-2026; this is a policy statement, not a live deletion event\nMinimisation: we removed birth place and middle-name fields from onboarding; we do not collect device MAC or IMEI in the SGM issuer disclosure portal\nBanking processing via VietHarvest Bank LLC under DPA Annex 3; acct: 88-xx- 9012; name key hashed: sha256: 0x9e a7 f1 \u2026; no public-source data scraping used\nTransfer control completed: encryption at rest verified; key rotation completed 2026-06-02; not applicable to offline archives already anonymised\nIssuer disclosure to Saigon Growth Market (SGM) follows VSCA guidance; draft earnings guidance v3 was withheld from any export; public announcements will be posted after T+2 filing window",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SGM",
+      "reason": "Defined-term abbreviation in parentheses; not PII/MNPI itself"
+    },
+    {
+      "matched_text": "MAC address",
+      "reason": "Explicit negation; false-positive bait should not be treated as live PII"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Explicit negation context; not a live MNPI disclosure"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Explicit negation; false-positive bait should not be treated as collected PII"
+    },
+    {
+      "matched_text": "LedgerLite",
+      "reason": "Product name; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR received",
+      "reason": "DSAR is a privacy event relevant to compliance but not in the allowed rules list"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure",
+      "reason": "Erasure is a privacy event relevant to compliance but not in the allowed rules list"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention",
+      "reason": "Retention is a privacy event relevant to compliance but not in the allowed rules list"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR queue id",
+      "reason": "Queue identifier indicates DSAR processing but DSAR markers are not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "legal_hold_marker",
+      "matched_text": "legal hold applied",
+      "reason": "Indicates preservation/retention control; relevant to privacy handling but not in allowed rules"
+    }
+  ]
+}

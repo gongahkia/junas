@@ -1,0 +1,335 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [
+    "drop must_detect: text not verbatim rule='minor_data_reference' text='Child\\x14Consent by Guardian'",
+    "drop ideal_must_detect: text not verbatim rule='minor_data_reference' text='Child\\x14Consent by Guardian'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_privacy_events_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@vaishnatech.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leena Bose",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Pranay Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Charu Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal event",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child means under 18 years",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the trading window is closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometrics",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public dissemination has occurred",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "margin forecasts",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border exports",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval DEA/IN-SG/2026/04",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18 years",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR and erasure event: Mr. Pranay Kulkarni requested access and deletion on 02 May 2026; access was fulfilled on 06 May 2026; non-essential marketing attributes were erased on 07 May 2026, with billing records retained per Retention Schedule RS-07 (8 years post relationship end).\nCross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@vaishnatech.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leena Bose",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Pranay Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Charu Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent withdrawal event: Ms. Leena Bose (customer) withdrew consent for cross-sell communications on 18 Apr 2026; marketing flags updated within 48 hours and profiling disabled; invoices and tax records were retained per statutory requirements.\nDSAR and erasure event: Mr. Pranay Kulkarni requested access and deletion on 02 May 2026; access was fulfilled on 06 May 2026; non-essential marketing attributes were erased on 07 May 2026, with billing records retained per Retention Schedule RS-07 (8 years post relationship end).\nCross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Data Export Approval DEA/IN-SG/2026/04 was granted by the DPO, Ms. Charu Menon, for limited transfer of shipment telemetry and contact fields to CloudQuarry Pte. Ltd., Singapore, under DPA Schedule 2 (India Addendum), with encryption-at-rest and logical segregation; there are currently no transfers to the United States, and the prior pilot with DataTrellis Inc. (USA) was decommissioned on 31 Mar 2026.\nPIT/UPSI handling: Q1 FY27 draft earnings guidance and margin forecasts in the 25 May 2026 Board Pack are categorised as UPSI; the trading window is closed and a restricted list is maintained, with access logged in the Insider Portal; no public dissemination has occurred",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "DSAR/erasure marker",
+      "matched_text": "DSAR and erasure event",
+      "reason": "Access and deletion handling is a privacy event but DSAR/erasure markers are not in the allowed rule list."
+    },
+    {
+      "concept": "DSAR/erasure action",
+      "matched_text": "requested access and deletion",
+      "reason": "Describes a data subject access and deletion request, not mapped to a defined marker rule."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention Schedule RS-07 (8 years post relationship end)",
+      "reason": "Specifies a retention period/policy, but no retention rule is defined in the allowed taxonomy."
+    },
+    {
+      "concept": "retention/purge control",
+      "matched_text": "Retention and purge control",
+      "reason": "Indicates lifecycle management controls; no explicit rule for retention/purge markers."
+    },
+    {
+      "concept": "anonymisation/purge event",
+      "matched_text": "anonymising 2,314 dormant marketing profiles older than 24 months",
+      "reason": "Represents anonymisation/purge, relevant to erasure/retention, but not covered by available marker rules."
+    },
+    {
+      "concept": "insider list management",
+      "matched_text": "Insider Portal",
+      "reason": "Refers to insider access logging infrastructure; useful for MNPI controls but not a defined rule term."
+    }
+  ]
+}

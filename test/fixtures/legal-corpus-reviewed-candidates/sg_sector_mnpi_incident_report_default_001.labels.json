@@ -1,0 +1,435 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_sector_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/sector_mnpi/sg_sector_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_sector_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_sector_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serene Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daven Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "risk@pinnaclefintide.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@pinnaclefintide.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report (Cyber/Operational)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anomalous API calls",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "intrusion vector",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "misconfigured connector",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "isolating affected subnets",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "revoking the staging key",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "limited data exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List IL\u20112026\u201106\u201101",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject Tamarin\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011conditional SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pausing DPT withdrawals for up to 24 hours",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPT withdrawals",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "hot\u2011wallet",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cold vault",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1.2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$500k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011public commercial terms",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG index inclusion reviews",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability assurance pack",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "climate\u2011data dashboard",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability reporting dashboard",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially impacted",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "will only be made if materiality is met",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may have been accessed",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "approximately 212",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011public commercial terms potentially impacted include the pre\u2011conditional SPA for the proposed acquisition of Neptune Node Pte. Ltd., where the MAC and earn\u2011out grid are linked to DPT AUM thresholds and regulator review timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tamarin",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "risk@pinnaclefintide.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Serene Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daven Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011public commercial terms potentially impacted include the pre\u2011conditional SPA for the proposed acquisition of Neptune Node Pte. Ltd., where the MAC and earn\u2011out grid are linked to DPT AUM thresholds and regulator review timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tamarin",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1.2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$500k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privileged and confidential \u2013 Incident Report (Cyber/Operational) for Pinnacle Fintide Ltd., a Singapore Mainboard issuer on the Seaglass Exchange.\nOn 01 Jun 2026 03:40 SGT, our monitoring flagged anomalous API calls on a staging environment at our DPT custodian subsidiary, Fintide Vault Pte. Ltd., leading to exposure of a rotated hot\u2011wallet key and limited data exfiltration.\nPreliminary triage indicates the intrusion vector arose via a misconfigured connector on our sustainability reporting dashboard (Clearsky Carbon Metrics beta), which bridged to a vendor SFTP used for DPT settlements.\nContainment actions taken include isolating affected subnets, revoking the staging key, transferring the hot\u2011wallet float to a quarantined cold vault, and pausing DPT withdrawals for up to 24 hours (estimated exposure S$1.2m equivalent; no loss confirmed).\nAn information barrier has been activated between the \u201cProject Tamarin\u201d M&A team and Operations; only persons recorded on Insider List IL\u20112026\u201106\u201101 (maintained by Corporate Secretariat) may access incident materials.\nA trading blackout for all Designated Persons takes immediate effect until the Board\u2019s materiality assessment is concluded under the Seaglass Exchange Listing Manual (Rule 703\u2011equivalent) and Singapore securities law.\nNon\u2011public commercial terms potentially impacted include the pre\u2011conditional SPA for the proposed acquisition of Neptune Node Pte. Ltd., where the MAC and earn\u2011out grid are linked to DPT AUM thresholds and regulator review timelines.\nNo NRIC numbers, full card PANs, or biometric data are stored in the affected systems; however, names, work emails, and mobile numbers of approximately 212 corporate counterparties (PDPA personal data) may have been accessed.\nWe will notify the Singapore data protection authority as required under the PDPA and make a confidential approach to Seaglass RegCo; a holding announcement will only be made if materiality is met and verification is complete.\nTo prevent tipping or selective disclosure, only pre\u2011cleared statements will be shared with banks, market makers, or analysts, and incident specifics are restricted to the insider list until a public announcement (if any).\nThe intrusion may delay our half\u2011year sustainability assurance pack by up to two weeks, which could subtly affect timing of ESG index inclusion reviews, and a recovery plan will prioritise restoration of the climate\u2011data dashboard.\nOperationally, cyber insurance has been engaged, with a S$500k retention; vendor contracts with BlueKite Forensics (SEA) Pte. Ltd. and Arden & Kwan LLC include a fee cap and 15\u2011day response SLA that remain in force.\nFor employment matters, all staff remain bound by confidentiality and information\u2011handling clauses; a mandatory refresher on insider lists and information barriers will be conducted, using only hypothetical scenarios and no MNPI.\nOur ESG and DPT webinar next week is purely educational and marketing in nature; it will cover general crypto custody and climate reporting concepts and will not discuss this incident or any non\u2011public information.\nPoint of contact: Ms. Serene Koh (Chief Risk Officer), risk@pinnaclefintide.sg; for investor queries, please email Mr. Daven Lim (Head of IR) at ir@pinnaclefintide.sg.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "biometric data",
+      "reason": "Generic category mention; not an actual biometric identifier"
+    },
+    {
+      "matched_text": "NRIC numbers",
+      "reason": "Generic category mention; no SG NRIC/FIN pattern present"
+    },
+    {
+      "matched_text": "hot\u2011wallet key",
+      "reason": "Security artifact; not a crypto wallet address"
+    },
+    {
+      "matched_text": "Designated Persons",
+      "reason": "Role/category term; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "full card PANs",
+      "reason": "Generic category mention; no card number present"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Acronym mentioned in a negated/training context, not disclosing MNPI"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "listing-rule reference",
+      "matched_text": "Rule 703\u2011equivalent",
+      "reason": "Relates to disclosure obligations but not covered by an allowed MNPI marker"
+    },
+    {
+      "concept": "announcement/embargo timing",
+      "matched_text": "holding announcement",
+      "reason": "Embargo/press-hold adjacent but not an allowed embargo marker phrase"
+    },
+    {
+      "concept": "commercial-term signal",
+      "matched_text": "earn\u2011out grid",
+      "reason": "Material commercial structure but no specific rule token or numbers"
+    },
+    {
+      "concept": "contract pricing cap",
+      "matched_text": "fee cap",
+      "reason": "Commercial term without numeric amount; not covered by current financial rules"
+    },
+    {
+      "concept": "PDPA breach notification",
+      "matched_text": "notify the Singapore data protection authority",
+      "reason": "Regulatory notification marker not listed among allowed privacy-event markers"
+    },
+    {
+      "concept": "pre-release ESG tool detail",
+      "matched_text": "Clearsky Carbon Metrics beta",
+      "reason": "Potentially sensitive ESG system detail but not explicitly covered by current ESG markers"
+    }
+  ]
+}

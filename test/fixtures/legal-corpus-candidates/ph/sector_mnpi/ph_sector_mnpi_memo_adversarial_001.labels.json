@@ -1,0 +1,445 @@
+{
+  "_agent_review": {
+    "notes": "Removed stale strict labels suppressed by US/UK precision fixes (short legal/trial shorthand amount bait, public-source material-event bait, or placeholder account bait); retained removed spans in ideal_must_detect for gap/history tracking.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
+    "status": "post_us_uk_global_precision_realign_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Removed stale strict labels suppressed by US/UK precision fixes (short legal/trial shorthand amount bait, public-source material-event bait, or placeholder account bait); retained removed spans in ideal_must_detect for gap/history tracking.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
+      "status": "post_us_uk_global_precision_realign_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "post_us_uk_realign_at_utc": "2026-05-31T15:56:03Z",
+    "post_us_uk_realign_source_report": "/tmp/kaypoh-candidates-after-us-uk-reviewed.json",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@isla-bay.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.quimpo@isla-bay.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@isla-bay.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@isla-bay.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor-ciso@kapakoin.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 02 8812 34 56",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rafael L. Quimpo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Atty. Lira D. Sison",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. J. Borromeo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Engr. Victor Y. P",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. T. Magat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR-\u03a6-00291",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR-\u03a8-77420",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPA minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pre-SEC (PH) Form 17-C assessment",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anomalous API calls",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NPC notice decision pending",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "InsiderList-ID: INS-0x9f_7a_d3",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers remain in effect",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing logs must be signed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping is prohibited",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "effective 29 May 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenized depository participations",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ChainMayumi network",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "token pilot",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability-linked note",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2027 Scope 2 target",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Key commercial terms (draft)",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "private placement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rafael",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Background references are public: ACGS and PSE sustainability roadmaps, and NPC advisories on breach thresholds; these sources do not contain IBHC-specific events.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "r.quimpo@isla-bay.com.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor-ciso@kapakoin.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 02 8812 34 56",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rafael",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential internal memo \u2014 Isla Bay Holdings Corp. (IBHC) \u2014 Legal & Compliance; for restricted circulation under SRC and PSE disclosure rules.\nSubject: Pre-SEC (PH) Form 17-C assessment \u2014 cyber incident at payroll e-wallet vendor and proposed sustainability-linked note/token pilot; trading blackout and insider-list actions.\nOn 28 May 2026, vendor KapaKoin Remit Services reported anomalous API calls affecting a staging environment; preliminary logs suggest up to 212 contractor records (name + corporate email only) may have been viewable, with no access to payroll banks or IDs; containment achieved, NPC notice decision pending within 72 hours.\nPer Data Privacy Act, identity is not directly ascertainable beyond internal HR cross-reference; sample HR File IDs: HR-\u03a6-00291, HR-\u03a8-77420; DPO contact: dpo@isla-bay.com.ph; no government identifiers or salary transfers occurred.\nTreasury is negotiating a non-public term sheet with Paracan Securities, Inc. for a PSE-tapped sustainability-linked note (SLN) and a limited pilot of tokenized depository participations on the ChainMayumi network; initial pricing 6.35% with 25bp step-up if 2027 Scope 2 target missed.\nAn insider-list has been opened per SRC Rule 12: Mr. Rafael L. Quimpo (CFO) r.quimpo@isla-bay.com.ph, Atty. Lira D. Sison (CorpSec) corpsec@isla-bay.com.ph, Ms. J. Borromeo (ESG), Engr. Victor Y. P\u2014ProcOps, and Ms. T. Magat (Paracan) under NDA-GL-B8x; additions require Compliance sign-off.\nInformation barriers remain in effect: research, treasury, HR, and the IslaPay retail app team are ring-fenced; wall-crossing logs must be signed before access; no selective disclosure to analysts or chat groups; inquiries via compliance@isla-bay.com.ph.\nRecommend a trading blackout for directors, officers, and covered employees effective 29 May 2026 until two full trading days after any Form 17-C cyber update and SLN pricing announcement; tipping is prohibited, including to family or household staff.\nKey commercial terms (draft): 90-day lock-up; make-whole at PH T-bill +50bp; KPI verification by BayanThirdParty LLP; bookrunner discretionary clawback 10%; see http://deal.isla-bay.com/ESG?doc=SLN_v0_9&rid=gR33n for redline.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated occurrence ('no material adverse change') should not be labeled per rule 8."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "transaction_codename",
+      "matched_text": "proj codename: Amihan-\u0394",
+      "reason": "Appears to be a deal codename but does not match the 'Project <Name>' pattern required by the rule."
+    },
+    {
+      "concept": "confidentiality_agreement_id",
+      "matched_text": "NDA-GL-B8x",
+      "reason": "Internal NDA identifier may be sensitive but no explicit rule covers NDA IDs."
+    },
+    {
+      "concept": "internal_resource_link",
+      "matched_text": "http://deal.isla-bay.com/ESG?doc=SLN_v0_9&rid=gR33n",
+      "reason": "Internal deal-room link with a resource identifier could be sensitive but not covered by a defined rule."
+    },
+    {
+      "concept": "incident_ticket_id",
+      "matched_text": "VendorTicket: kapakoin-INC1D3NT-00l",
+      "reason": "Internal incident ticket identifier; potentially sensitive operational detail not covered by an allowed rule."
+    },
+    {
+      "concept": "dpt_infrastructure_asset",
+      "matched_text": "ChainMayumi node",
+      "reason": "Internal crypto/DLT infrastructure asset reference; relevant to DPT controls but not clearly covered by current rules."
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 23,
+    "new_must_detect_count": 9,
+    "old_ideal_must_detect_count": 21,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@aldarahcapital.sa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-55-000-1270",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KX1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salem Al-Qassimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al-Jasser",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-77-88990",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aldarahcapital.sa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2190357462",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA00 1234 5678 9012 3456 7890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA Transfer Registry",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10177888990",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 1 9 0 3 5 7 4 6 2",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "I q a m a : 2I9O3 5 7 4 6 2",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "e\u2011m a i l: priva cy@ald arah capital.sa .example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer workflow",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not collect device MAC addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "does not authorize disclosure of MNPI outside approved workflows",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Banking and settlement: client IBAN SA00 1234 5678 9012 3456 7890 (invalid for illustration), with account alias ops-settle-01; we do not collect device MAC addresses.\nCross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@aldarahcapital.sa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-55-000-1270",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KX1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salem Al-Qassimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al-Jasser",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject rights (access/rectification/erasure): submit DSARs to dsar@aldarahcapital.sa.example or by post to PO Box 00000, Riyadh 11400; generic public enquiries line 800-000-0000 must not be used for PII.\nFor verification we may request two factors, such as Iqama no., last 4 digits of mobile, or CR copy; generic form labels like Name:_____, ID:_____, Account:_____ on legacy forms are not persisted in production",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subjects may include issuer insiders such as Mr. Salem Al-Qassimi (National ID/Iqama 2 1 9 0 3 5 7 4 6 2) and consultants holding Passport KX1234567 for onboarding verification.\nMNPI handling: we maintain insider lists during closed periods for the Najd Exchange-listed issuer Zahrat Logistics PJSC (Issuer Code ZL-PJSC-09), with access limited to compliance and audit logs retained.\nWe process direct identifiers (mobile, email), business identifiers (CR extract, tax file), and professional details solely for SMAK market-conduct oversight and issuer workflow execution.\nBanking and settlement: client IBAN SA00 1234 5678 9012 3456 7890 (invalid for illustration), with account alias ops-settle-01; we do not collect device MAC addresses.\nCross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO.\nData subject rights (access/rectification/erasure): submit DSARs to dsar@aldarahcapital.sa.example or by post to PO Box 00000, Riyadh 11400; generic public enquiries line 800-000-0000 must not be used for PII.\nFor verification we may request two factors, such as Iqama no., last 4 digits of mobile, or CR copy; generic form labels like Name:_____, ID:_____, Account:_____ on legacy forms are not persisted in production.\nRetention: MNPI is retained for 5 years after public disclosure via issuer announcements; non-MNPI onboarding records are retained for 24 months unless legal holds apply.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer workflow: prior approval via the SDAIA Transfer Registry is requested at https://portal.sdaia-x.example/apply?cr=10177888990&nid=2190357462, encryption in transit and at rest is enforced, and logs are reviewed quarterly.\nSub-processors: Desert Data Cloud FZ-LLC (Sub-processor ID DDC-2026-04) hosts in Riyadh and Dammam under PDPL-aligned clauses and technical measures, overseen by Dr. Lina Al-Jasser, DPO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SUPPORT@COMPANY.COM",
+      "reason": "Explicit invalid/bait email provided as non-PII example"
+    },
+    {
+      "matched_text": "GENERAL ENQUIRIES 800-000-0000",
+      "reason": "Public helpline bait, not personal phone number"
+    },
+    {
+      "matched_text": "SA99 0000 0000 0000 0000 0000",
+      "reason": "Invalid/bait IBAN provided as non-PII example"
+    },
+    {
+      "matched_text": "800-000-0000",
+      "reason": "Generic public enquiries line; not personal PII"
+    },
+    {
+      "matched_text": "Name:_____",
+      "reason": "Generic form label bait; not an identifier value"
+    },
+    {
+      "matched_text": "ID:_____",
+      "reason": "Generic form label bait; not an identifier value"
+    },
+    {
+      "matched_text": "Account:_____",
+      "reason": "Generic form label bait; not an identifier value"
+    },
+    {
+      "matched_text": "finance officer",
+      "reason": "Role-only descriptor; not a personal identifier"
+    },
+    {
+      "matched_text": "board secretary",
+      "reason": "Role-only descriptor; not a personal identifier"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "sa_vat_number",
+      "matched_text": "VAT Reg. 300000000000000",
+      "reason": "Company VAT/tax identifier is legally relevant but not covered by an allowed rule and is not personal data"
+    },
+    {
+      "concept": "issuer_code",
+      "matched_text": "Issuer Code ZL-PJSC-09",
+      "reason": "Issuer-specific identifier relevant to market context but not an allowed rule"
+    },
+    {
+      "concept": "vendor_identifier",
+      "matched_text": "Sub-processor ID DDC-2026-04",
+      "reason": "Operational vendor/internal identifier not mapped to an allowed rule"
+    },
+    {
+      "concept": "internal_account_alias",
+      "matched_text": "account alias ops-settle-01",
+      "reason": "Internal account alias may be identifying in context but not an allowed rule"
+    },
+    {
+      "concept": "sa_postal_address",
+      "matched_text": "PO Box 00000, Riyadh 11400",
+      "reason": "Postal address-like data; Saudi addresses not covered by allowed postal rules"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: MNPI is retained for 5 years after public disclosure via issuer announcements; non-MNPI onboarding records are retained for 24 months unless legal holds apply",
+      "reason": "Retention policy is a privacy-event marker but there is no explicit allowed rule for retention"
+    }
+  ]
+}

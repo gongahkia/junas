@@ -1,0 +1,62 @@
+{
+  "doc_id": "nda_15",
+  "document_type": "NDA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S7654321Z"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "200912345K"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "238456"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "048619"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "ahmad.salleh@example.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Ahmad bin Salleh"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Agreement",
+      "reason": "Defined term"
+    },
+    {
+      "matched_text": "Confidential Information",
+      "reason": "Defined term"
+    },
+    {
+      "matched_text": "Receiving Party",
+      "reason": "Defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

@@ -1,0 +1,20 @@
+{
+  "doc_id": "esg_climate_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Forest"},
+    {"rule": "embargo_marker", "matched_text": "Embargoed"},
+    {"rule": "esg_climate_pre_disclosure", "matched_text": "Scope 1 emissions"},
+    {"rule": "esg_climate_pre_disclosure", "matched_text": "Scope 2 emissions"},
+    {"rule": "esg_climate_pre_disclosure", "matched_text": "Scope 3 category"},
+    {"rule": "esg_climate_pre_disclosure", "matched_text": "tCO2e"},
+    {"rule": "esg_climate_pre_disclosure", "matched_text": "value-chain emissions"},
+    {"rule": "esg_target_revision", "matched_text": "restate prior-year Scope 2"},
+    {"rule": "esg_target_revision", "matched_text": "change the baseline year"},
+    {"rule": "esg_target_revision", "matched_text": "qualified opinion on sustainability"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

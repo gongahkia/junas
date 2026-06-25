@@ -1,0 +1,516 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_sector_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "734188201193",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ayaka.mori@shinryudigital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@shinryudigital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayaka Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Takahata",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Ryohei Kanda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Satoshi Kume",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not disclose externally",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT update",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list entries",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Maintain information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 9.8 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident note",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "restrict to HR only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access\u2011limited",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tender offer",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute enumerated material facts under FIEA",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "treat as potentially material until confirmed",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "yen\u2011pegged stable DPT",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate tie\u2011in",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 reduction targets",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Update the insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restrict communications",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not receive deal materials",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean data room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid qualitative hints",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading by directors and employees is prohibited",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200 SRK tokens",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "734188201193",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Board has authorized preliminary steps for a possible tender offer to acquire Aomori Green Energy KK; terms are non-public and may constitute enumerated material facts under FIEA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Update the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J\u2011FSA guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre\u2011clearance for any exceptions is revoked.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ayaka.mori@shinryudigital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@shinryudigital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "734188201193",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayaka Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Takahata",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Ryohei Kanda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Satoshi Kume",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Board has authorized preliminary steps for a possible tender offer to acquire Aomori Green Energy KK; terms are non-public and may constitute enumerated material facts under FIEA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Update the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J\u2011FSA guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre\u2011clearance for any exceptions is revoked.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 9.8 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayaka Mori\u2019s payroll record includes My Number 734188201193 and personal email ayaka.mori@shinryudigital.example \u2014 restrict to HR only.\nThe Board has authorized preliminary steps for a possible tender offer to acquire Aomori Green Energy KK; terms are non-public and may constitute enumerated material facts under FIEA.\nDraft commercial terms: indicative price JPY 9.8 billion, 18\u2011month earn\u2011out, exclusivity to 31 August, no\u2011shop, 1.5% break fee; clean team and information barriers apply for diligence.\nCrypto/DPT update: internal treasury pilot to hold 1,200 SRK tokens and a yen\u2011pegged stable DPT on SakuraChain remains undisclosed; maintain insider\u2011list entries and restrict communications.\nCyber incident note: last week\u2019s credential\u2011stuffing attempt targeted the custody subsystem; limited key\u2011shard metadata may have been exposed; treat as potentially material until confirmed and do not disclose externally.\nESG/climate tie\u2011in: draft MoU with Aomori Green Energy KK includes Scope 2 reduction targets and a sustainability\u2011linked loan margin step\u2011down at 12% intensity reduction; the term sheet is not public.\nUpdate the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J\u2011FSA guidance.\nMaintain information barriers: the crypto market\u2011making desk and IR must not receive deal materials; designate a clean data room with named access and audit logs.\nBlackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre\u2011clearance for any exceptions is revoked.\nNo tipping or selective disclosure: lenders, vendors, and counterparties may receive information only under NDA, and IR must avoid qualitative hints that imply pricing or ESG metrics before disclosure.\nEducational note: the monthly webinar on cyber hygiene, insider lists, and climate reporting is purely instructional and uses generic case studies without reference to our systems, tokens, or acquisition.\nMarketing note: thought\u2011leadership content may mention \u201cblockchain\u201d and \u201csustainability\u201d trends in Japan, but must not describe our DPT pilot, emissions targets, or commercial terms.\nContact: Compliance Office \u2014 Mr. Satoshi Kume, legal@shinryudigital.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under APPI, do not circulate My Number in board materials; HR notes Ms. Ayaka Mori\u2019s payroll record includes My Number 734188201193 and personal email ayaka.mori@shinryudigital.example \u2014 restrict to HR only.\nThe Board has authorized preliminary steps for a possible tender offer to acquire Aomori Green Energy KK; terms are non-public and may constitute enumerated material facts under FIEA.\nDraft commercial terms: indicative price JPY 9.8 billion, 18\u2011month earn\u2011out, exclusivity to 31 August, no\u2011shop, 1.5% break fee; clean team and information barriers apply for diligence.\nCrypto/DPT update: internal treasury pilot to hold 1,200 SRK tokens and a yen\u2011pegged stable DPT on SakuraChain remains undisclosed; maintain insider\u2011list entries and restrict communications.\nCyber incident note: last week\u2019s credential\u2011stuffing attempt targeted the custody subsystem; limited key\u2011shard metadata may have been exposed; treat as potentially material until confirmed and do not disclose externally.\nESG/climate tie\u2011in: draft MoU with Aomori Green Energy KK includes Scope 2 reduction targets and a sustainability\u2011linked loan margin step\u2011down at 12% intensity reduction; the term sheet is not public.\nUpdate the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J\u2011FSA guidance.\nMaintain information barriers: the crypto market\u2011making desk and IR must not receive deal materials; designate a clean data room with named access and audit logs.\nBlackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre\u2011clearance for any exceptions is revoked.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "The Board",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Aomori Green Energy KK",
+      "reason": "Corporate entity; not PII"
+    },
+    {
+      "matched_text": "Shinryu Digital Holdings Co., Ltd",
+      "reason": "Corporate entity; not PII"
+    },
+    {
+      "matched_text": "TSE Standard",
+      "reason": "Listing segment; not MNPI"
+    },
+    {
+      "matched_text": "IR",
+      "reason": "Department acronym; not PII"
+    },
+    {
+      "matched_text": "lenders",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "vendors",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "counterparties",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational context; not MNPI"
+    },
+    {
+      "matched_text": "blockchain",
+      "reason": "Generic marketing term; not MNPI"
+    },
+    {
+      "matched_text": "sustainability",
+      "reason": "Generic marketing term; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "deal term",
+      "matched_text": "no\u2011shop",
+      "reason": "Commercial-term signal relevant to MNPI but not covered by allowed markers"
+    },
+    {
+      "concept": "exclusivity period",
+      "matched_text": "exclusivity to 31 August",
+      "reason": "Embargo-like deal timing; not an explicit allowed marker"
+    },
+    {
+      "concept": "crypto protocol identifier",
+      "matched_text": "SakuraChain",
+      "reason": "Crypto/DPT context but chain name not an allowed marker"
+    },
+    {
+      "concept": "cyber incident detail",
+      "matched_text": "credential\u2011stuffing attempt",
+      "reason": "Pre-disclosure cyber context; phrase may not match allowed rule patterns"
+    },
+    {
+      "concept": "custody subsystem data exposure",
+      "matched_text": "key\u2011shard metadata",
+      "reason": "Security-sensitive detail; not covered by allowed rule list"
+    },
+    {
+      "concept": "ESG financing term",
+      "matched_text": "sustainability\u2011linked loan margin step\u2011down",
+      "reason": "Material ESG instrument; not explicitly in allowed markers"
+    },
+    {
+      "concept": "trading control",
+      "matched_text": "pre\u2011clearance",
+      "reason": "Compliance control adjacent to blackout; not explicitly listed in allowed markers"
+    },
+    {
+      "concept": "privacy/compliance control",
+      "matched_text": "watermarked",
+      "reason": "Document control measure; not covered by privacy-event markers"
+    }
+  ]
+}

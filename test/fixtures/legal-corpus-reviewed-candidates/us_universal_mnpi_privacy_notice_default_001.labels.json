@@ -1,0 +1,366 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_universal_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/universal_mnpi/us_universal_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_universal_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 33,
+    "new_must_detect_count": 19,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_universal_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "202-555-0143",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing of CCPA consumer/household data, HIPAA PHI under a Business Associate arrangement, and GLBA customer information for co-branded patient financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Merger Agreement signed 2026-07-02; closing consideration up to $275,000,000 cash and stock, with a 12.5% earnout.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S\u2011ID and state breach laws.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "go-live checklist: update data map, confirm role-based access, coordinate with outside SEC counsel; schedule dry run before earnings blackout.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NONPUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DO NOT DISTRIBUTE",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Marigold",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PROJECT MARIGOLD",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$275,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "275,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst Q&A",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-08-15 08:30 ET",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earnings blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@harborcrestthera.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alan K. Duarte",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Merger Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "signed 2026-07-02",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted dataset",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-briefing to sell-side analysts prohibited",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out of sale/sharing",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3-year deletion for marketing consents",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "US-only encrypted vaults",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "202-555-0143",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: processing of CCPA consumer/household data, HIPAA PHI under a Business Associate arrangement, and GLBA customer information for co-branded patient financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Merger Agreement signed 2026-07-02; closing consideration up to $275,000,000 cash and stock, with a 12.5% earnout.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S\u2011ID and state breach laws.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "go-live checklist: update data map, confirm role-based access, coordinate with outside SEC counsel; schedule dry run before earnings blackout.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NONPUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DO NOT DISTRIBUTE",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Marigold",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PROJECT MARIGOLD",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$275,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "275,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst Q&A",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 NON-PUBLIC \u2014 Embargo until 2026-08-15 08:30 ET \u2014 Project Marigold\nData Processing Addendum between Harborcrest Therapeutics, Inc. (US issuer; Controller) and Pioneer Meridian Bank, N.A. (Processor) for employee, patient, and investor-relations workflows.\nScope: processing of CCPA consumer/household data, HIPAA PHI under a Business Associate arrangement, and GLBA customer information for co-branded patient financing.\nMNPI segregation: Processor will maintain a restricted dataset for Project Marigold and IR draft materials to avoid selective disclosure under Reg FD.\nDefinitive Merger Agreement signed 2026-07-02; closing consideration up to $275,000,000 cash and stock, with a 12.5% earnout.\nMAC/MAE: ordinary-course declines in clinical trial enrollment are carved out and shall not constitute a material adverse change.\nPublic data exception: information already filed by Harborcrest Therapeutics, Inc. on EDGAR in its FY2025 Form 10\u2011K summary is not treated as MNPI.\nRetention: MNPI and PHI stored in US-only encrypted vaults; 7-year retention for GLBA records, 6-year HIPAA minimum, and 3-year deletion for marketing consents.\nAccess: only need-to-know bank analysts and Harborcrest IR staff; pre-briefing to sell-side analysts prohibited until the embargo lifts.\nData subject rights: DSAR requests (access, delete, correct, opt-out of sale/sharing) to privacy@harborcrestthera.com or 202-555-0143; verify identity via tokenized link.\nSubprocessors: Redwood ByteWorks LLC (log monitoring) and Vestry Cloud Rail, Inc. (ETL) are approved; no offshore transfers without a transfer impact assessment and written consent.\nRegulatory notification: Processor will notify Controller within 24 hours of a suspected breach and maintain incident tickets sufficient for SEC Reg S\u2011ID and state breach laws.\ngo-live checklist: update data map, confirm role-based access, coordinate with outside SEC counsel; schedule dry run before earnings blackout.\nMr. Alan K. Duarte, Chief Privacy Officer, confirms that the analyst Q&A deck and the Board memo are tagged \u201cNONPUBLIC \u2014 PROJECT MARIGOLD \u2014 DO NOT DISTRIBUTE\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "definitive_agreement (Merger Agreement)",
+      "matched_text": "Definitive Merger Agreement signed 2026-07-02",
+      "reason": "Merger Agreement is a definitive deal document but not enumerated in the allowed definitive_agreement list (SPA/APA/LOI/MOU/Term Sheet)."
+    },
+    {
+      "concept": "data localization / cross-border",
+      "matched_text": "US-only encrypted vaults",
+      "reason": "Indicates geographic data restriction rather than an actual transfer event; classification under cross_border_transfer_marker may be ambiguous."
+    },
+    {
+      "concept": "cyber incident pre-disclosure",
+      "matched_text": "suspected breach",
+      "reason": "References incident notification obligations but not an actual incident; may not fit the cyber_incident_pre_disclosure rule."
+    },
+    {
+      "concept": "identity verification mechanism",
+      "matched_text": "verify identity via tokenized link",
+      "reason": "Security/authentication control relevant to DSAR processing but not clearly covered by an allowed PII rule."
+    },
+    {
+      "concept": "HIPAA relationship role",
+      "matched_text": "Business Associate arrangement",
+      "reason": "Indicates regulated data-handling role under HIPAA, but no explicit rule category for this role designation."
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@arunika.example.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "150-909",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "belum disampaikan ke OJK/IDX",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending penilaian materialitas",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "akses tidak sah",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dinding informasi",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@arunika.example.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ran data pelanggan produksi; hanya token uji dan data sintetis; SLA operasional terpenuhi; tidak ada pengaruh ke penilaian ISO 27001 maupun target emisi Scope 2.\nKategori data yang terlibat (UAT): alamat surel dummy, nomor HP fiktif, dan ID pelanggan sintetis; tidak berisi KTP, rekening bank, atau lokasi riil sesuai UU PDP.\nStatus keterbukaan: Konten edukasi tabletop ini telah dipublikasikan di laman Pusat Keamanan kami pada 12 Mei 2026; tidak ada kewajiban keterbukaan informasi ke OJK/IDX untuk kejadian yang bersifat simulasi.\nMateri edukasi yang digunakan menyebutkan istilah \u201cinsider list\u201d, \u201cinformation barrier\u201d, \u201cblackout\u201d, dan \u201ctipping\u201d hanya sebagai definisi pelatihan, tanpa data nama pegawai atau daftar yang aktual.\nRujukan kepatuhan: Pedoman Manajemen Risiko TI dan Keterbukaan Informasi emiten; digunakan formulir generik: Form-IR/00A dan Form-IB/00B.\nCatatan komersial: contoh \u201cterm sheet\u201d dalam materi pemasaran menjelaskan skema biaya langganan NusaPay CryptoPoints untuk edukasi, tidak memuat harga transaksi atau syarat nego",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider list",
+      "reason": "Training definition only; not an actual insider list or event."
+    },
+    {
+      "matched_text": "information barrier",
+      "reason": "Educational mention; not an active market-sensitive barrier event."
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Training term; no actual blackout period referenced."
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Training term; not a selective disclosure incident."
+    },
+    {
+      "matched_text": "alamat surel dummy",
+      "reason": "Placeholder; no real email address provided."
+    },
+    {
+      "matched_text": "nomor HP fiktif",
+      "reason": "Placeholder; not an actual phone number."
+    },
+    {
+      "matched_text": "ID pelanggan sintetis",
+      "reason": "Synthetic data; not real PII."
+    },
+    {
+      "matched_text": "KTP",
+      "reason": "Generic mention without any identifier number."
+    },
+    {
+      "matched_text": "rekening bank",
+      "reason": "Generic mention without any account number."
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "internal issuer code",
+      "matched_text": "AFX-00",
+      "reason": "Internal IDX code may be sensitive operationally but not covered by current MNPI rules."
+    }
+  ]
+}

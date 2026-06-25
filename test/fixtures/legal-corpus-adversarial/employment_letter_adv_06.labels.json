@@ -1,0 +1,62 @@
+{
+  "doc_id": "employment_letter_adv_06",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "hr@techinnovations.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr Tan Wei Ming"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "123456"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr Ramasamy Muthu"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 8,500"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "siti.aishah@techinnovations.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Siti Aishah binti Abdullah"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "contract defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

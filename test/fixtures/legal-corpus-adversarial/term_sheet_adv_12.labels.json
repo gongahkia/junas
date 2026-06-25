@@ -1,0 +1,82 @@
+{
+  "doc_id": "term_sheet_adv_12",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 5,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Lee Wei Ming"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 20,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Lee"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "lee.weiming@example.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S8765432B"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678C"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investors",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "The Investors",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "SPA",
+      "reason": "contract abbreviation defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

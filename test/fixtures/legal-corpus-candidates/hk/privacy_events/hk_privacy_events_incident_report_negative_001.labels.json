@@ -1,0 +1,175 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "info-security@harborpeakhk.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@harborpeakhk.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation policy P-12 requirements met",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields for name, ID number, account, and address were unpopulated",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "info-security@harborpeakhk.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Incident Report \u2014 Harbor Peak Holdings Limited (HKEX-listed issuer)\nIncident ref: OP-2025-044; Date: 2025-05-18 16:20 HKT; Prepared by: Risk & Compliance Office\nSummary: brief misconfiguration on a document storage policy in hk-prd-ops allowed read access to a non-sensitive folder for 14 minutes; access was limited to internal network; no outage\nData content assessment: folder held archived compliance memos, DPA Schedule (HK) templates, and blank investor/employee onboarding forms; no living individual\u2019s identity was ascertainable within files\nPrivacy impact (PDPO): no personal data accessed or disclosed; no data subject access request (DSAR) was received or needed in relation to this event\nCross-border transfer: unrelated to the incident, Data Export Approval DEA-2025-004 authorised and completed transfer of pseudonymised security logs to Technova Systems SG on 2025-05-12 under DPA Schedule 2 (HK); controls operated as designed\nErasure and retention: no erasure requests were triggered by this incident; retention schedule R-3 (HK) remains in effect for archived materials\nMinimisation: only template documents were present; fields for name, ID number, account, and address were unpopulated; minimisation policy P-12 requirements met\nMNPI review (SFO): no specific corporation information likely to be price-material was present; M&A references were limited to already-announced",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "DSAR",
+      "reason": "Negated mention; no request was received, so not a live privacy event"
+    },
+    {
+      "matched_text": "authorised and completed transfer",
+      "reason": "Completed control; should not be treated as an active cross-border transfer marker"
+    },
+    {
+      "matched_text": "no cross-border data flows occurred as part of the incident response",
+      "reason": "Negated; not a live cross-border transfer"
+    },
+    {
+      "matched_text": "no erasure requests were triggered",
+      "reason": "Negated; no erasure event"
+    },
+    {
+      "matched_text": "no specific corporation information likely to be price-material was present",
+      "reason": "Negated MNPI; not a nonpublic/material disclosure"
+    },
+    {
+      "matched_text": "no disclosure obligation under SFO Part XIVA",
+      "reason": "Negated regulatory trigger; not MNPI"
+    },
+    {
+      "matched_text": "the consent withdrawal register shows zero open items",
+      "reason": "Negated; no active consent withdrawal"
+    },
+    {
+      "matched_text": "no personal data accessed or disclosed",
+      "reason": "Negated; confirms absence of PII exposure"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention schedule R-3 (HK) remains in effect for archived materials",
+      "reason": "Retention is a privacy handling event but no explicit allowed rule key for retention is provided."
+    },
+    {
+      "concept": "cross_border_transfer_marker (completed)",
+      "matched_text": "Cross-border transfer: unrelated to the incident, Data Export Approval DEA-2025-004 authorised and completed transfer of pseudonymised security logs to Technova Systems SG on 2025-05-12 under DPA Schedule 2 (HK); controls operated as designed",
+      "reason": "Legally relevant cross-border transfer, but completed and unrelated; rules exclude already-completed controls."
+    },
+    {
+      "concept": "internal_identifier",
+      "matched_text": "Incident ref: OP-2025-044",
+      "reason": "Could be treated as an internal session/incident ID by some systems but not covered by allowed rules."
+    },
+    {
+      "concept": "internal_identifier",
+      "matched_text": "audit trail reference QN-AT-8845",
+      "reason": "Internal audit reference could be considered a session/log ID; not an allowed rule."
+    },
+    {
+      "concept": "internal_identifier",
+      "matched_text": "CAB-OPS-2025-061",
+      "reason": "Change approval identifier; potentially sensitive internal reference not mapped to an allowed rule."
+    },
+    {
+      "concept": "customer_account_number (placeholder)",
+      "matched_text": "InvestorID: 000-XX-VOID",
+      "reason": "Looks like an investor/customer ID but explicitly an invalid placeholder; may be useful for coverage though not a live PII."
+    }
+  ]
+}

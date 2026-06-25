@@ -1,0 +1,315 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_privacy_events_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/privacy_events/cn_privacy_events_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_privacy_events_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 24,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 21,
+    "old_must_detect_count": 5,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@yunzhou-cap.tech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "q.han@yunzhou-cap.tech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer_relations@yunzhou-cap.tech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u8d75\u5148\u751f",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u987e\u5973\u58eb",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u962e\u7426\u5973\u58eb",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u97e9\u5de7\u5973\u58eb",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u64a4\u56de\u540c\u610f",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5df2\u5b9e\u65bd\u6700\u5c0f\u5316",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5185\u5bb9\u6700\u5c0f\u5316",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u8de8\u5883\u4f20\u8f93\uff1a2026-05-08\u5411\u65b0\u52a0\u5761Haihua Pay Pte. Ltd.\u4ec5\u53d1\u9001\u5de5\u8d44\u6761\u6807\u8bc6\uff08\u540e\u56db\u4f4d+\u54c8\u5e0c\uff09",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13\u5c81",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5c1a\u672a\u516c\u5f00",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 9X0L9999A1B2C3D4E",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 5Q2P7H66X3Z1R4M9T",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "44 03 1 9 1992 07 12 3 4 5 6 X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u624b\u673a +86-139****8642",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-LZX-0Q2 7",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZX- NB- 2A73",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u79fb\u9664\u201c\u51fa\u751f\u5730\u201d\u201c\u8be6\u7ec6\u4f4f\u5740\u201d\u5b57\u6bb5",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u4ec5\u53d1\u9001\u5de5\u8d44\u6761\u6807\u8bc6\uff08\u540e\u56db\u4f4d+\u54c8\u5e0c\uff09",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LZX-0Q2",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRC-2026",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "q.han@yunzhou-cap.tech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer_relations@yunzhou-cap.tech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LZX-0Q2",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRC-2026",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u751f\u7269\u8bc6\u522b\u6a21\u677f",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "biometric_identifier"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC\u5730\u5740",
+      "reason": "Negated: explicitly states not collected or exfiltrated"
+    },
+    {
+      "matched_text": "7f-aa-23-9c",
+      "reason": "Negated MAC reference in logs; not collected PII"
+    },
+    {
+      "matched_text": "\u94f6\u884c\u5361\u5168\u53f7",
+      "reason": "Negated disclaimer: report states not included"
+    },
+    {
+      "matched_text": "CVV",
+      "reason": "Negated disclaimer: report states not included"
+    },
+    {
+      "matched_text": "\u6210\u4ea4\u56de\u62a5",
+      "reason": "Negated disclaimer: report states not included"
+    },
+    {
+      "matched_text": "\u533b\u7597\u4fe1\u606f",
+      "reason": "Negated disclaimer: report states not included"
+    },
+    {
+      "matched_text": "v u l n e r a b i l i t y",
+      "reason": "Negated disclaimer: no scan results attached"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "Data subject access request is a privacy event but not listed in allowed rules"
+    },
+    {
+      "concept": "Erasure/deletion",
+      "matched_text": "\u6267\u884c\u5220\u9664",
+      "reason": "Erasure action is a privacy event but not in allowed rule list"
+    },
+    {
+      "concept": "Erasure/deletion",
+      "matched_text": "\u5b8c\u6210\u64e6\u9664",
+      "reason": "Erasure action is a privacy event but not in allowed rule list"
+    },
+    {
+      "concept": "Retention policy",
+      "matched_text": "HR-EMP-7Y re- tention\u89c4\u5219",
+      "reason": "Retention governance is relevant but not in allowed rule list"
+    },
+    {
+      "concept": "Retention period",
+      "matched_text": "\u4fdd\u7559\u5468\u671f180\u5929",
+      "reason": "Retention duration is relevant but not in allowed rule list"
+    },
+    {
+      "concept": "Consent grant (guardian)",
+      "matched_text": "\u76d1\u62a4\u4eba\u540c\u610f",
+      "reason": "Initial consent is relevant but only withdrawal has an allowed rule"
+    },
+    {
+      "concept": "Cross-border filing ID",
+      "matched_text": "LZX-CAC-Record ZH-2026-0021",
+      "reason": "CAC filing ID is compliance-relevant but not mapped to an allowed rule"
+    },
+    {
+      "concept": "Physical address",
+      "matched_text": "Lingzhou Qihe Rd 88",
+      "reason": "Residential address is PII but non-SG addresses are not in allowed rule set"
+    },
+    {
+      "concept": "Named individual (no honorific)",
+      "matched_text": "Zhao Wen",
+      "reason": "Personal name without honorific/signature is PII but outside current named_person rule"
+    },
+    {
+      "concept": "Minor name (no honorific)",
+      "matched_text": "\u674e\u5b89",
+      "reason": "Minor\u2019s name is sensitive contextually but outside current named_person rule"
+    }
+  ]
+}

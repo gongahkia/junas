@@ -1,0 +1,357 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_jurisdictional_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/jurisdictional_mnpi/jp_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Haruto Kanda",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Term Sheet: Strategic Investment and Option to Acquire Takibi Robotics K.K. by Hoshizora Systems K.K. (listed on the Standard Market)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: JPY 4.5 billion unsecured bridge facility from Ayatori Bank, Ltd. at 0.85% per annum, availability conditioned on timely disclosure and no adverse Material Facts as defined under the Financial Instruments and Exchange Act (FIEA).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee matters: Post-closing retention plan for key engineers will be adopted; personal names will be pseudonymized during diligence and no employee personal data will be exported outside Japan without appropriate measures under the APPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidentiality: Internal circulation is limited to need-to-know; external advisors are bound by NDA; any leak may require immediate TDnet disclosure consistent with internal leak-response policy and exchange guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity through 2026-07-31; long-stop date 2026-09-30; TDnet disclosure to precede closing by at least one full trading day, with any Extraordinary Report (rinji hokokusho) within six business days and a Large Shareholding Report if applicable thresholds are crossed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1,240",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 4.5 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.85%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1,240 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.85% per annum",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Facts",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hoshizora-kk.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "third-party allotment",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a call option to initiate a TOB",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval and antitrust review",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent include",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any leak may require immediate TDnet disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal circulation is limited to need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "secure Q&A will be conducted only after public disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Due diligence will use redacted HR rosters and anonymized customer datasets",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no \u201cIndividual Number\u201d (My Number) or other individual identification codes will be collected, transferred, or processed for transaction purposes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal names will be pseudonymized during diligence",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no employee personal data will be exported outside Japan without appropriate measures under the APPI",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Haruto Kanda",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Term Sheet: Strategic Investment and Option to Acquire Takibi Robotics K.K. by Hoshizora Systems K.K. (listed on the Standard Market)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: JPY 4.5 billion unsecured bridge facility from Ayatori Bank, Ltd. at 0.85% per annum, availability conditioned on timely disclosure and no adverse Material Facts as defined under the Financial Instruments and Exchange Act (FIEA).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee matters: Post-closing retention plan for key engineers will be adopted; personal names will be pseudonymized during diligence and no employee personal data will be exported outside Japan without appropriate measures under the APPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidentiality: Internal circulation is limited to need-to-know; external advisors are bound by NDA; any leak may require immediate TDnet disclosure consistent with internal leak-response policy and exchange guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity through 2026-07-31; long-stop date 2026-09-30; TDnet disclosure to precede closing by at least one full trading day, with any Extraordinary Report (rinji hokokusho) within six business days and a Large Shareholding Report if applicable thresholds are crossed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1,240",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 4.5 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.85%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Term Sheet: Strategic Investment and Option to Acquire Takibi Robotics K.K. by Hoshizora Systems K.K. (listed on the Standard Market)\nHoshizora Systems K.K. to subscribe for new shares via third-party allotment to achieve 55% post-money ownership at JPY 1,240 per share; a call option to initiate a TOB for remaining shares within 12 months, subject to board approval and antitrust review.\nFinancing: JPY 4.5 billion unsecured bridge facility from Ayatori Bank, Ltd. at 0.85% per annum, availability conditioned on timely disclosure and no adverse Material Facts as defined under the Financial Instruments and Exchange Act (FIEA).\nPrior to public announcement on TDnet targeted for 2026-06-15 08:30 JST, the existence and terms of this transaction constitute undisclosed \u201cMaterial Facts\u201d (\u91cd\u8981\u4e8b\u5b9f) under FIEA and are non-public; issuer-relative materiality is assessed under internal guidelines.\nSelective disclosure is prohibited; any investor communication will be made via TDnet and simultaneous press release in accordance with the stock exchange Timely Disclosure Rules.\nBlackout: Directors, officers, and employees are subject to an internal trading blackout from 2026-06-01 until release of the Q2 kessan tanshin and for two trading days thereafter; any acquisition-related equity grant is deferred until the information is public.\nConditions precedent include approvals of both boards, absence of any stop order by the competent authority, completion of confirmatory due diligence, and clearance by the Japan Fair Trade Commission if thresholds are met.\nAPPI/My Number: Due diligence will use redacted HR rosters and anonymized customer datasets; no \u201cIndividual Number\u201d (My Number) or other individual identification codes will be collected, transferred, or processed for transaction purposes, and any processor engagement will include APPI-compliant safeguards.\nPublic information reference: The issuer\u2019s FY2025 Securities Report (yukashoken hokokusho) filed on 2026-06-01 and the 2025-11-10 press release regarding the IoT consortium remain public and unchanged; certain figures herein rely on those public sources and may be stale.\nNon-issuer operational update (benign): Takibi Robotics\u2019 2026-05-20 blog post announcing a Nagoya showroom is operational in nature and not material to the issuer\u2019s decision-making.\nEmployee matters: Post-closing retention plan for key engineers will be adopted; personal names will be pseudonymized during diligence and no employee personal data will be exported outside Japan without appropriate measures under the APPI.\nConfidentiality: Internal circulation is limited to need-to-know; external advisors are bound by NDA; any leak may require immediate TDnet disclosure consistent with internal leak-response policy and exchange guidance.\nContact: Mr. Haruto Kanda, CFO, Hoshizora Systems K.K.; email: ir@hoshizora-kk.example; secure Q&A will be conducted only after public disclosure.\nExclusivity through 2026-07-31; long-stop date 2026-09-30; TDnet disclosure to precede closing by at least one full trading day, with any Extraordinary Report (rinji hokokusho) within six business days and a Large Shareholding Report if applicable thresholds are crossed.\nGoverning law: Japan; jurisdiction: Tokyo District Court; each party bears its own fees; this term sheet is non-binding except for confidentiality, exclusivity, and governing law provisions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Haruto Kanda, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "jp_my_number mention",
+      "matched_text": "\u201cIndividual Number\u201d (My Number)",
+      "reason": "Refers to Japan\u2019s Individual Number but does not include any actual identifier value."
+    },
+    {
+      "concept": "disclosure timing vs embargo",
+      "matched_text": "TDnet targeted for 2026-06-15 08:30 JST",
+      "reason": "Specifies intended announcement time; not a listed embargo marker but relates to public/non-public status."
+    },
+    {
+      "concept": "information barrier vs confidentiality",
+      "matched_text": "external advisors are bound by NDA",
+      "reason": "Indicates confidentiality controls; may signal information barrier but not explicitly a wall."
+    },
+    {
+      "concept": "regulatory filing trigger",
+      "matched_text": "Large Shareholding Report",
+      "reason": "Mentions a potential FIEA filing; relevant to disclosure but not among allowed MNPI rule tags."
+    },
+    {
+      "concept": "regulatory filing trigger",
+      "matched_text": "Extraordinary Report (rinji hokokusho)",
+      "reason": "Refers to FIEA disclosure form; relevant to disclosure obligations but not an allowed MNPI tag on this taxonomy."
+    },
+    {
+      "concept": "tender-offer reference",
+      "matched_text": "TOB",
+      "reason": "Tender offer reference could be an enumerated material fact under FIEA, but as a standalone acronym here it may be too generic for strict tagging."
+    }
+  ]
+}

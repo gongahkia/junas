@@ -1,0 +1,237 @@
+{
+  "doc_id": "vn_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "source_jurisdiction": "VN",
+  "destination_jurisdiction": "VN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "huy.huy@vietlumen.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 555 0142"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "700123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "079123456789"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ông Trần Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "079123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN-HZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 555 0142"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "huy.huy@vietlumen.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "700123456789"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "chưa công bố ra công chúng"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Chuyển dữ liệu ra nước ngoài"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Yêu cầu DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vietlumen.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 3999 5577"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PII lưu tối đa 12 tháng"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "MNPI lưu tối đa 5 năm"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Truy cập MNPI bị hạn chế"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "danh sách phong tỏa giao dịch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "nghị quyết HĐQT về cổ tức"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "dự thảo báo cáo tài chính quý"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "hồ sơ niêm yết EDSE"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "700123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Employee Name",
+      "reason": "Generic form field label, not actual PII"
+    },
+    {
+      "matched_text": "Chief Accountant",
+      "reason": "Role-only title, not a named person"
+    },
+    {
+      "matched_text": "1800 0000",
+      "reason": "Public helpline number explicitly marked non-PII"
+    },
+    {
+      "matched_text": "0000000000",
+      "reason": "Invalid MST example for checksum testing"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Mã số doanh nghiệp: 5601234567",
+      "concept": "VN business registration number",
+      "reason": "Entity identifier is a direct company ID but no specific allowed VN company-ID rule; not PII for a person"
+    },
+    {
+      "matched_text": "MST: 5601234567",
+      "concept": "VN tax identification number",
+      "reason": "Company tax ID is a direct identifier but no allowed VN tax-ID rule; not PII for a person"
+    },
+    {
+      "matched_text": "ký hiệu dự kiến: VLT",
+      "concept": "Proposed ticker symbol MNPI",
+      "reason": "Issuer symbol not yet public and could affect price, but no specific rule for VN ticker detection"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
+}

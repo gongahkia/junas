@@ -1,0 +1,402 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled US Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, Reg FD/selective-disclosure contexts, public SEC/website bait, role mailbox/public helpline bait, identifier-like numeric fragments, and placeholder/test account IDs; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-us-uk-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved US Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T15:54:54Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T15:54:54Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
+    "status": "owner_approved_us_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 30,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 30,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_quasi_identifiers_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@heliotropecare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.calder@heliotropecare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "555-014-2205",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/15/1987",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QP-2287Z",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reina Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Karr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Potential Regulation FD and PII/GLBA exposure from revenue-cycle and analyst interactions pre-earnings",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Her ShareDrive note also attached a patient financing spreadsheet from Mariner Crest Bank listing city \u201cAurelia, CO,\u201d household size \u201c3,\u201d masked account \u201c****8842,\u201d and a patient portal reference \u201cpt_portal_18301\u201d; while lacking names, the combination could implicate GLBA and, if clinical fields are added later, HIPAA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "41%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HC-LT-7729",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S-44F6C-91",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 39",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "D-CA-0113",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@heliotropecare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "****8842",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pt_portal_18301",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reina Calder (Senior Revenue Cycle Analyst, Denvale, CO office), age 39, corp email r.calder@heliotropecare.example",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "birthday 03/15/1987, internal extension 4427, Denvale badge ID D-CA-0113, and prior device sync at 21:02",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u201cAurelia, CO,\u201d household size \u201c3,\u201d masked account \u201c****8842,\u201d and a patient portal reference \u201cpt_portal_18301\u201d",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "scrub shared files for linkable IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure concerns",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unfiled",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9\u201311%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@heliotropecare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.calder@heliotropecare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "555-014-2205",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/15/1987",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QP-2287Z",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reina Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Karr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Potential Regulation FD and PII/GLBA exposure from revenue-cycle and analyst interactions pre-earnings",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Her ShareDrive note also attached a patient financing spreadsheet from Mariner Crest Bank listing city \u201cAurelia, CO,\u201d household size \u201c3,\u201d masked account \u201c****8842,\u201d and a patient portal reference \u201cpt_portal_18301\u201d; while lacking names, the combination could implicate GLBA and, if clinical fields are added later, HIPAA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "41%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 05/28/2026, Ms. Reina Calder (Senior Revenue Cycle Analyst, Denvale, CO office), age 39, corp email r.calder@heliotropecare.example, accessed the Q2 data room from company device HC-LT-7729 using the \u201crevcycle-reporting\u201d profile, session ID S-44F6C-91.\nShe then joined a 20-minute unscheduled video chat with Mr. Owen Karr of Grantham Street Research (sell-side analyst) via her guest bridge after an after-hours badge swipe at 8:43 p.m. local, which raises selective disclosure concerns under Regulation FD.\nDuring the discussion she referenced preliminary, non-public payer mix shift (commercial to managed care, ~3% swing) and unfiled Q2 admission growth estimates (9\u201311%), which, if accurate, would be material non-public information under Rule 10b-5",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 05/28/2026, Ms. Reina Calder (Senior Revenue Cycle Analyst, Denvale, CO office), age 39, corp email r.calder@heliotropecare.example, accessed the Q2 data room from company device HC-LT-7729 using the \u201crevcycle-reporting\u201d profile, session ID S-44F6C-91.\nShe then joined a 20-minute unscheduled video chat with Mr. Owen Karr of Grantham Street Research (sell-side analyst) via her guest bridge after an after-hours badge swipe at 8:43 p.m. local, which raises selective disclosure concerns under Regulation FD.\nDuring the discussion she referenced preliminary, non-public payer mix shift (commercial to managed care, ~3% swing) and unfiled Q2 admission growth estimates (9\u201311%), which, if accurate, would be material non-public information under Rule 10b-5.\nHer ShareDrive note also attached a patient financing spreadsheet from Mariner Crest Bank listing city \u201cAurelia, CO,\u201d household size \u201c3,\u201d masked account \u201c****8842,\u201d and a patient portal reference \u201cpt_portal_18301\u201d; while lacking names, the combination could implicate GLBA and, if clinical fields are added later, HIPAA.\nHR metadata for Ms. Calder shows birthday 03/15/1987, internal extension 4427, Denvale badge ID D-CA-0113, and prior device sync at 21:02, which, combined with the device serial and office location, form a quasi-identifier cluster reasonably linkable to her.\nBy contrast, the nursing workforce slide that reports \u201cages 30\u201339 constitute 41% nationwide\u201d and aggregate ZIP 606xx hiring trends is general and not personally identifying.\nThe current investor relations draft cites only previously public payer negotiations and avoids forward-looking numbers; on its face it is not MNPI.\nSeparately, in legacy folders we identified the following weak identifiers without a named individual or household: \u201cDOB 11/1992; account suffix 3021; smartphone model Quanta M9; suburb = Westford, IL,\u201d which should not, standing alone, be treated as PII.\nWe also noted an operations log line \u201cDevice SN QP-2287Z, login 07:14 ET, role: contractor,\u201d that lacks any name or household linkage and should not be escalated absent additional context.\nRecommended actions: pre-clear any employee interactions with analysts, limit access to preliminary metrics until public filing, scrub shared files for linkable IDs, and segregate any financial customer or patient portal references under GLBA/HIPAA controls.\nTrain managers on avoiding selective disclosure (e.g., no off-cycle \u201ccolor\u201d on payer mix) and route all external Q&A through Investor Relations with a public channel option.\nPrepare a short reminder to all Denvale analysts that combining DOB, device serials, office, and badge times can create PII under the CCPA/HIPAA/GLBA patchwork even if names are omitted.\nFor questions or incident reporting, contact compliance@heliotropecare.example or call 555-014-2205",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Potential Regulation FD and PII/GLBA exposure from revenue-cycle and analyst interactions pre-earnings\n\nOn 05/28/2026, Ms. Reina Calder (Senior Revenue Cycle Analyst, Denvale, CO office), age 39, corp email r.calder@heliotropecare.example, accessed the Q2 data room from company device HC-LT-7729 using the \u201crevcycle-reporting\u201d profile, session ID S-44F6C-91.\nShe then joined a 20-minute unscheduled video chat with Mr. Owen Karr of Grantham Street Research (sell-side analyst) via her guest bridge after an after-hours badge swipe at 8:43 p.m. local, which raises selective disclosure concerns under Regulation FD.\nDuring the discussion she referenced preliminary, non-public payer mix shift (commercial to managed care, ~3% swing) and unfiled Q2 admission growth estimates (9\u201311%), which, if accurate, would be material non-public information under Rule 10b-5.\nHer ShareDrive note also attached a patient financing spreadsheet from Mariner Crest Bank listing city \u201cAurelia, CO,\u201d household size \u201c3,\u201d masked account \u201c****8842,\u201d and a patient portal reference \u201cpt_portal_18301\u201d; while lacking names, the combination could implicate GLBA and, if clinical fields are added later, HIPAA.\nHR metadata for Ms. Calder shows birthday 03/15/1987, internal extension 4427, Denvale badge ID D-CA-0113, and prior device sync at 21:02, which, combined with the device serial and office location, form a quasi-identifier cluster reasonably linkable to her.\nBy contrast, the nursing workforce slide that reports \u201cages 30\u201339 constitute 41% nationwide\u201d and aggregate ZIP 606xx hiring trends is general and not personally identifying.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cages 30\u201339 constitute 41% nationwide\u201d",
+      "reason": "Aggregate demographic statistic not identifying a person"
+    },
+    {
+      "matched_text": "ZIP 606xx",
+      "reason": "Truncated aggregate ZIP code, not linkable to an individual"
+    },
+    {
+      "matched_text": "DOB 11/1992",
+      "reason": "Partial birth date without linkage; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "account suffix 3021",
+      "reason": "Partial account info without linkage; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "Quanta M9",
+      "reason": "Generic device model; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "Westford, IL",
+      "reason": "City/state alone; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "Device SN QP-2287Z",
+      "reason": "Device serial without linkage to a person"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "phone_extension",
+      "matched_text": "internal extension 4427",
+      "reason": "Internal phone extension can be linkable but is not covered by enumerated PII rules"
+    },
+    {
+      "concept": "location_quasi_identifier",
+      "matched_text": "Denvale, CO office",
+      "reason": "Work location can contribute to identifiability when combined but not explicitly covered alone"
+    },
+    {
+      "concept": "badge_swipe_time",
+      "matched_text": "8:43 p.m. local",
+      "reason": "Granular timestamp can aid linkage but not directly covered by allowed PII rules"
+    },
+    {
+      "concept": "device_sync_time",
+      "matched_text": "21:02",
+      "reason": "Login/sync time can aid linkage but lacks a specific rule"
+    },
+    {
+      "concept": "household_location",
+      "matched_text": "Aurelia, CO",
+      "reason": "City/state for a household is quasi-identifying but not covered as a standalone rule"
+    },
+    {
+      "concept": "covered_market_actor",
+      "matched_text": "Grantham Street Research",
+      "reason": "Identifies a sell-side analyst firm relevant to Reg FD context but not mapped to a current MNPI rule"
+    }
+  ]
+}

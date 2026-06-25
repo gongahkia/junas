@@ -1,42 +1,74 @@
 # Roadmap
 
-This roadmap is a public direction board for contributors and evaluators. It is not a commitment schedule, and items can move as the project learns from users.
+This roadmap follows the product docs in `docs/product/`. A phase is not promoted by implementation alone; it needs exit evidence.
 
-## Status Columns
+## Kill Criteria
 
-| Column | Meaning |
-|--------|---------|
-| Now | Current v1 contributor-facing polish and trust work. These are the best issues to check first. |
-| Next | Phase-2 distribution and launch preparation once the contributor surface is cleaner. |
-| Later | Brand, launch, and stretch ideas that should not imply commitments or block core quality. |
+Adapter promotion requires measurable workflow value, not just technical feasibility. A candidate adapter should stay experimental, be paused, or be archived when it cannot show a useful activation rate, reviewed-send or reviewed-submit rate, accepted-finding rate, safe-rewrite usage, blocked-risk outcome, or audit-pack export path for its target workflow.
 
-## Now
+Technical completion is insufficient when the adapter creates high false-positive override rates, stores or logs raw content outside policy, lacks admin deployment evidence, cannot survive ordinary surface changes, or duplicates a workflow that direct API integration already handles with less user friction.
 
-| Issue | Why now |
-|-------|---------|
-| [#29 Add CONTRIBUTING.md and curated good first issues](https://github.com/gongahkia/aki/issues/29) | Converts readers into contributors and gives newcomers a safe entry point. |
-| [#30 Strengthen CI badge and validation workflow](https://github.com/gongahkia/aki/issues/30) | Makes the README badge reflect meaningful checks, not just repository activity. |
-| [#31 Add SECURITY.md reporting path](https://github.com/gongahkia/aki/issues/31) | Establishes a responsible disclosure path for a privacy/security-adjacent tool. |
+## P0 Backend Policy Contract
 
-## Next
+Scope:
 
-| Issue | Why next |
-|-------|----------|
-| [#32 Tag releases with changelogs](https://github.com/gongahkia/aki/issues/32) | Makes release history visible and reduces the appearance of an unshipped project. |
-| [#33 Draft companion engineering blog post](https://github.com/gongahkia/aki/issues/33) | Explains the technical hook after the architecture and benchmark docs exist. |
-| [#34 Add cargo install and Nix install paths](https://github.com/gongahkia/aki/issues/34) | Adds discovery and install paths for Rust and Nix users. |
-| [#35 Prepare platform-specific launch copy](https://github.com/gongahkia/aki/issues/35) | Keeps future launch work coordinated without rushing a Show HN post. |
+- Add workflow context to review requests.
+- Return a stable policy decision contract on `/review`, `/pseudonymize`, `/anonymize`, and `/redact`.
+- Provide deterministic required/recommended actions, policy reasons, action catalog, timings, audit journal events, and SIEM-safe exports.
+- Document policy schema, decision contract, versioning, idempotency, and review expiry.
 
-## Later
+Exit criteria:
 
-| Issue | Why later |
-|-------|-----------|
-| [#36 Build one-page landing site](https://github.com/gongahkia/aki/issues/36) | Useful for SEO and non-GitHub readers after install and contributor basics are stronger. |
-| [#37 Create logo, favicon, and social card assets](https://github.com/gongahkia/aki/issues/37) | Brand polish is helpful, but it should not outrank trust and install work. |
-| [#38 Produce 60-second narrated demo video](https://github.com/gongahkia/aki/issues/38) | Valuable launch artifact once the product story is stable. |
-| [#39 Add hidden stress test and sticker command](https://github.com/gongahkia/aki/issues/39) | Fun polish and demos belong after the practical launch surface. |
-| [#40 Document anti-goals and stretch backlog](https://github.com/gongahkia/aki/issues/40) | Keeps scope honest and collects ideas that should not sneak into v1/v2 by accident. |
+- Policy unit tests cover PII high, MNPI high, mixed findings, recipient/domain context, degraded coverage, reviewer override, and missing context.
+- Contract tests prove old clients can still read `send_allowed` and ignore new fields.
+- OpenAPI examples include policy decisions and adapter surfaces.
+- Audit/SIEM tests prove no raw document text, matched spans, prompts, mappings, or auth headers are emitted.
+- `docs/policy/` and API versioning docs are complete enough for adapter implementation.
 
-## Maintenance
+## P1 Outlook Smart Alerts
 
-When an issue closes, remove it from this page or move the remaining related work into a new issue. If a new issue is urgent, add it to `Now` with a short reason instead of relying on issue number order.
+Scope:
+
+- Treat Outlook Smart Alerts as the first supported email adapter target.
+- Template manifests for dev, staging, and production.
+- Map backend decisions to allow, warning, block, approval, and rewrite behavior.
+- Document admin deployment, SendMode behavior, CORS/well-known requirements, client compatibility, timeout budgets, privacy checks, telemetry, and QA.
+
+Exit criteria:
+
+- Manifest validation script checks Mailbox requirement set, `OnMessageSend`, SendMode, runtime URL, taskpane URL, and HTTPS production host.
+- Manual or automated QA proves send checks call `/review` with subject, body, recipients, attachment metadata, and surface `outlook`.
+- Fixture screenshots or text snapshots cover allow, warn, block, and approval-required Smart Alert messages.
+- Privacy check proves the adapter does not store message body in browser local storage, extension storage, or console logs.
+- Tenant deployment guide is usable by a Microsoft 365 admin.
+
+## P1/P2 Browser Extension
+
+Scope:
+
+- P1: support managed prompt review for selected GenAI browser surfaces with explicit selector tests and user confirmation for warn decisions.
+- P1: provide backend URL/auth/local-pairing options, connection health, privacy tests, telemetry, enterprise deployment docs, and local fixture smoke tests.
+- P2: broaden surface coverage only after adapter policy, selector failure behavior, MV3 lifecycle QA, and manual Chrome/Edge matrices are stable.
+
+Exit criteria:
+
+- ChatGPT, Claude, Gemini, and generic textarea modules have DOM selector tests against local fixture pages.
+- Prompt review calls `/review` with surface `browser_genai` and no prompt text is persisted in extension storage or logs.
+- Failure behavior is documented and tested so selector drift does not silently block sends without a policy decision.
+- Chrome/Edge deployment docs include force-install policy, update URL, permission rationale, and hosted/local daemon modes.
+- Browser adapter smoke tests run without external SaaS credentials.
+
+## P2 Desktop Watcher
+
+Scope:
+
+- Keep `kaypoh-watch` as an experimental local fallback for offline review, demos, and power users.
+- Document clipboard/folder threat model, explicit clipboard opt-in, local token use, output-directory scope, LaunchAgent packaging, and auth failure behavior.
+
+Exit criteria:
+
+- README and `pyproject.toml` docs mark the watcher experimental without removing the console script.
+- Config sample disables clipboard polling by default.
+- Tests prove output stays under the configured output directory.
+- Tests prove auth failures do not print sensitive clipboard content.
+- Packaging docs state LaunchAgent install is optional and admin-controlled.

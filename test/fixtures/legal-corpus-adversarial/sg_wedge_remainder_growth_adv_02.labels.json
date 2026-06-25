@@ -1,0 +1,20 @@
+{
+  "doc_id": "sg_wedge_remainder_growth_adv_02",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "sg_insurance_policy_number", "matched_text": "policy number", "reason": "formatting prose without live policy reference"},
+    {"rule": "crypto_wallet_address", "matched_text": "crypto wallet addresses", "reason": "omission instruction without address value"},
+    {"rule": "sg_tribunal_reference", "matched_text": "PDPC complaints", "reason": "public process category"},
+    {"rule": "sg_tribunal_reference", "matched_text": "SCT claims", "reason": "public process category"},
+    {"rule": "contract_unit_price", "matched_text": "unit price", "reason": "blank field label"},
+    {"rule": "contract_discount_rate", "matched_text": "discount rate", "reason": "blank field label"},
+    {"rule": "volume_commitment", "matched_text": "volume commitment", "reason": "blank field label"},
+    {"rule": "royalty_rate", "matched_text": "royalty", "reason": "blank field label"},
+    {"rule": "total_contract_value", "matched_text": "TCV", "reason": "blank field label"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "Item 48 adversarial bait fixture with no live SG wedge identifiers."
+}

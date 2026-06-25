@@ -1,0 +1,199 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 16,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 10,
+    "old_must_detect_count": 5,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI/Reg FD: Until the press release is issued, key economic terms constitute material non-public information; an internal trading blackout remains in effect until the previously announced Q2 earnings call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions to Closing: Customary regulatory approvals (OCC/state banking), healthcare privacy compliance confirmations, and HIPAA Business Associate Agreement amendments; no HSR filing expected based on current size of transaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Target: Q4 2026, subject to satisfaction of conditions; timeline is indicative and not binding.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: Ordinary course covenants, pre-closing cooperation on customer notices, and post-closing data minimization obligations under GLBA/HIPAA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "post-closing data minimization obligations",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an internal trading blackout remains in effect until the previously announced Q2 earnings call",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Social Security numbers",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account numbers",
+      "rule": "bank_account"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI/Reg FD: Until the press release is issued, key economic terms constitute material non-public information; an internal trading blackout remains in effect until the previously announced Q2 earnings call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions to Closing: Customary regulatory approvals (OCC/state banking), healthcare privacy compliance confirmations, and HIPAA Business Associate Agreement amendments; no HSR filing expected based on current size of transaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Target: Q4 2026, subject to satisfaction of conditions; timeline is indicative and not binding.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: Ordinary course covenants, pre-closing cooperation on customer notices, and post-closing data minimization obligations under GLBA/HIPAA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Asset Sale and Partnership Term Sheet \u2014 Baystone Health Bancorp, Inc. (Nasdaq: BYHB) and Riverton Digital Bank, N.A.\nStructure: Sale of Baystone\u2019s non-core Health Savings Account (HSA) administration platform to Riverton, coupled with a multi-year servicing and referral partnership for patient payment plans.\nConsideration: Mix of cash and, if elected, registered equity of Baystone or Riverton affiliate, to be determined at signing; shareholder approval to be obtained if required under Nasdaq Listing Rule 5635.\nDisclosure & Timing: Public announcement via press release and a Form 8-K within four business days of signing the definitive agreement; any investor presentation to be furnished under Item 7.01 and posted to the issuer\u2019s investor relations site.\nMNPI/Reg FD: Until the press release is issued, key economic terms constitute material non-public information; an internal trading blackout remains in effect until the previously announced Q2 earnings call.\nData & Privacy: No patient or consumer PII will be transferred; only de-identified, aggregated usage statistics will be shared, and no account numbers, medical records, or Social Security numbers will be provided.\nOperations & Employees: No workforce reductions are contemplated; standard transition services, non-solicitation, and offer letters for select platform operations personnel will be managed by the acquiring party.\nConditions to Closing: Customary regulatory approvals (OCC/state banking), healthcare privacy compliance confirmations, and HIPAA Business Associate Agreement amendments; no HSR filing expected based on current size of transaction.\nClosing Target: Q4 2026, subject to satisfaction of conditions; timeline is indicative and not binding.\nBackground & Public Context: Baystone previously disclosed a strategic review and intent to divest non-core assets in its Form 10-K filed March 1, 2025 and in a January 12, 2026 press release; this transaction is consistent with those public disclosures.\nListing & Registration: Any equity consideration to be issued under an existing Form S-3 shelf registration and, if applicable, listed on the Nasdaq Capital Market; no CUSIP/ISIN assigned at this stage.\nAnalyst & Investor Communication: All communications will be made via publicly accessible webcasts and posted materials; no selective disclosure to analysts or investors is authorized under Reg FD.\nSector Update (Public/Benign): A regional insurer\u2019s bulletin dated April 2024 announced telehealth reimbursement code updates; this public sector change does not alter the terms contemplated herein.\nCovenants: Ordinary course covenants, pre-closing cooperation on customer notices, and post-closing data minimization obligations under GLBA/HIPAA.\nBinding/Non-Binding: This term sheet is non-binding, except for confidentiality, exclusivity (30 days), expense sharing, and governing law (Delaware).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "health/PHI reference",
+      "matched_text": "medical records",
+      "reason": "References patient health data broadly; allowed rules include medical_record_number but not generic 'medical records'."
+    },
+    {
+      "concept": "de-identification/aggregation control",
+      "matched_text": "de-identified, aggregated usage statistics",
+      "reason": "Describes privacy protections relevant to data handling but not explicitly mapped to a listed privacy-event marker other than minimisation."
+    }
+  ]
+}

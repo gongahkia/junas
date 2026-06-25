@@ -1,0 +1,201 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "The acquisition working group for a small domestic systems integrator met separately under established information-barrier controls; this report does not discuss targets, terms, or timetables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@midori-sys.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list procedures",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier checks",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout policy",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti-tipping rules",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet for TDnet",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized API call",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquisition working group",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward externally",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "crypto wallet key escrow rotation",
+      "rule": "dpt_protocol_event_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "The acquisition working group for a small domestic systems integrator met separately under established information-barrier controls; this report does not discuss targets, terms, or timetables.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During the drill, the ESG reporting module for Scope 2 electricity data briefly failed over; the team restored normal logging within 27 minutes.\nNo APPI personal data or My Number (kojin bang\u014d) were processed in the drill, and no individual codes appear in the logs (example placeholders like 0000-XXXX do not correspond to actual IDs).\nPublicly released materials on our environmental targets (TCFD-aligned) were referenced; this report does not update any KPIs and contains no undisclosed climate commitments.\nInsider-list procedures and information-barrier checks were rehearsed using a tabletop scenario about a hypothetical green-bond issuance; this was an educational exercise with mock names only.\nCommercial-term language in the vendor SOC annex was reviewed for clarity; proposed edits relate to uptime definitions and do not change pricing or revenue recognition.\nWe notified JPCERT/CC of the drill schedule per best practice, and no external regulator filings are required because there was no incident affecting customers or systems in production.\nStaff were reminded of blackout policy and anti-tipping rules under the FIEA in connection with quarterly earnings, but this notice repeated already-published compliance guidance.\nPreliminary internal note (not yet for TDnet): forensic triage indicates a single unauthorized API call against a non-production code repository at a consolidated subsidiary, to be briefed to the board before any public disclosure; until then, treat related technical details as material nonpublic information and add the affected project team to the insider list.\nCurrent assessment shows no exfiltration and no employee records accessed; we will update if evidence changes and will avoid market commentary until facts are confirmed.\nThe acquisition working group for a small domestic systems integrator met separately under established information-barrier controls; this report does not discuss targets, terms, or timetables.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "My Number (kojin bang\u014d)",
+      "reason": "Generic legal term reference; not an actual identifier value."
+    },
+    {
+      "matched_text": "0000-XXXX",
+      "reason": "Explicit placeholder example; not a real ID or code."
+    },
+    {
+      "matched_text": "APPI personal data",
+      "reason": "Legal category reference; no specific personal data present."
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "cyber/ops event sensitivity",
+      "matched_text": "minor service disruption",
+      "reason": "Operational incident phrasing; described as non-customer-facing and part of a drill, unclear MNPI relevance."
+    },
+    {
+      "concept": "capital-markets event (hypothetical)",
+      "matched_text": "green-bond issuance",
+      "reason": "Educational tabletop scenario only; mentions a sensitive instrument but not an actual deal."
+    }
+  ]
+}

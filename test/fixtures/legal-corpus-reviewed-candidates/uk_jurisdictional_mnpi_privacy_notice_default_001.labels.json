@@ -1,0 +1,318 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_jurisdictional_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/jurisdictional_mnpi/uk_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_jurisdictional_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 26,
+    "current_must_detect_count": 9,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 23,
+    "previous_must_detect_count": 15,
+    "previous_must_not_detect_count": 3
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Edwin Mallory",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@northwickcap.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Khanna",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cosec@northwickcap.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@northwickcap.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@northwickcap.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 7000 000000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data may be transferred to processors in the EEA and elsewhere; where outside the UK, we use the UK IDTA or the UK Addendum to SCCs with vendors such as Tallow Data Services Ltd",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list update",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selectively disclosed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selectively disclosed to any analyst, investor, or journalist",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed periods for PDMRs",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed periods for PDMRs run for 30 calendar days before publication of year\u2011end and half\u2011year results",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject HARRIER\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft half\u2011year results",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced board succession",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed placing terms",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tentative pricing grids",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project HARRIER",
+      "rule": "transaction_codename"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+44 7000 000000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Edwin Mallory",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Saira Khanna",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project HARRIER",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northwick Capital plc is a UK\u2011listed financial services issuer; this Employee Privacy and MNPI Handling Notice applies to staff and contractors.\nWe process personal data under UK GDPR (information relating to an identified or identifiable person), including names, work emails, trade approvals, device IDs, and access logs.\nLawful bases include contract, legal obligation (market\u2011abuse, listing and transparency rules), and legitimate interests in compliance monitoring; DPO: Mr. Edwin Mallory, dpo@northwickcap.co.uk.\nInside information under UK MAR means precise, non\u2011public matters that, if made public, would be likely to have a significant effect on Northwick Capital plc\u2019s share price.\nExamples include draft half\u2011year results, unannounced board succession, and proposed placing terms; information already released via our RNS on 12 March 2026 (\u201cCloud Platform Update\u201d, Ref: NWCP/2026/0312) is public.\nIf inside information is selectively disclosed to any analyst, investor, or journalist, notify the Company Secretary immediately; an announcement must be made as soon as possible, and an insider list update maintained.\nClosed periods for PDMRs run for 30 calendar days before publication of year\u2011end and half\u2011year results; dealing in company securities requires pre\u2011clearance via compliance@northwickcap.co.uk.\nWe retain insider lists and delay\u2011of\u2011disclosure rationales for at least five years (UK MAR Art 18/17), and pre\u2011clearance records for six years from decision.\nPersonal data may be transferred to processors in the EEA and elsewhere; where outside the UK, we use the UK IDTA or the UK Addendum to SCCs with vendors such as Tallow Data Services Ltd.\nYou may submit a data subject access request to privacy@northwickcap.co.uk; we will verify identity and respond within one month, extendable by two months for complexity.\nCalendar invites or file metadata referencing \u201cProject HARRIER\u201d with tentative pricing grids constitute MNPI even if the invite body is vague; use approved secure folders and do not email externals.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "PDMRs",
+      "reason": "Role category; not PII/MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "data subject access request",
+      "reason": "Data subject access requests are a privacy-event marker but no explicit allowed rule label is provided for DSAR."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "We retain insider lists and delay\u2011of\u2011disclosure rationales for at least five years (UK MAR Art 18/17), and pre\u2011clearance records for six years from decision",
+      "reason": "Records retention periods are privacy/MAR-relevant but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "concept": "employee monitoring marker",
+      "matched_text": "We monitor communications proportionately for market\u2011abuse prevention and to enforce the Dealing Code; this is necessary to meet regulatory obligations and protect the company\u2019s legitimate interests",
+      "reason": "Employee monitoring is privacy-relevant processing but not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "transfer mechanism",
+      "matched_text": "UK IDTA",
+      "reason": "Cross-border safeguard mechanism is relevant but only cross-border transfer itself is an allowed rule."
+    },
+    {
+      "concept": "transfer mechanism",
+      "matched_text": "UK Addendum to SCCs",
+      "reason": "Cross-border safeguard mechanism is relevant but only cross-border transfer itself is an allowed rule."
+    }
+  ]
+}

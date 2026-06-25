@@ -1,0 +1,15 @@
+{
+  "doc_id": "sg_wedge_remainder_growth_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "sg_insurance_policy_number", "matched_text": "policy number 42", "reason": "generic policy wording without anchored reference shape"},
+    {"rule": "crypto_wallet_address", "matched_text": "wallet address", "reason": "formatting prose without address value"},
+    {"rule": "sg_tribunal_reference", "matched_text": "SCT claim number", "reason": "negated absence of claim number"},
+    {"rule": "contract_unit_price", "matched_text": "Unit price", "reason": "catalogue definition without live contract price"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "Item 48 adversarial fixture for SG wedge label/prose bait."
+}

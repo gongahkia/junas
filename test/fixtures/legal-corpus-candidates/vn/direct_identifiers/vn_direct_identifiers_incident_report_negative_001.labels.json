@@ -1,0 +1,156 @@
+{
+  "doc_id": "vn_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "VN",
+  "destination_jurisdiction": "VN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "itsecurity@songdua-energy.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "C3184962"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "itsecurity@songdua-energy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@songdua-energy.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "chưa công bố"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "CCCD/Hộ chiếu [điền sau]",
+      "reason": "Form label/placeholder, not actual data"
+    },
+    {
+      "matched_text": "Mã số thuế cá nhân [n/a]",
+      "reason": "Form label explicitly not available; not data"
+    },
+    {
+      "matched_text": "Họ tên nhân sự [chỉ ghi chức danh]",
+      "reason": "Form label; no personal name provided"
+    },
+    {
+      "matched_text": "Số tài khoản VND [ghi sau]",
+      "reason": "Placeholder; not a real bank account number"
+    },
+    {
+      "matched_text": "Swift [placeholder]",
+      "reason": "Placeholder; not an actual SWIFT code"
+    },
+    {
+      "matched_text": "chi nhánh [template]",
+      "reason": "Template placeholder; not data"
+    },
+    {
+      "matched_text": "1900-0011",
+      "reason": "Public/general hotline number; not personal PII"
+    },
+    {
+      "matched_text": "1900-1111",
+      "reason": "Public exchange hotline; not personal PII"
+    },
+    {
+      "matched_text": "7777777777",
+      "reason": "Sample/invalid checksum enterprise tax ID; corporate identifier, not personal PII"
+    },
+    {
+      "matched_text": "0123456789",
+      "reason": "Sample business registration number; corporate identifier, not personal PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "MST doanh nghiệp: 7777777777",
+      "concept": "Vietnam enterprise tax ID (corporate identifier)",
+      "reason": "Legally relevant company identifier but not covered by allowed rules and not personal data"
+    },
+    {
+      "matched_text": "số GCN ĐKKD: 0123456789",
+      "concept": "Vietnam business registration number",
+      "reason": "Corporate identifier; relevant in finance compliance but not in allowed rules and not PII"
+    },
+    {
+      "matched_text": "máy chủ kế toán bị nhiễm mã độc",
+      "concept": "cyber incident reference",
+      "reason": "Security incident could be market-sensitive depending on disclosure timing; allowed MNPI rule only covers pre-disclosure"
+    },
+    {
+      "matched_text": "mức độ rủi ro ESG: thấp",
+      "concept": "ESG risk assessment",
+      "reason": "ESG-related content may be material in some contexts but no specific allowed MNPI rule applies here"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
+}

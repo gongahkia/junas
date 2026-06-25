@@ -1,0 +1,238 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Z123456(0)",
+      "rule": "hk_hkid"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HKID: Z123456(0)",
+      "rule": "hk_hkid"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3123456",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR No.: 3123456",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@harborline.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "999-000-123456-XYZ",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Escrow Account (format only): 999-000-123456-XYZ",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "numbers above may be format placeholders and are not live credentials",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "long-form agreements",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "long-stop date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding: Subscription funded from existing LP commitments; no margin financing; Escrow Account (format only): 999-000-123456-XYZ at Pearl City Bank (HK).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "3123456",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funding: Subscription funded from existing LP commitments; no margin financing; Escrow Account (format only): 999-000-123456-XYZ at Pearl City Bank (HK).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SEHK clearance",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Proposed Strategic Investment in Harborline Holdings Limited (incorporated in Hong Kong) by Blue Peak Crescent Fund LP; summary of previously announced transaction parameters only.\nTarget: Harborline Holdings Limited (HKEX-listed; Companies Registry ref CR No.: 3123456 \u2014 reference only, not verified); Registered office: Level 45, South Quay Tower, 88 Harbour Lane, Kowloon East, Hong Kong.\nInvestor: Blue Peak Crescent Fund LP (managed by a Type 9 group affiliate; CE No.: ZZZ999 \u2014 format placeholder) subscribing for up to 19.9% new shares; no change of control contemplated.\nRegulatory framework: Chapter 14 of the HKEX Listing Rules (notifiable transaction), Chapter 14A not applicable; Takeovers Code whitewash waiver not required.\nDisclosure status: Announcement under Part XIVA of the SFO has already been published on 2025-03-31; no inside information is contained in this term sheet.\nConsideration and pricing: To be set by reference to a 30-day VWAP band; specific HKD amounts intentionally omitted; no vendor loan note.\nFunding: Subscription funded from existing LP commitments; no margin financing; Escrow Account (format only): 999-000-123456-XYZ at Pearl City Bank (HK).\nConditions precedent: HKEX clearance of circular; no shareholder approval required based on current structure; confirmation of no breach of Employment Ordinance (Cap. 57) obligations.\nWarranties: Standard corporate capacity and title; no undisclosed encumbrances; confirmation of prior SFC consultation not required.\nEmployee matters: No retrenchment planned; continuity of service and accrued entitlements to be maintained; no change to MPF scheme administrator.\nCompliance: All parties acknowledge PDPO obligations; authorised signatory (role-only) may present HKID: Z123456(0) at completion for identity verification purposes.\nEnquiries: investor.relations@harborline.example.hk (role mailbox); general hotline (HK): 1844 \u2014 public enquiries only, not for order placement.\nTimeline: Exchange of long-form agreements within 30 days after SEHK clearance; long-stop date: 90 days thereafter; completion immediately following settlement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Harbour Lane, Kowloon East, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1844",
+      "reason": "Public hotline short code; non-personal and adversarial bait"
+    },
+    {
+      "matched_text": "[Insert Company Chop]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "[Insert BRN]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "[Insert Contact Tel]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "[Insert Designated Email]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role/section heading, not a person or identifier"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role/section heading, not a person or identifier"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "sfc_ce_number",
+      "matched_text": "CE No.: ZZZ999",
+      "reason": "SFC Central Entity licence/reference number placeholder; potentially identifiable in finance context but not covered by allowed rules"
+    },
+    {
+      "concept": "tax_filing_reference",
+      "matched_text": "IRD-TS-000000",
+      "reason": "Government tax filing reference for filings; not mapped to any allowed identifier rule"
+    },
+    {
+      "concept": "inside_information_disclosure_status",
+      "matched_text": "Announcement under Part XIVA of the SFO has already been published on 2025-03-31",
+      "reason": "Relates to MNPI regime timing/status but indicates prior public disclosure; not a nonpublic marker per allowed rules"
+    }
+  ]
+}

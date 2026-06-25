@@ -1,0 +1,268 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance@hinodesys.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000-0000-0000",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal note",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026-08-12 09:00 jst",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no earlier than 2026-08-12 09:00 jst",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal calendars must not tag this as public before that time",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "outside counsel-only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution outside counsel-only until exchange upload",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet v0",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect, store, or transmit any 12-digit code",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee my number handling",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "execution copy signed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal note: compliance and legal update for hinode systems kk board on appi/my number and acquisition workflow.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement status: execution copy signed, but filing timing remains subject to ekse disclosure window; distribution outside counsel-only until exchange upload.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "internal note: compliance and legal update for hinode systems kk board on appi/my number and acquisition workflow.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement status: execution copy signed, but filing timing remains subject to ekse disclosure window; distribution outside counsel-only until exchange upload.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal note: compliance and legal update for hinode systems kk board on appi/my number and acquisition workflow.\npublic-source facts reused: kawano retail partners gk announced on 2024-03-11 its standalone fy2023 results; summary attached; this is already public per ekse issuer portal.\nwe continue investor-relations draft updates; press outline is public/stale; no new enumerated facts; disclaimers align with fiea; placeholder amounts '\u00a5x' will not be filled.\nnegated mac language: draft share purchase agreement contains no mae trigger and expressly excludes macroeconomic downturn and workforce wellness days.\nemployee my number handling: do not collect, store, or transmit any 12-digit code in the deal room; if legacy files show '0000-0000-0000', treat as invalid sample only.\nembargo date: ir email to be queued for public posting no earlier than 2026-08-12 09:00 jst; internal calendars must not tag this as public before that time.\ndefinitive agreement status: execution copy signed, but filing timing remains subject to ekse disclosure window; distribution outside counsel-only until exchange upload.\nthis memo does not solicit tender offer, and no '\u516c\u958b\u8cb7\u4ed8\u3051' facts are being advanced beyond public summaries; research note cites old analyst reports available on yokohama streetwire.\ngeneric form labels in folders: 'board packet', 'term sheet v0', 'employee roster (redacted)', 'checklist \u2013 ekse style', all placeholders without identifiers.\nproject management prose: task owners route drafts via compliance@hinodesys.example; response sla: 2 business days; use tracker tickets, not personal email.\npublic helpline for privacy inquiries is referenced only by url on sunrise prefecture consumer site; do not treat as transactional channel.\nspa-day bait: wellness day for staff set for 2026-07-15; unrelated to transaction and not material to the issuer.\ntraining reminder: appi consent language must remain in employment forms; sample onboarding packet uses fictional codes and non-working addresses only.\nrisk gating: no percentages, amounts, or issuer forecasts are included in drafts; placeholders remain 'tbd' in spreadsheets.\nto avoid false positives: references to 'deal' and 'material' in this memo are purely descriptive and not indicators of undisclosed factual changes.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "'deal'",
+      "reason": "Descriptive term; false-positive bait not MNPI"
+    },
+    {
+      "matched_text": "'material'",
+      "reason": "Descriptive term; false-positive bait not MNPI"
+    },
+    {
+      "matched_text": "spa-day bait",
+      "reason": "Wellness-day bait; not a definitive agreement or MNPI"
+    },
+    {
+      "matched_text": "mae",
+      "reason": "Negated MAC/MAE reference; not to be labeled"
+    },
+    {
+      "matched_text": "'\u516c\u958b\u8cb7\u4ed8\u3051'",
+      "reason": "Negated tender-offer mention; not advancing undisclosed facts"
+    },
+    {
+      "matched_text": "'\u00a5x'",
+      "reason": "Placeholder; not a numeric monetary amount"
+    },
+    {
+      "matched_text": "'tbd'",
+      "reason": "Placeholder; not MNPI"
+    },
+    {
+      "matched_text": "2026-07-15",
+      "reason": "Spa-day bait; unrelated and not material"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "definitive agreement signing status",
+      "matched_text": "execution copy signed",
+      "reason": "Signing may be a material event under FIEA but detection typically keys off named agreements"
+    },
+    {
+      "concept": "nonpublic marker",
+      "matched_text": "internal note",
+      "reason": "Generic internal label indicates non-public status but coverage may be implementation-specific"
+    },
+    {
+      "concept": "jp_my_number format reference",
+      "matched_text": "12-digit code",
+      "reason": "Could refer to My Number but not explicitly identified; ambiguous without explicit anchor"
+    }
+  ]
+}

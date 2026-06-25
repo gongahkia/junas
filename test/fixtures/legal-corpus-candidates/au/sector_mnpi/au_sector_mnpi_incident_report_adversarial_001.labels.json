@@ -1,0 +1,392 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_sector_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Kandel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Harris Weldon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "priya.k@coral-bay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "harris.w@coral-bay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "response@coral-bay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical clearance dates",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sig=cyb%2F0O19",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "svc\u2011yarr0w",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cyb\u2011419",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IL\u20112026\u20110614.csv",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011room storage",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed exchange listing window in Q3",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CoralX Token OTC pilot",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CoralX crypto\u2011wallet pilot sandbox",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project CoralX",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$62/MWh",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$57/MWh",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.2",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "leakage would be price\u2011sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorised access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG telemetry staging bucket",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG telemetry verification",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "green bond KPI",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "green bond coupon step\u2011down",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss with brokers outside the clean team",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "vendors briefed only under NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this draft is not public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for external distribution",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending continuous disclosure assessment",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.248.1 3 .47",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.k@coral-bay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "harris.w@coral-bay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "response@coral-bay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.248.1 3 .47",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Kandel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Harris Weldon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project CoralX",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.2",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Kandel (Chief Information Officer), priya.k@coral-bay.example; reviewed by Mr. Harris Weldon (Acting CISO), harris.w@coral-bay.example.\nSummary: overnight we detected unauthorised access via YarrowCloud Pty Ltd API to our ESG telemetry staging bucket and the CoralX crypto\u2011wallet pilot sandbox.\nAffected data: 412 contractor onboarding files (medical clearance dates, emergency contacts), 37 test wallet address mappings, and two credit assessment notes for small\u2011business solar clients; no government ID numbers stored.\nMateriality/MNPI: pending continuous disclosure assessment under Corporations Act s674 and Listing Rule 3.1 equivalents; recommend immediate company\u2011wide trading blackout and creation of an insider list.\nInsider list: add Board, Security Ops, and Deal Team Kelp (solar PPA renegotiation with HarbourLite Renewables) under information\u2011barrier protocols; names recorded in IL\u20112026\u20110614.csv.\nCrypto/DPT: CoralX Token OTC pilot and proposed exchange listing window in Q3 may be deferred; leakage would be price\u2011sensitive; do not discuss with brokers outside the clean team.\nCommercial terms: draft PPA amendment contemplates $62/MWh floor with step\u2011down to $57/MWh on green bond KPI; this draft is not public and remains subject to board sign\u2011off.\nEducation/marketing: our public blog post \u201cWhat is an information barrier?\u201d reuses generic policy text and sample insider list screenshots for training only; no live project content.\nNegative ops\u2011only: the demo \u201cTipping Alerts\u201d product page mentions tipping and blackout windows in a purely educational way and does not reveal any deal\u2011stage information.\nForensics: logs show token \u2018svc\u2011yarr0w\u2019 used from 10.248.1 3 .47 at 01:12 AEST; data egress 14.2MB; internal ref c 1 i \u2014 0087 5; asset link https://intra.coral-bay.example/esg/site/KALB\u20113?sig=cyb%2F0O19; A C C T : 7 3 1 \u2011 x x 9.\nContainment: peering link to YarrowCloud isolated, break\u2011glass creds rotated, malware scan clean on prod; this does not constitute a material adverse change under clause 12.4 of the draft PPA.\nDisclosure plan: prepare s674 notice template for the exchange if prod access confirmed; notify the privacy regulator and affected staff consistent with the Privacy Act.\nSelective disclosure controls: vendors briefed only under NDA; maintain clean\u2011room storage for Project CoralX capital raise pack; avoid ad hoc briefings that could be construed as tipping.\nFinance impact (internal): prelim estimate $1.2\u20131.8m remediation; potential delay of green bond coupon step\u2011down if ESG telemetry verification misses Q3 window; not for external distribution.\nnext steps (ops\u2011only): daily standup 09:30 aedt; taskforge ticket cyb\u2011419 opened per standard incident playbook; contains generic policy text.\nContact: Mr. Harris Weldon, Acting CISO, harris.w@coral-bay.example; incident desk: response@coral-bay.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Coral Bay Energy Ltd \u2014 Confidential Incident Report (AU) 14 Jun 2026 08:45 AEST\nPrepared by Ms. Priya Kandel (Chief Information Officer), priya.k@coral-bay.example; reviewed by Mr. Harris Weldon (Acting CISO), harris.w@coral-bay.example.\nSummary: overnight we detected unauthorised access via YarrowCloud Pty Ltd API to our ESG telemetry staging bucket and the CoralX crypto\u2011wallet pilot sandbox.\nAffected data: 412 contractor onboarding files (medical clearance dates, emergency contacts), 37 test wallet address mappings, and two credit assessment notes for small\u2011business solar clients; no government ID numbers stored.\nMateriality/MNPI: pending continuous disclosure assessment under Corporations Act s674 and Listing Rule 3.1 equivalents; recommend immediate company\u2011wide trading blackout and creation of an insider list.\nInsider list: add Board, Security Ops, and Deal Team Kelp (solar PPA renegotiation with HarbourLite Renewables) under information\u2011barrier protocols; names recorded in IL\u20112026\u20110614.csv.\nCrypto/DPT: CoralX Token OTC pilot and proposed exchange listing window in Q3 may be deferred; leakage would be price\u2011sensitive; do not discuss with brokers outside the clean team.\nCommercial terms: draft PPA amendment contemplates $62/MWh floor with step\u2011down to $57/MWh on green bond KPI; this draft is not public and remains subject to board sign\u2011off.\nEducation/marketing: our public blog post \u201cWhat is an information barrier?\u201d reuses generic policy text and sample insider list screenshots for training only; no live project content.\nNegative ops\u2011only: the demo \u201cTipping Alerts\u201d product page mentions tipping and blackout windows in a purely educational way and does not reveal any deal\u2011stage information.\nForensics: logs show token \u2018svc\u2011yarr0w\u2019 used from 10.248.1 3 .47 at 01:12 AEST; data egress 14.2MB; internal ref c 1 i \u2014 0087 5; asset link https://intra.coral-bay.example/esg/site/KALB\u20113?sig=cyb%2F0O19; A C C T : 7 3 1 \u2011 x x 9.\nContainment: peering link to YarrowCloud isolated, break\u2011glass creds rotated, malware scan clean on prod; this does not constitute a material adverse change under clause 12.4 of the draft PPA.\nDisclosure plan: prepare s674 notice template for the exchange if prod access confirmed; notify the privacy regulator and affected staff consistent with the Privacy Act.\nSelective disclosure controls: vendors briefed only under NDA; maintain clean\u2011room storage for Project CoralX capital raise pack; avoid ad hoc briefings that could be construed as tipping.\nFinance impact (internal): prelim estimate $1.2\u20131.8m remediation; potential delay of green bond coupon step\u2011down if ESG telemetry verification misses Q3 window; not for external distribution.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cWhat is an information barrier?\u201d",
+      "reason": "Educational/marketing example; not live MNPI content."
+    },
+    {
+      "matched_text": "\u201cTipping Alerts\u201d",
+      "reason": "Demo product page mention; not live MNPI."
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Educational context only; not an actual blackout instruction."
+    },
+    {
+      "matched_text": "sample insider list screenshots",
+      "reason": "Training materials; not a live insider list."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "ip_address",
+      "matched_text": "10.248.1 3 .47",
+      "reason": "Looks like an internal IP but contains spaces; may not match strict IP patterns."
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "A C C T : 7 3 1 \u2011 x x 9",
+      "reason": "Appears to be a masked account reference; spacing/masking makes type ambiguous."
+    },
+    {
+      "concept": "internal_reference_id",
+      "matched_text": "internal ref c 1 i \u2014 0087 5",
+      "reason": "Internal reference identifier with spaces/dash; unclear if it fits any allowed ID rule."
+    }
+  ]
+}

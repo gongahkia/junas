@@ -1,0 +1,416 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_direct_identifiers_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+91-78609-44321",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-80970-11223",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "N5930241",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal of consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27KFLTA1234Q1Z2",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavya Dhandekar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Bhise",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nilesh Vardikar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data room access is restricted; documents labeled \u201cRevenue Guidance 2026\u201d and \u201cCustomer Rate Cards\u201d must not be forwarded beyond compliance@kalyanfaiz.in without approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "411234",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234 5678 9101",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@kalyanfaiz.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@kalyanfaiz.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABCTY1234Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234 5678 9101",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "024561234567",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Ishan Morpankar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "16",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "kfl.ap@nirbank",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not collect Aadhaar for employees unless necessary and consented",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retain only what is essential",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internship applicants under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Ishan Morpankar, 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information (UPSI)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window remains closed 20\u201330 Jun",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI access register",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data room access is restricted",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be forwarded beyond compliance@kalyanfaiz.in without approval",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid circulating price-sensitive decks to \u201cAll Staff\u201d",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until the BNX filing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated insiders",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+91-78609-44321",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-80970-11223",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "N5930241",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal of consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27KFLTA1234Q1Z2",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavya Dhandekar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Bhise",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nilesh Vardikar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data room access is restricted; documents labeled \u201cRevenue Guidance 2026\u201d and \u201cCustomer Rate Cards\u201d must not be forwarded beyond compliance@kalyanfaiz.in without approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "411234",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "r the Indian securities regulator\u2019s Prohibition of Insider Trading framework (ISLA PIT), draft Q4 results and the Ridgeway Polymers Pvt Ltd term sheet are unpublished price-sensitive information (UPSI) until the BNX filing.\nThe trading window remains closed 20\u201330 Jun; designated insiders including Ms. Kavya Dhandekar (Company Secretary) and Mr. Rohan Bhise (CFO; Passport N5930241) have acknowledged pre-clearance obligations.\nData room access is restricted; documents labeled \u201cRevenue Guidance 2026\u201d and \u201cCustomer Rate Cards\u201d must not be forwarded beyond compliance@kalyanfaiz.in without approval.\nVendor KYC: Kalyanfaiz Industries Limited GSTIN 27KFLTA1234Q1Z2; Registered Office: Plot 23, Vidyut Marg, Shantipura, Pune, Maharashtra 411234; phone +91-78609-44321.\nAccounts payable details for disclosure: Nirmal Cooperative Bank, IFSC NIRL0004567, Account No. 024561234567; UPI ID kfl.ap@nirbank (for vendor payments only).\nDo not collect Aadhaar for employees unless necessary and consented; note that \u201cAadhaar 1234 5678 9101\u201d submitted by a contractor failed checksum verification and must be redacted from files.\nChild data: internship applicants under 18 (e.g., Master Ishan Morpankar, 16) require verifiable parental consent before processing; maintain consent artefacts in line with DPDPA.\nRoutine helplines such as 112, 1098, or a generic 1800-000-0000 toll-free number are not company contacts and should not be stored in the stakeholder directory.\nFor individual contractors, collect PAN and phone only after consent; sample form fields \u201cName: __________\u201d, \u201cPAN: __________\u201d, \u201cEmail: __________\u201d in draft templates are placeholders and not live data.\nA PAN recorded as ABCTY1234Z on an invoice appears inconsistent with the proprietor\u2019s records; obtain the corrected PAN directly via the secure portal before onboarding.\nPre-clearance exceptions: role-only designees (the CFO, the Head of Strategy) remain on the restricted list even if unnamed in email threads; avoid circulating price-sensitive decks to \u201cAll Staff\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "112",
+      "reason": "Public helpline number; not company or individual PII"
+    },
+    {
+      "matched_text": "1098",
+      "reason": "Public helpline number; not company or individual PII"
+    },
+    {
+      "matched_text": "1800-000-0000",
+      "reason": "Generic placeholder helpline; not real PII"
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun/defined term, not a personal identifier"
+    },
+    {
+      "matched_text": "the CFO",
+      "reason": "Role noun; not a personal identifier"
+    },
+    {
+      "matched_text": "the Head of Strategy",
+      "reason": "Role noun; not a personal identifier"
+    },
+    {
+      "matched_text": "All Staff",
+      "reason": "Distribution list/role term; not PII"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role title; not PII by itself"
+    },
+    {
+      "matched_text": "Name: __________",
+      "reason": "Placeholder field label; not live data"
+    },
+    {
+      "matched_text": "PAN: __________",
+      "reason": "Placeholder field label; not live data"
+    },
+    {
+      "matched_text": "Email: __________",
+      "reason": "Placeholder field label; not live data"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "Indian corporate identification number (CIN)",
+      "matched_text": "CIN U29309MH2016PLC045672",
+      "reason": "Organisation identifier likely sensitive in compliance but no allowed rule exists for CIN"
+    },
+    {
+      "concept": "Bank routing code (IFSC)",
+      "matched_text": "IFSC NIRL0004567",
+      "reason": "Financial routing identifier; not covered by allowed PII/MNPI rules"
+    },
+    {
+      "concept": "Erasure/redaction control",
+      "matched_text": "must be redacted from files",
+      "reason": "Privacy remediation instruction relevant to compliance but no explicit erasure/redaction rule in allowed set"
+    }
+  ]
+}

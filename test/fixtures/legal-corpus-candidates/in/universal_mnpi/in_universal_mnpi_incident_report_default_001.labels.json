@@ -1,0 +1,382 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12.5 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12.5 crore'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_universal_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "consent@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.menon@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dev.malik@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-9900001111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Radhika Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dev Malik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This incident intersects with the definitive agreement with Heliotrope Cyber Pvt Ltd under codename Project Banyan, countersigned on 03-06-2026, with closing contingent on customary conditions and exchange review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations draft script adjusts Q1 EBITDA guidance by approximately 2% to incorporate one-time remediation costs; not for external circulation until the embargo time above.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished Price Sensitive Information (UPSI)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 14-06-2026 08:30 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until disclosure at 14-06-2026 08:30 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SEBI PIT insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "black-out period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for external circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI handling log",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27 minor scholarship applicants",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27 minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-093-221",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No financial account numbers were retained",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "consent@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.menon@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dev.malik@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-9900001111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Radhika Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dev Malik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This incident intersects with the definitive agreement with Heliotrope Cyber Pvt Ltd under codename Project Banyan, countersigned on 03-06-2026, with closing contingent on customary conditions and exchange review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations draft script adjusts Q1 EBITDA guidance by approximately 2% to incorporate one-time remediation costs; not for external circulation until the embargo time above.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished Price Sensitive Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 Unpublished Price Sensitive Information (UPSI) \u2014 Varanix Infoworks Limited (CIN: L12345MH2020PLC000999), listed on NSE/BSE.\nBoard memo: Cyber incident at Varanix Infoworks \u2014 Project Banyan; embargo until 14-06-2026 08:30 IST pending NSE/BSE disclosure.\nOn 11-06-2026 22:10 IST, our SOC detected anomalous API calls at subsidiary Nimbex Digital Services Pvt Ltd affecting the customer support portal.\nPotentially accessed fields include names, work emails, masked PAN and vendor GSTIN references, and hashed Aadhaar tokens of 27 minor scholarship applicants (child under DPDPA defined as under 18); no biometrics or passwords were exposed.\nCurrent scope estimate: 3.8% of active user profiles and 0.9% system downtime; remediation and forensics budgeted at INR 12.5 crore, with possible contract penalties capped at 5% of monthly billings.\nRegulatory path: CERT-In notification within 6 hours completed; SEBI LODR Reg 30 draft disclosure circulated; SEBI PIT insider list updated in the UPSI handling log VIL-UPSI-2026-0611.\nThis incident intersects with the definitive agreement with Heliotrope Cyber Pvt Ltd under codename Project Banyan, countersigned on 03-06-2026, with closing contingent on customary conditions and exchange review.\nMAC/MAE language: no material adverse change shall be deemed to have occurred due to industry-wide cyber events; the parties agree that general economic or market conditions will not trigger a MAC.\nInvestor-relations draft script adjusts Q1 EBITDA guidance by approximately 2% to incorporate one-time remediation costs; not for external circulation until the embargo time above.\nPublic-source reference: as per Aranya Labs\u2019 publicly available 2023 sector note, similar API key misuse patterns have been observed, but the note does not disclose our systems or any UPSI.\nDPDPA compliance: consent logs are intact; parental consent for the 27 minors was collected via consent@varanix.in; data principals will receive notices and access to a toll-free line 1800-093-221 and dpo@varanix.in.\nTrading controls: until disclosure at 14-06-2026 08:30 IST, employees on the insider list must not trade in Varanix securities under SEBI (Prohibition of Insider Trading) Regulations, 2015; black-out period remains in force.\nNo financial account numbers were retained on the affected system, and no payments or UPI credentials are stored in the support portal database.\nnext steps: patch rollout tonight, rotate tokens, finalize ir faq, send board sign-off, run vendor checklist, file stock exchange intimation by eod.\nThe cafeteria refurbishment and Friday spa-day vouchers from HR are unrelated to this memo and can proceed without board action.\nContacts: Ms. Radhika Menon, Company Secretary, +91-9900001111, r.menon@varanix.in; Mr. Dev Malik, CISO, dev.malik@varanix.in; investor queries: ir@varanix.in.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "False-positive HR bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC language; excluded by rule 8."
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC usage; do not label per rule 8."
+    },
+    {
+      "matched_text": "MAE",
+      "reason": "Context is MAC/MAE language heading; not a positive MAC/MAE trigger."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "UPSI log identifier",
+      "matched_text": "VIL-UPSI-2026-0611",
+      "reason": "Internal compliance tracking code; may be sensitive MNPI but not mapped to a listed rule."
+    },
+    {
+      "concept": "Corporate Identification Number (CIN)",
+      "matched_text": "CIN: L12345MH2020PLC000999",
+      "reason": "Corporate ID, not in allowed PII list and not personal data; borderline relevance."
+    },
+    {
+      "concept": "Payment identifier",
+      "matched_text": "UPI credentials",
+      "reason": "UPI is a payments ID; not covered by current PII rules but can be sensitive."
+    },
+    {
+      "concept": "Pseudonymised Aadhaar reference",
+      "matched_text": "hashed Aadhaar tokens",
+      "reason": "Mentions Aadhaar without numbers; relevance to in_aadhaar detection may be keyword-only."
+    },
+    {
+      "concept": "Masked PAN reference",
+      "matched_text": "masked PAN",
+      "reason": "Mentions PAN without numbers; might be considered but relies on keyword detection."
+    },
+    {
+      "concept": "Generic PII category mention",
+      "matched_text": "work emails",
+      "reason": "Refers to email data category without specific addresses; legally relevant but outside strict value rules."
+    }
+  ]
+}

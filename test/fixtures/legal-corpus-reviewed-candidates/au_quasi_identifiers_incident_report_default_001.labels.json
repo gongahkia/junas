@@ -1,0 +1,356 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_quasi_identifiers_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/quasi_identifiers/au_quasi_identifiers_incident_report_default_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_quasi_identifiers_incident_report_default_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms Eliza Brann",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 27/04/1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WT-EMP-04431",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ebrann@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "governance@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 05/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WTL-LPT-02217",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SID-20260522-0xAE12",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "salary account ending 7714",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Birth year 1978",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TEMP-LPT-004",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The affected account belongs to Ms Eliza Brann (Team Lead, Payroll), DOB 27/04/1990, employee ID WT-EMP-04431, work email ebrann@wattletech.example, signing in from suburb Karrabee NSW via device WTL-LPT-02217, session SID-20260522-0xAE12",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 05/1985, suburb Dunlora VIC, casual role",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Birth year 1978; South Werrin QLD",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "male, 45, regional WA, shift supervisor",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sick leave certificate",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026 Scope 2 targets not yet generally available",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading halt request to AEX",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "20260522-0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LPT-004",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27/04/1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms Brann",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The same session touched a draft revenue and emissions-intensity guidance pack marked \u201cAEX LR3.1 \u2013 embargoed,\u201d including preliminary Q4 EBITDA ranges and 2026 Scope 2 targets not yet generally available (potential MNPI).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Board Risk Committee considered whether the embargoed guidance warrants a trading halt request to AEX; we have prepared a confidential pre\u2011lodgement with the securities regulator through our company secretary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ebrann@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "governance@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@wattletech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "20260522-0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WT-EMP-04431",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LPT-004",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27/04/1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms Eliza Brann",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms Brann",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The same session touched a draft revenue and emissions-intensity guidance pack marked \u201cAEX LR3.1 \u2013 embargoed,\u201d including preliminary Q4 EBITDA ranges and 2026 Scope 2 targets not yet generally available (potential MNPI).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Board Risk Committee considered whether the embargoed guidance warrants a trading halt request to AEX; we have prepared a confidential pre\u2011lodgement with the securities regulator through our company secretary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms Eliza Brann (Team Lead, Payroll), DOB 27/04/1990, employee ID WT-EMP-04431, work email ebrann@wattletech.example, signing in from suburb Karrabee NSW via device WTL-LPT-02217, session SID-20260522-0xAE12.\nLogs show access to a sick leave certificate PDF for Ms Brann\u2019s direct report and a payroll export listing masked bank details (salary account ending 7714) and Tax File Number fields redacted; health and credit-related metadata may be encompassed by the Privacy Act.\nThe same session touched a draft revenue and emissions-intensity guidance pack marked \u201cAEX LR3.1 \u2013 embargoed,\u201d including preliminary Q4 EBITDA ranges and 2026 Scope 2 targets not yet generally available (potential MNPI).\nWe also identified a separate artefact containing the string \u201cDOB 05/1985, suburb Dunlora VIC, casual role,\u201d with no name, account, or device linkage; on its own this generic demographic fragment is not reasonably identifiable.\nNo customer card PANs were present; vendor invoices and the carbon offset procurement schedule were accessed but contained only masked ABN placeholders and settlement dates without full counterparty identifiers.\nA transient storage bucket (wtl-cred-stage-1) hosted scanned credit application forms; one image bore the line \u201cBirth year 1978; South Werrin QLD,\u201d without any name or contact details, which remains a weak identifier in isolation.\nFor completeness, a contractor profile showed \u201cmale, 45, regional WA, shift supervisor,\u201d with login alias contractor.temp and device TEMP-LPT-004, but the alias is not linked to a real identity in our HRIS.\nTo reduce harm, we disabled Ms Brann\u2019s credentials, quarantined WTL-LPT-02217, rotated service tokens, and commenced notification planning consistent with the Notifiable Data Breaches scheme.\nThe Board Risk Committee considered whether the embargoed guidance warrants a trading halt request to AEX; we have prepared a confidential pre\u2011lodgement with the securities regulator through our company secretary.\nWhile media interest is anticipated, routine staff wellness survey data and anonymised safety observations were not impacted, and no home addresses or Medicare numbers are stored in the affected systems.\nStaff are reminded not to forward pay slips or medical certificates to personal accounts; training queries may be sent to governance@wattletech.example.\nFor any investor relations questions, contact ir@wattletech.example; general incident queries can be directed to incidentdesk@wattletech.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The affected account belongs to Ms Eliza Brann (Team Lead, Payroll), DOB 27/04/1990, employee ID WT-EMP-04431, work email ebrann@wattletech.example, signing in from suburb Karrabee NSW via device WTL-LPT-02217, session SID-20260522-0xAE12.\nLogs show access to a sick leave certificate PDF for Ms Brann\u2019s direct report and a payroll export listing masked bank details (salary account ending 7714) and Tax File Number fields redacted; health and credit-related metadata may be encompassed by the Privacy Act.\nThe same session touched a draft revenue and emissions-intensity guidance pack marked \u201cAEX LR3.1 \u2013 embargoed,\u201d including preliminary Q4 EBITDA ranges and 2026 Scope 2 targets not yet generally available (potential MNPI).\nWe also identified a separate artefact containing the string \u201cDOB 05/1985, suburb Dunlora VIC, casual role,\u201d with no name, account, or device linkage; on its own this generic demographic fragment is not reasonably identifiable.\nNo customer card PANs were present; vendor invoices and the carbon offset procurement schedule were accessed but contained only masked ABN placeholders and settlement dates without full counterparty identifiers.\nA transient storage bucket (wtl-cred-stage-1) hosted scanned credit application forms; one image bore the line \u201cBirth year 1978; South Werrin QLD,\u201d without any name or contact details, which remains a weak identifier in isolation.\nFor completeness, a contractor profile showed \u201cmale, 45, regional WA, shift supervisor,\u201d with login alias contractor.temp and device TEMP-LPT-004, but the alias is not linked to a real identity in our HRIS.\nTo reduce harm, we disabled Ms Brann\u2019s credentials, quarantined WTL-LPT-02217, rotated service tokens, and commenced notification planning consistent with the Notifiable Data Breaches scheme.\nThe Board Risk Committee considered whether the embargoed guidance warrants a trading halt request to AEX; we have prepared a confidential pre\u2011lodgement with the securities regulator through our company secretary.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "male",
+      "reason": "Generic demographic descriptor not identifying on its own"
+    },
+    {
+      "matched_text": "casual role",
+      "reason": "Generic employment descriptor not identifying on its own"
+    },
+    {
+      "matched_text": "regional WA",
+      "reason": "Broad location reference not identifying on its own"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "au_tfn",
+      "matched_text": "Tax File Number",
+      "reason": "Mentions TFN fields redacted without any number; sensitive concept but no numeric ID span present"
+    },
+    {
+      "concept": "username",
+      "matched_text": "contractor.temp",
+      "reason": "Login alias may identify an individual internally but no explicit rule category for usernames and not linked to a real identity here"
+    },
+    {
+      "concept": "system identifier",
+      "matched_text": "wtl-cred-stage-1",
+      "reason": "Internal bucket name could be a system/resource identifier but not mapped to a defined PII category"
+    },
+    {
+      "concept": "nonpublic regulatory engagement",
+      "matched_text": "confidential pre\u2011lodgement",
+      "reason": "Implies confidential handling of potentially market-sensitive information but not a defined MNPI marker in strict rules"
+    },
+    {
+      "concept": "listing rule reference",
+      "matched_text": "AEX LR3.1",
+      "reason": "Regulatory rule label tied to embargoed guidance; contextually relevant to MNPI but not itself an MNPI token"
+    }
+  ]
+}

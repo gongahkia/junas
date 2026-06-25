@@ -1,0 +1,364 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 29,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 12,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al\u2011Hamdan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-04-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 33",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "k.alhamdan@rimhorizon.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SID-ABDX-7732",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.45",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IMEI-FIC-90210",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-TEST-91A4-ABU-0417",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HRP-RH-2291",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-RH-100234-AD",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidents@rimhorizon.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-600-555-021",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "198.51.100.31",
+      "rule": "ip_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "none of which has been disclosed to the market",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "onward sharing may constitute market abuse",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RH-LAP-0417",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rhamdan_uae",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al\u2011Hamdan (Incident Response Analyst, Rimal Horizon Energy PJSC, Abu Dhabi HQ), DOB 1991-04-17 (age 33), work email k.alhamdan@rimhorizon.ae, VPN account rhamdan_uae with session SID-ABDX-7732, accessing via corporate laptop RH-LAP-0417, public IP 203.0.113.45, mobile IMEI IMEI-FIC-90210",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prospective ADX listing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a credential-phishing event led to unauthorized access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal revenue guidance for Q3 FY2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.9\u20135.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "this report avoids full Emirates ID numbers and bank IBANs by design",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The draft term sheet for Rimal Horizon Energy PJSC and internal revenue guidance for Q3 FY2026 remain non-public; onward sharing may constitute market abuse under SCA and exchange rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "k.alhamdan@rimhorizon.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidents@rimhorizon.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "k.alhamdan@rimhorizon.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-600-555-021",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-04-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al\u2011Hamdan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The draft term sheet for Rimal Horizon Energy PJSC and internal revenue guidance for Q3 FY2026 remain non-public; onward sharing may constitute market abuse under SCA and exchange rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al\u2011Hamdan (Incident Response Analyst, Rimal Horizon Energy PJSC, Abu Dhabi HQ), DOB 1991-04-17 (age 33), work email k.alhamdan@rimhorizon.ae, VPN account rhamdan_uae with session SID-ABDX-7732, accessing via corporate laptop RH-LAP-0417, public IP 203.0.113.45, mobile IMEI IMEI-FIC-90210.\nLog artifacts referencing his profile included Emirates ID ref EID-TEST-91A4-ABU-0417, internal HR card HRP-RH-2291, payroll ledger LA-ESG-00987, and event index i-ADX-124; trade licence for the issuer appears as TL-RH-100234-AD (masked).\nAccess was initiated from the Abu Dhabi HQ and during a brief visit to the Dubai project office; AuthAxis event AX-AD-55772 and NetSentra alert NS-ABU-441 correlate with the same session",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential incident report prepared for Rimal Horizon Energy PJSC Board Risk Committee; jurisdiction: UAE PDPL, SCA, ADX, ADGM/DIFC coordination in scope.\nOn 2026-05-29, a credential-phishing event led to unauthorized access to a limited HR metadata index and a deal subfolder within the sustainability-linked sukuk VDR for a prospective ADX listing; the information is non-public and market-sensitive.\nThe exposed deal notes included draft coupon range 4.9\u20135.2%, an indicative Q4 window, and preliminary underwriter shortlists (Falaj Securities LLC; Pearl Dunes Capital Ltd.), none of which has been disclosed to the market.\nMr. Kareem Al\u2011Hamdan (Incident Response Analyst, Rimal Horizon Energy PJSC, Abu Dhabi HQ), DOB 1991-04-17 (age 33), work email k.alhamdan@rimhorizon.ae, VPN account rhamdan_uae with session SID-ABDX-7732, accessing via corporate laptop RH-LAP-0417, public IP 203.0.113.45, mobile IMEI IMEI-FIC-90210.\nLog artifacts referencing his profile included Emirates ID ref EID-TEST-91A4-ABU-0417, internal HR card HRP-RH-2291, payroll ledger LA-ESG-00987, and event index i-ADX-124; trade licence for the issuer appears as TL-RH-100234-AD (masked).\nAccess was initiated from the Abu Dhabi HQ and during a brief visit to the Dubai project office; AuthAxis event AX-AD-55772 and NetSentra alert NS-ABU-441 correlate with the same session.\nSeparately, a log line reads \"male, early 40s, warehouse foreman in Fujairah, smartphone model A12, alias foreman_02\" with no names or linkable IDs; standing alone, such descriptors should not identify a natural person.\nNo scanned Emirates ID images or passport pages were exfiltrated; a family-origin field in an HR form (\"Ras Al Qamar lineage\") was toggled during access but the value did not leave the system.\nPearl Gate Capital Limited (DIFC Branch) was notified as transaction advisor; SCA Market Surveillance has been pre-briefed, and an ADGM FSRA courtesy notice was logged due to ADGM-hosted data room infrastructure.\nESG registers and emissions baselines were unaffected; however, CSR sub-ledger CSR-ACCT-774 recorded a failed login from 198.51.100.31 which appears unrelated and is being tracked separately.\nContact: incidents@rimhorizon.ae or +971-600-555-021 (Incident Desk at Sand Dhow Response FZ-LLC, retained cyber advisor).\nUnder UAE PDPL, the weak identifiers above form PD under certain combinations; this report avoids full Emirates ID numbers and bank IBANs by design.\nThe draft term sheet for Rimal Horizon Energy PJSC and internal revenue guidance for Q3 FY2026 remain non-public; onward sharing may constitute market abuse under SCA and exchange rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "male",
+      "reason": "Standalone weak descriptor; not identifying on its own"
+    },
+    {
+      "matched_text": "early 40s",
+      "reason": "Generic age band not identifying on its own"
+    },
+    {
+      "matched_text": "warehouse foreman in Fujairah",
+      "reason": "Generic role and location without linkable IDs"
+    },
+    {
+      "matched_text": "alias foreman_02",
+      "reason": "Unlinked handle; not identifying without linkage"
+    },
+    {
+      "matched_text": "analyst, 30s, Dubai",
+      "reason": "Generic phrase; insufficient to identify a person"
+    },
+    {
+      "matched_text": "Sharjah",
+      "reason": "Standalone city name; not PII"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ethnic_origin_indicator",
+      "matched_text": "Ras Al Qamar lineage",
+      "reason": "Sensitive family/ethnic origin field relevant under PDPL special categories but not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "internal_system_event_id",
+      "matched_text": "AX-AD-55772",
+      "reason": "Potentially a trackable internal event ID; not clearly mapped to internal_session_id rule"
+    },
+    {
+      "concept": "internal_alert_id",
+      "matched_text": "NS-ABU-441",
+      "reason": "Alert identifier may indirectly identify a user/session; not clearly covered by listed rules"
+    },
+    {
+      "concept": "internal_account_reference",
+      "matched_text": "CSR-ACCT-774",
+      "reason": "Ledger/account-like reference; may be linkable but not clearly covered by allowed categories"
+    },
+    {
+      "concept": "payroll_ledger_id",
+      "matched_text": "LA-ESG-00987",
+      "reason": "Payroll ledger reference may be linkable yet no exact rule match provided"
+    },
+    {
+      "concept": "internal_event_index",
+      "matched_text": "i-ADX-124",
+      "reason": "Internal index that could link to an event/user; not clearly covered by allowed rules"
+    },
+    {
+      "concept": "device_asset_tag",
+      "matched_text": "RH-LAP-0417",
+      "reason": "Asset tag functions like a device identifier but may not be a true serial number as per rule intent"
+    },
+    {
+      "concept": "account_username",
+      "matched_text": "rhamdan_uae",
+      "reason": "Login username is identifying but not explicitly mapped to a listed PII rule"
+    },
+    {
+      "concept": "project_label",
+      "matched_text": "ADX-RH-GREEN-2026",
+      "reason": "Internal project label might act like a codename but does not match the 'Project <Name>' pattern"
+    },
+    {
+      "concept": "issuer_internal_code",
+      "matched_text": "RHEN",
+      "reason": "Internal issuer code could be sensitive in context but not mapped to any allowed rule"
+    }
+  ]
+}

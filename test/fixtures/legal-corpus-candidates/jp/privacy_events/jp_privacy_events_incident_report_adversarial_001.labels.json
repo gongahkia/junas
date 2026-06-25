@@ -1,0 +1,343 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "drop must_detect: invalid rule 'erasure' text='Erasure:'",
+        "drop must_detect: invalid rule 'retention' text='retention schedule RS-JP-HR-04'",
+        "drop must_detect: invalid rule 'retention' text='retention countdown set to 3 years'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
+        "drop ideal_must_detect: invalid rule 'retention' text='retention schedule RS-JP-HR-04'",
+        "drop ideal_must_detect: invalid rule 'retention' text='retention countdown set to 3 years'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "mori.d@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ivacy@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "takagi.h@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+81-00-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daisuke Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Keiko Arai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanae Takagi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID KAI-0 3 9 2 - A",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields minimised per APPI Art. 16",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pr ivacy@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this memo is not a public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TOB/acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tender-offer facts",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JP/SG",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "mori.d@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ivacy@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "takagi.h@kawabe-orion.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+81-00-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daisuke Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Keiko Arai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanae Takagi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daisuke Mori (mori.d@kawabe-orion.example); (b) DSAR received via pr ivacy@kawabe-orion.example; both satisfied within statutory period.\nCross-border transfer: one CSV with 17 employee rows sent to SG; fields minimised per APPI Art. 16; masked My Number (\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a) and hashed email were used.\nErasure: per retention schedule RS-JP-HR-04, onboarding scan of resident card for EmpID KAI-0 3 9 2 - A was deleted on 2026-05-31; evidence logged in VaultRef VR-5d:e7.\nControl statement (completed): Local storage of My Number is prohibited by Policy IS-APPI-6.2 and was not present on any endpoint; no MAC addresses or GPS were collected.\nMNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.\nRegulator/exchange context: issuer obligations mapped to Kanto Listing & Trading Board (Prime Seg.) rules; notification thresholds under FIEA Art. 167 reviewed; none triggered.\nRoot cause: export script skipped audit-tagging when filename contained double-byte space; observed as \u201conboard_\u3000sg.csv\u201d.\nRemediation: patch deployed; DPA-Sched-2 Appendix B updated to require checksum and audit-tag; vendor acknowledgment received from Omnispark Pte. Ltd. on 2026-06-01.\nEmployee communication: notice sent to 17 staff; opt-out path provided; one additional consent withdrawal received from Ms. Keiko Arai and executed with confirmation.\nNegative confirmation: no breach of safeguards, no password or bank data processed, and no tender-offer facts disclosed externally; this memo is not a public disclosure.\nContact: Compliance Lead, Ms. Hanae Takagi (takagi.h@kawabe-orion.example); hotline +81-00-0000-0000 ext. 412 (fictional).\njira: ops/privacy backlog triage done; Mori",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy workflows: (a) consent withdrawal received from Mr. Daisuke Mori (mori.d@kawabe-orion.example); (b) DSAR received via pr ivacy@kawabe-orion.example; both satisfied within statutory period.\nCross-border transfer: one CSV with 17 employee rows sent to SG; fields minimised per APPI Art. 16; masked My Number (\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a) and hashed email were used.\nErasure: per retention schedule RS-JP-HR-04, onboarding scan of resident card for EmpID KAI-0 3 9 2 - A was deleted on 2026-05-31; evidence logged in VaultRef VR-5d:e7.\nControl statement (completed): Local storage of My Number is prohibited by Policy IS-APPI-6.2 and was not present on any endpoint; no MAC addresses or GPS were collected.\nMNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated; false-positive bait for device identifiers"
+    },
+    {
+      "matched_text": "GPS",
+      "reason": "Negated; false-positive bait for location data"
+    },
+    {
+      "matched_text": "password",
+      "reason": "Negated; not processed"
+    },
+    {
+      "matched_text": "bank data",
+      "reason": "Negated; not processed"
+    },
+    {
+      "matched_text": "no MNPI exposure under FIEA",
+      "reason": "Negated MNPI; not a live material event or disclosure"
+    },
+    {
+      "matched_text": "no tender-offer facts disclosed externally",
+      "reason": "Negated MNPI; not a live selective disclosure"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "internal_session_id / DSAR marker",
+      "matched_text": "https://export.kawabe-orion.example/req?id=4f2b-8c&dsar=1",
+      "reason": "URL contains an id parameter and DSAR flag; may be identifiers but not covered by allowed rules"
+    },
+    {
+      "concept": "internal_reference_id",
+      "matched_text": "VaultRef VR-5d:e7",
+      "reason": "Appears to be an internal audit/reference ID not mapped to an allowed rule"
+    },
+    {
+      "concept": "resident_card_identifier",
+      "matched_text": "onboarding scan of resident card",
+      "reason": "Implies sensitive ID document processing but no specific allowed rule for JP resident card number"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Mori-san\u2019s DSAR packet",
+      "reason": "DSAR events are privacy-relevant but DSAR is not in the allowed rule list"
+    },
+    {
+      "concept": "cross_border_destination",
+      "matched_text": "Omnispark Analytics Pte. Ltd. (SG)",
+      "reason": "Indicates foreign recipient jurisdiction without an explicit marker phrase"
+    },
+    {
+      "concept": "jp_my_number",
+      "matched_text": "masked My Number (\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a-\uff0a\uff0a\uff0a\uff0a)",
+      "reason": "Masked format may evade strict numeric-pattern detectors though legally relevant"
+    }
+  ]
+}

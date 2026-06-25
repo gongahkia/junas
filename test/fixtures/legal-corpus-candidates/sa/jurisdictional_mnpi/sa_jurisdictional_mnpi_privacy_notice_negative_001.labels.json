@@ -1,0 +1,238 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 22,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 14,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "adequacy decision",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Domestic transfers: cybersecurity telemetry and audit logs may be relayed to the Sand Data & AI Authority (SDAA) supervised government cloud through \u201cNadrahNet\u201d connectors; such transfers remain within the Kingdom and follow PDPL transfer controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers occur only with an adequacy decision or a permit and are documented in our transfer registry; standard contractual clauses with processors include onward transfer restrictions and breach notification duties.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: we apply pseudonymisation, encryption at rest and in transit, privileged access management, and quarterly access reviews aligned to national cybersecurity control baselines (v1.0, internal standard).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Complaints: you may contact our DPO office at dpo@rimal-oasis.example.sa; unresolved PDPL complaints can be raised through the Kingdom data authority\u2019s public portal in accordance with applicable guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@rimal-oasis.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@rimal-oasis.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@rimal-oasis.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer blackout windows specified by the national exchange",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be selectively disclosed to analysts or investors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers occur only with an adequacy decision or a permit",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "from quarter-end until our results are publicly posted on the exchange portal",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u201cIqama No.: XX-0000-XX\u201d",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u201cCR: 10XX000\u201d",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u201cSA00-XXXX-000000000000000\u201d",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not require social media handles or unrelated background data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we avoid storing full document images unless legally mandated",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we minimise retention of ID scans; where verification is required, only redacted copies are retained",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced board approvals",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "adequacy decision",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Domestic transfers: cybersecurity telemetry and audit logs may be relayed to the Sand Data & AI Authority (SDAA) supervised government cloud through \u201cNadrahNet\u201d connectors; such transfers remain within the Kingdom and follow PDPL transfer controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers occur only with an adequacy decision or a permit and are documented in our transfer registry; standard contractual clauses with processors include onward transfer restrictions and breach notification duties.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: we apply pseudonymisation, encryption at rest and in transit, privileged access management, and quarterly access reviews aligned to national cybersecurity control baselines (v1.0, internal standard).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Complaints: you may contact our DPO office at dpo@rimal-oasis.example.sa; unresolved PDPL complaints can be raised through the Kingdom data authority\u2019s public portal in accordance with applicable guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "il our results are publicly posted on the exchange portal), any draft financials, revenue trends, or unannounced board approvals constitute MNPI and must not be selectively disclosed to analysts or investors.\nDomestic transfers: cybersecurity telemetry and audit logs may be relayed to the Sand Data & AI Authority (SDAA) supervised government cloud through \u201cNadrahNet\u201d connectors; such transfers remain within the Kingdom and follow PDPL transfer controls.\nCross-border transfers occur only with an adequacy decision or a permit and are documented in our transfer registry; standard contractual clauses with processors include onward transfer restrictions and breach notification duties.\nRetention: investor and supplier records are retained for five Hijri years unless a longer statutory period applies; raw ID scans are deleted within 30 days post-verification, with hash values retained for audit.\nDSAR: to request access, correction, or deletion, contact privacy@rimal-oasis.example.sa or use the self-service portal; we may request a verification token (e.g., last two masked digits \u201cXX00\u201d) and respond within PDPL timelines.\nSecurity: we apply pseudonymisation, encryption at rest and in transit, privileged access management, and quarterly access reviews aligned to national cybersecurity control baselines (v1.0, internal standard).\nWe may process publicly available data (e.g., exchange announcements and commercial registry extracts) for reconciliation; reliance on public sources does not convert public data into MNPI.\nDisclosures: data recipients include custodians, payment processors, and the independent share registrar Palm Registry LLC (fictional), each bound by a data processing agreement prohibiting use beyond our documented instructions.\nComplaints: you may contact our DPO office at dpo@rimal-oasis.example.sa; unresolved PDPL complaints can be raised through the Kingdom data authority\u2019s public portal in accordance with applicable guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "a press release dated 12-09-1444H",
+      "reason": "Publicly announced; explicitly stated as not MNPI"
+    },
+    {
+      "matched_text": "a board composition update filed on 01-02-1445H",
+      "reason": "Public filing; explicitly stated as not MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "investor and supplier records are retained for five Hijri years",
+      "reason": "Retention duration is a privacy control but no dedicated allowed rule for retention in PII list"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "raw ID scans are deleted within 30 days post-verification",
+      "reason": "Erasure/retention policy is relevant but not explicitly covered by allowed PII rules"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR: to request access, correction, or deletion",
+      "reason": "DSAR handling is privacy-relevant, but no explicit DSAR rule in allowed list"
+    },
+    {
+      "concept": "domestic_transfer_marker",
+      "matched_text": "Domestic transfers: cybersecurity telemetry and audit logs may be relayed to the Sand Data & AI Authority (SDAA) supervised government cloud through \u201cNadrahNet\u201d connectors; such transfers remain within the Kingdom",
+      "reason": "Domestic data transfer is relevant compliance-wise but only cross-border transfer is in allowed rules"
+    }
+  ]
+}

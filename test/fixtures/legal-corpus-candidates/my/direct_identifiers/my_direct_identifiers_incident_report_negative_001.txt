@@ -1,0 +1,14 @@
+Nadi Nusantara Berhad (Company No.: 202201234567 (9999999-Z)) — General Announcement pursuant to Main Market Listing Requirements paragraph 9.03 of Bursa Serantau Securities Berhad.
+Subject: Update on attempted cyber intrusion; public follow-up to notice dated 15 April 2026.
+The incident involved a blocked login spray against a non-production file server at Menara Nusantara, No. 88, Jalan Seruling 5, 59099 Kuala Lumpur.
+For avoidance of doubt, operations continue uninterrupted and there is no material financial impact or change to previously disclosed guidance.
+Review of the affected repository indicates only training and test artefacts with generic form labels such as “Name: _______”, “NRIC/Passport: _______”, “Phone: _______”.
+Example placeholder strings observed include “NRIC: 770101-14-000X”, “Account: 123-456-7890123”, and “TIN: 12-3456-78-9012”, all invalid for any data subject.
+One file contained a single MY passport identifier: HZ1234567 in a travel claim template; access logs show viewing but no download and the template did not include a person’s name.
+No payroll files, customer databases, or vendor master with live bank account details were present; “Vendor Bank Acct: 000-000-0000000 (dummy)” was a test string.
+The Company has notified the Board Risk Committee and reported the event to the Market Surveillance unit of Bursa Serantau and to the Suruhanjaya Pasaran Modal Nusantara for record only.
+This announcement does not contain MNPI and is issued to maintain transparency under the company’s Cyber Incident Response SOP and the issuer disclosure policy.
+Contact for queries: securityops@nadinusantara.com.my or the public helpline 1-300-88-4242; do not send personal documents to these channels.
+Internal tracker references like “Employee TIN: XX-XXXX-XX-XXXX”, “Passport No.: [ENTER HERE]”, and “Tel: 03-XXXX XXXX” appear in the logs as blank templates.
+The device names, IPs, and user roles observed (“QA-TEST-12”, “ops_reader”) are internal labels and do not identify individuals.
+Remediation completed: password policy tightened, MFA enforced, and non-production repositories with sample ESG and HR forms have been archived.

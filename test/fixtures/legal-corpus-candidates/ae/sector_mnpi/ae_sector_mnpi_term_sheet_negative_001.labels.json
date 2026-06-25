@@ -1,0 +1,336 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 27,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 21,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_sector_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@greendunes.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@saharvault.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "recent, non-public cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Earn-out may be adjusted",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "in-principle approval for an ADGM MTF token listing",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no Emirates ID copies",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KYC placeholders to use masked formats",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Trade Licence",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBANs",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "This draft excludes any Emirates ID images, passports, or IBANs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "passports",
+      "rule": "ae_passport"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier policy",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout calendars",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping alerts",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ADGM MTF token listing",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Trade Licence status",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-000-ABC-999",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Strategic Acquisition \u2014 Green Dunes Holding PJSC (DFM) to acquire a majority stake in Sahar Vault Digital Ltd (ADGM).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition of 55% of issued share capital; price mechanics to be finalized post diligence; no market-sensitive amounts are included in this draft.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate: The parties will align public ESG/climate disclosures to SCA sustainability guidance; statements limited to website FAQs and investor education content.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: Post-closing board composition and reserved matters to be agreed; no changes to customer pricing or employee terms are announced at this stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "TL-000-ABC-999",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Strategic Acquisition \u2014 Green Dunes Holding PJSC (DFM) to acquire a majority stake in Sahar Vault Digital Ltd (ADGM).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Strategic Acquisition \u2014 Green Dunes Holding PJSC (DFM) to acquire a majority stake in Sahar Vault Digital Ltd (ADGM).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition of 55% of issued share capital; price mechanics to be finalized post diligence; no market-sensitive amounts are included in this draft.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate: The parties will align public ESG/climate disclosures to SCA sustainability guidance; statements limited to website FAQs and investor education content.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: Post-closing board composition and reserved matters to be agreed; no changes to customer pricing or employee terms are announced at this stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Strategic Acquisition \u2014 Green Dunes Holding PJSC (DFM) to acquire a majority stake in Sahar Vault Digital Ltd (ADGM).\nStructure: Acquisition of 55% of issued share capital; price mechanics to be finalized post diligence; no market-sensitive amounts are included in this draft.\nRegulatory: Transaction subject to UAE SCA market-abuse regime, ADGM FSRA approvals, and any DIFC cross-border marketing notices if applicable.\nPDPL/PII: Parties will comply with UAE PDPL; no Emirates ID copies or family-origin data to be shared; KYC placeholders to use masked formats (EID ****-****-****-****; Trade Licence TL-000-ABC-999).\nCrypto business scope: References to \u201ccrypto wallet\u201d and \u201ctoken custody\u201d herein relate to sandbox demo and educational environments used for marketing materials and user onboarding guides.\nESG/climate: The parties will align public ESG/climate disclosures to SCA sustainability guidance; statements limited to website FAQs and investor education content.\nCyber readiness: Target conducts quarterly tabletop cyber incident drills and public webinars on ransomware hygiene; these are operations-only resources and do not describe live incidents.\nInsider-controls: Both parties maintain a generic insider-list template and an information-barrier policy used in staff training; examples exclude live deal names, blackout calendars, or tipping alerts.\nGovernance: Post-closing board composition and reserved matters to be agreed; no changes to customer pricing or employee terms are announced at this stage.\nConditions precedent: FSRA fit-and-proper, SCA acknowledgment, validation of Trade Licence status, and confirmation that no DIFC branch conducts regulated activity without permits.\nPositive MNPI: Buyer diligence notes a recent, non-public cyber incident at Target involving an HSM firmware flaw confined to internal test keys; remediation plan agreed and insurer notified under NDA.\nCommercial terms signal: Earn-out may be adjusted if Target\u2019s affiliate receives, on a non-public basis, in-principle approval for an ADGM MTF token listing; no such approval has been announced.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "a generic insider-list template",
+      "reason": "Training/operational example; not live MNPI"
+    },
+    {
+      "matched_text": "an information-barrier policy",
+      "reason": "Training/operational example; not live MNPI"
+    },
+    {
+      "matched_text": "blackout calendars",
+      "reason": "Examples are explicitly excluded; not a live blackout period"
+    },
+    {
+      "matched_text": "tipping alerts",
+      "reason": "Examples are explicitly excluded; not a live tipping risk"
+    },
+    {
+      "matched_text": "\u201ccrypto wallet\u201d",
+      "reason": "Generic term in educational context; not a wallet address"
+    },
+    {
+      "matched_text": "\u201ctoken custody\u201d",
+      "reason": "Generic term in educational context; not MNPI"
+    },
+    {
+      "matched_text": "EID ****-****-****-****",
+      "reason": "Masked placeholder; not a real Emirates ID"
+    },
+    {
+      "matched_text": "Trade Licence TL-000-ABC-999",
+      "reason": "Placeholder format; not a real trade licence number"
+    },
+    {
+      "matched_text": "IBAN AE00-0000-000000000000",
+      "reason": "Explicitly invalid placeholder; not a real bank account"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Both parties",
+      "reason": "Role noun phrase, not PII/MNPI"
+    },
+    {
+      "matched_text": "The parties",
+      "reason": "Role noun phrase, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "sensitive personal data (ethnic/family origin)",
+      "matched_text": "family-origin data",
+      "reason": "Likely special-category PDPL data but no exact allowed rule in the list"
+    },
+    {
+      "concept": "confidentiality/non-public marker",
+      "matched_text": "under NDA",
+      "reason": "Indicates restricted non-public information but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "communications control / selective disclosure risk",
+      "matched_text": "marketing must not imply completion",
+      "reason": "Compliance instruction relevant to market conduct but not clearly covered by an allowed MNPI rule"
+    }
+  ]
+}

@@ -1,40 +1,177 @@
-name: Aki validation
+name: CI
+
 on:
-  push:
-    branches: [main, master]
   pull_request:
-    branches: [main, master]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: "17 19 * * *"
+
 jobs:
-  rust-validation:
-    name: Rust validation
+  tests:
+    name: Unit tests
     runs-on: ubuntu-latest
-    env:
-      CARGO_TERM_COLOR: always
-      RUST_BACKTRACE: 1
     steps:
       - uses: actions/checkout@v4
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends \
-            pkg-config clang libclang-dev \
-            libtesseract-dev libleptonica-dev tesseract-ocr \
-            ffmpeg \
-            libxcb1-dev \
-            libpipewire-0.3-dev libspa-0.2-dev
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
         with:
-          components: clippy, rustfmt
-      - name: Restore Rust cache
-        uses: Swatinem/rust-cache@v2
-      - name: Check formatting
-        run: cargo fmt --all -- --check
-      - name: Lint with warnings denied
-        run: cargo clippy --all-targets -- -D warnings
-      - name: Build all workspace crates
-        run: cargo build --all
-      - name: Run redaction fixture smoke test
-        run: cargo test -p privacy-core detection::scanner::tests::synthetic_fixture_corpus_recall_is_tracked -- --exact
-      - name: Run full test suite
-        run: cargo test --all
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - run: uv run python -m unittest discover -s test -p "test_*.py"
+
+  docker-smoke:
+    name: Docker smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build runtime image
+        run: docker build -t kaypoh:ci .
+      - name: Start runtime container
+        run: |
+          docker run -d --name kaypoh-ci -p 8010:8000 kaypoh:ci
+      - name: Wait for readiness
+        run: |
+          for i in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:8010/ready | python -c 'import json,sys; raise SystemExit(0 if json.load(sys.stdin).get("ready") is True else 1)'; then
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs kaypoh-ci
+          exit 1
+      - name: Review smoke request
+        run: |
+          curl -fsS http://127.0.0.1:8010/review \
+            -H 'Content-Type: application/json' \
+            --data '{"text":"Email alice@example.com about Project Falcon draft terms.","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"email","review_profile":"strict"}' \
+            | python -c 'import json,sys; data=json.load(sys.stdin); assert "findings" in data and "pii_score" in data and "mnpi_score" in data'
+      - name: Stop runtime container
+        if: always()
+        run: |
+          docker logs kaypoh-ci || true
+          docker rm -f kaypoh-ci || true
+
+  latency-slo:
+    name: Latency SLO
+    runs-on: ubuntu-latest
+    env:
+      KAYPOH_RUN_LATENCY_SLO: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - run: uv run python -m unittest test.benchmarks.test_latency_slo
+      - run: uv run python scripts/check_latency_slo.py --write-report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: latency-slo-reports
+          path: reports/latency_slo_*.json
+          if-no-files-found: warn
+
+  live-latency:
+    name: Live HTTP latency
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - name: Start server
+        run: |
+          mkdir -p reports
+          uv run uvicorn kaypoh.backend.main:app --host 127.0.0.1 --port 8131 > reports/live_latency_uvicorn.log 2>&1 &
+          echo "$!" > reports/live_latency_uvicorn.pid
+      - name: Wait for readiness
+        run: |
+          uv run python - <<'PY'
+          import json
+          import time
+          import urllib.request
+
+          deadline = time.time() + 90
+          while time.time() < deadline:
+              try:
+                  with urllib.request.urlopen("http://127.0.0.1:8131/ready", timeout=2) as response:
+                      payload = json.loads(response.read().decode("utf-8"))
+                  if payload.get("ready") is True:
+                      raise SystemExit(0)
+              except Exception:
+                  pass
+              time.sleep(1)
+          raise SystemExit("server did not become ready")
+          PY
+      - name: Run live latency SLO
+        run: >
+          uv run python scripts/check_latency_slo.py
+          --base-url http://127.0.0.1:8131
+          --fixture test/fixtures/latency-corpus/5k.txt
+          --write-report
+      - name: Stop server
+        if: always()
+        run: |
+          if [ -f reports/live_latency_uvicorn.pid ]; then
+            kill "$(cat reports/live_latency_uvicorn.pid)" || true
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-latency-reports
+          path: |
+            reports/latency_slo_*.json
+            reports/live_latency_uvicorn.log
+          if-no-files-found: warn
+
+  staging-latency:
+    name: Staging deployment latency
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    env:
+      KAYPOH_LATENCY_SLO_BASE_URL: ${{ secrets.KAYPOH_LATENCY_SLO_BASE_URL }}
+      KAYPOH_LATENCY_SLO_API_KEY: ${{ secrets.KAYPOH_LATENCY_SLO_API_KEY }}
+      KAYPOH_LATENCY_SLO_BEARER_TOKEN: ${{ secrets.KAYPOH_LATENCY_SLO_BEARER_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check staging latency configuration
+        id: staging
+        run: |
+          if [ -n "$KAYPOH_LATENCY_SLO_BASE_URL" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "KAYPOH_LATENCY_SLO_BASE_URL is not set; skipping staging latency benchmark"
+          fi
+      - uses: actions/setup-python@v5
+        if: steps.staging.outputs.enabled == 'true'
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+        if: steps.staging.outputs.enabled == 'true'
+      - run: uv sync --extra dev
+        if: steps.staging.outputs.enabled == 'true'
+      - run: uv run python -m spacy download en_core_web_sm
+        if: steps.staging.outputs.enabled == 'true'
+      - name: Run staging latency SLO
+        if: steps.staging.outputs.enabled == 'true'
+        run: >
+          uv run python scripts/check_latency_slo.py
+          --fixture test/fixtures/latency-corpus/5k.txt
+          --write-report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: staging-latency-reports
+          path: reports/latency_slo_*.json
+          if-no-files-found: warn

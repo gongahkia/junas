@@ -1,0 +1,436 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 37,
+    "current_must_detect_count": 16,
+    "current_must_not_detect_count": 9,
+    "previous_ideal_must_detect_count": 29,
+    "previous_must_detect_count": 22,
+    "previous_must_not_detect_count": 9
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_special_category_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Dr. Selene Markovi\u0107",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Markovi\u0107",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Varela",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hana.varela@aurora\u2011lumen.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@bluegrain\u2011ventures.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dataprivacy@aurora\u2011lumen.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurora\u2011lumen.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+358 555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "has an epilepsy diagnosis",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is enrolled in fingerprint/iris biometric access control",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "observes Eastern Orthodox religious practices",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dues\u2011paying member of the Neurotech Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "may be transferred to processors in Novaland (non\u2011EEA)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contains inside information under EU MAR",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac40,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac3.40 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must refrain from on\u2011exchange or off\u2011exchange dealings",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "investor granted an 18\u2011month call to acquire up to 51% of Aurora Lumen S.A. at \u20ac3.40 per share",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PROJECT LUMEN",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PRO J E C T  L U M E N",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Selene Markovi\u0107 (Chief Biosignals Officer, ID code NL\u2014A L X\u2014 9 0 1)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID code NL\u2014A L X\u2014 9 0 1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011Border Transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Selene",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquisition Option: investor granted an 18\u2011month call to acquire up to 51% of Aurora Lumen S.A. at \u20ac3.40 per share (internal code ALUM\u2011EQ\u2011X), subject to regulatory approvals by the competent authority and no prohibition by any EU competition body.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Minimisation & Retention: sensitive records for Dr. Selene Markovi\u0107 will be pseudonymised and retained 3 years post\u2011closing; data subjects may contact dataprivacy@aurora\u2011lumen.eu or +358 555 0199 for rights requests.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational note (lowercase pmo): file the draft into sprint board \u2018financing\u2011lumen\u2019: backlog -> diligence -> mar\u2011comms; product names in scope: Helios\u2011X, Lumen Arc, and MeadowSpark.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac3.40",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to regulatory approvals",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+358 555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Selene",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Varela",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquisition Option: investor granted an 18\u2011month call to acquire up to 51% of Aurora Lumen S.A. at \u20ac3.40 per share (internal code ALUM\u2011EQ\u2011X), subject to regulatory approvals by the competent authority and no prohibition by any EU competition body.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Minimisation & Retention: sensitive records for Dr. Selene Markovi\u0107 will be pseudonymised and retained 3 years post\u2011closing; data subjects may contact dataprivacy@aurora\u2011lumen.eu or +358 555 0199 for rights requests.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational note (lowercase pmo): file the draft into sprint board \u2018financing\u2011lumen\u2019: backlog -> diligence -> mar\u2011comms; product names in scope: Helios\u2011X, Lumen Arc, and MeadowSpark.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PROJECT LUMEN",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac40,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac3.40",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to regulatory approvals",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key Person Disclosure (GDPR Art 9): Dr. Selene Markovi\u0107 (Chief Biosignals Officer, ID code NL\u2014A L X\u2014 9 0 1) has an epilepsy diagnosis and is enrolled in fingerprint/iris biometric access control; explicit consent recorded on 2026\u201102\u201114, access strictly role\u2011based.\nAdditional Special\u2011Category Data: Dr. Markovi\u0107 is a dues\u2011paying member of the Neurotech Workers Union and observes Eastern Orthodox religious practices; processing limited to employment, insurance, and investor due diligence with safeguards.\nCross\u2011Border Transfer: limited HR and due\u2011diligence records (including the above special categories) may be transferred to processors in Novaland (non\u2011EEA) under 2021 SCCs and supplementary measures; sub\u2011processors listed at https://data.aurora\u2011lumen.eu/dp\u2011list?v=2",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation & Retention: sensitive records for Dr. Selene Markovi\u0107 will be pseudonymised and retained 3 years post\u2011closing; data subjects may contact dataprivacy@aurora\u2011lumen.eu or +358 555 0199 for rights requests.\nPublic\u2011Source References: non\u2011confidential metrics may include extracts from GreenIndex Europa and the City of Northbridge climate portal; quoting such public sources alone does not constitute Inside Information.\nCovenants & Leverage: leverage cap 2.5x EBITDA; coupon 4.25% PIK with step\u2011up on ESG KPI miss; no dividends without consent; this is not a silver bullet and standard carve\u2011outs apply",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PROJECT LUMEN \u2014 Term Sheet for \u20ac40,000,000 Green Convertible Notes and Call Option; issuer: Aurora Lumen S.A.; investor: Bluegrain Ventures S.\u00e0 r.l.; governed by laws of an EU Member State.\nAdmission & MAR: notes intended for admission to trading on the Alpine City Exchange (EU regulated market); until publication of an approved prospectus, this document contains inside information under EU MAR and must be treated as confidential.\nUse of Proceeds & CSRD/SFDR: proceeds to fund Helios\u2011X product line and CSRD reporting systems; SFDR classification targeted Article 8; genetic algorithm risk models may be used for impact KPIs (benign use of \u201cgenetic\u201d).\nKey Person Disclosure (GDPR Art 9): Dr. Selene Markovi\u0107 (Chief Biosignals Officer, ID code NL\u2014A L X\u2014 9 0 1) has an epilepsy diagnosis and is enrolled in fingerprint/iris biometric access control; explicit consent recorded on 2026\u201102\u201114, access strictly role\u2011based.\nAdditional Special\u2011Category Data: Dr. Markovi\u0107 is a dues\u2011paying member of the Neurotech Workers Union and observes Eastern Orthodox religious practices; processing limited to employment, insurance, and investor due diligence with safeguards.\nCross\u2011Border Transfer: limited HR and due\u2011diligence records (including the above special categories) may be transferred to processors in Novaland (non\u2011EEA) under 2021 SCCs and supplementary measures; sub\u2011processors listed at https://data.aurora\u2011lumen.eu/dp\u2011list?v=2.\nAcquisition Option: investor granted an 18\u2011month call to acquire up to 51% of Aurora Lumen S.A. at \u20ac3.40 per share (internal code ALUM\u2011EQ\u2011X), subject to regulatory approvals by the competent authority and no prohibition by any EU competition body.\nNegative MAC language: a Material Adverse Change shall not be deemed to have occurred due to changes in accounting standards, general market downturns, or the Rivermouth Falcons losing the Coastal League; sponsor rotation is not a MAC.\nSustainability Covenants: issuer to publish CSRD\u2011compliant sustainability statements and SFDR PAI indicators; generic DEI policy (Open Doors Inclusion Charter) to remain in effect without creating any representation about sexual orientation of any individual.\nData Minimisation & Retention: sensitive records for Dr. Selene Markovi\u0107 will be pseudonymised and retained 3 years post\u2011closing; data subjects may contact dataprivacy@aurora\u2011lumen.eu or +358 555 0199 for rights requests.\nPublic\u2011Source References: non\u2011confidential metrics may include extracts from GreenIndex Europa and the City of Northbridge climate portal; quoting such public sources alone does not constitute Inside Information.\nCovenants & Leverage: leverage cap 2.5x EBITDA; coupon 4.25% PIK with step\u2011up on ESG KPI miss; no dividends without consent; this is not a silver bullet and standard carve\u2011outs apply.\nConfidentiality & Rooms: documents hosted at https://rooms.aurora\u2011lumen.eu/txn/PL\u20112026?f=ts%2Fv3#art9 may include redacted special\u2011category annexes; do not export outside the EU drive without DPO sign\u2011off.\nContacts & Notices: Ms. Hana Varela (VP Corporate Development) \u2014 hana.varela@aurora\u2011lumen.eu; investor relations \u2014 ir@bluegrain\u2011ventures.eu; registered office: 12 Quai des Lanternes, 1040 Granstadt, EU.\nOperational note (lowercase pmo): file the draft into sprint board \u2018financing\u2011lumen\u2019: backlog -> diligence -> mar\u2011comms; product names in scope: Helios\u2011X, Lumen Arc, and MeadowSpark.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic policy reference not tied to any person (false-positive bait)."
+    },
+    {
+      "matched_text": "genetic algorithm risk models",
+      "reason": "Benign technical term; not personal genetic data."
+    },
+    {
+      "matched_text": "Rivermouth Falcons",
+      "reason": "Sports team; not PII or MNPI."
+    },
+    {
+      "matched_text": "Open Doors Inclusion Charter",
+      "reason": "Policy title; not personal data."
+    },
+    {
+      "matched_text": "Helios\u2011X",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Lumen Arc",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "MeadowSpark",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun used as a defined role; not PII."
+    },
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun used as a defined role; not PII."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "retention period",
+      "matched_text": "retained 3 years post\u2011closing",
+      "reason": "Indicates a data retention period, which is legally relevant, but no explicit allowed retention marker rule is provided."
+    },
+    {
+      "concept": "employee_id/eu_national_id",
+      "matched_text": "ID code NL\u2014A L X\u2014 9 0 1",
+      "reason": "Looks like a personal identifier for an employee but format is nonstandard and type is ambiguous under the allowed rules."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "url\u2011id=u%5F1234%2Dselene",
+      "reason": "Could be a unique internal tracking or session identifier linked to a person, but not clearly defined as such."
+    },
+    {
+      "concept": "information barrier",
+      "matched_text": "do not export outside the EU drive without DPO sign\u2011off",
+      "reason": "Operational control that could function as an information barrier, but not a specified allowed marker."
+    },
+    {
+      "concept": "fair disclosure planning",
+      "matched_text": "ad hoc announcements will be made in compliance with EU MAR",
+      "reason": "Signals MNPI governance intent but does not map cleanly to a listed MNPI marker."
+    },
+    {
+      "concept": "consent record",
+      "matched_text": "explicit consent recorded on 2026\u201102\u201114",
+      "reason": "Indicates consent basis for processing, but allowed markers list does not include a general consent marker."
+    }
+  ]
+}

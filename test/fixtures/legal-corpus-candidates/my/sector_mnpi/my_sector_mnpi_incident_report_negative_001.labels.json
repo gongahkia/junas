@@ -1,0 +1,256 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 1,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop uncertain: text not verbatim text='This is not an announcement and should not be construed as price-sensitive unless escalated.'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance-ops@seri-kencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpa-help@seri-kencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal alert (non-public): Anomalous access to the staging database with hashed login events was detected; investigation ongoing and not yet communicated via the exchange announcement platform.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Anomalous access to the staging database with hashed login events was detected; investigation ongoing and not yet communicated via the exchange announcement platform",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet communicated via the exchange announcement platform",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Treasury is evaluating an unannounced sustainability-linked facility; draft commercial terms are under review",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No payment card data, identity document scans, or crypto wallet keys reside in staging",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance-ops@seri-kencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpa-help@seri-kencana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal alert (non-public): Anomalous access to the staging database with hashed login events was detected; investigation ongoing and not yet communicated via the exchange announcement platform.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list practice (educational): Sample insider list used role codes, not real staff names; scenario tested blackout reminders and information-barrier handoffs.\nVendor incident (operational): Bayan Data Solutions Sdn Bhd reported brief API timeouts; resolved in 14 minutes; status was posted on the public service page.\nFinancing template (educational): The green sukuk term sheet template references pricing grid and commercial terms for training only; not indicative of live negotiations.\nPreliminary internal alert (non-public): Anomalous access to the staging database with hashed login events was detected; investigation ongoing and not yet communicated via the exchange announcement platform.\nSafeguards: No payment card data, identity document scans, or crypto wallet keys reside in staging; containment and forensics are in progress under PDPA protocols.\nTreasury note (restricted workflow): Treasury is evaluating an unannounced sustainability-linked facility; draft commercial terms are under review; observe information barriers and avoid tipping.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Crypto operations (educational)",
+      "reason": "Educational/training context; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "Cyber drill (educational)",
+      "reason": "Educational/training context; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "Insider-list practice (educational)",
+      "reason": "Educational/training context; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "Financing template (educational)",
+      "reason": "Educational/training context; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "ESG overview (public)",
+      "reason": "Explicitly public content; not MNPI"
+    },
+    {
+      "matched_text": "Vendor incident (operational)",
+      "reason": "Operational and publicly posted; not MNPI"
+    },
+    {
+      "matched_text": "blackout reminders",
+      "reason": "Educational scenario; not an actual blackout period signal"
+    },
+    {
+      "matched_text": "information-barrier handoffs",
+      "reason": "Educational scenario; not an actual information barrier control event"
+    },
+    {
+      "matched_text": "tokenized loyalty wallet",
+      "reason": "Product/educational reference; not DPT MNPI"
+    },
+    {
+      "matched_text": "1-300-88-FAKE",
+      "reason": "Placeholder hotline; not personal PII"
+    },
+    {
+      "matched_text": "ISIN\u2014MYXX000-FAKE",
+      "reason": "Placeholder/public identifier; not PII/MNPI"
+    },
+    {
+      "matched_text": "Sample insider list",
+      "reason": "Sample/educational; not an actual insider list event"
+    },
+    {
+      "matched_text": "CahayaPay",
+      "reason": "Brand reference in educational context; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "information barrier / access control",
+      "matched_text": "restricted workflow",
+      "reason": "Implies sensitivity controls but not an explicit allowed marker phrase"
+    },
+    {
+      "concept": "internal case identifier",
+      "matched_text": "Case ID\u2014INC-00X7",
+      "reason": "Internal ID could relate to an identifiable person/process but not covered by allowed PII rules"
+    }
+  ]
+}

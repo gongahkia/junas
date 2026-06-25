@@ -1,0 +1,16 @@
+Seoryu Dynamics Co., Ltd. (KSLE code: SYD-00Q) Cyber/Operational Incident Report dated 2026-06-03; submitted to the Capital Markets Supervisory Bureau (CMSB) under FSCMA fair disclosure practice.
+Summary: unauthorized access via supplier portal "NebulaBridge" to HR archive; potential MNPI identified; this notice is not a MAC and not an earnings forecast.
+Impacted data types: employee files with partial resident-number (RRN), biometric time-clock templates, and limited health insurance claim codes.
+Mr. Dong-hyun Seo (EmpID: OPS- 2 0 1 9 4, Line Ops) had a fingerprint template hash (sha256: 3af8c9e1...c0b1) and union membership in "Seoryu Electronics Workers Union" exposed; medical code HI-072 (asthma checkup) also present.
+Ms. Yeri Chae (Contractor, EmpID: CT-0551) file included RRN 83****-1****** and a note about volunteering with the Doram Peace Fellowship (religious charity); no sexual-orientation data stored.
+Scope: 214 staff records (KR-HQ: Haedeok-gu campus) and 3 vendor forms; customers were not affected; logs did not include MAC addresses, IMEI, or bank accounts.
+Technical detail: exfil path via OCR'd export "emp_fo rm_2025.pdf" and archive "KSLE-OPS-2 0 1 9 4.zip"; time window 01:12–02:03 KST; device id "neb-42".
+Controls: AuroraGate WAF and Sapphire Sentinel XDR detected lateral movement under the radar; Data Minimization Policy v3.2 and Clean-Room Handling SOP enforced.
+Policy: we remain committed to diversity, equity, and inclusion and union neutrality while tightening third-party risk oversight.
+Investor-relations note: handling of possibly material yet non-public operational data continues under blackout; disclosure will follow FSCMA and KSLE Listing Rules after verification.
+Notifications: KSLE Market Surveillance Center and the CMSB Incident Desk received preliminary filings; public advisory to be posted at https://ir.seoryudynamics.kr/notice?doc=INC%2F2026-06A.
+Contact: Ms. Hae-lin Kwon, DPO, dpo@seoryudynamics.kr; IR hotline +82-2-110-0029; incidentdesk@seoryudynamics.kr for employees and vendors.
+Clarifications: no faceprints, genetic-sequencing data, or children’s medical charts are stored in any Seoryu system; the phrase sexual-orientation appears in training materials only and is irrelevant here.
+Community/press context: references to Hanseo Meteors and Namcheon Park in social posts are unrelated; our 2025 Sustainability Report and KSLE Fair Disclosure page remain the public source of truth.
+internal pm: we will triage logs, rotate keys, and schedule a postmortem, tbd; follow-up sprint "constellation" is blocked pending vendor patch ETA; okr remains unchanged.
+For avoidance of doubt, Dr. Jin-yong Pae (R&D) suffered no injury; his child, a minor aged 14, is unaffected; treasury operations and deal pipeline remain on track.

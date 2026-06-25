@@ -1,0 +1,448 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='THB-equivalent 300,000,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='THB-equivalent 300,000,000'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_quasi_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "anucha.r@inthanonfoods.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@siamharvest.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7x-iph-3340",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Siriporn",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Listing/Disclosure: Any price-sensitive terms constitute MNPI under SEA/SEC and will be treated as inside information until SET disclosure; non-public FY2569 forecast references (unaudited) to be included in a sealed appendix; public-source market data citations do not, by themselves, trigger disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: leverage cap at 2.5x net debt/EBITDA; dividend stopper above 40% payout until conversion; no related-party transactions above THB 30,000,000 without Audit Committee approval; hedging policy to be maintained; anti-corruption policy to remain effective.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-Border Structure: up to THB-equivalent 300,000,000 intercompany loan from Lao subsidiary to be upstreamed on closing; compliance with Bank of Thailand Notification on currency hedging; pay-in USD and converted under onshore rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing/Long Stop: signing targeted within 45 days; long stop date 120 days post-signing; EGM notice to be dispatched within 14 days per SET practice; conditions cannot be waived where contrary to law; todo: align timeline with audit finalization.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,250,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 30,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.00%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "300,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Anucha Rattanakorn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985-04-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 41",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@inthanonfoods.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66-2-482-xx47",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=cm04-2026-05-17",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acc=PCL-113-004",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device sn 7x-iph-3340",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IFP-Note9-0x77",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "https://portal.inthanonfoods.co.th/egm?uid=ar85&sid=cm04-2026-05-17&acc=PCL-113-004&loc=CNX-SS03",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uid=ar85",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PCL-113-004",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1992-06",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TH-**71**90",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact (Issuer): Khun Anucha Rattanakorn (CFO, b. 1985-04-07, age 41), Inthanon Foods Public Company Limited, logging in from Chiang Mai admin office on device ID \u201cIFP-Note9-0x77\u201d via wifi ssid ifp-guest-03; internal ac count ref: PCL-113-004; email: anucha.r@inthanonfoods.co.th; tel: +66-2-482-xx47",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For precision evaluation only: DOB 1992-06, device sn 7x-iph-3340, province Nonthaburi, payroll code TH-**71**90 \u2014 these are weak identifiers in isolation and are not linked to any named person herein",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border funds flow",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Structure",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to be confirmed at signing",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward outside approved attendee list",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "anucha.r@inthanonfoods.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@siamharvest.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7x-iph-3340",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Siriporn",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Listing/Disclosure: Any price-sensitive terms constitute MNPI under SEA/SEC and will be treated as inside information until SET disclosure; non-public FY2569 forecast references (unaudited) to be included in a sealed appendix; public-source market data citations do not, by themselves, trigger disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: leverage cap at 2.5x net debt/EBITDA; dividend stopper above 40% payout until conversion; no related-party transactions above THB 30,000,000 without Audit Committee approval; hedging policy to be maintained; anti-corruption policy to remain effective.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-Border Structure: up to THB-equivalent 300,000,000 intercompany loan from Lao subsidiary to be upstreamed on closing; compliance with Bank of Thailand Notification on currency hedging; pay-in USD and converted under onshore rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing/Long Stop: signing targeted within 45 days; long stop date 120 days post-signing; EGM notice to be dispatched within 14 days per SET practice; conditions cannot be waived where contrary to law; todo: align timeline with audit finalization.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,250,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 30,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.00%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "300,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment in Inthanon Foods Public Company Limited (fictional, SET-listed) by Siam Harvest Holdings Co., Ltd. (fictional); non-binding save for confidentiality, exclusivity, and governing law.\nSecurities/Size: THB 1,250,000,000 unsecured convertible debentures, 4.15% coupon, 3-year tenor, conversion price at 18% premium to 30-trading-day VWAP to be confirmed at signing; no MAC-out termination right is included.\nUse of Proceeds: expansion of processing capacity in the Eastern Economic Corridor and partial refinance of revolving facilities with Lan Na Commercial Bank Public Co., Ltd. (fictional); working capital for \u201cTasteCraft\u201d product line launch.\nConditions Precedent: EGM approval under the Public Limited Companies Act B.E. 2535; compliance with Thai SEC and SET disclosure rules; foreign shareholding cap monitored; customary legal opinions; regula tory clearances including Bank of Thailand FX registrations for any cross-border funds flow.\nListing/Disclosure: Any price-sensitive terms constitute MNPI under SEA/SEC and will be treated as inside information until SET disclosure; non-public FY2569 forecast references (unaudited) to be included in a sealed appendix; public-source market data citations do not, by themselves, trigger disclosure.\nRepresentations/Warranties: standard corporate authority; no material adverse change since Q2/2569; no breach of debt covenants; not a representation about future results; this is not a MAC trigger for termination.\nCovenants: leverage cap at 2.5x net debt/EBITDA; dividend stopper above 40% payout until conversion; no related-party transactions above THB 30,000,000 without Audit Committee approval; hedging policy to be maintained; anti-corruption policy to remain effective.\nContact (Issuer): Khun Anucha Rattanakorn (CFO, b. 1985-04-07, age 41), Inthanon Foods Public Company Limited, logging in from Chiang Mai admin office on device ID \u201cIFP-Note9-0x77\u201d via wifi ssid ifp-guest-03; internal ac count ref: PCL-113-004; email: anucha.r@inthanonfoods.co.th; tel: +66-2-482-xx47.\nSystem Access: sess ion URL https://portal.inthanonfoods.co.th/egm?uid=ar85&sid=cm04-2026-05-17&acc=PCL-113-004&loc=CNX-SS03 (access restricted; for meeting packet download); do not forward outside approved attendee list.\nFor precision evaluation only: DOB 1992-06, device sn 7x-iph-3340, province Nonthaburi, payroll code TH-**71**90 \u2014 these are weak identifiers in isolation and are not linked to any named person herein.\nEmployment/Retention: Ms. Siriporn (Head of Supply Chain) to receive a 12-month retention bonus schedule; no change-in-control severance beyond existing policy; independent director slate unaffected.\nCross-Border Structure: up to THB-equivalent 300,000,000 intercompany loan from Lao subsidiary to be upstreamed on closing; compliance with Bank of Thailand Notification on currency hedging; pay-in USD and converted under onshore rules.\nClosing/Long Stop: signing targeted within 45 days; long stop date 120 days post-signing; EGM notice to be dispatched within 14 days per SET practice; conditions cannot be waived where contrary to law; todo: align timeline with audit finalization.\nFees/Expenses: each party bears own costs; arrangement fee 1.00% to Mae Klang Advisory Co., Ltd. (fictional); no success fee payable on regulatory approvals.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role defined term; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "network identifier",
+      "matched_text": "ifp-guest-03",
+      "reason": "WiFi SSID can identify a device/location but is not explicitly covered by allowed rules."
+    },
+    {
+      "concept": "location/device code",
+      "matched_text": "CNX-SS03",
+      "reason": "Appears to be a location or system code; may be identifying but not clearly mapped to an allowed rule."
+    },
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "logging in from Chiang Mai admin office",
+      "reason": "Work-location detail may be personal data under PDPA but no specific rule enumerates location."
+    },
+    {
+      "concept": "embargo/timeline",
+      "matched_text": "signing targeted within 45 days",
+      "reason": "Scheduling related to signing could be market-sensitive timing but does not match explicit Embargo markers like 'Signing Date'."
+    },
+    {
+      "concept": "embargo/timeline",
+      "matched_text": "long stop date 120 days post-signing",
+      "reason": "Transaction timing may be sensitive; however 'Closing Date' wording is not present per the strict rule list."
+    }
+  ]
+}

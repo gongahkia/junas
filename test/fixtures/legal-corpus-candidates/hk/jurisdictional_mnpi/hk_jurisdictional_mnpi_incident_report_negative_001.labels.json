@@ -1,0 +1,215 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ir@harboursummit.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@harboursummit.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before any public filing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a small group of analysts",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been posted to the CBX portal or company website",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "background only",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a review is in progress to determine issuer\u2011relative materiality under Part XIVA of the Securities and Futures Ordinance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Operational and Cybersecurity Update \u2014 Harbour Summit Group Limited (CBX stock code: 9A88) \u2014 2H2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Recent media speculation on sector consolidation reflects third\u2011party commentary; the Board confirms no definitive agreement is in place and any notifiable transaction would be announced per the Listing Rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Except for the matter in item 9\u201310, all details above reiterate already\u2011announced information or benign operational notes; no new financial forecast, guidance, or pricing data is provided.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This report excludes personal data of living individuals; names in system logs, if any, are redacted, consistent with PDPO guidance and the Markets Conduct Commission (Hong Kong) circular on cyber incident reporting.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+852 0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Operational and Cybersecurity Update \u2014 Harbour Summit Group Limited (CBX stock code: 9A88) \u2014 2H2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Recent media speculation on sector consolidation reflects third\u2011party commentary; the Board confirms no definitive agreement is in place and any notifiable transaction would be announced per the Listing Rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Except for the matter in item 9\u201310, all details above reiterate already\u2011announced information or benign operational notes; no new financial forecast, guidance, or pricing data is provided.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This report excludes personal data of living individuals; names in system logs, if any, are redacted, consistent with PDPO guidance and the Markets Conduct Commission (Hong Kong) circular on cyber incident reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Operational and Cybersecurity Update \u2014 Harbour Summit Group Limited (CBX stock code: 9A88) \u2014 2H2026\nReference: A voluntary announcement dated 14 April 2025 was filed via the Coral Bay Exchange (CBX) e\u2011Submission portal regarding third\u2011party network degradation; status closed per vendor\u2019s 15 April 2025 press release.\nThe affected vendor, Orchid Cloud Services Limited, publicly confirmed no unauthorised access and no customer personal data; our internal review aligns with that public update.\nService latency occurred 13\u201314 April 2025 on the corporate website; trading, settlement and treasury functions were unaffected; no inside information notice was warranted at that time after applying Part XIVA materiality tests.\nSubsequent remediation and supplier ESG due diligence were summarised in the 2024 ESG Report available on the company website and CBX disclosures; see \u201cSupply Chain Resilience\u201d (public).\nThe investor relations channel operates a public helpline and role mailbox (ir@harboursummit.example.com); stakeholders should rely on circulars and announcements on the CBX portal.\nRecent media speculation on sector consolidation reflects third\u2011party commentary; the Board confirms no definitive agreement is in place and any notifiable transaction would be announced per the Listing Rules.\nDirectors observe blackout periods for dealings as required by the Exchange\u2019s Listing Rules; routine PDPO and cybersecurity training continues; contact dpo@harboursummit.example.com for general PDPO enquiries.\nOn 2 May 2026, before any public filing, the IR mailbox sent a \u201cbackground only\u201d summary of an internal 2\u20133 week pilot delay (arising from the April vendor issue) to a small group of analysts during the Group\u2019s quarterly blackout window.\nThat summary has not been posted to the CBX portal or company website and the potential timing change is not yet announced; a review is in progress to determine issuer\u2011relative materiality under Part XIVA of the Securities and Futures Ordinance.\nExcept for the matter in item 9\u201310, all details above reiterate already\u2011announced information or benign operational notes; no new financial forecast, guidance, or pricing data is provided.\nFor public information requests, please submit Form IR\u201101 via the website portal or call +852 0000 0000 (automated IVR); we do not respond to trading queries outside published disclosures.\nInternal ticket: HS\u2011OPS\u20112025\u2011XYZ1; this is an administrative code only and not a regulatory identifier.\nThis report excludes personal data of living individuals; names in system logs, if any, are redacted, consistent with PDPO guidance and the Markets Conduct Commission (Hong Kong) circular on cyber incident reporting.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Board",
+      "reason": "Role noun \u2014 not PII or MNPI"
+    },
+    {
+      "matched_text": "Directors",
+      "reason": "Role noun \u2014 not PII or MNPI"
+    },
+    {
+      "matched_text": "The Audit and Risk Committee",
+      "reason": "Role noun \u2014 not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "HS\u2011OPS\u20112025\u2011XYZ1",
+      "reason": "Administrative ticket code may resemble an internal identifier but is not clearly covered by allowed PII rules."
+    },
+    {
+      "concept": "security identifier",
+      "matched_text": "CBX stock code: 9A88",
+      "reason": "Exchange stock code is a public identifier; not covered by listed PII/MNPI rules but may be relevant metadata."
+    },
+    {
+      "concept": "potential timing guidance",
+      "matched_text": "2\u20133 week pilot delay",
+      "reason": "Could be issuer\u2011relative material information depending on context, but not explicitly covered by a specific MNPI rule beyond contingent language."
+    }
+  ]
+}

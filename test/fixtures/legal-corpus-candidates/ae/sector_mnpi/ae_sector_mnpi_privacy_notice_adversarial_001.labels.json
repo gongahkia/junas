@@ -1,0 +1,357 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 33,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "trade licence TL-58-09Z",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@falconoasis.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-2-000-1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID ****-****-****-9921",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al-Hadi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@falconoasis.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct: gmdm-**Q4-71**",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID images",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "trade licence copies",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project HAWK",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list administration",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list audit trails",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list hygiene",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "/ops/projects/hawk/insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti-tipping controls",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information bar riers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean teams",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to any VARA notification",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "token pre-sale price bands",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability-linked coupon step-ups",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-58-09Z",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In a cyber incident investigation, we collect device telemetry and obfuscated account IDs (acct: gmdm-**Q4-71**) to meet breach notification duties without unnecessary identification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+971-2-000-1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-58-09Z",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al-Hadi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In a cyber incident investigation, we collect device telemetry and obfuscated account IDs (acct: gmdm-**Q4-71**) to meet breach notification duties without unnecessary identification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In a cyber incident investigation, we collect device telemetry and obfuscated account IDs (acct: gmdm-**Q4-71**) to meet breach notification duties without unnecessary identification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project HAWK",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For queries, contact Mr. Kareem Al-Hadi, Data Protection Officer, or submit a DSAR at https://portal.falconoasis.ae/dsar?ref=H7-9x_k.\nIn issuer mandates, we may receive non-public commercial terms (token pre-sale price bands, sustainability-linked coupon step-ups) and maintain SCA-compliant insider lists under information bar riers.\nEmployees on Project HAWK are subject to blackout windows and anti-tipping controls; calendar invites labelled \u201cquiet period\u201d trigger auto-restrictions in our D I F C entity.\nPrior to any VARA notification, crypto wallet whitelists and validator node IPs are classified as restricted; access is logged and segregated.\nIn a cyber incident investigation, we collect device telemetry and obfuscated account IDs (acct: gmdm-**Q4-71**) to meet breach notification duties without unnecessary identification.\nCross-border transfers to processors in Manara Free Tech Zone are governed by ADGM SCCs; for onshore, SCA rulebook and Federal Decree-Law 45/2021 apply, with data minimisation.\nWe process project-level ESG climate metrics for Desert Wind Sukuk SPV solely at an aggregated level and not linked to a natural person.\nThis notice is not a MAC trigger, is not a selective disclosure, and references public-source frameworks for educational guidance only.\nOur marketing webinar on crypto custody and insider list hygiene uses generic examples and does not discuss any live issuer or deal timetable.\nRetention: Emirates ID images and trade licence copies are kept 6 years post offboarding; insider list audit trails persist 10 years unless law requires earlier deletion.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC trigger",
+      "reason": "Negated context; do not label per rule 8."
+    },
+    {
+      "matched_text": "selective disclosure",
+      "reason": "Negated context; not a live selective disclosure signal."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "special category (ethnic/family origin)",
+      "matched_text": "family-origin details",
+      "reason": "Likely sensitive PDPL category but not covered by listed special-category rules."
+    },
+    {
+      "concept": "local regulator/person identifier types",
+      "matched_text": "DIFC/ADGM IDs",
+      "reason": "Identifier category mention without a specific allowed rule mapping."
+    },
+    {
+      "concept": "internal_session_id or reference code",
+      "matched_text": "H7-9x_k",
+      "reason": "Looks like a tracking/ref code in a DSAR link but not clearly mapped to an allowed rule."
+    },
+    {
+      "concept": "ip_address",
+      "matched_text": "validator node IPs",
+      "reason": "Mentions IP addresses but provides no concrete IP values to tag."
+    },
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "In a cyber incident investigation",
+      "reason": "Scenario description of cyber incident handling; not a non-public issuer event."
+    },
+    {
+      "concept": "pseudonymisation/minimisation",
+      "matched_text": "masked IDs",
+      "reason": "Privacy control indicator; no explicit allowed rule aside from general minimisation already captured."
+    }
+  ]
+}

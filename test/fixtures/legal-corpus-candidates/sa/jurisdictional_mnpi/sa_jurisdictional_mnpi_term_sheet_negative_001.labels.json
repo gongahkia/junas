@@ -1,0 +1,248 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 24,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@rimalfoods.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Transaction: Rimal Foods to acquire up to 40% of Wasl Supply Chain via a new-issue subscription and secondary purchase; non-binding and subject to definitive agreements",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory and Listing: Closing subject to approvals under Kingdom Markets Authority (KMA) Listing Rules and Rimal Exchange regulations, including any Namaa Parallel Board notice if migration is contemplated",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure Timing: Any binding board resolution will be announced via the Rimal Exchange portal before the next trading session in line with KMA timing guidance; no selective briefings outside published channels",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants and Conduct: Ordinary course operations to continue; no dividend or capital changes by Wasl Supply Chain CJSC prior to completion without Rimal Foods\u2019 consent; no public communications outside the Rimal Exchange portal",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective briefings outside published channels",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and Calendar",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfers require a permit from the National Data Authority",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama and contact details shall be tokenized before upload and only processed for due diligence",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID/Iqama: 0000-0000-0000000 (sample)",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 701-0000-0000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 702-0000-0000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@rimalexchange.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be material to the issuer",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public communications outside the Rimal Exchange portal",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider trading restrictions apply",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquire up to 40% of Wasl Supply Chain",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@rimalfoods.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Transaction: Rimal Foods to acquire up to 40% of Wasl Supply Chain via a new-issue subscription and secondary purchase; non-binding and subject to definitive agreements",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory and Listing: Closing subject to approvals under Kingdom Markets Authority (KMA) Listing Rules and Rimal Exchange regulations, including any Namaa Parallel Board notice if migration is contemplated",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure Timing: Any binding board resolution will be announced via the Rimal Exchange portal before the next trading session in line with KMA timing guidance; no selective briefings outside published channels",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants and Conduct: Ordinary course operations to continue; no dividend or capital changes by Wasl Supply Chain CJSC prior to completion without Rimal Foods\u2019 consent; no public communications outside the Rimal Exchange portal",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet between Rimal Foods JSC (Rimal Exchange Main Market) and Wasl Supply Chain CJSC (private)\nProposed Transaction: Rimal Foods to acquire up to 40% of Wasl Supply Chain via a new-issue subscription and secondary purchase; non-binding and subject to definitive agreements\nStatus and Public References: Preliminary MoU was summarized on the Rimal Exchange news portal on 2024-02-12 and in a general press statement dated 2024-04-10; this term sheet contains no new financial figures\nRegulatory and Listing: Closing subject to approvals under Kingdom Markets Authority (KMA) Listing Rules and Rimal Exchange regulations, including any Namaa Parallel Board notice if migration is contemplated\nConsideration and Valuation: To be determined by independent valuer; pricing mechanism to be disclosed in accordance with KMA Market Conduct Regulations at signing; no public offer will be made to retail investors\nDisclosure Timing: Any binding board resolution will be announced via the Rimal Exchange portal before the next trading session in line with KMA timing guidance; no selective briefings outside published channels\nBlackout and Calendar: Insider trading restrictions apply per the issuer calendar previously posted on 2025-03-01 on the Rimal Exchange website; routine closed periods will be observed\nNon-Public Dependency: Earn-out structure references a draft long-term supply agreement under negotiation with Najd Petrochem SPC that has not been publicly announced and may be material to the issuer; disclosure will occur upon signing as required by KMA rules\nData Room and PDPL: Parties will comply with the Kingdom Personal Data Law; cross-border transfers require a permit from the National Data Authority; Iqama and contact details shall be tokenized before upload and only processed for due diligence\nAuthorized Signatory Fields (for execution copy only): National ID/Iqama: 0000-0000-0000000 (sample), Role: Authorized Signatory (no named individual to be included in this term sheet)\nCorporate Identifiers (illustrative only): Rimal Foods JSC CR: 701-0000-0000; Wasl Supply Chain CJSC CR: 702-0000-0000; Tax/Account numbers will be provided in the secure data room only\nConditions Precedent: Competition filing to the Kingdom Competition Council; third-party contract consents; no material adverse change; compliance with sectoral licensing\nCovenants and Conduct: Ordinary course operations to continue; no dividend or capital changes by Wasl Supply Chain CJSC prior to completion without Rimal Foods\u2019 consent; no public communications outside the Rimal Exchange portal",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun; not PII/MNPI and typically a defined-term placeholder"
+    },
+    {
+      "matched_text": "Authorized Signatory",
+      "reason": "Role/title, not PII; generic defined-role language"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "listing migration sensitivity",
+      "matched_text": "Namaa Parallel Board",
+      "reason": "Potentially material listing migration/board change reference but not covered by explicit MNPI rule types"
+    },
+    {
+      "concept": "disclosure timing obligation",
+      "matched_text": "before the next trading session",
+      "reason": "Issuer-specific disclosure timing is market-compliance relevant but not mapped to an allowed MNPI rule"
+    }
+  ]
+}

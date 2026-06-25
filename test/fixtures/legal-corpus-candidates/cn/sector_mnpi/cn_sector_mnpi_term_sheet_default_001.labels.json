@@ -1,0 +1,550 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_not_detect: text not verbatim text='the Issuer'",
+    "drop must_not_detect: text not verbatim text='the Company'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 50,
+    "new_must_detect_count": 31,
+    "old_ideal_must_detect_count": 38,
+    "old_must_detect_count": 31,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91310110MA3TY4Z21K",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91320100MA9X8B7Q6R",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91320000MA2P1C9D8E",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "zhou.wei@huilongcloud.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.rui@songlanridge.law",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deal@hepinggreen.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xia",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "110101199003123456",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Chen Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border data room",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retained minimally",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields are masked where feasible",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 9,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "network intrusion",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prior to any PRC securities regulator or stock exchange disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list (\u77e5\u60c5\u4eba\u540d\u5355)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u77e5\u60c5\u4eba\u540d\u5355",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fence",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blockchain-based green power certificate tokenization pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public offering, no exchange trading, no marketing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reduce Scope 2 emissions by 35% within 24 months",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Series C Preferred Shares Financing Term Sheet",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing conditioned on remediation completion and data compliance confirmations",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC includes",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Series C Preferred Shares Financing Term Sheet for Huilong Cloud Energy Technology Co., Ltd. (USCC 91310110MA3TY4Z21K), strictly confidential and constituting inside information prior to any PRC securities regulator or stock exchange disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/ESG pilot: The Company operates a confidential blockchain-based green power certificate tokenization pilot within the Nanhuan Industrial Park Sandbox; no public offering, no exchange trading, no marketing, and wallet key management must remain within segregated devices behind the information barrier.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Key terms: 1x non-participating liquidation preference, 6% non-cumulative dividend, broad-based weighted average anti-dilution, pro rata rights, and one Board seat for the Lead Investor.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants and conditions: No-shop for 60 days, break fee RMB 9,000,000 upon breach, MAC includes revocation of critical ESG certifications or a material cyber breach recurrence, closing conditioned on remediation completion and data compliance confirmations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Any offering documents or pre-IPO tutoring to be filed with the competent PRC securities regulator and relevant stock exchange; disclosures regarding the cyber incident and the tokenization pilot will be coordinated to avoid selective disclosure and to comply with inside information management rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110101199003123456",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "zhou.wei@huilongcloud.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.rui@songlanridge.law",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deal@hepinggreen.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xia",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Chen Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Series C Preferred Shares Financing Term Sheet for Huilong Cloud Energy Technology Co., Ltd. (USCC 91310110MA3TY4Z21K), strictly confidential and constituting inside information prior to any PRC securities regulator or stock exchange disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/ESG pilot: The Company operates a confidential blockchain-based green power certificate tokenization pilot within the Nanhuan Industrial Park Sandbox; no public offering, no exchange trading, no marketing, and wallet key management must remain within segregated devices behind the information barrier.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Key terms: 1x non-participating liquidation preference, 6% non-cumulative dividend, broad-based weighted average anti-dilution, pro rata rights, and one Board seat for the Lead Investor.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants and conditions: No-shop for 60 days, break fee RMB 9,000,000 upon breach, MAC includes revocation of critical ESG certifications or a material cyber breach recurrence, closing conditioned on remediation completion and data compliance confirmations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants and conditions: No-shop for 60 days, break fee RMB 9,000,000 upon breach, MAC includes revocation of critical ESG certifications or a material cyber breach recurrence, closing conditioned on remediation completion and data compliance confirmations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants and conditions: No-shop for 60 days, break fee RMB 9,000,000 upon breach, MAC includes revocation of critical ESG certifications or a material cyber breach recurrence, closing conditioned on remediation completion and data compliance confirmations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Any offering documents or pre-IPO tutoring to be filed with the competent PRC securities regulator and relevant stock exchange; disclosures regarding the cyber incident and the tokenization pilot will be coordinated to avoid selective disclosure and to comply with inside information management rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Any offering documents or pre-IPO tutoring to be filed with the competent PRC securities regulator and relevant stock exchange; disclosures regarding the cyber incident and the tokenization pilot will be coordinated to avoid selective disclosure and to comply with inside information management rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 9,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110101199003123456",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Series C Preferred Shares Financing Term Sheet for Huilong Cloud Energy Technology Co., Ltd. (USCC 91310110MA3TY4Z21K), strictly confidential and constituting inside information prior to any PRC securities regulator or stock exchange disclosure.\nParties: Issuer\u2014Huilong Cloud Energy Technology Co., Ltd.; Lead Investor\u2014HePing Green Infrastructure Fund I, L.P. (USCC 91320100MA9X8B7Q6R); Financial Advisor\u2014Beitong Frontier Securities Co., Ltd. (USCC 91320000MA2P1C9D8E).\nAmount and valuation: RMB 180,000,000 new money at RMB 1,200,000,000 pre-money valuation; proceeds to fund cyber incident remediation and climate-related capex to reduce Scope 2 emissions by 35% within 24 months.\nCyber disclosure: The Company experienced a network intrusion on 18 March (no personal data leaks confirmed) and is implementing remediation under applicable network security rules; this is non-public and treated as inside information under the PRC Securities Law.\nCrypto/ESG pilot: The Company operates a confidential blockchain-based green power certificate tokenization pilot within the Nanhuan Industrial Park Sandbox; no public offering, no exchange trading, no marketing, and wallet key management must remain within segregated devices behind the information barrier.\nInformation controls: The Issuer will maintain an updated insider list (\u77e5\u60c5\u4eba\u540d\u5355) and restrict access via Chinese walls; the Investor must ring-fence any public markets desk and certify no tipping or selective disclosure.\nBlackout: If a domestic listing is pursued, directors, supervisors, and senior management shall observe blackout windows around periodic reports and major asset transactions in accordance with exchange rules.\nData compliance: Processing of personal information follows PIPL, CSL, and DSL; sensitive PI (including minors under 14) must not be uploaded to a cross-border data room unless a security assessment by the national cyberspace authority is obtained and fields are masked where feasible.\nHR workflow: Employee and consultant identity verification may record resident ID numbers for compliance (e.g., Ms. Lin Xia, HR Manager, Resident ID 110101199003123456), retained minimally and stored onshore with access logging.\nKey terms: 1x non-participating liquidation preference, 6% non-cumulative dividend, broad-based weighted average anti-dilution, pro rata rights, and one Board seat for the Lead Investor.\nCovenants and conditions: No-shop for 60 days, break fee RMB 9,000,000 upon breach, MAC includes revocation of critical ESG certifications or a material cyber breach recurrence, closing conditioned on remediation completion and data compliance confirmations.\nRegulatory: Any offering documents or pre-IPO tutoring to be filed with the competent PRC securities regulator and relevant stock exchange; disclosures regarding the cyber incident and the tokenization pilot will be coordinated to avoid selective disclosure and to comply with inside information management rules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Zhou Wei, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Lead Investor",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Financial Advisor",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "the Investor",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "\u201cinsider,\u201d",
+      "reason": "Educational/benign context; not market-sensitive usage"
+    },
+    {
+      "matched_text": "\u201ccrypto wallet,\u201d",
+      "reason": "Educational/benign context; not market-sensitive usage"
+    },
+    {
+      "matched_text": "\u201cselective disclosure\u201d",
+      "reason": "Educational/benign context; not market-sensitive usage"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "data_localization",
+      "matched_text": "stored onshore",
+      "reason": "Indicates data residency/localization, relevant to PIPL/CSL but not covered by an explicit allowed marker"
+    },
+    {
+      "concept": "pre-IPO_process",
+      "matched_text": "pre-IPO tutoring",
+      "reason": "Potentially material regulatory process but not explicitly mapped to a current MNPI rule"
+    },
+    {
+      "concept": "regulatory_sandbox_status",
+      "matched_text": "Nanhuan Industrial Park Sandbox",
+      "reason": "Implies sandbox oversight; relevant to DLT/crypto controls but not clearly covered by a listed MNPI marker"
+    }
+  ]
+}

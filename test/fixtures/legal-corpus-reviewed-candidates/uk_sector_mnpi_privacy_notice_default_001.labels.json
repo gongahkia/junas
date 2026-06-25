@@ -1,0 +1,433 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_sector_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_sector_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 39,
+    "current_must_detect_count": 16,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 30,
+    "previous_must_detect_count": 20,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_sector_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris K. Halberd",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elara Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@northbridge-digital.example.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@northbridge-digital.example.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@northbridge-digital.example.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "preclear@northbridge-digital.example.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "International transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "unsubscribe",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact third-party data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDMR blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Verdant",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "testnet-to-mainnet key rotation",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced sustainability-linked revolving credit facility",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1 emissions targets",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-sounding",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prospective lender under NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft commercial terms",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "wallet public keys",
+      "rule": "crypto_wallet_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data under UK GDPR for employment, SMCR fitness and propriety checks, and compliance with UK MAR in relation to crypto custody, ESG-linked financing, and market-facing announcements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lawful bases: legal obligation (UK MAR and disclosure controls), legitimate interests (fraud and cyber incident response), and contract (employment and supplier onboarding); consent is not relied upon for these purposes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For DSARs that might reveal insider-list content, we will redact third-party data and defer disclosure where necessary to protect the integrity of an ongoing transaction or cyber investigation, documenting our justification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "preclear@northbridge-digital.example.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elara Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data under UK GDPR for employment, SMCR fitness and propriety checks, and compliance with UK MAR in relation to crypto custody, ESG-linked financing, and market-facing announcements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lawful bases: legal obligation (UK MAR and disclosure controls), legitimate interests (fraud and cyber incident response), and contract (employment and supplier onboarding); consent is not relied upon for these purposes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For DSARs that might reveal insider-list content, we will redact third-party data and defer disclosure where necessary to protect the integrity of an ongoing transaction or cyber investigation, documenting our justification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Verdant",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Northbridge Digital plc; contact Mr. Idris K. Halberd, Data Protection Officer, dpo@northbridge-digital.example.uk; compliance queries: compliance@northbridge-digital.example.uk\nWe process personal data under UK GDPR for employment, SMCR fitness and propriety checks, and compliance with UK MAR in relation to crypto custody, ESG-linked financing, and market-facing announcements.\nWe maintain insider lists identifying employees, advisers, and counterparties in connection with a non-public cyber incident affecting testnet-to-mainnet key rotation in our crypto custody platform and an unannounced sustainability-linked revolving credit facility.\nInformation barriers operate between our Digital Assets unit and Treasury; wall-crossing requires recorded consent, and PDMR blackout windows apply until a regulatory news service announcement via a UK-approved PIP is released.\nWe monitor for tipping and selective disclosure; pre-sounding of institutional investors is permitted only under NDA and with formal wall-crossing by Markets Compliance.\nLawful bases: legal obligation (UK MAR and disclosure controls), legitimate interests (fraud and cyber incident response), and contract (employment and supplier onboarding); consent is not relied upon for these purposes.\nCategories may include names, business contact details, device identifiers, wallet public keys linked to staff test accounts, trading restrictions, and deal notes with draft commercial terms (e.g., fee adjustments tied to Scope 1 emissions targets not yet public).\nWe share necessary data with external counsel Brannan & Forge LLP, a UK-approved PIP, and, where required, the UK competent authority for market abuse; limited data may be provided to a prospective lender under NDA for due diligence on the ESG facility.\nInternational transfers to processors such as CloudHearth Ltd (UK/EU data centres) and Veridian Controls Pte. Ltd (Singapore) use the UK IDTA or the UK Addendum to the EU SCCs with supplementary measures.\nRetention: insider lists and wall-crossing records are kept for 5 years from creation; cyber incident logs and forensic images are retained for 12 months unless required longer by legal hold; marketing mailing lists honour unsubscribe within 48 hours.\nOur crypto learning series and climate-risk brochures are educational and operational in nature, referencing generic tokens, cyber hygiene, and ESG concepts only; they contain no deal-stage information and are not MNPI.\nSecurity measures include segregated drives for project \u201cProject Verdant\u201d and access on a need-to-know basis; temporary read access may be granted to IT under supervision solely to patch zero-day vulnerabilities.\nYou may exercise your rights to access, rectification, restriction, and objection by emailing privacy@northbridge-digital.example.uk; you may also contact the UK data protection supervisory authority, though we ask that you contact us first.\nFor DSARs that might reveal insider-list content, we will redact third-party data and defer disclosure where necessary to protect the integrity of an ongoing transaction or cyber investigation, documenting our justification.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto learning series",
+      "reason": "Educational/operational example explicitly stated as not MNPI"
+    },
+    {
+      "matched_text": "climate-risk brochures",
+      "reason": "Educational/operational example explicitly stated as not MNPI"
+    },
+    {
+      "matched_text": "generic tokens",
+      "reason": "Generic educational content; no deal sensitivity"
+    },
+    {
+      "matched_text": "cyber hygiene",
+      "reason": "Generic educational content; not market sensitive"
+    },
+    {
+      "matched_text": "ESG concepts",
+      "reason": "Generic educational content; not market sensitive"
+    },
+    {
+      "matched_text": "deal-stage information",
+      "reason": "Negated context: explicitly states there is no MNPI"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "retention_policy_marker",
+      "matched_text": "Retention: insider lists and wall-crossing records are kept for 5 years from creation",
+      "reason": "Retention durations are privacy-relevant but no explicit retention rule is provided in the allowed set"
+    },
+    {
+      "concept": "retention_policy_marker",
+      "matched_text": "retained for 12 months",
+      "reason": "Data retention period is relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "dsar_deferral_marker",
+      "matched_text": "defer disclosure",
+      "reason": "Deferring disclosure in DSARs is a significant privacy control not explicitly listed in allowed markers"
+    },
+    {
+      "concept": "consent_recording",
+      "matched_text": "recorded consent",
+      "reason": "Indicates consent capture for wall-crossing; relevant but not covered by consent_withdrawal_marker"
+    },
+    {
+      "concept": "trading_preclearance_control",
+      "matched_text": "pre-clearance",
+      "reason": "Trading pre-clearance is a market abuse control but not explicitly mapped to an allowed rule"
+    },
+    {
+      "concept": "transfer_mechanism",
+      "matched_text": "UK IDTA",
+      "reason": "Cross-border transfer mechanism is legally relevant but only 'International transfers' is an allowed marker"
+    },
+    {
+      "concept": "transfer_mechanism",
+      "matched_text": "UK Addendum to the EU SCCs",
+      "reason": "Specific transfer mechanism; relevant but not covered by an allowed marker"
+    },
+    {
+      "concept": "retention_suspension",
+      "matched_text": "legal hold",
+      "reason": "Legal hold affects retention/disclosure but lacks an explicit allowed rule"
+    }
+  ]
+}

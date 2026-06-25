@@ -1,0 +1,497 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rika.nogawa@kitanori.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenjiro Arai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Mai Fujisawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rika Nogawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd. (Japan)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction overview: Buyer to acquire 100% of Target via negotiated TOB; listing venue: Nippon Securities Exchange (Prime Segment, fictional) \u2014 signing targeted Q3 FY2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Mix of senior term loan and privately placed unsecured convertible bonds; no public solicitation; any bond terms not for general distribution under the Financial Instruments and Exchange Act.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate undertakings: Target to align climate reporting with TCFD-consistent metrics and supply chain data verification; breach of verified ESG KPI may reduce earn-out.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conduct of business: No new crypto product launches, wallet migrations, or changes to key cloud providers without Buyer consent between signing and closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Approvals: Board approvals of both parties required; if external financing is not obtained within exclusivity, Buyer may terminate on payment of a JPY 850 million reverse break fee.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Suisen",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 42.5 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 5.0 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1.2 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 850 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 3 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Diligence access limited to de-identified datasets",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no Individual Number (My Number) or special-care personal data to be transferred except as permitted by the APPI and with consent or statutory basis",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping are strictly prohibited",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "April 2026 cyber intrusion at Target\u2019s cloud archive (currently undisclosed)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Individual Number (My Number)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until public announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for general distribution",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public solicitation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "walled off",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list to be maintained and updated daily",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Share Acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "negotiated TOB",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "digital payment token (crypto) custody pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TCFD-consistent",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "breach of verified ESG KPI may reduce earn-out",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Buyer may terminate on payment of a JPY 850 million reverse break fee",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rika.nogawa@kitanori.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenjiro Arai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Mai Fujisawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rika Nogawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd. (Japan)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction overview: Buyer to acquire 100% of Target via negotiated TOB; listing venue: Nippon Securities Exchange (Prime Segment, fictional) \u2014 signing targeted Q3 FY2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Mix of senior term loan and privately placed unsecured convertible bonds; no public solicitation; any bond terms not for general distribution under the Financial Instruments and Exchange Act.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate undertakings: Target to align climate reporting with TCFD-consistent metrics and supply chain data verification; breach of verified ESG KPI may reduce earn-out.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conduct of business: No new crypto product launches, wallet migrations, or changes to key cloud providers without Buyer consent between signing and closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Approvals: Board approvals of both parties required; if external financing is not obtained within exclusivity, Buyer may terminate on payment of a JPY 850 million reverse break fee.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Suisen",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 42.5 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 5.0 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1.2 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 850 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 3 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd. (Japan)\nTransaction overview: Buyer to acquire 100% of Target via negotiated TOB; listing venue: Nippon Securities Exchange (Prime Segment, fictional) \u2014 signing targeted Q3 FY2026.\nConsideration: JPY 42.5 billion cash, plus earn-out up to JPY 5.0 billion linked to verified Scope 3 emissions reduction from Target\u2019s ESG data services over 24 months.\nFinancing: Mix of senior term loan and privately placed unsecured convertible bonds; no public solicitation; any bond terms not for general distribution under the Financial Instruments and Exchange Act.\nKey conditions precedent: (i) No-objection letter from the National Financial Services Bureau (fictional) regarding Target\u2019s digital payment token (crypto) custody pilot; (ii) remediation of an April 2026 cyber intrusion at Target\u2019s cloud archive (currently undisclosed).\nMNPI handling: Until public announcement under NSE Timely Disclosure Rules (fictional), this term sheet and the cyber and token pilot facts are undisclosed enumerated material facts under the FIEA; selective disclosure and tipping are strictly prohibited.\nInformation barriers: Buyer will establish a ring-fenced \u201cProject Suisen\u201d deal room; personnel on the Token Markets Desk and climate-credit trading unit to be walled off; insider list to be maintained and updated daily.\nBlackout: All employees on the insider list are in a trading blackout for Buyer and Target securities from access date through two full trading days after NSE disclosure (fictional).\nData protection: Diligence access limited to de-identified datasets; no Individual Number (My Number) or special-care personal data to be transferred except as permitted by the APPI and with consent or statutory basis.\nCyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.\nESG/climate undertakings: Target to align climate reporting with TCFD-consistent metrics and supply chain data verification; breach of verified ESG KPI may reduce earn-out.\nConduct of business: No new crypto product launches, wallet migrations, or changes to key cloud providers without Buyer consent between signing and closing.\nEmployees/retention: Buyer to offer retention grants to key engineers including Mr. Kenjiro Arai and Ms. Mai Fujisawa; any transfer of employee files to comply with APPI and internal privacy rules.\nApprovals: Board approvals of both parties required; if external financing is not obtained within exclusivity, Buyer may terminate on payment of a JPY 850 million reverse break fee.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rika Nogawa, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Share Acquisition of Aoi Data Trust K.K. by Kitanori Holdings Co., Ltd. (Japan)\nTransaction overview: Buyer to acquire 100% of Target via negotiated TOB; listing venue: Nippon Securities Exchange (Prime Segment, fictional) \u2014 signing targeted Q3 FY2026.\nConsideration: JPY 42.5 billion cash, plus earn-out up to JPY 5.0 billion linked to verified Scope 3 emissions reduction from Target\u2019s ESG data services over 24 months.\nFinancing: Mix of senior term loan and privately placed unsecured convertible bonds; no public solicitation; any bond terms not for general distribution under the Financial Instruments and Exchange Act.\nKey conditions precedent: (i) No-objection letter from the National Financial Services Bureau (fictional) regarding Target\u2019s digital payment token (crypto) custody pilot; (ii) remediation of an April 2026 cyber intrusion at Target\u2019s cloud archive (currently undisclosed).\nMNPI handling: Until public announcement under NSE Timely Disclosure Rules (fictional), this term sheet and the cyber and token pilot facts are undisclosed enumerated material facts under the FIEA; selective disclosure and tipping are strictly prohibited.\nInformation barriers: Buyer will establish a ring-fenced \u201cProject Suisen\u201d deal room; personnel on the Token Markets Desk and climate-credit trading unit to be walled off; insider list to be maintained and updated daily.\nBlackout: All employees on the insider list are in a trading blackout for Buyer and Target securities from access date through two full trading days after NSE disclosure (fictional).\nData protection: Diligence access limited to de-identified datasets; no Individual Number (My Number) or special-care personal data to be transferred except as permitted by the APPI and with consent or statutory basis.\nCyber/security covenants: Target to deliver third-party SOC2-type report and implement MFA rollout before closing; Buyer reserves JPY 1.2 billion indemnity cap for pre-closing cyber liabilities and any regulatory penalties related to token custody controls.\nESG/climate undertakings: Target to align climate reporting with TCFD-consistent metrics and supply chain data verification; breach of verified ESG KPI may reduce earn-out.\nConduct of business: No new crypto product launches, wallet migrations, or changes to key cloud providers without Buyer consent between signing and closing.\nEmployees/retention: Buyer to offer retention grants to key engineers including Mr. Kenjiro Arai and Ms. Mai Fujisawa; any transfer of employee files to comply with APPI and internal privacy rules.\nApprovals: Board approvals of both parties required; if external financing is not obtained within exclusivity, Buyer may terminate on payment of a JPY 850 million reverse break fee.\nConfidentiality and communications: All media responses coordinated by Buyer\u2019s IR; public release to be via NSE disclosure (fictional) and corporate website; all inquiries to Ms. Rika Nogawa, General Counsel, rika.nogawa@kitanori.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Crypto Custody 101",
+      "reason": "Educational/training reference; not market-sensitive"
+    },
+    {
+      "matched_text": "CyberSafe Week",
+      "reason": "Educational/training reference; not market-sensitive"
+    },
+    {
+      "matched_text": "insider dealing program",
+      "reason": "Negative example in educational note; not an actual program"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "JP My Number mention",
+      "matched_text": "Individual Number (My Number)",
+      "reason": "Mentions Japan\u2019s Individual Number but no numeric identifier is present"
+    },
+    {
+      "concept": "Tender-offer fact MNPI",
+      "matched_text": "negotiated TOB",
+      "reason": "Tender-offer process detail is likely MNPI under FIEA but not mapped to a specific tender-offer rule"
+    },
+    {
+      "concept": "Sensitive personal data (APPI)",
+      "matched_text": "special-care personal data",
+      "reason": "Refers to APPI sensitive PD category but no specific allowed special-category rule fits this phrase"
+    },
+    {
+      "concept": "Regulatory approval MNPI",
+      "matched_text": "No-objection letter from the National Financial Services Bureau (fictional)",
+      "reason": "Material regulatory approval condition relevant to FIEA MNPI but not tied to a specific allowed rule name"
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_universal_mnpi_memo_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/universal_mnpi/sg_universal_mnpi_memo_default_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_universal_mnpi_memo_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_universal_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Not for SGXNet circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contains information not generally available under SFA/SGX",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sandpiper",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SGD 480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public announcement embargo until 30 Sep 2026, 08:30 SGT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SGD 120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We will request a trading halt",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no director or employee is to trade in Qilin Robotics securities until the embargo lifts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exclude any forward-looking revenue ranges from the deck",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Darya Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon Tay",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sera Ng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian Koh",
+      "rule": "named_person"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sandpiper",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SGD 480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Darya Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon Tay",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sera Ng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board update re Project Sandpiper: proposed acquisition by Harbor Quill Capital Pte. Ltd. of a 55.2% stake in Qilin Robotics Ltd. (SGX Mainboard).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: SGD 480,000,000 cash; draft Share Purchase Agreement (definitive agreement) and ancillary TSA/SSA attached for review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: equity cheque from Harbor Quill Fund III (internal), plus a committed SGD 120,000,000 term facility at SORA+195 bps; no security over operating subsidiaries pre-completion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SGD 120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 Not for SGXNet circulation; contains information not generally available under SFA/SGX.\nBoard update re Project Sandpiper: proposed acquisition by Harbor Quill Capital Pte. Ltd. of a 55.2% stake in Qilin Robotics Ltd. (SGX Mainboard).\nConsideration: SGD 480,000,000 cash; draft Share Purchase Agreement (definitive agreement) and ancillary TSA/SSA attached for review.\nTarget signing 12 Sep 2026; public announcement embargo until 30 Sep 2026, 08:30 SGT, subject to pre-clearance with SGX RegCo.\nWe will request a trading halt; IR draft and Q&A prepared by Ms. Darya Ong (Head of IR) pending Chair review by Mr. Leon Tay.\nMAC/MAE: for avoidance of doubt, the loss of the CoastalWorks POC and routine customer churn shall not constitute a Material Adverse Effect under Clause 7.2.\nConditions precedent: IMDA data-transfer notification (if applicable), no change-of-control consents outstanding beyond the Long-Stop Date (LSD), PDPA consents for employee data transfer in accordance with Section 13 PDPA.\nNote: the 2024 sustainability metrics and basic revenue figures referenced are from Qilin Robotics\u2019 publicly available annual report on SGXNet dated 24 Mar 2025.\nEmployment/PDPA: seconded staff lists include Dr. Sera Ng and Mr. Julian Koh; do not circulate personal emails or partial NRICs outside the clean team.\nContact channel for clean room queries: dealroom@amberwren-legal.sg (monitored by Amber Wren Legal LLC).\nFinancing: equity cheque from Harbor Quill Fund III (internal), plus a committed SGD 120,000,000 term facility at SORA+195 bps; no security over operating subsidiaries pre-completion.\nCompliance: pursuant to SFA insider trading prohibitions and SGX LR 703, no director or employee is to trade in Qilin Robotics securities until the embargo lifts.\ntodo: circulate clean redlines and blackline SPA/SSA to finance and tax by eod; align with checklist v7 in the dataroom.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TSA",
+      "reason": "Agreement abbreviation not in allowed definitive_agreement rules"
+    },
+    {
+      "matched_text": "SSA",
+      "reason": "Agreement abbreviation not in allowed definitive_agreement rules"
+    },
+    {
+      "matched_text": "LSD",
+      "reason": "Defined-term abbreviation (Long-Stop Date), not PII/MNPI"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "Spa-day bait; unrelated to definitive agreements or MNPI"
+    },
+    {
+      "matched_text": "public source",
+      "reason": "Explicitly indicates information is public and not MNPI"
+    },
+    {
+      "matched_text": "dealroom@amberwren-legal.sg",
+      "reason": "Functional or role mailbox; not an individual email address for strict SG PII labels."
+    },
+    {
+      "matched_text": "spa",
+      "reason": "Bait/non-agreement usage such as spa-day; not a definitive agreement."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "signing date marker",
+      "matched_text": "Target signing 12 Sep 2026",
+      "reason": "Refers to anticipated signing but does not use the explicit 'Signing Date' label in allowed embargo_marker list"
+    },
+    {
+      "concept": "interest margin",
+      "matched_text": "SORA+195 bps",
+      "reason": "Financing margin could be price-sensitive but basis points are not clearly covered by allowed financial_percentage or other MNPI rules"
+    }
+  ]
+}

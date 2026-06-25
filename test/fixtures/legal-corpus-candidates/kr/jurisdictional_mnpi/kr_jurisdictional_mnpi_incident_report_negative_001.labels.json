@@ -1,0 +1,212 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sec-ops@palgongds.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-7890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, this memo does not relate to any share buyback, M&A deal, or tender offer; rumors circulating in forums are not Company communications.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No financial guidance is being updated in this memo; the latest outlook remains as per the 2025-03-31 earnings release already posted to the public portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "990101",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@palgongds.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal trading blackout(\uc784\uc6d0\u00b7\uc9c1\uc6d0 \ub9e4\ub9e4 \uc81c\ud55c)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not selectively disclose",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not yet been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any external communication must follow \uacf5\uc815\uacf5\uc2dc guidelines",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal forensics indicate a subset of archived HR directories may have been accessed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employees must not include resident registration numbers in tickets",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "990101-1XXXXXX",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Designated insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until the Disclosure Committee determines the timing of any further Capital Markets Act-compliant filing concerning the incident assessment",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sec-ops@palgongds.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-7890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, this memo does not relate to any share buyback, M&A deal, or tender offer; rumors circulating in forums are not Company communications.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No financial guidance is being updated in this memo; the latest outlook remains as per the 2025-03-31 earnings release already posted to the public portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No financial guidance is being updated in this memo; the latest outlook remains as per the 2025-03-31 earnings release already posted to the public portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "990101",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Vendor status: Hanrim Nebula Services publicly reported packet loss on 2025-05-20; this third-party update is non-issuer information.\nAs of today, customer-facing systems are stable and ISMS controls were revalidated by an external auditor on 2025-05-30; results will be included in the 2025 Sustainability Report previously scheduled and publicly noticed.\nFor clarity, this memo does not relate to any share buyback, M&A deal, or tender offer; rumors circulating in forums are not Company communications.\nEmployees must not include resident registration numbers in tickets; examples such as 000000-0000000 or 990101-1XXXXXX are invalid training placeholders only.\nGeneric form labels in attachments (e.g., \u201cAccount No.: 123-456-7890\u201d) are test values and not customer data.\nInvestor Relations inquiries may be sent to ir@palgongds.example.kr; public documents are available on the E-DIS portal and the KGEX Bulletin site.\nDesignated insiders are under an internal trading blackout(\uc784\uc6d0\u00b7\uc9c1\uc6d0 \ub9e4\ub9e4 \uc81c\ud55c) until the Disclosure Committee determines the timing of any further Capital Markets Act-compliant filing concerning the incident assessment.\nPreliminary internal forensics indicate a subset of archived HR directories may have been accessed; fields could include masked resident-number tokens and employee IDs, and this has not yet been publicly disclosed\u2014do not selectively disclose.\nNo financial guidance is being updated in this memo; the latest outlook remains as per the 2025-03-31 earnings release already posted to the public portal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun/party label not PII/MNPI"
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Generic role noun; not a person or MNPI"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "PII category mention",
+      "matched_text": "masked resident-number tokens",
+      "reason": "Indicates RRN-type data at issue without specific values; not directly covered by strict rules"
+    },
+    {
+      "concept": "account number vs phone number ambiguity",
+      "matched_text": "Account No.: 123-456-7890",
+      "reason": "String looks like a phone number but is labeled as an account number example; classification may vary by detector"
+    }
+  ]
+}

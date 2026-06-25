@@ -1,0 +1,16 @@
+Internal Incident Notice — Rimal Ports PJSC — Non-public inside information until ADX/SCA disclosure determination.
+Issuer: Rimal Ports PJSC (Abu Dhabi Trade Licence CN-5827413), ADX ticker RMLP; ADGM subsidiary Ghadir Marine SPV Ltd (ADGM Comml Lic No. 00078412), with a DIFC branch for treasury ops.
+On 2026-06-04 22:30 GST, unauthorized access via vendor VPN to the OT monitoring segment at Mina Al Saha terminal triggered a 3-hour preventive shutdown of 4 RTG cranes; no vessel incident occurred.
+Initial forensic review (ticket it-ops-1329) indicates limited exfiltration of a contractor roster incl. names, work emails, handset numbers, and one Emirates ID; affected record: Ms. Hana Al Badri, Operations Supervisor, Emirates ID 784 - 1991 - 654 3213 - 6.
+The roster file schema includes a family-origin field; that column was present but not populated in the extracted sample, and no payroll bank IBANs were stored.
+Under PDPL we treat this as personal data exposure; notification to the UAE Data Office will be submitted within 72 hours, and data subjects informed via hr@rimalports.ae.
+From an issuer perspective, we are in a closed period ahead of Q2 results (blackout window 15 Jun–18 Jul); selective disclosure is prohibited and an insider list has been opened per SCA/ADX rules.
+Management preliminarily assesses a throughput impact of ≤1.5% for June; this may be material for RMLP depending on cumulative quarterly performance and therefore qualifies as inside information unless publicly announced.
+IR should prepare the ADX immediate disclosure template for filing on T+1 if impact exceeds internal threshold; this communication is not an announcement and not for dissemination outside need-to-know.
+Reference: our prior ADX clarification dated 2026-05-12 (RMLP/CL/2026/0512, https://adx.ae/ann?ref=RMLP%2F20 26%2F0512) related to a separate labour matter and remains accurate but is not relevant to this cyber event.
+External noise: Al Khabra Systems LLC posted a general blog on “zero impact” for its clients; that is a public vendor claim and should not be treated as issuer disclosure.
+Financing workflow note: we continue documentation for the senior sukuk tap via Nasdaq Dubai advisors; today’s event does not constitute a material adverse change under the draft terms and no covenant breach is expected.
+Governance: restrict communications during blackout; do not brief analysts or suppliers on non-public operational details; investor queries to Mr. Kareem bin Taha (Head of Compliance), kareem.taha@rimalports.ae, +971 50 123  47  89.
+Identification checks show the attacker used a disabled trade licence entry “Marina Gulf Tech FZ-LLC — TL 40 19  77” on our vendor portal; portal logs stored under s3://ri mal-ir/re d/2026-06-04 show auth token 0xA3**CD.
+For ADGM-managed SPV contracts, the incident is operational only and does not affect DIFC treasury payments or the ADX share registry; product names “QuantaGate OT Sensor” and “Safeline PAM” are mentioned for inventory completeness.
+Routine note: the Q1 sustainability report uploaded on 2026-04-28 to https://rimalports.ae/esg is public, and generic CSR statements therein should not be treated as updates on this incident.

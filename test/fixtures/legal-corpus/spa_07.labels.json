@@ -1,0 +1,66 @@
+{
+  "doc_id": "spa_07",
+  "document_type": "SPA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SHARE PURCHASE AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Jonathan Lee"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "201912345N"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "jonathan.lee@techinnovations.sg"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "098765"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "048621"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 500,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Agreement",
+      "reason": "Defined term"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Defined term"
+    },
+    {
+      "matched_text": "Purchaser",
+      "reason": "Defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

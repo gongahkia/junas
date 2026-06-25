@@ -1,0 +1,322 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@hanminelectra.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "seorina@hanminelectra .co .kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Rina",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Baek Jun-ho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Kang Yul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Baek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approved",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer logged",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields minimised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "72 0 9-1 1 8 3 5 9",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RRN: 8 4 0 2 1 9-******",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IR- 9 2 8 7",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H R - B3 1 7",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked as RRN: 8 4 0 2 1 9-******",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mask persisted across exports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is limited to IR contacts and excludes salary, health, and family status fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access limited to Mr. Baek and Dr. Kang Yul (IR)",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "72 0 9-1 1 8 3 5 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "8 4 0 2 1 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Baek Jun",
+      "rule": "named_person"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@hanminelectra.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "72 0 9-1 1 8 3 5 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "8 4 0 2 1 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Rina",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Baek Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Baek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Kang Yul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Rina",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approved: limited employee IR-contact fields to Syeon DataWorks KK (Tokyo) via SCC-KR Annex 2; fields minimised (name, biz email, role); no resident-number exported.\nMs. Seo Rina (CCO) withdrew consent for inclusion in overseas IR list on 2026-05-24; erasure completed at 15:41 KST; retention clock reset; ticket IR- 9 2 8 7 closed.\nDSAR by Mr. Baek Jun-ho received 2026-05-22 regarding employment onboarding file; response issued within 7 days; RRN displayed as 72 0 9-1 1 8 3 5 9; raw identifier not retained per policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approved: limited employee IR-contact fields to Syeon DataWorks KK (Tokyo) via SCC-KR Annex 2; fields minimised (name, biz email, role); no resident-number exported.\nMs. Seo Rina (CCO) withdrew consent for inclusion in overseas IR list on 2026-05-24; erasure completed at 15:41 KST; retention clock reset; ticket IR- 9 2 8 7 closed.\nDSAR by Mr. Baek Jun-ho received 2026-05-22 regarding employment onboarding file; response issued within 7 days; RRN displayed as 72 0 9-1 1 8 3 5 9; raw identifier not retained per policy.\nDPA Schedule 3 (subprocessor map) updated; vendor: Tansun Metrics Pte.; export approval recorded at https://portal.hanminelectra.co.kr/export/perm?ref=IR_2026_Q3&user=baek.j; cross-border transfer logged.\nDocMinimizer\u2122 applied to HR\u2013IR merge; retention for onboarding scans reduced to 90 days; erasure job H R - B3 1 7 ran 2026-05-25; no backup restore required.\nWe do not process biometric data, geolocation traces, or MAC triggers; material adverse change covenant not triggered by this memo.\nThis memo does not contain MNPI; indicative timetable for a private placement on Suhyang Exchange MainBoard remains draft and uses public-source references.\nFSCMA-compliant IR controls remain in place; any non-public pricing terms are segregated in the deal room; access limited to Mr. Baek and Dr. Kang Yul (IR).\nemployment onboarding form text: em ployee on board ing checklist done; not a production deploy; lowercase links only; product names are internal codes.\nForm KR-IR-12 includes resident-number field masked as RRN: 8 4 0 2 1 9-******; mask persisted across exports; consent box captured with timestamp.\nFor avoidance of doubt, data-export to Syeon DataWorks KK is limited to IR contacts and excludes salary, health, and family status fields.\nContact: legal@hanminelectra.co.kr; alt: Ms. Seo via seorina@hanminelectra .co .kr; internal routing ext. 8899; memo owner: Ms. Seo Rina",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Seo Rina (CCO) withdrew consent for inclusion in overseas IR list on 2026-05-24; erasure completed at 15:41 KST; retention clock reset; ticket IR- 9 2 8 7 closed.\nDSAR by Mr. Baek Jun-ho received 2026-05-22 regarding employment onboarding file; response issued within 7 days; RRN displayed as 72 0 9-1 1 8 3 5 9; raw identifier not retained per policy.\nDPA Schedule 3 (subprocessor map) updated; vendor: Tansun Metrics Pte.; export approval recorded at https://portal.hanminelectra.co.kr/export/perm?ref=IR_2026_Q3&user=baek.j; cross-border transfer logged.\nDocMinimizer\u2122 applied to HR\u2013IR merge; retention for onboarding scans reduced to 90 days; erasure job H R - B3 1 7 ran 2026-05-25; no backup restore required.\nWe do not process biometric data, geolocation traces, or MAC triggers; material adverse change covenant not triggered by this memo.\nThis memo does not contain MNPI; indicative timetable for a private placement on Suhyang Exchange MainBoard remains draft and uses public-source references.\nFSCMA-compliant IR controls remain in place; any non-public pricing terms are segregated in the deal room; access limited to Mr. Baek and Dr. Kang Yul (IR).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "biometric data",
+      "reason": "Explicitly negated; indicates not processed."
+    },
+    {
+      "matched_text": "geolocation traces",
+      "reason": "Explicitly negated; indicates not processed."
+    },
+    {
+      "matched_text": "MAC triggers",
+      "reason": "Refers to Material Adverse Change, not device MAC address; negated."
+    },
+    {
+      "matched_text": "material adverse change covenant",
+      "reason": "Negated MAC; do not label per rule on no-MAC statements."
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Appears only in the negated statement 'does not contain MNPI'."
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR by Mr. Baek Jun-ho received 2026-05-22",
+      "reason": "DSAR handling is privacy-relevant but no explicit DSAR rule in allowed categories."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure completed at 15:41 KST",
+      "reason": "Erasure completion is privacy-relevant but no erasure rule in allowed categories."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention clock reset",
+      "reason": "Retention handling is privacy-relevant but no retention rule in allowed categories."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention for onboarding scans reduced to 90 days",
+      "reason": "Specifies retention period; useful signal but no retention rule available."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure job H R - B3 1 7 ran 2026-05-25",
+      "reason": "Operational erasure event; category not present in allowed rules."
+    },
+    {
+      "concept": "username quasi-identifier",
+      "matched_text": "user=baek.j",
+      "reason": "Identifies a specific user but not clearly mapped to an allowed identifier rule."
+    }
+  ]
+}

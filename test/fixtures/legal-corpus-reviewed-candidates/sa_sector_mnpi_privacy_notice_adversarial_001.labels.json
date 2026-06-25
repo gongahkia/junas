@@ -1,0 +1,409 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_sector_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/sector_mnpi/sa_sector_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_sector_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 17,
+    "old_ideal_must_detect_count": 34,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al\u2011Qahtani",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Rashid",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT pilot: an exploratory tokenised REC workflow with Ajyad Digital Custody LLC (sandbox) remains confidential pending CMA submission; information barriers are active and there is no retail virtual\u2011asset offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Green Falcon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@alnour-renew.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@alnour\u2011renew.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident MNPI",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers are active",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border personal data transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama images are redacted to last 4 digits only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 1 0 1 \u2022 9 9 7 \u2022 4 2 0 3",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT pilot",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft restatement of 2025 Scope 2 emissions variance",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "national ID/Iqama",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "national ID/Iqama",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked Iqama (***\u2011**\u2022*0\u201141)",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u20115O\u2011123\u20114l89",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information\u2011barrier enforcement",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending CMA submission",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA permit No. TX\u20112O26\u2011\u00df17",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG MNPI",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deal team workspaces are segregated from research",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al\u2011Qahtani",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Rashid",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT pilot: an exploratory tokenised REC workflow with Ajyad Digital Custody LLC (sandbox) remains confidential pending CMA submission; information barriers are active and there is no retail virtual\u2011asset offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Green Falcon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Al-Nour Renewable Holdings CJSC \u2014 PDPL Privacy & MNPI Handling Notice (Saudi Arabia)\nController: Al-Nour Renewable Holdings CJSC (CR: 1 0 1 \u2022 9 9 7 \u2022 4 2 0 3; Saudi Exchange/Tadawul ticker \u201cANRH\u201d pending) and DPO: Dr. Layla Al\u2011Qahtani, privacy@alnour-renew.sa, https://alnour-renew.sa/privacy?req=DSAR-00A9x\nCategories and basis: names, roles, business contacts, and where lawfully required for KYC, masked national ID/Iqama (e.g., 2l9\u201188\u202230\u202241), processed under PDPL for contract, legitimate interests, and legal obligation (CMA inquiries)\nInsider controls: the insider list for \u201cProject Green Falcon\u201d includes Mr. Faisal Al\u2011Rashid (CFO), wall\u2011crossed under NDA on 1447H\u201108\u201122; a trading blackout applies until formal disclosure on Tadawul\nESG MNPI: draft restatement of 2025 Scope 2 emissions variance (>18%) and unpriced offset contracts for the Al\u2011Khair solar farm are non\u2011public and restricted to the clean team\nCyber incident MNPI: on 2026\u201105\u201118 a vendor SFTP key at Sahra Cloud B.S.C.(c) (Manama DC) was compromised; exposure limited to a hashed admin credential (SHA256 51e2\u2022\u2022ab9), with no customer financial data accessed\nCrypto/DPT pilot: an exploratory tokenised REC workflow with Ajyad Digital Custody LLC (sandbox) remains confidential pending CMA submission; information barriers are active and there is no retail virtual\u2011asset offering\nEducational/marketing note: our webinar \u201cCrypto and ESG\u201d is general awareness, does not discuss issuer\u2011specific terms, and must not be treated as deal disclosure or investment advice\nTransfers: cross\u2011border personal data transfers are limited and require SDAIA permit No. TX\u20112O26\u2011\u00df17; see https://pdpl.sdaia.gov.sa/permit?id=TX2O26B17; processors must implement encryption at rest and in transit\nRetention: insider lists and wall\u2011cross memos are retained 5 years after removal from the restricted list; cyber logs 90 days; Iqama images are redacted to last 4 digits only; auto\u2011purge tracked in R\u2011T\u2011N job r un\u20112\nDSAR: to access, correct, or delete PD, email privacy@alnour\u2011renew.sa with your name and masked Iqama (***\u2011**\u2022*0\u201141) and cite DSAR/ANRH/2 6; we may verify via one\u2011time code by SMS before actioning\nInformation\u2011barrier enforcement: deal team workspaces are segregated from research; selective disclosure, tipping, and pre\u2011clearance breaches will be escalated to the CMA Market Conduct Department without delay\nCommercial terms MNPI: the draft term sheet for Green Falcon Sukuk 2027 (indicative 4.9% coupon) and PPA price\u2011reset clauses are confidential and subject to the blackout for all insiders and connected persons\nNegative bait/public sources: this notice contains no forecasts, does not trigger any MAC, and summarises obligations that are also described in CMA and SDAIA public FAQs for general awareness\nOperations\u2011only reuse: operations note \u2014 the \u201cinsider list\u201d spreadsheet template and \u201ccrypto\u201d field names in the ticketing system are generic workflow labels and do not indicate trading restrictions",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC",
+      "reason": "Negated context; do not label as material_adverse_change per rule 8"
+    },
+    {
+      "matched_text": "\u201cinsider list\u201d",
+      "reason": "Generic operations label in negative-bait section; not MNPI"
+    },
+    {
+      "matched_text": "\u201ccrypto\u201d",
+      "reason": "Generic field name in operations; not MNPI"
+    },
+    {
+      "matched_text": "\u201cCrypto and ESG\u201d",
+      "reason": "Educational webinar title; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "Retention marker",
+      "matched_text": "retained 5 years",
+      "reason": "Retention periods are privacy-event markers but no explicit rule name provided in allowed list"
+    },
+    {
+      "concept": "Auto-deletion/retention control",
+      "matched_text": "auto\u2011purge",
+      "reason": "Indicates retention enforcement; no explicit rule in allowed list"
+    },
+    {
+      "concept": "DSAR/erasure request",
+      "matched_text": "delete PD",
+      "reason": "Data subject erasure is a privacy event but only consent_withdrawal_marker is enumerated"
+    },
+    {
+      "concept": "Issuer pre-listing/ticker pending",
+      "matched_text": "Saudi Exchange/Tadawul ticker \u201cANRH\u201d pending",
+      "reason": "May be MNPI, but no specific allowed MNPI rule for equity pre-listing status"
+    }
+  ]
+}

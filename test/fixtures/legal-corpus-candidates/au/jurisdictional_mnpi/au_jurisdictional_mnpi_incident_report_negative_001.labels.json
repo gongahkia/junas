@@ -1,0 +1,167 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0518",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ACN 000 000 000",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "support@quarrycloud.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1300-000-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ST-04421",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Level 8, 77 Latham St, Dockham NSW 2000",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retained for audit",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purge scheduled per policy",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal forecast suggests short-term throughput may be below prior operational guidance pending remediation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure has been made",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Staff trading window remains per Securities Dealing Policy",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this note does not alter s 1043A insider trading obligations",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "current view is non-material, operational only",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure Committee to reassess materiality before any ASX update",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0518",
+      "rule": "phone_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PII note: One staff access log contained internal employee identifier ST-04421 linked to a roster entry; retained for audit, purge scheduled per policy",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Incident Report \u2014 Oaktide Logistics Limited (Australia) \u2014 21 May 2026\nEntity reference: ACN 000 000 000 (placeholder); registered office: Level 8, 77 Latham St, Dockham NSW 2000\nIncident ID: OT-OPS-2026-0518; Business Unit: Distribution (NSW)\nSummary: On 18 May 2026 a third-party warehouse management SaaS outage at QuarryCloud Pty Ltd caused delayed dispatch; no unauthorised access detected.\nASX/ASIC context: Continuous disclosure (Corporations Act s 674; ASX Listing Rule 3.1) reviewed; current view is non-material, operational only.\nPublic status: A general service-restoration update was posted 19 May 2026 on the ASX platform and company website; information therein is already public and no selective disclosure has been made.\nBlackout/insider references: Staff trading window remains per Securities Dealing Policy; this note does not alter s 1043A insider trading obligations.\nOther filings for context: ASIC Form 361 (12 Feb 2025) and Appendix 4D HY25 were previously lodged and unrelated to this incident.\nImpact: Four NSW sites paused outbound scans, used manual manifests; no cancellations, some deliveries deferred less than one day.\nData/privacy: No TFNs, Medicare numbers, credit card PANs, or health information were processed by the affected service.\nPII note: One staff access log contained internal employee identifier ST-04421 linked to a roster entry; retained for audit, purge scheduled per policy.\nCommunications: Vendor ticket QC-INC-8821 opened via support@quarrycloud.au; customer enquiries redirected to 1300-000-000 (public helpdesk).\nMNPI caution: Preliminary internal forecast suggests short-term throughput may be below prior operational guidance pending remediation; Disclosu",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "AU",
+  "uncertain": []
+}

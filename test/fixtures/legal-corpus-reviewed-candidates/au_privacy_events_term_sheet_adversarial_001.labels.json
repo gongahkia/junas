@@ -1,0 +1,342 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_privacy_events_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/privacy_events/au_privacy_events_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_privacy_events_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_resolved_label_warnings": {
+    "basis": "AU Stage B QA after strict-tier reconciliation: stale auto-label warning metadata was cleared after strict labels were realigned to deterministic engine output and ideal labels were preserved for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "resolved_at_utc": "2026-06-02T04:39:19Z",
+    "reviewer": "Codex GPT-5.5",
+    "warning_buckets": [
+      "invalid_rule",
+      "non_verbatim_span"
+    ],
+    "warning_count": 13
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "A$18,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Cedric Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID: E**7A9**",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "t.quade@orionpacific.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 7010 0455",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Quade",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Suite 19, Level 8, 88 Nereid St, Southbank VIC 3006",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawn 31/01/2026",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "overseas disclosures permitted only per APP 8",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "m i n i m i s a t i o n",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID images not retained, only verification tokens",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nimbus Compute Pte Ltd (SG)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Kahu Cloud Ltd (NZ)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "strategic investment and call option over 60% of Lattice BioSensors Pty Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "data room watermarked; download disabled",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VIC 3006",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Miscellaneous: governing law NSW; disputes to ACICA arbitration; costs own; this term sheet is not binding except for confidentiality, exclusivity (45 days), and privacy/DPA obligations, and may be announced per ASX guidance only after joint approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "500,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "t.quade@orionpacific.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 7010 0455",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VIC 3006",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Cedric Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Quade",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Miscellaneous: governing law NSW; disputes to ACICA arbitration; costs own; this term sheet is not binding except for confidentiality, exclusivity (45 days), and privacy/DPA obligations, and may be announced per ASX guidance only after joint approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$18,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Nereid St, Southbank VIC 3006",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Cedric Hale (EID: E**7A9**) fulfilled on 02/02/2026; erasure of onboarding scans completed 05/02/2026; there is no outstanding deletion request.\nConsent management: employment consent signed 12/11/2025 and withdrawn 31/01/2026; withdrawal processed within 5 business days; records retained only per Orion Retention Schedule (7 years for payroll per AU law).\nKYC/AML onboarding for Kestrel: AUSTRAC\u2011compliant forms lodged; ID images not retained, only verification tokens (ref: KYC\u2011TOK\u20110x3F); biometric data is not collected in this process.\nHealth and credit files in diligence: all patient or borrower data is de\u2011identified or synthetic; public\u2011source references (industry whitepapers) may be included; nothing herein should be treated as live processing.\nSecurity and IT: vendor code OPRL\u2011VN\u20110X2X; network logs contain no MAC a d d r e s s e s; any IPs displayed are masked (e.g., 10.*.*.*); change control completed CR\u20114411 closed.\nContact and notices: Ms. Tamsin Quade, General Counsel, t.quade@orionpacific.example, +61 2 7010 0455; postal: Suite 19, Level 8, 88 Nereid St, Southbank VIC 3006",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011Binding Term Sheet (Australia) between Orion Pacific Robotics Limited (ASX: OPRL, ACN 63X\u201112X\u20119X0) and Kestrel Harbour Capital Fund I LP re: strategic investment and call option over 60% of Lattice BioSensors Pty Ltd.\nConsideration: A$18,500,000 for A\u2011class preference shares in Orion and option fee of A$500,000; subject to Corporations Act and ASX Listing Rules 7.1/7.1A approvals.\nConditions: ASIC lodgement; FIRB not applicable; no MAC clause has not been triggered as at the date hereof; completion target 30 Sept 2026, long\u2011stop 30 Nov 2026.\nMNPI and disclosure: parties acknowledge s1042A Corporations Act obligations; for this term sheet no information not generally available is provided beyond public ASX announcements and ABS Yearbook 2024 extracts.\nDue diligence and data room: access via https://dealroom.orionpacific.example/tx?id=ORP\u2011AX\u201123%2F007; materials are aggregated or de\u2011identified per APP 3 m i n i m i s a t i o n; no payroll DOBs will be shown.\nDPA Schedule (Annex C): overseas disclosures permitted only per APP 8 with Orion retaining s 16C responsibility; recipients include Nimbus Compute Pte Ltd (SG) and Kahu Cloud Ltd (NZ) under Data\u2011Export Approval Memo DPC\u2011EX\u2011117 dated 03/04/2026.\nPrivacy events (completed): DSAR from ex\u2011employee Mr. Cedric Hale (EID: E**7A9**) fulfilled on 02/02/2026; erasure of onboarding scans completed 05/02/2026; there is no outstanding deletion request.\nConsent management: employment consent signed 12/11/2025 and withdrawn 31/01/2026; withdrawal processed within 5 business days; records retained only per Orion Retention Schedule (7 years for payroll per AU law).\nKYC/AML onboarding for Kestrel: AUSTRAC\u2011compliant forms lodged; ID images not retained, only verification tokens (ref: KYC\u2011TOK\u20110x3F); biometric data is not collected in this process.\nHealth and credit files in diligence: all patient or borrower data is de\u2011identified or synthetic; public\u2011source references (industry whitepapers) may be included; nothing herein should be treated as live processing.\nSecurity and IT: vendor code OPRL\u2011VN\u20110X2X; network logs contain no MAC a d d r e s s e s; any IPs displayed are masked (e.g., 10.*.*.*); change control completed CR\u20114411 closed.\nContact and notices: Ms. Tamsin Quade, General Counsel, t.quade@orionpacific.example, +61 2 7010 0455; postal: Suite 19, Level 8, 88 Nereid St, Southbank VIC 3006.\nAccess controls: data room watermarked; download disabled; cross\u2011border transfers will not occur pre\u2011completion without counterparty written consent; this clause records policy and does not indicate a current transfer.\nMiscellaneous: governing law NSW; disputes to ACICA arbitration; costs own; this term sheet is not binding except for confidentiality, exclusivity (45 days), and privacy/DPA obligations, and may be announced per ASX guidance only after joint approval.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Tamsin Quade, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC clause has not been triggered",
+      "reason": "Negated MAC; not a live Material Adverse Change event"
+    },
+    {
+      "matched_text": "10.*.*.*",
+      "reason": "Masked IP example; not an actual IP address"
+    },
+    {
+      "matched_text": "MAC a d d r e s s e s",
+      "reason": "Obfuscated phrase; not a valid MAC address"
+    },
+    {
+      "matched_text": "biometric data is not collected in this process",
+      "reason": "Negated sensitive data collection; no biometric identifiers present"
+    },
+    {
+      "matched_text": "DOBs",
+      "reason": "Mention without any actual date of birth values"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "s1042A Corporations Act obligations",
+      "reason": "References insider trading obligations; indicates MNPI governance context but not a defined marker term"
+    }
+  ]
+}

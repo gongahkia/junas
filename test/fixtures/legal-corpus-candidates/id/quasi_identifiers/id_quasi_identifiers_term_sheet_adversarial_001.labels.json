@@ -1,0 +1,395 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp240.000.000.000'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp400.000.000.000'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.200.000.000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp240.000.000.000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp400.000.000.000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.200.000.000'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_quasi_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@garudapurnama.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ardi.prakoso@nusafin.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ratna.dewi@gp-cap.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "400.000.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62-21-575757",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1.200.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-07-11",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Ratna Dewi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bapak Ardi Prakoso",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NFS-0481",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12-03-1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "helpdesk@nusafin.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.14.6.23",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Dr. Ratna Dewi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Maya Lestari",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "belum diumumkan di Bursa Efek Indonesia",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "bukan siaran pers publik sampai keterbukaan",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Catatan internal non-pengumuman",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "materi ini tidak boleh dibagikan di grup publik atau media sosial",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mohon hindari unggah ke folder umum",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rp1.250 per saham",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Koordinasi keuangan oleh Bapak Ardi Prakoso (CFO Perseroan, NFS-0481), lahir 12-03-1984, domisili Jakarta Selatan (Ged. Menara Sentral Lt 19), email ardi.prakoso@nusafin.co.id, perangkat kerja Seruni X1",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sesi-p8 7 6 3",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R e k : ** 4 3 2 1",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sampai keterbukaan ke OJK/BEI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pembelian 60% saham baru (PMTHMETD) dan pinjaman konversi Rp240.000.000.000",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Tanggal Penutupan",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tidak meminta atau menyimpan NIK/NPWP",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@garudapurnama.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ardi.prakoso@nusafin.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ratna.dewi@gp-cap.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "400.000.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62-21-575757",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1.200.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-07-11",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Ratna Dewi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Komunikasi manajemen: Hotline Perseroan +62-21-575757 (ext 204), helpdesk@nusafin.co.id; Investor PIC: Ibu Dr. Ratna Dewi (Partner), ratna.dewi@gp-cap.id",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET USULAN AKUISISI DAN PEMBIAYAAN antara PT Garuda Purnama Capital (\u201cInvestor\u201d) dan PT Nusantara Fintek Sentral (\u201cPerseroan/Emiten\u201d) tertanggal 12 Juni 2026; sifat: informasi MNPI sampai keterbukaan ke OJK/BEI.\nStruktur transaksi: pembelian 60% saham baru (PMTHMETD) dan pinjaman konversi Rp240.000.000.000; indikasi harga Rp1.250 per saham, belum diumumkan di Bursa Efek Indonesia, bersifat material bagi investor.\nPenilaian pra-uang Rp400.000.000.000; penutupan di Q3 2026; tunduk pada POJK No. 31/POJK.04/2015 dan POJK No. 42/POJK.04/2020; informasi ini bukan siaran pers publik sampai keterbukaan.\nSyarat pendahuluan: persetujuan RUPS, persetujuan KPPU bila diperlukan, tidak ada pelanggaran perjanjian; klausul MAC tidak diberlakukan sampai Tanggal Penutupan secara tegas dinegasikan untuk tahap term sheet ini.\nPendanaan: dana tahap I ke rekening escrow Perseroan di Bank Samudra Andalan, R e k : ** 4 3 2 1, cabang Harmoni; pembayaran tahap II dalam 30 hari setelah izin efektif OJK.\nKewajiban kerahasiaan: Para Pihak setuju menjaga MNPI sesuai UUPM dan Peraturan OJK; materi ini tidak boleh dibagikan di grup publik atau media sosial; kontak legal di legal@garudapurnama.co.id.\nKoordinasi keuangan oleh Bapak Ardi Prakoso (CFO Perseroan, NFS-0481), lahir 12-03-1984, domisili Jakarta Selatan (Ged. Menara Sentral Lt 19), email ardi.prakoso@nusafin.co.id, perangkat kerja Seruni X1.\nCatatan internal non-pengumuman: login CFO 09:43 WIB via WLAN NUSA-5G-14, sesi Sesi-p8 7 6 3, node rtr-02, IP 10.14.6.23; tautan rapat: https://meet.nusafin.co.id/s/ardi?p=84f&ts=2026-06-12.\nKomunikasi manajemen: Hotline Perseroan +62-21-575757 (ext 204), helpdesk@nusafin.co.id; Investor PIC: Ibu Dr. Ratna Dewi (Partner), ratna.dewi@gp-cap.id.\nKetentuan kepegawaian: retention bonus untuk Ibu Maya Lestari (Head of Risk) sebesar Rp1.200.000.000 dibayar bertahap; tidak ada perubahan kebijakan cuti; aplikasi internal \u201cDompiPay Lite\u201d tetap berjalan normal.\nKeterbukaan ke OJK: draft Formulir Keterbukaan Informasi disampaikan paling lambat H+2 setelah penandatanganan perjanjian definitif; kode internal emiten \u201cNFSX\u201d (bukan kode perdagangan) digunakan hanya untuk penjadwalan.\nPenafian: dokumen ini bukan prospektus; tidak meminta atau menyimpan NIK/NPWP; contoh statistik publik (mis. \u201c30% pengguna usia 25\u201334\u201d) bukan identitas personal; tidak ada jaminan keberhasilan integrasi.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Defined term/role label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Perseroan/Emiten",
+      "reason": "Defined term/role label, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "klausul MAC",
+      "reason": "Mentioned with explicit negation; borderline whether to tag per rule excluding 'no MAC' contexts"
+    },
+    {
+      "concept": "closing_date_marker_localized",
+      "matched_text": "Tanggal Penutupan",
+      "reason": "Indonesian equivalent of 'Closing Date' may be considered an embargo marker but not a listed English anchor"
+    },
+    {
+      "concept": "bank_account_masked",
+      "matched_text": "R e k : ** 4 3 2 1",
+      "reason": "Masked/partial account reference with spacing may not meet strict detection but indicates a bank account"
+    },
+    {
+      "concept": "internal_session_id_format",
+      "matched_text": "Sesi-p8 7 6 3",
+      "reason": "Session identifier with spaces; format irregular for deterministic detection"
+    },
+    {
+      "concept": "meeting_link_with_identifier",
+      "matched_text": "https://meet.nusafin.co.id/s/ardi?p=84f&ts=2026-06-12",
+      "reason": "URL may embed personal identifier ('ardi'); URLs not covered by allowed rules"
+    },
+    {
+      "concept": "ssid_identifier",
+      "matched_text": "WLAN NUSA-5G-14",
+      "reason": "Internal network SSID may be sensitive operational detail; no direct rule"
+    },
+    {
+      "concept": "device_model",
+      "matched_text": "perangkat kerja Seruni X1",
+      "reason": "Device model linked to an individual\u2019s work setup; not mapped to a specific PII rule"
+    },
+    {
+      "concept": "internal_issuer_code",
+      "matched_text": "NFSX",
+      "reason": "Internal issuer code could be nonpublic operational identifier; not mapped to a current MNPI rule"
+    },
+    {
+      "concept": "placeholder_dob",
+      "matched_text": "DOB 1992-07-11",
+      "reason": "Example DOB explicitly stated as non-personal placeholder; legally sensitive pattern but not about an identifiable person"
+    },
+    {
+      "concept": "placeholder_account_id",
+      "matched_text": "akun: uji_user07",
+      "reason": "Sample account ID given as non-personal placeholder; ambiguous PII relevance"
+    },
+    {
+      "concept": "placeholder_session_id",
+      "matched_text": "sesi: s-1a",
+      "reason": "Sample session ID as placeholder; ambiguous coverage under internal session ID rule"
+    },
+    {
+      "concept": "placeholder_location",
+      "matched_text": "lokasi: Surabaya",
+      "reason": "Generic location in a placeholder block; alone not identifying and marked non-personal"
+    }
+  ]
+}

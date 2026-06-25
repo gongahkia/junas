@@ -1,0 +1,66 @@
+{
+  "doc_id": "employment_letter_adv_04",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "600123"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "tanweiming@example.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "202312345A"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 9,000"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "sitaishah@example.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6234 5678"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined term abbreviation"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

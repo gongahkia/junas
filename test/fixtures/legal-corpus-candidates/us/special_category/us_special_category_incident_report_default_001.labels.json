@@ -1,0 +1,403 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 37,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 23,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_special_category_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "555) 016-2204",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BH-00983",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-03-08",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Esme Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dante Rios",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mina Cho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eli Tanner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Theo Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have initiated patient and customer notifications under applicable state breach statutes and HIPAA/GLBA timelines and will inform the exchange and the federal banking supervisor of final scope.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "patient ID NL-CH-44721",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1990-03-08",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "treatment notes for multiple sclerosis",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a medication-dispense fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a genetic screen flag (BRCA1 VUS)",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "self-identifies as lesbian",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee ID BH-00983",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership in Care Workers Local 512",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a registered Independent political affiliation",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-year-old child",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9157-44XX",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@northlakehealthbancorp.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "media@northlakehealthbancorp.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced Q2 inpatient revenue trends",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure risk",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before any broad public dissemination",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD lapse",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "treatment notes for multiple sclerosis",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Card Access ID 7F2-AX1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "loan application IDs",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary net charge-off ratios",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inadvertently provided Mr. Theo Park of Gray Harbor Analytics with unannounced Q2 inpatient revenue trends and preliminary net charge-off ratios",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "covered market actor",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to cure any potential Reg FD lapse",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A targeted phishing campaign compromised an admin account and led to exfiltration from PulseBridge EHR and CreekLedger CRM",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee records for Mr. Dante Rios (employee ID BH-00983, Card Access ID 7F2-AX1) included union membership in Care Workers Local 512, a registered Independent political affiliation, and dependent data for a 14-year-old child.\nBank customers of our subsidiary Northlake Federal Trust had nonpublic personal information exposed (loan application IDs, tokenized account numbers such as 9157-44XX, and account balances), but no wire transfers or ACH transactions were initiated.\nDuring a same-day containment call, Dr. Mina Cho (CFO) and Mr. Eli Tanner (Investor Relations) inadvertently provided Mr. Theo Park of Gray Harbor Analytics with unannounced Q2 inpatient revenue trends and preliminary net charge-off ratios, potentially implicating Regulation FD",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "555) 016-2204",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BH-00983",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-03-08",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Esme Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dante Rios",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mina Cho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eli Tanner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Theo Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have initiated patient and customer notifications under applicable state breach statutes and HIPAA/GLBA timelines and will inform the exchange and the federal banking supervisor of final scope.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Esme Calder (patient ID NL-CH-44721, DOB 1990-03-08) had treatment notes for multiple sclerosis, a medication-dispense fingerprint template, and a genetic screen flag (BRCA1 VUS) accessed; intake notes also recorded that she self-identifies as lesbian.\nEmployee records for Mr. Dante Rios (employee ID BH-00983, Card Access ID 7F2-AX1) included union membership in Care Workers Local 512, a registered Independent political affiliation, and dependent data for a 14-year-old child.\nBank customers of our subsidiary Northlake Federal Trust had nonpublic personal information exposed (loan application IDs, tokenized account numbers such as 9157-44XX, and account balances), but no wire transfers or ACH transactions were initiated.\nDuring a same-day containment call, Dr. Mina Cho (CFO) and Mr. Eli Tanner (Investor Relations) inadvertently provided Mr. Theo Park of Gray Harbor Analytics with unannounced Q2 inpatient revenue trends and preliminary net charge-off ratios, potentially implicating Regulation FD.\nInternal counsel has flagged Rule 10b-5 and selective disclosure risk because the above MNPI was shared with a covered market actor before any broad public dissemination.\nConsistent with MRX issuer guidelines, we plan to issue a Company Notice and hold a public webcast within 24 hours to cure any potential Reg FD lapse.\nSeparately, our Inclusive Workplace Charter \u201cOpen Doors,\u201d Religious Accommodation Policy, and Political Activity and Lobbying Policy contain generic DEI prose; this report references those policies only to confirm training status.\nAs a benign example, we maintain a religious holidays calendar and conduct political risk scenario planning for operations; no individual beliefs are discussed in that context.\nLog triage used a genetic algorithm metaphor in our tooling, and a Riverton Meteors preseason schedule was included in an unrelated phishing-awareness poster.\nWe have initiated patient and customer notifications under applicable state breach statutes and HIPAA/GLBA timelines and will inform the exchange and the federal banking supervisor of final scope.\nPlease route questions to compliance@northlakehealthbancorp.example.com or call the Incident Desk at (555) 016-2204",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For example, Ms. Esme Calder (patient ID NL-CH-44721, DOB 1990-03-08) had treatment notes for multiple sclerosis, a medication-dispense fingerprint template, and a genetic screen flag (BRCA1 VUS) accessed; intake notes also recorded that she self-identifies as lesbian.\nEmployee records for Mr. Dante Rios (employee ID BH-00983, Card Access ID 7F2-AX1) included union membership in Care Workers Local 512, a registered Independent political affiliation, and dependent data for a 14-year-old child.\nBank customers of our subsidiary Northlake Federal Trust had nonpublic personal information exposed (loan application IDs, tokenized account numbers such as 9157-44XX, and account balances), but no wire transfers or ACH transactions were initiated.\nDuring a same-day containment call, Dr. Mina Cho (CFO) and Mr. Eli Tanner (Investor Relations) inadvertently provided Mr. Theo Park of Gray Harbor Analytics with unannounced Q2 inpatient revenue trends and preliminary net charge-off ratios, potentially implicating Regulation FD.\nInternal counsel has flagged Rule 10b-5 and selective disclosure risk because the above MNPI was shared with a covered market actor before any broad public dissemination.\nConsistent with MRX issuer guidelines, we plan to issue a Company Notice and hold a public webcast within 24 hours to cure any potential Reg FD lapse.\nSeparately, our Inclusive Workplace Charter \u201cOpen Doors,\u201d Religious Accommodation Policy, and Political Activity and Lobbying Policy contain generic DEI prose; this report references those policies only to confirm training status.\nAs a benign example, we maintain a religious holidays calendar and conduct political risk scenario planning for operations; no individual beliefs are discussed in that context.\nLog triage used a genetic algorithm metaphor in our tooling, and a Riverton Meteors preseason schedule was included in an unrelated phishing-awareness poster.\nWe have initiated patient and customer notifications under applicable state breach statutes and HIPAA/GLBA timelines and will inform the exchange and the federal banking supervisor of final scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bank customers of our subsidiary Northlake Federal Trust had nonpublic personal information exposed (loan application IDs, tokenized account numbers such as 9157-44XX, and account balances), but no wire transfers or ACH transactions were initiated.\nDuring a same-day containment call, Dr. Mina Cho (CFO) and Mr. Eli Tanner (Investor Relations) inadvertently provided Mr. Theo Park of Gray Harbor Analytics with unannounced Q2 inpatient revenue trends and preliminary net charge-off ratios, potentially implicating Regulation FD",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "PulseBridge EHR",
+      "reason": "Product/system name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "CreekLedger CRM",
+      "reason": "Product/system name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "HarborShield perimeter logs",
+      "reason": "Tool/system reference; not personal data"
+    },
+    {
+      "matched_text": "CareCard portal",
+      "reason": "Product/system name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Cedar Ridge Debit",
+      "reason": "Product/system name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Meridian Stock Exchange",
+      "reason": "Venue name; not PII/MNPI"
+    },
+    {
+      "matched_text": "MRX issuer guidelines",
+      "reason": "Policy/guideline reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "Inclusive Workplace Charter",
+      "reason": "Policy title; generic DEI reference, not personal data"
+    },
+    {
+      "matched_text": "Open Doors",
+      "reason": "Policy nickname; generic DEI reference, not personal data"
+    },
+    {
+      "matched_text": "Religious Accommodation Policy",
+      "reason": "Policy title; not personal data"
+    },
+    {
+      "matched_text": "Political Activity and Lobbying Policy",
+      "reason": "Policy title; not personal data"
+    },
+    {
+      "matched_text": "religious holidays calendar",
+      "reason": "Generic practice reference; not tied to an individual"
+    },
+    {
+      "matched_text": "political risk scenario planning",
+      "reason": "Generic practice reference; not tied to an individual"
+    },
+    {
+      "matched_text": "genetic algorithm",
+      "reason": "Metaphor/technique name; not genetic personal data"
+    },
+    {
+      "matched_text": "Riverton Meteors",
+      "reason": "Sports team name; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "financial_account_data",
+      "matched_text": "account balances",
+      "reason": "Indicates sensitive financial information but no specific amount or account identifier to map to allowed rules"
+    },
+    {
+      "concept": "GLBA_NPI_term",
+      "matched_text": "nonpublic personal information",
+      "reason": "GLBA-defined term indicating PII exposure but not mapped to a specific PII field in allowed rules"
+    },
+    {
+      "concept": "reg_fd_cure_action",
+      "matched_text": "Company Notice",
+      "reason": "Cure step for Reg FD context; compliance-relevant but not an MNPI marker in allowed rules"
+    },
+    {
+      "concept": "reg_fd_cure_timing",
+      "matched_text": "public webcast within 24 hours",
+      "reason": "Timing and method to cure selective disclosure; not a defined MNPI rule here"
+    }
+  ]
+}

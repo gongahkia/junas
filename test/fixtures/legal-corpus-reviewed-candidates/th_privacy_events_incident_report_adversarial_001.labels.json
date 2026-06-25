@@ -1,0 +1,287 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_privacy_events_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/privacy_events/th_privacy_events_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_privacy_events_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0512",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2026-0512",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 00 000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sarinya Phumchan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Control note (negated): this memo does not constitute a breach notification under SOCT rules and imposes no new obligations on investors.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI check: no undisclosed forecasts, pricing, or financing terms are included; prior operational disclosure filed via BGE portal No. BGE-OPS-2026-0512.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing note: credit facility with Mekhala Custody (Thailand) Co., Ltd. remains unaffected; covenants tested and met; no drawdown triggered.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@pradoo.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew marketing consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention/minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "temporary replication to SG failover nodes",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "form fields reduced to role + business contact only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not track precise geolocation, IMEI, or device identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "token=xx%2F 7Z",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmployeeRef EN-0O7-9l",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr- 2 1 9 -b",
+      "rule": "employee_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+66 00 000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sarinya Phumchan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Control note (negated): this memo does not constitute a breach notification under SOCT rules and imposes no new obligations on investors.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI check: no undisclosed forecasts, pricing, or financing terms are included; prior operational disclosure filed via BGE portal No. BGE-OPS-2026-0512.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing note: credit facility with Mekhala Custody (Thailand) Co., Ltd. remains unaffected; covenants tested and met; no drawdown triggered.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent handling: Ms. Sarinya Phumchan withdrew marketing consent; status set to Opt-Out; no further outreach; contact logged via privacy@pradoo.example.\nControl note (negated): this memo does not constitute a breach notification under SOCT rules and imposes no new obligations on investors.\nMNPI check: no undisclosed forecasts, pricing, or financing terms are included; prior operational disclosure filed via BGE portal No. BGE-OPS-2026-0512.\nFinancing note: credit facility with Mekhala Custody (Thailand) Co., Ltd. remains unaffected; covenants tested and met; no drawdown triggered.\nOperational containment: CDN key rotated, WAF tightened, and app secrets reissued; we do not track precise geolocation, IMEI, or device identifiers.\nEmployment context: affected users limited to new hires onboarded 28\u201331 May; EmployeeRef EN-0O7-9l and hr- 2 1 9 -b used as examples only.\nSystem links: internal export job visible at http://intra.pradoo.local/export?token=xx%2F 7Z&batch=TH_SG_24 (access restricted); hotline +66 00 000 0000.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "national ID",
+      "reason": "Negated mention; no actual identifier value present."
+    },
+    {
+      "matched_text": "passport",
+      "reason": "Negated mention; no actual passport number present."
+    },
+    {
+      "matched_text": "bank a/c",
+      "reason": "Negated mention; no bank account number present."
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Generic term, no actual MAC address values present."
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Generic mention, no actual device identifier value present."
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "DSAR reference",
+      "matched_text": "DSAR- 0 3 9 1",
+      "reason": "Data subject request identifier is a privacy event but DSAR marker is not an explicit allowed rule."
+    },
+    {
+      "concept": "DSAR reference",
+      "matched_text": "DSAR-0402",
+      "reason": "Data subject request identifier is a privacy event but DSAR marker is not an explicit allowed rule."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure confirmations",
+      "reason": "Indicates deletion outcome; erasure marker not enumerated in allowed rules."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "90-day retention cap applied",
+      "reason": "Specifies retention limit; retention marker not enumerated in allowed rules."
+    },
+    {
+      "concept": "erasure job id",
+      "matched_text": "DEL-77g\u2013th",
+      "reason": "Operational deletion job identifier suggests erasure; not covered by an allowed rule."
+    }
+  ]
+}

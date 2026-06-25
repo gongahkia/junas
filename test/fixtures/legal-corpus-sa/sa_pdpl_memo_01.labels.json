@@ -1,0 +1,15 @@
+{
+  "doc_id": "sa_pdpl_memo_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SA",
+  "destination_jurisdiction": "SA",
+  "must_detect": [
+    {"rule": "sa_national_id", "matched_text": "1234567890"},
+    {"rule": "sa_iqama", "matched_text": "2345678901"},
+    {"rule": "sa_commercial_registration", "matched_text": "1234567890"},
+    {"rule": "email_address", "matched_text": "abdullah.alsaud@example.sa"},
+    {"rule": "transaction_codename", "matched_text": "Project Oasis"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

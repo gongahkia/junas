@@ -1,0 +1,366 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_privacy_events_memo_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/privacy_events/kr_privacy_events_memo_default_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_privacy_events_memo_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@gnmco.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data@gnmco.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@gnmco.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@gnmco.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Lee Ho-jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Choi Min-ae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kang Yun-seok",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Park Su-yeon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention and minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident-number",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RRN: ******-*******",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal-name, role, and masked resident-number",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosures",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Q3 revenue guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Lee Ho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Choi Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kang Yun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Park Su",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations MNPI: Draft Q3 revenue guidance and a non-binding term sheet with Haneul Battery Holdings are not yet publicly disclosed; insiders added to the restricted list per FSCMA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not distribute",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data@gnmco.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Lee Ho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Choi Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kang Yun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Park Su",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations MNPI: Draft Q3 revenue guidance and a non-binding term sheet with Haneul Battery Holdings are not yet publicly disclosed; insiders added to the restricted list per FSCMA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not distribute",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Compliance Committee | From: Legal & Privacy Office (privacy@gnmco.kr) | Attn: Mr. Lee Ho-jun, Counsel\nSubject: PIPA handling markers and FSCMA MNPI safeguards in employment, investor-relations, and deal documentation\n\nCross-border transfer: HR onboarding forms (resident-number field) were previously mirrored to MiraeCloud Pte. Ltd. (Singapore) under DPA Schedule A; that export approval was rescinded and closed on 2026-04-30.\nAs of this memo, no live cross-border transfer of resident-number or payroll identifiers is occurring; domestic hosting at Bukhan IDC replaces the retired feed.\nConsent withdrawal: Ms. Choi Min-ae withdrew consent for use of her emergency-contact and resident-number for optional wellness benefits; minimisation applied and non-essential fields removed.\nErasure: Following the withdrawal, a hashed token referencing the resident-number was purged, and erasure logs retained per retention Schedule 3 (3 years post-termination).\nDSAR: Mr. Kang Yun-seok submitted access and deletion requests via data@gnmco.kr; acknowledgment sent within 48 hours and final disposition completed on 2026-05-21.\nInvestor-relations MNPI: Draft Q3 revenue guidance and a non-binding term sheet with Haneul Battery Holdings are not yet publicly disclosed; insiders added to the restricted list per FSCMA.\nRegulatory context: Pre-clearance sought on selective disclosures with the competent financial supervisory authority; no selective IR meeting will occur before public bulletin filing, and analyst call scripts exclude individual employee identifiers.\nPolicy control (completed): DPA Schedule B update inserted a prohibition on exporting resident-number; the control is fully implemented and requires no further action unless the Board approves a new transfer.\nRetention and minimisation: Employment onboarding templates now collect only legal-name, role, and masked resident-number (displayed as RRN: ******-*******), with retention shortened from 5 to 3 years.\nDeal team reminder: IR rehearsal decks must exclude any attachment containing onboarding forms, even if fields are masked; do not distribute to external analysts until the bulletin is posted.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lee Ho-jun, Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Cross-border transfer",
+      "reason": "Negated/completed control; memo states no live cross-border transfer."
+    },
+    {
+      "matched_text": "no live cross-border transfer",
+      "reason": "Explicit negation; not an active cross-border transfer event."
+    },
+    {
+      "matched_text": "rescinded and closed",
+      "reason": "Indicates a completed/terminated export approval, not an active transfer."
+    },
+    {
+      "matched_text": "no selective IR meeting will occur",
+      "reason": "Negated selective-disclosure scenario; not an active MNPI risk."
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure",
+      "reason": "Erasure event is legally relevant but there is no explicit erasure marker rule in the allowed list."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR",
+      "reason": "Data subject access request is relevant but not explicitly listed in allowed rules."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention Schedule 3 (3 years post-termination)",
+      "reason": "Retention reference is relevant to privacy handling but there is no explicit retention marker rule in the allowed list."
+    },
+    {
+      "concept": "regulatory_preclearance_marker",
+      "matched_text": "Pre-clearance sought on selective disclosures",
+      "reason": "Regulatory pre-clearance indicates MNPI handling controls but is not a distinct allowed rule."
+    }
+  ]
+}

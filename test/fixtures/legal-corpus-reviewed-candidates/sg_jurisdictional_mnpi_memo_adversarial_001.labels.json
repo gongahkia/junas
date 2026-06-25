@@ -1,0 +1,398 @@
+{
+  "_agent_review": {
+    "notes": "Realigned this previously reviewed candidate label to the current deterministic engine after PH precision fixes suppressed completed DSAR/control bait, placeholder identifiers, role/no-MNPI markers, and benign MAC/term-sheet explanatory prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
+    "status": "post_ph_precision_realign_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    },
+    {
+      "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+      "reviewer": "codex-gpt-agent-cleanup-pass",
+      "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+      "status": "second_pass_blockers_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project-owner approval for post-PH precision realignment of strict candidate labels; internal/project benchmarking only, not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T01:36:04Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project-owner approval for post-PH precision realignment of strict candidate labels; internal/project benchmarking only, not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:36:04Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16. Post-PH precision realignment removed strict labels now suppressed by narrow precision guards; the broader spans remain in ideal_must_detect when useful for gap tracking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:36:04Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle approval stages for project benchmarking; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-candidates-after-ph-reviewed.json",
+    "status": "owner_approved_post_ph_precision_realign_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_jurisdictional_mnpi_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-30T01:36:04Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_memo_adversarial_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_jurisdictional_mnpi_memo_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Janice Teo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "janice.teo@harbourpeak.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6991 0371",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Malik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limit sharing of employee transfer/retention lists to aggregated form",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pr o j e c t L a g u n a",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pr o j e c t-L a g u n a",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to be price\u2011sensitive",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1.42",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls: do not brief analysts or major shareholders absent wall\u2011cross",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011cross",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed\u2011window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout notice",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality: expected to add ~22% to consolidated EBITDA (issuer\u2011relative); likely to trip Rule 1006 thresholds but not a reverse takeover under Rule 1015; draft SIA states this does not constitute a material adverse change.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Ms. Janice Teo, General Counsel, janice.teo@harbourpeak.com.sg, +65 6991 0371.\nPer our SGXNet announcement dated 12 Feb 2026 (Ref: HPH/ANN/2026/0212-001), the Board disclosed receipt of a non-binding indication from Azure Delta Capital regarding a potential strategic investment; that disclosure remains public.\nAs at 28 May 2026, we have received a firm, Board\u2011level conditional offer at S$1.42 per share for a 60% stake coupled with a placement; this is not generally available and is expected to be price\u2011sensitive under SGX\u2011ST L i s t i n g M a n u a l Rule 703(1)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact: Ms. Janice Teo, General Counsel, janice.teo@harbourpeak.com.sg, +65 6991 0371.\nPer our SGXNet announcement dated 12 Feb 2026 (Ref: HPH/ANN/2026/0212-001), the Board disclosed receipt of a non-binding indication from Azure Delta Capital regarding a potential strategic investment; that disclosure remains public.\nAs at 28 May 2026, we have received a firm, Board\u2011level conditional offer at S$1.42 per share for a 60% stake coupled with a placement; this is not generally available and is expected to be price\u2011sensitive under SGX\u2011ST L i s t i n g M a n u a l Rule 703(1).\nSelective disclosure controls: do not brief analysts or major shareholders absent wall\u2011cross; execute NDAs for Vendor DD call at 15:00 SGT with BlueKite Partners and Osprey Ridge Fund; consider a trading halt prior to any SGXNet release if leak risk increases.\nClosed\u2011window: applies per Company Securities Dealing Policy and SGX\u2011ST practice from 1 Jul 2026 until 2Q results (target 29 Jul 2026); no dealing by directors/connected persons.\nMateriality: expected to add ~22% to consolidated EBITDA (issuer\u2011relative); likely to trip Rule 1006 thresholds but not a reverse takeover under Rule 1015; draft SIA states this does not constitute a material adverse change.\nPDPA: limit sharing of employee transfer/retention lists to aggregated form; do not send NRIC scans; any onboarding data to be provided post\u2011signing with consent or PDPA exception justification.\nSFA: remind insiders of s.218/219 prohibitions; add Mr. Rohan Malik",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "janice.teo@harbourpeak.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6991 0371",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Janice Teo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Malik",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality: expected to add ~22% to consolidated EBITDA (issuer\u2011relative); likely to trip Rule 1006 thresholds but not a reverse takeover under Rule 1015; draft SIA states this does not constitute a material adverse change.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1.42",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo \u2014 Singapore counsel \u2014 Confidential \u2014 DocRef: HPH\u2014M&A\u20142 6 0 5 \u2014 s (v3)\nIssuer: HarbourPeak Holdings Ltd. (Mainboard; SGX\u2011ST), project name: Pr o j e c t L a g u n a; target: CobaltGrid Pte. Ltd.\nContact: Ms. Janice Teo, General Counsel, janice.teo@harbourpeak.com.sg, +65 6991 0371.\nPer our SGXNet announcement dated 12 Feb 2026 (Ref: HPH/ANN/2026/0212-001), the Board disclosed receipt of a non-binding indication from Azure Delta Capital regarding a potential strategic investment; that disclosure remains public.\nAs at 28 May 2026, we have received a firm, Board\u2011level conditional offer at S$1.42 per share for a 60% stake coupled with a placement; this is not generally available and is expected to be price\u2011sensitive under SGX\u2011ST L i s t i n g M a n u a l Rule 703(1).\nSelective disclosure controls: do not brief analysts or major shareholders absent wall\u2011cross; execute NDAs for Vendor DD call at 15:00 SGT with BlueKite Partners and Osprey Ridge Fund; consider a trading halt prior to any SGXNet release if leak risk increases.\nClosed\u2011window: applies per Company Securities Dealing Policy and SGX\u2011ST practice from 1 Jul 2026 until 2Q results (target 29 Jul 2026); no dealing by directors/connected persons.\nMateriality: expected to add ~22% to consolidated EBITDA (issuer\u2011relative); likely to trip Rule 1006 thresholds but not a reverse takeover under Rule 1015; draft SIA states this does not constitute a material adverse change.\nPDPA: limit sharing of employee transfer/retention lists to aggregated form; do not send NRIC scans; any onboarding data to be provided post\u2011signing with consent or PDPA exception justification.\nSFA: remind insiders of s.218/219 prohibitions; add Mr. Rohan Malik to the insider list and circulate dealing blackout notice today.\nPublic information note: the 2023 Annual Report and 2019 trade\u2011press coverage of EcoFan v2 are public and not price\u2011sensitive; no SGXNet disclosure is required for those materials.\nNon\u2011issuer noise: Seabright Logistics Ltd.\u2019s Tuas warehouse upgrade is not issuer information and should not influence our disclosure analysis.\nTiming: if the Board approves and signs a binding SPA, announcement must be made as soon as reasonably practicable via SGXNet; if negotiations become widely rumoured, submit a trading halt requ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Per our SGXNet announcement dated 12 Feb 2026 (Ref: HPH/ANN/2026/0212-001), the Board disclosed receipt of a non-binding indication from Azure Delta Capital regarding a potential strategic investment; that disclosure remains public.\nAs at 28 May 2026, we have received a firm, Board\u2011level conditional offer at S$1.42 per share for a 60% stake coupled with a placement; this is not generally available and is expected to be price\u2011sensitive under SGX\u2011ST L i s t i n g M a n u a l Rule 703(1)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Janice Teo, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Janice Teo, General Counsel, janice.teo@harbourpeak.com.sg, +65 6991 0371.\nPer our SGXNet announcement dated 12 Feb 2026 (Ref: HPH/ANN/2026/0212-001), the Board disclosed receipt of a non-binding indication from Azure Delta Capital regarding a potential strategic investment; that disclosure remains public.\nAs at 28 May 2026, we have received a firm, Board\u2011level conditional offer at S$1.42 per share for a 60% stake coupled with a placement; this is not generally available and is expected to be price\u2011sensitive under SGX\u2011ST L i s t i n g M a n u a l Rule 703(1).\nSelective disclosure controls: do not brief analysts or major shareholders absent wall\u2011cross; execute NDAs for Vendor DD call at 15:00 SGT with BlueKite Partners and Osprey Ridge Fund; consider a trading halt prior to any SGXNet release if leak risk increases.\nClosed\u2011window: applies per Company Securities Dealing Policy and SGX\u2011ST practice from 1 Jul 2026 until 2Q results (target 29 Jul 2026); no dealing by directors/connected persons.\nMateriality: expected to add ~22% to consolidated EBITDA (issuer\u2011relative); likely to trip Rule 1006 thresholds but not a reverse takeover under Rule 1015; draft SIA states this does not constitute a material adverse change.\nPDPA: limit sharing of employee transfer/retention lists to aggregated form; do not send NRIC scans; any onboarding data to be provided post\u2011signing with consent or PDPA exception justification.\nSFA: remind insiders of s.218/219 prohibitions; add Mr. Rohan Malik",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun, not PII/MNPI"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC context; rule excludes negated MAC/MAE"
+    },
+    {
+      "matched_text": "SGXNet announcement dated 12 Feb 2026",
+      "reason": "Public disclosure; not MNPI"
+    },
+    {
+      "matched_text": "the 2023 Annual Report",
+      "reason": "Publicly available; not MNPI"
+    },
+    {
+      "matched_text": "2019 trade\u2011press coverage of EcoFan v2",
+      "reason": "Public/stale information; not MNPI"
+    },
+    {
+      "matched_text": "the 7 Apr 2026 press release on the CityPower Utilities pilot",
+      "reason": "Already announced; not MNPI"
+    },
+    {
+      "matched_text": "Seabright Logistics Ltd.\u2019s Tuas warehouse upgrade",
+      "reason": "Non-issuer operational update; not issuer MNPI"
+    },
+    {
+      "matched_text": "do not send NRIC scans",
+      "reason": "Negated PDPA control; rule says do not label negated controls"
+    },
+    {
+      "matched_text": "SIA",
+      "reason": "Abbreviation not in allowed definitive_agreement list"
+    },
+    {
+      "matched_text": "compliance@harbourpeak.com.sg",
+      "reason": "Functional or role mailbox; not an individual email address for strict SG PII labels."
+    },
+    {
+      "matched_text": "28%",
+      "reason": "Percent-encoded URL/date fragment; not a financial percentage."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "trading halt/pre-disclosure control",
+      "matched_text": "trading halt request",
+      "reason": "SGX practice reference relevant to disclosure timing but not covered by allowed MNPI rules"
+    },
+    {
+      "concept": "consent/legal basis",
+      "matched_text": "with consent or PDPA exception justification",
+      "reason": "PDPA consent/legal basis referenced but only withdrawal is an allowed marker"
+    }
+  ]
+}

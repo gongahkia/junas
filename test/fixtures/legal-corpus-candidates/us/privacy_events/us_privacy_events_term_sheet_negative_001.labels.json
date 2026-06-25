@@ -1,0 +1,224 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 19,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 15,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "contracts@SableHarbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Signing Date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investorrelations@SableHarbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacyoffice@PioneerRidge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure of material terms",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analysts receive only concurrently posted materials",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no MNPI dissemination to covered market actors absent NDA and simultaneous public posting per Reg FD",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One-time export of de-identified operational metrics to Northlake Analytics Ltd. (Halifax, Canada)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SSN",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account_No",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Patient_ID",
+      "rule": "medical_record_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "contracts@SableHarbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Signing Date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Strategic Investment and Data Partnership between Sable Harbor Health Systems, Inc. (Delaware; GRX-listed) and Pioneer Ridge Bankcorp, N.A. (U.S. bank)\nStructure: Proposed PIPE of convertible preferred and commercial data-sharing alliance; economic terms to be finalized (no pricing disclosed herein to comply with Reg FD)\nRegulatory context: U.S. issuer; SEC Rule 10b-5 and Reg FD apply; SEC File No.: 00-ABCDEF (invalid placeholder); no selective disclosure of material terms\nPublic disclosure: Parties will issue a joint press release and file a Form 8-K summarizing this non-binding term sheet; analysts receive only concurrently posted materials; IR mailbox: investorrelations@SableHarbor.example\nData protection: DPA Schedule A (HIPAA BAA + GLBA addendum) is incorporated by reference; data minimization and purpose limitation apply to any employee, customer, or patient datasets\nCross-border transfer approval: One-time export of de-identified operational metrics to Northlake Analytics Ltd. (Halifax, Canada) under Data-Export Approval ID CBX-2025-01; no PHI or nonpublic personal information included\nConsent/opt-out handling: No outstanding consent withdrawals; prior marketing opt-outs have been fully actioned and suppression lists updated as of the Signing Date",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun used generically; not PII/MNPI"
+    },
+    {
+      "matched_text": "No outstanding consent withdrawals",
+      "reason": "Negated control; not a live consent withdrawal event"
+    },
+    {
+      "matched_text": "No open DSARs or erasure requests implicated by this transaction",
+      "reason": "Negated; not a live DSAR/erasure event"
+    },
+    {
+      "matched_text": "retention policies remain unchanged",
+      "reason": "Status statement; not a live retention change/event"
+    },
+    {
+      "matched_text": "no PHI or nonpublic personal information included",
+      "reason": "Negated presence of PII; do not flag as PII"
+    },
+    {
+      "matched_text": "no sample or live values are shared",
+      "reason": "Explicit negation of sharing PII values"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "internal approval identifier",
+      "matched_text": "Data-Export Approval ID CBX-2025-01",
+      "reason": "Potentially sensitive internal compliance ID but not covered by a specific allowed rule"
+    },
+    {
+      "concept": "regulatory file number",
+      "matched_text": "SEC File No.: 00-ABCDEF (invalid placeholder)",
+      "reason": "Regulatory identifier appears but placeholder; not mapped to a defined PII/MNPI rule"
+    }
+  ]
+}

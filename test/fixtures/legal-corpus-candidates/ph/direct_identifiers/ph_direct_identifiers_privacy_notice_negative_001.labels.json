@@ -1,0 +1,250 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_direct_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "PX7345129",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll-inbox@harborpacific.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@harborpacific.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we use redaction for ID scans",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers occur only",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list entries",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout attestations",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Philippine Passport No. PX7345129",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "suppress invalid ID formats",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no card PANs are stored",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Corporate Account Ref: 88-000000-01",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor ID: AUD-0000",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR process: submit Form-DSAR-01 to dpo@harborpacific.ph or call the Harbor Pacific Privacy Helpline 15550 for general guidance; do not send IDs via helpline.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "payroll-inbox@harborpacific.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PX7345129",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR process: submit Form-DSAR-01 to dpo@harborpacific.ph or call the Harbor Pacific Privacy Helpline 15550 for general guidance; do not send IDs via helpline.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: HR, tax, banking, and capital-markets records for a Philippines issuer listed on Isla Capital Exchange (ICX) and registered with Bayani Securities Commission (BSC).\nPersonal data is information from which identity is apparent or can be reasonably and directly ascertained with other data; MNPI is information a reasonable investor would consider important that is not public under SRC rules.\nForm labels collected: Full Name, Role/Position, TIN [___-___-___-___], SSS [__-_______-__], PhilHealth [____-_________-_], UMID [____-______-__], Passport No. [_________].\nExamples of identifiers we do not store unless required: TIN 123-456-789-999 (format present but invalid), SSS 12-3456789-0 (checksum invalid), Payroll Account 0000-0000-0000 (masked).\nOne-off lawful positive for onboarding verification: Authorized Signatory \u2014 Philippine Passport No. PX7345129 (kept for 1 year post-onboarding, then deleted).\nCompany identifiers used for public filings: BSC Reg. No. CS2099-7654321 (illustrative), ICX Symbol: HPRI (placeholder only; not a live ticker), Registered Office: [Address on file].\nWe do not include MNPI in HR or payroll systems; insider-list entries are maintained separately and disclosed only as required after public announcements.\nRoutine transfers: role email to payroll (payroll-inbox@harborpacific.ph), bank partner Baybay Capital Bank, Inc. [Corporate Account Ref: 88-000000-01], and external auditor (vendor ID: AUD-0000).\nDSAR process: submit Form-DSAR-01 to dpo@harborpacific.ph or call the Harbor Pacific Privacy Helpline 15550 for general guidance; do not send IDs via helpline.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TIN 123-456-789-999",
+      "reason": "invalid PH TIN example"
+    },
+    {
+      "matched_text": "SSS 12-3456789-0",
+      "reason": "invalid checksum example"
+    },
+    {
+      "matched_text": "Payroll Account 0000-0000-0000",
+      "reason": "masked/non-live placeholder"
+    },
+    {
+      "matched_text": "TIN [___-___-___-___]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "SSS [__-_______-__]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "PhilHealth [____-_________-_]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "UMID [____-______-__]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "Passport No. [_________]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "15550",
+      "reason": "public helpline short code; not personal PII"
+    },
+    {
+      "matched_text": "ICX Symbol: HPRI",
+      "reason": "placeholder ticker; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR process",
+      "reason": "Data-subject request process is privacy-relevant but no explicit DSAR rule name provided"
+    },
+    {
+      "concept": "DSAR form identifier",
+      "matched_text": "Form-DSAR-01",
+      "reason": "DSAR-related identifier without a dedicated allowed rule"
+    },
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "kept for 1 year post-onboarding, then deleted",
+      "reason": "Retention and deletion control not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "retention schedule",
+      "matched_text": "recruitment files 1 year",
+      "reason": "Retention duration is privacy-relevant but no explicit retention rule listed"
+    },
+    {
+      "concept": "retention schedule",
+      "matched_text": "payroll and tax vouchers 5 years",
+      "reason": "Retention duration is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "concept": "selective disclosure control",
+      "matched_text": "disclosed only as required after public announcements",
+      "reason": "Implies control against selective disclosure but lacks explicit keyword trigger"
+    },
+    {
+      "concept": "company registration number (PH)",
+      "matched_text": "BSC Reg. No. CS2099-7654321",
+      "reason": "Corporate identifier relevant to company data but no specific allowed rule for PH company IDs"
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 41,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 34,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "USCC: 91F0-YUE-LAN-2026-X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 92QZ-REN-NEW-8888-T",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiyue",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lin.qiyue@qingzhou.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cleanteam-cnbeta@yuelan.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Heng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Wen Haoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@qingzhou.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@qingzhou.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86\u2011755\u20110000\u20111234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "44 20 19 98 07 30 123 X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank acct ****7321",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E M P - 0 0 7 3",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "C A N - 1 2 0 9",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "are minimized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout rules",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List v3.2",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011disclosure cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public climate impairment estimates",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 3 2 0 / t c o 2 e",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending green ABS",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list administration",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team mailbox",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "crypto/DPT sandbox",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unreported",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "effective 2026-06-30",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective sharing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject access requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI scope includes pre\u2011disclosure cyber incident playbooks (unreported red\u2011team findings dated 2026\u201105\u201125) and non\u2011public climate impairment estimates for a pending green ABS, each subject to CSRC and SSE STAR Board blackout rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lin.qiyue@qingzhou.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cleanteam-cnbeta@yuelan.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject access requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiyue",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Heng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiyue",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Wen Haoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI scope includes pre\u2011disclosure cyber incident playbooks (unreported red\u2011team findings dated 2026\u201105\u201125) and non\u2011public climate impairment estimates for a pending green ABS, each subject to CSRC and SSE STAR Board blackout rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "processed includes employee names, mobiles, I D N o .: 44 20 19 98 07 30 123 X, payroll bank acct ****7321, and board observer details for Ms. Lin Qiyue (lin.qiyue@qingzhou.example.cn).\nSensitive PI under PIPL (including minors under 14) may arise in child benefit workflows; guardians\u2019 consent is obtained and logged, and school/health data are minimized.\nMNPI scope includes pre\u2011disclosure cyber incident playbooks (unreported red\u2011team findings dated 2026\u201105\u201125) and non\u2011public climate impairment estimates for a pending green ABS, each subject to CSRC and SSE STAR Board blackout rules.\nProcessor will maintain information barriers (clean\u2011team mailbox cleanteam-cnbeta@yuelan.example.com) and enforce blackout windows for designated insiders on Insider List v3.2 (Mr. Zhao Heng, Ms. Lin Qiyue, others), prohibiting trading, tipping, and selective sharing.\nConfidential commercial terms include draft carbon credit offtake with Yunling Biochar Co. at RMB 3 2 0 / t c o 2 e and provisional vendor SOC 2 remediation fees, neither of which has been publicly disclosed.\nOnly the Designated Spokesperson, Dr. Wen Haoyu of Qingzhou Renewable (ir@qingzhou.example.cn), may communicate with analysts or media; selective disclosure outside approved channels is prohibited.\nCross\u2011border transfers to cn2.hk.dc.yuelan.test via https://transfer.yuelan.example.com/x?tid=TR%2D0931&uid=E-9x%2F27 are limited to de\u2011identified logs; the PRC Standard Contract is executed and CAC security assessment filing is pending, with separate consent required for minors\u2019 data.\nLegal bases: PIPL Art. 13(2) for employment management, Art. 13(3) for regulatory submissions to CSRC/SSE, and separate consent for sensitive PI; no automated decision with significant impact occurs without human review and right to appeal.\nRetention: insider lists retained until two years after relevant information is publicly disclosed; cyber incident records retained three years unless extended by r",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Processor",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Controller",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Designated Spokesperson",
+      "reason": "Role title, not a PII category"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; rule excludes negated MAC references"
+    },
+    {
+      "matched_text": "project barley",
+      "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern"
+    },
+    {
+      "matched_text": "inside information",
+      "reason": "Explicitly negated; educational disclaimer context"
+    },
+    {
+      "matched_text": "insider awareness",
+      "reason": "Educational/marketing reuse; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "climate risk",
+      "reason": "Educational/marketing reuse; not market-sensitive MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "uid=E-9x%2F27",
+      "reason": "Looks like an internal UID in a transfer URL but not clearly mapped to an allowed ID rule"
+    },
+    {
+      "concept": "internal_transaction_id",
+      "matched_text": "tid=TR%2D0931",
+      "reason": "Appears to be an internal transaction/reference identifier not covered by allowed rules"
+    },
+    {
+      "concept": "special category reference",
+      "matched_text": "health data",
+      "reason": "Refers to health information in general without a specific individual or condition; outside precise allowed special-category rules"
+    },
+    {
+      "concept": "cross-border compliance step",
+      "matched_text": "CAC security assessment filing is pending",
+      "reason": "Legally relevant compliance status for cross-border transfers but not an explicit allowed marker category"
+    }
+  ]
+}

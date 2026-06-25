@@ -1,0 +1,379 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_special_category_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@prabaankaset-energy.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66-00-123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nalinee Rattanakul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Suriya Chansamran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint scan",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prabaankaset Energy Public Company Limited (the Company) issues this Employee and Investor Privacy Notice and DSAR workflow under the Thai PDPA for financing, employment, and planned BGX listing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention follows the Lotus Shield Retention Schedule\u2014health screening results for 5 years, union-consent forms for 2 years, and financing due-diligence materials for 7 years or until the applicable prescription periods lapse.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@prabaankaset-energy.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Preecha Boonchan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "right-index fingerprint scan (biometric)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a hemoglobin disorder result from her annual checkup (health)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared membership in the Prabaankaset Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Theravada Buddhist religion",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst quiet period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprints",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his son, Nonthawat Boonchan, age 12, for medical insurance enrollment",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may materially affect price",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NamChai Green Bond term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mirrored in the Maranta Federation",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Binding Rules for Data Transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no marketing will target minors",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@prabaankaset-energy.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66-00-123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nalinee Rattanakul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Suriya Chansamran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint scan",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prabaankaset Energy Public Company Limited (the Company) issues this Employee and Investor Privacy Notice and DSAR workflow under the Thai PDPA for financing, employment, and planned BGX listing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention follows the Lotus Shield Retention Schedule\u2014health screening results for 5 years, union-consent forms for 2 years, and financing due-diligence materials for 7 years or until the applicable prescription periods lapse.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prabaankaset Energy Public Company Limited (the Company) issues this Employee and Investor Privacy Notice and DSAR workflow under the Thai PDPA for financing, employment, and planned BGX listing.\nWe may process PII necessary for subscription documents, payroll, and vendor onboarding, including images of ID badges, fingerprints, and pre-employment health checks.\nAnchored example: Ms. Nalinee Rattanakul, Finance Analyst, provided a right-index fingerprint scan (biometric), a hemoglobin disorder result from her annual checkup (health), and declared membership in the Prabaankaset Workers Union and Theravada Buddhist religion.\nFor dependents, Khun Preecha Boonchan disclosed his son, Nonthawat Boonchan, age 12, for medical insurance enrollment; no marketing will target minors.\nWe process information to draft the NamChai Green Bond term sheet and to prepare unaudited cash-flow forecasts for a BGX submission; such documents and forecasts are undisclosed MNPI and may materially affect price.\nSubtle signal: the CFO\u2019s slide deck contains revenue ramp sensitivities and covenant headroom for LotusBeam Turbine projects that will be reviewed only after the analyst quiet period ends.\nCross-border transfer: HR and finance records may be stored with Oriole Data Centers Co., Ltd. in Chanthara Province and mirrored in the Maranta Federation, with safeguards per PDPA secondary regulations and internal Binding Rules for Data Transfers.\nRetention follows the Lotus Shield Retention Schedule\u2014health screening results for 5 years, union-consent forms for 2 years, and financing due-diligence materials for 7 years or until the applicable prescription periods lapse.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined contract role-noun, not PII/MNPI."
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Generic role reference, not a named person under rule 5."
+    },
+    {
+      "matched_text": "biometric lock icon",
+      "reason": "Decorative UI element; not actual biometric data."
+    },
+    {
+      "matched_text": "Health tab",
+      "reason": "Generic UI/menu text; not health data."
+    },
+    {
+      "matched_text": "Equality in Growth Policy",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Kaset Tigers",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "MangoPay Wallet",
+      "reason": "Product nickname; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "health screening results for 5 years",
+      "reason": "Data retention duration is a PDPA control but 'retention_marker' is not an allowed rule label."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "union-consent forms for 2 years",
+      "reason": "Data retention duration is a PDPA control but 'retention_marker' is not an allowed rule label."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "financing due-diligence materials for 7 years or until the applicable prescription periods lapse",
+      "reason": "Data retention duration is a PDPA control but 'retention_marker' is not an allowed rule label."
+    },
+    {
+      "concept": "health_data_processing",
+      "matched_text": "pre-employment health checks",
+      "reason": "Health data processing mention is relevant but not clearly a 'health_condition' or 'medical_treatment' rule."
+    },
+    {
+      "concept": "MNPI_financial_forecasts",
+      "matched_text": "unaudited cash-flow forecasts",
+      "reason": "Nonpublic financial forecasts are MNPI contextually but not directly covered by an explicit allowed rule string."
+    },
+    {
+      "concept": "cross_border_transfer_controls",
+      "matched_text": "with safeguards per PDPA secondary regulations and internal Binding Rules for Data Transfers",
+      "reason": "Refers to cross-border transfer safeguards; relevant but not a discrete marker in allowed rules."
+    },
+    {
+      "concept": "tipping/insider_trading_policy",
+      "matched_text": "do not authorize trading on MNPI",
+      "reason": "Compliance statement is relevant to MNPI handling but not an allowed MNPI rule marker."
+    },
+    {
+      "concept": "listing_pre-disclosure",
+      "matched_text": "BGX submission",
+      "reason": "Potentially material capital markets event, but no explicit allowed rule phrase to tag."
+    },
+    {
+      "concept": "dsar_process_marker",
+      "matched_text": "DSAR workflow",
+      "reason": "DSAR process reference is privacy-relevant, but there is no allowed DSAR-specific rule."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+code = "MY"
+label = "Malaysia"
+pii_rules = ["MY_PDPA_PERSONAL_DATA"]
+mnpi_rules = ["MY_CMSA_INSIDER_TRADING"]
+references = [
+    "Malaysia Personal Data Protection Act 2010",
+    "Capital Markets and Services Act 2007 (CMSA) sections 188-189 (insider trading)",
+]
+aliases = ["MY", "MALAYSIA"]
+
+# MyKad national-ID format: YYMMDD-PB-NNNN where PB is birth-state code and NNNN is the
+# sequence + check digit. The dashed form is the canonical written representation; the
+# bare 12-digit form (as printed on the physical card) is also valid but too easily
+# collides with arbitrary numbers, so v1 ships only the dashed format. Customers who
+# need the un-dashed form can drop a recognizer override into their override pack dir.
+[[recognizers]]
+name = "MyKad"
+rule_name = "my_mykad"
+pattern = '\b\d{6}-\d{2}-\d{4}\b'
+severity = "high"
+reason = "Malaysia MyKad national identifier"

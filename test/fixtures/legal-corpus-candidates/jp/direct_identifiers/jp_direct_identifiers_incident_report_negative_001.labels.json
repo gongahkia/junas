@@ -1,0 +1,214 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "7531-6420-1984",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0120-555-555",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "999999",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7531-6420-1984",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000000000000",
+      "rule": "jp_corporate_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "T0000000000000",
+      "rule": "jp_corporate_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AA0000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-0000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@midori-devices.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "listings@kpx-growth.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-0000",
+      "rule": "jp_postal_code"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "7531-6420-1984",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0120-555-555",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "999999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-25, vendor Hoshizora Data Services G.K. reported a short-lived access control misconfiguration in the board/exec document portal.\nThe exposed folder contained training materials: board pack templates, acquisition workflow checklists, and HR onboarding form samples.\nOne scanned HR form inadvertently contained an actual \u500b\u4eba\u756a\u53f7 (My Number): 7531-6420-1984; we are treating this as APPI personal data.\nAll other fields were samples: \u6c0f\u540d: ______, \u4f4f\u6240: [Hanagawa-ken Nishisaka-shi 1-2-3], \u90e8\u7f72: ______, \u96fb\u8a71: 0120-777-000 (public helpline), \u30e1\u30fc\u30eb: hr@midori-devices.jp (role mailbox).\nCompany/tax identifiers present were non-production: \u6cd5\u4eba\u756a\u53f7 0000000000000 (test), \u767b\u9332\u756a\u53f7 T0000000000000 (dummy), \u8acb\u6c42\u5148\u30b3\u30fc\u30c9: C-TEST-001.\nTravel and banking fields were also placeholders: \u65c5\u5238\u756a\u53f7 AA0000000 (template), \u652f\u5e97\u30b3\u30fc\u30c9 000, \u53e3\u5ea7\u756a\u53f7 000-0000000 (sample only).\nThe M&A references were to the already-announced share acquisition of Hinode Analytics K.K., disclosed on 2026-04-30 via KPX Growth and our website.\nAccordingly, no undisclosed enumerated material facts or tender-offer (TOB) facts under the FIEA were present in the exposed materials.\nThe misconfiguration allowed read-only access from a restricted test IP range for approximately 46 minutes; no downloads were logged by external addresses.\nWe have notified employees via the intranet and the public inquiry line at 0120-555-555; do not email personal documents in response to this notice.\nA voluntary incident notice will be filed with the Kanto Markets Supervision Office, and a courtesy update sent to listings@kpx-growth.example.jp (exchange liaison mailbox).\nThe Board Risk Committee met on 2026-05-26 and determined the overall PII exposure to be low, subject to APPI handling of the single \u500b\u4eba\u756a\u53f7 image.\nRemediation completed: vendor key rotation, deletion of sample files, replacement of dummy identifiers with clearly marked \u201cTRAINING USE ONLY\u201d watermarks.\nLocal government and address placeholders included LG-999999 (fictional ward code) and \u3012000-0000 Hanagawa-ken Nishisaka-shi Aza Ume 1-2-3; these are not real locations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0120-777-000",
+      "reason": "Public helpline number (non-personal bait)"
+    },
+    {
+      "matched_text": "AA0000000",
+      "reason": "Passport number placeholder marked as template"
+    },
+    {
+      "matched_text": "000-0000000",
+      "reason": "Bank account number placeholder marked as sample only"
+    },
+    {
+      "matched_text": "000-0000",
+      "reason": "Fictional postal code placeholder"
+    },
+    {
+      "matched_text": "hr@midori-devices.jp",
+      "reason": "Role mailbox (non-personal)"
+    },
+    {
+      "matched_text": "listings@kpx-growth.example.jp",
+      "reason": "Exchange liaison mailbox (non-personal)"
+    },
+    {
+      "matched_text": "0000000000000",
+      "reason": "Company corporate number (test, non-personal)"
+    },
+    {
+      "matched_text": "T0000000000000",
+      "reason": "Company registration number (dummy, non-personal)"
+    },
+    {
+      "matched_text": "Hanagawa-ken Nishisaka-shi 1-2-3",
+      "reason": "Placeholder/nonexistent address"
+    },
+    {
+      "matched_text": "C-TEST-001",
+      "reason": "Dummy internal billing code"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "local government code",
+      "matched_text": "LG-999999",
+      "reason": "Local-government identifier is a direct identifier but no specific allowed rule covers it"
+    },
+    {
+      "concept": "bank branch code (placeholder)",
+      "matched_text": "\u652f\u5e97\u30b3\u30fc\u30c9 000",
+      "reason": "Financial routing identifier but not covered by an explicit allowed rule and marked as placeholder"
+    }
+  ]
+}

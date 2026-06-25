@@ -1,0 +1,339 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "drop ideal_must_detect: text not verbatim rule='employee_id' text='emp\\nID:E-MP_00X9-7Z'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Matsuo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Midoriyama Robotics K.K. \u2013 JP/APPI retention and transfer workflow for acquisition \u201cProject Tsubaki\u201d and securities window control, Tokyo Bay Securities Exchange listing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR scope: access, correction, suspension of use or third-party provision per APPI; send requests to dpo@midoriyama-kk.jp with identity proof (redacted scan is acceptable).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tsubaki",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@midoriyama-kk.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@midoriyama-kk.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u793e\u54e1ID E-MP_00X9-7Z",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vein/fingerprint attendance (template hash vpr-3f:aa:00)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hypertension treatment records from 2025 Q4",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared religious observance (Shinto festival leave)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LGBTQ+ partner benefits status is marked \u201copt-in\u201d",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic screening certificate number G-04xx-77",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list kept until 5 years after public disclosure",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject Tsubaki\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing is blacked out for project insiders",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border safeguards",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 91-**-3***-4021",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "APPI Art. 17-2 consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymously processed information is used for HR analytics where feasible",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers to Aoban Analytics Pte. Ltd. (SG) for payroll",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number is deleted within 4 years after cessation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cproject tsubaki\u201d room is restricted",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not paste board minutes into chat tools",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Matsuo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Matsuo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Midoriyama Robotics K.K. \u2013 JP/APPI retention and transfer workflow for acquisition \u201cProject Tsubaki\u201d and securities window control, Tokyo Bay Securities Exchange listing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR scope: access, correction, suspension of use or third-party provision per APPI; send requests to dpo@midoriyama-kk.jp with identity proof (redacted scan is acceptable).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tsubaki",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tsubaki",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Midoriyama Robotics K.K. \u2013 JP/APPI retention and transfer workflow for acquisition \u201cProject Tsubaki\u201d and securities window control, Tokyo Bay Securities Exchange listing.\nBoard workflows: undisclosed enumerated material facts and tender-offer facts under FIEA are restricted; insider list kept until 5 years after public disclosure.\nContact for DSAR and employee queries: privacy@midoriyama-kk.jp or https://midoriyama-kk.jp/pp?doc=ret&uid=emp%2F0x19A.\nAnchored special data: Mr. Kenji Matsuo (\u793e\u54e1ID E-MP_00X9-7Z, \u500b\u4eba\u756a\u53f7 91-**-3***-4021) enrolled in vein/fingerprint attendance (template hash vpr-3f:aa:00) and hypertension treatment records from 2025 Q4.\nFor accommodation purposes, Mr. Kenji Matsuo\u2019s declared religious observance (Shinto festival leave) is stored, and LGBTQ+ partner benefits status is marked \u201copt-in\u201d; Ke nji M a tsuo also provided voluntary genetic screening certificate number G-04xx-77.\nThese categories are collected strictly under APPI Art. 17-2 consent, and pseudonymously processed information is used for HR analytics where feasible.\nTransfers to Aoban Analytics Pte. Ltd. (SG) for payroll and to Kawayama Cloud K.K. for biometric device maintenance (Sunrise S-4000) occur with prior notice and consent; cross-border safeguards and joint use notices are recorded.\nRetention: My Number is deleted within 4 years after cessation; biometric templates rotate every 90 days; board pack MNPI for TOB \u201cProject Tsubaki\u201d retained until the Tokyo Bay Securities Exchange filing and 5-year archival expiry.\nSecurities workflows: dealing is blacked out for project insiders; we confirm no material adverse change has occurred as of 2026-06-01, based on public-source references only.\nBenign vocabulary note: our genetic algorithm module ORIGAMI-9 and the phrase sexual orientation appear in policy templates but do not describe any individual in investment memos.\nNegative/benign content: our unicorn strategy deck mentions Kawagiri Ward, the Hoshizora Meteors baseball club, and the \u201cFair Play Hiring Policy\u201d DEI tagline; these are not MNPI nor special-category personal data.\nDSAR scope: access, correction, suspension of use or third-party provision per APPI; send requests to dpo@midoriyama-kk.jp with identity proof (redacted scan is acceptable).\nInternal note (lowercase project-management prose): todo integrate aoban api; sprint-12 backlog; do not paste board minutes into chat tools; \u201cproject tsubaki\u201d room is restricted.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no material adverse change has occurred as of 2026-06-01",
+      "reason": "Negated MAC; excluded by rule 8."
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic policy phrase; not about an individual."
+    },
+    {
+      "matched_text": "ORIGAMI-9",
+      "reason": "Product/module name, not PII/MNPI."
+    },
+    {
+      "matched_text": "Kawagiri Ward",
+      "reason": "Place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Hoshizora Meteors",
+      "reason": "Sports team; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201cFair Play Hiring Policy\u201d",
+      "reason": "Policy tagline; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201cproject tsubaki\u201d",
+      "reason": "Lowercase codename bait; rule 6 requires 'Project <CapitalizedName>'."
+    },
+    {
+      "matched_text": "Sunrise S-4000",
+      "reason": "Device/product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Tokyo Bay Securities Exchange",
+      "reason": "Exchange name; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "uid=emp%2F0x19A",
+      "reason": "Looks like an internal UID parameter but not clearly covered by allowed rules."
+    },
+    {
+      "concept": "biometric_template_hash",
+      "matched_text": "vpr-3f:aa:00",
+      "reason": "Biometric template hash-like value; sensitive but not explicitly listed as an allowed rule."
+    },
+    {
+      "concept": "joint_use_marker",
+      "matched_text": "joint use notices are recorded",
+      "reason": "APPI joint-use notice reference; privacy-relevant but no specific allowed rule name."
+    }
+  ]
+}

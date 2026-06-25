@@ -1,0 +1,478 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 45,
+    "new_must_detect_count": 23,
+    "old_ideal_must_detect_count": 36,
+    "old_must_detect_count": 23,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_universal_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "420106199512302839",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13900001234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-6000-1234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lin.qiyu@ycrobotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@ycrobotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Renfu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-77231",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "scrub personal names",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "delete or anonymize within 30 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security assessment filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bluebay Metrics Pte. Ltd. (Singapore, fictional)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9135Z1A2B3C4D5E6F",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9131X9K8M7N6P5Q4R",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u5f00/INTERNAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade Bamboo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-07-15 09:00 CST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer\u2019s insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information notice",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Hexa Sensors Qingdao Co., Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not released until CSRC disclosure window opens",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no external disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u2265100,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-6000-1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: processing HR and investor-relations data in connection with the proposed acquisition of Hexa Sensors Qingdao Co., Ltd.; definitive Share Purchase Agreement signed 2026-06-28 for 80% equity at RMB 480,000,000.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420106199512302839",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "13900001234",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PIPL basis and scope: we process personal information related to identified or identifiable persons, including sensitive PI (e.g., minors under 14), for employment, payroll, and pre-deal communications.\nData examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lin.qiyu@ycrobotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-6000-1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-77231",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13900001234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Renfu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: processing HR and investor-relations data in connection with the proposed acquisition of Hexa Sensors Qingdao Co., Ltd.; definitive Share Purchase Agreement signed 2026-06-28 for 80% equity at RMB 480,000,000.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade Bamboo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade Bamboo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420106199512302839",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "13900001234",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u5f00/INTERNAL \u2014 Project Jade Bamboo data processing & transfer workflow note \u2014 Embargo until 2026-07-15 09:00 CST.\nParties: Yonghe Cloud Robotics Co., Ltd. (fictional USCC: 9135Z1A2B3C4D5E6F) as data controller and issuer; Huilan HR Services (Shanghai) Co., Ltd. (fictional USCC: 9131X9K8M7N6P5Q4R) as entrusted processor.\nPurpose: processing HR and investor-relations data in connection with the proposed acquisition of Hexa Sensors Qingdao Co., Ltd.; definitive Share Purchase Agreement signed 2026-06-28 for 80% equity at RMB 480,000,000.\nInside information notice: this document contains undisclosed information under the PRC Securities Law and the issuer\u2019s insider list; distribution is restricted to need-to-know until the embargo lapses.\nPIPL basis and scope: we process personal information related to identified or identifiable persons, including sensitive PI (e.g., minors under 14), for employment, payroll, and pre-deal communications.\nData examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing.\nData Security Law/DSL: no important data is identified in this workflow; network operators\u2019 security obligations under the CSL are implemented via access controls, logs, and localization where applicable.\nRetention and deletion: HR files retained 10 years post-termination; IR contact lists retained 24 months; upon expiry we delete or anonymize within 30 days and document the disposal.\nMNPI safeguards: deal codename use only (\u201cProject Jade Bamboo\u201d); no external disclosure; IR draft Q&A to be prepared but not released until CSRC disclosure window opens.\nMAC clause (negated and carve-outs): no Material Adverse Effect shall be deemed to occur due solely to changes in general economic conditions, but los",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data examples (fictional): Mr. Zhao Renfu, Resident ID 420106199512302839, mobile 13900001234, employee no. E-77231; managed by Ms. Lin Qiyu, HR Director, lin.qiyu@ycrobotics.example.cn, +86-21-6000-1234.\nCross-border transfer: limited analytics to Bluebay Metrics Pte. Ltd. (Singapore, fictional) via mainland servers with encryption; we will execute the CAC Standard Contract and, if thresholds are met (\u2265100,000 data subjects), initiate a security assessment filing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "role noun/defined-term heading, not PII/MNPI"
+    },
+    {
+      "matched_text": "Public-source reference",
+      "reason": "explicitly public information; not MNPI"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "false-positive bait; not the SPA agreement"
+    },
+    {
+      "matched_text": "todo",
+      "reason": "project-management prose; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_uscc",
+      "matched_text": "9135Z1A2B3C4D5E6F",
+      "reason": "fictional USCC appears 17 chars; CN USCC is typically 18; legally relevant but format is off"
+    },
+    {
+      "concept": "cn_uscc",
+      "matched_text": "9131X9K8M7N6P5Q4R",
+      "reason": "fictional USCC appears 17 chars; CN USCC is typically 18; legally relevant but format is off"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR workflow",
+      "reason": "privacy request workflow is important under PIPL but no explicit rule label provided"
+    },
+    {
+      "concept": "retention_schedule",
+      "matched_text": "HR files retained 10 years post-termination",
+      "reason": "retention is a privacy compliance marker but not mapped to an allowed rule name"
+    },
+    {
+      "concept": "retention_schedule",
+      "matched_text": "IR contact lists retained 24 months",
+      "reason": "retention is a privacy compliance marker but not mapped to an allowed rule name"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "doc_id": "sensitive_origin_adv_02",
+  "document_type": "generic",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {"rule": "racial_ethnic_origin", "matched_text": "Ethnicity: Han Chinese"},
+    {"rule": "racial_ethnic_origin", "matched_text": "الأصل العرقي: عربي"}
+  ],
+  "must_not_detect": [
+    {"rule": "racial_ethnic_origin", "matched_text": "race to sign"},
+    {"rule": "racial_ethnic_origin", "matched_text": "Black-letter law"},
+    {"rule": "racial_ethnic_origin", "matched_text": "Asian option"},
+    {"rule": "racial_ethnic_origin", "matched_text": "do not collect ethnicity data"},
+    {"rule": "racial_ethnic_origin", "matched_text": "white paper"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "No-key item 71/86 adversarial racial/ethnic-origin fixture."
+}

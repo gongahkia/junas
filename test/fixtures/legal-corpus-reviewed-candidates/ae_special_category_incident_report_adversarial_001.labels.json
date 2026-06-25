@@ -1,0 +1,392 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_special_category_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/special_category/ae_special_category_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_special_category_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 29,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 12,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_special_category_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq Al Mazin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al Mazin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@almanara-pjsc.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971 50 000 12 34",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "His religion was recorded as Christian",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "emergency glucagon use",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric face-template hashes",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "prenatal genetic screening summary",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier: \u03b2-thalassemia",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor Samir",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 7",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noura Al Fadil",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-2X22-0 1 2 3 4 5 6-9",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR-7A3C",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-RAK-55-883",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-XXXX-1 9 9 9-0000000-0",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "INC-00A7-9b",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "M-e-5-1-0",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft delayed-disclosure notice",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 7",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For PDPL compliance, we initiated breach notifications and restricted processing per Art. 10 special categories; mainland and DFFC free-zone records are segregated under the DFFC Controller Registry.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2b",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+971 50 000 12 34",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq Al Mazin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al Mazin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noura Al Fadil",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 7",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For PDPL compliance, we initiated breach notifications and restricted processing per Art. 10 special categories; mainland and DFFC free-zone records are segregated under the DFFC Controller Registry.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected HR archive contained personal data for Mr. Tareq Al Mazin (E m i r a t e s I D: 784-2X22-0 1 2 3 4 5 6-9; internal HRN: HR-7A3C), plus Trade Licence link TL-RAK-55-883 for Al Manara Utilities PJSC.\nFor Mr. Al Mazin, special-category data included clinic notes on Type 1 diabetes management and emergency glucagon use, and biometric face-template hashes from the DFFC gate readers.\nHis religion was recorded as Christian for leave-calendar purposes; HR also held a family-origin field (Hadhrami) that is not used in any decisioning workflow.\nFiles in the same batch included Ms. Noura Al Fadil\u2019s prenatal genetic screening summary (carrier: \u03b2-thalassemia) and a dependent record for minor Samir (age 7) tied to EID ref 784-XXXX-1 9 9 9-0000000-0.\nThe exfiltrated folder also held an unannounced term sheet and timetable for the proposed primary listing of Rimal Renewables PJSC on the Al Dhafra Securities Exchange (ADSE), with a draft delayed-disclosure notice to the Emirates Securities Authority (ESA).\nAs part of the deal workflow, an insider list (file: INSIDER_RIMAL_Q2.xlsx) and an allocation model were present; this constitutes non-public market-sensitive issuer information under ESA Market Conduct Rulebook 4.2.\nServer health checks were green, and the politics of vendor selection delayed a patch, but our DEI policy and the Sharjah Sandcats scoreline are irrelevant to this incident.\nWe note that \u201csexual orientation\u201d appears in our training materials, but no such attribute about any person was processed in this dataset.\nTechnical artefacts: url https://inc.almanara-pjsc.ae/case?i d=INC-00A7-9b&user=ops%2Ftar eq, device id M-e-5-1-0, and checksum 9f:1c:2b:xx:zz; product modules Saqr SIEM and QamarShield AV flagged suspicious rsync.\nFor PDPL compliance, we initiated breach notifications and restricted processing per Art. 10 special categories; mainland and DFFC free-zone records are segregated under the DFFC Controller Registry.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic training term not about a person; do not tag as special-category data."
+    },
+    {
+      "matched_text": "Sharjah Sandcats",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Saqr SIEM",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "QamarShield AV",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Palm Charter v2.1",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Al Dhafra Securities Exchange (ADSE)",
+      "reason": "Exchange/place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated MAC reference; excluded per rule 8."
+    },
+    {
+      "matched_text": "project sand-dune",
+      "reason": "Does not match 'Project <CapitalizedName>' codename pattern."
+    },
+    {
+      "matched_text": "DEI policy",
+      "reason": "Generic DEI prose; not PII/MNPI."
+    },
+    {
+      "matched_text": "politics of vendor selection",
+      "reason": "Generic organisational phrasing; not an individual's political opinion."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ae_emirates_id",
+      "matched_text": "784-2X22-0 1 2 3 4 5 6-9",
+      "reason": "Obfuscated/space-padded Emirates ID likely; may evade strict regex."
+    },
+    {
+      "concept": "ae_emirates_id",
+      "matched_text": "784-XXXX-1 9 9 9-0000000-0",
+      "reason": "Masked Emirates ID reference with spaces; difficult for strict detection."
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "HR-7A3C",
+      "reason": "Internal HR number for a specific employee; not a standard 'Employee ID' label."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "INC-00A7-9b",
+      "reason": "Incident/case identifier embedded in URL; format may not match session-id heuristics."
+    },
+    {
+      "concept": "device_serial_number",
+      "matched_text": "M-e-5-1-0",
+      "reason": "Labelled as device id but nonstandard serial/IMEI format."
+    },
+    {
+      "concept": "mac_address",
+      "matched_text": "9f:1c:2b:xx:zz",
+      "reason": "Colon-delimited checksum-like value resembles a MAC but contains non-hex pairs."
+    },
+    {
+      "concept": "definitive_agreement",
+      "matched_text": "term sheet",
+      "reason": "Lowercase reference; some detectors require capitalised document names."
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "unannounced",
+      "reason": "Signals non-public status but may be too generic for rule-based detection."
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "draft delayed-disclosure notice",
+      "reason": "Indicates withheld MNPI pending disclosure; may not map to explicit rule tokens."
+    },
+    {
+      "concept": "sensitive_origin/ethnicity",
+      "matched_text": "family-origin field (Hadhrami)",
+      "reason": "Ethnic/family origin is sensitive in PDPL context but not enumerated in provided rules."
+    },
+    {
+      "concept": "named_person",
+      "matched_text": "Ms. Noura Al Fadil",
+      "reason": "Honorific with possessive suffix may evade simple name regexes."
+    }
+  ]
+}

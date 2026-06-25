@@ -1,0 +1,211 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ir@trevietenergy.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@trevietenergy.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "012345678901",
+      "rule": "vn_cccd"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "chưa công bố",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-000-000-000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Tránh thu thập PII quá mức",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mẫu biểu nội bộ phải để trống thông tin thực tế",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rà soát lần cuối để loại bỏ số điện thoại cá nhân, email cá nhân và ảnh chụp CCCD trước khi lưu trữ",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trước khi gửi nhà đầu tư",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nguy cơ MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "012345678901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@trevietenergy.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "012345678901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1900 772 233",
+      "reason": "Public/shared hotline number, not personal PII"
+    },
+    {
+      "matched_text": "Trưởng phòng Vận hành",
+      "reason": "Role-only title, not a named person"
+    },
+    {
+      "matched_text": "TK lưu ký: 123-XYZ-888",
+      "reason": "Example/fake organizational code, not personal PII"
+    },
+    {
+      "matched_text": "Họ tên",
+      "reason": "Generic form label/placeholder"
+    },
+    {
+      "matched_text": "Địa chỉ",
+      "reason": "Generic form label/placeholder"
+    },
+    {
+      "matched_text": "Ngân hàng",
+      "reason": "Generic form label/placeholder"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "VN company tax code (MST)",
+      "matched_text": "0319999999-000",
+      "reason": "Company/government identifier not covered by allowed rules; also indicated as invalid sample"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
+}

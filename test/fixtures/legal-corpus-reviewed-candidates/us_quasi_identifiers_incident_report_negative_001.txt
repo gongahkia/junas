@@ -1,0 +1,14 @@
+Date: 2026-05-30 | Subject: Contained phishing incident at Northstar Vitality, Inc. (NVIQ), a U.S. healthcare issuer.
+Summary: On 2026-05-28 an email spoof targeted two clinic staff and one treasury analyst; multifactor prevented credential reuse; production EHR and core banking modules were not accessed.
+PII/PHI/GLBA review indicates no exfiltration; observed activity was limited to a nonproduction training inbox and an internal sandbox.
+We evaluated possible MNPI exposure under Rule 10b-5 and Reg FD; no material information was disclosed beyond our IR site and broad webcasts.
+Sample values present in logs were placeholders from templates (e.g., SSN: 000-00-0000; MRN: A0000000; CUSIP: ZZZ000ZZZ; Account #: 1111-2222-3333), and should not be treated as live data.
+Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area “Lake Overlook,” role “claims intake,” device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.
+Separately, an hourly registrar on the night shift uses clinic-issued phone model “A12,” lists ZIP prefix 1120x, and began employment in 2019; these details are not identifiable on their own.
+No Social Security numbers, full bank account numbers, diagnoses, or prescriptions were transmitted; the field labels appearing in screenshots (Name, DOB, Policy ID) are generic.
+An external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.
+The incident was publicly summarized during our routine quarterly update and mirrored on ir.northstarvitality.example; no 8-K amendment was required.
+Consistent with U.S. practice, we also notified Granite Exchange Issuer Services and the United Markets Authority; neither requested additional trading halt measures.
+Remediation actions included a global password reset, token re-issue, EDR triage, and enhanced phishing simulations; no customer complaints have been logged.
+For questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198; do not send patient records to these addresses.
+Form note for clinics: if you see “Account No: 0000000000” or “Routing: 000000000,” treat as test data only; fields marked Optional are not used for identity verification.

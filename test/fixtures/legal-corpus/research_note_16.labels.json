@@ -1,0 +1,41 @@
+{
+  "doc_id": "research_note_16",
+  "document_type": "research_note",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "financial_amount",
+      "matched_text": "$1.25"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Emily Tan"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6777 1234"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "research@fininsights.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Alan Lim"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6888 5678"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S7654321Z"
+    }
+  ],
+  "must_not_detect": [],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

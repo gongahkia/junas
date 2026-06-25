@@ -1,0 +1,352 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 37,
+    "new_must_detect_count": 9,
+    "old_ideal_must_detect_count": 37,
+    "old_must_detect_count": 10,
+    "prior_label_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@meridian\u2011harbour.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 Kalari Lane, New Concord NSW 2129",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian K. Selwyn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers (APP 8)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "StaffTag: AU\u2013CP\u20135R\u2013SEL",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "StaffTag: AU\u2013GL3 9 0\u2013K",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AU%2DGL3%2D90K",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID%3DZX9-4B5",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CRef: MH\u2013\u03b819\u201377",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mobile x4\u2022\u2022\u2022882",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked pay acct x9\u2022\u202257",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subject requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Processing is limited to HR administration, climate-safety training records, payroll, crypto-operations support, and fraud monitoring",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kookaburra",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ListRef: INS\u2013ZX9\u20134B5",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under NDA",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contained cyber incident affecting our inverter telemetry and custodian API keys (no customer funds accessed)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed restatement of Scope 2 emissions factors",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed restatement of Scope 2 emissions factors",
+      "rule": "esg_target_revision"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean team segregation",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "listing the \u201cHarbourLeaf\u2011C\u201d digital token on the TerraQuay DAX",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mint schedules",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSW 2129",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSW 2129",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dorian",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kookaburra",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 Kalari Lane, New Concord NSW 2129",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a contained cyber incident affecting our inverter telemetry and custodian API keys (no customer funds accessed) and proposed restatement of Scope 2 emissions factors; access is restricted to an insider list (ListRef: INS\u2013ZX9\u20134B5) and the board\u2011approved blackout window applies until the ASX release is posted.\nDeal-stage crypto matters: preliminary commercial terms for listing the \u201cHarbourLeaf\u2011C\u201d digital token on the TerraQuay DAX are under NDA; selective disclosure is prohibited and all staff must observe information\u2011barrier (in for ma tion barrier) \u201cProject Kookaburra\u201d protocols.\nClean team segregation applies (no analysts on the token valuation model may view emissions restatement drafts), and physical/virtual rooms are segmented; any suspected tipping must be escalated to the Company Secretary within 2 hours.\nCross\u2011border transfers (APP 8) to our processors in Wellington and Singapore use contract clauses and technical controls (AES\u2011256, HSM key\u2011wrapping), with logs retained at https://portal.meridian-harbour.au/audit?rid=AU%2DGL3%2D90K&v=1.7.\nData subject requests: individuals may access or correct records via dpo@meridian\u2011harbour.au or the portal https://intra.meridian\u2011harbour.au/dsar?req=ID%3DZX9-4B5; we will verify via StaffTag or ClientRef (e.g., CRef: MH\u2013\u03b819\u201377) and respond within 30 days unless an APP exception applies.\nRetention: insider lists and cyber forensic artefacts are kept for 7 years from final ASX disclosure; HR medical notes are destroyed after 12 months unless a workers\u2019 compensation law requires longer; credit assessment snapshots are retained for 24 months from decision date.\nIncident response: we will assess notifiable data breaches under the NDB scheme and, where appropriate, notify OAIC; ASX/ASIC market disclosure will be handled separately, with any delay only where Listing Rule carve\u2011outs for incomplete proposals or reasonable confidentiality are met.\nWe apply trading blackouts for \u201cHarbourLeaf\u2011C\u201d and Meridian Harbour securities during due diligence, and all staff are reminded that internal chat about \u201cpricing curves\u201d or \u201cmint schedules\u201d may be MNPI even if phrased operationally.\nEducational/marketing note: our public webinar titled \u201cInformation Barriers in Crypto and Climate Ops\u201d uses generic case studies and publicly sourced ASIC materials and does not include any current transaction details or inside information.\nThis document does not contain a material adverse change clause and does not vary any public disclosures; references to regulatory concepts are for policy clarity and are drawn from publicly available sources.\nContact: Mr. Dorian K. Selwyn, Chief Privacy & Compliance Officer (StaffTag: AU\u2013CP\u20135R\u2013SEL), 12 Kalari Lane, New Concord NSW 2129, dpo@meridian\u2011harbour.au; a co",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "DPA",
+      "reason": "Defined term/acronym, not PII/MNPI"
+    },
+    {
+      "matched_text": "Personal Information",
+      "reason": "Defined term, not an instance of PII data"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun rather than a named individual"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC mention \u2014 do not label per rule"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: insider lists and cyber forensic artefacts are kept for 7 years from final ASX disclosure",
+      "reason": "Retention periods are privacy-event markers but no explicit allowed rule name provided."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "HR medical notes are destroyed after 12 months unless a workers\u2019 compensation law requires longer",
+      "reason": "Retention/minimisation control reference; not mapped to a listed detection rule."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "credit assessment snapshots are retained for 24 months from decision date",
+      "reason": "Retention policy language relevant to privacy but not covered by a named rule."
+    }
+  ]
+}

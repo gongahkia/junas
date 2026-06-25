@@ -1,0 +1,352 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 6,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM240,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM80,000,000'",
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM150,000,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM240,000,000'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM80,000,000'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "z.rahman@zenithmangga.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Majority Acquisition and Financing of Zenith Mangga Berhad (listed on the Main Market of Bursa Kencana) by Aurora Sejahtera Capital Sdn Bhd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Aurora to acquire 55% of the enlarged share capital via a combination of RM240,000,000 cash consideration and RM80,000,000 subscription of Redeemable Convertible Preference Shares (RCPS).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Concurrent issuance of RM150,000,000 5-year sukuk murabahah at 5.25% p.a.; proceeds to refinance working capital and scale the PalmBright oil analytics line and the KitePay vendor portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timeline: Signing targeted within 30 days of exclusivity; Bursa Kencana announcement to follow immediately upon definitive agreement; completion within 90 days subject to regulatory approvals and financing drawdown; Aurora\u2019s \u201cnorth star\u201d for integration is a single ERP within 6 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to regulatory approvals",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Danial Hafeez bin Razak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID badge DMH-771",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "registered member of the Port Handlers Union Seri Pelangi",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "undergoing physiotherapy for a lumbar injury",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lumbar injury",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his fingerprint template is held in the factory\u2019s biometric access control system",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "shall limit access to Need-to-Know personnel",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Zulaikha Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@aurora-sejahtera.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for public dissemination",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not trade in Zenith Mangga securities",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Majority Acquisition and Financing of Zenith Mangga Berhad (listed on the Main Market of Bursa Kencana) by Aurora Sejahtera Capital Sdn Bhd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.25% p.a",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "recipients must not trade in Zenith Mangga securities until the information is cleansed via Bursa Kencana disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until the information is cleansed via Bursa Kencana disclosure",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "z.rahman@zenithmangga.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Majority Acquisition and Financing of Zenith Mangga Berhad (listed on the Main Market of Bursa Kencana) by Aurora Sejahtera Capital Sdn Bhd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Aurora to acquire 55% of the enlarged share capital via a combination of RM240,000,000 cash consideration and RM80,000,000 subscription of Redeemable Convertible Preference Shares (RCPS).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Concurrent issuance of RM150,000,000 5-year sukuk murabahah at 5.25% p.a.; proceeds to refinance working capital and scale the PalmBright oil analytics line and the KitePay vendor portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timeline: Signing targeted within 30 days of exclusivity; Bursa Kencana announcement to follow immediately upon definitive agreement; completion within 90 days subject to regulatory approvals and financing drawdown; Aurora\u2019s \u201cnorth star\u201d for integration is a single ERP within 6 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to regulatory approvals",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Majority Acquisition and Financing of Zenith Mangga Berhad (listed on the Main Market of Bursa Kencana) by Aurora Sejahtera Capital Sdn Bhd.\nThis term sheet is non-binding (save for confidentiality, exclusivity, costs) and is provided under the Malaysian CMSA context; it contains MNPI and is not for public dissemination until a formal Bursa Kencana announcement.\nStructure: Aurora to acquire 55% of the enlarged share capital via a combination of RM240,000,000 cash consideration and RM80,000,000 subscription of Redeemable Convertible Preference Shares (RCPS).\nFinancing: Concurrent issuance of RM150,000,000 5-year sukuk murabahah at 5.25% p.a.; proceeds to refinance working capital and scale the PalmBright oil analytics line and the KitePay vendor portal.\nConditions Precedent: Bursa Kencana clearance, independent advisers\u2019 circular, shareholders\u2019 approval by ordinary resolution, satisfactory due diligence, Shariah committee sign-off, and no material adverse change.\nKey Employee Matters (Disclosure for CP): Encik Danial Hafeez bin Razak (Head of Warehouse, ID badge DMH-771) is a registered member of the Port Handlers Union Seri Pelangi and is currently undergoing physiotherapy for a lumbar injury; his fingerprint template is held in the factory\u2019s biometric access control system for Bandar Kencana site entry.\nInformation Status: Board pack Appendix 4 contains preliminary Q4 sales forecasts and channel rebate schedules not yet publicly announced; recipients must not trade in Zenith Mangga securities until the information is cleansed via Bursa Kencana disclosure.\nConfidentiality and PDPA: Parties acknowledge this document contains personal data relating directly or indirectly to identifiable individuals; recipient warrants a lawful basis to process, shall limit access to Need-to-Know personnel, and must delete any health or biometric records obtained if the deal lapses.\nCovenants: No dividends, share buybacks, or sponsorship commitments (e.g., Kuala Sentosa Comets jerseys) without Investor consent; no related-party transactions; no moving the goalposts on KPI definitions without Aurora\u2019s prior written approval.\nPolicies: Target will maintain the Inclusive Workplace Charter 2025; the parties reiterate support for diversity, equity, and inclusion across all levels and geographies.\nRisk and Insurance: No political risk insurance is required for domestic operations; product packaging will not deploy any so-called genetic watermark features prior to Consumer Affairs certification.\nAssets and Footprint: Manufacturing plants operated at Kuala Sentosa and Bandar Kencana (logistics hub) with lease terms extending to 2032; any relocation requires Investor consent.\nTimeline: Signing targeted within 30 days of exclusivity; Bursa Kencana announcement to follow immediately upon definitive agreement; completion within 90 days subject to regulatory approvals and financing drawdown; Aurora\u2019s \u201cnorth star\u201d for integration is a single ERP within 6 months.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term not PII/MNPI"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term not PII/MNPI"
+    },
+    {
+      "matched_text": "PalmBright",
+      "reason": "Product/brand name not PII/MNPI"
+    },
+    {
+      "matched_text": "KitePay",
+      "reason": "Product/brand name not PII/MNPI"
+    },
+    {
+      "matched_text": "Kuala Sentosa Comets",
+      "reason": "Sports team name not PII/MNPI"
+    },
+    {
+      "matched_text": "Inclusive Workplace Charter 2025",
+      "reason": "Policy name not PII/MNPI"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "Generic DEI phrase not PII/MNPI"
+    },
+    {
+      "matched_text": "genetic watermark",
+      "reason": "Product feature phrase, not personal genetic data"
+    },
+    {
+      "matched_text": "Kuala Sentosa",
+      "reason": "Place name not PII/MNPI"
+    },
+    {
+      "matched_text": "Bandar Kencana",
+      "reason": "Place name not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "erasure_marker",
+      "matched_text": "must delete any health or biometric records obtained if the deal lapses",
+      "reason": "Erasure/deletion obligation is PDPA-relevant but there is no explicit allowed rule for erasure/retention in the current rule list."
+    },
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "no material adverse change",
+      "reason": "MAC language appears in negated form; rule 8 forbids labeling negated MAC, but it is legally relevant context."
+    }
+  ]
+}

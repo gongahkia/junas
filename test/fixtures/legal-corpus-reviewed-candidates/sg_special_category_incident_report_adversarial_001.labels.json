@@ -1,0 +1,519 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_special_category_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/special_category/sg_special_category_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_special_category_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_special_category_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daryl Kho Chen Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AWR-7l0O-993-x",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aisha Lim Mei Fen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AWR-4Q2-5i1-z",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "had a medical claim revealing Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a prenatal claim referencing gestational hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a benefits attachment noting thalassaemia trait",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access-control biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access badge fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "an access badge fingerprint template compromised",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Biometric timekeeping images (face-scan jpgs)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared religion: Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared religion: Buddhist (for festival leave scheduling)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership with payroll deduction of 1.5%",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Meera Lim (age 9)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "her dependent, Meera Lim (age 9), was listed for clinic reimbursements (minor data)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 9",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aspenwave.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@aspenwave.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88  341-XX-29",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this information is not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "would be expected to materially affect the price of Aspenwave shares on the MSX",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet \u201cTRX-NOVA-2026-05\u201d",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of NovaDock Systems Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary Q3 revenue guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists have been updated",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "please do not forward MNPI outside need-to-know",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "without tipping MNPI",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6 - 0 6 - 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erencing",
+      "rule": "sg_insurance_policy_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religion: Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 9",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a draft term sheet \u201cTRX-NOVA-2026-05\u201d for a proposed acquisition of NovaDock Systems Pte. Ltd. and preliminary Q3 revenue guidance were found in the same share; this information is not generally available and would be expected to materially affect the price of Aspenwave shares on the MSX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Accordingly, this content is restricted under the Securities and Futures Act (Singapore) and the MSX Listing Rules; escalation to MSX RegCo for guidance on immediate disclosure (Rule 7.03 analogue) is in progress and insider lists have been updated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, this incident report does not constitute a material adverse change representation, an earnings pre-announcement, or an offer of securities; our general policy prohibits discrimination on religion, sexual orientation, or union status.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: create jira epic \u201cmsx-703-incident\u201d, prepare PDPA breach notification within 3 calendar days, stage but do not publish market update pending msx regco advice, and schedule union liaison briefing for transparency without tipping MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Manager",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6 %",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6 - 0 6 - 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erencing",
+      "rule": "sg_insurance_policy_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daryl Kho Chen Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aisha Lim Mei Fen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religion: Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 9",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a draft term sheet \u201cTRX-NOVA-2026-05\u201d for a proposed acquisition of NovaDock Systems Pte. Ltd. and preliminary Q3 revenue guidance were found in the same share; this information is not generally available and would be expected to materially affect the price of Aspenwave shares on the MSX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Accordingly, this content is restricted under the Securities and Futures Act (Singapore) and the MSX Listing Rules; escalation to MSX RegCo for guidance on immediate disclosure (Rule 7.03 analogue) is in progress and insider lists have been updated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, this incident report does not constitute a material adverse change representation, an earnings pre-announcement, or an offer of securities; our general policy prohibits discrimination on religion, sexual orientation, or union status.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: create jira epic \u201cmsx-703-incident\u201d, prepare PDPA breach notification within 3 calendar days, stage but do not publish market update pending msx regco advice, and schedule union liaison briefing for transparency without tipping MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Manager",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6 %",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We will notify affected individuals, including Mr. Kho and Ms. Lim, and offer credit monitoring; letters will be posted to the last known address records (e.g., 20 Circuit Crescent #05-01, Singapore S(000000))",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We will notify affected individuals, including Mr. Kho and Ms. Lim, and offer credit monitoring; letters will be posted to the last known address records (e.g., 20 Circuit Crescent #05-01, Singapore S(000000)).\nContainment status: reset of vendor credentials, revocation of stale VPN profiles, EDR scans completed, and forensic image preserved (hash: awr-0x77fa\u20269c); no evidence of persistence post 30 May.\nContact channels: Data Protection Office dpo@aspenwave.example, Investor Relations ir@aspenwave.example, tel +65 6000 0000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Named subject: Mr. Daryl Kho Chen Wei (EmpID: AWR-7l0O-993-x), Senior Engineer, had a medical claim revealing Type 1 diabetes and an access badge fingerprint template compromised; HR records also show declared religion: Buddhist (for festival leave scheduling) and union membership with payroll deduction of 1.5%.\nNamed subject: Ms. Aisha Lim Mei Fen (EmpID: AWR-4Q2-5i1-z), Project Manager, had a prenatal claim referencing gestational hypertension and a benefits attachment noting thalassaemia trait; her dependent, Meera Lim (age 9), was listed for clinic reimbursements (minor data).\nBiometric timekeeping images (face-scan jpgs) for the above named persons were cached in /bi o /cache/2026_05; logs indicate 31 files viewed and 7 copied.\nSeparately, a draft term sheet \u201cTRX-NOVA-2026-05\u201d for a proposed acquisition of NovaDock Systems Pte. Ltd. and preliminary Q3 revenue guidance were found in the same share; this information is not generally available and would be expected to materially affect the price of Aspenwave shares on the MSX.\nAccordingly, this content is restricted under the Securities and Futures Act (Singapore) and the MSX Listing Rules; escalation to MSX RegCo for guidance on immediate disclosure (Rule 7.03 analogue) is in progress and insider lists have been updated.\nFor clarity, this incident report does not constitute a material adverse change representation, an earnings pre-announcement, or an offer of securities; our general policy prohibits discrimination on religion, sexual orientation, or union status.\nOperational note: consumer product names Orchid Cloud and LionCity Pro were unaffected; the office five-a-side team \u201cNeon Tigers\u201d also remains unaffected by the network containment.\nPublic-source references used: Monetary Authority of Merlion (MAM) TRM Circular 2025-RSK-11 (public), and Infocomm & Data Protection Agency (IDPA) advisory on ransomware (public); these do not disclose any individual\u2019s sensitive data.\nPartial identifiers observed: pay acct \u201c88  341-XX-29\u201d, contractor domain \u201cnovadock-vpn[.]example\u201d, and URL h t t p s : / / i r . a s p e n w a v e . e x a m p l e /doc?id=TRX-NOVA-2 0 2 6 % 2 F 05&dl=1 (now access-revoked).\nWe will notify affected individuals, including Mr. Kho and Ms. Lim, and offer credit monitoring; letters will be posted to the last known address records (e.g., 20 Circuit Crescent #05-01, Singapore S(000000)).\nContainment status: reset of vendor credentials, revocation of stale VPN profiles, EDR scans completed, and forensic image preserved (hash: awr-0x77fa\u20269c); no evidence of persistence post 30 May.\nContact channels: Data Protection Office dpo@aspenwave.example, Investor Relations ir@aspenwave.example, tel +65 6000 0000; please do not forward MNPI outside need-to-know.\nNote: the phrase \u201cbiometric security\u201d below refers to a control category in training materials and not to any person\u2019s sensitive attributes.\nnext steps: create jira epic \u201cmsx-703-incident\u201d, prepare PDPA breach notification within 3 calendar days, stage but do not publish market update pending msx regco advice, and schedule union liaison briefing for transparency without tipping MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Orchid Cloud",
+      "reason": "product name, not PII or MNPI"
+    },
+    {
+      "matched_text": "LionCity Pro",
+      "reason": "product name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Neon Tigers",
+      "reason": "sports team name, not PII or MNPI"
+    },
+    {
+      "matched_text": "biometric security",
+      "reason": "generic control category reference, not linked to an individual"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "generic policy reference, not linked to an individual"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "definitive_agreement",
+      "matched_text": "term sheet \u201cTRX-NOVA-2026-05\u201d",
+      "reason": "lower-case 'term sheet' and draft status may fall outside strict detectors expecting 'Term Sheet' or executed agreements"
+    },
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "Incident Report \u2014 Cyber/Operational (PDPA/SFA context)",
+      "reason": "internal cyber incident details prior to public disclosure could be market-sensitive depending on severity; not explicitly categorized"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "88  341-XX-29",
+      "reason": "masked and partial; may not meet strict bank account regex yet still identifies an individual's account fragment"
+    }
+  ]
+}

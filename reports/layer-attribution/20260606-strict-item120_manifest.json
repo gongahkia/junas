@@ -1,0 +1,1377 @@
+{
+  "corpus": "/Users/gongahkia/Desktop/coding/projects/kaypoh/test/fixtures/legal-corpus-candidates",
+  "generated_at_unix": 1780725499,
+  "manifest_report": "/Users/gongahkia/Desktop/coding/projects/kaypoh/reports/layer-attribution/20260606-strict-item120_manifest.json",
+  "note": "Layer-attribution substrate only. Strict is deterministic/free; audit_grade may trigger configured LLM or retrieval calls.",
+  "profiles": {
+    "strict": {
+      "bucket_report": "/Users/gongahkia/Desktop/coding/projects/kaypoh/reports/layer-attribution/20260606-strict-item120_strict_miss_buckets.json",
+      "bucket_summary": {
+        "by_bucket": {
+          "conjunction_miss": 5026,
+          "coverage_gap": 17393,
+          "needs_review": 163,
+          "singling_out_miss": 526,
+          "true_inference_miss": 30
+        },
+        "by_detector_family": {
+          "direct_identifier": {
+            "coverage_gap": 4932
+          },
+          "mnpi_context": {
+            "conjunction_miss": 5026,
+            "true_inference_miss": 1
+          },
+          "mnpi_lexicon": {
+            "coverage_gap": 4408,
+            "true_inference_miss": 29
+          },
+          "online_device": {
+            "coverage_gap": 789
+          },
+          "privacy_event": {
+            "coverage_gap": 3896
+          },
+          "pseudonymised_linkable": {
+            "coverage_gap": 1183
+          },
+          "quasi_identifier": {
+            "singling_out_miss": 526
+          },
+          "sector_mnpi": {
+            "coverage_gap": 1116
+          },
+          "special_category": {
+            "coverage_gap": 1069
+          },
+          "unknown": {
+            "needs_review": 163
+          }
+        },
+        "by_jurisdiction": {
+          "AE": {
+            "conjunction_miss": 260,
+            "coverage_gap": 981,
+            "needs_review": 6,
+            "singling_out_miss": 44,
+            "true_inference_miss": 2
+          },
+          "AU": {
+            "conjunction_miss": 270,
+            "coverage_gap": 967,
+            "needs_review": 8,
+            "singling_out_miss": 30
+          },
+          "CN": {
+            "conjunction_miss": 255,
+            "coverage_gap": 1329,
+            "needs_review": 6,
+            "singling_out_miss": 32
+          },
+          "EU": {
+            "conjunction_miss": 353,
+            "coverage_gap": 1122,
+            "needs_review": 9,
+            "singling_out_miss": 36
+          },
+          "HK": {
+            "conjunction_miss": 322,
+            "coverage_gap": 903,
+            "needs_review": 8,
+            "singling_out_miss": 28,
+            "true_inference_miss": 26
+          },
+          "ID": {
+            "conjunction_miss": 240,
+            "coverage_gap": 1035,
+            "needs_review": 6,
+            "singling_out_miss": 31
+          },
+          "IN": {
+            "conjunction_miss": 351,
+            "coverage_gap": 1433,
+            "needs_review": 8,
+            "singling_out_miss": 33
+          },
+          "JP": {
+            "conjunction_miss": 282,
+            "coverage_gap": 1038,
+            "needs_review": 12,
+            "singling_out_miss": 25
+          },
+          "KR": {
+            "conjunction_miss": 259,
+            "coverage_gap": 1121,
+            "needs_review": 12,
+            "singling_out_miss": 27
+          },
+          "MY": {
+            "conjunction_miss": 324,
+            "coverage_gap": 963,
+            "needs_review": 7,
+            "singling_out_miss": 29
+          },
+          "PH": {
+            "conjunction_miss": 242,
+            "coverage_gap": 1021,
+            "needs_review": 13,
+            "singling_out_miss": 34
+          },
+          "SA": {
+            "conjunction_miss": 257,
+            "coverage_gap": 1137,
+            "needs_review": 11,
+            "singling_out_miss": 26,
+            "true_inference_miss": 1
+          },
+          "SG": {
+            "conjunction_miss": 325,
+            "coverage_gap": 727,
+            "needs_review": 7,
+            "singling_out_miss": 26
+          },
+          "TH": {
+            "conjunction_miss": 271,
+            "coverage_gap": 907,
+            "needs_review": 11,
+            "singling_out_miss": 29
+          },
+          "UK": {
+            "conjunction_miss": 377,
+            "coverage_gap": 835,
+            "needs_review": 13,
+            "singling_out_miss": 30,
+            "true_inference_miss": 1
+          },
+          "US": {
+            "conjunction_miss": 395,
+            "coverage_gap": 868,
+            "needs_review": 8,
+            "singling_out_miss": 33
+          },
+          "VN": {
+            "conjunction_miss": 243,
+            "coverage_gap": 1006,
+            "needs_review": 18,
+            "singling_out_miss": 33
+          }
+        },
+        "by_rule": {
+          "advertising_id": {
+            "coverage_gap": 3
+          },
+          "ae_emirates_id": {
+            "coverage_gap": 92
+          },
+          "ae_passport": {
+            "coverage_gap": 3
+          },
+          "ae_trade_licence": {
+            "coverage_gap": 94
+          },
+          "age_reference": {
+            "coverage_gap": 205
+          },
+          "au_abn": {
+            "coverage_gap": 37
+          },
+          "au_acn": {
+            "coverage_gap": 33
+          },
+          "au_postal_address": {
+            "coverage_gap": 28
+          },
+          "au_tfn": {
+            "coverage_gap": 9
+          },
+          "bank_account": {
+            "coverage_gap": 498
+          },
+          "bank_customer_reference": {
+            "coverage_gap": 65
+          },
+          "biometric_identifier": {
+            "coverage_gap": 252
+          },
+          "blackout_period_reference": {
+            "conjunction_miss": 1153
+          },
+          "cn_passport": {
+            "coverage_gap": 5
+          },
+          "cn_phone": {
+            "coverage_gap": 43
+          },
+          "cn_resident_id": {
+            "coverage_gap": 87
+          },
+          "cn_uscc": {
+            "coverage_gap": 127
+          },
+          "consent_withdrawal_marker": {
+            "coverage_gap": 384
+          },
+          "contingent_mnpi_language": {
+            "conjunction_miss": 620
+          },
+          "contract_discount_rate": {
+            "needs_review": 13
+          },
+          "contract_unit_price": {
+            "needs_review": 87
+          },
+          "cookie_id": {
+            "coverage_gap": 12
+          },
+          "cross_border_transfer_marker": {
+            "coverage_gap": 1218
+          },
+          "crypto_wallet_address": {
+            "needs_review": 27
+          },
+          "customer_account_number": {
+            "coverage_gap": 197
+          },
+          "cyber_incident_pre_disclosure": {
+            "coverage_gap": 542
+          },
+          "data_minimisation_marker": {
+            "coverage_gap": 1987
+          },
+          "date_of_birth": {
+            "coverage_gap": 167
+          },
+          "definitive_agreement": {
+            "coverage_gap": 403
+          },
+          "device_serial_number": {
+            "coverage_gap": 254
+          },
+          "dpt_pre_listing_marker": {
+            "coverage_gap": 73
+          },
+          "dpt_protocol_event_marker": {
+            "coverage_gap": 150
+          },
+          "email_address": {
+            "coverage_gap": 1601
+          },
+          "embargo_marker": {
+            "coverage_gap": 549
+          },
+          "employee_id": {
+            "coverage_gap": 511
+          },
+          "esg_climate_pre_disclosure": {
+            "coverage_gap": 333
+          },
+          "esg_target_revision": {
+            "coverage_gap": 18
+          },
+          "eu_national_id": {
+            "coverage_gap": 2
+          },
+          "financial_amount": {
+            "coverage_gap": 67
+          },
+          "financial_percentage": {
+            "coverage_gap": 219
+          },
+          "genetic_data": {
+            "coverage_gap": 51
+          },
+          "health_condition": {
+            "coverage_gap": 233
+          },
+          "hk_cr_no": {
+            "coverage_gap": 13
+          },
+          "hk_hkid": {
+            "coverage_gap": 17
+          },
+          "id_nik": {
+            "coverage_gap": 14
+          },
+          "imei": {
+            "coverage_gap": 32
+          },
+          "in_aadhaar": {
+            "coverage_gap": 72
+          },
+          "in_gstin": {
+            "coverage_gap": 70
+          },
+          "in_pan": {
+            "coverage_gap": 90
+          },
+          "information_barrier_marker": {
+            "conjunction_miss": 1041
+          },
+          "insider_list_marker": {
+            "conjunction_miss": 596
+          },
+          "insurance_member_id": {
+            "coverage_gap": 16
+          },
+          "internal_session_id": {
+            "coverage_gap": 377
+          },
+          "ip_address": {
+            "coverage_gap": 89
+          },
+          "jp_corporate_number": {
+            "coverage_gap": 14
+          },
+          "jp_my_number": {
+            "coverage_gap": 80
+          },
+          "jp_postal_code": {
+            "coverage_gap": 14
+          },
+          "kr_business_registration": {
+            "coverage_gap": 15
+          },
+          "kr_rrn": {
+            "coverage_gap": 99
+          },
+          "large_number": {
+            "coverage_gap": 69
+          },
+          "mac_address": {
+            "coverage_gap": 27
+          },
+          "material_adverse_change": {
+            "coverage_gap": 212
+          },
+          "material_event": {
+            "coverage_gap": 1089
+          },
+          "medical_record_number": {
+            "coverage_gap": 17
+          },
+          "medical_treatment": {
+            "coverage_gap": 163
+          },
+          "minor_data_reference": {
+            "coverage_gap": 307
+          },
+          "my_mykad": {
+            "coverage_gap": 10
+          },
+          "named_person": {
+            "coverage_gap": 940
+          },
+          "nonpublic_marker": {
+            "coverage_gap": 1689,
+            "true_inference_miss": 29
+          },
+          "passport_number": {
+            "coverage_gap": 120
+          },
+          "ph_philsys": {
+            "coverage_gap": 1
+          },
+          "ph_tin": {
+            "coverage_gap": 30
+          },
+          "phone_number": {
+            "coverage_gap": 341
+          },
+          "political_opinion": {
+            "coverage_gap": 29
+          },
+          "quasi_identifier_combination": {
+            "singling_out_miss": 526
+          },
+          "religious_belief": {
+            "coverage_gap": 113
+          },
+          "sa_commercial_registration": {
+            "coverage_gap": 147
+          },
+          "sa_iqama": {
+            "coverage_gap": 90
+          },
+          "sa_national_id": {
+            "coverage_gap": 31
+          },
+          "selective_disclosure_risk": {
+            "conjunction_miss": 1287,
+            "true_inference_miss": 1
+          },
+          "sex_life_reference": {
+            "coverage_gap": 2
+          },
+          "sexual_orientation": {
+            "coverage_gap": 64
+          },
+          "sg_nric_fin": {
+            "coverage_gap": 5
+          },
+          "sg_postal_address": {
+            "coverage_gap": 4
+          },
+          "sg_sgx_counter": {
+            "coverage_gap": 7
+          },
+          "th_national_id": {
+            "coverage_gap": 7
+          },
+          "tipping_language": {
+            "conjunction_miss": 329
+          },
+          "total_contract_value": {
+            "needs_review": 15
+          },
+          "trade_union_membership": {
+            "coverage_gap": 162
+          },
+          "transaction_codename": {
+            "coverage_gap": 111
+          },
+          "uk_nin": {
+            "coverage_gap": 11
+          },
+          "us_driver_license": {
+            "coverage_gap": 1
+          },
+          "us_ein": {
+            "coverage_gap": 8
+          },
+          "us_ssn": {
+            "coverage_gap": 15
+          },
+          "vn_cccd": {
+            "coverage_gap": 7
+          },
+          "volume_commitment": {
+            "needs_review": 21
+          }
+        },
+        "doc_count_by_jurisdiction": {
+          "AE": 84,
+          "AU": 84,
+          "CN": 84,
+          "EU": 84,
+          "HK": 84,
+          "ID": 84,
+          "IN": 84,
+          "JP": 84,
+          "KR": 84,
+          "MY": 84,
+          "PH": 84,
+          "SA": 84,
+          "SG": 84,
+          "TH": 84,
+          "UK": 84,
+          "US": 84,
+          "VN": 84
+        },
+        "miss_count": 23138
+      },
+      "candidate_report": "/Users/gongahkia/Desktop/coding/projects/kaypoh/reports/layer-attribution/20260606-strict-item120_strict_candidate_eval.json",
+      "candidate_summary": {
+        "by_rule": {
+          "ae_emirates_id": {
+            "matched": 16,
+            "missed": 0
+          },
+          "ae_passport": {
+            "matched": 1,
+            "missed": 0
+          },
+          "ae_trade_licence": {
+            "matched": 45,
+            "missed": 0
+          },
+          "age_reference": {
+            "matched": 19,
+            "missed": 0
+          },
+          "au_abn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "au_acn": {
+            "matched": 4,
+            "missed": 0
+          },
+          "au_postal_address": {
+            "matched": 21,
+            "missed": 0
+          },
+          "au_tfn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "bank_account": {
+            "matched": 72,
+            "missed": 0
+          },
+          "biometric_identifier": {
+            "matched": 74,
+            "missed": 0
+          },
+          "cn_passport": {
+            "matched": 3,
+            "missed": 0
+          },
+          "cn_phone": {
+            "matched": 4,
+            "missed": 0
+          },
+          "cn_resident_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cn_uscc": {
+            "matched": 1,
+            "missed": 0
+          },
+          "consent_withdrawal_marker": {
+            "matched": 725,
+            "missed": 0
+          },
+          "contingent_mnpi_language": {
+            "matched": 63,
+            "missed": 0
+          },
+          "contract_discount_rate": {
+            "matched": 4,
+            "missed": 0
+          },
+          "contract_unit_price": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cross_border_transfer_marker": {
+            "matched": 125,
+            "missed": 0
+          },
+          "customer_account_number": {
+            "matched": 18,
+            "missed": 0
+          },
+          "cyber_incident_pre_disclosure": {
+            "matched": 31,
+            "missed": 0
+          },
+          "data_minimisation_marker": {
+            "matched": 239,
+            "missed": 0
+          },
+          "date_of_birth": {
+            "matched": 170,
+            "missed": 0
+          },
+          "definitive_agreement": {
+            "matched": 1183,
+            "missed": 0
+          },
+          "device_serial_number": {
+            "matched": 19,
+            "missed": 0
+          },
+          "dpt_pre_listing_marker": {
+            "matched": 2,
+            "missed": 0
+          },
+          "email_address": {
+            "matched": 1515,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 87,
+            "missed": 0
+          },
+          "employee_id": {
+            "matched": 109,
+            "missed": 0
+          },
+          "esg_climate_pre_disclosure": {
+            "matched": 115,
+            "missed": 0
+          },
+          "esg_target_revision": {
+            "matched": 1,
+            "missed": 0
+          },
+          "eu_national_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "financial_amount": {
+            "matched": 969,
+            "missed": 0
+          },
+          "financial_percentage": {
+            "matched": 1101,
+            "missed": 0
+          },
+          "genetic_data": {
+            "matched": 34,
+            "missed": 0
+          },
+          "health_condition": {
+            "matched": 2,
+            "missed": 0
+          },
+          "hk_cr_no": {
+            "matched": 7,
+            "missed": 0
+          },
+          "hk_hkid": {
+            "matched": 1,
+            "missed": 0
+          },
+          "id_nik": {
+            "matched": 6,
+            "missed": 0
+          },
+          "imei": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_aadhaar": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_gstin": {
+            "matched": 11,
+            "missed": 0
+          },
+          "in_pan": {
+            "matched": 6,
+            "missed": 0
+          },
+          "information_barrier_marker": {
+            "matched": 234,
+            "missed": 0
+          },
+          "insider_list_marker": {
+            "matched": 839,
+            "missed": 0
+          },
+          "ip_address": {
+            "matched": 5,
+            "missed": 0
+          },
+          "jp_corporate_number": {
+            "matched": 3,
+            "missed": 0
+          },
+          "jp_my_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "jp_postal_code": {
+            "matched": 3,
+            "missed": 0
+          },
+          "kr_business_registration": {
+            "matched": 5,
+            "missed": 0
+          },
+          "kr_rrn": {
+            "matched": 6,
+            "missed": 0
+          },
+          "large_number": {
+            "matched": 841,
+            "missed": 0
+          },
+          "material_adverse_change": {
+            "matched": 94,
+            "missed": 0
+          },
+          "material_event": {
+            "matched": 2510,
+            "missed": 0
+          },
+          "medical_record_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "medical_treatment": {
+            "matched": 1,
+            "missed": 0
+          },
+          "minor_data_reference": {
+            "matched": 222,
+            "missed": 0
+          },
+          "my_mykad": {
+            "matched": 5,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 2146,
+            "missed": 0
+          },
+          "nonpublic_marker": {
+            "matched": 2454,
+            "missed": 0
+          },
+          "passport_number": {
+            "matched": 97,
+            "missed": 0
+          },
+          "ph_philsys": {
+            "matched": 2,
+            "missed": 0
+          },
+          "ph_tin": {
+            "matched": 14,
+            "missed": 0
+          },
+          "phone_number": {
+            "matched": 754,
+            "missed": 0
+          },
+          "religious_belief": {
+            "matched": 4,
+            "missed": 0
+          },
+          "sa_iqama": {
+            "matched": 8,
+            "missed": 0
+          },
+          "sa_national_id": {
+            "matched": 2,
+            "missed": 0
+          },
+          "selective_disclosure_risk": {
+            "matched": 19,
+            "missed": 0
+          },
+          "sexual_orientation": {
+            "matched": 2,
+            "missed": 0
+          },
+          "sg_insurance_policy_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_nric_fin": {
+            "matched": 6,
+            "missed": 0
+          },
+          "sg_postal_address": {
+            "matched": 22,
+            "missed": 0
+          },
+          "sg_sgx_counter": {
+            "matched": 2,
+            "missed": 0
+          },
+          "sg_uen": {
+            "matched": 22,
+            "missed": 0
+          },
+          "th_national_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "tipping_language": {
+            "matched": 4,
+            "missed": 0
+          },
+          "trade_union_membership": {
+            "matched": 3,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 394,
+            "missed": 0
+          },
+          "us_ein": {
+            "matched": 8,
+            "missed": 0
+          },
+          "vn_cccd": {
+            "matched": 7,
+            "missed": 0
+          }
+        },
+        "candidate_precision": 0.9283,
+        "candidate_recall": 1.0,
+        "doc_count": 1428,
+        "expected_labels": 17552,
+        "ideal_by_rule": {
+          "advertising_id": {
+            "matched": 0,
+            "missed": 3
+          },
+          "ae_emirates_id": {
+            "matched": 16,
+            "missed": 92
+          },
+          "ae_passport": {
+            "matched": 1,
+            "missed": 3
+          },
+          "ae_trade_licence": {
+            "matched": 45,
+            "missed": 94
+          },
+          "age_reference": {
+            "matched": 19,
+            "missed": 205
+          },
+          "au_abn": {
+            "matched": 1,
+            "missed": 37
+          },
+          "au_acn": {
+            "matched": 4,
+            "missed": 33
+          },
+          "au_postal_address": {
+            "matched": 21,
+            "missed": 28
+          },
+          "au_tfn": {
+            "matched": 1,
+            "missed": 9
+          },
+          "bank_account": {
+            "matched": 72,
+            "missed": 498
+          },
+          "bank_customer_reference": {
+            "matched": 0,
+            "missed": 65
+          },
+          "biometric_identifier": {
+            "matched": 74,
+            "missed": 252
+          },
+          "blackout_period_reference": {
+            "matched": 0,
+            "missed": 1153
+          },
+          "cn_passport": {
+            "matched": 3,
+            "missed": 5
+          },
+          "cn_phone": {
+            "matched": 4,
+            "missed": 43
+          },
+          "cn_resident_id": {
+            "matched": 1,
+            "missed": 87
+          },
+          "cn_uscc": {
+            "matched": 1,
+            "missed": 127
+          },
+          "consent_withdrawal_marker": {
+            "matched": 685,
+            "missed": 384
+          },
+          "contingent_mnpi_language": {
+            "matched": 63,
+            "missed": 620
+          },
+          "contract_discount_rate": {
+            "matched": 4,
+            "missed": 13
+          },
+          "contract_unit_price": {
+            "matched": 1,
+            "missed": 87
+          },
+          "cookie_id": {
+            "matched": 0,
+            "missed": 12
+          },
+          "cross_border_transfer_marker": {
+            "matched": 121,
+            "missed": 1218
+          },
+          "crypto_wallet_address": {
+            "matched": 0,
+            "missed": 27
+          },
+          "customer_account_number": {
+            "matched": 18,
+            "missed": 197
+          },
+          "cyber_incident_pre_disclosure": {
+            "matched": 31,
+            "missed": 542
+          },
+          "data_minimisation_marker": {
+            "matched": 236,
+            "missed": 1987
+          },
+          "date_of_birth": {
+            "matched": 168,
+            "missed": 167
+          },
+          "definitive_agreement": {
+            "matched": 1138,
+            "missed": 403
+          },
+          "device_serial_number": {
+            "matched": 19,
+            "missed": 254
+          },
+          "dpt_pre_listing_marker": {
+            "matched": 2,
+            "missed": 73
+          },
+          "dpt_protocol_event_marker": {
+            "matched": 0,
+            "missed": 150
+          },
+          "email_address": {
+            "matched": 1510,
+            "missed": 1601
+          },
+          "embargo_marker": {
+            "matched": 85,
+            "missed": 549
+          },
+          "employee_id": {
+            "matched": 106,
+            "missed": 511
+          },
+          "esg_climate_pre_disclosure": {
+            "matched": 113,
+            "missed": 333
+          },
+          "esg_target_revision": {
+            "matched": 1,
+            "missed": 18
+          },
+          "eu_national_id": {
+            "matched": 1,
+            "missed": 2
+          },
+          "financial_amount": {
+            "matched": 959,
+            "missed": 67
+          },
+          "financial_percentage": {
+            "matched": 1093,
+            "missed": 219
+          },
+          "genetic_data": {
+            "matched": 34,
+            "missed": 51
+          },
+          "health_condition": {
+            "matched": 2,
+            "missed": 233
+          },
+          "hk_cr_no": {
+            "matched": 7,
+            "missed": 13
+          },
+          "hk_hkid": {
+            "matched": 1,
+            "missed": 17
+          },
+          "id_nik": {
+            "matched": 6,
+            "missed": 14
+          },
+          "imei": {
+            "matched": 1,
+            "missed": 32
+          },
+          "in_aadhaar": {
+            "matched": 1,
+            "missed": 72
+          },
+          "in_gstin": {
+            "matched": 11,
+            "missed": 70
+          },
+          "in_pan": {
+            "matched": 6,
+            "missed": 90
+          },
+          "information_barrier_marker": {
+            "matched": 227,
+            "missed": 1041
+          },
+          "insider_list_marker": {
+            "matched": 800,
+            "missed": 596
+          },
+          "insurance_member_id": {
+            "matched": 0,
+            "missed": 16
+          },
+          "internal_session_id": {
+            "matched": 0,
+            "missed": 377
+          },
+          "ip_address": {
+            "matched": 5,
+            "missed": 89
+          },
+          "jp_corporate_number": {
+            "matched": 3,
+            "missed": 14
+          },
+          "jp_my_number": {
+            "matched": 1,
+            "missed": 80
+          },
+          "jp_postal_code": {
+            "matched": 3,
+            "missed": 14
+          },
+          "kr_business_registration": {
+            "matched": 5,
+            "missed": 15
+          },
+          "kr_rrn": {
+            "matched": 6,
+            "missed": 99
+          },
+          "large_number": {
+            "matched": 833,
+            "missed": 69
+          },
+          "mac_address": {
+            "matched": 0,
+            "missed": 27
+          },
+          "material_adverse_change": {
+            "matched": 94,
+            "missed": 212
+          },
+          "material_event": {
+            "matched": 2380,
+            "missed": 1089
+          },
+          "medical_record_number": {
+            "matched": 1,
+            "missed": 17
+          },
+          "medical_treatment": {
+            "matched": 1,
+            "missed": 163
+          },
+          "minor_data_reference": {
+            "matched": 219,
+            "missed": 307
+          },
+          "my_mykad": {
+            "matched": 5,
+            "missed": 10
+          },
+          "named_person": {
+            "matched": 2105,
+            "missed": 940
+          },
+          "nonpublic_marker": {
+            "matched": 2282,
+            "missed": 1718
+          },
+          "passport_number": {
+            "matched": 95,
+            "missed": 120
+          },
+          "ph_philsys": {
+            "matched": 2,
+            "missed": 1
+          },
+          "ph_tin": {
+            "matched": 14,
+            "missed": 30
+          },
+          "phone_number": {
+            "matched": 749,
+            "missed": 341
+          },
+          "political_opinion": {
+            "matched": 0,
+            "missed": 29
+          },
+          "quasi_identifier_combination": {
+            "matched": 0,
+            "missed": 526
+          },
+          "religious_belief": {
+            "matched": 4,
+            "missed": 113
+          },
+          "sa_commercial_registration": {
+            "matched": 0,
+            "missed": 147
+          },
+          "sa_iqama": {
+            "matched": 8,
+            "missed": 90
+          },
+          "sa_national_id": {
+            "matched": 2,
+            "missed": 31
+          },
+          "selective_disclosure_risk": {
+            "matched": 19,
+            "missed": 1288
+          },
+          "sex_life_reference": {
+            "matched": 0,
+            "missed": 2
+          },
+          "sexual_orientation": {
+            "matched": 2,
+            "missed": 64
+          },
+          "sg_insurance_policy_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_nric_fin": {
+            "matched": 6,
+            "missed": 5
+          },
+          "sg_postal_address": {
+            "matched": 22,
+            "missed": 4
+          },
+          "sg_sgx_counter": {
+            "matched": 1,
+            "missed": 7
+          },
+          "sg_uen": {
+            "matched": 20,
+            "missed": 0
+          },
+          "th_national_id": {
+            "matched": 1,
+            "missed": 7
+          },
+          "tipping_language": {
+            "matched": 4,
+            "missed": 329
+          },
+          "total_contract_value": {
+            "matched": 0,
+            "missed": 15
+          },
+          "trade_union_membership": {
+            "matched": 3,
+            "missed": 162
+          },
+          "transaction_codename": {
+            "matched": 367,
+            "missed": 111
+          },
+          "uk_nin": {
+            "matched": 0,
+            "missed": 11
+          },
+          "us_driver_license": {
+            "matched": 0,
+            "missed": 1
+          },
+          "us_ein": {
+            "matched": 8,
+            "missed": 8
+          },
+          "us_ssn": {
+            "matched": 0,
+            "missed": 15
+          },
+          "vn_cccd": {
+            "matched": 7,
+            "missed": 7
+          },
+          "volume_commitment": {
+            "matched": 0,
+            "missed": 21
+          }
+        },
+        "ideal_candidate_recall": 0.4234,
+        "ideal_labels": 40129,
+        "ideal_matched": 16991,
+        "ideal_missed": 23138,
+        "matched": 17552,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 1355,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 1352,
+          "taxonomy_model_label_mismatch": 3
+        }
+      },
+      "concentration_report": "/Users/gongahkia/Desktop/coding/projects/kaypoh/reports/layer-attribution/20260606-strict-item120_strict_miss_concentration.json",
+      "concentration_summary": {
+        "by_bucket": {
+          "conjunction_miss": 5026,
+          "coverage_gap": 17393,
+          "needs_review": 163,
+          "singling_out_miss": 526,
+          "true_inference_miss": 30
+        },
+        "by_detector_family": {
+          "direct_identifier": 4932,
+          "mnpi_context": 5027,
+          "mnpi_lexicon": 4437,
+          "online_device": 789,
+          "privacy_event": 3896,
+          "pseudonymised_linkable": 1183,
+          "quasi_identifier": 526,
+          "sector_mnpi": 1116,
+          "special_category": 1069,
+          "unknown": 163
+        },
+        "by_jurisdiction": {
+          "AE": 1293,
+          "AU": 1275,
+          "CN": 1622,
+          "EU": 1520,
+          "HK": 1287,
+          "ID": 1312,
+          "IN": 1825,
+          "JP": 1357,
+          "KR": 1419,
+          "MY": 1323,
+          "PH": 1310,
+          "SA": 1432,
+          "SG": 1085,
+          "TH": 1218,
+          "UK": 1256,
+          "US": 1304,
+          "VN": 1300
+        },
+        "by_jurisdiction_normalized": {
+          "AE": {
+            "doc_count": 84,
+            "miss_count": 1293,
+            "misses_per_100_docs": 1539.29,
+            "misses_per_doc": 15.3929
+          },
+          "AU": {
+            "doc_count": 84,
+            "miss_count": 1275,
+            "misses_per_100_docs": 1517.86,
+            "misses_per_doc": 15.1786
+          },
+          "CN": {
+            "doc_count": 84,
+            "miss_count": 1622,
+            "misses_per_100_docs": 1930.95,
+            "misses_per_doc": 19.3095
+          },
+          "EU": {
+            "doc_count": 84,
+            "miss_count": 1520,
+            "misses_per_100_docs": 1809.52,
+            "misses_per_doc": 18.0952
+          },
+          "HK": {
+            "doc_count": 84,
+            "miss_count": 1287,
+            "misses_per_100_docs": 1532.14,
+            "misses_per_doc": 15.3214
+          },
+          "ID": {
+            "doc_count": 84,
+            "miss_count": 1312,
+            "misses_per_100_docs": 1561.9,
+            "misses_per_doc": 15.619
+          },
+          "IN": {
+            "doc_count": 84,
+            "miss_count": 1825,
+            "misses_per_100_docs": 2172.62,
+            "misses_per_doc": 21.7262
+          },
+          "JP": {
+            "doc_count": 84,
+            "miss_count": 1357,
+            "misses_per_100_docs": 1615.48,
+            "misses_per_doc": 16.1548
+          },
+          "KR": {
+            "doc_count": 84,
+            "miss_count": 1419,
+            "misses_per_100_docs": 1689.29,
+            "misses_per_doc": 16.8929
+          },
+          "MY": {
+            "doc_count": 84,
+            "miss_count": 1323,
+            "misses_per_100_docs": 1575.0,
+            "misses_per_doc": 15.75
+          },
+          "PH": {
+            "doc_count": 84,
+            "miss_count": 1310,
+            "misses_per_100_docs": 1559.52,
+            "misses_per_doc": 15.5952
+          },
+          "SA": {
+            "doc_count": 84,
+            "miss_count": 1432,
+            "misses_per_100_docs": 1704.76,
+            "misses_per_doc": 17.0476
+          },
+          "SG": {
+            "doc_count": 84,
+            "miss_count": 1085,
+            "misses_per_100_docs": 1291.67,
+            "misses_per_doc": 12.9167
+          },
+          "TH": {
+            "doc_count": 84,
+            "miss_count": 1218,
+            "misses_per_100_docs": 1450.0,
+            "misses_per_doc": 14.5
+          },
+          "UK": {
+            "doc_count": 84,
+            "miss_count": 1256,
+            "misses_per_100_docs": 1495.24,
+            "misses_per_doc": 14.9524
+          },
+          "US": {
+            "doc_count": 84,
+            "miss_count": 1304,
+            "misses_per_100_docs": 1552.38,
+            "misses_per_doc": 15.5238
+          },
+          "VN": {
+            "doc_count": 84,
+            "miss_count": 1300,
+            "misses_per_100_docs": 1547.62,
+            "misses_per_doc": 15.4762
+          }
+        },
+        "doc_count_by_jurisdiction": {
+          "AE": 84,
+          "AU": 84,
+          "CN": 84,
+          "EU": 84,
+          "HK": 84,
+          "ID": 84,
+          "IN": 84,
+          "JP": 84,
+          "KR": 84,
+          "MY": 84,
+          "PH": 84,
+          "SA": 84,
+          "SG": 84,
+          "TH": 84,
+          "UK": 84,
+          "US": 84,
+          "VN": 84
+        },
+        "miss_count": 23138
+      }
+    }
+  },
+  "run_id": "20260606-strict-item120"
+}

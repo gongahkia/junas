@@ -1,0 +1,16 @@
+Báo cáo sự cố an toàn thông tin – Công ty CP Năng Lượng Thịnh Phát (mã VTSX, HOSE), ngày 03-06-2026
+Vào 31-05-2026, hệ thống ghi nhận truy cập bất thường vào thư mục tài chính trước thời điểm công bố, liên quan đến tài liệu giao dịch chứng khoán; đã thông báo nội bộ theo quy trình tuân thủ SSC.
+Ông Nguyễn Văn Hải, sinh 12-09-1984 (39 tuổi), Trưởng nhóm Hạ tầng CNTT tại Thịnh Phát, tài khoản: nvhai_84, email: hai.nguyen@thinhphatsolar.vn, đăng nhập từ Quận 1, TP.HCM qua VPN S I D: 7f3a-9c-12, có thời lượng phiên 00:41.
+Thiết bị: laptop Dell Latitude SN D3-LAT-9580-HAI; di động IMEI 35 90 21 00 40 99 11; không thu thập địa chỉ MAC đầy đủ theo chính sách (negated MAC language).
+Tài khoản nội bộ: GL-subledger 4710; user-id NVH_4710 trong hệ thống e-banking thử nghiệm; không ghi nhận số tài khoản ngân hàng khách hàng bên ngoài.
+Tài liệu bị truy cập gồm BCTC quý 2 dự thảo và tờ trình HĐQT về giá chào bán riêng lẻ 18–22 nghìn VND/cp, chưa công bố ra công chúng (rủi ro MNPI theo Luật Chứng khoán).
+Log trích xuất: https://portal.thinhphat.vn/audit?sid=7f3a9c12&file=bao_cao_q2_draft.pdf; client ip 10.12.7.44; ocr-like split: fi le path “/fin/plan”.
+Telemetry hiển thị user agent “ChromeOS”, thiết bị “Chromebook VTSX-IT- HAI”, địa điểm 68 Lê Lợi, Q1, sai lệch thời gian -2 phút so với NTP.
+Riêng lẻ, hệ thống ghi một demographic chung tuổi 30–35 và địa điểm “Đà Nẵng” không kèm tên hoặc vai trò; dữ liệu này tự thân không xác định một cá nhân.
+Một chuỗi yếu “dob: 1990-02-02” xuất hiện trong bản sao dataset huấn luyện, không liên kết với nhân sự hay giao dịch; cần loại khỏi báo cáo đối ngoại.
+Tham chiếu nguồn công khai IR: thông cáo mở rộng nhà máy mặt trời ngày 15-05-2026; thông tin này đã công khai, không phải MNPI.
+project note: post-mortem vào thứ ba, gán nhiệm vụ cho secops, không escalate nếu chưa đủ tiêu chí; giữ nguyên lowercase prose và product names.
+Thông báo cơ quan: nộp báo cáo sự cố cho HOSE và SSC trong 24 giờ; liên hệ Ms. Lê Thu Trang (Phòng Pháp chế), email: trang.le@thinhphatsolar.vn, hotline nội bộ +84 28 3555 7777.
+Tường trình nhân viên: Ông Hải phủ nhận cố ý lạm dụng; phiên truy cập trùng với tác vụ sao lưu tự động “VectorShield-ESG” lúc 23:59; job id ve c t or- 9987.
+Biện pháp: xoay vòng chứng thư VPN, đặt lại mật khẩu nvhai_84, thu hồi thiết bị D3-LAT-9580-HAI; chính sách: không thu thập toàn bộ MAC hoặc số CMND theo Nghị định 13.
+Cân nhắc công bố: nếu tờ trình giá bị rò rỉ, ước tính tác động giá >5%; đến khi xác minh, hạn chế truy cập “deal room” mã VTSX; không đưa số liệu suy đoán vào thông báo HOSE.

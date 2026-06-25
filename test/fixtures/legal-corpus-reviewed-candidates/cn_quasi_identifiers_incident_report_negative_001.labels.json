@@ -1,0 +1,259 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_quasi_identifiers_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/quasi_identifiers/cn_quasi_identifiers_incident_report_negative_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_quasi_identifiers_incident_report_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 16,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 12,
+    "old_must_detect_count": 5,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_quasi_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91QH8ZQ9L3M7720XY1",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it-helpdesk@qilinharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "service@qilinharbor.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "990105199001019999",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One affected profile shows a warehouse technician born 1990-07, stationed at Qinghe Bay District, Yongtai City, Huannan Province, using device hostname WH-QH-038 and internal payroll ID 004512, with a masked resident ID shown as 9900001990****22X",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB: 1975-**-**",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal payroll ID 004512",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "paused export of portal logs to the backup instance in Baojiang SAR pending internal sign-off",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not include personal identifiers in emails",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "users under 14 are not present in our workforce registry",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "004512",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9900001990",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "990105199001019999",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "004512",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9900001990",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "990105199001019999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The issuer is listed on the SSE STAR Market; this notice summarizes already disclosed operational impacts and does not contain undisclosed inside information under the Securities Law.\nOn 2026-05-29 03:20 CST, automated login attempts targeted the employee self-service portal and a shared service mailbox it-helpdesk@qilinharbor.cn.\nNo production systems, trading interfaces, or investor relations platforms were compromised; the event has been reported to the CSRC liaison and the exchange per CSL/DSL incident handling procedures.\nPreliminary forensics show password spraying from rotating CN and SG IP ranges; logs indicate failures across generic usernames (e.g., \"ap_admin\", \"guest\", \"temp1\").\nData categories potentially exposed are limited to salted hashes and device metadata; no bank card numbers, no precise addresses, and no resident ID full strings were accessed.\nOne affected profile shows a warehouse technician born 1990-07, stationed at Qinghe Bay District, Yongtai City, Huannan Province, using device hostname WH-QH-038 and internal payroll ID 004512, with a masked resident ID shown as 9900001990****22X.\nA separate log entry lists \"DOB: 1975-**-**; Role: shift supervisor; City: coastal prefecture\" without any name or full ID, which is insufficient to identify a natural person alone.\nHR onboarding templates found on the file share included blank fields (Name: _______, ID No.: _______, Bank: _______); no filled forms were exfiltrated.\nThe string 990105199001019999 appears in a test CSV as a dummy pattern for validation only and does not correspond to any real resident ID under PIPL.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ap_admin",
+      "reason": "Generic username example, not PII"
+    },
+    {
+      "matched_text": "guest",
+      "reason": "Generic username example, not PII"
+    },
+    {
+      "matched_text": "temp1",
+      "reason": "Generic username example, not PII"
+    },
+    {
+      "matched_text": "Name: _______",
+      "reason": "Blank placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "ID No.: _______",
+      "reason": "Blank placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "Bank: _______",
+      "reason": "Blank placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "warehouse technician",
+      "reason": "Job role descriptor, not a named person"
+    },
+    {
+      "matched_text": "shift supervisor",
+      "reason": "Job role descriptor, not a named person"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "device identifier",
+      "matched_text": "WH-QH-038",
+      "reason": "Hostname/device tag may function as a unique device identifier linked to a person; not clearly covered by device_serial_number rule"
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "internal payroll ID 004512",
+      "reason": "Appears to be an employee-specific identifier; detection may require stricter anchoring"
+    },
+    {
+      "concept": "cn_resident_id (masked)",
+      "matched_text": "9900001990****22X",
+      "reason": "Masked CN resident ID fragment; strict regex often requires full 18-digit format"
+    },
+    {
+      "concept": "date_of_birth (masked)",
+      "matched_text": "DOB: 1975-**-**",
+      "reason": "Masked DOB may be treated as redacted and skipped by strict detectors"
+    },
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "Qinghe Bay District, Yongtai City, Huannan Province",
+      "reason": "Location alone is not PII but contributes to identifiability in combination"
+    },
+    {
+      "concept": "cross-border destination",
+      "matched_text": "Baojiang SAR",
+      "reason": "Jurisdictional destination signal for cross-border transfer; term alone may be insufficient for automated marker detection"
+    },
+    {
+      "concept": "ip_address (non-specific)",
+      "matched_text": "rotating CN and SG IP ranges",
+      "reason": "References IP ranges without concrete addresses; may fall outside strict ip_address detection"
+    }
+  ]
+}

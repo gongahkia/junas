@@ -1,0 +1,334 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_jurisdictional_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/jurisdictional_mnpi/au_jurisdictional_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_jurisdictional_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_resolved_label_warnings": {
+    "basis": "AU Stage B QA after strict-tier reconciliation: stale auto-label warning metadata was cleared after strict labels were realigned to deterministic engine output and ideal labels were preserved for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "resolved_at_utc": "2026-06-02T04:39:19Z",
+    "reviewer": "Codex GPT-5.5",
+    "warning_buckets": [
+      "non_verbatim_span"
+    ],
+    "warning_count": 1
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Dr. Owen Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Warrender",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Warrender",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "media@riverfelllogistics.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@riverfelllogistics.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for external release under ASX Listing Rule 3.1A while confidentiality is maintained",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This information is not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-close blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Customer and supplier communications must avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any analyst engagement must be confined to publicly available information",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "could be material to the issuer if sustained",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if confidentiality is lost or the impact is assessed as materially price-sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6\u20138%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a malware event disrupted the FreightHub scheduling module",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the intrusion was contained by 07:15 AEST",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "two application servers were isolated and restored from clean images",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary data review indicates exposure of names and business emails of 127 contractor drivers and two internal employee identifiers",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An assessment under the OAIC Notifiable Data Breaches scheme is underway",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any suspected external leak must be escalated immediately",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "LR 3.1A applies while confidentiality is maintained",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Two EFT remittance files for contractor payments were queued but not transmitted",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not trade",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "two internal employee identifiers",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "business emails",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "names and business emails of 127 contractor drivers",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "127",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@riverfellogistics.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6\u20138% reduction in June revenue for Rail & Intermodal; given RVF\u2019s FY26 guidance range, this could be material to the issuer if sustained.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We will prepare an ASX announcement for release without delay if confidentiality is lost or the impact is assessed as materially price-sensitive; a trading halt request remains an option under ASX Guidance Note 8.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@riverfelllogistics.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Owen Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Warrender",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Warrender",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6\u20138% reduction in June revenue for Rail & Intermodal; given RVF\u2019s FY26 guidance range, this could be material to the issuer if sustained.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We will prepare an ASX announcement for release without delay if confidentiality is lost or the impact is assessed as materially price-sensitive; a trading halt request remains an option under ASX Guidance Note 8.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Per Dr. Owen Park (CISO), the intrusion was contained by 07:15 AEST; two application servers were isolated and restored from clean images, with monitoring heightened across all depots.\nPreliminary data review indicates exposure of names and business emails of 127 contractor drivers and two internal employee identifiers; no TFNs, bank account details, or health/credit data were accessed.\nAn assessment under the OAIC Notifiable Data Breaches scheme is underway; current risk is assessed as low to moderate, subject to forensic validation.\nIf the FreightHub backlog exceeds 72 hours, internal forecast indicates a 6\u20138% reduction in June revenue for Rail & Intermodal; given RVF\u2019s FY26 guidance range, this could be material to the issuer if sustained.\nThis information is not generally available; continuous disclosure obligations under LR 3.1 are being monitored, and LR 3.1A applies while confidentiality is maintained and a reasonable person would not expect immediate disclosure.\nWe will prepare an ASX announcement for release without delay if confidentiality is lost or the impact is assessed as materially price-sensitive; a trading halt request remains an option under ASX Guidance Note 8.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ASX announcement dated 24 May 2026",
+      "reason": "public document reference (generally available)"
+    },
+    {
+      "matched_text": "2025 Sustainability Report",
+      "reason": "public document reference (generally available)"
+    },
+    {
+      "matched_text": "2020 Annual Report",
+      "reason": "stale public information"
+    },
+    {
+      "matched_text": "public blog",
+      "reason": "non-issuer public update"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "AU tax file number mention",
+      "matched_text": "TFNs",
+      "reason": "Category referenced without any identifier; au_tfn rule expects a numeric TFN."
+    },
+    {
+      "concept": "bank account data mention",
+      "matched_text": "bank account details",
+      "reason": "Generic reference to a PII category without any account number present."
+    },
+    {
+      "concept": "sensitive personal data categories mention",
+      "matched_text": "health/credit data",
+      "reason": "General categories referenced without specific data elements; not clearly covered by allowed PII rules."
+    }
+  ]
+}

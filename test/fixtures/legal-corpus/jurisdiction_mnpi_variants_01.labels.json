@@ -1,0 +1,22 @@
+{
+  "doc_id": "jurisdiction_mnpi_variants_01",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "KR",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Bauhinia"},
+    {"rule": "nonpublic_marker", "matched_text": "inside information"},
+    {"rule": "contingent_mnpi_language", "matched_text": "pending HKEX clearance"},
+    {"rule": "transaction_codename", "matched_text": "Project Wattle"},
+    {"rule": "nonpublic_marker", "matched_text": "market-sensitive information"},
+    {"rule": "contingent_mnpi_language", "matched_text": "subject to ASX approval"},
+    {"rule": "transaction_codename", "matched_text": "Project Sakura"},
+    {"rule": "nonpublic_marker", "matched_text": "undisclosed"},
+    {"rule": "contingent_mnpi_language", "matched_text": "pending TSE approval"},
+    {"rule": "transaction_codename", "matched_text": "Project Han"},
+    {"rule": "nonpublic_marker", "matched_text": "unpublished material information"},
+    {"rule": "contingent_mnpi_language", "matched_text": "pending KRX approval"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

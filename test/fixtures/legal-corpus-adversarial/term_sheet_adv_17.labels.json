@@ -1,0 +1,70 @@
+{
+  "doc_id": "term_sheet_adv_17",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "sg_uen",
+      "matched_text": "202312345Z"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 8,500,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Emily Tan"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "emily.tan@stellarventures.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Jonathan Lee"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S7654321J"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "legal@quantuminnovations.sg"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "Defined term abbreviation introduced in the document"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Defined role term"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

@@ -1,0 +1,328 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_direct_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_direct_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 13,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 12,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "a.graft@northriverhb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "740392851",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VTA-RC-00951",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "54-6789123",
+      "rule": "us_ein"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiyana Graft",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Naima Brooks",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jared Osei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6789123",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00492873",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456780",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-415-555-0198",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HSA-742-11829",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRB-00492873",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MRN 00-482913",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@northriverhb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "<1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account ID HSA-742-11829",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ledger ref NRB-00492873",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U.S. Passport No. 740392851",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VTA-RC-00951",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this was not discussed with any sell-side analyst prior to the current report filing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective contacts are prohibited",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any analyst or investor questions must route to ir@northriverhb.com, not to the on-call engineer, branch manager, or the Chief Privacy Officer",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if further data is identified, we will file an Item 8.01 current report with the federal securities regulator and notify its cyber unit",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we detected unauthorized access",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "a.graft@northriverhb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "740392851",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VTA-RC-00951",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "54-6789123",
+      "rule": "us_ein"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiyana Graft",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Naima Brooks",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jared Osei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6789123",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00492873",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "123456780",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aiyana Graft, VP InfoSec, a.graft@northriverhb.com, tel 1-415-555-0198; public helpline 1-800-555-0105 (generic)\nOn 06/03 we detected unauthorized access to a limited set of billing servers supporting HSA accounts, Account ID HSA-742-11829 and ledger ref NRB-00492873\nPatient payment file headers listed U.S. Passport No. 740392851 for an employee travel voucher and MRN 00-482913, though no images or clinical notes were exfiltrated\nURL indicators: https://portal.nrhbank.com/incident?case=IR-2026-0418&ein=54-6789123; audit hash a c c t : ****-****-9123 (OCR-spaced)\nRouting ABA 123456780 (checksum invalid) appeared in a test stub; SSN: ______ on a blank enrollment form is a generic label only\nMailing address on impacted mailers: 47 Quill Rd., Ste 410, Redcrest, ND 58180; do not treat this as a verified residence for any individual\nPreliminary assessment: potential exposure of names and emails for 219 employees incl. Dr. Naima Brooks and Mr. Jared Osei, but credentials were hashed and not readable\nWe remind recipients that this update does not constitute a material adverse change or selective disclosure of material nonpublic information under Reg FD\nNonetheless, internal forecasts note a 2\u20133 bps increase in Q2 opex and a <1% headcount reallocation in revenue cycle ops; this was not discussed with any sell-side analyst prior to the current report filing\nSelective contacts are prohibited; any analyst or investor questions must route to ir@northriverhb.com, not to the on-call engineer, branch manager, or the Chief Privacy Officer\nState notifications prepared for consumer protection authorities in Arbor, Montero, and Kingsland; HIPAA and GLBA reviews indicate low risk to patients and consumers, respectively\nNote: the word 'password' in a log sample refers to product name PasSword, not credentials, and project atlas backlog notes below are lowercase pm prose only\nCity of Redcrest vendor tax account VTA-RC-00951",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer EIN: 54-6789123; Arbor State Corporations Registry File No. AS-26-4419287; Carroway Health License CHL-009842 (fictional identifiers)\nPoint of contact: Ms. Aiyana Graft, VP InfoSec, a.graft@northriverhb.com, tel 1-415-555-0198; public helpline 1-800-555-0105 (generic)\nOn 06/03 we detected unauthorized access to a limited set of billing servers supporting HSA accounts, Account ID HSA-742-11829 and ledger ref NRB-00492873\nPatient payment file headers listed U.S. Passport No. 740392851 for an employee travel voucher and MRN 00-482913, though no images or clinical notes were exfiltrated\nURL indicators: https://portal.nrhbank.com/incident?case=IR-2026-0418&ein=54-6789123; audit hash a c c t : ****-****-9123 (OCR-spaced)\nRouting ABA 123456780 (checksum invalid) appeared in a test stub; SSN: ______ on a blank enrollment form is a generic label only\nMailing address on impacted mailers: 47 Quill Rd., Ste 410, Redcrest, ND 58180; do not treat this as a verified residence for any individual\nPreliminary assessment: potential exposure of names and emails for 219 employees incl. Dr. Naima Brooks and Mr. Jared Osei, but credentials were hashed and not readable\nWe remind recipients that this update does not constitute a material adverse change or selective disclosure of material nonpublic information under Reg FD\nNonetheless, internal forecasts note a 2\u20133 bps increase in Q2 opex and a <1% headcount reallocation in revenue cycle ops; this was not discussed with any sell-side analyst prior to the current report filing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1-800-555-0105",
+      "reason": "Public helpline number (false-positive bait)"
+    },
+    {
+      "matched_text": "1-800-555-0139",
+      "reason": "Public helpline number (false-positive bait)"
+    },
+    {
+      "matched_text": "SSN: ______",
+      "reason": "Generic form label, not an actual SSN"
+    },
+    {
+      "matched_text": "Routing ABA 123456780",
+      "reason": "Invalid checksum test stub, not a real banking identifier"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; rule excludes negated MAC/MAE"
+    },
+    {
+      "matched_text": "project atlas",
+      "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "postal address",
+      "matched_text": "47 Quill Rd., Ste 410, Redcrest, ND 58180",
+      "reason": "US mailing address is PII but no explicit address rule is listed"
+    },
+    {
+      "concept": "company registry number",
+      "matched_text": "AS-26-4419287",
+      "reason": "State corporation registry file number is identifiable but not mapped to a listed rule"
+    },
+    {
+      "concept": "license number",
+      "matched_text": "CHL-009842",
+      "reason": "Health/business license identifier is sensitive but not covered by a listed rule"
+    },
+    {
+      "concept": "internal case identifier",
+      "matched_text": "IR-2026-0418",
+      "reason": "Unique case ID may be sensitive but not clearly covered by available ID rules"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+Northway FinTech plc — Operational Incident Report (Cyber) — 14 June 2026
+On 12 June 2026 at 03:42 BST we detected anomalous sign-in attempts to a non‑production Microsoft 365 tenant; the affected account was disabled within minutes and credentials rotated.
+Impacted scope: development sandbox and a third‑party log aggregation workspace operated by CloudArc UK Ltd; no customer‑facing services, payment rails, or production data stores were affected.
+Scanner alerts referenced test artefacts only, including generic form fields such as “Full Name: Test User”, “NI Number: QQ123456C”, and “IBAN: GB00 HALN 000000 00000000”; these values are placeholders and not valid identifiers.
+No funds movement occurred; entries reading “Account Name: SAMPLE ONLY” and sort code “00‑00‑00” were confirmed as synthetic data from QA scripts.
+One temporary staff member presented UK passport number 535718945 for onsite right‑to‑work verification on 11 June; the copy is stored in the HR secure repository and was not present in any affected system.
+We have published a non‑price‑sensitive statement via RNS on 13 June 2026 and notified the FCA; these disclosures are already public and contain no customer information.
+Assessment under UK MAR: the event is not precise, price‑sensitive information; no insider list updates were required and no dealing restrictions have been imposed.
+We will submit a follow‑up notification through FCA Connect and review controls under SYSC 3 and Operational Resilience expectations; no prudential impact has been identified.
+Company details: Northway FinTech plc (Main Market, London), Registered Office: 4 Ash Lane, Lonton, ZY1 4ZZ, Companies House No. 12345678.
+Vendor action: CloudArc UK Ltd will provide a written attestation confirming segregation of customer data from the sandbox workspace by 21 June 2026.
+Contacts for stakeholders: public incident helpline 0800 000 0000 and mailbox cybersecurity@northwayft.example; please do not send personal documents to these addresses.
+Internal roles involved: Head of IT Security, Data Protection Officer, and Incident Manager coordinated the response; no named individuals are listed in this report.
+Next steps: complete credential resets in all non‑production environments, tighten conditional access policies, and verify that stale test records are purged from log pipelines.

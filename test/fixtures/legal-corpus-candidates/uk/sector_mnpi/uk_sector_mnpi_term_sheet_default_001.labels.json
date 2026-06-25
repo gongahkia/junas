@@ -1,0 +1,511 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 1,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 47,
+    "current_must_detect_count": 28,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 36,
+    "previous_must_detect_count": 24,
+    "previous_must_not_detect_count": 7
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris Penmore",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Vance",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tomer Gresh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.vance@norhollowcapital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Thistle",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean teams",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Maintain an insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no distribution of any pathfinder outside approved wall\u2011crossed investors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed investors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analysts may be wall\u2011crossed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware intrusion",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3152,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a392,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a360,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a38,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a315,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a370,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a310,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to completion accounts adjustment",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Completion conditional on no undisclosed cyber incidents",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if regulatory fines or remediation exceed thresholds",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no new token onboarding",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "suspension of promotional activity",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing restriction",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "recommended acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Project Thistle: recommended acquisition of GreenHarbor Renewals Ltd by Norhollow Capital plc (listed on City Exchange London).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Fully underwritten placing and retail offer of new shares on City Exchange London to raise approximately \u00a370,000,000; settlement T+2; pricing via bookbuild; no distribution of any pathfinder outside approved wall\u2011crossed investors.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Thistle TS",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "152,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "92,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.vance@norhollowcapital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Idris Penmore",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Vance",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tomer Gresh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Project Thistle: recommended acquisition of GreenHarbor Renewals Ltd by Norhollow Capital plc (listed on City Exchange London).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Fully underwritten placing and retail offer of new shares on City Exchange London to raise approximately \u00a370,000,000; settlement T+2; pricing via bookbuild; no distribution of any pathfinder outside approved wall\u2011crossed investors.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Thistle",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Thistle TS",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3152,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a392,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a360,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a38,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a315,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a370,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a310,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "152,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "92,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Project Thistle: recommended acquisition of GreenHarbor Renewals Ltd by Norhollow Capital plc (listed on City Exchange London).\nThis document contains inside information under UK MAR; confidential circulation only; maintain clean teams and information barriers between Norhollow\u2019s Digital Products Desk and the M&A team.\nConsideration: \u00a3152,000,000 comprising \u00a392,000,000 cash and \u00a360,000,000 in new Norhollow Capital plc ordinary shares, subject to completion accounts adjustment.\nCyber condition: Completion conditional on no undisclosed cyber incidents; initial diligence notes a ransomware intrusion at GreenHarbor on 12 May 2026 with no customer data exfiltration; escrow retention up to \u00a38,000,000 if regulatory fines or remediation exceed thresholds.\nCrypto/DPT: Target\u2019s pilot digital asset custody service to be ring\u2011fenced; no new token onboarding and suspension of promotional activity until post\u2011completion approvals; Norhollow personnel with access to DPT trading to observe an immediate dealing restriction.\nESG/climate: Earn\u2011out of up to \u00a315,000,000 payable if verified 2027 Scope 1\u20132 emissions intensity falls by at least 35% and supply\u2011chain due diligence attains an agreed minimum rating from an independent assurance provider.\nFinancing: Fully underwritten placing and retail offer of new shares on City Exchange London to raise approximately \u00a370,000,000; settlement T+2; pricing via bookbuild; no distribution of any pathfinder outside approved wall\u2011crossed investors.\nMAR/compliance: Maintain an insider list; initial list to include Mr. Idris Penmore (Head of Strategy), Ms. Liora Vance (General Counsel), and Mr. Tomer Gresh; deal codename \u201cProject Thistle\u201d to be used in all controlled communications.\nBlackout and PDMR: PDMRs and connected persons are in blackout from signature until release of a combined circular and for the two weeks prior to H1 results; no exceptions for routine portfolio rebalancing.\nDisclosure controls: Selective disclosure and tipping are prohibited; any external approaches must be escalated to the Company Secretary; analysts may be wall\u2011crossed only via approved scripts and recorded consent.\nCommercial protections: 18\u2011month warranty package with cyber\u2011security specific indemnities; \u00a310,000,000 W&I insurance to be procured by the sellers; break fee of 1.5% of equity value if sellers solicit a competing proposal during exclusivity.\nConditions precedent: approval by shareholders of Norhollow Capital plc; clearances from the UK Markets and Competition Office and the Digital Infrastructure Supervisory Unit (both fictional for drafting) as well as no material adverse change.\nProcess/Timing: Exclusivity until 30 September 2026; target signing 14 days post\u2011completion of confirmatory penetration testing; planned announcement to the market via the City Exchange London announcement service only after both boards approve.\nEducation/operations only: Our crypto asset handling SOP used in staff training explains wallet cold\u2011storage and chain\u2011analysis basics and is not connected to Project Thistle or any live issuer information.\nContact: For queries, please contact Ms. Liora Vance at l.vance@norhollowcapital.co.uk, quoting \u201cProject Thistle TS\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Heads of Terms",
+      "reason": "Not an enumerated definitive agreement trigger per rule 7"
+    },
+    {
+      "matched_text": "sellers",
+      "reason": "Role noun; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "PDMRs",
+      "reason": "Role/acronym; not PII"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC reference is excluded by rule 8"
+    },
+    {
+      "matched_text": "Education/operations only",
+      "reason": "Operational/training context explicitly not connected to live issuer MNPI"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "embargo/blackout timing",
+      "matched_text": "from signature until release of a combined circular",
+      "reason": "Timing gate for trading/communications; not an explicit Embargoed/Signing Date marker per rule 9"
+    },
+    {
+      "concept": "announcement gating",
+      "matched_text": "only after both boards approve",
+      "reason": "Conditional release of market announcement; not an explicit embargo marker string"
+    },
+    {
+      "concept": "information barrier/ring\u2011fencing",
+      "matched_text": "ring\u2011fenced",
+      "reason": "Operational segregation relevant to MNPI handling but not explicitly covered by current marker list"
+    },
+    {
+      "concept": "trading restriction",
+      "matched_text": "dealing restriction",
+      "reason": "Compliance trading curb tied to DPT access; not a canonical blackout marker"
+    },
+    {
+      "concept": "selective disclosure controls",
+      "matched_text": "analysts may be wall\u2011crossed only via approved scripts and recorded consent",
+      "reason": "Wall\u2011crossing control statement indicates MNPI risk but may be beyond current regex triggers"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+WattleTech Limited (AEX: WTL) – Operational Cyber Incident Report – 24 May 2026
+On 22 May 2026 at 22:14 AEST, the SOC observed anomalous VPN traffic from a WattleTech-issued laptop accessing HR and finance repositories hosted in the Karrabee NSW data zone.
+The affected account belongs to Ms Eliza Brann (Team Lead, Payroll), DOB 27/04/1990, employee ID WT-EMP-04431, work email ebrann@wattletech.example, signing in from suburb Karrabee NSW via device WTL-LPT-02217, session SID-20260522-0xAE12.
+Logs show access to a sick leave certificate PDF for Ms Brann’s direct report and a payroll export listing masked bank details (salary account ending 7714) and Tax File Number fields redacted; health and credit-related metadata may be encompassed by the Privacy Act.
+The same session touched a draft revenue and emissions-intensity guidance pack marked “AEX LR3.1 – embargoed,” including preliminary Q4 EBITDA ranges and 2026 Scope 2 targets not yet generally available (potential MNPI).
+We also identified a separate artefact containing the string “DOB 05/1985, suburb Dunlora VIC, casual role,” with no name, account, or device linkage; on its own this generic demographic fragment is not reasonably identifiable.
+No customer card PANs were present; vendor invoices and the carbon offset procurement schedule were accessed but contained only masked ABN placeholders and settlement dates without full counterparty identifiers.
+A transient storage bucket (wtl-cred-stage-1) hosted scanned credit application forms; one image bore the line “Birth year 1978; South Werrin QLD,” without any name or contact details, which remains a weak identifier in isolation.
+For completeness, a contractor profile showed “male, 45, regional WA, shift supervisor,” with login alias contractor.temp and device TEMP-LPT-004, but the alias is not linked to a real identity in our HRIS.
+To reduce harm, we disabled Ms Brann’s credentials, quarantined WTL-LPT-02217, rotated service tokens, and commenced notification planning consistent with the Notifiable Data Breaches scheme.
+The Board Risk Committee considered whether the embargoed guidance warrants a trading halt request to AEX; we have prepared a confidential pre‑lodgement with the securities regulator through our company secretary.
+While media interest is anticipated, routine staff wellness survey data and anonymised safety observations were not impacted, and no home addresses or Medicare numbers are stored in the affected systems.
+Staff are reminded not to forward pay slips or medical certificates to personal accounts; training queries may be sent to governance@wattletech.example.
+For any investor relations questions, contact ir@wattletech.example; general incident queries can be directed to incidentdesk@wattletech.example.

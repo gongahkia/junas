@@ -1,0 +1,370 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/jurisdictional_mnpi/in_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop ideal_must_detect: text not verbatim rule='internal_session_id' text='token=VLLX-9f%2A%2A%2A-77'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Parvati Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Bhat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document does not constitute, and expressly negates, any material adverse change (MAC) representation, does not solicit investment, and includes general policy text for guidance only under Indian law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus Supply",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "84%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAXXP1234X",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@vihara-logistics.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@vihara-logistics.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 80 5555 0909",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not require full Aadhaar and will reject scans that include full 12 digits",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: processing occurs in India and Singapore with Ajmera Compute Pte. Ltd. (SG) and Thar Data Grid Pvt. Ltd. (IN) as processors under DPA and audit rights; transfers are based on contractual safeguards and any Central Government notifications under DPDPA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective 30-Jun-2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cunpublished price sensitive information\u201d",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the window is closed from quarter-end until 48 hours after dissemination of Board-approved results to N SE / B SE and public release",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inadvertent selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout calendar",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar XXXX-XXXX-6217",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked Aadhaar last 4",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Customer Ref VLLx-ACCT-7F/9a",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN 29-V I H A R A-000-T E S T",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children\u2019s requests",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "structured digital database (SDD)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Designated Persons",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SDD on segregated instance \u201clotus_supp-kr03\u201d with time-stamped entries",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sharing is allowed only on a Legitimate Purpose basis recorded in the SDD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "financial results",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dividends",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mergers",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "key expansion plans",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Parvati Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Bhat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document does not constitute, and expressly negates, any material adverse change (MAC) representation, does not solicit investment, and includes general policy text for guidance only under Indian law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus Supply",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "84%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Vihara Logistics Limited (CIN: L99999KA2020PLC123456) \u2014 Privacy & UPSI Handling Notice (India) \u2014 Effective 30-Jun-2026; this notice applies to our listed-company workflows on NSE/BSE and our Indian operations under the Digital Personal Data Protection Act, 2023 (DPDPA).\nAs Data Fiduciary, we collect business contact data, device logs, and limited KYC (masked PAN, masked Aadhaar last 4, GSTIN of sole proprietors) for onboarding, compliance, and investor-relations; we do not require full Aadhaar and will reject scans that include full 12 digits",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To exercise DSAR rights (access, correction, portability, erasure, grievance), contact Ms. Parvati Menon (Grievance & Compliance Officer) at dpo@vihara-logistics.in or use https://privacy.vihara-logistics.in/dsar?ref=IR%2F2026%2FQ1&token=VLLX-9f%2A%2A\n%2A-77 with your preferred consent manager credentials.\nVerification for DSARs uses OTP and last-4 match (e.g., PAN PAXXP1234X, Aadhaar XXXX-XXXX-6217); do not email full IDs; we may request a masked KYC extract; children\u2019s requests must be initiated by guardians.\nRetention: KYC and contract records 7 years post relationship, call logs 180 days, investor queries 2 years, and SEBI PIT structured digital database (SDD) entries for 8 years or until completion of proceedings, whichever is later.\nCross-border transfers: processing occurs in India and Singapore with Ajmera Compute Pte. Ltd. (SG) and Thar Data Grid Pvt. Ltd. (IN) as processors under DPA and audit rights; transfers are based on contractual safeguards and any Central Government notifications under DPDPA.\nUPSI handling: as per SEBI (Prohibition of Insider Trading) Regulations, 2015, \u201cunpublished price sensitive information\u201d includes financial results, dividends, mergers, and key expansion plans; selective disclosure is prohibited and sharing is allowed only on a Legitimate Purpose basis recorded in the SDD.\nTrading window: for Designated Persons (including certain vendor staff with SDD access), the window is closed from quarter-end until 48 hours after dissemination of Board-approved results to N SE / B SE and public release; \u201cgenerally available information\u201d is deemed upon stock exchange upload and after at least 24 hours of broad dissemination.\nIf inadvertent selective disclosure occurs, we will promptly and uniformly disseminate the same under Regulation 30 of SEBI LODR (within 30 minutes of Board outcome where applicable), update our IR page (ir.vihara-logistics.in/reg30), and record recipients in the SDD.\nFor the avoidance of doubt, this notice itself does not contain UPSI; see already-public BSE filing VLL/SEC/2025-26/014 and our press release dated 28-Apr-2026 on \u201cFleetPulse 2.0\u201d (Q4FY25 deck archived) \u2014 these are stale public references and not new disclosures.\nA third-party operational bulletin by OrchID Supply LLP regarding its NovaLedger patch is not an issuer update and is not material to our listed securities; we do not treat such vendor notices as our UPSI.\nContacts: Ms. Parvati Menon (Company Secretary & Compliance Officer), Mr. Rohan Bhat (Head\u2013Investor Relations); investor queries at ir@vihara-logistics.in; DSAR hotline +91 80 5555 0909 (10:00\u201318:00 IST, business days).\nSecurity & controls: encryption, role-based access, SDD on segregated instance \u201clotus_supp-kr03\u201d with time-stamped entries; reference to \u201cProject Lotus Supply\u201d here is contextual and not a price signal.\nIdentifiers (masked/obfuscated examples): Customer Ref VLLx-ACCT-7F/9a; GSTIN 29-V I H A R A-000-T E S T; PAN P4N9X8Q1Z2 (placeholder format); invoice URL https://billing.vihara-logistics.in/i/2026/04/INV-%E2%84%9611  \u2014 line-breaks/spaces are OCR artifacts.\nThis document does not constitute, and expressly negates, any material adverse change (MAC) representation, does not solicit investment, and includes general policy text for guidance only under Indian law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "negated MAC; per rule 8 do not label"
+    },
+    {
+      "matched_text": "SDD",
+      "reason": "defined-term abbreviation; per rule 20 exclude from detection"
+    },
+    {
+      "matched_text": "Designated Persons",
+      "reason": "role noun defined term; per rule 20 exclude"
+    },
+    {
+      "matched_text": "Company Secretary & Compliance Officer",
+      "reason": "role noun defined term; per rule 20 exclude"
+    },
+    {
+      "matched_text": "Grievance & Compliance Officer",
+      "reason": "role noun defined term; per rule 20 exclude"
+    },
+    {
+      "matched_text": "Head\u2013Investor Relations",
+      "reason": "role noun defined term; per rule 20 exclude"
+    },
+    {
+      "matched_text": "VLL/SEC/2025-26/014",
+      "reason": "public filing reference; stale public info not MNPI"
+    },
+    {
+      "matched_text": "28-Apr-2026",
+      "reason": "public press release date; not MNPI"
+    },
+    {
+      "matched_text": "ir.vihara-logistics.in/reg30",
+      "reason": "public IR page link; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: KYC and contract records 7 years post relationship, call logs 180 days, investor queries 2 years, and SEBI PIT structured digital database (SDD) entries for 8 years or until completion of proceedings, whichever is later",
+      "reason": "retention durations are privacy-relevant but not explicitly enumerated in allowed rules"
+    },
+    {
+      "concept": "internal_system_identifier",
+      "matched_text": "lotus_supp-kr03",
+      "reason": "internal instance identifier may be sensitive; not clearly covered by allowed device/session rules"
+    },
+    {
+      "concept": "registration_number",
+      "matched_text": "Reg. CCM-OBF-8821",
+      "reason": "consent manager registration number may be an identifier; not in allowed PII/MNPI taxonomy"
+    },
+    {
+      "concept": "public_status_semantics",
+      "matched_text": "\u201cgenerally available information\u201d",
+      "reason": "market public-status semantics relevant to MNPI but not a specific allowed rule token"
+    }
+  ]
+}

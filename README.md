@@ -1,420 +1,567 @@
-[![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-blue)](./Cargo.toml)
-[![Aki validation](https://github.com/gongahkia/aki/actions/workflows/ci.yml/badge.svg)](https://github.com/gongahkia/aki/actions/workflows/ci.yml)
+# Kaypoh
 
-# `Aki`
+<p align="center">
+  <img src="./asset/logo/kaypoh-logo-3d.png" width="50%" alt="Kaypoh">
+</p>
 
-`Aki` is a macOS-first, local-first, real-time privacy filter for screen sharing and livestreaming. It reads screen pixels, uses OCR and pattern matching to detect secrets or PII, then redacts detected regions before frames leave through a virtual camera or MJPEG output.
+<p align="center">
+  <a href="https://github.com/gongahkia/kaypoh/actions/workflows/ci.yml"><img alt="ci" src="https://img.shields.io/github/actions/workflow/status/gongahkia/kaypoh/ci.yml?branch=main&style=flat-square"></a>
+  <img alt="python" src="https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square">
+  <img alt="api" src="https://img.shields.io/badge/API-FastAPI-009688?style=flat-square">
+  <img alt="runtime" src="https://img.shields.io/badge/runtime-offline--default-lightgrey?style=flat-square">
+</p>
 
-Because `Aki` works on pixels instead of browser DOM nodes, it can cover terminals, editors, design tools, documents, and other app surfaces where DOM-based blur extensions cannot reliably inspect content.
+Pre-send review, safe rewrite, and audit evidence for GenAI, email, and document sharing.
 
-`Aki` reduces leak risk; it is not a guarantee that every sensitive value will be caught. OCR can miss tiny, low-contrast, or newly appeared text, and pattern rules only cover the secret shapes they know about.
+Kaypoh reviews text and documents before users paste prompts, send email, upload matter files, or share drafts externally. The deterministic review engine is the runtime source of truth: it detects personal data and material non-public information, returns statute-cited findings, records audit-ready evidence, and routes users toward safe rewrite, redaction, pseudonymization, approval, or hold actions.
 
-![Aki hero demo showing a fake AWS key in a terminal and an ASCII-redacted virtual camera preview](./asset/demo/hero-ascii-redaction.gif)
+## Table of Contents
 
-## Known limitations
+- [Quick Start](#quick-start)
+- [What Kaypoh Does](#what-kaypoh-does)
+- [Primary Product Spine](#primary-product-spine)
+- [Adapter Maturity](#adapter-maturity)
+- [Experimental Local Fallback](#experimental-local-fallback)
+- [API Surface](#api-surface)
+- [Examples](#examples)
+- [How It Works](#how-it-works)
+- [Jurisdiction Coverage](#jurisdiction-coverage)
+- [Runtime Modes](#runtime-modes)
+- [Documentation](#documentation)
+- [Development & Evaluation](#development--evaluation)
+- [Packaging & Deployment](#packaging--deployment)
+- [Screenshots](#screenshots)
+- [License](#license)
 
-`Aki` reduces accidental leak risk; it does not prevent every leak.
+## Quick Start
 
-* **OCR race window**: detection happens after pixels are captured. Newly appearing sensitive text can be visible for one or more frames before OCR and redaction catch up.
-* **Small or low-contrast text**: Tesseract can miss tiny, blurry, animated, partially occluded, or low-contrast text. Use larger high-contrast text for demos where redaction matters.
-* **Pattern coverage**: the default rules favor recognizable secret and PII shapes. Random high-entropy strings without known prefixes may be missed, while broader entropy rules can create noisy false positives.
-* **Operational fallback**: treat `Aki` as a last-mile privacy filter, not as a replacement for closing sensitive windows, using demo credentials, rotating exposed secrets, or limiting what appears on screen.
+Install dependencies and the local spaCy model:
 
-## We collect nothing
-
-`Aki` v1 has no cloud account, sync backend, telemetry endpoint, product analytics, crash reporting, upsell flow, or in-app Sponsor prompt.
-
-Screen pixels, OCR text, detections, config, and runtime logs stay on your machine. Local logs are written under `~/.config/ascii-privacy/logs/aki.log`; `Aki` does not upload them.
-
-Network activity is limited to actions you request: Homebrew or GitHub release downloads during install/update, the optional neural model download when the Neural transform is used without a cached model, optional Twitch chat integration if configured, the opt-in local LLM classifier endpoint if configured, and local OBS/MJPEG endpoints. These paths are not telemetry.
-
-Future uploaded counters or diagnostics are out of scope for v1 unless they are explicit opt-in before any data leaves the machine. The local `aki doctor` command prints setup checks without uploading anything.
-
-The TUI includes a local in-memory redaction log, with explicit export only. Its retention and privacy tradeoffs are documented in [`docs/redaction-log.md`](./docs/redaction-log.md).
-
-## Install
-
-### macOS App
-
-The primary macOS release install path is the Homebrew cask:
-
-```console
-$ brew tap gongahkia/aki
-$ brew install --cask aki
+```bash
+uv sync --extra dev
+uv run python -m spacy download en_core_web_sm
 ```
 
-The cask installs the signed app bundle once the GitHub Release DMG exists for the current version.
+Run preflight:
 
-### Rust CLI From Source
-
-The CLI binary is named `aki`, but the workspace package is currently `privacy-tui`. `cargo install aki` from crates.io is not available until a crate is published, so install the package from Git:
-
-```console
-$ brew install rust tesseract ffmpeg
-$ cargo install --git https://github.com/gongahkia/aki privacy-tui --locked
-$ aki self-test
-$ aki run
+```bash
+uv run python scripts/preflight.py --strict
 ```
 
-For a local checkout, use the path install:
+Start the deterministic backend:
 
-```console
-$ git clone https://github.com/gongahkia/aki
-$ cd aki
-$ cargo install --path privacy-tui --locked
-$ aki self-test
-$ aki run
+```bash
+./scripts/launch/run_backend_only.sh
 ```
 
-`ffmpeg` is only required for `aki redact` and direct MP4 output, but installing it up front keeps those commands available.
+Check readiness:
 
-### Nix CLI
-
-Nix users can run or install the CLI package from the flake:
-
-```console
-$ nix run github:gongahkia/aki#aki -- doctor
-$ nix profile install github:gongahkia/aki#aki
+```bash
+curl http://127.0.0.1:8000/ready
 ```
 
-The Nix path is documented in [`docs/nix-install.md`](./docs/nix-install.md). It builds the Rust CLI from source and does not replace the signed macOS app cask.
+Review a document before sending:
 
-### Developer Workspace
-
-If you do not want to install the binary, run the TUI directly from the workspace:
-
-```console
-$ cargo run -p privacy-tui -- run
+```bash
+curl -X POST http://127.0.0.1:8000/review \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Send Dr Jane Tan S1234567D the confidential draft.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "US",
+    "document_type": "SPA"
+  }'
 ```
 
-### macOS Menu-Bar Shell
+Use follow-on actions when the review result requires content changes:
 
-`Aki` also includes a SwiftUI menu-bar shell that controls the Rust binary as a sidecar. Build the Rust sidecar first, then launch the menu-bar app:
-
-```console
-$ cargo build -p privacy-tui
-$ AKI_BINARY="$PWD/target/debug/aki" swift run --package-path macos/AkiMenuBar
+```bash
+curl -X POST http://127.0.0.1:8000/pseudonymize -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+curl -X POST http://127.0.0.1:8000/redact-pii -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+curl -X POST http://127.0.0.1:8000/hold-until-public -H "Content-Type: application/json" -d '{"text":"Acme Corp will acquire GlobalTech before announcement."}'
+curl -X POST http://127.0.0.1:8000/cite-public-source -H "Content-Type: application/json" -d '{"text":"Acme Corp will acquire GlobalTech before announcement.","entity_id":"Acme Corp"}'
+curl -X POST http://127.0.0.1:8000/redact -H "Content-Type: application/json" -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+DOC_B64="$(base64 -i draft.docx | tr -d '\n')"
+curl -X POST http://127.0.0.1:8000/documents/scrub -H "Content-Type: application/json" -d "{\"document_base64\":\"${DOC_B64}\",\"document_filename\":\"draft.docx\"}"
 ```
 
-The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal. The v1 sidecar protocol is documented in [`docs/sidecar-protocol.md`](./docs/sidecar-protocol.md), and Shortcuts/AppleScript automation is documented in [`docs/apple-shortcuts.md`](./docs/apple-shortcuts.md).
+Run the standard verification gate:
 
-macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md), and the cask path is documented in [`docs/homebrew-cask.md`](./docs/homebrew-cask.md). The Show HN launch gate is tracked in [`docs/show-hn-readiness.md`](./docs/show-hn-readiness.md); do not advertise a Show HN launch until that checklist is complete.
-
-The engineering architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE.md).
-
-Performance baselines and the synthetic redaction fixture corpus are tracked in [`BENCHMARKS.md`](./BENCHMARKS.md).
-
-Release history and the next release notes are tracked in [`CHANGELOG.md`](./CHANGELOG.md).
-
-The companion engineering blog draft is tracked in [`docs/engineering-blog-draft.md`](./docs/engineering-blog-draft.md).
-
-The public roadmap is tracked in [`docs/roadmap.md`](./docs/roadmap.md).
-
-Contributor setup and pull request expectations are documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
-
-Security reporting scope and contact details are documented in [`SECURITY.md`](./SECURITY.md).
-
-## Quick Commands
-
-```console
-$ aki list-windows
-$ aki list-displays
-$ aki doctor
-$ aki test-patterns "SECRET_KEY=abc123"
-$ aki demo --frames 1 --no-clear
-$ aki redact ./recording.mov --output ./recording.redacted.mov
-$ aki --headless --source screen --record-output ./recording.redacted.mp4
-$ aki check-output
-$ aki --headless --source screen
+```bash
+./scripts/verify_runtime.sh
 ```
 
-### Troubleshooting
+## What Kaypoh Does
 
-Run `aki doctor` before filing setup bugs or debugging a failed install:
+- Detects PII and personal data across universal identifiers, jurisdiction-specific IDs, special-category data, quasi-identifiers, and privacy-handling events.
+- Detects MNPI and inside-information signals such as material events, non-public markers, deal codenames, tipping language, selective disclosure risk, blackout windows, ESG/cyber/crypto pre-disclosure, sector MNPI, and conjunctive MNPI evidence.
+- Applies source and destination jurisdictions with strictest-wins scoring.
+- Returns findings, scores, suggestions, statutory rationales, timings, degraded-mode metadata, and optional audit evidence.
+- Rewrites text through distinct data states:
+  - `/pseudonymize`: reversible deterministic placeholders plus mapping.
+  - `/anonymize`: irreversible placeholder-only output with no retained mapping.
+  - `/redact`: opaque markers without original matched text in the redaction response.
+  - `/redact-pii`: deterministic PII-only replacement while MNPI remains visible and flagged.
+  - `/hold-until-public`: high-severity MNPI hold text with display-safe and audit-ready reasons.
+  - `/cite-public-source`: audit-grade public-source citations with privacy-ledger evidence.
+  - `/request-approval`: pending approval journal entry plus reviewer-role requirements.
+- Restores reversible pseudonymized text through `/reidentify` when the caller supplies a mapping or a persisted document hash.
+- Scrubs supported document metadata leakage through `/documents/scrub`.
+- Keeps optional public evidence and LLM helper layers disabled unless explicitly enabled by deployer and tenant gates.
 
-```console
-$ aki doctor
-$ aki doctor --obs
+Kaypoh is not a general DLP suite, legal-advice product, or model-training platform. It is a pre-send safety layer intended to integrate with DLP, DMS, Office/browser surfaces, and identity gateways.
+
+## Primary Product Spine
+
+The FastAPI backend is the trust boundary for Kaypoh deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Adapters are not required to integrate Kaypoh: direct HTTP/OpenAPI clients remain the baseline path and can integrate with this boundary without installing a UI adapter.
+
+Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI capture, Word taskpanes, desktop watching, DMS hooks, and future surfaces should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it.
+
+## Adapter Maturity
+
+| Surface | Maturity | Role |
+|---|---|---|
+| API/client | `core` | Baseline HTTP/OpenAPI integration path. |
+| Outlook Smart Alerts | `supported-target` | First-class pre-send email review target. |
+| Browser GenAI extension | `supported-target` | First-class prompt review target for managed browser pilots. |
+| Word taskpane | `experimental` | Document review surface, not send-time enforcement. |
+| Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. |
+
+## Experimental Local Fallback
+
+The desktop watcher is intentionally outside the primary Quick Start. Use it only for opt-in local fallback workflows where a user explicitly chooses file or clipboard review against a local daemon.
+
+```bash
+uv run kaypoh-watch ./draft.txt --base-url http://127.0.0.1:8765
+uv run kaypoh-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
+uv run kaypoh-watch --clipboard --once --base-url http://127.0.0.1:8765
 ```
 
-The command reports local `PASS`, `WARN`, or `FAIL` statuses for Tesseract data, screen-capture permission, CoreMediaIO DAL state, virtual-camera installation, and OBS WebSocket reachability when requested or configured. It includes remediation text for each warning or failure and does not collect or transmit telemetry, screenshots, OCR text, or logs.
+See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations.
 
-### Fake-Secret Demo
+## API Surface
 
-Use `aki demo` when you need a safe screen-share source, screenshot, tweet, or issue reproduction without exposing real secrets:
+Runtime:
 
-```console
-$ aki demo
-$ aki demo --frames 1 --no-clear
+- `GET /health`
+- `GET /ready`
+- `GET /diagnostics`
+- `GET /metrics`
+
+Review and rewrite endpoints:
+
+- `POST /review`
+- `POST /pseudonymize`
+- `POST /anonymize`
+- `POST /redact`
+- `POST /redact-pii`
+- `POST /hold-until-public`
+- `POST /cite-public-source`
+- `POST /request-approval`
+- `POST /safe-rewrite`
+- `POST /reidentify`
+- `POST /documents/scrub`
+
+Compatibility:
+
+- `POST /classify`
+- `POST /classify/batch`
+
+Review-session and local desktop support:
+
+- `POST /review/{review_id}/decision`
+- `GET /review/{review_id}`
+- `GET /local/pairing/status`
+- `POST /local/pairing/start`
+- `POST /local/pairing/approve`
+- `POST /local/pairing/claim`
+
+Generated integration artifacts live in [`docs/api/`](./docs/api/):
+
+- [`kaypoh.postman_collection.json`](./docs/api/kaypoh.postman_collection.json)
+- [`curl_snippets.sh`](./docs/api/curl_snippets.sh)
+- [`python_client.md`](./docs/api/python_client.md)
+
+## Examples
+
+Review without rewriting:
+
+```bash
+curl -X POST http://127.0.0.1:8000/review \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Project Raven will acquire GlobalTech for USD 2.5 billion before announcement.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "US",
+    "document_type": "SPA"
+  }'
 ```
 
-The demo prints deterministic rolling examples marked with `DEMO_`, `AKI_FAKE_`, and `DO_NOT_USE`, plus reserved documentation email and IP-shaped values. It is designed to be captured by the live pipeline and to be pasted into bug reports without containing real credentials.
+Review and rewrite with irreversible anonymization:
 
-### Offline Video Redaction
-
-Use `aki redact` to process an existing screen recording without real-time capture or a virtual camera:
-
-```console
-$ aki redact ./recording.mov
-$ aki redact ./recording.mov --output ./recording.redacted.mov --transform ascii --intensity 0.9
+```bash
+curl -X POST http://127.0.0.1:8000/anonymize \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Dr Jane Tan, passport E1234567, will receive the memo.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "EU"
+  }'
 ```
 
-The command decodes the first video stream with `ffmpeg`, runs the same local OCR, pattern detection, and transform logic used by the live pipeline on each frame, then writes a redacted video through `ffmpeg`. Install `ffmpeg` and `ffprobe` before using it.
+Use the Python client:
 
-When `--output` is omitted, `Aki` writes next to the input as `<name>.redacted.<ext>`. Existing output files are refused unless `--overwrite` is passed, and the input file is never used as the output path.
+```python
+from kaypoh import KaypohClient
 
-The recording-only time-machine buffer prototype is documented in [`docs/time-machine-buffer.md`](./docs/time-machine-buffer.md). It can re-render buffered local-recording frames before finalization, but it cannot unsend live-stream or screen-share pixels.
-
-### Direct MP4 Recording
-
-Use direct MP4 output when you want a local redacted screen recording without OBS, a virtual camera, or a separate screen-recording app:
-
-```console
-$ aki --headless --source screen --record-output ./recording.redacted.mp4
-$ aki --headless --source screen --output mp4 --record-output ./recording.redacted.mp4 --transform ascii
+with KaypohClient("http://127.0.0.1:8000") as client:
+    result = client.classify(
+        text="Acme Corp is acquiring GlobalTech for $2.5 billion next quarter.",
+        entity_id="acme-corp",
+        include_offending_spans=True,
+    )
+    print(result.classification)
+    print(result.findings)
 ```
 
-Recording starts when the first transformed frame is produced. Press `Ctrl-C` to stop capture, flush ffmpeg, and finalize the MP4. The output path must be explicit and end in `.mp4`; existing files are refused unless `--record-overwrite` is passed.
+Run included client examples:
 
-Use the virtual camera, OBS, or MJPEG outputs for live streams and screen-share calls. Use direct MP4 when the final deliverable is a local recording file.
+```bash
+python scripts/examples/sync_client_example.py \
+  "Acme Corp is acquiring GlobalTech for $2.5 billion next quarter." \
+  --include-offending-spans
 
-### Multi-Display Capture
-
-Use `aki list-displays` to find display indexes, then pass `--display` once for a specific display or more than once for side-by-side multi-display capture:
-
-```console
-$ aki list-displays
-$ aki --headless --source screen --display 1
-$ aki --headless --source screen --display 0 --display 1 --record-output ./multi-display.redacted.mp4
+python scripts/examples/async_client_example.py \
+  "Acme Corp is acquiring GlobalTech for $2.5 billion next quarter." \
+  --include-offending-spans
 ```
 
-The behavior, hot-plug expectations, and performance costs are documented in [`docs/multi-display-capture.md`](./docs/multi-display-capture.md).
+Regenerate API examples from the live OpenAPI contract:
 
-### Opt-In Local Classifier
-
-The optional local LLM detector can ask a localhost Ollama model to classify ambiguous low-confidence OCR text as secret-shaped or safe. It is off by default, does not download models, and does not change the lightweight install path unless you enable it.
-
-Setup, privacy boundaries, and latency/accuracy tradeoffs are documented in [`docs/local-llm-detector.md`](./docs/local-llm-detector.md).
-
-## Power-User / Developer Commands
-
-```console
-$ cargo run -p privacy-tui -- run
-$ cargo run -p privacy-tui -- --pty
-$ cargo run -p privacy-tui -- test-screen
-$ cargo run -p privacy-tui -- self-test
+```bash
+python3 scripts/export_openapi_examples.py
 ```
+
+## How It Works
+
+Kaypoh has five main runtime pieces:
+
+1. The FastAPI backend in [`src/kaypoh/backend/`](./src/kaypoh/backend/) exposes review, rewrite, document, auth, local pairing, observability, and audit endpoints.
+2. The deterministic review engine in [`src/kaypoh/review/`](./src/kaypoh/review/) runs universal recognizers, jurisdiction TOML packs, MNPI evidence rules, citations, defined terms, document structure, and strictest-wins scoring.
+3. The rewrite layer in [`src/kaypoh/anonymize/`](./src/kaypoh/anonymize/) builds deterministic placeholders, reversible mappings, opaque redactions, and reidentification.
+4. Privacy-gated external helpers in [`src/kaypoh/external/`](./src/kaypoh/external/) sanitize outbound queries and optionally fetch public evidence.
+5. Advisory helpers in [`src/kaypoh/advisory/`](./src/kaypoh/advisory/) provide optional LLM adjudication, defined-term extraction, and coverage audit paths. These layers are advisory unless explicitly documented otherwise and cannot suppress deterministic-high findings.
+
+Core flow:
+
+```mermaid
+flowchart TD
+    Client[Client / Desktop / Integration] --> API[FastAPI backend]
+    API --> Extract[Text and document extraction]
+    Extract --> Engine[Deterministic review engine]
+    Engine --> PII[PII recognizers]
+    Engine --> MNPI[MNPI evidence rules]
+    PII --> Score[Strictest-wins scoring]
+    MNPI --> Score
+    Score --> Response[Findings, scores, suggestions]
+    Response --> Rewrite{Rewrite requested}
+    Rewrite -->|pseudonymize| Map[Persist reversible mapping]
+    Rewrite -->|anonymize| Placeholders[No mapping retained]
+    Rewrite -->|redact| Opaque[Opaque markers]
+```
+
+## Jurisdiction Coverage
+
+Kaypoh ships curated jurisdiction packs for:
+
+🇸🇬 SG, 🇲🇾 MY, 🇮🇩 ID, 🇹🇭 TH, 🇵🇭 PH, 🇻🇳 VN, 🇭🇰 HK, 🇦🇺 AU, 🇯🇵 JP, 🇰🇷 KR, 🇺🇸 US, 🇬🇧 UK, 🇪🇺 EU, 🌏 SEA, 🇮🇳 IN, 🇨🇳 CN, 🇦🇪 AE, 🇸🇦 SA
+
+Each pack lives under [`src/kaypoh/review/jurisdictions_data/`](./src/kaypoh/review/jurisdictions_data/) and is mapped to statutory coverage in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md).
+
+### Statutory Anchors
+
+| Code | Jurisdiction | PII statute | MNPI / inside-information statute |
+|---|---|---|---|
+| 🇸🇬 **SG** | Singapore | [Personal Data Protection Act 2012][sg-pdpa] (PDPA s2, s13, s18) | [Securities and Futures Act 2001][sg-sfa] ss215, 218, 219 |
+| 🇲🇾 **MY** | Malaysia | [Personal Data Protection Act 2010][my-pdpa] (PDPA Malaysia ss6-7) | [Capital Markets and Services Act 2007][my-cmsa] ss188-189 |
+| 🇮🇩 **ID** | Indonesia | [UU Pelindungan Data Pribadi No. 27/2022][id-pdp] | [OJK Regulation 31/POJK.04/2015][id-ojk-material] + [UU Pasar Modal No. 8/1995][id-pasar-modal] |
+| 🇹🇭 **TH** | Thailand | [PDPA B.E. 2562 (2019)][th-pdpa] s26 | [Securities and Exchange Act B.E. 2535][th-sea] ss241-243 |
+| 🇵🇭 **PH** | Philippines | [Data Privacy Act 2012 (RA 10173)][ph-dpa] s3(g)/(h)/(l) | [Securities Regulation Code (RA 8799)][ph-src] s27 |
+| 🇻🇳 **VN** | Vietnam | [Decree 13/2023/ND-CP][vn-decree13] arts 2-3 | [Law on Securities 2019 (Law No. 54/2019/QH14)][vn-securities] art 12 |
+| 🇭🇰 **HK** | Hong Kong | [Personal Data (Privacy) Ordinance Cap. 486][hk-pdpo] s2 | [Securities and Futures Ordinance Cap. 571][hk-sfo] Part XIV ss270-281 |
+| 🇦🇺 **AU** | Australia | [Privacy Act 1988 (Cth)][au-privacy] + Australian Privacy Principles | [Corporations Act 2001 (Cth)][au-corp] ss1042A-1043O |
+| 🇯🇵 **JP** | Japan | [APPI][jp-appi] Art 2 + [My Number Act][jp-my-number] | [Financial Instruments and Exchange Act][jp-fiea] Arts 166-167 |
+| 🇰🇷 **KR** | South Korea | [PIPA][kr-pipa] Art 2 + Art 24-2 | [Financial Investment Services and Capital Markets Act][kr-fscma] Arts 174-179 |
+| 🇺🇸 **US** | United States | [CCPA/CPRA Cal. Civ. Code §1798.140(v)][us-ccpa]; [HIPAA 45 CFR §164.514][us-hipaa]; [GLBA NPI][us-glba] | [Securities Exchange Act 1934 s10(b)][us-10b]; [SEC Rule 10b-5][us-10b5]; [Reg FD 17 CFR 243.100][us-regfd]; [Basic v. Levinson][us-basic] |
+| 🇬🇧 **UK** | United Kingdom | [UK GDPR Art 4(1)][uk-gdpr]; [Data Protection Act 2018 s3(2)][uk-dpa] | [UK Market Abuse Regulation (UK MAR) Art 7][uk-mar] |
+| 🇪🇺 **EU** | European Union | [GDPR Art 4(1), Recital 26, Art 9][eu-gdpr] | [EU Market Abuse Regulation 596/2014 Art 7][eu-mar] |
+| 🌏 **SEA** | Southeast Asia baseline | [ASEAN privacy baseline][sea-pdp] | [ASEAN capital-markets baseline][sea-acmf] (regional baseline, not a single statute) |
+| 🇮🇳 **IN** | India | [Digital Personal Data Protection Act 2023][in-dpdpa] (DPDPA ss2(t), 9, 10, 16) | [SEBI (Prohibition of Insider Trading) Regulations 2015][in-sebi-pit] |
+| 🇨🇳 **CN** | China | [Personal Information Protection Law 2021][cn-pipl] Arts 4, 28, 31, 38; [Cybersecurity Law 2016][cn-csl]; [Data Security Law 2021][cn-dsl] | [China Securities Law][cn-securities] Arts 50-54 |
+| 🇦🇪 **AE** | United Arab Emirates | [UAE Federal Decree-Law 45/2021 (PDPL)][ae-pdpl] Arts 1, 15, 22; [DIFC DPL 2020][ae-difc-dpl]; [ADGM Data Protection Regulations 2021][ae-adgm-dpr] | [UAE SCA regulations][ae-sca] |
+| 🇸🇦 **SA** | Saudi Arabia | [KSA Personal Data Protection Law 2023][sa-pdpl] (Royal Decree M/19) + [SDAIA Implementing Regulations 2024][sa-pdpl-regs]; Art 29 cross-border | [Saudi CMA Market Conduct Regulations][sa-cma-mcr] |
+
+[sg-pdpa]: https://sso.agc.gov.sg/Act/PDPA2012
+[sg-sfa]: https://sso.agc.gov.sg/Act/SFA2001
+[my-pdpa]: https://lom.agc.gov.my/act-detail.php?type=principal&lang=BI&act=709
+[my-cmsa]: https://lom.agc.gov.my/act-detail.php?type=principal&lang=BI&act=671
+[id-pdp]: https://peraturan.bpk.go.id/Details/229798/uu-no-27-tahun-2022
+[id-ojk-material]: https://www.ojk.go.id/id/regulasi/Pages/POJK-tentang-Keterbukaan-Atas-Informasi-Atau-Fakta-Material-Oleh-Emiten-Atau-Perusahaan-Publik.aspx
+[id-pasar-modal]: https://peraturan.bpk.go.id/Details/46197/uu-no-8-tahun-1995
+[th-pdpa]: https://www.pdpc.or.th/en/content/7825/personal-data-protection-act-be-2562-2019
+[th-sea]: https://www.sec.or.th/EN/Pages/LawandRegulations/SecuritiesExchangeAct.aspx
+[ph-dpa]: https://www.officialgazette.gov.ph/2012/08/15/republic-act-no-10173/
+[ph-src]: https://www.officialgazette.gov.ph/2000/07/19/republic-act-no-8799/
+[vn-decree13]: https://vanban.chinhphu.vn/?pageid=27160&docid=207858
+[vn-securities]: https://vanban.chinhphu.vn/?pageid=27160&docid=198828
+[hk-pdpo]: https://www.elegislation.gov.hk/hk/cap486!en
+[hk-sfo]: https://www.elegislation.gov.hk/hk/cap571!en
+[au-privacy]: https://www.legislation.gov.au/C2004A03712/latest/text
+[au-corp]: https://www.legislation.gov.au/C2004A00818/latest/text
+[jp-appi]: https://laws.e-gov.go.jp/law/415AC0000000057
+[jp-my-number]: https://laws.e-gov.go.jp/law/425AC0000000027
+[jp-fiea]: https://laws.e-gov.go.jp/law/323AC0000000025
+[kr-pipa]: https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%B3%B4%ED%98%B8%EB%B2%95
+[kr-fscma]: https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%9E%90%EB%B3%B8%EC%8B%9C%EC%9E%A5%EA%B3%BC%EA%B8%88%EC%9C%B5%ED%88%AC%EC%9E%90%EC%97%85%EC%97%90%EA%B4%80%ED%95%9C%EB%B2%95%EB%A5%A0
+[us-ccpa]: https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1798.140
+[us-hipaa]: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-E/section-164.514
+[us-glba]: https://uscode.house.gov/view.xhtml?path=/prelim@title15/chapter94/subchapter1&edition=prelim
+[us-10b]: https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section78j&num=0&edition=prelim
+[us-10b5]: https://www.ecfr.gov/current/title-17/chapter-II/part-240/subpart-A/section-240.10b-5
+[us-regfd]: https://www.ecfr.gov/current/title-17/chapter-II/part-243/section-243.100
+[us-basic]: https://supreme.justia.com/cases/federal/us/485/224/
+[uk-gdpr]: https://www.legislation.gov.uk/eur/2016/679/article/4
+[uk-dpa]: https://www.legislation.gov.uk/ukpga/2018/12/section/3
+[uk-mar]: https://www.legislation.gov.uk/eur/2014/596/article/7
+[eu-gdpr]: https://eur-lex.europa.eu/eli/reg/2016/679/oj
+[eu-mar]: https://eur-lex.europa.eu/eli/reg/2014/596/oj
+[sea-pdp]: https://asean.org/wp-content/uploads/2012/05/10-ASEAN-Framework-on-PDP.pdf
+[sea-acmf]: https://www.theacmf.org/
+[in-dpdpa]: https://www.indiacode.nic.in/handle/123456789/20027
+[in-sebi-pit]: https://www.sebi.gov.in/section-search.html?searchval=prohibition%20of%20insider%20trading&searchcontext=Regulations
+[cn-pipl]: https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE3YjY0NzJhMzAxN2I2NTZjYzIwNDAwNDQ
+[cn-csl]: https://flk.npc.gov.cn/detail2.html?MmM5MDlmZGQ2NzhiZjE3OTAxNjc4YmY4Mjc2ZjA5M2Q%3D
+[cn-dsl]: https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE3OWY1ZTA4MDAxNzlmODg1YzdlNzAzOTI
+[cn-securities]: https://flk.npc.gov.cn/detail2.html?ZmY4MDgwODE3MWU5ZTE4MTAxNzI3ZTMyYjk0ZDdkZTY%3D
+[ae-pdpl]: https://uaelegislation.gov.ae/en/legislations/1526
+[ae-difc-dpl]: https://www.difc.com/business/laws-and-regulations
+[ae-adgm-dpr]: https://en.adgm.thomsonreuters.com/rulebook/data-protection-regulations-2021
+[ae-sca]: https://www.sca.gov.ae/en/regulations.aspx
+[sa-pdpl]: https://sdaia.gov.sa/en/SDAIA/about/Pages/RegulationsAndPolicies.aspx
+[sa-pdpl-regs]: https://sdaia.gov.sa/en/SDAIA/about/Pages/RegulationsAndPolicies.aspx
+[sa-cma-mcr]: https://cma.gov.sa/en/RulesRegulations/Regulations/Pages/default.aspx
+
+### Coverage Matrix
+
+| Coverage family | Applies to | Examples |
+|---|---|---|
+| Universal PII | All jurisdiction modes | Email, phone, passport, bank account, DOB, age, postal address, IP address, MAC address, IMEI, named person, linkable internal ID, quasi-identifier cluster, special-category PII, minor data |
+| Jurisdiction-specific PII | Curated TOML packs in `src/kaypoh/review/jurisdictions_data/` | National IDs, tax IDs, company IDs, address formats, financial/account references, local legal references, registry references |
+| Privacy events | Jurisdiction-resolved citation path | Cross-border transfer, consent withdrawal, data minimisation, safeguards, breach notification |
+| Universal MNPI | All jurisdiction modes | Deal events, non-public markers, financial scalars, contingent language, tipping/selective disclosure, insider-list markers, information barriers, blackout windows, conjunctive MNPI |
+| Sector/event MNPI | Evidence rules across supported packs | Cybersecurity incidents, ESG/climate events, digital-asset listing or protocol events, pharma events, financial-services events, energy/mining events, legal proceedings |
+| Optional advisory enrichment | Server/audit-grade opt-in paths | Public evidence, LLM adjudication, defined-term extraction, coverage audit; advisory only, deterministic-high findings remain controlling |
+
+The README keeps the jurisdiction table readable. The exhaustive detector-level tables live in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md), including universal PII rules and jurisdiction-specific recognizers.
+
+Accuracy and corpus notes:
+
+- Generated detector accuracy disclosure: [`docs/accuracy.md`](./docs/accuracy.md)
+- Candidate corpus status: [`docs/candidate_corpus_status.md`](./docs/candidate_corpus_status.md)
+- Committed evaluation reports: [`reports/layer-attribution/`](./reports/layer-attribution/)
+- Known limitations: [`docs/known-limitations.md`](./docs/known-limitations.md)
+
+## Runtime Modes
+
+### Local SKU
+
+`kaypoh-local` is offline-default. It includes the deterministic engine, Presidio, spaCy, FastAPI, document extraction, local mappings, and packaging.
+
+It must not require:
+
+```text
+torch, transformers, sentence-transformers, redis, xgboost, scikit-learn, pandas, external HTTP
+```
+
+Build the desktop package:
+
+```bash
+uv sync --extra local --extra packaging
+uv run python -m spacy download en_core_web_sm
+uv run pyinstaller packaging/kaypoh-local.spec
+./dist/kaypoh-local/kaypoh-local
+```
+
+### Server SKU
+
+`kaypoh-server` enables optional public evidence and LLM helper paths for approved tenants.
+
+Public evidence:
+
+```bash
+KAYPOH_PUBLIC_EVIDENCE_ENABLED=1 \
+KAYPOH_PUBLIC_EVIDENCE_PROVIDER=serper \
+SERPER_API_KEY=... \
+PIPELINE_LAYERS=public_evidence \
+uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
+```
+
+LLM adjudication with remote structured tokens:
+
+```bash
+KAYPOH_LLM_ENABLED=1 \
+KAYPOH_LLM_PROVIDER=openai \
+KAYPOH_LLM_API_KEY=... \
+KAYPOH_LLM_BASE_URL=https://api.openai.com/v1 \
+KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1 \
+KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
+KAYPOH_LLM_INPUT_MODE=structured_tokens \
+PIPELINE_LAYERS=llm_adjudicator \
+uv run uvicorn kaypoh.backend.main:app --host 0.0.0.0 --port 8000
+```
+
+Remote raw text requires an additional explicit opt-in:
+
+```text
+KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1
+```
+
+`review_profile=strict` never invokes LLM helper layers.
+
+### Docker
+
+```bash
+docker compose up --build
+curl http://localhost:8000/ready
+```
+
+Managed LLM deployment:
+
+```bash
+KAYPOH_LLM_API_KEY=... \
+KAYPOH_LLM_TENANT_OPT_IN_OPENAI=1 \
+SERPER_API_KEY=... \
+docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --build
+```
+
+## Documentation
+
+- [`INTEGRATIONS.md`](./INTEGRATIONS.md): root index for direct API, Outlook, browser, Word, desktop, DMS, and future surfaces.
+- [`docs/architecture.md`](./docs/architecture.md): runtime architecture and core flow.
+- [`docs/statutory-coverage.md`](./docs/statutory-coverage.md): detector-to-statute coverage map.
+- [`docs/known-limitations.md`](./docs/known-limitations.md): unsupported ingest, deployment, and legal/accuracy caveats.
+- [`docs/running.md`](./docs/running.md): launch commands and optional layer setup.
+- [`docs/install.md`](./docs/install.md): desktop, browser extension, Office add-in, and server install flow.
+- [`docs/admin-security.md`](./docs/admin-security.md): tenancy, API keys, JWT, SIEM, and local pairing controls.
+- [`docs/threat-model.md`](./docs/threat-model.md): data flow, trust boundaries, threats, controls, and residual risk.
+- [`docs/deployment-hardening.md`](./docs/deployment-hardening.md): production filesystem, transport, secrets, Kubernetes, and SIEM guidance.
+- [`docs/mapping-store-hardening.md`](./docs/mapping-store-hardening.md): encryption, retention, erasure, and mapping-store controls.
+- [`docs/llm-governance.md`](./docs/llm-governance.md): LLM promotion, privacy evaluation, and invariant gates.
+- [`docs/schema.md`](./docs/schema.md): API and artifact contracts.
+- [`docs/api/`](./docs/api/): Postman, cURL, and Python client integration artifacts.
+
+## Development & Evaluation
+
+Install development dependencies:
+
+```bash
+uv sync --extra dev
+uv run python -m spacy download en_core_web_sm
+```
+
+Run lint and focused runtime checks:
+
+```bash
+uv run ruff check
+./scripts/verify_runtime.sh
+```
+
+Run the full test suite:
+
+```bash
+uv run pytest
+```
+
+Run recall and generated-doc gates:
+
+```bash
+uv run python scripts/recall_gate.py
+uv run python scripts/generate_accuracy_doc.py --check
+```
+
+Run latency checks:
+
+```bash
+./scripts/benchmark_latency_corpus.sh
+uv run python scripts/check_latency_slo.py --write-report
+```
+
+Candidate and audit tooling:
+
+```bash
+uv run python scripts/run_layer_attribution_eval.py
+uv run python scripts/export_audit_pack.py "$REVIEW_ID" --output ./out/audit.zip
+uv run python scripts/verify_audit_pack.py ./out/audit.zip
+uv run python scripts/verify_journal.py
+```
+
+Training and optional local-student LLM work lives in [`training/distillation/`](./training/distillation/). It is not part of the offline-default local SKU.
+
+## Packaging & Deployment
+
+Build the macOS desktop bundle:
+
+```bash
+uv sync --extra local --extra packaging
+uv run python -m spacy download en_core_web_sm
+./scripts/package_macos_desktop.sh
+```
+
+Optional release signing:
+
+```bash
+KAYPOH_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)" \
+KAYPOH_NOTARYTOOL_PROFILE=kaypoh-notary \
+./scripts/package_macos_desktop.sh
+```
+
+Install, update, uninstall:
+
+```bash
+packaging/macos/install.sh
+packaging/macos/update.sh
+packaging/macos/uninstall.sh
+```
+
+Package browser extension:
+
+```bash
+./scripts/package_browser_extension.sh
+```
+
+Package surfaces:
+
+- [`integrations/browser_extension/`](./integrations/browser_extension/): MV3 browser thin client.
+- [`integrations/outlook_addin/`](./integrations/outlook_addin/): Outlook taskpane and Smart Alerts pre-send hook.
+- [`integrations/word_addin/`](./integrations/word_addin/): Word taskpane review surface.
+- [`packaging/macos/`](./packaging/macos/): LaunchAgent install, update, uninstall scripts.
+- [`packaging/windows/`](./packaging/windows/): Windows packaging notes; Windows desktop packaging is not shipped by default.
 
 ## Screenshots
 
-![](./asset/reference/1.png)
-![](./asset/reference/2.png)
+No screenshot assets are currently tracked for README embedding beyond the logo.
 
-## Stack
+Useful screenshots to add under `asset/screenshots/`:
 
-* *Script*: [Rust](https://www.rust-lang.org/), [Ratatui](https://ratatui.rs/), [Crossterm](https://github.com/crossterm-rs/crossterm), [toml](https://github.com/toml-rs/toml)
-* *Screen Capture*: [screencapturekit-rs](https://github.com/svtlabs/screencapturekit-rs), [ashpd](https://github.com/bilelmoussaoui/ashpd)
-* *OCR*: [Tesseract](https://github.com/tesseract-ocr/tesseract) via [leptess](https://github.com/houqp/leptess)
-* *Virtual Camera*: [v4l2loopback](https://github.com/umlaeute/v4l2loopback), [CoreMediaIO DAL](https://developer.apple.com/documentation/coremediaio)
-* *Output*: [HTTP MJPEG](https://en.wikipedia.org/wiki/Motion_JPEG), [OBS WebSocket](https://github.com/obsproject/obs-websocket)
-* *Channels*: [crossbeam-channel](https://github.com/crossbeam-rs/crossbeam)
+- FastAPI `/docs` showing the active Kaypoh API surface.
+- Example `/review` or `/pseudonymize` response with sensitive values redacted.
+- macOS local daemon or tray/terminal run state.
+- Browser extension pre-send review surface.
+- Outlook or Word add-in review surface.
+- Audit-pack or diagnostics view if there is a stable UI for it.
 
-## Usage
+Once those files exist, this section can embed them with relative links.
 
-Once inside `Aki`'s TUI, use the below keybinds.
+## License
 
-| Key | Action |
-|-----|--------|
-| `w` | open window picker, select a source to capture |
-| `Space` | pause / resume capture |
-| `t` | cycle transform (Blur → Pixelate → Cartoon → ASCII) |
-| `+` / `-` | increase / decrease effect intensity |
-| `q` / `Ctrl+C` | quit |
-
-### Debug Logging
-
-`Aki` now writes persistent logs to:
-
-```console
-~/.config/ascii-privacy/logs/aki.log
-```
-
-Set `AKI_LOG_LEVEL` to control file verbosity (`trace`, `debug`, `info`, `warn`, `error`).
-Set `AKI_LOG_STDERR=1` only when you explicitly want mirror logs in terminal output.
-
-On startup, `Aki` also auto-selects a likely app window source (instead of full-display capture)
-to reduce self-capture feedback artifacts. Press `w` anytime to override.
-
-## Detected List
-
-Currently `Aki` looks for the patterns below by default and redacts matched regions.
-
-**API Keys & Tokens**
-* AWS access keys (`AKIA...`) and secret access keys
-* Stripe secret/publishable keys (`sk_live_`, `pk_test_`, ...)
-* GitHub personal access tokens (`ghp_`, `gho_`)
-* GitLab personal access tokens (`glpat-`)
-* Slack tokens (`xoxb-`, `xoxs-`, `xoxp-`)
-* Hugging Face API tokens (`hf_`)
-* Anthropic API keys (`sk-ant-`)
-* Generic API key prefixes (`sk-`, `pk-`, and similar)
-* JWT tokens (`eyJ...`)
-* SSH private keys (RSA, EC, DSA, OpenSSH)
-
-**Secrets & Credentials**
-* Secret keyword assignments (`api_key:`, `token=`, `secret=`, `password=`, `passwd=`, `credential=`)
-* Environment variable assignments (`UPPER_CASE=<value>`)
-
-**PII**
-* Email addresses
-* IPv4 and IPv6 addresses
-* Credit card numbers (Visa, Mastercard, Amex, Discover, JCB)
-
-## Nerd stuff
-
-### Pipeline
-
-Four threads communicate via bounded `crossbeam` channels (capacity 3). Full channels drop incoming frames rather than block — backpressure is shed, not accumulated.
-
-| Thread | Responsibility |
-|--------|---------------|
-| `aki-capture` | Pulls frames from ScreenCaptureKit / XCB / PipeWire; optionally crops to a sub-region |
-| `aki-detect` | Runs incremental OCR → regex pattern scan → region expansion + merge |
-| `aki-transform` | Applies the active transform (with 10-frame pixel-blend crossfade on mode switch) |
-| `aki-output` | Forwards transformed frames to the selected `OutputSink` |
-
-### Transformations
-
-Currently `Aki` supports the below morphs.
-
-<table>
-<thead>
-<tr><th>Transform</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Blur</strong></td>
-<td><ul>
-<li>Separable Gaussian blur (σ=15 default)</li>
-<li>Two-pass horizontal + vertical for O(n) performance</li>
-</ul></td>
-</tr>
-<tr>
-<td><strong>Pixelate</strong></td>
-<td><ul>
-<li>Block-averaging at 2px–dim/8 block size</li>
-<li>Block size scales linearly with intensity</li>
-<li>Nearest-neighbour upscale back to original dimensions</li>
-</ul></td>
-</tr>
-<tr>
-<td><strong>Cartoon</strong></td>
-<td><ul>
-<li>Bilateral filter approximation (smoothing)</li>
-<li>Sobel edge detection overlay</li>
-<li>k-means colour quantization (k=8 colours)</li>
-<li>Destroys text readability while preserving approximate colour</li>
-</ul></td>
-</tr>
-<tr>
-<td><strong>ASCII</strong></td>
-<td><ul>
-<li>Pixel luminance mapped to a 15-level density ramp (<code> .,:;i1tfLCG08@</code>)</li>
-<li>Each 8×16 pixel block averaged to a single luminance value</li>
-<li>Block re-rendered as uniform grey matching density level</li>
-</ul></td>
-</tr>
-<tr>
-<td><strong>Neural</strong></td>
-<td><ul>
-<li>ONNX Runtime inference</li>
-<li>Accelerator selection: CUDA / CoreML / CPU (auto-detected)</li>
-<li>Falls back to Cartoon if inference exceeds latency guard (default 100ms)</li>
-</ul></td>
-</tr>
-</tbody>
-</table>
-
-### Output support
-
-Currently `Aki` supports the following 4 outputs.
-
-| Sink | Platform | Status |
-|------|----------|--------|
-| v4l2loopback virtual camera | Linux | Available |
-| CoreMediaIO DAL virtual camera | macOS | Available |
-| HTTP MJPEG stream | All | Available *(default fallback)* |
-| OBS WebSocket v5 *(Browser Source → MJPEG)* | All | Available *(falls back to MJPEG if OBS unreachable)* |
-
-The native OBS source/filter plugin design is documented in [`docs/obs-source-plugin.md`](./docs/obs-source-plugin.md). The current implementation keeps the virtual-camera and MJPEG paths intact while the OBS plugin remains a tested prototype adapter plus packaging plan.
-
-### Architecture
-
-![](./asset/reference/architecture.png)
-
-### Incremental OCR
-
-The frame is divided into an 8×6 grid of cells. Between frames, a pixel-threshold diff (`FrameDiff`) marks only changed cells as dirty. Only dirty cells are sent to Tesseract — typically ~70% of OCR work is skipped per frame.
-
-If detection takes longer than the 33ms frame budget, the grid is shrunk (down to 2×2) and transform intensity is reduced to 0.8× to recover headroom. The grid recovers back toward 8×6 when load drops below half-budget.
-
-### Config
-
-`~/.config/ascii-privacy/config.toml` is created with defaults on first run.
-
-```toml
-[capture]
-fps = 30
-region = "0,0,1920,1080"   # optional crop "x,y,w,h"
-
-[detection]
-min_confidence = 40         # tesseract confidence threshold (0–100)
-grid_cells_x = 8
-grid_cells_y = 6
-safe_zones = ["0,0,200,50"] # regions never redacted
-always_redact_zones = []    # regions always redacted
-external_rules_path = ""    # optional local gitleaks TOML path
-external_rules_format = "gitleaks"
-max_external_patterns = 128 # startup cap for imported regex rules
-
-[transform]
-mode = "blur"               # blur | pixelate | cartoon | ascii | neural
-intensity = 1.0
-accelerator = "auto"        # auto | cuda | coreml | cpu (for neural mode)
-
-[output]
-sink = "auto"               # auto | v4l2 | coremedia | mjpeg
-http_port = 9876
-
-[foreground_profiles]
-enabled = true              # auto-select detector profile from foreground app
-override_profile = ""       # broad | secrets | pii | browser, or empty for auto
-update_interval_ms = 1000
-```
-
-Automatic foreground detector profiles are macOS-first and use the frontmost app name when available. Terminals use the `secrets` detector profile, Slack/Discord/Messages use `pii`, VS Code/Cursor/Xcode use `broad`, and browsers use a broad OCR-based `browser` profile. Browser DOM inspection is not used in v1 because Aki stays pixel-first.
-
-Set `foreground_profiles.enabled = false` to disable automatic detector profile selection, or set `foreground_profiles.override_profile` to force one detector profile.
-
-Named transform profiles (e.g. `[profiles.streaming]`) can override transform mode and intensity for different contexts.
-
-### Optional external detector rules
-
-`Aki` can import gitleaks-style TOML rules from a local file. This is opt-in and local-only; `Aki` does not fetch rule packs or depend on a cloud scanner. Details are documented in [`docs/external-rule-packs.md`](./docs/external-rule-packs.md), and community rule-pack contribution conventions are documented in [`docs/community-rule-packs.md`](./docs/community-rule-packs.md).
-
-```toml
-[detection]
-external_rules_path = "/path/to/gitleaks.toml"
-external_rules_format = "gitleaks"
-max_external_patterns = 128
-```
-
-Imported gitleaks rules are compiled once at startup and appended to the default detector registry. The import is bounded to `max_external_patterns`, capped at 128, to keep scan cost predictable. Trufflehog's detectors are not imported in v1 because they are code/entropy based rather than a simple regex rule file.
-
-## Reference
-
-The name `Aki` is in reference to the Japanese 空き (*aki*) which roughly means *empty*, *vacant*, or *a gap*, as seen in 空き容量 (*aki yōryō*, free disk space).
-
-<div align="center">
-    <img src="./asset/logo/thehand.webp" width="30%">
-</div>
+No `LICENSE` file is currently checked in.

@@ -1,0 +1,364 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_special_category_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/special_category/sa_special_category_incident_report_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_special_category_incident_report_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 36,
+    "old_must_detect_count": 27,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al-Qudsi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al-Qudsi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public issuer information (MNPI) accessed included a draft board pack on a planned unannounced sustainability-linked sukuk private placement, preliminary Q2 EBITDA guidance ranges, and the internal timetable for a share buyback, all of which were pending disclosure under our issuer workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2051122334",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1019988776",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 731-22-4944",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "stored fingerprint template for time-attendance (biometric data)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a hypertension treatment plan",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "clinic visit dates (health data)",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Friday congregational leave preference (religious indication)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependent minor",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor status noted",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transferred two access logs to a non-KSA diagnostic node",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA transfer assessment and derogation request under PDPL cross-border restrictions",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA confirmation on cross-border logs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@albarqrenewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPL rights requests, including access, correction, restriction, or deletion",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "name withheld",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "planned unannounced sustainability-linked sukuk private placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary Q2 EBITDA guidance ranges",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal timetable for a share buyback",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list refresh",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading-window suspension",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama numbers",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health and biometric attributes used for site access controls",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al-Qudsi (Finance Manager, Iqama No. 731-22-4944)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading-window suspension notice to insiders",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no-trade undertaking",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if any MNPI integrity is deemed compromised",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "temporary insider-list refresh",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al-Qudsi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al-Qudsi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public issuer information (MNPI) accessed included a draft board pack on a planned unannounced sustainability-linked sukuk private placement, preliminary Q2 EBITDA guidance ranges, and the internal timetable for a share buyback, all of which were pending disclosure under our issuer workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "t at Hilal Gate Systems LLC (CR 1019988776) was used to access our HR and issuer-governance SharePoint, exposing KSA PDPL personal data and non-public issuer materials.\nThe HR export contained national ID fields (Iqama numbers), contact details, and special-category data; specifically, a subset included health and biometric attributes used for site access controls.\nFor example, Mr. Faisal Al-Qudsi (Finance Manager, Iqama No. 731-22-4944) had records including a hypertension treatment plan and clinic visit dates (health data), a stored fingerprint template for time-attendance (biometric data), and a note recording Friday congregational leave preference (religious indication).\nMr. Al-Qudsi\u2019s dependent minor was listed for medical insurance eligibility (name withheld; minor status noted), which increases the sensitivity classification under our PDPL Data Inventory.\nNon-public issuer information (MNPI) accessed included a draft board pack on a planned unannounced sustainability-linked sukuk private placement, preliminary Q2 EBITDA guidance ranges, and the internal timetable for a share buyback, all of which were pending disclosure under our issuer workflows.\nThe issuer workflow documents accessed included the Insider List, the Material Information Assessment forms, and the Market Disclosure Calendar, creating a risk of market-conduct impact pending CMA market-conduct follow-up.\nA log replication job briefly transferred two access logs to a non-KSA diagnostic node; we halted the job and initiated a SDAIA transfer assessment and derogation request under PDPL cross-border restrictions within 4 hours of detection.\nWe notified the CMA and initiated voluntary preemptive controls (temporary insider-list refresh and trading-window suspension notice to insiders) while confirming that no securities identifiers were circulated externally.\nContainment steps: credentials rotated, PalmGate IAM policy hardened, DesertShield NGFW rules updated, and DesertRose SIEM correlation packs deployed; no persistence observed after 06-06-2026 12:15 AST.\nThis paragraph is benign: our Jazan office celebrated the Wadi Hawks football club, we avoided a camel-in-the-tent problem by following the Oasis Trust Policy 2026, and we reaffirmed our commitment to diversity, equity, and inclusion across teams.\nA separate benign note reusing sensitive vocabulary: we computed a union of three telemetry sets and tested a genetic algorithm for anomaly scoring; no special-category personal data is implicated by this sentence.\nWe will seek SDAIA confirmation on cross-border logs and proceed with data subject notifications for impacted individuals whose Iqama numbers and special-category fields were included.\nData subjects may contact compliance@albarqrenewables.example.sa for PDPL rights requests, including access, correction, restriction, or deletion where applicable.\nCMA-facing actions include securing a no-trade undertaking from all insiders on the affected lists and preparing a controlled disclosure if any MNPI integrity is deemed compromised.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Wadi Hawks football club",
+      "reason": "Sports team mention; not PII or MNPI."
+    },
+    {
+      "matched_text": "Oasis Trust Policy 2026",
+      "reason": "Policy name; not PII or MNPI."
+    },
+    {
+      "matched_text": "genetic algorithm",
+      "reason": "Algorithm term; not personal genetic data."
+    },
+    {
+      "matched_text": "union of three telemetry sets",
+      "reason": "Mathematical term; not trade union membership."
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "Generic DEI prose; not special-category personal data."
+    },
+    {
+      "matched_text": "camel-in-the-tent",
+      "reason": "Metaphor; not PII or MNPI."
+    },
+    {
+      "matched_text": "PalmGate IAM",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "DesertShield NGFW",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "DesertRose SIEM",
+      "reason": "Product name; not PII or MNPI."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "preparing a controlled disclosure",
+      "reason": "Could imply selective or managed disclosure decisions but not clearly a selective disclosure risk per rule."
+    },
+    {
+      "concept": "insurance_member_id",
+      "matched_text": "medical insurance eligibility",
+      "reason": "Indicates health insurance enrollment but no specific member ID is provided."
+    },
+    {
+      "concept": "generic_contact_pii",
+      "matched_text": "contact details",
+      "reason": "Signals presence of PII but lacks specific fields like phone or email for rule match."
+    },
+    {
+      "concept": "breach_notification",
+      "matched_text": "data subject notifications",
+      "reason": "Implies PDPL notification obligations, which are not explicitly covered by a listed privacy-event marker."
+    }
+  ]
+}

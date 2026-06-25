@@ -1,0 +1,23 @@
+{
+  "doc_id": "no_key_company_sensitive_mnpi_01",
+  "document_type": "memo",
+  "source_jurisdiction": "UK",
+  "destination_jurisdiction": "EU",
+  "must_detect": [
+    {"rule": "uk_company_number", "matched_text": "SC123456"},
+    {"rule": "eu_company_id", "matched_text": "DE123456789"},
+    {"rule": "trade_union_membership", "matched_text": "労働組合員: 山田太郎"},
+    {"rule": "health_condition", "matched_text": "진단: 당뇨병"},
+    {"rule": "transaction_codename", "matched_text": "Project Sakura"},
+    {"rule": "nonpublic_marker", "matched_text": "未公表"},
+    {"rule": "insider_list_marker", "matched_text": "J-IR embargo list"},
+    {"rule": "contingent_mnpi_language", "matched_text": "pending J-FSA clearance"},
+    {"rule": "transaction_codename", "matched_text": "Project Han"},
+    {"rule": "nonpublic_marker", "matched_text": "미공개"},
+    {"rule": "insider_list_marker", "matched_text": "KIND disclosure hold list"},
+    {"rule": "contingent_mnpi_language", "matched_text": "FSC review"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand",
+  "_label_note": "No-key item 33/71/86 fixture for UK/EU company IDs, JP/KR sensitive PI, and jurisdiction MNPI variants."
+}

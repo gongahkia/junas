@@ -1,0 +1,395 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 4
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_direct_identifiers_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_direct_identifiers_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 28,
+    "old_must_detect_count": 19,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "y.alqassim@reddune.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chair@najmtech.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 54 000 9123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Latifa Al\u2011Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative terms (non\u2011public): private placement of 3,000,000 shares at SAR 28.50 per share; CMA pre\u2011filing (non\u2011public) target 2026\u201107\u201115; Tadawul Growth admission contemplated post\u2011closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: Investor lock\u2011up 180 days post\u2011admission; use of proceeds to fund \u201cNajmTech Edge\u201d product expansion; no dividend until FY+1 unless CMA conditions permit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data handling: Do not email passport images; upload to https://vault.example.sa/upload?token=RDL\u2011A1B2C3&iq=2 0 1 2 3 4 5 6 7 8; retention limited to closing + 7 years.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7018 899901",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7031 122009",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7018899901",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10 1234 5678",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P\u2011KSA9901234",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA45 8000 1234 5678 9012 3456",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201111\u2011555\u20117788",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border personal data transfer to be logged via SDAIA DTA with permit ID X\u2011SDAIA/REQ/023\u201177\u2011ALPHA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative terms (non\u2011public)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CMA pre\u2011filing (non\u2011public)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SAR 28.50 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,000,000 shares",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10%201234%205678",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 1 2 3 4 5 6 7 8",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any transfer outside KSA requires SDAIA permit and SCC\u2011equivalent safeguards",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retention limited to closing + 7 years",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not email passport images",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RDL\u2011A1B2C3",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CMA pre\u2011filing (non\u2011public) target 2026\u201107\u201115",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Tadawul Growth admission contemplated post\u2011closing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SAR 85,000,000",
+      "rule": "total_contract_value"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "y.alqassim@reddune.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chair@najmtech.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 54 000 9123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Latifa Al\u2011Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative terms (non\u2011public): private placement of 3,000,000 shares at SAR 28.50 per share; CMA pre\u2011filing (non\u2011public) target 2026\u201107\u201115; Tadawul Growth admission contemplated post\u2011closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: Investor lock\u2011up 180 days post\u2011admission; use of proceeds to fund \u201cNajmTech Edge\u201d product expansion; no dividend until FY+1 unless CMA conditions permit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data handling: Do not email passport images; upload to https://vault.example.sa/upload?token=RDL\u2011A1B2C3&iq=2 0 1 2 3 4 5 6 7 8; retention limited to closing + 7 years.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Issuer contact: Dr. Latifa Al\u2011Harbi (Chair), email: chair@najmtech.example.sa; deal room: https://secure.example.sa/nda?cr=7018899901&nid=10%201234%205678.\nSubscription account (fictional): IBAN SA45 8000 1234 5678 9012 3456 at Al\u2011Rimal Bank; secondary wire support +966\u201111\u2011555\u20117788.\nIndicative terms (non\u2011public): private placement of 3,000,000 shares at SAR 28.50 per share; CMA pre\u2011filing (non\u2011public) target 2026\u201107\u201115; Tadawul Growth admission contemplated post\u2011closing",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Proposed SAR 85,000,000 strategic investment by Red Dune Logistics Co. into Najm Tech Holdings JSC (Kingdom of Saudi Arabia).\nParties: Investor \u2014 Red Dune Logistics Co. (C R 7018 899901, VAT 312345678901234, HQ: Building 12, Al\u2011Nahdah Dist., Riyadh 1 3 2 4 4); Issuer \u2014 Najm Tech Holdings JSC (C R 7031 122009).\nSignatory (Investor): Mr. Sami Al\u2011Qassim (Chief Executive Officer), National ID/Iqa ma 10 1234 5678 (invalid checksum), Passport No. P\u2011KSA9901234; contact y.alqassim@reddune.example.sa, +966 54 000 9123.\nIssuer contact: Dr. Latifa Al\u2011Harbi (Chair), email: chair@najmtech.example.sa; deal room: https://secure.example.sa/nda?cr=7018899901&nid=10%201234%205678.\nSubscription account (fictional): IBAN SA45 8000 1234 5678 9012 3456 at Al\u2011Rimal Bank; secondary wire support +966\u201111\u2011555\u20117788.\nIndicative terms (non\u2011public): private placement of 3,000,000 shares at SAR 28.50 per share; CMA pre\u2011filing (non\u2011public) target 2026\u201107\u201115; Tadawul Growth admission contemplated post\u2011closing.\nConditions precedent: CMA approval, issuer board resolution (1448\u201110\u201112H), completion of KYC/AML on Investor; cross\u2011border personal data transfer to be logged via SDAIA DTA with permit ID X\u2011SDAIA/REQ/023\u201177\u2011ALPHA.\nPDPL notice: personal data (as defined under KSA PDPL) including names, Iqama, phone, and email will be processed for deal execution; any transfer outside KSA requires SDAIA permit and SCC\u2011equivalent safeguards.\nCovenants: Investor lock\u2011up 180 days post\u2011admission; use of proceeds to fund \u201cNajmTech Edge\u201d product expansion; no dividend until FY+1 unless CMA conditions permit.\nNegative/benign: This draft omits any MAC wording; no material adverse change clause is agreed at this stage, and the generic policy text below is not operative.\nGeneric placeholders: Name: __________ ; Role: Finance Manager ; Address: __________________ ; Public Helpline: 800\u2011000\u20110000 (public).\nAdministrative contacts (role\u2011only): legal@issuer.example.sa; helpdesk@reddune.example.sa; main line +966 9200 00000 (call center).\nData handling: Do not email passport images; upload to https://vault.example.sa/upload?token=RDL\u2011A1B2C3&iq=2 0 1 2 3 4 5 6 7 8; retention limited to closing + 7 years.\nIssuer workflow: board pack circulation by 2026\u201106\u201125; cma_followup=false until draft PR cleared; press references to growth plans are public\u2011source and non\u2011binding.\nReps & warranties: Issuer affirms no undisclosed liabilities above SAR 2,000,000; Investor warrants funding capacity evidenced by bank letter (not attached here).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC bait; do not tag as material_adverse_change"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC bait; do not tag as material_adverse_change"
+    },
+    {
+      "matched_text": "Name: __________",
+      "reason": "Generic placeholder, not PII"
+    },
+    {
+      "matched_text": "Role: Finance Manager",
+      "reason": "Generic placeholder role, not PII"
+    },
+    {
+      "matched_text": "Address: __________________",
+      "reason": "Generic placeholder, not PII"
+    },
+    {
+      "matched_text": "Public Helpline: 800\u2011000\u20110000 (public)",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "legal@issuer.example.sa",
+      "reason": "Role mailbox; not personal PII"
+    },
+    {
+      "matched_text": "helpdesk@reddune.example.sa",
+      "reason": "Role mailbox; not personal PII"
+    },
+    {
+      "matched_text": "+966 9200 00000",
+      "reason": "Public call center number; not personal PII"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "sa_vat_number",
+      "matched_text": "VAT 312345678901234",
+      "reason": "Company VAT/tax identifier; potentially identifying in some contexts but not covered by allowed rules and not necessarily personal data"
+    },
+    {
+      "concept": "sa_postal_code",
+      "matched_text": "1 3 2 4 4",
+      "reason": "Appears to be a spaced KSA postal code; address identifiers are not in allowed rules for KSA"
+    },
+    {
+      "concept": "sdaia_permit_id",
+      "matched_text": "X\u2011SDAIA/REQ/023\u201177\u2011ALPHA",
+      "reason": "Regulatory permit identifier; relevant to cross-border compliance but not an explicit standalone rule"
+    }
+  ]
+}

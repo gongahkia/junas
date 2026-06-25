@@ -1,0 +1,16 @@
+A U R I F I R M  L O G I S T I C S  H O L D I N G S  L T D — Confidential Incident Report (Cyber) — Not for external release.
+02-Jun-2026 21:10 AEST; internal Ref AFSEC-2026-0415; issuer on ALEX (Australis Listed Exchange) code AFLX; ABN 58 123 456 0x1 (fictional).
+On 14-May a credential-stuffing attack via Kwalta Systems Pty Ltd (vendor) led to unauthorised access to our billing SFTP; 3.1GB of files were exfiltrated before isolation at 02:11.
+Exfiltrated content includes PII (names, emails, mobile numbers) for 241 employees and 33 contractors; two files contained partial private insurer details (Harbour Health Mutual member nos. HHM-83-24x) and masked card tokens (**** **** **** 8472).
+Preliminary finance impact: delayed invoicing and churn risk indicate a Q4 revenue shortfall of 3–5%; this is not generally available information and is likely to be price‑sensitive for AFLX.
+Continuous disclosure assessment under Corporations Act s674 and ALEX Listing Rule 3.1/3.1A: while investigations are incomplete, management proposes an announcement before market open Thu 04-Jun-2026; avoid selective briefing during the trading policy blackout (01-Jul to FY results on 26-Aug-2026).
+Public-status note: our ALEX announcement dated 28-Apr-2026 (“Minor Service Interruption at Westport DC”, ALEX‑2026‑00981) is already public; the credential leakage and forecast impact in this report have not been disclosed.
+At this time the incident is not expected to constitute a material adverse change to long-term operations; however, a trading halt may be requested if platform downtime exceeds 72h or if customer data validation expands beyond 500 records.
+Knowledge of the above constitutes MNPI for issuer AFLX under s1042D; do not forward outside need‑to‑know, and do not respond to investor approaches except via Investor Relations; no “open briefing” until lodgement.
+PII specifics (examples): Mr. Darius Kemp, Chief Risk Officer — mobile 04xx 517 3x9; email d a r i u s . k e m p @aurifirm-log.com.au; Ms. Tahlia Rowe (casual driver) — EID: EID‑9O0l‑l, HHM member HHM‑83‑24x, personal email t.rowe+temp@postmail.example.
+Transaction artefacts accessed: vendor invoices INV‑2026‑1l8 and INV‑2026‑1I9, supplier bank refs BSB 76‑12‑0x / acct 12345‑6x; client acct CL‑88I‑00l and shipment IDs S H P ‑ 2 0 2 6 ‑ 0 4 3 3.
+Operational note (benign): fleet telematics product “FleetTrack lite” and warehouse WMS v4.2 are functioning normally; north coast newswire’s overnight article on a freeway closure is unrelated.
+Workstream: triage complete; draft investor text in progress; remediation run‑book owners @ secops to schedule patch window; follow up with Kwalta; this is ordinary pm‑sprint cadence, not a MAC trigger.
+Internal links: https://portal.aurifirm-log.com.au/tickets/INC?ref=AFSEC-2026-0415&uid=T%20Rowe and http://intranet.local/teams/risk/secops?page=aflx&mode=private (do not share externally).
+Contact: security@aurifirm-log.com.au; Investor queries to investor.relations@aurifirm-log.com.au; hotline +61 1300 5xx 222; CSIC liaison: compliance@csic.gov.au (fictional).
+Scans show OCR anomalies in two PDFs (e.g., “A u r i f i r m  H o l d i n g s” headers), and a mis‑read URL h t t p s : / / s t a t u s . a u r i f i r m - l o g . c o m . a u / i n c i d e n t s ? i d = X 1 1 ; treat these attachments as sensitive until cleansing notice is lodged.

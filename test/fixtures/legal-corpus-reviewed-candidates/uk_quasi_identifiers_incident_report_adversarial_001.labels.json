@@ -1,0 +1,453 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_quasi_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/quasi_identifiers/uk_quasi_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_quasi_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 34,
+    "current_must_detect_count": 20,
+    "current_must_not_detect_count": 9,
+    "previous_ideal_must_detect_count": 24,
+    "previous_must_detect_count": 14,
+    "previous_must_not_detect_count": 9
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Hexton",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 14/03/1989",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rowan.hexton@ashburymarkets.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vdi-ldn14-20260606-0951",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3520 9900 1234 567",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "secops@ashburymarkets.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 7000 900 111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Graye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hexton",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 11/11/1992",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Moorland",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a348",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Article 18 insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 14/03/1989; Deputy Head of Treasury; Ashbury Markets plc; based at 5 Ledger Street, Eastborough EX0 1ZZ",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ASB-LDN-LAP-1171",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vd i - l d n 1 4 - 0 6 0 6 - 0 9 5 1",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced disposal of Ridgefell Underwriting Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential price sensitivity",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Article 17 disclosure is withheld",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "paused wall-crossing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "refresh information barriers around Project Moorland",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report (Operational/Cyber)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/03/1989",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11/11/1992",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 06/06/2026 09:52 BST, anomalous access to \u201cProject Moorland\u201d M&A folder (unannounced disposal of Ridgefell Underwriting Ltd; expected \u00a348\u201352m impairment) was logged from a non-standard network route with potential price sensitivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "At 10:14 BST we updated the Article 18 insider list (Section A: deal team), paused wall-crossing, and saved an RNS draft; Article 17 disclosure is withheld pending containment per the Data Protection Act and UK financial regulator guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The suspected exfiltration volume was 23.4MB from file \u201cRidgefell-Impairment-Model-v11.xlsx\u201d; hash 1e:2b:7c:fa:\u2026; DLP policy FIN-UK-GDPR-PII-05 triggered on columns containing salary bands and employee initials.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "52m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260606",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rowan.hexton@ashburymarkets.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "secops@ashburymarkets.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 7000 900 111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/03/1989",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11/11/1992",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Hexton",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Graye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hexton",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 06/06/2026 09:52 BST, anomalous access to \u201cProject Moorland\u201d M&A folder (unannounced disposal of Ridgefell Underwriting Ltd; expected \u00a348\u201352m impairment) was logged from a non-standard network route with potential price sensitivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "At 10:14 BST we updated the Article 18 insider list (Section A: deal team), paused wall-crossing, and saved an RNS draft; Article 17 disclosure is withheld pending containment per the Data Protection Act and UK financial regulator guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The suspected exfiltration volume was 23.4MB from file \u201cRidgefell-Impairment-Model-v11.xlsx\u201d; hash 1e:2b:7c:fa:\u2026; DLP policy FIN-UK-GDPR-PII-05 triggered on columns containing salary bands and employee initials.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Moorland",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a348",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "52m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260606",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "5 Ledger Street, Eastborough EX0 1ZZ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Hexton (DOB 14/03/1989; Deputy Head of Treasury; Ashbury Markets plc; based at 5 Ledger Street, Eastborough EX0 1ZZ) reports his company laptop asset ASB-LDN-LAP-1171 (Lanturn Pro 14) showing mail UPN rowan.hexton@ashburymarkets.example active in VDI session vdi-ldn14-20260606-0951.\nThe event correlated with MFA push fatigue on handset Quoratek X12\u2011SE IMEI 3520 9900 1234 567 (truncated); no MAC addresses were captured, and this does not constitute a material adverse change to group outlook.\nSecurity log ref SOC-INC-74291 shows DocShare URL https://intra.ashburymarkets.example/ds/proj/moorland?v=9&uid=r.hexton&id=FOL-334A and TeamSpace meeting link https://meet.ashburymarkets.example/7f3b?sid=vd i - l d n 1 4 - 0 6 0 6 - 0 9 5 1 (OCR-like spacing preserved).\nAt 10:14 BST we updated the Article 18 insider list (Section A: deal team), paused wall-crossing, and saved an RNS draft; Article 17 disclosure is withheld pending containment per the Data Protection Act and UK financial regulator guidance.\nThe suspected exfiltration volume was 23.4MB from file \u201cRidgefell-Impairment-Model-v11.xlsx\u201d; hash 1e:2b:7c:fa:\u2026; DLP policy FIN-UK-GDPR-PII-05 triggered on columns containing salary bands and employee initials.\nContact: secops@ashburymarkets.example; out-of-hours +44 7000 900 111 (routing to Eastborough SOC); ticket mirror at http://servicedesk.ashburymarkets.example/ticket?i d = I N C % 2 D 7 4 2 9 1 & user = r h e x t o n (spaces intentional).\nMs. Tamsin Graye (Group Compliance Officer) confirmed a preliminary STOR is not required at this stage, requested SMCR attestations from Mr. Hexton and the deal lead, and initiated an ICO liaison under breach-threshold review.\nWe note a benign training dataset on a decommissioned share (DOB 11/11/1992; GLA-TAB-2003; location: North Docks; account ops\u2011temp\u201104) that is not linked to any named person and should not be treated as personal data.\nGeneric demographics cited in a marketing slide (age 29, lives in the south east, uses Android) are not identifying on their own and are irrelevant to this incident.\nproject notes (lowercase): defer sprint 14 backlog until post\u2011closure; move Falcon Crest dashboard to read\u2011only; product names: LedgerLite, PortFlow\u2014these terms are public and non\u2011sensitive.\nNo customer accounts or payment card data were accessed; we are not aware of any misuse, and endpoint scans show no persistence; importantly, the word \u201cinside\u201d in a filename (inside_out_jacket.jpg) is not related to inside information.\nNext steps: rotate credentials for ASB\u2011LDN\u2011LAP\u20111171; reset Mr. Hexton",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report (Operational/Cyber) \u2014 Ashbury Markets plc (UK Main Market issuer) \u2014 Internal Only; UK MAR assessment included.\nOn 06/06/2026 09:52 BST, anomalous access to \u201cProject Moorland\u201d M&A folder (unannounced disposal of Ridgefell Underwriting Ltd; expected \u00a348\u201352m impairment) was logged from a non-standard network route with potential price sensitivity.\nMr. Rowan Hexton (DOB 14/03/1989; Deputy Head of Treasury; Ashbury Markets plc; based at 5 Ledger Street, Eastborough EX0 1ZZ) reports his company laptop asset ASB-LDN-LAP-1171 (Lanturn Pro 14) showing mail UPN rowan.hexton@ashburymarkets.example active in VDI session vdi-ldn14-20260606-0951.\nThe event correlated with MFA push fatigue on handset Quoratek X12\u2011SE IMEI 3520 9900 1234 567 (truncated); no MAC addresses were captured, and this does not constitute a material adverse change to group outlook.\nSecurity log ref SOC-INC-74291 shows DocShare URL https://intra.ashburymarkets.example/ds/proj/moorland?v=9&uid=r.hexton&id=FOL-334A and TeamSpace meeting link https://meet.ashburymarkets.example/7f3b?sid=vd i - l d n 1 4 - 0 6 0 6 - 0 9 5 1 (OCR-like spacing preserved).\nAt 10:14 BST we updated the Article 18 insider list (Section A: deal team), paused wall-crossing, and saved an RNS draft; Article 17 disclosure is withheld pending containment per the Data Protection Act and UK financial regulator guidance.\nThe suspected exfiltration volume was 23.4MB from file \u201cRidgefell-Impairment-Model-v11.xlsx\u201d; hash 1e:2b:7c:fa:\u2026; DLP policy FIN-UK-GDPR-PII-05 triggered on columns containing salary bands and employee initials.\nContact: secops@ashburymarkets.example; out-of-hours +44 7000 900 111 (routing to Eastborough SOC); ticket mirror at http://servicedesk.ashburymarkets.example/ticket?i d = I N C % 2 D 7 4 2 9 1 & user = r h e x t o n (spaces intentional).\nMs. Tamsin Graye (Group Compliance Officer) confirmed a preliminary STOR is not required at this stage, requested SMCR attestations from Mr. Hexton and the deal lead, and initiated an ICO liaison under breach-threshold review.\nWe note a benign training dataset on a decommissioned share (DOB 11/11/1992; GLA-TAB-2003; location: North Docks; account ops\u2011temp\u201104) that is not linked to any named person and should not be treated as personal data.\nGeneric demographics cited in a marketing slide (age 29, lives in the south east, uses Android) are not identifying on their own and are irrelevant to this incident.\nproject notes (lowercase): defer sprint 14 backlog until post\u2011closure; move Falcon Crest dashboard to read\u2011only; product names: LedgerLite, PortFlow\u2014these terms are public and non\u2011sensitive.\nNo customer accounts or payment card data were accessed; we are not aware of any misuse, and endpoint scans show no persistence; importantly, the word \u201cinside\u201d in a filename (inside_out_jacket.jpg) is not related to inside information.\nNext steps: rotate credentials for ASB\u2011LDN\u2011LAP\u20111171; reset Mr. Hexton\u2019s MFA seed; refresh information barriers around Project Moorland; legal to reassess UK MAR disclosure at 16:00 BST and prepare a contingency RNS.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "inside_out_jacket.jpg",
+      "reason": "Filename contains 'inside' but is unrelated to inside information"
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "No actual MAC address values present"
+    },
+    {
+      "matched_text": "project notes (lowercase)",
+      "reason": "Generic phrase; not a 'Project <Codename>' transaction codename"
+    },
+    {
+      "matched_text": "LedgerLite",
+      "reason": "Public, non-sensitive product name per document"
+    },
+    {
+      "matched_text": "PortFlow",
+      "reason": "Public, non-sensitive product name per document"
+    },
+    {
+      "matched_text": "age 29",
+      "reason": "Generic demographic not identifying alone"
+    },
+    {
+      "matched_text": "lives in the south east",
+      "reason": "Generic demographic not identifying alone"
+    },
+    {
+      "matched_text": "uses Android",
+      "reason": "Generic demographic not identifying alone"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; excluded per rule"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "postal_address",
+      "matched_text": "5 Ledger Street, Eastborough EX0 1ZZ",
+      "reason": "UK postal addresses are personal data but there is no explicit UK postal address rule in the allowed list"
+    },
+    {
+      "concept": "username",
+      "matched_text": "uid=r.hexton",
+      "reason": "Identifies a specific user account but 'username' is not an explicit allowed rule"
+    },
+    {
+      "concept": "username_obfuscated",
+      "matched_text": "user = r h e x t o n",
+      "reason": "Obfuscated username still identifies an individual; not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "internal_incident_id",
+      "matched_text": "SOC-INC-74291",
+      "reason": "Internal case/reference numbers may be linkable identifiers but are not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "training_or_employee_id",
+      "matched_text": "GLA-TAB-2003",
+      "reason": "Looks like an internal dataset or employee/training identifier; not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "account_identifier",
+      "matched_text": "account ops\u2011temp\u201104",
+      "reason": "Internal account label may identify a user/session; not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "document_identifier",
+      "matched_text": "Ridgefell-Impairment-Model-v11.xlsx",
+      "reason": "File name reveals sensitive work product but there is no specific rule for document names"
+    }
+  ]
+}

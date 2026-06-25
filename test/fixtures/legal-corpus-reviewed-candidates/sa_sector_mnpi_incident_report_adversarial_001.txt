@@ -1,0 +1,15 @@
+Incident Report: Atlal Renewable Energy Co. (Closed Joint Stock Co., CR 2048 9177 55) — Cyber/ESG Data Exposure — KSA
+Date/Time: 1447-01-12H / 2026-05-28 21:40 AST; location: Riyadh HQ; reporting officer: Eng. Laila Al‑Harbi, CISO
+Summary: Unauthorized access via third‑party vendor SFTP to “Project SAMA‑Green Sukuk 1446H” and “Carbon Tokens Pilot” folders containing draft green sukuk term ranges (2.90–3.15% p.a.) and asset‑level emissions data (non‑public)
+Personal data affected (PDPL): two employee contact entries and three pre‑sounding investor records with masked identifiers: Iqama No. 2 9 3 • • ** 7 3; Iqama No. 5•1•8•—**—4 2; email alias s.almansour@atlal.energy.example; payroll ID PR‑A R E C‑0 0 7
+Additional data involved: internal crypto/DPT wallet tags for the tokenized carbon credit sandbox on “NakhlaNet” (private chain), e.g., WALLET: NX‑00••‑b4f1 (not linked to external VASPs)
+Insider handling: insider list activated per KMA Market Conduct Regulations; entries include Mr. Saud Al‑Mansour (Treasury), Dr. Haneen Al‑Sindi (Sustainability) — see IL‑AREC‑1446‑01 at https://secure.atlal.example/s/IL?v=4&doc=IL%2FA R E C
+Information‑barrier lapse: one sell‑side research analyst under non‑wall status was auto‑copied in a vendor ticket, creating selective‑disclosure risk; wall‑cross rescinded and analyst removed from distribution within 14 minutes
+Trading controls: an internal blackout window is now in force for all covered persons until formal disclosure on Riyada Exchange (REX), with exception for pre‑existing ESPP allotments; tipping prohibitions reiterated
+Cross‑border safeguards: N D A C transfer approval request lodged (TRN: NDAC‑TR‑2O24‑00l5) to resume log forwarding to our Bahrain SOC; until approval, logs remain stored in KSA; data‑minimization applied
+Regulatory status: we notified K M A Market Surveillance and R E X Issuer Relations within two hours; this incident, based on current assessment, does not constitute a material adverse change under the draft sukuk Offering Circular
+Scope exclusions: the ESG marketing brochure referencing REX’s public “ESG Disclosure Guide” (https://public.riyadaex.example/esg) contains only public benchmarks and is unrelated to the above datasets
+Education/operations note: our crypto risk awareness webinar and internal ESG primer reuse terms such as wallet, insider list, and blackout solely for training and do not include MNPI or personal data
+Forensics: vendor account A R‑svc‑sftp‑03 showed 2 anomalous GETs from ASN 45.77.x.x; hash of exfiltrated file “GHG‑plant‑Zulfi‑v3.xlsx” = 9c:1e:••:a7; access revoked and keys rotated
+Remediation & next steps: patch vendor SFTP (CVE‑20XX‑1234), re‑validate wall‑cross logs, update insider‑list acknowledgments, and align with our information‑barrier playbook; next sprint: close Jira AREC‑SEC‑219
+Data‑subject notice (PDPL): no automated decision‑making occurred; data subjects may contact privacy@atlal.energy.example; where feasible, national IDs have been redacted (e.g., Iqama 2 3 4 9 — l 7 3), and CR‑linked fields were tokenized

@@ -1,0 +1,279 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy-office@aobamaterials.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Climate/ESG metrics used for our Sustainability Day webinars rely on figures already posted on our public IR site and do not include earnings guidance or unpublished KPIs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cybersecurity tabletop exercises may simulate vendor breach alerts with synthetic data; no real customer or employee records are used in such drills.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For complaints, you may contact our Privacy Office or consult guidance from the Personal Information Protection Commission; this notice does not amend employment terms or constitute investment advice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number (kojin bango)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number data",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deleted without delay once statutory purpose is fulfilled",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disposed of promptly after the legal retention period tied to payroll filings ends",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tender offer for Kitanami Labs K.K",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-wall requirements",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "work email aliases",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "badge access IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device identifiers",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "without collecting unnecessary individual codes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "outsourced processing to Shirabe Data Services GK and its Singapore affiliate",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list entries",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout calendars",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know basis",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy-office@aobamaterials.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Climate/ESG metrics used for our Sustainability Day webinars rely on figures already posted on our public IR site and do not include earnings guidance or unpublished KPIs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Climate/ESG metrics used for our Sustainability Day webinars rely on figures already posted on our public IR site and do not include earnings guidance or unpublished KPIs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cybersecurity tabletop exercises may simulate vendor breach alerts with synthetic data; no real customer or employee records are used in such drills.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cybersecurity tabletop exercises may simulate vendor breach alerts with synthetic data; no real customer or employee records are used in such drills.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For complaints, you may contact our Privacy Office or consult guidance from the Personal Information Protection Commission; this notice does not amend employment terms or constitute investment advice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Climate/ESG metrics used for our Sustainability Day webinars rely on figures already posted on our public IR site and do not include earnings guidance or unpublished KPIs.\nCybersecurity tabletop exercises may simulate vendor breach alerts with synthetic data; no real customer or employee records are used in such drills.\nRetention: insider-list entries are kept only for the duration required by the Financial Instruments and Exchange Act and exchange rules; My Number data is segregated and disposed of promptly after the legal retention period tied to payroll filings ends.\nCross-border transfers: for outsourced processing to Shirabe Data Services GK and its Singapore affiliate, we execute data transfer agreements ensuring equivalent measures under APPI and provide information on foreign data protection systems upon request.\nData subject rights (APPI Arts. 33\u201335): submit access/correction/deletion requests via the privacy portal or the role mailbox privacy-office@aobamaterials.example.jp; we may verify identity through HR records without collecting unnecessary individual codes.\nBlackout calendars and pre-clearance procedures are standard internal controls; scheduling notices use generic descriptors and should not be interpreted as signals of material events.\nWe follow TSE timely disclosure practice; undisclosed facts that meet \u201cmaterial facts\u201d under FIEA are communicated strictly on a need-to-know basis and are not discussed in open channels.\nPositive control: until the Board resolves and TSE timely disclosure is made, the non-public intention to commence a tender offer for Kitanami Labs K.K. is restricted to the insider list and subject to information-wall requirements.\nCommercial terms in the \u201cGreenBond-ESG Report Pack\u201d marketing brochure (e.g., list pricing and service tiers) are public and not MNPI.\nFor complaints, you may contact our Privacy Office or consult guidance from the Personal Information Protection Commission; this notice does not amend employment terms or constitute investment advice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201ctipping,\u201d",
+      "reason": "Educational/training context \u2014 not an MNPI signal."
+    },
+    {
+      "matched_text": "\u201cblackout,\u201d",
+      "reason": "Educational/training context \u2014 not an MNPI signal."
+    },
+    {
+      "matched_text": "\u201cdeal wall\u201d",
+      "reason": "Educational/training context \u2014 not an MNPI signal."
+    },
+    {
+      "matched_text": "\u201cCrypto Ledger Trainer\u201d",
+      "reason": "Internal training tool; not crypto MNPI."
+    },
+    {
+      "matched_text": "\u201cGreenTrack ESG Demo\u201d",
+      "reason": "Internal training tool; not ESG MNPI."
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "DSAR/erasure rights",
+      "matched_text": "access/correction/deletion requests",
+      "reason": "DSAR references are legally relevant under APPI but there is no explicit DSAR rule in the allowed list."
+    },
+    {
+      "concept": "embargo/timing control",
+      "matched_text": "until the Board resolves",
+      "reason": "Implies internal approval/timing gate before disclosure but not an enumerated embargo marker string."
+    },
+    {
+      "concept": "FIEA material facts",
+      "matched_text": "\u201cmaterial facts\u201d",
+      "reason": "References scope of MNPI under FIEA without specifying a concrete event; useful but not clearly covered by allowed rule triggers."
+    }
+  ]
+}

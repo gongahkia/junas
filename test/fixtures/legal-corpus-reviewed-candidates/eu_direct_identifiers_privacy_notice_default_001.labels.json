@@ -1,0 +1,347 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_direct_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_direct_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 30,
+    "current_must_detect_count": 10,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 26,
+    "previous_must_detect_count": 16,
+    "previous_must_not_detect_count": 8
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@orphadine-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@orphadine-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elira Vond",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "elira.vond@orphadine-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+33 7 00 00 00 00",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRV9938451",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric access hashes",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XX00 NORB 0000 1234 5678 90",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@orphadine-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "helpdesk@company.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "trade union membership",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. D. Hevel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "board mobile numbers",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "work emails",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Norlandia Passport Nos",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical accommodations",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Norlandia ID",
+      "rule": "eu_national_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list management",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft CSRD target revisions",
+      "rule": "esg_target_revision"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced green instrument timetable",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "staff number",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lawful bases: Art 6(1)(c) for regulatory obligations, Art 6(1)(f) for fraud controls; LIA record NR-LIA-2026-03 available on request via compliance@orphadine-se.eu",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "045128",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "elira.vond@orphadine-se.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+33 7 00 00 00 00",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elira Vond",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lawful bases: Art 6(1)(c) for regulatory obligations, Art 6(1)(f) for fraud controls; LIA record NR-LIA-2026-03 available on request via compliance@orphadine-se.eu",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "045128",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Orphadine BioTech SE, Norlandia Trade Register NRTR-2026-045128; Corporate Tax/VAT: NR-BTX-204-7719\nRegistered office: 12 Quai d'Aldren, 1040 Valmora, Norlandia; contact: privacy@orphadine-se.eu; public helpline: 0800 000 000 (not for rights requests)\nData Protection Officer (role): dpo@orphadine-se.eu; Attn: Ms. Elira Vond, Senior Legal Counsel, elira.vond@orphadine-se.eu; switchboard +350 600 000 000\nProcessing purposes: MAR Art 18 insider list management, Art 17(4) delay logs, pseudonymised trading plan data for liquidity management, and CSRD/SFDR reporting workpapers; whistleblowing triage under GDPR Art 9(2)(b),(g)\nData categories: employee IDs, board mobile numbers (+33 7 00 00 00 00), work emails, Norlandia Passport Nos. e.g., NRV9938451, biometric access hashes, and IBAN (fictional) XX00 NORB 0000 1234 5678 90 for expense controls\nNote: legacy templates display generic fields such as \"Name:\", \"Address:\", and \"Phone:\" and may contain placeholders that are not completed\nSpecial category data limited to HR/Legal; medical accommodations and trade union membership processed only on a documented Art 9 basis and subject to strict access\nCross-border transfers: insider list pseudonyms and audit logs sent to Aurelia Cloud Services Ltd. (Aurelia) under 2021 SCCs; TIA ref NR-TIA-2026-14; UK subprocessor under adequacy; encryption at rest and in transit\nRetention: insider lists 5 years post-disclosure; MAR-relevant communications 7 years; CSRD/SFDR working papers 10 years; deletion recorded in NR-ROPA-REG-8841\nAccess rights: DSAR portal https://rights.orphadine-se.eu; identity verification may request last 4 of staff number and a masked copy of Norlandia ID; do not send DSARs to helpdesk@company.com\nTemplate identifiers: EU0000000000 (security code placeholder) and NR000000000B00 (VAT example) may appear in drafts and are not operative identifiers\nInside information handling: draft CSRD target revisions and unannounced green instrument timetable are MNPI until public release on the regulated market and notification to the NCA\nLawful bases: Art 6(1)(c) for regulatory obligations, Art 6(1)(f) for fraud controls; LIA record NR-LIA-2026-03 available on request via compliance@orphadine-se.eu\nSecurity controls: role-based access, quarterly recertification; audit ref NR-AUD-IT-5927; change ticket CT-NR-00941 for DLP enablement in email gateway\nRecord of processing contacts: Mr. D. Hevel (Interim CCO) compliance@orphadine-se.eu; fallback role-only contact \"Insider List Coordinator\"",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0800 000 000",
+      "reason": "public helpline number (not personal data)"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Address",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Phone",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "EU0000000000",
+      "reason": "explicit placeholder noted as not an operative identifier"
+    },
+    {
+      "matched_text": "NR000000000B00",
+      "reason": "explicit placeholder noted as not an operative identifier"
+    },
+    {
+      "matched_text": "Insider List Coordinator",
+      "reason": "role-only contact/defined term, not a natural person"
+    },
+    {
+      "matched_text": "+350 600 000 000",
+      "reason": "corporate switchboard number (not personal data)"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "company register number",
+      "matched_text": "NRTR-2026-045128",
+      "reason": "jurisdiction-local company registry IDs are not enumerated in allowed rules"
+    },
+    {
+      "concept": "VAT number",
+      "matched_text": "NR-BTX-204-7719",
+      "reason": "EU VAT/tax identifiers are not in the allowed rules list"
+    },
+    {
+      "concept": "Transfer Impact Assessment reference",
+      "matched_text": "NR-TIA-2026-14",
+      "reason": "privacy compliance identifier relevant to cross-border transfer but not in allowed rules"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+Incident Report (Hong Kong) — Harbour Meridian Holdings Ltd. (a listed issuer on the Exchange)
+On 31 May 2026 at 02:17 HKT, the Security Operations Centre detected abnormal access to the SharePoint library “M&A-Restricted” via NimbusID session sess-7b91cd.
+The sign-in was tied to Ms. Clara Yuen, CFO (DOB 1986-11-03; age 39), Quarry Bay office, device HM-CFO-MBP-12 (laptop OS 14.4), source IP 203.0.113.24, and VPN profile “HM-FIN-01”.
+Ms. Yuen’s corporate mailbox cyuen@harbourmeridian.example.hk showed forwarding rules created by an external OAuth app “DocsBridge-Ext” at 02:19 HKT.
+Files accessed included the term sheet for Project Lantern (proposed acquisition of Blue Crane Logistics Ltd.) and a draft allocation memo for Harbour Meridian Growth Fund SPC – Class A.
+These materials constitute inside information under the SFO (Part XIVA) as they contain specific, non-public financials and price-sensitive synergy assumptions for the listed issuer.
+No payroll files, HKID copies, bank account numbers, or home addresses were accessed; business contact lists and two adviser email domains at Lighthouse Advisory (Asia) Ltd. and Pacific Ridge Partners were viewed.
+Employment/workflow artifacts exposed included the pre-clearance queue for staff dealing (Designated Persons), and a pending employment contract template without signatures.
+Generic training slides in the same folder referenced age bands 28–45, district names (e.g., North Point, Tsuen Wan), and device types (iPhone 13, Android tablet) without any linked names or accounts.
+Containment at 03:01 HKT: forced NimbusID logout, password and MFA reset for Ms. Yuen, device HM-CFO-MBP-12 quarantined, and conditional access rules tightened for Finance share libraries.
+As a precaution under Listing Rule 13.09 and the Guidelines on Disclosure of Inside Information, the Company Secretary prepared a draft announcement and consulted the Exchange on whether immediate disclosure is required before market open.
+The Board was informed; trading has not been suspended, and all directors were reminded of the closed-period dealing restrictions and the Designated Person list.
+PDPO (Cap. 486) assessment: the dataset comprised business contact data and role information relating to identifiable individuals; data subjects will be notified as a matter of good practice and the privacy commissioner will be briefed.
+Root cause analysis indicates credential stuffing against a reused password; the same actor probed but did not authenticate to a Sheung Wan meeting room account “MeetHub-Guest-4821” and a workstation label HM-HR-Mini-2 (age 33 noted in a roster line, no name).
+Further actions: rotate service principals tied to “DocsBridge-Ext,” enable session anomaly detection for Finance, and enforce re-attestation of access to “M&A-Restricted.”
+For queries, contact incident@harbourmeridian.example.hk; this notice is for regulatory coordination only and does not include confidential trading instructions.

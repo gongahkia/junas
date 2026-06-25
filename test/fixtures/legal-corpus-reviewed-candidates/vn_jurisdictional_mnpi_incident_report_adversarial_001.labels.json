@@ -1,0 +1,301 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_jurisdictional_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "\u00d4ng Nguy\u1ec5n V\u0103n Quang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "quang.nguyen@tienthanhpack.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84-2 8-39",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "B\u00e0 L\u00ea Th\u1ecb Ph\u01b0\u01a1ng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "phuong.le@tienthanhpack.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-0 0 7 A",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@tienthanhpack.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7\u20139%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "th\u00f4ng tin n\u1ed9i b\u1ed9",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "th\u1eddi gian c\u1ea5m giao d\u1ecbch (blackout window)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject B\u00ecnh Minh\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially affecting Q3 gross margin guidance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any investor calls before c\u00f4ng b\u1ed1 th\u00f4ng tin would be ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ACCT: 12**-34**-**89",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident Report \u2014 02 Jun 2026, 23:40 ICT",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "malware activity detected on SCADA/ERP bridge",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal estimate indicates 7\u20139% throughput reduction for June, potentially affecting Q3 gross margin guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "from 28 May 2026 until Q2 report c\u00f4ng b\u1ed1 at SGCTD on 07 Jun 2026 09:00 ICT",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not share draft figures externally",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project minhchau",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remains internal",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ch\u01b0a n\u1ed9p l\u00ean U B C P Q",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal estimate indicates 7\u20139% throughput reduction for June, potentially affecting Q3 gross margin guidance; this is th\u00f4ng tin n\u1ed9i b\u1ed9 and not yet c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Extraordinary disclosure (b\u00e1o c\u00e1o s\u1ef1 ki\u1ec7n b\u1ea5t th\u01b0\u1eddng) will be filed within 24 hours according to UBCPQ guidance; do not share draft figures externally",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "quang.nguyen@tienthanhpack.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "phuong.le@tienthanhpack.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@tienthanhpack.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84-2 8-39",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal estimate indicates 7\u20139% throughput reduction for June, potentially affecting Q3 gross margin guidance; this is th\u00f4ng tin n\u1ed9i b\u1ed9 and not yet c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Extraordinary disclosure (b\u00e1o c\u00e1o s\u1ef1 ki\u1ec7n b\u1ea5t th\u01b0\u1eddng) will be filed within 24 hours according to UBCPQ guidance; do not share draft figures externally",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer: C\u00f4ng ty C\u1ed5 ph\u1ea7n Ti\u00ean Th\u1ea1nh Packaging JSC \u2014 SGCTD code: TTPV; internal doc code OPS- 2 9 6 -BD\nOperational/Cyber Incident Report \u2014 02 Jun 2026, 23:40 ICT; plant: B\u00ecnh D\u01b0\u01a1ng Logistics Hub\nResponsible: \u00d4ng Nguy\u1ec5n V\u0103n Quang, Head of IT Security; quang.nguyen@tienthanhpack.vn; tel +84-2 8-39**-0**1\nSummary: malware activity detected on SCADA/ERP bridge; 37 minutes downtime; limited file encryption; no payroll files accessed; Gi\u00f3Nam CRM unaffected\nAffected systems: M\u1ed9cPh\u00e2n MRP v4, order routing microservice, vendor portal; incident id INC-2 4 \\n BD\nPreliminary internal estimate indicates 7\u20139% throughput reduction for June, potentially affecting Q3 gross margin guidance; this is th\u00f4ng tin n\u1ed9i b\u1ed9 and not yet c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang\nInsiders are under th\u1eddi gian c\u1ea5m giao d\u1ecbch (blackout window) from 28 May 2026 until Q2 report c\u00f4ng b\u1ed1 at SGCTD on 07 Jun 2026 09:00 ICT; ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc is prohibited\nExtraordinary disclosure (b\u00e1o c\u00e1o s\u1ef1 ki\u1ec7n b\u1ea5t th\u01b0\u1eddng) will be filed within 24 hours according to UBCPQ guidance; do not share draft figures externally",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Section label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Insiders",
+      "reason": "Generic role noun, not an individual or PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "material_adverse_change (negated)",
+      "matched_text": "material adverse change",
+      "reason": "Phrase appears in a negated context; rule excludes negated MAC/MAE but it is legally relevant language."
+    },
+    {
+      "concept": "transaction_reference",
+      "matched_text": "inv\\noice-1387",
+      "reason": "Invoice/transaction ID-like string; not covered by allowed rules but could be sensitive operational data."
+    },
+    {
+      "concept": "transaction_reference",
+      "matched_text": "inv\\noice-1388",
+      "reason": "Invoice/transaction ID-like string; not covered by allowed rules but could be sensitive operational data."
+    },
+    {
+      "concept": "internal_incident_id",
+      "matched_text": "INC-2 4 \\n BD",
+      "reason": "Internal incident identifier; not mapped to an allowed PII/MNPI rule but may be sensitive operational metadata."
+    },
+    {
+      "concept": "scheduled_public_disclosure_time",
+      "matched_text": "07 Jun 2026 09:00 ICT",
+      "reason": "Specific disclosure timing is market-relevant in VN context but not captured by the defined embargo markers."
+    },
+    {
+      "concept": "extraordinary_disclosure_marker",
+      "matched_text": "b\u00e1o c\u00e1o s\u1ef1 ki\u1ec7n b\u1ea5t th\u01b0\u1eddng",
+      "reason": "VN regulatory disclosure trigger is legally relevant but not directly covered by an allowed MNPI rule."
+    }
+  ]
+}

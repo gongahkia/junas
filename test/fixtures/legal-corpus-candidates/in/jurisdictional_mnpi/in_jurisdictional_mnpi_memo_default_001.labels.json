@@ -1,0 +1,367 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 180 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 142 per equity share'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 50,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 180 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 142 per equity share'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 50,000'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devansh Talekar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Bhandarkar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A Board meeting is scheduled on 22-06-2026 to consider audited standalone and consolidated financial results for Q4 and FY26 and a final dividend; the trading window for designated persons is closed from 01-06-2026 until 48 hours after the outcome is disseminated to the stock exchanges in accordance with the PIT Regulations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI currently includes the draft results pack, negotiation of a term sheet with Samudra Growth Fund I (Category II AIF) for a preferential issue up to INR 180 crore at an indicative price of INR 142 per equity share, and the proposed acquisition of Pavanika Wind Farms Private Limited; no selective disclosure is permitted and any Board-approved item will be disclosed within 30 minutes under Regulation 30(6) read with Schedule III of the LODR Regulations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any personal data breach involving data principals shall be escalated to the DPO within 6 hours; notification obligations under the DPDPA to the Data Protection Board and affected individuals will be evaluated case-by-case.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed from 01-06-2026 until 48 hours after the outcome is disseminated",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout restrictions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "during the blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure is permitted",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structured Digital Database",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AXXXX1234Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devansh Talekar, CFO",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Bhandarkar, Company Secretary & Compliance Officer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@yatrion-energrid.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometrics",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retain only as long as necessary",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mask PAN",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect it in masked form",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect Aadhaar or biometrics for scholarships",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "process GSTINs only for statutory invoicing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "shall not be repurposed for profiling or marketing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "name, organisation, purpose, and time of sharing",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Pavanika Wind Farms Private Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "final dividend",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "audited standalone and consolidated financial results",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preferential issue",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no confirmation or denial should be provided",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SDD",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft results pack",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst/investor interactions during the blackout must be limited to publicly available information",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devansh Talekar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Bhandarkar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A Board meeting is scheduled on 22-06-2026 to consider audited standalone and consolidated financial results for Q4 and FY26 and a final dividend; the trading window for designated persons is closed from 01-06-2026 until 48 hours after the outcome is disseminated to the stock exchanges in accordance with the PIT Regulations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI currently includes the draft results pack, negotiation of a term sheet with Samudra Growth Fund I (Category II AIF) for a preferential issue up to INR 180 crore at an indicative price of INR 142 per equity share, and the proposed acquisition of Pavanika Wind Farms Private Limited; no selective disclosure is permitted and any Board-approved item will be disclosed within 30 minutes under Regulation 30(6) read with Schedule III of the LODR Regulations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any personal data breach involving data principals shall be escalated to the DPO within 6 hours; notification obligations under the DPDPA to the Data Protection Board and affected individuals will be evaluated case-by-case.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Internal compliance note: UPSI controls and personal data handling for Yatrion Energrid Limited (internal issuer code YEL), listed on recognised stock exchanges in India.\nA Board meeting is scheduled on 22-06-2026 to consider audited standalone and consolidated financial results for Q4 and FY26 and a final dividend; the trading window for designated persons is closed from 01-06-2026 until 48 hours after the outcome is disseminated to the stock exchanges in accordance with the PIT Regulations.\nUPSI currently includes the draft results pack, negotiation of a term sheet with Samudra Growth Fund I (Category II AIF) for a preferential issue up to INR 180 crore at an indicative price of INR 142 per equity share, and the proposed acquisition of Pavanika Wind Farms Private Limited; no selective disclosure is permitted and any Board-approved item will be disclosed within 30 minutes under Regulation 30(6) read with Schedule III of the LODR Regulations",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A Board meeting is scheduled on 22-06-2026 to consider audited standalone and consolidated financial results for Q4 and FY26 and a final dividend; the trading window for designated persons is closed from 01-06-2026 until 48 hours after the outcome is disseminated to the stock exchanges in accordance with the PIT Regulations.\nUPSI currently includes the draft results pack, negotiation of a term sheet with Samudra Growth Fund I (Category II AIF) for a preferential issue up to INR 180 crore at an indicative price of INR 142 per equity share, and the proposed acquisition of Pavanika Wind Farms Private Limited; no selective disclosure is permitted and any Board-approved item will be disclosed within 30 minutes under Regulation 30(6) read with Schedule III of the LODR Regulations.\nMateriality must be assessed relative to YEL\u2019s consolidated turnover/EBITDA as per the Materiality Policy; routine plant-level changes without issuer-level impact are ordinarily non-material.\nAll recipients of UPSI must be entered in the Structured Digital Database with name, organisation, purpose, and time of sharing; mask PAN (e.g., AXXXX1234Z), never circulate Aadhaar, and process GSTINs only for statutory invoicing.\nThe Q3 FY26 investor deck filed on 09-02-2026 and hosted on our website is public information and not UPSI; references to broad press coverage of renewable tariff guidelines in the Business Herald are also public and permissible.\nThe commissioning of the Phase-II 50 MW solar unit announced on 10-05-2026 under Regulation 30 is already public; do not treat those disclosed ramp-up metrics as UPSI unless there is a new material deviation.\nRumours about turbine blade supply constraints at vendor Trident AeroComposites Private Limited on industry blogs are unverified; no confirmation or denial should be provided, and any crystallised material impact will be first intimated to the stock exchanges.\nCSR scholarship applications may include children (under 18); under the DPDPA, obtain verifiable parental consent through the company\u2019s consent manager before processing and do not collect Aadhaar or biometrics for scholarships.\nWhere PAN is required for scholarship payouts above INR 50,000, collect it in masked form via the consent manager and retain only as long as necessary; vendor GSTINs captured on e-invoices shall not be repurposed for profiling or marketing.\nEmployee and KMP details (e.g., Mr. Devansh Talekar, CFO) and immediate relatives are designated persons; ensure pre-clearance, avoid contra trades, and adhere to blackout restrictions, with the current list maintained in the SDD.\nAnalyst/investor interactions during the blackout must be limited to publicly available information; the post-result call will have a simultaneous webcast and the presentation will be uploaded prior to the call to avoid selective disclosure.\nAny personal data breach involving data principals shall be escalated to the DPO within 6 hours; notification obligations under the DPDPA to the Data Protection Board and affected individuals will be evaluated case-by-case.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Devansh Talekar, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Aadhaar",
+      "reason": "Generic ID label mention without a number; not a specific Aadhaar value"
+    },
+    {
+      "matched_text": "PAN",
+      "reason": "Generic ID label mention without a PAN number"
+    },
+    {
+      "matched_text": "GSTINs",
+      "reason": "Generic ID label mention without a GSTIN value"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "consent requirement",
+      "matched_text": "obtain verifiable parental consent through the company\u2019s consent manager before processing",
+      "reason": "Consent collection requirement is relevant under DPDPA but only a withdrawal marker is defined in allowed rules"
+    },
+    {
+      "concept": "data breach escalation",
+      "matched_text": "Any personal data breach",
+      "reason": "Privacy incident escalation/notification is legally significant but no explicit breach marker rule provided"
+    },
+    {
+      "concept": "disclosure timing",
+      "matched_text": "within 30 minutes",
+      "reason": "Jurisdiction-specific issuer disclosure timing under LODR is important but not mapped to a listed MNPI rule"
+    },
+    {
+      "concept": "insider classification",
+      "matched_text": "designated persons",
+      "reason": "PIT-defined insider category relevant for controls but not an explicit allowed rule token"
+    },
+    {
+      "concept": "insider trading control",
+      "matched_text": "contra trades",
+      "reason": "Compliance control term is relevant to PIT but not covered by available rule categories"
+    }
+  ]
+}

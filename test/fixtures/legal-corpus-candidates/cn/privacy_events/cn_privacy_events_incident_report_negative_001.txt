@@ -1,0 +1,14 @@
+Operational incident report (CN): On 2026-05-30, Huilan Dynamics Co., Ltd. experienced a 27-minute network configuration rollback affecting the HR self-service portal; there was no system compromise and no PII exfiltration.
+Huilan Dynamics Co., Ltd. is an A-share issuer supervised by the CSRC and subject to SSE listing rules; this event was operational and did not touch disclosure systems.
+Under PIPL scoping, only employee portal login metadata (IP, timestamp, device type) was briefly unavailable; no Resident ID numbers, bank details, or minors’ (<14) data were accessed or altered.
+One DSAR requesting erasure of an offboarding mailbox alias was completed per SOP-DSAR-04 on 2026-05-28, and is unrelated to the incident (closure confirmed in the DSAR register).
+A previously approved cross-border HR payroll export to a Singapore processor remained on schedule and was processed under the CAC Standard Contract (2024 Model) with internal Data Export Approval No. HX-CAC-TEST-2026-01 and a completed security impact self-assessment; the outage did not affect transfer controls.
+No new consent withdrawals were received during the incident window; the last consent withdrawal for optional biometric timekeeping was recorded and closed in Q1 and remains enforced.
+Retention: operational logs are capped at 30 days and auto-purged; the outage did not pause or alter deletion jobs, and data minimisation controls continue to mask CN Resident ID fields.
+DPA Schedule 2 (Processors) lists Jiayang Cloud Services (Shenzhen) Ltd., USCC: 9X0X0X0X0X0X0X0X0X, with no change in sub-processing or location; no access to production PII occurred during remediation.
+Employment onboarding Form HR-01 requires only name and contact role data; the CN Resident ID field is optional and stored as salted hashes (example placeholder CNID “CNID-0000-TEST”), and copies of IDs are not collected.
+No sensitive PI concerning minors was collected in the affected system, and special protection measures for under-14 data were not triggered.
+MNPI controls: insider lists and draft disclosures remained offline and segregated; all references to capacity upgrades in internal tickets quoted content already disclosed via CSRC channels, so no inside information was handled.
+Regulatory posture: CAC breach notification thresholds were not met; no filings to the CAC, CSRC, or SSE are required for this resolved operational event.
+Cybersecurity classification: internal rating Category III (minor); root cause and corrective actions are documented in SOC Ticket OPS-NET-2026-051.
+For queries, contact privacy@huilan.example.cn or compliance@huilan.example.cn; this closes the incident with no further action items.

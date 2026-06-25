@@ -1,0 +1,195 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_universal_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "TIN 000-000-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dataprivacy@lagunashoreline.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redaction of identifier fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal circulation prohibited until EDGE posting is completed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct no. 0000-XXXX-0000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we avoid storing MNPI in HR or tax systems",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redaction of identifier fields in training sets",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border processing by Isla Verde KPO Pte. Ltd. (fictional)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dataprivacy@lagunashoreline.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Laguna Shoreline Energy Corporation \u2014 privacy notice and retention workflow for PH operations under RA 10173 and SRC rules\nWe process personal information where identity is apparent or may be reasonably and directly ascertained with other data, consistent with the Data Privacy Act of 2012 and NPC guidance\nData categories include HR and payroll records, vendor onboarding files, shareholder registry extracts, and KYC artifacts for banking partners; form placeholders may show TIN 000-000-000, SSS 99-9999999, or acct no. 0000-XXXX-0000 (invalid examples)\nPurposes: employment administration, tax reporting to BIR, statutory SEC/PSE disclosures, banking settlement with Tamaraw Bank, Inc. (fictional), and registrar services via Isla Verde Securities Transfer Services, Inc. (fictional)\nPublic-source reference: our 01 March 2025 sustainability roadmap update was posted on the PSE EDGE portal and remains available to investors (stale, public)\nData subject rights: you may request access, correction, or deletion where permitted by law; contact dataprivacy@lagunashoreline.example.ph or submit via the privacy page on our website\nRetention: HR files are retained for 5 years after separation; finance ledgers for 10 years per BIR archiving guidance; capital-markets working papers for 3 years after public filing, unless litigation hold applies\nDisclosures and transfers: intra-group transfers to Carabao Capital Markets Corp. (fictional) in Makati for investor-relations processing, and limited cross-border processing by Isla Verde KPO Pte. Ltd. (fictional) under data sharing agreements and standard contractual safeguards\nSecurity: role-based access, encryption at rest, redaction of identifier fields in training sets; we avoid storing MNPI in HR or tax systems\nTraining note: sample \u201cterm sheet\u201d and \u201cdeal codename\u201d references in templates are examples only and do not describe live transactions or non-public plans",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day voucher raffle",
+      "reason": "False-positive bait; 'spa-day' is not 'SPA' (Share Purchase Agreement)."
+    },
+    {
+      "matched_text": "no material adverse change has occurred",
+      "reason": "Negated MAC language; do not label as material_adverse_change."
+    },
+    {
+      "matched_text": "project management",
+      "reason": "Lowercase project-management prose, not a transaction codename."
+    },
+    {
+      "matched_text": "deal codename",
+      "reason": "Generic phrase; not in the 'Project <CapitalizedName>' pattern for transaction codenames."
+    },
+    {
+      "matched_text": "PSE EDGE portal",
+      "reason": "Public-source disclosure reference; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "PH SSS number",
+      "matched_text": "SSS 99-9999999",
+      "reason": "Philippine SSS number is sensitive PII but not covered by the current allowed PII rules list."
+    },
+    {
+      "concept": "DSAR/erasure rights marker",
+      "matched_text": "you may request access, correction, or deletion",
+      "reason": "Data subject rights are privacy-event markers but not mapped to a specific allowed rule here."
+    },
+    {
+      "concept": "embargo timing detail",
+      "matched_text": "30 September 2026, 09:00 PHT",
+      "reason": "Datetime associated with embargo may be material but the rule focuses on marker phrases rather than the timestamp itself."
+    }
+  ]
+}

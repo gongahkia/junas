@@ -1,0 +1,263 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_direct_identifiers_memo_negative_001",
+    "label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_negative_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_direct_identifiers_memo_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "T8394021",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grievance@vriddhichem.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@vriddhichem.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information (UPSI)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No: T8394021",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@vriddhichem.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI classification",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not request Aadhaar",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid capturing PAN",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "replace any bank account field \u201cAccount No: __________\u201d and residential address fields \u201cAddress Line 1/2: __________\u201d with masked values unless a legal requirement exists",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid naming individuals in circulation copies",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not circulate mobile numbers except public helplines",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect school IDs or Aadhaar for age verification",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For child interactions (under 18)",
+      "rule": "minor_data_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "T8394021",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Note \u2014 Vriddhi Chemtech Limited (Legal & Secretarial) to Board and Functional Leads\nThis memo summarizes DPDPA compliance for identifiers and our insider trading controls under the Indian securities regulator\u2019s PIT Regulations, 2015.\nFor routine vendor onboarding, do not request Aadhaar; if a form has \u201cAadhaar No: ______\u201d, treat as optional and redact; example placeholder \u201c0000 0000 0000\u201d must never be stored as real data.\nLikewise avoid capturing PAN in general files; label-only fields \u201cPAN: ______\u201d and \u201cGSTIN: ______\u201d on templates are permitted; sample GSTIN \u201c29AAAAA0000A1Z0\u201d is invalid and for illustration.\nOur corporate CIN on letterheads may appear as \u201cU00000MH2024PLC000000 (sample)\u201d; this is non-personal and may be used in public-facing documents.\nFor child interactions (under 18) in campus outreach, obtain guardian consent; do not collect school IDs or Aadhaar for age verification; use parental declaration instead.\nAny investor update must exclude unpublished price sensitive information (UPSI); only facts already posted to a national stock exchange through our 14 May 2025 notice may be shared by Investor Relations.\nFor board packs, replace any bank account field \u201cAccount No: __________\u201d and residential address fields \u201cAddress Line 1/2: __________\u201d with masked values unless a legal requirement exists.\nIntentional exception: for a single contractor travel booking, a passport identifier will be retained per law\u2014Passport No: T8394021\u2014stored in the restricted HR vault with 90-day deletion.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0000 0000 0000",
+      "reason": "placeholder example; not a real Aadhaar number"
+    },
+    {
+      "matched_text": "29AAAAA0000A1Z0",
+      "reason": "sample GSTIN explicitly marked invalid"
+    },
+    {
+      "matched_text": "PAN: ______",
+      "reason": "generic form label with no personal data"
+    },
+    {
+      "matched_text": "GSTIN: ______",
+      "reason": "generic form label with no personal data"
+    },
+    {
+      "matched_text": "Aadhaar No: ______",
+      "reason": "generic form label with no personal data"
+    },
+    {
+      "matched_text": "Account No: __________",
+      "reason": "generic form label with no personal data"
+    },
+    {
+      "matched_text": "Address Line 1/2: __________",
+      "reason": "generic form label with no personal data"
+    },
+    {
+      "matched_text": "1800-266-0000",
+      "reason": "public helpline, not an individual's phone number"
+    },
+    {
+      "matched_text": "ABCDE1234F",
+      "reason": "training example flagged invalid to reduce false positives"
+    },
+    {
+      "matched_text": "X0000000",
+      "reason": "training example flagged invalid to reduce false positives"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "role noun, not a named individual"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role noun, not a named individual"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "minor consent requirement",
+      "matched_text": "obtain guardian consent",
+      "reason": "Consent requirement is relevant under DPDPA but only withdrawal markers are defined in allowed rules"
+    },
+    {
+      "concept": "retention/deletion control",
+      "matched_text": "stored in the restricted HR vault with 90-day deletion",
+      "reason": "Indicates retention and deletion timeline, but no explicit retention marker rule is provided"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "doc_id": "detector_slice_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "EU",
+  "destination_jurisdiction": "SG",
+  "must_detect": [],
+  "must_not_detect": [
+    {
+      "rule": "crypto_wallet_address",
+      "matched_text": "0x52908400098527886E0F7030069857D2E4169EE7",
+      "reason": "example wallet in documentation, not a client wallet or VASP transfer"
+    },
+    {
+      "rule": "sg_insurance_policy_number",
+      "matched_text": "policy number",
+      "reason": "marketing prose, not an issued insurance policy/certificate/claim reference"
+    },
+    {
+      "rule": "sg_tribunal_reference",
+      "matched_text": "tribunal reference",
+      "reason": "generic tribunal prose, not a Singapore tribunal/regulator matter number"
+    },
+    {
+      "rule": "cookie_id",
+      "matched_text": "cookie ID",
+      "reason": "cookie preference text without an identifier value"
+    },
+    {
+      "rule": "advertising_id",
+      "matched_text": "123e4567-e89b-12d3-a456-426614174000",
+      "reason": "UUID-shaped invoice sample, not an advertising identifier"
+    },
+    {
+      "rule": "device_serial_number",
+      "matched_text": "ABC12345",
+      "reason": "format placeholder, not an actual device serial"
+    },
+    {
+      "rule": "eu_national_id",
+      "matched_text": "DE-AB1234567",
+      "reason": "invoice reference shaped like an EU identifier"
+    },
+    {
+      "rule": "eu_national_id",
+      "matched_text": "FR 12 345 678",
+      "reason": "invoice reference shaped like an EU identifier"
+    },
+    {
+      "rule": "eu_national_id",
+      "matched_text": "IT-ABCDEF12",
+      "reason": "invoice reference shaped like an EU identifier"
+    }
+  ],
+  "_label_source": "hand"
+}

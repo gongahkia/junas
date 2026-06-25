@@ -1,0 +1,160 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 8,
+    "new_must_detect_count": 2,
+    "old_ideal_must_detect_count": 6,
+    "old_must_detect_count": 4,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [
+      {
+        "category": "",
+        "matched_text": "DSARs",
+        "reason": "Negated/completed control context; not a live privacy event per instructions.",
+        "rule": ""
+      }
+    ],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For MNPI controls: no material nonpublic information regarding forecasts, client pipelines, or financing plans was created or disclosed, and Reg FD procedures were followed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@riveroak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@riveroak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border data-export approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation rules (Policy MIN-4)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For MNPI controls: no material nonpublic information regarding forecasts, client pipelines, or financing plans was created or disclosed, and Reg FD procedures were followed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For MNPI controls: no material nonpublic information regarding forecasts, client pipelines, or financing plans was created or disclosed, and Reg FD procedures were followed.\nInvestor Relations used the public FAQ and ir@riveroak.example; no selective disclosure to analysts or other covered market actors occurred.\nThe incident log includes placeholder fields (e.g., CUSIP 000-XXX-000 and Account 1234-0000-VOID) used for testing; these are invalid identifiers and are not linked to real securities or consumers.\nPrivacy assessment under CCPA/HIPAA/GLBA concluded no PHI or customer NPI left controlled environments, and minimisation rules (Policy MIN-4) were applied.\nRetention timers per Schedule R-7 were verified and no early deletion or unexpected hold occurred; one planned purge remains scheduled for 2027-01-31.\nNo open DSARs or consent-withdrawal requests were impacted, and prior erasure requests (ticket ER-019) were completed months before this event.\nVendor \u201cBlueKestrel Cloud LLC\u201d onboarding forms (INTAKE-V-221) and the Business Associate Addendum were previously approved; no new processing purposes were added.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "000-00-0000",
+      "reason": "Explicitly stated invalid SSN placeholder; negated and not a live privacy risk."
+    },
+    {
+      "matched_text": "MRN-TEST-000",
+      "reason": "Explicitly stated invalid medical record number placeholder; not real data."
+    },
+    {
+      "matched_text": "CUSIP 000-XXX-000",
+      "reason": "Placeholder test identifier; not linked to real securities or consumers."
+    },
+    {
+      "matched_text": "Account 1234-0000-VOID",
+      "reason": "Explicit placeholder account number; invalid and not linkable."
+    },
+    {
+      "matched_text": "consent-withdrawal requests",
+      "reason": "Negated context; not a live privacy event per instructions."
+    },
+    {
+      "matched_text": "consent withdrawals",
+      "reason": "Future-intent context; not a live privacy event per instructions."
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role-noun/defined-term style; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention timers",
+      "reason": "Retention handling is legally relevant, but no explicit retention marker rule is provided in the allowed list."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "planned purge",
+      "reason": "Refers to scheduled data deletion; retention/erasure markers are not in the allowed rules."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "erasure requests",
+      "reason": "Erasure handling is relevant to privacy events, but there is no explicit erasure marker rule in the allowed list."
+    }
+  ]
+}

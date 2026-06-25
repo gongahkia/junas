@@ -1,0 +1,53 @@
+{
+  "doc_id": "employment_letter_09",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Wong Li Ming"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Tan Wei Ming"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 8,500"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "hr@quantumdynamics.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S7654321B"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6789 0123"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "siti.abdullah@quantumdynamics.sg"
+    }
+  ],
+  "must_not_detect": [],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

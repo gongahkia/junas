@@ -1,0 +1,374 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealroom@harborridge.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adrian.ko@harborridge.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR-14377",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1996-07-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 29",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.12.44.88",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de:ad:be:ef:12:34",
+      "rule": "mac_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ldesk@hkx-reg.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yvonne Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@harborridge.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3900 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Samuel Ip",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=ak-9314",
+      "rule": "cookie_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute price-sensitive information under the SFO",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known to persons likely to deal",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR-NTB-2291",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VP-Desk-117",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s e s s i o n = 9 3 1 4 - A K - 2 8",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tkn=9f2c-1b7a-8cc5",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko, IT Support Analyst, adrian.ko@harborridge.com.hk, staffID HR-14377, b. 1996-07-03 (age 29), office: 28/F Prosperity Centre, Wan Chai, HK; account alias 'ako29'; s e s s i o n = 9 3 1 4 - A K - 2 8",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1980-05-10",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "trd-8472",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 0 1 2 - 7 7 8 8",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TermSheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an offer for HKX-listed Zephyr Crane Logistics Holdings Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Hong Kong SAR) \u2014 Harbor Ridge Investments Ltd",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prepared for regulator pre-consultation and fund LP briefings",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Hong Kong SAR) \u2014 Harbor Ridge Investments Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The post-merger integration playbook (lowercase project-management prose and product names such as 'StratoSync' and 'NebulaDesk') is non-confidential and outside the scope of MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "adrian.ko@harborridge.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ldesk@hkx-reg.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3900 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1980-05-10",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yvonne Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Samuel Ip",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Hong Kong SAR) \u2014 Harbor Ridge Investments Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The post-merger integration playbook (lowercase project-management prose and product names such as 'StratoSync' and 'NebulaDesk') is non-confidential and outside the scope of MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Hong Kong SAR) \u2014 Harbor Ridge Investments Ltd.\nOn 2026-05-29 07:42 HKT, our SOC detected anomalous IMAP logins to internal shared mailbox 'dealroom@harborridge.com.hk' from a non-standard client.\nThe activity correlated to device HR-NTB-2291 (OrionBook 14-HK) assigned to Mr. Adrian Ko, IT Support Analyst, adrian.ko@harborridge.com.hk, staffID HR-14377, b. 1996-07-03 (age 29), office: 28/F Prosperity Centre, Wan Chai, HK; account alias 'ako29'; s e s s i o n = 9 3 1 4 - A K - 2 8.\nNetwork traces show VPN gw 'GW-Central-3', source 203.12.44.88; reported MAC de:ad:be:ef:12:34, which is not a MAC under the SPA and should not be construed as a material adverse change.\nSeven files were copied, including Z e p h y r _TermSheet_v3.pdf and a draft board deck describing an offer for HKX-listed Zephyr Crane Logistics Holdings Ltd. (internal code ZCLH), prepared for regulator pre-consultation and fund LP briefings.\nSuch content includes proposed consideration bands and timetable and may constitute price-sensitive information under the SFO, not generally known to persons likely to deal.\nAn ESG metrics export was also accessed but contained only site-level kWh aggregates and supplier risk tiers drawn from public sources.\nImmediate actions: disabled Mr. Ko\u2019s credentials, isolated HR-NTB-2291, revoked tokens via https://intra.harborridge.com.hk/reset?tkn=9f2c-1b7a-8cc5, cleared cookie sid=ak-9314; audit ref IR-2026-051.\nGeneric demographics seen in HR folders (e.g., 'analyst 28\u201335', 'Cantonese preferred', 'Central office') are non-identifying and should not be treated as PDPO personal data.\nUnlinked operational fields elsewhere: dob 1980-05-10; user id trd-8472; device VP-Desk-117; floor 21; a c c t : 0 0 1 2 - 7 7 8 8; none of these entries are tied to a named individual in this incident.\nWe notified the HKX Listing Division (ldesk@hkx-reg.test) and initiated an internal assessment under Part XIVA of the SFO; no trading halt is requested at this time.\nPer PDPO, potential personal data includes email addresses and log metadata relating to a living individual whose identity is ascertainable from the above cluster; no passports, HKID numbers, or biometrics were stored.\nMs. Yvonne Tse, Data Protection Officer (dpo@harborridge.com.hk, +852 3900 1234), is the contact for data subjects; Mr. Samuel Ip, Head of Compliance, will brief the board risk committee.\nThe post-merger integration playbook (lowercase project-management prose and product names such as 'StratoSync' and 'NebulaDesk') is non-confidential and outside the scope of MNPI.\nWe confirm no MAC clause under the draft SPA has been triggered by this event and no employee termination decision has been made; employment workflow impact assessment is ongoing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "analyst 28\u201335",
+      "reason": "Generic demographic; explicitly stated as non-identifying."
+    },
+    {
+      "matched_text": "Cantonese preferred",
+      "reason": "Generic demographic; explicitly stated as non-identifying."
+    },
+    {
+      "matched_text": "Central office",
+      "reason": "Generic location preference; non-identifying."
+    },
+    {
+      "matched_text": "passports",
+      "reason": "Generic mention without any identifier."
+    },
+    {
+      "matched_text": "HKID numbers",
+      "reason": "Generic mention without any identifier."
+    },
+    {
+      "matched_text": "biometrics",
+      "reason": "Generic mention without any identifier."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "username handle",
+      "matched_text": "account alias 'ako29'",
+      "reason": "Likely personal identifier but no explicit allowed rule for usernames."
+    },
+    {
+      "concept": "office address",
+      "matched_text": "28/F Prosperity Centre, Wan Chai, HK",
+      "reason": "Addresses can be PDPO personal data but no HK address rule is enumerated."
+    },
+    {
+      "concept": "internal issuer code",
+      "matched_text": "ZCLH",
+      "reason": "Potentially nonpublic corporate code relevant to MNPI, but no explicit rule for internal codes."
+    }
+  ]
+}

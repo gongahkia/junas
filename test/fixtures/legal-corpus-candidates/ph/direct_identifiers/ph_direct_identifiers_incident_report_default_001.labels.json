@@ -1,0 +1,361 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during PH Stage B strict-tier reconciliation. Cleaner warnings were invalid-rule, category-normalization, or non-verbatim span drops; deterministic strict labels are now sourced from PreSendReviewEngine and LLM breadth remains in ideal_must_detect.",
+      "resolved_at_utc": "2026-06-03T07:07:36Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "296-123-456-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "345-987-123-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "458-321-765-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P1234567F",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P7654321B",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SSS 34-1234567-9",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SSS 45-7654321-8",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "012345678901",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 917 802 3344",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8123 4001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ramon.ilagan@kawayanrenewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@kawayanrenewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@kawayanrenewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon J. Ilagan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liza R. Bautista",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paulo D. Alonzo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window has been closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No. P1234567F",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No. P7654321B",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary Q2 EBITDA guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-trading controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Business Email Compromise",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "This disclosure excludes granular projections and counterparty names",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liza",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ilagan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paulo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ilagan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a draft, non-public term sheet for a 20 MW rooftop PPA and preliminary Q2 EBITDA guidance were in the same mailbox; the trading window has been closed per insider-trading controls.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ramon.ilagan@kawayanrenewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8123 4001",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P1234567F",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P7654321B",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "296-123-456-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "345-987-123-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "458-321-765-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liza",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ilagan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paulo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ilagan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a draft, non-public term sheet for a 20 MW rooftop PPA and preliminary Q2 EBITDA guidance were in the same mailbox; the trading window has been closed per insider-trading controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contact details exposed included the HR desk line +63 917 802 3344 and Mr. Ilagan\u2019s work email ramon.ilagan@kawayanrenewables.ph; the number 1800-000-0000 is a public helpline for building security.\nSeparately, a draft, non-public term sheet for a 20 MW rooftop PPA and preliminary Q2 EBITDA guidance were in the same mailbox; the trading window has been closed per insider-trading controls.\nNo customer bank card data was stored, and no biometrics were involved",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Two files contained employee PII: Mr. Ramon J. Ilagan (TIN 345-987-123-000; SSS 34-1234567-9; Passport No. P1234567F) and Ms. Liza R. Bautista (TIN 458-321-765-000; SSS 45-7654321-8; Passport No. P7654321B).\nThe compromised archive also listed Treasury settlement details: Talulot Savings Bank Current Account No. 012345678901 and a vendor routing code 000-000-000 (placeholder).\nAn invalid identifier in a template (\u201cSSS No.: __________\u201d, \u201cTIN 000-000-000-000\u201d) and a test record SSS 11-1111111-1 (invalid checksum) were observed, none containing live data.\nContact details exposed included the HR desk line +63 917 802 3344 and Mr. Ilagan\u2019s work email ramon.ilagan@kawayanrenewables.ph; the number 1800-000-0000 is a public helpline for building security.\nSeparately, a draft, non-public term sheet for a 20 MW rooftop PPA and preliminary Q2 EBITDA guidance were in the same mailbox; the trading window has been closed per insider-trading controls.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Makisig St., Barangay Malikhain, San Palito City 0999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SSS No.: __________",
+      "reason": "Template placeholder, not live data"
+    },
+    {
+      "matched_text": "TIN 000-000-000-000",
+      "reason": "Invalid/placeholder identifier"
+    },
+    {
+      "matched_text": "SSS 11-1111111-1",
+      "reason": "Test record with invalid checksum"
+    },
+    {
+      "matched_text": "000-000-000",
+      "reason": "Placeholder routing code, not a real identifier"
+    },
+    {
+      "matched_text": "1800-000-0000",
+      "reason": "Public helpline number"
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only name, not a person"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "company_registration_number",
+      "matched_text": "SEC Reg. No. CS2021-091234",
+      "reason": "Philippine SEC company registration number is identifiable but no specific allowed rule exists for PH company IDs"
+    },
+    {
+      "concept": "company_address",
+      "matched_text": "Unit 1203, Luntian Tower, 88 Makisig St., Barangay Malikhain, San Palito City 0999",
+      "reason": "Branch office address is identifiable location data but not tied to a natural person and no PH postal-address rule is listed"
+    }
+  ]
+}

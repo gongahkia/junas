@@ -1,0 +1,18 @@
+{
+  "doc_id": "jp_spa_01",
+  "document_type": "SPA",
+  "source_jurisdiction": "JP",
+  "destination_jurisdiction": "JP",
+  "must_detect": [
+    {"rule": "definitive_agreement", "matched_text": "SHARE PURCHASE AGREEMENT"},
+    {"rule": "transaction_codename", "matched_text": "Project Sakura"},
+    {"rule": "named_person", "matched_text": "Ms Yuki Tanaka"},
+    {"rule": "jp_my_number", "matched_text": "123456789018"},
+    {"rule": "jp_corporate_number", "matched_text": "8700110005901"},
+    {"rule": "financial_amount", "matched_text": "JPY 120 million"},
+    {"rule": "embargo_marker", "matched_text": "Signing Date"},
+    {"rule": "nonpublic_marker", "matched_text": "internal only"},
+    {"rule": "email_address", "matched_text": "yuki.tanaka@example.co.jp"}
+  ],
+  "must_not_detect": []
+}

@@ -1,0 +1,287 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_privacy_events_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/privacy_events/hk_privacy_events_privacy_notice_default_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_privacy_events_privacy_notice_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@verdantrise.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@verdantrise.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@verdantrise.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Yiu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Koji Ng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: hosting in Singapore is authorised subject to encryption in transit/at rest and Hong Kong model contractual safeguards attached as Annex A; no onward transfers outside APAC are approved under this Schedule",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal: where consent is the lawful basis (e.g., staff wellness benefits), individuals may email privacy@verdantrise.example.hk to withdraw; processing based on legal obligation or contract will continue where applicable",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation: employment forms capture only name, role, work email, payroll alias, and emergency contact name; optional fields and any identity document numbers are suppressed unless a legal basis is documented",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing for M&A diligence",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List Policy",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition scenario involving Amber Harbor Advisory Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "effective 2026-01-10",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "was completed on 2026-01-09",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For the proposed acquisition scenario involving Amber Harbor Advisory Ltd by a VerdantRise subsidiary, only aggregated staffing metrics will be shared with external counsel, and all names will be pseudonymised prior to transfer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security testing: breach notification drills concluded on 2025-12-15; this note does not indicate any incident; queries may be directed to Mr. Koji Ng at compliance@verdantrise.example.hk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Yiu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Koji Ng",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For the proposed acquisition scenario involving Amber Harbor Advisory Ltd by a VerdantRise subsidiary, only aggregated staffing metrics will be shared with external counsel, and all names will be pseudonymised prior to transfer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security testing: breach notification drills concluded on 2025-12-15; this note does not indicate any incident; queries may be directed to Mr. Koji Ng at compliance@verdantrise.example.hk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PA exclude information that would constitute non-public, price-sensitive information as defined under the Securities and Futures Ordinance; wall-crossing for M&A diligence is governed separately under the Insider List Policy.\nData export approval VR-HK-XBT-2026-011 was completed on 2026-01-09 by Ms. Tamsin Yiu, Compliance Director, with two-factor approval; no live export is pending at the time of this memo.\nFor the proposed acquisition scenario involving Amber Harbor Advisory Ltd by a VerdantRise subsidiary, only aggregated staffing metrics will be shared with external counsel, and all names will be pseudonymised prior to transfer.\nSecurity testing: breach notification drills concluded on 2025-12-15; this note does not indicate any incident; queries may be directed to Mr. Koji Ng at compliance@verdantrise.example.hk.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "data user",
+      "reason": "Role noun/descriptor, not PII"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/descriptor, not PII"
+    },
+    {
+      "matched_text": "Compliance Director",
+      "reason": "Role/title, not a PII value"
+    },
+    {
+      "matched_text": "No personal data is currently transferred to the United States",
+      "reason": "Negated transfer statement; not a live cross-border marker"
+    },
+    {
+      "matched_text": "no biometric templates are collected in these workflows",
+      "reason": "Negated special-category data; should not trigger biometric detection"
+    },
+    {
+      "matched_text": "no onward transfers outside APAC are approved under this Schedule",
+      "reason": "Negated onward transfer; not a live cross-border marker"
+    },
+    {
+      "matched_text": "no live export is pending at the time of this memo",
+      "reason": "Negated export status; not a live transfer marker"
+    },
+    {
+      "matched_text": "this note does not indicate any incident",
+      "reason": "Negated incident; not a cyber incident pre-disclosure"
+    },
+    {
+      "matched_text": "breach notification drills concluded on 2025-12-15",
+      "reason": "Drill/completed control; not a live cyber incident"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR: access and correction requests may be submitted using Form VR-DA-18 to dpo@verdantrise.example.hk; acknowledgements within 7 days and substantive responses within 40 days will be provided, consistent with PDPO ss. 18 and 22",
+      "reason": "DSAR is a privacy handling event but not explicitly listed in allowed PII rules"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "Erasure: requests will be granted where data is no longer necessary and no statutory retention applies; processor deletion certificates will be recorded under Change Ticket CQ-HK-ER-2026-014",
+      "reason": "Erasure is a privacy handling event but not explicitly listed in allowed PII rules"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention: HR records are retained 7 years post-termination; fund AML/KYC records are retained 6 years after relationship end or longer if required by Hong Kong law; access logs rotate every 90 days",
+      "reason": "Retention is a privacy handling event but not explicitly listed in allowed PII rules"
+    },
+    {
+      "concept": "embargo timing",
+      "matched_text": "effective 2026-01-10",
+      "reason": "Indicates an effective date but does not use the explicit term \"Effective Date\" from the allowed examples"
+    },
+    {
+      "concept": "embargo timing",
+      "matched_text": "was completed on 2026-01-09",
+      "reason": "Completion date suggests timing control but not one of the explicit embargo labels (Signing/Closing/Effective Date)"
+    }
+  ]
+}

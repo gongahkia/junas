@@ -1,0 +1,291 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_sector_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/sector_mnpi/cn_sector_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_sector_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 19,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 13,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance@shanhai-meridian.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "400-123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "400-123-4567",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 91-FAKE-000000000-TEST",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u201cMinor\u201d flag column",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "flagged for deletion and re-generated with synthetic data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier ruleset updated",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet approved for announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201csupplier carbon credit purchase term sheet\u201d",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Containment: Draft moved to a restricted library; information-barrier ruleset updated; relevant staff added to the insider-list per National Securities Supervision Authority (fictional) guidance; no external download observed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Containment: Draft moved to a restricted library; information-barrier ruleset updated; relevant staff added to the insider-list per National Securities Supervision Authority (fictional) guidance; no external download observed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Report date/time: 2026-06-04 09:15 CST; Location: Shanghai Application Ops; No service outage, no customer impact",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: Minor data handling deviation detected during routine backup at Shanhai Meridian Systems Co., Ltd. (fictional Shanghai Main Board issuer; USCC: 91-FAKE-000000000-TEST).\nReport date/time: 2026-06-04 09:15 CST; Location: Shanghai Application Ops; No service outage, no customer impact.\nTrigger: External vendor account with read-only role temporarily saw object metadata in a staging bucket due to misapplied policy; access window 18 minutes.\nData description: Only filenames and generic templates were present (e.g., resident_id_form_template.pdf, USCC_sample.xlsx, onboarding_checklist.docx); no filled forms or images.\nCrypto/ESG context: Folder also contained a publicly released brochure on our \u201cGreenHash Energy Certificate Pilot,\u201d which matches the version on our website and corporate WeCom channel.\nTraining materials: An internal PPT on \u201cinsider-list upkeep, blackout etiquette, and information-barrier basics\u201d with anonymized examples was stored alongside operational SOPs.\nPIPL assessment: DLP scans and manual review found no actual resident ID numbers, bank card numbers, contact lists, or facial images; placeholder strings looked like 110000-YYYY-FAKE and 9A-TEST-ORGCODE.\nCross-border check: No data egress to non-PRC regions; State Cyberspace Bureau (fictional) cross-border filing thresholds not reached; CSL/DSL logs retained for 6 months.\nPositive span \u2014 potential MNPI: One draft \u201csupplier carbon credit purchase term sheet\u201d for Q3, not yet approved for announcement, was present; as a domestic issuer we treat this as inside information until publication via the issuer disclosure portal.\nContainment: Draft moved to a restricted library; information-barrier ruleset updated; relevant staff added to the insider-list per National Securities Supervision Authority (fictional) guidance; no external download observed.\nEmployment workflow note: Template offer letters and onboarding forms were empty; minors\u2019 consent forms referenced standard PIPL language but contained no individual entries.\nSensitive PI check: A test HR export included a \u201cMinor\u201d flag column without names or IDs; flagged for deletion and re-generated with synthetic data to avoid sensitive PI under PIPL Art. 28.\nNotification decision: Given absence of identified natural person data and no exfiltration, no data subject notice planned; incident logged in the CSL register; no immediate issuer disclosure obligation.\nNext steps: Complete a tabletop drill on information barriers and vendor access; refresh DSL data asset mapping; questions may be sent to compliance@shanhai-meridian.example.cn or the public hotline 40",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "resident_id_form_template.pdf",
+      "reason": "Filename/template reference; no actual PII values"
+    },
+    {
+      "matched_text": "USCC_sample.xlsx",
+      "reason": "Sample filename; not a real identifier"
+    },
+    {
+      "matched_text": "110000-YYYY-FAKE",
+      "reason": "Placeholder pattern; not a valid cn_resident_id"
+    },
+    {
+      "matched_text": "9A-TEST-ORGCODE",
+      "reason": "Placeholder; not a valid cn_uscc"
+    },
+    {
+      "matched_text": "GreenHash Energy Certificate Pilot",
+      "reason": "Publicly released brochure; not MNPI"
+    },
+    {
+      "matched_text": "insider-list upkeep, blackout etiquette, and information-barrier basics",
+      "reason": "Training content; educational context not market-sensitive"
+    },
+    {
+      "matched_text": "No data egress to non-PRC regions",
+      "reason": "Negated cross-border transfer; rule excludes negations"
+    },
+    {
+      "matched_text": "cross-border filing thresholds not reached",
+      "reason": "Negated compliance trigger; not a live cross-border transfer"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "retention period",
+      "matched_text": "CSL/DSL logs retained for 6 months",
+      "reason": "Data retention is privacy-relevant but not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "child consent",
+      "matched_text": "minors\u2019 consent forms",
+      "reason": "Indicates minor-related consent context; not covered by a specific allowed marker"
+    },
+    {
+      "concept": "access control",
+      "matched_text": "restricted library",
+      "reason": "Access segregation relates to information barriers but not explicitly an allowed marker"
+    },
+    {
+      "concept": "disclosure control channel",
+      "matched_text": "issuer disclosure portal",
+      "reason": "Relates to nonpublic disclosure handling but not a defined MNPI rule trigger"
+    },
+    {
+      "concept": "timing window",
+      "matched_text": "Q3",
+      "reason": "Quarter reference may be relevant to MNPI timing but not covered by allowed markers"
+    }
+  ]
+}

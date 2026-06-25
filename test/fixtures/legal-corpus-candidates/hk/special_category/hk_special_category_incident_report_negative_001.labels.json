@@ -1,0 +1,240 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ir@harbourview.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@harbourview.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@harbourview.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3900 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Banyan HR share set to least-privilege",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This report contains no client HKID numbers, no bank account numbers, and no live deal codenames, and is intended for internal compliance and audit only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory consultation: Listing compliance team concluded no immediate disclosure under HKEX Listing Rule 13.09; record entered in PDPO breach register; voluntary notification to PCPD considered but deferred pending root-cause memo.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@harbourview.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@harbourview.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory consultation: Listing compliance team concluded no immediate disclosure under HKEX Listing Rule 13.09; record entered in PDPO breach register; voluntary notification to PCPD considered but deferred pending root-cause memo.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbourview Capital Holdings Limited \u2014 Incident Report (Cyber Operations) \u2014 Hong Kong, HKT 09:10\u201312:45, 12 May 2026\nSummary: A credential-harvesting phishing email led to brief exposure of two role mailboxes (ir@harbourview.capital; hr@harbourview.capital) and a read-only HR file share; no service outage occurred.\nAffected systems: Banyan HR Cloud (read-only share), Orchid Fund Portal (staging environment), LotusPay Treasury sandbox mail relay; PineGuard IDS and Lotus Shield Gateway logged anomalous logins from offshore IPs.\nContent accessed comprised mostly templated policies and public materials, including the Blue Lantern Cyber Hygiene Policy, the Inclusive Growth DEI newsletter, wellness tips, and product FAQs for the JadeBridge app.\nM&A context: An archived diligence workspace for an abandoned 2022 preliminary review was visible; it held generic checklists and a redacted board pack already summarized in past announcements (stock code placeholder 0X88).\nFund context: Orchid Fund Portal staging used dummy investor references (INV-TEST-0001, FUND-000-ALPHA) and synthetic KYC placeholders; no live LP data or subscription agreements were present.\nMNPI assessment (SFO): No non-public specific information about any corporation likely to be price-material was identified; materials overlapped with information previously posted on market channels and were stale or generic.\nPDPO assessment: Exposed mailboxes were role-based; one HR item contained personal data with special-category aspects \u2014 Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury.\nContainment: Password resets, OAuth token revocation, conditional access re-enforcement, and DLP quarantine completed by 13:15 HKT; PineGuard rules updated and Banyan HR share set to least-privilege.\nRegulatory consultation: Listing compliance team concluded no immediate disclosure under HKEX Listing Rule 13.09; record entered in PDPO breach register; voluntary notification to PCPD considered but deferred pending root-cause memo.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Banyan HR Cloud",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Orchid Fund Portal",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "LotusPay Treasury",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "PineGuard IDS",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Lotus Shield Gateway",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Blue Lantern Cyber Hygiene Policy",
+      "reason": "Policy name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Inclusive Growth DEI newsletter",
+      "reason": "Generic DEI content, not PII or MNPI."
+    },
+    {
+      "matched_text": "JadeBridge app",
+      "reason": "Product/app name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Kowloon Mariners",
+      "reason": "Sports/charity team name, not PII or MNPI."
+    },
+    {
+      "matched_text": "CloudSec (HK) Ltd",
+      "reason": "Company name, not PII."
+    },
+    {
+      "matched_text": "Harbourview Service Desk",
+      "reason": "Service/display name, not PII."
+    },
+    {
+      "matched_text": "INV-TEST-0001",
+      "reason": "Dummy reference identifier, not personal data."
+    },
+    {
+      "matched_text": "FUND-000-ALPHA",
+      "reason": "Dummy reference identifier, not personal data."
+    },
+    {
+      "matched_text": "stock code placeholder 0X88",
+      "reason": "Placeholder/ticker text, not PII or MNPI."
+    },
+    {
+      "matched_text": "HKID numbers",
+      "reason": "Generic term; no actual identifier present."
+    },
+    {
+      "matched_text": "bank account numbers",
+      "reason": "Generic term; no actual identifier present."
+    },
+    {
+      "matched_text": "live deal codenames",
+      "reason": "Generic reference; no actual codename provided."
+    },
+    {
+      "matched_text": "Employee A",
+      "reason": "Pseudonymous label, not a named person per rule."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "cross-border access",
+      "matched_text": "offshore IPs",
+      "reason": "Implies potential access from outside Hong Kong that could involve cross-border data handling, but no explicit transfer marker is stated."
+    },
+    {
+      "concept": "privacy incident register",
+      "matched_text": "record entered in PDPO breach register",
+      "reason": "Indicates PDPO compliance logging; relevant to privacy governance but not covered by the allowed privacy-event marker rules."
+    },
+    {
+      "concept": "disclosure deferral/embargo",
+      "matched_text": "voluntary notification to PCPD considered but deferred pending root-cause memo",
+      "reason": "Shows a decision to delay external notification; akin to an embargo but does not match the specified embargo marker tokens."
+    }
+  ]
+}

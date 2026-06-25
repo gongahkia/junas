@@ -1,0 +1,266 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_sector_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/sector_mnpi/th_sector_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_sector_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "PDPA note: No PDPA breach identified; logs show no access to customer names, national IDs, addresses, or payroll; sample IDs (e.g., ID-XXXX-1234) in screenshots are placeholders.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@thainova.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@thainova.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66\u2011000\u20110000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "info\u2011barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft 2026 GHG intensity targets",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced pricing bands",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "crypto wallet",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price\u2011sensitive",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "abnormal API calls",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011material",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "renewable\u2011credit token pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "REC pilot sandbox",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List template",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal distribution",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not to discuss draft metrics externally",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "PDPA note: No PDPA breach identified; logs show no access to customer names, national IDs, addresses, or payroll; sample IDs (e.g., ID-XXXX-1234) in screenshots are placeholders.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Operational/Cyber Incident and Training Bulletin \u2014 Thainova Utilities Public Company Limited (TNVU), listed on the Thaikhet Exchange (TKE).\nDate/time: 03 Jun 2026 09:30 ICT; internal distribution for routine operations and compliance alignment.\nEvent summary: Overnight monitoring flagged abnormal API calls to the ESG data mart during a scheduled tabletop drill, causing a brief read-only mode.\nPublic status: A website notice on 02 Jun already announced the portal maintenance and no customer impact; this reiterates that message.\nTraining scope: Today\u2019s tabletop covers crypto wallet hygiene for the REC pilot sandbox and information\u2011barrier etiquette between Operations and Investor Relations; educational only.\nTerminology note: References to \u201cblackout\u201d, \u201ctipping\u201d, \u201cinsider list\u201d, and \u201ccommercial terms\u201d below are training contexts unless explicitly marked otherwise.\nPositive \u2014 MNPI handling: Preliminary containment notes indicate a third\u2011party admin token briefly accessed a staging folder with draft 2026 GHG intensity targets and unannounced pricing bands for a renewable\u2011credit token pilot; treat as potentially price\u2011sensitive under TKE rules pending verification.\nPDPA note: No PDPA breach identified; logs show no access to customer names, national IDs, addresses, or payroll; sample IDs (e.g., ID-XXXX-1234) in screenshots are placeholders.\nOperations impact: 17 minutes of read\u2011only mode on the ESG dashboard; KPIs and One\u2011Report timing remain unchanged and publicly communicated.\nControls applied: ESG mart temporarily segregated; firewall policy TNVU\u2011NET\u2011SEG\u201126A and data keys rotated; routine control enhancement.\nInsider compliance training: Staff are reminded not to discuss draft metrics externally and to avoid \u201ctipping\u201d rumors; hospitality tipping in the canteen is unrelated to securities law.\nInformation barrier and blackout: The \u201cblackout\u201d in the LMS refers to the intranet upgrade window, not a share\u2011dealing restriction; desk\u2011to\u2011desk chats should follow the internal info\u2011barrier guide.\nInsider list materials: The Insider List template IL\u2011TRAIN\u201126 is provided for LMS practice only and contains no real names or roles.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ID-XXXX-1234",
+      "reason": "Placeholder example; not real PII"
+    },
+    {
+      "matched_text": "commercial terms",
+      "reason": "Training context exemplar; not binding or market-sensitive terms"
+    },
+    {
+      "matched_text": "Thainova Utilities Public Company Limited (TNVU)",
+      "reason": "Organisation name/ticker; not PII"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "internal security control identifier",
+      "matched_text": "TNVU\u2011NET\u2011SEG\u201126A",
+      "reason": "Potentially sensitive internal infrastructure reference but not covered by allowed rules"
+    },
+    {
+      "concept": "insider list training code",
+      "matched_text": "IL\u2011TRAIN\u201126",
+      "reason": "Implies insider list handling context but detection rules cover the phrase not the template code"
+    }
+  ]
+}

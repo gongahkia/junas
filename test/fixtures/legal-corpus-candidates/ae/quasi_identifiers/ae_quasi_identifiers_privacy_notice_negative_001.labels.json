@@ -1,0 +1,324 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop ideal_must_detect: text not verbatim rule='insider_list_marker' text='Insider list entries'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 24,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 19,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_quasi_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@sanddune.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@sanddune.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@sanddune.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-04-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CorpTab-38A1",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers to DIFC/ADGM branches",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "onward transfer to EU processors",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retain only masked values",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact images after 30 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR CVs older than 180 days are purged",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list administration",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IP ranges",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PR-04872",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "25\u201334",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Device telemetry (e.g., login timestamps and IP ranges) is retained for 90 days for security and audit",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insider list entries are archived after the public close of the matter and formal legal hold release",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "backups cycle every 35 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list entries",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Generic forms may display labels such as Full Name, Emirates ID, Trade Licence No., PO Box, and Account Ref; blank templates and sample placeholders are not personal data.\nFor Emirates ID verification we retain only masked values (e.g., EID: 0000-XXXX-0000) and redact images after 30 days; trade licence copies for counterparties are kept for 6 years under corporate recordkeeping.\nInsider list administration uses role accounts only; ticket metadata may include public Abu Dhabi exchange announcement titles and stale internal project codes, not MNPI",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR intake is via privacy.office@sanddune.example or dpo@sanddune.example; we do not accept requests through instant messaging or personal social accounts.\nTransfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@sanddune.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-04-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list administration uses role accounts only; ticket metadata may include public Abu Dhabi exchange announcement titles and stale internal project codes, not MNPI.\nExample of public, already-announced information: Awrad Oasis Investments PJSC confirmed a transfer of listing segment in 2023 per the exchange website; no unpublished terms are stored.\nDSAR intake is via privacy.office@sanddune.example or dpo@sanddune.example; we do not accept requests through instant messaging or personal social accounts.\nTransfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123.\nDevice telemetry (e.g., login timestamps and IP ranges) is retained for 90 days for security and audit; generic geolocation (city-level) is stored without names.\nFields like Nationality, Gender, and Age Band (e.g., 25\u201334) are collected for diversity reporting in aggregate and cannot identify a person alone.\nDeletion workflow: HR CVs older than 180 days are purged; insider list entries are archived after the public close of the matter and formal legal hold release; backups cycle every 35 days.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers to DIFC/ADGM branches rely on adequate measures under their DP regulations; onward transfer to EU processors uses contractual safeguards consistent with UAE PDPL requirements.\nPositive identifier cluster (investigation log only): Case 24-INS-073 \u2014 DOB 1991-04-07; base location Al Maryah Island, Abu Dhabi; employer Jebel Pearl Advisory LLC; role compliance analyst; device ID CorpTab-38A1; internal payroll subaccount PR-04872; Emirates ID ending 1123",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Full Name",
+      "reason": "Generic form label noted as not personal data"
+    },
+    {
+      "matched_text": "Trade Licence No",
+      "reason": "Generic form label without a value"
+    },
+    {
+      "matched_text": "PO Box",
+      "reason": "Generic form label without a specific address"
+    },
+    {
+      "matched_text": "Account Ref",
+      "reason": "Generic form label without a value"
+    },
+    {
+      "matched_text": "Awrad Oasis Investments PJSC",
+      "reason": "Organization name, not a natural person"
+    },
+    {
+      "matched_text": "Sand Dune Components FZ-LLC",
+      "reason": "Organization name, not a natural person"
+    },
+    {
+      "matched_text": "Jebel Pearl Advisory LLC",
+      "reason": "Organization name, not a natural person"
+    },
+    {
+      "matched_text": "Nationality",
+      "reason": "Generic demographic field; not identifying alone"
+    },
+    {
+      "matched_text": "Gender",
+      "reason": "Generic demographic field; not identifying alone"
+    },
+    {
+      "matched_text": "Age Band",
+      "reason": "Generic demographic category; not identifying alone"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "DSAR intake channel",
+      "matched_text": "DSAR intake",
+      "reason": "Privacy rights workflow reference; no explicit DSAR marker rule provided"
+    },
+    {
+      "concept": "Partial Emirates ID",
+      "matched_text": "Emirates ID ending 1123",
+      "reason": "Incomplete identifier; unclear if it should trigger ae_emirates_id rule"
+    },
+    {
+      "concept": "Internal case reference",
+      "matched_text": "Case 24-INS-073",
+      "reason": "Potential identifier but no explicit rule for case IDs"
+    },
+    {
+      "concept": "Job role quasi-identifier",
+      "matched_text": "role compliance analyst",
+      "reason": "Role can aid re-identification when combined but lacks a direct rule"
+    },
+    {
+      "concept": "Special category reference (negated)",
+      "matched_text": "biometrics or genetic data",
+      "reason": "Mentions sensitive categories but explicitly states not collected; relevance vs labeling uncertain"
+    },
+    {
+      "concept": "Masked Emirates ID example",
+      "matched_text": "EID: 0000-XXXX-0000",
+      "reason": "Placeholder/masked value; may resemble an ID but not actual personal data"
+    }
+  ]
+}

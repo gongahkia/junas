@@ -1,0 +1,16 @@
+Kawabe Orion Industries K.K. — Operational Incident Report (JP APPI/FIEA) — 2026-06-02 — Ref: CORP-IR-2026-041
+Summary: Minor processing deviation in HR onboarding workflow; cross-border transfer log gap to Omnispark Analytics Pte. Ltd. (SG) remediated; no MNPI exposure under FIEA.
+Scope: Employee onboarding forms contained masked My Number fields and EmpID KAI-0 3 9 2 - A; no account or shōken codes were included.
+Event timeline: 2026-05-28 DPA Schedule 2 (JP/SG) approved for payroll analytics; 2026-05-30 export ticket https://export.kawabe-orion.example/req?id=4f2b-8c&dsar=1 processed.
+Privacy workflows: (a) consent withdrawal received from Mr. Daisuke Mori (mori.d@kawabe-orion.example); (b) DSAR received via pr ivacy@kawabe-orion.example; both satisfied within statutory period.
+Cross-border transfer: one CSV with 17 employee rows sent to SG; fields minimised per APPI Art. 16; masked My Number (＊＊-＊＊＊＊-＊＊＊＊) and hashed email were used.
+Erasure: per retention schedule RS-JP-HR-04, onboarding scan of resident card for EmpID KAI-0 3 9 2 - A was deleted on 2026-05-31; evidence logged in VaultRef VR-5d:e7.
+Control statement (completed): Local storage of My Number is prohibited by Policy IS-APPI-6.2 and was not present on any endpoint; no MAC addresses or GPS were collected.
+MNPI check: draft board materials on a contemplated TOB/acquisition of Hikari-Nami K.K. were segregated; undisclosed enumerated material facts under FIEA were not part of the export.
+Regulator/exchange context: issuer obligations mapped to Kanto Listing & Trading Board (Prime Seg.) rules; notification thresholds under FIEA Art. 167 reviewed; none triggered.
+Root cause: export script skipped audit-tagging when filename contained double-byte space; observed as “onboard_　sg.csv”.
+Remediation: patch deployed; DPA-Sched-2 Appendix B updated to require checksum and audit-tag; vendor acknowledgment received from Omnispark Pte. Ltd. on 2026-06-01.
+Employee communication: notice sent to 17 staff; opt-out path provided; one additional consent withdrawal received from Ms. Keiko Arai and executed with confirmation.
+Negative confirmation: no breach of safeguards, no password or bank data processed, and no tender-offer facts disclosed externally; this memo is not a public disclosure.
+Contact: Compliance Lead, Ms. Hanae Takagi (takagi.h@kawabe-orion.example); hotline +81-00-0000-0000 ext. 412 (fictional).
+jira: ops/privacy backlog triage done; Mori-san’s DSAR packet archived per RS-JP-HR-04; retention countdown set to 3 years for non-statutory onboarding files.

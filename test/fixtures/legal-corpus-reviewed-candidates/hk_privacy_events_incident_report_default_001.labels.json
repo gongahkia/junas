@@ -1,0 +1,234 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_privacy_events_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/privacy_events/hk_privacy_events_incident_report_default_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_privacy_events_incident_report_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_privacy_events_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@redharbourcapital.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@redharbourcapital.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yvonne Cho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border log export",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LotusEdge SG\u20111 (Singapore)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data\u2011Export Approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011Border Clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation controls",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "field\u2011level redaction",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside\u2011information obligations",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price\u2011sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Affected data under the Personal Data (Privacy) Ordinance included employee names, corporate emails, and probation letters; no full identification numbers were displayed, and salary fields were masked per our minimisation controls.\nSeparately, two investor KYC packets for Harbour Growth Fund I LP were stored in the same folder; these were accessed only by internal users, and a post-incident review confirmed no external download.\nAn automated backup briefly replicated the folder index to LotusEdge SG\u20111 (Singapore) at 12:14 HKT; cross-border log export was authorised under Data\u2011Export Approval DTE\u20112026\u2011044 for forensics",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yvonne Cho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Separately, two investor KYC packets for Harbour Growth Fund I LP were stored in the same folder; these were accessed only by internal users, and a post-incident review confirmed no external download.\nAn automated backup briefly replicated the folder index to LotusEdge SG\u20111 (Singapore) at 12:14 HKT; cross-border log export was authorised under Data\u2011Export Approval DTE\u20112026\u2011044 for forensics",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "term sheets",
+      "reason": "Lowercase, negated reference; not a definitive agreement trigger"
+    },
+    {
+      "matched_text": "board papers",
+      "reason": "Generic governance documents; not an MNPI rule match"
+    },
+    {
+      "matched_text": "this is a completed control and does not indicate a continuing risk",
+      "reason": "Completed-control disclaimer; avoid flagging as live privacy risk"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "DSAR is a privacy-handling event but no explicit DSAR rule is listed in allowed rules"
+    },
+    {
+      "concept": "Erasure marker",
+      "matched_text": "erasure request",
+      "reason": "Erasure handling is relevant but no explicit erasure rule is listed in allowed rules"
+    },
+    {
+      "concept": "Erasure marker (completed)",
+      "matched_text": "certified erasure",
+      "reason": "Indicates data erasure completed, but there is no explicit erasure rule in allowed list"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "Retention periods for onboarding forms have been shortened from 24 to 18 months",
+      "reason": "Retention change is relevant but no explicit retention rule is listed in allowed rules"
+    },
+    {
+      "concept": "Erasure verification reference",
+      "matched_text": "deletion hash RH\u2011DEL\u201100931",
+      "reason": "Deletion hash evidences erasure but is not covered by an allowed PII/MNPI rule"
+    }
+  ]
+}

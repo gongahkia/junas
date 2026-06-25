@@ -1,0 +1,257 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@talaora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID E-000412",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Collection/minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "optional fields are disabled",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect only job-related fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "company ID",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN label",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uses hashed employee identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-000412",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "000412",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@talaora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-000412",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "000412",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Roles: Talaora Industries, Inc. acts as Personal Information Controller; approved processors include Sinta Payroll Services, Inc. (PH) and Nimbus HR Cloud Pte. Ltd. (SG) under an executed DPA.\nPII definition: personal data from which identity is apparent or can be reasonably ascertained with other data, consistent with the Data Privacy Act and NPC issuances.\nCollection/minimisation: onboarding forms collect only job-related fields (e.g., full name, company ID, bank account alias, TIN label, SSS label); optional fields are disabled in the HR portal.\nRetention: payroll and tax records retained for up to ten (10) years to meet BIR/DOLE requirements; recruitment files retained for two (2) years; a retention matrix is maintained in the PIC\u2019s records management policy.\nCross-border transfers: a Transfer Impact Assessment and contractual safeguards (NPC-compliant DSA) were completed for Nimbus HR Cloud; approval for export is on file, but no cross-border data flow is currently active and all HR files remain hosted in PH.\nDSAR record: On 2026-05-15, one data subject access request for \u201cPayroll Payslips FY2024\u201d (Employee ID E-000412) was verified and fulfilled; the accompanying erasure request was lawfully deferred due to statutory retention and a response letter was issued.\nConsent handling: marketing consent withdrawal is available via the self-service portal; there are no pending consent withdrawals for HR datasets as of this memo.\nErasure controls: deletion is event-based upon lapse of retention; the last quarterly review closed with no exceptions, and \u201cpurge\u201d references in system logs are routine and not indicative of incidents.\nBanking/capital-markets: shareholder registry data under the Securities Regulation Code is processed by Baryo Transfer & Agency, Inc.; entries used for SEC Form 17-C/17-A reporting exclude account numbers and are aggregated.\nInsider governance: the \u201cinsider list\u201d referenced in internal policy is template-only and does not enumerate any project or transaction; no trading blackout is declared or impli",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Cross-border transfers",
+      "reason": "Header mentions transfers but explicitly states no active cross-border data flow."
+    },
+    {
+      "matched_text": "no cross-border data flow is currently active",
+      "reason": "Negated; not a live cross-border transfer event."
+    },
+    {
+      "matched_text": "marketing consent withdrawal is available",
+      "reason": "Availability statement; not an actual consent withdrawal."
+    },
+    {
+      "matched_text": "there are no pending consent withdrawals for HR datasets",
+      "reason": "Negated; no live consent withdrawal to flag."
+    },
+    {
+      "matched_text": "\u201cinsider list\u201d",
+      "reason": "Template-only reference; not an MNPI insider list."
+    },
+    {
+      "matched_text": "no trading blackout is declared",
+      "reason": "Negated; no blackout period in effect."
+    },
+    {
+      "matched_text": "no material non-public information is contained",
+      "reason": "Explicit disclaimer; not MNPI content."
+    },
+    {
+      "matched_text": "\u201cpurge\u201d",
+      "reason": "Routine log term; not an incident or erasure event."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "data subject access request",
+      "reason": "DSAR is a privacy handling event but not in the current allowed rules list."
+    },
+    {
+      "concept": "Erasure request marker",
+      "matched_text": "erasure request",
+      "reason": "Erasure handling event is legally relevant but not in the allowed rules list."
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "retained for up to ten (10) years",
+      "reason": "Retention period is governance-relevant but no explicit retention rule exists."
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "retained for two (2) years",
+      "reason": "Retention period is governance-relevant but no explicit retention rule exists."
+    },
+    {
+      "concept": "Retention governance",
+      "matched_text": "retention matrix",
+      "reason": "Indicates structured retention controls; not covered by allowed rules."
+    },
+    {
+      "concept": "Bank account category mention",
+      "matched_text": "bank account alias",
+      "reason": "References bank account data type without an actual account number."
+    },
+    {
+      "concept": "PH SSS number category",
+      "matched_text": "SSS label",
+      "reason": "SSS identifiers are sensitive but not included in the allowed rules list."
+    },
+    {
+      "concept": "Cross-border assessment",
+      "matched_text": "Transfer Impact Assessment",
+      "reason": "TIA is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "concept": "Data sharing agreement safeguard",
+      "matched_text": "NPC-compliant DSA",
+      "reason": "Contractual safeguard is relevant to transfers but not an allowed detection rule."
+    }
+  ]
+}

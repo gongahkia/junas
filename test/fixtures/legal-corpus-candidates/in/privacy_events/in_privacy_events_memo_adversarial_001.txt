@@ -1,0 +1,14 @@
+Veervaaso Technologies Limited (Indira Capital Exchange: VRSO) — Internal Compliance Memorandum re DPDPA and SEBI PIT, 29‑May‑2026.
+To: Board, Audit Committee, and DPO (Ms. Sachi Rao) — dpo@veervaaso.in; from: Compliance Cell (Mr. Arvind Sen) — compliance@veervaaso.in.
+Summary: personal data under the Digital Personal Data Protection Act, 2023 is handled per our DPA Schedule AV‑DPA‑2026; “child” is treated as under 18 and onboarding forms capture guardian consent where applicable.
+Cross‑border transfer: Data Export Approval AV‑XFER‑014 granted on 15‑May‑2026 for limited telemetry to ZangaCloud Pte Ltd (SG) with SCC‑style clauses; see https://xport.veervaaso.in/download?dsar=REQ-AV-2026-019&token=a9c%2F2f‑sig.
+Completed control: production masking of national IDs is enforced; Aadhaar fields were dropped from CRM as of 01‑Apr‑2026 and legacy backups scrubbed under JOB‑TRN‑009; we store only last4 (A a d h a a r: 9 0 1 2) and salted hashes.
+DSAR: REQ‑AV‑2026‑1098 (http://portal.veervaaso.in/dsar/REQ-%E2%80%8B1098) sought access and erasure for marketing purposes; erasure completed on 18‑May‑2026 with certificate AV‑ERS‑221, retention schedule 2.3 updated.
+Consent withdrawal: Master Rahul T. (DoB 14‑Feb‑2009) via guardian Mrs. Tara Thakur withdrew consent CNST‑2 0 2 6‑4 3 on 21‑May‑2026; processing halted, records minimised to token v‑rahul‑t‑… and purpose changed to “compliance log”.
+Onboarding forms (test environment only) display masked IDs — PAN: A B C P X 1 2 3 4 D; GSTIN: 2 7 A B C A A 0 0 0 0 A 1 Z 9 — these are dummies and not linked to any data principal.
+Device data: we do not collect device MAC addresses; the string 00:00:00:00:00:00 appears solely in unit tests and is not persisted; configs citing “Public MoHFW advisory v2025” are public‑source references.
+SEBI PIT: a rights issue proposal for our listed equity (Indira Capital Exchange (ICE): VRSO) was UPSI until disclosure on 24‑May‑2026 (ICE filing REF‑ICE‑2026‑RI‑07); the trading window reopened for designated persons on 27‑May‑2026.
+Negative confirmation: no payroll files containing PAN/Aadhaar left India; cross‑border export under AV‑XFER‑014 included only aggregate, non‑identifiable telemetry and excluded children’s data.
+Retention/minimisation: call‑detail logs are retained 90 days; beyond 90 days only last‑4 of phone and order hash remain; erasure policy POL‑ERS‑5.1 executed weekly (cron id batch‑ers‑sun‑02).
+Note on vendor onboarding: DPA Addendum with Vidyut Analytics GmbH (DE) is approved but dormant; the planned analytics stream is paused and no data flows are active as of this memo.
+This memo does not authorize trading and contains no unpublished price‑sensitive information as of the date above; queries to legal@veervaaso.in or +91‑00000‑00000.

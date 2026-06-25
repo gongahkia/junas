@@ -1,0 +1,14 @@
+Incident Report: Operational/Cyber Hygiene Event – 2026-06-05
+Entity: Nawaris Fintech Services PJSC (DIFC Branch; ADGM SPV for treasury operations)
+Summary: A phishing simulation triggered alerts on the issuer-onboarding network segment; controls operated as designed and no personal data exfiltration or system compromise occurred under UAE PDPL criteria.
+Systems: The onboarding portal for the Emirate Capital Exchange test environment remained available; workflow queues were paused and resumed without change to data integrity.
+PDPL scope: PDPL-covered fields (Emirates ID, trade licence, family origin) are present as form labels in templates only; the records implicated contained placeholders and no identified or indirectly identifiable natural person data.
+MNPI: No non-public market-sensitive issuer information was processed; the only deal references were to already-announced timetables under prior SCA disclosures.
+DPA/Retention: Per the Data Processing Agreement with Bayt Ajyal Cloud FZ-LLC, Schedule 2 retention rules apply to audit logs (standard 30 days); no retention changes were triggered by this event.
+DSAR/Erasure: A DSAR erasure for a closed test profile was completed on 2026-06-01 and verified by the Privacy Office; no further requests are pending.
+Cross-border transfer: Data Export Approval UAE-PDPL/CBT/2026-041 authorised replication of pseudonymised audit events to a GCC regional cluster operated by Azureo Gulf Cloud WLL (BH); minimisation markers ensured no Emirates ID or family-origin fields left the UAE.
+Consent: A consent-withdrawal toggle exists in CRM templates, but no withdrawals were triggered or processed in relation to this incident.
+Identifiers in forms (examples): Emirates ID 000-0000-0000000-0, Trade Licence TL-XYZ-999999, Family Origin (optional) — placeholders only, not live submissions.
+Compliance: No notification obligation to the UAE SCA, ADGM Office of Data Protection, or DIFC Commissioner of Data Protection was triggered; the incident is closed as informational.
+Market context: Deal workflow references were generic and publicly disclosed; nothing price-sensitive or non-public was handled.
+Contacts: For DSARs and consent management, email privacy@nawaris-pjsc.example; for security queries, use soc@nawaris-pjsc.example.

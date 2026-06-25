@@ -1,0 +1,241 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_jurisdictional_mnpi_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/jurisdictional_mnpi/hk_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@lotusridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance.hk@lotusridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation: do not collect bank account numbers on supplier onboarding forms unless needed for settlement; dummy examples in forms (e.g., 000-000-0000X) must never be reused",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Seabrook Maritime Group Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers: where Personal Data is processed by group service centres in Kowloon East or Singapore data centres, we use processor terms and safeguard onward transfers in line with PDPO DPPs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For employment workflows, do not store full HKID images; accept only redacted copies and destroy verification copies immediately after completion of onboarding checks",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank account numbers",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive control: until publication on the issuer announcement website, the draft circular and valuation appendices for the proposed acquisition of Seabrook Maritime Group Limited are non-public and likely price-sensitive; apply the pre-announcement blackout under Policy FIN-04 and restrict circulation to the Disclosure Committee.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance.hk@lotusridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive control: until publication on the issuer announcement website, the draft circular and valuation appendices for the proposed acquisition of Seabrook Maritime Group Limited are non-public and likely price-sensitive; apply the pre-announcement blackout under Policy FIN-04 and restrict circulation to the Disclosure Committee.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lotus Ridge Holdings Limited (Hong Kong) \u2014 PDPO Privacy & Retention Workflow Note (M&A, fund, employment context)\nScope: This note applies to HR, fund administration, M&A diligence and corporate secretarial data processed in Hong Kong under the PDPO.\nPersonal Data under PDPO means any data relating to a living individual whose identity is directly or indirectly ascertainable; we collect employee, applicant, vendor and investor contact and KYC details for specified purposes.\nDSARs may be lodged via privacy@lotusridge.example using Form F-PII-Request (Ref: HK-0000-XX); we will acknowledge within 7 days and respond within 40 days, subject to permitted exemptions.\nRetention: recruitment files 12 months; employment files 7 years post-termination; fund investor AML/KYC 7 years from exit; M&A diligence records 2 years post-completion unless litigation holds apply.\nTransfers: where Personal Data is processed by group service centres in Kowloon East or Singapore data centres, we use processor terms and safeguard onward transfers in line with PDPO DPPs.\nAccess controls: role-based permissions, encryption at rest and in transit, and DLP rules that may flag benign phrases such as \u201coffer price\u201d appearing in public press releases.\nInside information control (SFO Part XIVA; Listing Rule 13.09): information specific to a corporation that is not generally known to likely dealers and would, if known, be material to price must be announced as soon as reasonably practicable; selective disclosure is prohibited.\nPublic/stale references: HK issuer announcements dated 15 Jan 2024 regarding share repurchases and a completed board re-designation were published on the issuer announcement website and are not MNPI.\nInvestor materials posted to the issuer announcement website and media releases circulated broadly do not become non-public simply by being saved to internal drives.\nPlaceholders in training templates (ISIN ZZ0000000000, account 000-000-0000X, BR No. 12345678-000-00-00-0) are invalid and should not be treated as live records.\nPositive control: until publication on the issuer announcement website, the draft circular and valuation appendices for the proposed acquisition of Seabrook Maritime Group Limited are non-public and likely price-sensitive; apply the pre-announcement blackout under Policy FIN-04 and restrict circulation to the Disclosure Committee.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ISIN ZZ0000000000",
+      "reason": "Explicit placeholder; invalid and not a live record."
+    },
+    {
+      "matched_text": "account 000-000-0000X",
+      "reason": "Explicit placeholder; invalid and not a real bank account."
+    },
+    {
+      "matched_text": "BR No. 12345678-000-00-00-0",
+      "reason": "Explicit placeholder; invalid and not a real HK Companies Registry/BR number."
+    },
+    {
+      "matched_text": "\u201coffer price\u201d",
+      "reason": "Benign public press-release phrase; not MNPI in stated context."
+    },
+    {
+      "matched_text": "HK-0000-XX",
+      "reason": "Internal template reference placeholder; not PII."
+    },
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "Role/committee name; not PII."
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title; not a named person."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "hk_hkid mention",
+      "matched_text": "HKID images",
+      "reason": "Mentions sensitive local ID type without an actual HKID number; relevant but not clearly covered by ID-value rules."
+    },
+    {
+      "concept": "postal address",
+      "matched_text": "Suite 1901, Prospero Tower, 88 Sunbeam Road, Kowloon",
+      "reason": "Physical address is PII under PDPO, but HK postal address is not an enumerated rule in this taxonomy."
+    },
+    {
+      "concept": "embargo/timing marker",
+      "matched_text": "until publication on the issuer announcement website",
+      "reason": "Indicates local disclosure timing/blackout semantics, but not one of the enumerated embargo markers."
+    }
+  ]
+}

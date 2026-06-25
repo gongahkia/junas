@@ -1,0 +1,14 @@
+On 04 Jun 2026, Averis HealthBank Inc., a US issuer providing patient billing and HSA banking, detected unauthorized access to a support system used by its clinic and treasury teams.
+The incident originated when Mr. Darius Hale (DOB 1986-03-14), Senior Systems Administrator, logged in from West Ormond, NM via VPN node vpn-west-02 using device AVH-IT-0441 (Zevon T490) and corporate email dhale@averishealthbank.com.
+A phishing page captured Mr. Hale’s session token (SID:b7f4-9c2e-77aa) and was used for 23 minutes to view 27 masked HSA summaries (acct ****4829, ****3107) and 14 clinic lab order headers (site code NM-OR-12; MRN prefixes P-00).
+No full SSNs, complete account numbers, diagnoses, or lab results were opened, but names and dates were redacted at the UI layer rather than at the API.
+A separate misrouted email auto-forwarded a restricted ShareBox link to Mr. Leon Carver, an analyst at Westridge Analytics, containing a draft investor deck with preliminary unaudited Q3 HSA deposit growth (-3.1% to -3.6%) and tentative clinic consolidation plans.
+The link was active for 17 minutes and was not broadly disseminated, creating potential selective disclosure concerns under Reg FD and Rule 10b-5 if trading were to occur.
+Dr. Mina Caldwell, Interim CISO, initiated containment at 10:42 ET by revoking SID:b7f4-9c2e-77aa, disabling auto-forward rules on dhale@averishealthbank.com, and rotating API keys tied to app role hb-support-rw.
+We notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California’s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8‑K are under evaluation.
+Inventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer.
+Additional separated attributes observed in anonymized metrics—age 30–39, ZIP prefix 606, device model ZetaPhone 11, employer size 1–50—are aggregated and cannot be linked to an individual record.
+For clarity, no patient treatment decisions, loan decisions, or ACH transfers were executed from the compromised session, and core banking ledgers at Braddon Trust Bank, N.A. (our internal processing sandbox) were isolated.
+As of now, we assess limited exposure of quasi-identifiers relating to Mr. Hale (DOB, role, device tag, location, email, session ID) and limited exposure of masked account metadata, but no unmasked PHI or GLBA account data.
+To mitigate Reg FD risk, we have scheduled a broad webcast and will furnish public slides with the same preliminary metrics within 24 hours; Mr. Carver confirmed deletion and no further dissemination.
+Contact: privacy@averishealthbank.com or investorrelations@averishealthbank.com for additional information; customers may also call 877-555-0142.

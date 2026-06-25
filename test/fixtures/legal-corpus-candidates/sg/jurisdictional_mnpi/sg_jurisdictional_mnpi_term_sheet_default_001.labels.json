@@ -1,0 +1,442 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "felicia.tan@merlionstraits.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "daryl.ong@nimbus.ai.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Felicia Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daryl Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Major Transaction",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition of Nimbus AI Pte. Ltd. by Harbourlight Technologies Ltd. (SGX Mainboard issuer)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure in breach of Mainboard Rule 703",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period from 1 July 2026 until release of FY2026 half-year results (expected 14 August 2026)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$9.8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$2.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "42%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cleansing announcement",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed parties to be cleansed via SGXNet",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data minimised or consented",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 Proposed Acquisition of Nimbus AI Pte. Ltd. by Harbourlight Technologies Ltd. (SGX Mainboard issuer)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: 100% share acquisition; Consideration: S$120,000,000 (60% cash, 40% new Harbourlight shares priced at VWAP to be fixed at signing, subject to SGX Listing Manual Rule 806(2) limits).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure: Immediate announcement on SGXNet upon execution of definitive SPA; trading halt to be requested from SGX-ST no later than 8:30 a.m. on announcement date; no selective disclosure in breach of Mainboard Rule 703.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "announcement date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "felicia.tan@merlionstraits.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "daryl.ong@nimbus.ai.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Felicia Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daryl Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 Proposed Acquisition of Nimbus AI Pte. Ltd. by Harbourlight Technologies Ltd. (SGX Mainboard issuer)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: 100% share acquisition; Consideration: S$120,000,000 (60% cash, 40% new Harbourlight shares priced at VWAP to be fixed at signing, subject to SGX Listing Manual Rule 806(2) limits).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure: Immediate announcement on SGXNet upon execution of definitive SPA; trading halt to be requested from SGX-ST no later than 8:30 a.m. on announcement date; no selective disclosure in breach of Mainboard Rule 703.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "announcement date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$9.8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$2.4m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "42%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 Proposed Acquisition of Nimbus AI Pte. Ltd. by Harbourlight Technologies Ltd. (SGX Mainboard issuer)\nBuyer: Harbourlight Technologies Ltd.; Contact: Ms. Felicia Tan (External Counsel), Merlion Straits Law LLC, felicia.tan@merlionstraits.com; Seller/Target: Nimbus AI Pte. Ltd.; Contact: Mr. Daryl Ong, CEO, daryl.ong@nimbus.ai.sg\nStructure: 100% share acquisition; Consideration: S$120,000,000 (60% cash, 40% new Harbourlight shares priced at VWAP to be fixed at signing, subject to SGX Listing Manual Rule 806(2) limits).\nClassification: Major Transaction under Chapter 10 (relative figure approx. 55% on latest audited NTA), requiring shareholders\u2019 approval and circular cleared with the exchange.\nDisclosure: Immediate announcement on SGXNet upon execution of definitive SPA; trading halt to be requested from SGX-ST no later than 8:30 a.m. on announcement date; no selective disclosure in breach of Mainboard Rule 703.\nPublic reference: Harbourlight\u2019s entry into a non-binding MOU with Nimbus was announced on SGXNet on 12 April 2026; that announcement remains valid and forms the basis of this progression to binding terms.\nTarget financials (confidential, not generally available): unaudited 1Q FY2026 revenue S$9.8m and gross margin 42%; Buyer acknowledges wall-crossing and will maintain an insider list in accordance with the SFA.\nDealing restrictions: Buyer\u2019s directors and employees on the restricted list shall not trade in Buyer\u2019s securities during the closed period from 1 July 2026 until release of FY2026 half-year results (expected 14 August 2026) and until cleansing announcement is made.\nConditions: MAS merger notification (if applicable), no material adverse change, SGX approval for listing and quotation of consideration shares, and PDPA-compliant data room protocols (access subject to NDA; personal data minimised or consented).\nKey employee retention: Mr. Daryl Ong to enter a three-year service agreement with change-of-control protection and receive performance share awards under Buyer\u2019s plan (subject to independent shareholders\u2019 approval if required).\nOperational integration to commence post-completion; for precision, note that public reports about sector-wide chip shortages in March 2024 are stale and not relied upon for valuation.\nNon-issuer update (public): PanCity Logistics Pte. Ltd.\u2019s press release on 20 May 2026 about expanding its Tuas warehouse is unrelated to this transaction and is not material to Buyer.\nExclusivity: 60 days from countersignature; Target shall not solicit or entertain competing proposals, subject to fiduciary out; any wall-crossed parties to be cleansed via SGXNet if exclusivity lapses without signing.\nTermination: Either party may terminate prior to signing the SPA; post-signing break fee S$2.4m payable by the breaching party; no termination during a trading blackout to avoid disorderly market.\nIndicative timetable: SPA by 30 June 2026; SGXNet announcement same day; shareholder circular submitted within 21 days; EGM targeted within 8 weeks of SGX clearance;",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Daryl Ong, CEO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Nimbus AI Pte. Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Nimbus AI Pte. Ltd. by Harbourlight Technologies Ltd. (SGX Mainboard issuer)\nBuyer: Harbourlight Technologies Ltd.; Contact: Ms. Felicia Tan (External Counsel), Merlion Straits Law LLC, felicia.tan@merlionstraits.com; Seller/Target: Nimbus AI Pte. Ltd.; Contact: Mr. Daryl Ong, CEO, daryl.ong@nimbus.ai.sg\nStructure: 100% share acquisition; Consideration: S$120,000,000 (60% cash, 40% new Harbourlight shares priced at VWAP to be fixed at signing, subject to SGX Listing Manual Rule 806(2) limits).\nClassification: Major Transaction under Chapter 10 (relative figure approx. 55% on latest audited NTA), requiring shareholders\u2019 approval and circular cleared with the exchange.\nDisclosure: Immediate announcement on SGXNet upon execution of definitive SPA; trading halt to be requested from SGX-ST no later than 8:30 a.m. on announcement date; no selective disclosure in breach of Mainboard Rule 703.\nPublic reference: Harbourlight\u2019s entry into a non-binding MOU with Nimbus was announced on SGXNet on 12 April 2026; that announcement remains valid and forms the basis of this progression to binding terms.\nTarget financials (confidential, not generally available): unaudited 1Q FY2026 revenue S$9.8m and gross margin 42%; Buyer acknowledges wall-crossing and will maintain an insider list in accordance with the SFA.\nDealing restrictions: Buyer\u2019s directors and employees on the restricted list shall not trade in Buyer\u2019s securities during the closed period from 1 July 2026 until release of FY2026 half-year results (expected 14 August 2026) and until cleansing announcement is made.\nConditions: MAS merger notification (if applicable), no material adverse change, SGX approval for listing and quotation of consideration shares, and PDPA-compliant data room protocols (access subject to NDA; personal data minimised or consented).\nKey employee retention: Mr. Daryl Ong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Seller/Target",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "restricted_list_marker",
+      "matched_text": "restricted list",
+      "reason": "Compliance list implying trading restrictions; relevant to MNPI controls but not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "trading_halt_marker",
+      "matched_text": "trading halt to be requested from SGX-ST no later than 8:30 a.m. on announcement date",
+      "reason": "Exchange control measure related to disclosure timing; not a listed embargo marker token"
+    },
+    {
+      "concept": "pdpa_compliance",
+      "matched_text": "PDPA-compliant data room protocols",
+      "reason": "Privacy compliance reference without a specific allowed marker (e.g., cross-border/DSAR/retention); contextually relevant under PDPA"
+    }
+  ]
+}

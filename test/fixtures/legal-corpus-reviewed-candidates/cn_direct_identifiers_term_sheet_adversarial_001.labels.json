@@ -1,0 +1,566 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_direct_identifiers_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_direct_identifiers_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 46,
+    "new_must_detect_count": 31,
+    "old_ideal_must_detect_count": 33,
+    "old_must_detect_count": 31,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91359900MA1N5XK2Q9",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EJ76543219",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Sheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Daxun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yuan Kewei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ruan Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ms.lin.qiao@bluecrane-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "daxun.he@redwillow-cap.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 139-0000-3141",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 136-8888-0521",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6222 8888 0000 1234",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cicada",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout restrictions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border data export",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "4305 2119 8703 15427 X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 1 3 5 9 9 0 0 M A 1 N 5 X K 2 Q 9",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9166 1000 MB2Q7Z9L1",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Outbound Transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "outbound personal information",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border R&D logs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no minors under 14 are employed or processed",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "overseas R&D sandbox",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 1 3 5 9 9 0 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9166 1000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 139-0000-3141",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 136-8888-0521",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EJ76543219",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data export to ",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: RMB 180,000,000 primary issuance of Series B Preferred Shares; pre-money valuation RMB 1,200,000,000; closing target Q4 2026; use of proceeds for manufacturing scale-up and R&D center in Dongjiang New Area (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data and cybersecurity: The Parties shall comply with PIPL, CSL, DSL; any cross-border data export to the Issuer\u2019s overseas R&D sandbox shall undergo a security assessment with the National Cyberspace Compliance Administration (fictional) and, where applicable, filing with the Linghai Data Exit Service Center (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment workflows: Closing conditioned upon completion of employee secondment agreements for 12 engineers and conversion of 8 contractors to full-time; HR will implement data minimization and retention under PIPL; no HR file shall include biometric templates; no minors under 14 are employed or processed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ms.lin.qiao@bluecrane-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ms.lin.qiao@bluecrane-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "daxun.he@redwillow-cap.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 1 3 5 9 9 0 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9166 1000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 139-0000-3141",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 139-0000-3141",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 136-8888-0521",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EJ76543219",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data export to ",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Sheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Daxun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yuan Kewei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ruan Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: RMB 180,000,000 primary issuance of Series B Preferred Shares; pre-money valuation RMB 1,200,000,000; closing target Q4 2026; use of proceeds for manufacturing scale-up and R&D center in Dongjiang New Area (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data and cybersecurity: The Parties shall comply with PIPL, CSL, DSL; any cross-border data export to the Issuer\u2019s overseas R&D sandbox shall undergo a security assessment with the National Cyberspace Compliance Administration (fictional) and, where applicable, filing with the Linghai Data Exit Service Center (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment workflows: Closing conditioned upon completion of employee secondment agreements for 12 engineers and conversion of 8 contractors to full-time; HR will implement data minimization and retention under PIPL; no HR file shall include biometric templates; no minors under 14 are employed or processed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Cicada",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Issuer identifiers and contacts: Registered address: Room 2103, Tower B, 89 Jinlong Rd, Nanshi Free Trade Zone, Linghai Province 325099, PRC; Bank Acct: 6222 8888 0000 1234 at Nanshi Harbor Bank (fictional); Tel: +86 139-0000-3141; Email: ms.lin.qiao@bluecrane-robotics.cn; u s c c (embedded): 91359900MA1N5XK2Q9",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Project Cicada: Proposed Series B Investment into Blue Crane Robotics Co., Ltd. (Issuer: Blue Crane Robotics Co., Ltd.; U S C C: 9 1 3 5 9 9 0 0 M A 1 N 5 X K 2 Q 9; registered in Nanshi Free Trade Zone, Linghai Province, PRC)\nInvestor: Red Willow Capital Partners (Nanshi) L.P. (USCC: 9166 1000 MB2Q7Z9L1; fund manager registered with Linghai Provincial Securities Regulatory Bureau \u2014 fictional); Exchange context: contemplated listing on Nanshi Science & Innovation Board (NSIB \u2014 fictional) within 24 months.\nTransaction: RMB 180,000,000 primary issuance of Series B Preferred Shares; pre-money valuation RMB 1,200,000,000; closing target Q4 2026; use of proceeds for manufacturing scale-up and R&D center in Dongjiang New Area (fictional).\nRegulatory and MNPI: Parties acknowledge the transaction may involve \u201cinside information\u201d under the PRC Securities Law; the Investor agrees to trading blackout restrictions until issuer\u2019s information is publicly disclosed via the NSIB disclosure system; inadvertent press or public-source references that do not identify the Issuer by name are not, by themselves, a MAC.\nData and cybersecurity: The Parties shall comply with PIPL, CSL, DSL; any cross-border data export to the Issuer\u2019s overseas R&D sandbox shall undergo a security assessment with the National Cyberspace Compliance Administration (fictional) and, where applicable, filing with the Linghai Data Exit Service Center (fictional).\nKYC/PII for signatories (sample placeholders only): Ms. Lin Qiao (PRC Resident ID No.: 4305 2119 8703 15427 X; Passport No.: EJ76543219); Mr. Zhao Sheng (Title: Treasurer); Role-only name: \u201cCompliance Officer\u201d; Generic label: NAME: __________ POSITION: __________; note: do not enter your password here.\nIssuer identifiers and contacts: Registered address: Room 2103, Tower B, 89 Jinlong Rd, Nanshi Free Trade Zone, Linghai Province 325099, PRC; Bank Acct: 6222 8888 0000 1234 at Nanshi Harbor Bank (fictional); Tel: +86 139-0000-3141; Email: ms.lin.qiao@bluecrane-robotics.cn; u s c c (embedded): 91359900MA1N5XK2Q9.\nTax and filings: Linghai Tax Reg. No.: LH-TAX-9Z87-2045; Nanshi Municipal Market Filing No.: NS-MK-2026-0148; any change in tax residency status requires 10 days\u2019 notice; public helpline for general municipal services is 12999 (do not use for transaction notices).\nEmployment workflows: Closing conditioned upon completion of employee secondment agreements for 12 engineers and conversion of 8 contractors to full-time; HR will implement data minimization and retention under PIPL; no HR file shall include biometric templates; no minors under 14 are employed or processed.\nConditions precedent: (i) corporate approvals from both Parties; (ii) acceptance of amended Articles; (iii) completion of data mapping for cross-border R&D logs; (iv) regional subsidy confirmation from Nanshi High-Tech Bureau (fictional); the absence of a MAC excluding industry-wide regulatory guidance and hypothetical scenario analyses (i.e., not a MAC).\nConfidentiality and disclosure controls: All board materials are confidential; no dissemination beyond \u201cneed-to-know\u201d; the Parties shall establish an insider list; the following public, non-transactional hotlines and marketing emails are not notice channels: service@city.gov.example (fictional), 12999.\nDataroom and artifacts: Access via https://dataroom.redwillow-cap.cn/open?doc=TS-2026&uscc=91359900MA1N5XK2Q9&uid=lin.qiao; OCR export may display broken line runs for identifiers; draft board minutes stored under folder \u201c/nsib-prep/04-disclosures/\u201d.\nCross-border data clauses: before any transfer of logs to the overseas sandbox, execute the PRC Standard Contract for Outbound Transfer (model form) with the Investor\u2019s affiliate; if aggregate annual outbound personal information volume exceeds thresholds set by the National Cyberspace Compliance Administration (fictional), a security assessment filing will be made.\nInformation rights and covenants: Investor board observer rights; quarterly management accounts; no related-party transactions with shareholding >5% without prior consent; for clarity, this document is illustrative and not a product manual; roadmap item \u201cbanyan-bridge v2.1\u201d is internal codename only.\nContacts for notices: Ms. Lin Qiao, Director of Finance, Blue Crane Robotics Co., Ltd., Tel: +86 139-0000-3141, Email: ms.lin.qiao@bluecrane-robotics.cn; Mr. He Daxun, Partner, Red Willow Capital Partners (Nanshi) L.P., Tel: +86 136-8888-0521, Email: daxun.he@redwillow-cap.cn; any SMS to \u201c000-000-0000\u201d will be ignored.\nSignatures: Issuer Representative (Mr. Yuan Kewei); Investor Representative (Ms. Ruan Mei); Authorized Signatory (role-only): \u201cTreasurer\u201d; this term sheet is non-binding except for confidentiality, exclusivity (30 days), and governing law (PRC), and it does not constitute an employment offer.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lin Qiao, Director of Finance, Blue Crane Robotics Co., Ltd., Tel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "He Daxun, Partner",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "role-only name, not a natural person identifier"
+    },
+    {
+      "matched_text": "NAME: __________",
+      "reason": "generic form field bait"
+    },
+    {
+      "matched_text": "POSITION: __________",
+      "reason": "generic form field bait"
+    },
+    {
+      "matched_text": "Treasurer",
+      "reason": "role title only, not PII"
+    },
+    {
+      "matched_text": "Issuer Representative",
+      "reason": "defined role term in signature block"
+    },
+    {
+      "matched_text": "Investor Representative",
+      "reason": "defined role term in signature block"
+    },
+    {
+      "matched_text": "Authorized Signatory",
+      "reason": "defined role term in signature block"
+    },
+    {
+      "matched_text": "12999",
+      "reason": "public helpline number, non-PII bait"
+    },
+    {
+      "matched_text": "000-000-0000",
+      "reason": "placeholder/ignored SMS number bait"
+    },
+    {
+      "matched_text": "service@city.gov.example",
+      "reason": "public/marketing inbox, not a natural-person email"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "company tax registration number",
+      "matched_text": "LH-TAX-9Z87-2045",
+      "reason": "corporate identifier; no explicit rule for CN tax numbers in allowed set"
+    },
+    {
+      "concept": "market filing number",
+      "matched_text": "NS-MK-2026-0148",
+      "reason": "regulatory filing reference; not covered by allowed rules"
+    },
+    {
+      "concept": "postal address (CN)",
+      "matched_text": "Room 2103, Tower B, 89 Jinlong Rd, Nanshi Free Trade Zone, Linghai Province 325099, PRC",
+      "reason": "physical address of entity; no generic postal-address rule except SG-specific in allowed set"
+    },
+    {
+      "concept": "URL containing identifiers",
+      "matched_text": "https://dataroom.redwillow-cap.cn/open?doc=TS-2026&uscc=91359900MA1N5XK2Q9&uid=lin.qiao",
+      "reason": "contains USCC and a user identifier parameter; URLs not directly covered by allowed rules"
+    },
+    {
+      "concept": "user identifier parameter",
+      "matched_text": "uid=lin.qiao",
+      "reason": "likely a username or account handle; no specific rule for usernames/account handles in allowed set"
+    }
+  ]
+}

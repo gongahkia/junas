@@ -1,0 +1,215 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0413",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_quasi_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2026-0413",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0120-123-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-4567-890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1989-07-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under FIEA, we assessed whether the materials contained undisclosed enumerated material facts or tender-offer facts; the only acquisition reference matched a previously posted TDnet summary and did not present MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aoisora-hd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No.: 123-4567-890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device asset tag YPH-3321-JP",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VPN session QA-44-19",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corporate account ext-pa-0712",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Individual Number (My Number)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquisition milestones",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Some spreadsheets included fields labeled \u201cIndividual Number (My Number)\u201d, but the values were masked placeholders (e.g., XXXX-XXXX-XXXX) and not actual identifiers; file naming conventions resembled client codes but were test dummies.\nAudit logs show one contractor record with multiple linkable attributes: DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98.\nNo resident record codes, bank account numbers, or live My Number values were exported; detection rules flagged lookalike strings (e.g., JP00-XXXX-0000-0000) that our DLP catalog classifies as test patterns",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Some spreadsheets included fields labeled \u201cIndividual Number (My Number)\u201d, but the values were masked placeholders (e.g., XXXX-XXXX-XXXX) and not actual identifiers; file naming conventions resembled client codes but were test dummies.\nAudit logs show one contractor record with multiple linkable attributes: DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98.\nNo resident record codes, bank account numbers, or live My Number values were exported; detection rules flagged lookalike strings (e.g., JP00-XXXX-0000-0000) that our DLP catalog classifies as test patterns.\nThe board\u2019s Risk and Compliance Committee and the Audit & Supervisory Committee were briefed; the board pack excerpt concerned the March integration planning for Midori Logistics KK and matched the public slide deck.\nInvestor Relations confirmed the same acquisition milestones were disclosed on TDnet; there were no additional tender offer facts beyond those already announced, and TSE disclosure practice was followed.\nRemediation included credential resets for affected role accounts, disabling the implicated vendor SFTP token, and revising vendor onboarding to require mutual TLS and IP allowlists.\nThere is no environmental or safety impact; the only operational effect was delayed payroll test cycles; labor union contact points received an informational notice with no action requested.\nAutomated discovery flagged generic template artifacts (\u201cAccount No.: 123-4567-890\u201d, \u201cTicker: 0000\u201d, \u201cForm: NAME/ADDRESS/BIRTHPLACE\u201d), which were empty placeholders and not linked to any individual.\nStakeholder contact points: privacy@aoisora-hd.example (Privacy Office) and 0120-123-000",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "0120-123-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-4567-890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1989-07-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under FIEA, we assessed whether the materials contained undisclosed enumerated material facts or tender-offer facts; the only acquisition reference matched a previously posted TDnet summary and did not present MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Incident Report \u2014 AoiSora Holdings KK (TSE Growth Market issuer), detected 2026-06-02 JST, internal reference IR-OPS-2026-0413.\nA phishing-linked upload to a third-party vendor portal led to exposure of a non-confidential extract from a board risk briefing and a payroll test folder; the gateway quarantine triggered within 11 minutes and the file was removed.\nSystems involved were the HR shared drive mirror and the outsourced payroll integration; no production finance ledgers, securities order systems, or investor-relations mailboxes were accessed; APPI obligations were reviewed.\nUnder FIEA, we assessed whether the materials contained undisclosed enumerated material facts or tender-offer facts; the only acquisition reference matched a previously posted TDnet summary and did not present MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Audit logs show one contractor record with multiple linkable attributes: DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98.\nNo resident record codes, bank account numbers, or live My Number values were exported; detection rules flagged lookalike strings (e.g., JP00-XXXX-0000-0000) that our DLP catalog classifies as test patterns",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Audit logs show one contractor record with multiple linkable attributes: DOB 1989-07-12, work location Yokohama Plant, employer Kakuho Systems GK, role Payroll Analyst (dispatch), device asset tag YPH-3321-JP, corporate account ext-pa-0712, VPN session QA-44-19, and building fob UID 04:AF:23:98.\nNo resident record codes, bank account numbers, or live My Number values were exported; detection rules flagged lookalike strings (e.g., JP00-XXXX-0000-0000) that our DLP catalog classifies as test patterns.\nThe board\u2019s Risk and Compliance Committee and the Audit & Supervisory Committee were briefed; the board pack excerpt concerned the March integration planning for Midori Logistics KK and matched the public slide deck.\nInvestor Relations confirmed the same acquisition milestones were disclosed on TDnet; there were no additional tender offer facts beyond those already announced, and TSE disclosure practice was followed.\nRemediation included credential resets for affected role accounts, disabling the implicated vendor SFTP token, and revising vendor onboarding to require mutual TLS and IP allowlists.\nThere is no environmental or safety impact; the only operational effect was delayed payroll test cycles; labor union contact points received an informational notice with no action requested.\nAutomated discovery flagged generic template artifacts (\u201cAccount No.: 123-4567-890\u201d, \u201cTicker: 0000\u201d, \u201cForm: NAME/ADDRESS/BIRTHPLACE\u201d), which were empty placeholders and not linked to any individual.\nStakeholder contact points: privacy@aoisora-hd.example (Privacy Office) and 0120-123-000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "physical_access_token_uid",
+      "matched_text": "building fob UID 04:AF:23:98",
+      "reason": "Persistent access-card UID linking to a specific individual; not clearly covered by an allowed PII rule."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "We will retain relevant logs and the quarantined file hash (sha256: 9f0d\u2026test) for 3 years",
+      "reason": "Retention duration is a privacy-event marker but there is no explicit retention rule in the allowed set."
+    }
+  ]
+}

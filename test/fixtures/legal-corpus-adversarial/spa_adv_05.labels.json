@@ -1,0 +1,66 @@
+{
+  "doc_id": "spa_adv_05",
+  "document_type": "SPA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. John Tan"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678F"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "238888"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "johntan@example.sg"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T12LL3456A"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "048616"
+    },
+    {
+      "rule": "large_number",
+      "matched_text": "10,000 ordinary shares"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 500,000"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SHARE PURCHASE AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "THIS SHARE PURCHASE AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "this Share Purchase Agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined term abbreviation"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

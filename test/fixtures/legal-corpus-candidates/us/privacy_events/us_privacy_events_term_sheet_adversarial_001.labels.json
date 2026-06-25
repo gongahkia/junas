@@ -1,0 +1,318 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 26,
+    "new_must_detect_count": 13,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "iliana.roe@northstar-bancare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Iliana Roe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Meridian Health Analytics, Inc. by Northstar Bancare Holdings, LLC (US issuer; listed on the Ridgeway Exchange)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purchase Price and Consideration: $420,000,000 in aggregate value (60% cash, 40% acquirer equity), subject to customary adjustments; financing is fully committed and not subject to a market-out.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing and MAC: No MAC (material adverse change) clause has been triggered as of signing; \u201cMAC\u201d refers to material adverse change and is not a hardware identifier, and this statement is a completed control, not a live incident.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: circulate mark\u2011up of DPA exhibit, confirm minimisation logs in DP\u20112 Appendix C, and prepare retention certificate; no operational changes are required before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$420,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer Controls",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent Withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval DXP\u2011CA\u201177",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "(DXP\u2011CA\u201177)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "shall be limited to name, role, and work email only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no SSNs or bank account fields will be collected",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legacy forms containing extra fields were deprecated and deleted prior to signing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Iliana Roe, Chief Compliance Counsel, iliana.roe@northstar-bancare.example",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective\u2011disclosure policy",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "iliana.roe@northstar-bancare.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Iliana Roe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Meridian Health Analytics, Inc. by Northstar Bancare Holdings, LLC (US issuer; listed on the Ridgeway Exchange)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purchase Price and Consideration: $420,000,000 in aggregate value (60% cash, 40% acquirer equity), subject to customary adjustments; financing is fully committed and not subject to a market-out.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing and MAC: No MAC (material adverse change) clause has been triggered as of signing; \u201cMAC\u201d refers to material adverse change and is not a hardware identifier, and this statement is a completed control, not a live incident.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: circulate mark\u2011up of DPA exhibit, confirm minimisation logs in DP\u20112 Appendix C, and prepare retention certificate; no operational changes are required before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$420,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Meridian Health Analytics, Inc. by Northstar Bancare Holdings, LLC (US issuer; listed on the Ridgeway Exchange)\nPurchase Price and Consideration: $420,000,000 in aggregate value (60% cash, 40% acquirer equity), subject to customary adjustments; financing is fully committed and not subject to a market-out.\nRegulatory and Disclosure: The parties will comply with SEC Regulation FD; no material non-public information will be shared with analysts before public disclosure, and if any selective disclosure occurs an Item 7.01 Form 8\u2011K will be furnished within 24 hours.\nPrivacy and Security Representations: Target represents HIPAA compliance and maintains Business Associate Agreements; acquirer represents GLBA Safeguards compliance; Schedule DP\u20112 (Data Processing Addendum) and BAA Schedule are attached to this term sheet.\nCross-Border Transfer Controls: Pseudonymized outcomes data may be processed by a vendor in Canada solely for model validation; Data Export Approval DXP\u2011CA\u201177 has been signed and recorded, and transfers will use encryption with keys held in the U.S.\nData Subject Requests and Erasure: DSAR ticket D S - 0 0 9 2 1 (employee request) was closed 2026\u201105\u201101; erasure completed and certificate of disposition filed under RS\u201104; retention reduced from 7y to 3y for onboarding archives (minimisation applied).\nConsent Withdrawal: Five patient consent withdrawals dated 2026\u201104\u201128 were executed; token P\u2011***\u20119Z12 and linkable keys were revoked and cannot be reinstated without fresh consent.\nEmployee and Vendor Onboarding: Transition onboarding forms shall be limited to name, role, and work email only; no SSNs or bank account fields will be collected; legacy forms containing extra fields were deprecated and deleted prior to signing.\nFinancing and MAC: No MAC (material adverse change) clause has been triggered as of signing; \u201cMAC\u201d refers to material adverse change and is not a hardware identifier, and this statement is a completed control, not a live incident.\nPublic-Source Reliance: Projections incorporate public state health dashboards and third\u2011party industry reports; no patient charts or customer account files are attached to this term sheet.\nAnalyst and Securities Workflows: No analysts are wall\u2011crossed for this transaction; communications will occur via a publicly noticed webcast and press release posted to the Ridgeway Exchange news portal.\nOperational Safeguards: This term sheet and appended compliance memo do not themselves transfer personal data; any sandbox samples are synthetic and non\u2011linkable; policy\u2011only control noted for audit purposes.\nContact and Access: Dr. Iliana Roe, Chief Compliance Counsel, iliana.roe@northstar-bancare.example; dealroom link https://files.northstar-bancare.example/deal?doc=TS-AX49&rid=R\u2022\u2022\u2022901 for the latest clean draft.\nRe g F D Training: Employee acknowledgments for selective\u2011disclosure policy are current through 2026\u201103\u201131 and filed in the Reg FD folder; no early analyst materials have been circulated.\nSchedules and IDs: Schedule DP\u20112 and B A A #BA\u201117 enclosed; cross\u2011border a p p r o v a l (DXP\u2011CA\u201177) recorded in the export log; hmac=7f:2b:9a:__ (truncated for memo).\nnext steps: circulate mark\u2011up of DPA exhibit, confirm minimisation logs in DP\u20112 Appendix C, and prepare retention certificate; no operational changes are required before closing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Strategic Acquisition of Meridian Health Analytics, Inc",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Strategic Acquisition of Meridian Health Analytics, Inc. by Northstar Bancare Holdings, LLC (US issuer; listed on the Ridgeway Exchange)\nPurchase Price and Consideration: $420,000,000 in aggregate value (60% cash, 40% acquirer equity), subject to customary adjustments; financing is fully committed and not subject to a market-out.\nRegulatory and Disclosure: The parties will comply with SEC Regulation FD; no material non-public information will be shared with analysts before public disclosure, and if any selective disclosure occurs an Item 7.01 Form 8\u2011K will be furnished within 24 hours.\nPrivacy and Security Representations: Target represents HIPAA compliance and maintains Business Associate Agreements; acquirer represents GLBA Safeguards compliance; Schedule DP\u20112 (Data Processing Addendum) and BAA Schedule are attached to this term sheet.\nCross-Border Transfer Controls: Pseudonymized outcomes data may be processed by a vendor in Canada solely for model validation; Data Export Approval DXP\u2011CA\u201177 has been signed and recorded, and transfers will use encryption with keys held in the U.S.\nData Subject Requests and Erasure: DSAR ticket D S - 0 0 9 2 1 (employee request) was closed 2026\u201105\u201101; erasure completed and certificate of disposition filed under RS\u201104; retention reduced from 7y to 3y for onboarding archives (minimisation applied).\nConsent Withdrawal: Five patient consent withdrawals dated 2026\u201104\u201128 were executed; token P\u2011***\u20119Z12 and linkable keys were revoked and cannot be reinstated without fresh consent.\nEmployee and Vendor Onboarding: Transition onboarding forms shall be limited to name, role, and work email only; no SSNs or bank account fields will be collected; legacy forms containing extra fields were deprecated and deleted prior to signing.\nFinancing and MAC: No MAC (material adverse change) clause has been triggered as of signing; \u201cMAC\u201d refers to material adverse change and is not a hardware identifier, and this statement is a completed control, not a live incident.\nPublic-Source Reliance: Projections incorporate public state health dashboards and third\u2011party industry reports; no patient charts or customer account files are attached to this term sheet.\nAnalyst and Securities Workflows: No analysts are wall\u2011crossed for this transaction; communications will occur via a publicly noticed webcast and press release posted to the Ridgeway Exchange news portal.\nOperational Safeguards: This term sheet and appended compliance memo do not themselves transfer personal data; any sandbox samples are synthetic and non\u2011linkable; policy\u2011only control noted for audit purposes.\nContact and Access: Dr. Iliana Roe, Chief Compliance Counsel, iliana.roe@northstar-bancare.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC",
+      "reason": "Defined term (material adverse change), not a hardware MAC address"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun/defined term, not an individual\u2019s name"
+    },
+    {
+      "matched_text": "acquirer",
+      "reason": "Role noun/defined term, not an individual\u2019s name"
+    },
+    {
+      "matched_text": "hmac=7f:2b:9a:__ (truncated for memo)",
+      "reason": "Truncated hash parameter; not a device MAC address or PII"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "DSAR",
+      "matched_text": "DSAR ticket D S - 0 0 9 2 1",
+      "reason": "DSAR handling is a privacy event but there is no explicit DSAR rule in the allowed list"
+    },
+    {
+      "concept": "erasure",
+      "matched_text": "erasure completed",
+      "reason": "Erasure/deletion is a privacy event but there is no explicit erasure rule in the allowed list"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "retention reduced from 7y to 3y for onboarding archives",
+      "reason": "Retention changes are privacy events but there is no explicit retention rule in the allowed list"
+    },
+    {
+      "concept": "pseudonymous token/internal identifier",
+      "matched_text": "token P\u2011***\u20119Z12",
+      "reason": "Masked token could be an internal identifier but no specific allowed rule applies"
+    },
+    {
+      "concept": "access URL/internal identifier",
+      "matched_text": "dealroom link https://files.northstar-bancare.example/deal?doc=TS-AX49&rid=R\u2022\u2022\u2022901",
+      "reason": "RID parameter may include an internal identifier; not clearly covered by allowed rules"
+    },
+    {
+      "concept": "hash/MAC ambiguity",
+      "matched_text": "hmac=7f:2b:9a:__ (truncated for memo)",
+      "reason": "Could be misread as a MAC address; actually a truncated HMAC, not covered by allowed rules"
+    },
+    {
+      "concept": "pseudonymized cross-border processing",
+      "matched_text": "Pseudonymized outcomes data may be processed by a vendor in Canada solely for model validation",
+      "reason": "Pseudonymization and vendor processing are privacy-relevant but not directly mapped to a specific allowed rule beyond cross-border"
+    }
+  ]
+}

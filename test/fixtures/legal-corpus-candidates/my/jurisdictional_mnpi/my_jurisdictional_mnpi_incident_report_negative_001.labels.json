@@ -1,0 +1,183 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incident@kelananusantara.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1300-88-4242",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5\u20136%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been announced on Bursa Malaysia",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may require an Immediate Announcement",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only vendor codes and invoice totals were queued",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until any Bursa filing is made",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "circulate the revenue estimate internally only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CMSA insider information provisions",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential deferral of approximately 5\u20136% of 2Q FY2025 revenue recognition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incident@kelananusantara.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1300-88-4242",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Date/Time: 31 May 2025, 09:10\u201312:45 MYT; Location: Shared services platform; Vendor: OrionSwitch Sdn Bhd API gateway interruption.\nSummary: Temporary outage of e-invoicing and purchase order acknowledgements; internal ERP and order capture remained available; no safety or environmental impact.\nPublic context: OrionSwitch issued a media statement on 1 June 2025 and sector updates were widely reported; the disruption is industry-wide and not unique to the Company.\nPrior disclosures: As announced via Bursa LINK on 3 April 2025, the Company completed Phase 2 of its ISO/IEC 27001:2022 rollout; that announcement remains accurate and unchanged.\nPDPA scope: Current logs indicate no access to personal data; affected payloads excluded NRIC, passport, or bank account numbers; only vendor codes and invoice totals were queued.\nPreliminary internal estimate indicates a potential deferral of approximately 5\u20136% of 2Q FY2025 revenue recognition due to billing backlogs; this has not been announced on Bursa Malaysia and may require an Immediate Announ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun/defined-term style label, not PII or MNPI"
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun/defined-term style label, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "no_personal_data_access_marker",
+      "matched_text": "PDPA scope: Current logs indicate no access to personal data",
+      "reason": "PDPA-relevant privacy status statement; useful compliance signal but not clearly covered by an allowed marker rule"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "service ticket SR-OPS-77821",
+      "reason": "Internal tracking identifier that could relate to a user/session; may not be PII or person-linked"
+    },
+    {
+      "concept": "blackout_period_reference",
+      "matched_text": "before market open on the next Market Day",
+      "reason": "Jurisdiction-specific disclosure timing; relevant to disclosure controls but not a formal blackout reference"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "do not use these codes in investor materials",
+      "reason": "Cautionary handling instruction for investor communications; suggests selective disclosure sensitivity but not a standard detector phrase"
+    }
+  ]
+}

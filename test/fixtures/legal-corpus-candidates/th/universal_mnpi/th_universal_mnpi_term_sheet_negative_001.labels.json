@@ -1,0 +1,255 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='THB [\u25cf]'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='aggregate consideration THB [\u25cf]'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='price per share THB [\u25cf]'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_universal_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@siamgreengrid.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: minority investment; maximum post-closing holding up to [\u25cf]% (not exceeding tender offer thresholds under the Securities and Exchange Act B.E. 2535).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE: no MAC condition; general market events, SET trading halts, or index volatility shall not constitute a MAE for purposes of closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal circulation only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subscription Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@siamgreengrid.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no employee PII will be exchanged; only anonymised headcount and wage bands as disclosed in the 2024 sustainability report (public)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed subscription for newly issued shares of Lanna Digital Infrastructure by Siam Green Grid PCL to establish a strategic partnership in data center build-out",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "[\u25cf]%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "hold for release",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026-07-01 08:45 ICT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prior internal circulation only to ir@siamgreengrid.co.th and legal@siamgreengrid.co.th",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cproject clay pot\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project notes (internal, non-substantive)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ancillary NDA uses anonymised data only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft ir note",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@siamgreengrid.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: minority investment; maximum post-closing holding up to [\u25cf]% (not exceeding tender offer thresholds under the Securities and Exchange Act B.E. 2535).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE: no MAC condition; general market events, SET trading halts, or index volatility shall not constitute a MAE for purposes of closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal circulation only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employment and PDPA: no employee PII will be exchanged; only anonymised headcount and wage bands as disclosed in the 2024 sustainability report (public).\nCross-border mechanics: if escrow is offshore, use a Singapore-law escrow agreement for Lanna Infra SG Pte. (fict.); BOT FX reporting to be observed; iban: XX00-XXXX-XXXX (placeholder)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Investment Term Sheet \u2014 Siam Green Grid Public Company Limited (SET: SGGX) and Lanna Digital Infrastructure Co., Ltd.\nTransaction: proposed subscription for newly issued shares of Lanna Digital Infrastructure by Siam Green Grid PCL to establish a strategic partnership in data center build-out.\nStructure: minority investment; maximum post-closing holding up to [\u25cf]% (not exceeding tender offer thresholds under the Securities and Exchange Act B.E. 2535).\nConsideration: aggregate consideration THB [\u25cf] with price per share THB [\u25cf]; placeholders only, for high-level discussion and public-summary alignment.\nRegulatory: SEC Thailand and SET processes to be followed; file Form 246-2 if voting rights cross 5%; no mandatory tender offer expected; references to publicly available SET Listing of Shares guidelines (2023 edition).\nMAC/MAE: no MAC condition; general market events, SET trading halts, or index volatility shall not constitute a MAE for purposes of closing.\nDefinitive agreements: Subscription Agreement and Shareholders\u2019 Agreement under Thai law using market-standard, publicly referenced forms; ancillary NDA uses anonymised data only.\nTiming and disclosure: draft ir note \u2014 hold for release on SET news portal at 2026-07-01 08:45 ICT; prior internal circulation only to ir@siamgreengrid.co.th and legal@siamgreengrid.co.th.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not a Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "no MAC condition",
+      "reason": "Negated MAC reference; excluded by rule."
+    },
+    {
+      "matched_text": "Project notes",
+      "reason": "Generic section heading, not a transaction codename."
+    },
+    {
+      "matched_text": "NDA",
+      "reason": "Not an enumerated definitive agreement under the rule."
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "bank account placeholder",
+      "matched_text": "iban: XX00-XXXX-XXXX",
+      "reason": "Appears to be a masked corporate IBAN; unclear if PII and pattern is non-numeric placeholder."
+    },
+    {
+      "concept": "company registration number placeholder",
+      "matched_text": "target reg. no. XX-XXX-XXXXX",
+      "reason": "Looks like a Thai company registration format but masked; no explicit rule for Thai company reg numbers."
+    },
+    {
+      "concept": "ISIN (security identifier) draft",
+      "matched_text": "draft isin XX0000000000",
+      "reason": "Potentially market-sensitive pre-issuance identifier but not covered by allowed MNPI rules."
+    }
+  ]
+}

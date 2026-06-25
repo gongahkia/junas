@@ -1,0 +1,332 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline. Current strict tier was realigned after SA/US precision guards; ideal_must_detect preserves removed strict spans for gap review.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-03T03:27:55Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp420.000.000.000'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp3.000.000.000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp420.000.000.000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp3.000.000.000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='retention bonus Rp3.000.000.000'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "global_stale_strict_realign": {
+      "reason": "Current precision guards suppress these spans; strict must_detect was realigned while ideal_must_detect preserved the broader auto-label signal.",
+      "removed_must_detect": [
+        {
+          "category": "PII",
+          "matched_text": "+62-812-3456-7891",
+          "rule": "phone_number"
+        }
+      ],
+      "reviewed_at": "2026-06-05T15:14:44Z",
+      "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json"
+    },
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-05T15:14:44Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "420.000.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+62-812-3456-7891",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ketentuan Penutupan: target closing Triwulan III 2026, tunduk pada uji tuntas regulasi pembayaran digital (fintech) dan persetujuan integrasi lisensi dari OJK-N TekFin; tidak ada kewajiban menerbitkan efek sampai efektif.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bapak Dimas Arwanda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R1234 5678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@sirkuitdana.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9988776655",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pembelian 80% saham Target",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "target closing Triwulan III 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 2 7 5 0 1 0 1 2 3 4 5 6 7 8 9 0 1 2",
+      "rule": "id_nik"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No. Rekening 9988776655",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jl. Matoa Raya No. 88, Kecamatan Setiajaya, Kota Samudra 40123",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jl. Kapuk Hijau No. 5, Kab. Purnajaya 40321",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "420.000.000.000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ketentuan Penutupan: target closing Triwulan III 2026, tunduk pada uji tuntas regulasi pembayaran digital (fintech) dan persetujuan integrasi lisensi dari OJK-N TekFin; tidak ada kewajiban menerbitkan efek sampai efektif.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET USULAN AKUISISI BERSYARAT antara PT Sirkuit Dana Nusantara Tbk (Perseroan) dan PT BytePay Teknologi (Target) untuk tujuan pengungkapan kepada Otoritas Jasa Keuangan Nusantara (OJK-N) dan Bursa Efek Samudra (BES).\nIdentitas Perseroan: NIB 8412398754123; NPWP Badan 55.777.888.9-012.345; No. AHU-1234567.AH.01.01.Tahun 2024; alamat: Jl. Matoa Raya No. 88, Kecamatan Setiajaya, Kota Samudra 40123.\nIdentitas Target: NIB 9123456789012 (N I B : 9 1 2 3 4 5 6 7 8 9 0 1 2); NPWP Badan 66.999.111.2-345.678; domisili: Jl. Kapuk Hijau No. 5, Kab. Purnajaya 40321.\nBentuk Transaksi: pembelian 80% saham Target dengan imbalan Rp420.000.000.000 tunai dan 10% saham baru Perseroan (kode internal, bukan kode perdagangan BES: SRDN), penyesuaian kas dan utang pada penutupan.\nSyarat Tangguh: efektifnya pernyataan pendaftaran sesuai POJK-N No. 31/POJK-N.04/2025, persetujuan RUPS, dan tidak ada perubahan hukum yang material; catatan: ini bukan syarat MAC terselubung.\nKetentuan Kepegawaian: Bapak Dimas Arwanda (Nomor Paspor RI: R1234 5678; NIK: 3 2 7 5 0 1 0 1 2 3 4 5 6 7 8 9 0 1 2) akan diangkat sebagai Direktur Operasional Target dan berhak atas retention bonus Rp3.000.000.000 selama 24 bulan.\nMekanisme Pembayaran: pada penutupan, Perseroan mentransfer ke Rekening PT BytePay Teknologi di PT Bank Nusantara Fiksi Tbk, No. Rekening 9988776655, Kantor Cabang Pelita, Jl. Cendana 12, Kota Samudra; SWIFT internal BNFIXID1 digunakan hanya untuk rujukan internal.\nPengungkapan & Dataroom: ringkasan transaksi akan disampaikan melalui sistem keterbukaan BES dan OJK-N, lihat Memo Dewan No. MEMO-DSN-014/2026 serta risalah rapat tanggal 17 Mei 2026; akses data: https://dataruang.sirkuitdana.co.id/deal?pid=AHU-1234567&npwp=55.777.888.9-012.345.\nKontak Resmi: Sekretaris Perusahaan melalui corpsec@sirkuitdana.co.id dan +62-812-3456-7891; peringatan: nomor darurat 112 dan Call Center 1500-000 adalah layanan publik dan bukan kontak transaksi.\nKlausul Kerahasiaan: dokumen ini berisi informasi material non-publik (MNPI) hingga diumumkan, tunduk pada Pedoman Keterbukaan BES dan kebijakan internal; internal use only\u2014kebijakan kerahasiaan Perseroan berlaku.\nKetentuan Penutupan: target closing Triwulan III 2026, tunduk pada uji tuntas regulasi pembayaran digital (fintech) dan persetujuan integrasi lisensi dari OJK-N TekFin; tidak ada kewajiban menerbitkan efek sampai efektif.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No. KTP 0000000000000000",
+      "reason": "Explicitly flagged as invalid bait in the document"
+    },
+    {
+      "matched_text": "0800-123-456",
+      "reason": "Public hotline example, not a transaction contact"
+    },
+    {
+      "matched_text": "112",
+      "reason": "Public emergency number, not PII for this context"
+    },
+    {
+      "matched_text": "1500-000",
+      "reason": "Public call center number, not a private contact"
+    },
+    {
+      "matched_text": "NPWP: __________",
+      "reason": "Blank placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Nama: __________",
+      "reason": "Blank placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Alamat: __________",
+      "reason": "Blank placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Direktur Keuangan",
+      "reason": "Role-only label without a personal name"
+    },
+    {
+      "matched_text": "Kepala SDM",
+      "reason": "Role-only label without a personal name"
+    },
+    {
+      "matched_text": "Perseroan",
+      "reason": "Defined role term in the contract"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role term in the contract"
+    },
+    {
+      "matched_text": "OJK-N",
+      "reason": "Defined abbreviation in the contract"
+    },
+    {
+      "matched_text": "BES",
+      "reason": "Defined abbreviation in the contract"
+    },
+    {
+      "matched_text": "Sekretaris Perusahaan",
+      "reason": "Role-only term without personal identity"
+    },
+    {
+      "matched_text": "Direktur Utama Perseroan",
+      "reason": "Role-only term without personal identity"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "Indonesian corporate business ID",
+      "matched_text": "NIB 8412398754123",
+      "reason": "Local company identifier (non-personal) not covered by allowed rules but often treated as sensitive corporate identifier"
+    },
+    {
+      "concept": "Indonesian corporate tax number",
+      "matched_text": "NPWP Badan 55.777.888.9-012.345",
+      "reason": "Corporate tax identifier not in allowed rules but sensitive in Indonesian context"
+    },
+    {
+      "concept": "Corporate registry number (AHU)",
+      "matched_text": "No. AHU-1234567.AH.01.01.Tahun 2024",
+      "reason": "Local corporate registration reference not mapped to a current rule"
+    },
+    {
+      "concept": "Indonesian corporate business ID",
+      "matched_text": "NIB 9123456789012",
+      "reason": "Local company identifier not covered by allowed rules"
+    },
+    {
+      "concept": "Indonesian corporate business ID (spaced formatting)",
+      "matched_text": "N I B : 9 1 2 3 4 5 6 7 8 9 0 1 2",
+      "reason": "Alternate formatting of NIB not mapped to a rule"
+    },
+    {
+      "concept": "Indonesian corporate tax number",
+      "matched_text": "NPWP Badan 66.999.111.2-345.678",
+      "reason": "Corporate tax identifier not in allowed rules"
+    },
+    {
+      "concept": "Corporate registry number (AHU)",
+      "matched_text": "AHU-1234567",
+      "reason": "Corporate registry substring embedded in URL not covered by allowed rules"
+    },
+    {
+      "concept": "Indonesian corporate tax number",
+      "matched_text": "55.777.888.9-012.345",
+      "reason": "Corporate tax number appears in URL; not covered by allowed rules"
+    },
+    {
+      "concept": "Bank SWIFT/BIC code",
+      "matched_text": "BNFIXID1",
+      "reason": "Bank identifier code not included in current PII/MNPI rules but may be sensitive operational detail"
+    }
+  ]
+}

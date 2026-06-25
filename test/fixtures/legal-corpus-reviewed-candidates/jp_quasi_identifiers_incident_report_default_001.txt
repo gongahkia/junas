@@ -1,0 +1,15 @@
+Internal Incident Report (JP-APPI/FIEA) — Kogane Techno Holdings Co., Ltd. — 2026-05-30
+On 2026-05-28 our SOC detected anomalous access to the Board Secretariat portal hosting draft materials for a confidential domestic acquisition (tender-offer planning) of Shirasuna Logistics Co., Ltd., an undisclosed material fact under FIEA.
+Named user cluster: Mr. Daichi Moriyama (born 1987-04-11, age 39), Security Analyst at Kogane Techno Holdings, Kitasora Ward HQ, employee code EM-4472, workstation asset KT-LP-1143 (Shirasagi X1), accessed /board/tob-2026/ at 21:43 JST.
+Log context shows d.moriyama@kogane-th.co.jp, VPN session 7f43-kt-4481, private IP 10.14.55.82, and Set-Cookie: sid=ktb-9b22; these weak identifiers collectively link to the same individual in this matter.
+A separate contractor ID ext-proc-77 (no named person) from Kawami satellite office, device KM-Tab-22 on Wi‑Fi SSID KT-Guest, attempted to download “valuation_target_shirasuna_v5.xlsx” and “draft_Board_minutes_2026-05-27.docx”.
+Potentially exposed data included pre-announcement valuation models, draft timely-disclosure checklists for the local exchange, and masked payroll lines with My Number (個人番号) tokens rendered as ****-****-****; no unmasked My Number values were found.
+Isolated weak identifiers observed elsewhere (not linked to a person): DOB 1979-05-19, role “contract analyst”, Aomaki satellite office, and device OS “iOS 17”; these fields alone are not sufficient to identify a living individual.
+Ms. Ayaka Fujii, Board Secretariat Manager, confirmed that only six insiders had role-based access to the tender-offer workspace, and has extended the trading freeze to related employees in accordance with FIEA insider controls.
+No securities trades in issuer or target shares were executed by employees during the event window; coordination with Hoshikawa Capital Securities KK confirms pre-clearance remains suspended.
+Root cause analysis indicates credential stuffing against a reused password on ext-proc-77; Mr. Moriyama’s account shows normal behavior and no lateral movement beyond his role-based scope.
+APPI considerations: internal employee codes and device identifiers constitute personal data when linkable to a living person; however, the incident did not disclose names, home addresses, or unmasked individual numbers to external parties.
+Mitigation executed: forced password resets and MFA for all contractors, revocation of session sid=ktb-9b22, network segmentation of /board/tob-2026/, and redaction safeguards for any documents containing individual codes.
+Reporting plan: notify the Personal Data Officer and prepare a voluntary notice to the national personal data supervisory authority if later discovery reveals exposure of unmasked individual numbers; monitor guidance on fair disclosure given the TOB planning status.
+Benign content discovered during forensics (not PII/MNPI): a cafeteria wellness survey summarizing “ages 20s/30s/40s” and office bicycle parking rules.
+For questions, contact incident@kogane-th.co.jp or the Board Secretariat hotline at 03-5555-0198 (internal).

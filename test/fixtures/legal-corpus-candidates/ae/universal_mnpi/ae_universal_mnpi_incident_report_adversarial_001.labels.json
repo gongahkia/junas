@@ -1,0 +1,377 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 237,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 237,000,000'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 32,
+    "new_must_detect_count": 18,
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 18,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_universal_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION (SCA/ADGM MAR)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 20 Jul 2026 08:30 GST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Star Oasis",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "(MAC/MAE)",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo remains until 20 Jul 2026 08:30 GST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID: 784-0000-0000000-0",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL: CN-1O3A-7Z5",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tariq Al Mahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H.E. Dr. Leila Saqqaf",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "csirt@alsarab-logistics.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@alsarab-logistics.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential-stuffing",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non public deal folders",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non public tags",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet annexure B",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending sign/announce",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sample contact obfuscation applied to \"EID: 784-\u2022\u2022\u2022\u2022-\u2022\u2022\u2022\u2022\u2022\u2022\u2022-\u2022\"",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-5X-XXX-XXXX",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5% sell-down",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sale of 12.5% of Desert Dhow Warehousing LLC",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-0000-0000000-0",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leila Saqqaf",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "237,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "csirt@alsarab-logistics.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-0000-0000000-0",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tariq Al Mahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leila Saqqaf",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Star Oasis",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Star Oasis",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "237,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Confirmation by H.E. Dr. Leila Saqqaf (Chair) that management may proceed to sign if conditions precedent are satisfied and no sanction hits occur; embargo remains until 20 Jul 2026 08:30 GST",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 INSIDE INFORMATION (SCA/ADGM MAR) \u2014 Embargo until 20 Jul 2026 08:30 GST\nAl Sarab Logistics PJSC (ADX: ALSP) \u2014 Cyber/Operational Incident & Deal-Readiness Update re Project Star Oasis\nIncident summary: on 18 Jul 2026 23:41 GST our ADGM-hosted VDR for Project Star Oasis (12.5% sell-down) faced credential-stuffing; non public deal folders were quarantined read-only\nImpacted systems/URLs: https://dataroom.star-oasis.internal/login?deal=SO-12%25&ts=2026-07-18T23:41Z; ADGM SPV \"Star Oasis Holdings Ltd\" share registry view only; no payments\nPotential data exposure under UAE PDPL: limited to masked Emirates ID tags (e.g., EID: 784-0000-0000000-0) and trade licence refs (TL: CN-1O3A-7Z5; OCR drift), no biometric or family-origin data\nBoard context: Definitive Share Purchase Agreement (defini-\ntive SPA) for sale of 12.5% of Desert Dhow Warehousing LLC to our ADGM SPV priced at AED 237,000,000 is fully negotiated pending sign/announce\nCovenant assessment: outage temporary; under SPA clause 7.2 (MAC/MAE) the Parties agree the incident does not constitute a MAE, and no MAC has occurred as of 19 Jul 2026\nRegulatory: SCA Market Conduct and ADX Listing Rules may require disclosure if effects persist >72h; however public-source references indicate ADX calendar maintenance 18\u201319 Jul is unrelated\nPersonal data handling: Mr. Tariq Al Mahri (CISO) and Ms. Hana Qasimi (Data Protection Officer) reviewed logs; PDPL notification trigger not met; sample contact obfuscation applied to \"EID: 784-\u2022\u2022\u2022\u2022-\u2022\u2022\u2022\u2022\u2022\u2022\u2022-\u2022\"\nContact: csirt@alsarab-logistics.ae; +971-5X-XXX-XXXX; backup: IR team at ir@alsarab-logistics.ae for embargoed investor-relations drafts\nContainment/next steps: reset federated SSO to D I F C standards, rotate ADGM API keys, and retest upload of board memos and term sheets; to-do: send draft to legal and adgm ops monday\nDeal checklist items affected: board memo v5, IR draft release (embargoed), term sheet annexure B, signatory grid; non public tags retained; wet-ink signatures not yet collected\nPublic website and wellness benefits (spa day at Palm Mirage) are unaffected; product names, marketing assets, and cafeteria menus are not inside information\nCounterparty status: Nile Star Capital FZ-LLC confirmed readiness to sign by 21 Jul 2026; the defini-\ntive agreement will be executed in Abu Dhabi, with ADGM courts as forum; long-stop date 31 Aug 2026; ADX announce text held draft-only\nConfirmation by H.E. Dr. Leila Saqqaf (Chair) that management may proceed to sign if conditions precedent are satisfied and no sanction hits occur; embargo remains until 20 Jul 2026 08:30 GST\nAudit trail refs: change ticket a dx/ops/2441; SIEM alert ID 00A-9Z-7l; deal room \"SO/SPA/DRAFT\"; see research note v3 re supply chain metrics (public ADX benchmark used)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Parties",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "false-positive bait; not a Share Purchase Agreement"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "issuer ticker",
+      "matched_text": "ADX: ALSP",
+      "reason": "Ticker symbols may be relevant identifiers but are not covered by the allowed rules"
+    },
+    {
+      "concept": "deal long-stop date",
+      "matched_text": "long-stop date 31 Aug 2026",
+      "reason": "Key deal milestone may be market-sensitive but is not in the embargo marker list"
+    },
+    {
+      "concept": "special-category data (family origin)",
+      "matched_text": "family-origin data",
+      "reason": "Sensitive category referenced but not enumerated in allowed PII rules"
+    },
+    {
+      "concept": "public-source reference",
+      "matched_text": "public ADX benchmark used",
+      "reason": "Public-source mention is relevant for MNPI assessment but not an allowed rule"
+    },
+    {
+      "concept": "credentials/secret keys",
+      "matched_text": "ADGM API keys",
+      "reason": "Security secrets are sensitive but not included in enumerated PII/MNPI rules"
+    }
+  ]
+}

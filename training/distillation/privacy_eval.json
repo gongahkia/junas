@@ -1,0 +1,33 @@
+{
+  "schema_version": "kaypoh.llm_privacy_eval.v1",
+  "evaluation_status": "not_run_no_promoted_adapter",
+  "input_mode": "structured_tokens",
+  "raw_text_remote_allowed": false,
+  "checks": [
+    {
+      "name": "structured_tokens_default",
+      "status": "not_run",
+      "detail": "No local_distilled adapter is promoted in this repository state."
+    },
+    {
+      "name": "remote_raw_text_blocked",
+      "status": "not_run",
+      "detail": "Promotion requires remote raw-text refusal evidence."
+    },
+    {
+      "name": "tenant_consent_required",
+      "status": "not_run",
+      "detail": "Promotion requires teacher collection consent evidence."
+    },
+    {
+      "name": "privacy_ledger_recorded",
+      "status": "not_run",
+      "detail": "Promotion requires training and runtime privacy ledger evidence."
+    },
+    {
+      "name": "pdpc_genai_personal_data_review",
+      "status": "not_run",
+      "detail": "Promotion requires review evidence for SG PDPC GenAI personal-data guidance."
+    }
+  ]
+}

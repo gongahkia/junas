@@ -1,0 +1,267 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_universal_mnpi_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/universal_mnpi/cn_universal_mnpi_term_sheet_negative_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_universal_mnpi_term_sheet_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 22,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 18,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_universal_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "<5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share subscription agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "shareholders\u2019 agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@linghai.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "service@csrc.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@linghai.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 2026-07-15 08:00 cst",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal draft",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mac/mae",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no mnpi will be shared prior to posting on sse website (sse.example)",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9135TST0000000Q9X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9150DEMO0000000A1",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "110101-19900101-000X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr rosters in any data room to be pseudonymized, with no resident id collected",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any export of operational data to investor affiliates outside mainland china will undergo cac record-filing or security assessment if triggered",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mac/mae: the parties agree that general epidemics, industry-wide policy changes, or routine csl/dsl inspections shall not constitute a material adverse change for closing purposes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "timeline and disclosure: target signing is post-csrc guidance; according to the issuer\u2019s 2023 annual report and 2024 q1 update (public), capex and major customer data are already disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110101",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19900101",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@linghai.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mac/mae: the parties agree that general epidemics, industry-wide policy changes, or routine csl/dsl inspections shall not constitute a material adverse change for closing purposes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "timeline and disclosure: target signing is post-csrc guidance; according to the issuer\u2019s 2023 annual report and 2024 q1 update (public), capex and major customer data are already disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110101",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19900101",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet \u2014 strategic cooperation and minority investment (prc) \u2014 internal draft; embargo until 2026-07-15 08:00 cst.\nissuer: linghai microgrid technology co., ltd. (fictional), uscc: 9135TST0000000Q9X (invalid format), star market reference: star-xy0199 (for illustration only; public filings dated 2024-03-31).\ninvestor: xinyun industrial partnership (l.p.) (fictional), uscc: 9150DEMO0000000A1 (invalid), amac registration noted per public database.\nstructure: proposed subscription of new a-shares as a small minority stake (<5%) as discussed in january ir q&a (already public); final size and price to be determined in accordance with sse/csrc rules.\ndefinitive agreements: no share subscription agreement or shareholders\u2019 agreement has been signed; drafts to be negotiated under prc law after any public announcement.\nconditions precedent: csrc registration, sse acceptance, antitrust assessment if turnover thresholds are met (current public revenues suggest no filing required), and internal approvals by each party.\ninformation rights: investor to receive quarterly updates limited to publicly disclosed or de-identified metrics; no mnpi will be shared prior to posting on sse website (sse.example).\ndata compliance: pipl/csl/dsl controls apply; hr rosters in any data room to be pseudonymized, with no resident id collected (example placeholder \u201c110101-19900101-000X\u201d only), and minors under 14 excluded.\ncross-border: any export of operational data to investor affiliates outside mainland china will undergo cac record-filing or security assessment if triggered; currently only anonymized kpi dashboards are exported with no linkage to identifiable persons.\nemployment: no layoffs contemplated; esop refresh to use tokenized ids and employee consent via hr portal; hr contact (role mailbox): hr@linghai.example.\nmac/mae: the parties agree that general epidemics, industry-wide policy changes, or routine csl/dsl inspections shall not constitute a material adverse change for closing purposes.\ntimeline and disclosure: target signing is post-csrc guidance; according to the issuer\u2019s 2023 annual report and 2024 q1 update (public), capex and major customer data are already disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "role noun/defined term"
+    },
+    {
+      "matched_text": "investor",
+      "reason": "role noun/defined term"
+    },
+    {
+      "matched_text": "the parties",
+      "reason": "role noun/defined term"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "bait phrase, not Share Purchase Agreement"
+    },
+    {
+      "matched_text": "XX-ACCOUNT-0000",
+      "reason": "placeholder text, not an actual bank account"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "internal_form_id",
+      "matched_text": "form id tst-prc-0001",
+      "reason": "internal reference identifier not covered by allowed PII rule set"
+    },
+    {
+      "concept": "exchange_reference",
+      "matched_text": "star-xy0199",
+      "reason": "public market reference code; potentially sensitive contextually but not mapped to a current rule"
+    },
+    {
+      "concept": "pseudonymous_identifier",
+      "matched_text": "tokenized ids",
+      "reason": "PI processing detail indicating tokenization but not explicitly mapped to a listed rule"
+    }
+  ]
+}

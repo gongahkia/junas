@@ -1,0 +1,394 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_direct_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_direct_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "018888",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@oridacap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-123-4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lydia Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lydia.koh@oridacap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6900 1122",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S1234567Z",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "G1234567T",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E34567891",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aaron Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a/c 031-224-668-1",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sgs-mlro@helixstrandlaw.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@oridacap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "info@oridacap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout notifications",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201912345K",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201834567C",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation and retention",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked NRIC",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S123****Z",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not email full NRIC/FIN",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purge any file labelled \u201cMaster NRIC List (Public)\u201d",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing of data that is or contains MNPI under the SFA and SGX Listing Rules (e.g., undisclosed acquisition terms, draft earnings) is limited to authorised personnel and logged in the Insider List with deal codenames.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data minimisation and retention: HR records (NRIC, payroll) retained 7 years post-termination; M&A data room exports retained 6 years from transaction close; insider lists retained at least 5 years pursuant to SGX-ST guidance.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "201912345K",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201834567C",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "018888",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lydia.koh@oridacap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sgs-mlro@helixstrandlaw.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "info@oridacap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6900 1122",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E34567891",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lydia Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aaron Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing of data that is or contains MNPI under the SFA and SGX Listing Rules (e.g., undisclosed acquisition terms, draft earnings) is limited to authorised personnel and logged in the Insider List with deal codenames.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data minimisation and retention: HR records (NRIC, payroll) retained 7 years post-termination; M&A data room exports retained 6 years from transaction close; insider lists retained at least 5 years pursuant to SGX-ST guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201912345K; listed on SGX-ST Mainboard) and Helix & Strand Law Corporation (UEN 201834567C) effective 01/08/2026.\nOrida Capital Limited registered office: 88 Marina Forge, #42-01, Singapore 018888.\nContact for PD matters: Data Protection Officer, dpo@oridacap.sg, +65 6123 4567; alternate public helpline 1800-123-4567 is for general enquiries only.\nPrimary client representative: Ms. Lydia Koh (General Counsel), lydia.koh@oridacap.sg, +65 6900 1122.\nCategories of personal data (PDPA, s.2): employee NRIC/FIN, passport numbers, work email/phone, payroll and bank details, and addresses collected for HR, M&A integration, and capital-markets compliance.\nFor illustration in the insider list template, the following sample identifiers may appear: NRIC S1234567Z and FIN G1234567T (examples only), and Passport No. E34567891 of Mr. Aaron Tan (contract counsel).\nBank disbursements may reference the designated client-trust account at Marlin Bank (SG) Pte. Ltd., a/c 031-224-668-1, held by Helix & Strand Law Corporation for fee escrow.\nProcessing of data that is or contains MNPI under the SFA and SGX Listing Rules (e.g., undisclosed acquisition terms, draft earnings) is limited to authorised personnel and logged in the Insider List with deal codenames.\nData minimisation and retention: HR records (NRIC, payroll) retained 7 years post-termination; M&A data room exports retained 6 years from transaction close; insider lists retained at least 5 years pursuant to SGX-ST guidance.\nCross-border transfers limited to subprocessors listed in Annex B and rely on PDPC-approved transfer mechanisms; sample reviewer mailbox: sgs-mlro@helixstrandlaw.sg.\nData subjects may submit DSARs to dpo@oridacap.sg; requests sent to \u201cName of Employee: __________ / NRIC/FIN: __________\u201d on legacy forms will not be actioned until verified via our portal.\nVerification may require presenting a masked NRIC (e.g., S123****Z) or company-issued pass; do not email full NRIC/FIN unless instructed over secure channel.\nFor capital-markets mandates, trading blackout notifications and insider acknowledgments are issued via the Compliance Portal; no orders will be routed based on non-public analyst drafts.\nWe will not process generic helpline recordings, switchboard logs, or marketing lists collected without consent, and we will purge any file labelled \u201cMaster NRIC List (Public)\u201d on discovery.\nQueries on retention schedules or MNPI controls may be addressed to compliance@oridacap.sg or to \u201cHead of HR\u201d (role only) for employment records; correspondence to info@oridacap.sg",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing & Retention Addendum (Singapore) between Orida Capital Limited (UEN 201912345K; listed on SGX-ST Mainboard) and Helix & Strand Law Corporation (UEN 201834567C) effective 01/08/2026.\nOrida Capital Limited registered office: 88 Marina Forge, #42-01, Singapore 018888.\nContact for PD matters: Data Protection Officer, dpo@oridacap.sg, +65 6123 4567; alternate public helpline 1800-123-4567 is for general enquiries only.\nPrimary client representative: Ms. Lydia Koh (General Counsel), lydia.koh@oridacap.sg, +65 6900 1122.\nCategories of personal data (PDPA, s.2): employee NRIC/FIN, passport numbers, work email/phone, payroll and bank details, and addresses collected for HR, M&A integration, and capital-markets compliance.\nFor illustration in the insider list template, the following sample identifiers may appear: NRIC S1234567Z and FIN G1234567T (examples only), and Passport No. E34567891 of Mr. Aaron Tan (contract counsel).\nBank disbursements may reference the designated client-trust account at Marlin Bank (SG) Pte. Ltd., a/c 031-224-668-1, held by Helix & Strand Law Corporation for fee escrow.\nProcessing of data that is or contains MNPI under the SFA and SGX Listing Rules (e.g., undisclosed acquisition terms, draft earnings) is limited to authorised personnel and logged in the Insider List with deal codenames.\nData minimisation and retention: HR records (NRIC, payroll) retained 7 years post-termination; M&A data room exports retained 6 years from transaction close; insider lists retained at least 5 years pursuant to SGX-ST guidance.\nCross-border transfers limited to subprocessors listed in Annex B and rely on PDPC-approved transfer mechanisms; sample reviewer mailbox: sgs-mlro@helixstrandlaw.sg.\nData subjects may submit DSARs to dpo@oridacap.sg; requests sent to \u201cName of Employee: __________ / NRIC/FIN: __________\u201d on legacy forms will not be actioned until verified via our portal.\nVerification may require presenting a masked NRIC (e.g., S123****Z) or company-issued pass; do not email full NRIC/FIN unless instructed over secure channel.\nFor capital-markets mandates, trading blackout notifications and insider acknowledgments are issued via the Compliance Portal; no orders will be routed based on non-public analyst drafts.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Head of HR",
+      "reason": "Role-only term; not an identifiable individual"
+    },
+    {
+      "matched_text": "Name of Employee",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "NRIC/FIN",
+      "reason": "Generic form label placeholder, not actual PII"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained 7 years post-termination",
+      "reason": "Retention schedule reference is a privacy control, but no explicit allowed rule label for retention provided"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained 6 years from transaction close",
+      "reason": "Retention schedule reference is a privacy control, but no explicit allowed rule label for retention provided"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained at least 5 years",
+      "reason": "Retention schedule reference is a privacy control, but no explicit allowed rule label for retention provided"
+    }
+  ]
+}

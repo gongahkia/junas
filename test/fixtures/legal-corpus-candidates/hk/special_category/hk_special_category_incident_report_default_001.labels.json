@@ -1,0 +1,427 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko Tak-lam",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Cheng Mei-yan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hannah Tso",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lighthouseharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "comms@lighthouseharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852-5558-2411",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "outpatient treatment details for sleep apnea",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sleep apnea",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a biometric face-template used for turnstile authentication",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "membership in the HarborTech Staff Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependent child\u2019s name and age (12)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age (12)",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent form for genetic screening",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a self-disclosed sexual orientation field",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "her fingerprint hash used for secure print release",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retention shortened",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redaction rules have been tightened",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric face-template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorised access incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft heads of terms",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential inside information",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially constitute inside information",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Seabright MicroSensors Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "37,822",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "please do not forward this report outside the designated response team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko Tak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Cheng Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Initial investigation indicates a misconfigured BlueLattice HR Cloud 4.2 endpoint at our Harbor View Tower office allowed anonymous indexing; our perimeter control (Copper Cicada NGFW) was, metaphorically, a paper umbrella in a typhoon.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The exposed Seadrift Vault directory included draft heads of terms, SPA mark-ups, and internal revenue sensitivities for the proposed acquisition of Seabright MicroSensors Limited; these materials are not generally known and are likely price-material.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As a data user under the PDPO, we will notify the privacy regulator, inform affected data subjects, and maintain a breach log for not less than two years; a dedicated channel has been established at dpo@lighthouseharbor.example and +852-5558-2411.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: notify relevant authorities, complete data subject mapping, offer credit monitoring and counseling to impacted staff, and finalize a communication plan consistent with the Exchange\u2019s guidance on issuer communications.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Manager",
+      "rule": "transaction_codename"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "comms@lighthouseharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852-5558-2411",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko Tak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Cheng Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hannah Tso",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Initial investigation indicates a misconfigured BlueLattice HR Cloud 4.2 endpoint at our Harbor View Tower office allowed anonymous indexing; our perimeter control (Copper Cicada NGFW) was, metaphorically, a paper umbrella in a typhoon.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The exposed Seadrift Vault directory included draft heads of terms, SPA mark-ups, and internal revenue sensitivities for the proposed acquisition of Seabright MicroSensors Limited; these materials are not generally known and are likely price-material.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As a data user under the PDPO, we will notify the privacy regulator, inform affected data subjects, and maintain a breach log for not less than two years; a dedicated channel has been established at dpo@lighthouseharbor.example and +852-5558-2411.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: notify relevant authorities, complete data subject mapping, offer credit monitoring and counseling to impacted staff, and finalize a communication plan consistent with the Exchange\u2019s guidance on issuer communications.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Manager",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "37,822",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential incident report (potential inside information): Lighthouse Harbor Holdings Limited, a Main Board-listed issuer, discovered on 02 Jun 2026 an unauthorised access incident affecting its HR and deal-room systems; circulation is restricted under Part XIVA SFO considerations.\nInitial investigation indicates a misconfigured BlueLattice HR Cloud 4.2 endpoint at our Harbor View Tower office allowed anonymous indexing; our perimeter control (Copper Cicada NGFW) was, metaphorically, a paper umbrella in a typhoon.\nApproximately 37,822 records were accessible for up to 19 hours, including HR profiles, access logs, and documents in the Seadrift Vault DMS linked to M&A workstreams.\nMr. Adrian Ko Tak-lam (Senior Project Manager) had sensitive fields exposed: outpatient treatment details for sleep apnea from Silver Banyan Clinic, a biometric face-template used for turnstile authentication, and membership in the HarborTech Staff Union; his dependent child\u2019s name and age (12) were also present in benefits enrollment.\nMs. Lila Cheng Mei-yan (Corporate Finance Associate) had a wellness-program enrollment file containing a consent form for genetic screening and a self-disclosed sexual orientation field; her fingerprint hash used for secure print release was also in the cache.\nFor clarity, our internal faith and politics policy is a neutral HR guideline; references to religion or political belief below are generic and not about any employee\u2019s private data.\nThe exposed Seadrift Vault directory included draft heads of terms, SPA mark-ups, and internal revenue sensitivities for the proposed acquisition of Seabright MicroSensors Limited; these materials are not generally known and are likely price-material.\nWe consider the above to potentially constitute inside information under Part XIVA of the SFO; we have imposed an immediate dealing blackout under our Dealing Code and will assess a trading halt request with the Exchange in accordance with the Listing Rules.\nAs a data user under the PDPO, we will notify the privacy regulator, inform affected data subjects, and maintain a breach log for not less than two years; a dedicated channel has been established at dpo@lighthouseharbor.example and +852-5558-2411.\nContainment actions completed: revoked BlueLattice API keys, disabled public endpoints, enforced credential rotation, and applied configuration hardening to Copper Cicada NGFW; Seadrift Vault DMS redaction rules have been tightened and retention shortened.\nThird-party remediation: BlueLattice Systems has agreed to an immediate architecture review and will deliver an attestation under our Outsourcing Control Policy Orion-12 within 10 business days.\nThis incident does not affect our community sponsorship of the Harbor Phoenix FC, our Sky Lantern Data Retention Standard, or customer-facing product lines (e.g., PearlBeam and HarborOS), and normal operations in the North Dock Hub continue.\nWe reaffirm our DEI commitments: we value diversity, equity, and inclusion across cultures, religions, and orientations, and we train managers to avoid bias in all employment decisions.\nEvidence preservation: audit logs, firewall captures, and object-store manifests have been secured; a hash chain per Evidence Handling SOP Caravel-3 has been initiated for potential regulatory review.\nNext steps: notify relevant authorities, complete data subject mapping, offer credit monitoring and counseling to impacted staff, and finalize a communication plan consistent with the Exchange\u2019s guidance on issuer communications.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Harbor Phoenix FC",
+      "reason": "sports team name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Sky Lantern Data Retention Standard",
+      "reason": "policy name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "PearlBeam",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "HarborOS",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "BlueLattice HR Cloud 4.2",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Copper Cicada NGFW",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Seadrift Vault DMS",
+      "reason": "system/product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "religion or political belief",
+      "reason": "generic special-category reference explicitly stated as not about any employee\u2019s private data"
+    },
+    {
+      "matched_text": "Harbor View Tower",
+      "reason": "place name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "North Dock Hub",
+      "reason": "place name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Outsourcing Control Policy Orion-12",
+      "reason": "policy name/code (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Evidence Handling SOP Caravel-3",
+      "reason": "policy/SOP name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "generic DEI prose (non-PII/MNPI bait)"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "maintain a breach log for not less than two years",
+      "reason": "Indicates a retention period; privacy-event relevant but no explicit 'retention_marker' category in allowed rules."
+    },
+    {
+      "concept": "breach_notification_marker",
+      "matched_text": "we will notify the privacy regulator",
+      "reason": "Breach notification commitment is privacy-relevant but not mapped to an allowed marker category."
+    },
+    {
+      "concept": "trading_halt",
+      "matched_text": "trading halt request",
+      "reason": "Potential market action related to MNPI handling; not a listed MNPI category."
+    },
+    {
+      "concept": "data_subject_notification_marker",
+      "matched_text": "inform affected data subjects",
+      "reason": "Planned data subject notifications are privacy-relevant, but there is no explicit category for breach notifications to individuals."
+    },
+    {
+      "concept": "financial_sensitivity_mnpi",
+      "matched_text": "internal revenue sensitivities",
+      "reason": "Price-sensitive internal financial information implied, but no specific allowed rule fits other than broad MNPI context."
+    }
+  ]
+}

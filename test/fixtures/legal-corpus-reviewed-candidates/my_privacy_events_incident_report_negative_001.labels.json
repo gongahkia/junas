@@ -1,0 +1,261 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_privacy_events_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_incident_report_negative_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_privacy_events_incident_report_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 6,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop ideal_must_detect: invalid rule 'dsar_marker' text='DSARs'",
+      "drop ideal_must_detect: invalid rule 'dsar_marker' text='DSAR'",
+      "drop ideal_must_detect: invalid rule 'erasure_marker' text='erasure letters'",
+      "drop ideal_must_detect: invalid rule 'retention_marker' text='retained 24 months'",
+      "drop ideal_must_detect: invalid rule 'erasure_marker' text='purge completed'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investigation scope covered the finance shared drive, HR onboarding forms, and DPA Schedule 1\u20133 with Ternakan Cloud Sdn Bhd (processor) and LapisPay Services Bhd (sub-processor, sandbox only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing arrangements: facility agreements with Nusacapital Bank Berhad carry confidentiality undertakings; no facility schedules were accessed and no negative pledge information was in scope.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Hutan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive data",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@selerahijau.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@selerahijau.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "synced to a non-MY staging bucket",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "operational cyber event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do Not Collect",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation rule was applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval DEX/2026/014",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "field-level hashing",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "regional pinning",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investigation scope covered the finance shared drive, HR onboarding forms, and DPA Schedule 1\u20133 with Ternakan Cloud Sdn Bhd (processor) and LapisPay Services Bhd (sub-processor, sandbox only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing arrangements: facility agreements with Nusacapital Bank Berhad carry confidentiality undertakings; no facility schedules were accessed and no negative pledge information was in scope.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Hutan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "y: credential stuffing attempts against vendor-facing SSO were detected and blocked by MFA; SIEM shows no lateral movement and no export of MNPI.\nInvestigation scope covered the finance shared drive, HR onboarding forms, and DPA Schedule 1\u20133 with Ternakan Cloud Sdn Bhd (processor) and LapisPay Services Bhd (sub-processor, sandbox only).\nWe confirm no access to material non-public information; references to the discontinued Project Hutan were already disclosed in a Bursa Malaysia announcement (Ref: BM/ANN/2025-1188).\nPrivacy handling status: prior DSARs dated 10 May 2026 and 18 May 2026 were completed with erasure letters issued; no new DSAR was received in connection with this event.\nConsent management: an employee withdrew consent for optional wellness-data processing on 15 May 2026 and the attribute was flagged \u201cDo Not Collect\u201d; logs show the minimisation rule was applied.\nCross-border transfer controls: Data Export Approval DEX/2026/014 remains in force under PDPA s.129 and DPA Schedule 2; no export was triggered by this incident.\nRetention and deletion: per Policy DP-07, applicant CVs are retained 24 months; the March 2026 purge completed and certificates of erasure were archived.\nPositive finding: a contractor onboarding sheet containing names and office contact fields was briefly synced to a non-MY staging bucket for 46 minutes before auto-recall; hashing was not applied at sync time.\nRemediation: the staging rule now enforces field-level hashing and regional pinning; the affected file was replaced with a minimised version and notice sent to the contractor firm\u2019s role mailbox.\nESG and operations: no health, safety, or environmental impacts; supply chain and payroll runs proceeded; the vendor declared no sub-processor change under DPA Schedule 4.\nMNPI assessment under CMSA: no unpublished price-sensitive data was involved; finance figures referenced were quarter-end numbers already lodged via Bursa\u2019s e-submission.\nFinancing arrangements: facility agreements with Nusacapital Bank Berhad carry confidentiality undertakings; no facility schedules were accessed and no negative pledge information was in scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/defined term, not a person or PII/MNPI value."
+    },
+    {
+      "matched_text": "sub-processor",
+      "reason": "Role noun/defined term, not a person or PII/MNPI value."
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Generic role noun; not PII or MNPI."
+    },
+    {
+      "matched_text": "contractor",
+      "reason": "Generic role noun; not PII or MNPI."
+    },
+    {
+      "matched_text": "Audit Committee",
+      "reason": "Organisational role/body, not PII."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "SHB/IR/2026-06-02",
+      "reason": "Looks like an internal incident ID; adjacent to internal_session_id concept but not explicitly covered."
+    },
+    {
+      "concept": "MY company registration number",
+      "matched_text": "Company No. 202001012345",
+      "reason": "Corporate identifier (SSM) is legally relevant but not in allowed ID rules."
+    },
+    {
+      "concept": "ID document category label",
+      "matched_text": "NRIC/Passport",
+      "reason": "Indicates categories of personal IDs on forms but not an actual identifier value under allowed rules."
+    },
+    {
+      "concept": "bank account field label",
+      "matched_text": "Bank Account No",
+      "reason": "Indicates a bank account data field but not an actual bank account number per allowed rule."
+    }
+  ]
+}

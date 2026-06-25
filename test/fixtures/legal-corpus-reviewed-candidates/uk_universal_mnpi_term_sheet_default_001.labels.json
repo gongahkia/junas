@@ -1,0 +1,491 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_universal_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/universal_mnpi/uk_universal_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_universal_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 1,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 44,
+    "current_must_detect_count": 27,
+    "current_must_not_detect_count": 2,
+    "previous_ideal_must_detect_count": 32,
+    "previous_must_detect_count": 21,
+    "previous_must_not_detect_count": 3
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_universal_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information under the UK Market Abuse Regulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EMBARGO until 09:00 BST, 18 Oct 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TIDAL GLASS",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3145,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a390,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a355,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Senior Facilities Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "<7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a311,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eleanor Buckley",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eleanor.buckley@marleton.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 20 7940 8123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Felix Orr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "felix.orr@hearthfieldpartners.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "312 pence per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposes to acquire a 72.5% stake",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "admission intended to the Main Segment of the London Meridian Exchange",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to customary approvals",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "targeted for signature by 30 Sep 2026",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR-Red restricted folder",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be distributed beyond named recipients",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC carve-outs",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sounding",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unlawful disclosure",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Marleton Analytics plc (UK issuer) proposes to acquire a 72.5% stake in Seavale Sensors Ltd from Hearthfield Capital Partners LLP.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Forward-looking context: post-completion synergy run-rate expected at approximately \u00a311,500,000 by FY2028 without constituting earnings guidance; pro forma net debt to EBITDA expected at ~2.4x.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TIDAL GLASS Term",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11,500,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "eleanor.buckley@marleton.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "felix.orr@hearthfieldpartners.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 20 7940 8123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eleanor Buckley",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Felix Orr",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Marleton Analytics plc (UK issuer) proposes to acquire a 72.5% stake in Seavale Sensors Ltd from Hearthfield Capital Partners LLP.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Forward-looking context: post-completion synergy run-rate expected at approximately \u00a311,500,000 by FY2028 without constituting earnings guidance; pro forma net debt to EBITDA expected at ~2.4x.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TIDAL GLASS Term",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3145,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a390,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a355,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a311,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eleanor Buckley, General Counsel, Marleton Analytics plc, eleanor.buckley@marleton.co.uk, +44 20 7940 8123; Mr. Felix Orr, Deal Lead, Hearthfield Capital Partners LLP, felix.orr@hearthfieldpartners.uk",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Private & Confidential \u2014 Inside Information under the UK Market Abuse Regulation \u2014 EMBARGO until 09:00 BST, 18 Oct 2026 \u2014 Project TIDAL GLASS Term Sheet.\nParties: Marleton Analytics plc (UK issuer) proposes to acquire a 72.5% stake in Seavale Sensors Ltd from Hearthfield Capital Partners LLP.\nConsideration: \u00a3145,000,000 cash, funded by a \u00a390,000,000 senior bridge facility from Cartwright & Devonshire Bank Ltd and a \u00a355,000,000 equity placing.\nPricing: Equity placing at 312 pence per share, a 6.8% discount to the 5-day VWAP; admission intended to the Main Segment of the London Meridian Exchange subject to customary approvals.\nDefinitive Agreements: Share Purchase Agreement and Senior Facilities Agreement targeted for signature by 30 Sep 2026, with a long stop date of 30 Nov 2026.\nConditions Precedent: shareholder approval by simple majority, UK competition clearance, no Material Adverse Change in Seavale Sensors Ltd\u2019s business between signing and completion.\nMAC carve-outs: changes in UK base rates, industry-wide supply chain constraints, and loss of any single customer contributing <7% of revenue shall not constitute a MAC.\nNon-public handling: this document contains inside information and must not be distributed beyond named recipients; board memo and term sheet to remain in IR-Red restricted folder.\nTimetable: RNS-style announcement to be released immediately after embargo at 09:01 BST, 18 Oct 2026; target completion in Q4 2026; draft IR Q&A by 22 Sep 2026.\nGovernance: Marleton to nominate two directors to Seavale\u2019s board post-completion; employment protections for transferring staff for 12 months consistent with UK practice.\nResearch and IR context: non-deal roadshow materials to reference public-source data from Marleton Analytics plc\u2019s FY2025 annual report and The City Ledger\u2019s June 2026 industry survey.\nFor the avoidance of doubt, background references to publicly available historical market size are non-confidential and excluded from the definition of inside information.\ninterim tasks: circulate draft spa and sfa tonight, update diligence tracker, move the slide deck by 3pm, arrange spa-day vouchers after signing.\nContacts: Ms. Eleanor Buckley, General Counsel, Marleton Analytics plc, eleanor.buckley@marleton.co.uk, +44 20 7940 8123; Mr. Felix Orr, Deal Lead, Hearthfield Capital Partners LLP, felix.orr@hearthfieldpartners.uk.\nCompliance: Recipients are reminded of restrictions on unlawful disclosure, insider dealing, and market sounding under the UK Market Abuse Regulation and the issuer\u2019s internal dealing code.\nForward-looking context: post-completion synergy run-rate expected at approximately \u00a311,500,000 by FY2028 without constituting earnings guidance; pro forma net debt to EBITDA expected at ~2.4x.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eleanor Buckley, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "False-positive bait; not a Share Purchase Agreement or MNPI/PII."
+    },
+    {
+      "matched_text": "sfa",
+      "reason": "Lowercase shorthand in project-management context; not a definitive agreement token."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "closing/timeline marker",
+      "matched_text": "long stop date of 30 Nov 2026",
+      "reason": "Legally relevant timing constraint but not explicitly covered under embargo_marker list."
+    },
+    {
+      "concept": "post-embargo release timing",
+      "matched_text": "RNS-style announcement to be released immediately after embargo at 09:01 BST, 18 Oct 2026",
+      "reason": "Precise non-public release timing may be market-sensitive but lacks a dedicated allowed rule beyond embargo_marker."
+    }
+  ]
+}

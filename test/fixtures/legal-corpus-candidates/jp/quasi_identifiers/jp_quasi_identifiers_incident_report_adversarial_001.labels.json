@@ -1,0 +1,439 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "a.kobuchi@shinmon.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal-incident@akebono-legal.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+81-50-1234-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-07-04",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keita Yamori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rina Kobuchi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morohashi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity (APPI/My Number and FIEA context) \u2014 Shinmon Electronics K.K.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-04-07 09:42 JST, unauthorized access to the \u201cKirinBoard\u201d portal was detected, potentially exposing draft documents concerning a confidential TOB (take-over bid) proposal to acquire Seikatsu Grid K.K., a matter not disclosed to the market.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This is not a material adverse change (MAC) statement and does not amend earnings guidance; public references: APPI implementation guidelines and our ISMS manual section 4.2 (circulated on the intranet).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a51,120",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a51,240",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985-11-06",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-OSK-1186",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SHM-17-OSK-4401",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.17.4.23",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7f2a-9c13",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access to the \u201cKirinBoard\u201d portal was detected",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keita Yamori (b. 1985-11-06), Senior SecOps Eng., Shinmon Electronics K.K., Osaka HQ 3-2-1 Minato, Nishi-ku, Osaka-shi; login \u201ckyamori\u201d; EID \u201cEID-OSK-1186\u201d; device \u201cNB-OSK-17\u201d; VPN acct \u201csec-ky-930127\u201d; sess ion \u201c7f2a-9c13\u201d; ip 10.17.4.23; u r l: https://kirinboard.shinmon.co.jp/bo ard?sess=7f2a-9c13&uid=kyamori",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 27",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "kyamori",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-ky-930127",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uid=boardsec",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redacted as \u201c**** **** ****\u201d",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential TOB (take-over bid) proposal to acquire Seikatsu Grid K.K",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "indicative TOB price range \u00a51,120\u2013\u00a51,240",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed board resolution date 2025-05-09",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tender-offer timetable",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public disclosure will occur until Board approval of any TOB notice",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed session",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "a.kobuchi@shinmon.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal-incident@akebono-legal.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+81-50-1234-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-07-04",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keita Yamori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rina Kobuchi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morohashi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity (APPI/My Number and FIEA context) \u2014 Shinmon Electronics K.K.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-04-07 09:42 JST, unauthorized access to the \u201cKirinBoard\u201d portal was detected, potentially exposing draft documents concerning a confidential TOB (take-over bid) proposal to acquire Seikatsu Grid K.K., a matter not disclosed to the market.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This is not a material adverse change (MAC) statement and does not amend earnings guidance; public references: APPI implementation guidelines and our ISMS manual section 4.2 (circulated on the intranet).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This is not a material adverse change (MAC) statement and does not amend earnings guidance; public references: APPI implementation guidelines and our ISMS manual section 4.2 (circulated on the intranet).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a51,120",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a51,240",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Keita Yamori (b. 1985-11-06), Senior SecOps Eng., Shinmon Electronics K.K., Osaka HQ 3-2-1 Minato, Nishi-ku, Osaka-shi; login \u201ckyamori\u201d; EID \u201cEID-OSK-1186\u201d; device \u201cNB-OSK-17\u201d; VPN acct \u201csec-ky-930127\u201d; sess ion \u201c7f2a-9c13\u201d; ip 10.17.4.23; u r l: https://kirinboard.shinmon.co.jp/bo ard?sess=7f2a-9c13&uid=kyamori\nHis device serial \u201cSHM-17-OSK-4401\u201d (MDM alias: NB-OSK-17) and mobile \u201can d r oid-ky 85\u201d were flagged; last portal activity 09:41 JST; workstation locale set to JA-JP; OS build \u201c22H2\u201d.\nPer APPI compliance, no Individual Number (My Number) fields were uploaded; DLP shows 12-digit patterns redacted as \u201c**** **** ****\u201d and no individual codes or biometric templates left the corporate boundary.\nThe draft board deck included FIEA-enumerated items (undisclosed): indicative TOB price range \u00a51,120\u2013\u00a51,240, proposed board resolution date 2025-05-09, and a tender-offer timetable; these facts remain nonpublic and are treated as MNPI.\nThe Internal Securities Control Office added 12 persons to the insider list and imposed a trading blackout for board members and Corporate Strategy employees; FIEA Art. 166/167 procedures have been initiated pending outside counsel review.\nStats-only (not linked to a named person): age 27 contractor; city Fukuoka; device \u201ctablet-04\u201d; login time 10:03; generic OS \u201cAndroid\u201d; for awareness training examples only.\nExample from policy appendix (not tied to any account): birth date 1991-07-04; Yokohama; Android 14; Wi\u2011Fi SSID \u201coffice-guest\u201d; these standalone attributes are insufficient to identify a living individual.\nFile path: \\\\filesrv-osa\\boa rd\\2025\\TOB\\prelim\\A- v3.pdf; sha256: e2:6b:0f:\u2026:9a; embedded u r l params \u201cuid=boardsec&ts=2025-04-07T09%3A40%3A29Z\u201d; share link disabled at 10:02 JST.\nNo environmental, social, or safety systems were impacted; production lines and ESG data repositories are operating normally; only the board portal and two exec mailboxes were involved.\nFor inquiries, contact Ms. Rina Kobuchi (CISO Office) at rin a.kobuchi@shinmon.co.jp or hotline +81-50-1234-0000; external counsel channel: legal-incident@akebono-legal.jp (fictional).\nRegulatory notifications were filed with the Kokusai Markets Authority and the Higashi Capital Exchange SRO under voluntary incident reporting; no public disclosure will occur until Board approval of any TOB notice.\nThis is not a material adverse change (MAC) statement and does not amend earnings guidance; public references: APPI implementation guidelines and our ISMS manual section 4.2 (circulated on the intranet).\nAn employee security training module \u201cSakuraShield v2.3\u201d is scheduled; deliverables logged to the LMS; the preceding sentence contains no personal identifiers and is operational in nature.\nBoard Secretariat note: 2025-04-08 08:00 JST meeting scheduled; attendees recorded separately; Chairman Mr. Daichi Morohashi",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity (APPI/My Number and FIEA context) \u2014 Shinmon Electronics K.K.\nOn 2025-04-07 09:42 JST, unauthorized access to the \u201cKirinBoard\u201d portal was detected, potentially exposing draft documents concerning a confidential TOB (take-over bid) proposal to acquire Seikatsu Grid K.K., a matter not disclosed to the market.\nMr. Keita Yamori (b. 1985-11-06), Senior SecOps Eng., Shinmon Electronics K.K., Osaka HQ 3-2-1 Minato, Nishi-ku, Osaka-shi; login \u201ckyamori\u201d; EID \u201cEID-OSK-1186\u201d; device \u201cNB-OSK-17\u201d; VPN acct \u201csec-ky-930127\u201d; sess ion \u201c7f2a-9c13\u201d; ip 10.17.4.23; u r l: https://kirinboard.shinmon.co.jp/bo ard?sess=7f2a-9c13&uid=kyamori\nHis device serial \u201cSHM-17-OSK-4401\u201d (MDM alias: NB-OSK-17) and mobile \u201can d r oid-ky 85\u201d were flagged; last portal activity 09:41 JST; workstation locale set to JA-JP; OS build \u201c22H2\u201d.\nPer APPI compliance, no Individual Number (My Number) fields were uploaded; DLP shows 12-digit patterns redacted as \u201c**** **** ****\u201d and no individual codes or biometric templates left the corporate boundary.\nThe draft board deck included FIEA-enumerated items (undisclosed): indicative TOB price range \u00a51,120\u2013\u00a51,240, proposed board resolution date 2025-05-09, and a tender-offer timetable; these facts remain nonpublic and are treated as MNPI.\nThe Internal Securities Control Office added 12 persons to the insider list and imposed a trading blackout for board members and Corporate Strategy employees; FIEA Art. 166/167 procedures have been initiated pending outside counsel review.\nStats-only (not linked to a named person): age 27 contractor; city Fukuoka; device \u201ctablet-04\u201d; login time 10:03; generic OS \u201cAndroid\u201d; for awareness training examples only.\nExample from policy appendix (not tied to any account): birth date 1991-07-04; Yokohama; Android 14; Wi\u2011Fi SSID \u201coffice-guest\u201d; these standalone attributes are insufficient to identify a living individual.\nFile path: \\\\filesrv-osa\\boa rd\\2025\\TOB\\prelim\\A- v3.pdf; sha256: e2:6b:0f:\u2026:9a; embedded u r l params \u201cuid=boardsec&ts=2025-04-07T09%3A40%3A29Z\u201d; share link disabled at 10:02 JST.\nNo environmental, social, or safety systems were impacted; production lines and ESG data repositories are operating normally; only the board portal and two exec mailboxes were involved.\nFor inquiries, contact Ms. Rina Kobuchi (CISO Office) at rin a.kobuchi@shinmon.co.jp or hotline +81-50-1234-0000; external counsel channel: legal-incident@akebono-legal.jp (fictional).\nRegulatory notifications were filed with the Kokusai Markets Authority and the Higashi Capital Exchange SRO under voluntary incident reporting; no public disclosure will occur until Board approval of any TOB notice.\nThis is not a material adverse change (MAC) statement and does not amend earnings guidance; public references: APPI implementation guidelines and our ISMS manual section 4.2 (circulated on the intranet).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated MAC reference; rule excludes negated MAC/MAE."
+    },
+    {
+      "matched_text": "Individual Number (My Number)",
+      "reason": "Explicitly stated none were uploaded; do not flag negated control."
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role-noun/defined term; not PII."
+    },
+    {
+      "matched_text": "Board Secretariat",
+      "reason": "Role-noun/defined term; not PII."
+    },
+    {
+      "matched_text": "CISO Office",
+      "reason": "Department/role noun; not PII."
+    },
+    {
+      "matched_text": "Corporate Strategy",
+      "reason": "Department/role noun; not PII."
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "username/account ID",
+      "matched_text": "login \u201ckyamori\u201d",
+      "reason": "PII-like identifier but not clearly covered by an allowed rule category."
+    },
+    {
+      "concept": "account identifier",
+      "matched_text": "VPN acct \u201csec-ky-930127\u201d",
+      "reason": "Internal VPN account string; customer_account_number rule may not apply."
+    },
+    {
+      "concept": "URL with identity parameters",
+      "matched_text": "u r l: https://kirinboard.shinmon.co.jp/bo ard?sess=7f2a-9c13&uid=kyamori",
+      "reason": "Contains session and user identifiers; no explicit URL/UID rule."
+    },
+    {
+      "concept": "URL identity parameter",
+      "matched_text": "u r l params \u201cuid=boardsec&ts=2025-04-07T09%3A40%3A29Z\u201d",
+      "reason": "UID value in URL parameter; mapping to customer_account_number is uncertain."
+    },
+    {
+      "concept": "street address (JP)",
+      "matched_text": "Osaka HQ 3-2-1 Minato, Nishi-ku, Osaka-shi",
+      "reason": "Likely PII, but allowed rules cover jp_postal_code, not full addresses."
+    },
+    {
+      "concept": "device alias",
+      "matched_text": "MDM alias: NB-OSK-17",
+      "reason": "Device alias is identifying but rule set targets device_serial_number."
+    },
+    {
+      "concept": "mobile device alias",
+      "matched_text": "mobile \u201can d r oid-ky 85\u201d",
+      "reason": "Identifier-like but not covered by allowed device rules."
+    },
+    {
+      "concept": "statutory insider procedure marker",
+      "matched_text": "FIEA Art. 166/167 procedures have been initiated",
+      "reason": "Legally significant MNPI-compliance step but not directly mapped to a listed rule."
+    },
+    {
+      "concept": "regulatory pre-disclosure/selective disclosure",
+      "matched_text": "Regulatory notifications were filed with the Kokusai Markets Authority and the Higashi Capital Exchange SRO",
+      "reason": "Sensitive context but no direct allowed MNPI rule category specified."
+    }
+  ]
+}

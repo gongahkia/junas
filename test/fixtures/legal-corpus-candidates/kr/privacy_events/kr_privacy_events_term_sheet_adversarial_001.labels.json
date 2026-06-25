@@ -1,0 +1,279 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jo   In",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Baek Hae",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Hanul Kinetics Co., Ltd. (KSX: HN\u2011Z1; fict.) proposes to acquire Eunhwa Robotics Co., Ltd.; purchase price KRW 78,000,000,000; non\u2011binding term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing subject to Korean securities regulator approval (K\u2011FSC) and market operator clearance (KSX Growth Board); no MAC condition will be included.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This paragraph is generic policy text only and does not by itself indicate active processing or a breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration shares to be listed on KSX subject to submission of em ployee integration plan to K\u2011FSC and FOS\u2011style post\u2011closing report (fictional oversight body).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 78,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "78,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "important information not yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RRN minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "automatic minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Two marketing email consents withdrawn",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jo   In\u2011seok",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Baek Hae\u2011rin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hanul\u2011kinetics.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@eunhwa\u2011robotics.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82\u20112\u2011555\u20110000x33",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "77\u2011XX\u20119342",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident\u2011number fields masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "not required for investor review",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "will be redacted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "session?ticket=kr%2FZ9-4_1&user=HN\u2011A%7C1",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposes to acquire Eunhwa Robotics Co., Ltd",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jo   In",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Baek Hae",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Hanul Kinetics Co., Ltd. (KSX: HN\u2011Z1; fict.) proposes to acquire Eunhwa Robotics Co., Ltd.; purchase price KRW 78,000,000,000; non\u2011binding term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing subject to Korean securities regulator approval (K\u2011FSC) and market operator clearance (KSX Growth Board); no MAC condition will be included.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This paragraph is generic policy text only and does not by itself indicate active processing or a breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration shares to be listed on KSX subject to submission of em ployee integration plan to K\u2011FSC and FOS\u2011style post\u2011closing report (fictional oversight body).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 78,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "78,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Hanul Kinetics Co., Ltd. (KSX: HN\u2011Z1; fict.) proposes to acquire Eunhwa Robotics Co., Ltd.; purchase price KRW 78,000,000,000; non\u2011binding term sheet.\nClosing subject to Korean securities regulator approval (K\u2011FSC) and market operator clearance (KSX Growth Board); no MAC condition will be included.\nEach party may hold important information not yet publicly disclosed under the FSCMA; the investor\u2011relations briefing dated 2025\u201112\u201120 is public and not MNPI.\nCross\u2011border transfer of diligence files to SG review server approved per PIPA with explicit notices; Data\u2011Export Approval ref: KR\u2011HNUL\u2011EXP\u20119x_3 (archived).\nAs of 2026\u201102\u201110 the export link was disabled and all third\u2011country tokens revoked; no live overseas transfer in place.\nDPA Schedule (KR Addendum) Annex 2\u2014RRN minimisation: resident\u2011number fields masked and not required for investor review; policy applies to em ployment records.\nEmployee onboarding forms will be redacted before upload; DSAR from former employee Mr. Jo   In\u2011seok was fulfilled on 2026\u201101\u201115 and erasure completed for batch \"BOX\u2011kr\u201177_\u0394\".\nTwo marketing email consents withdrawn (log ids c\u2011kr\u201100O\u20117l1; c\u2011kr\u20118vv\u20112Q0) and processing stopped\u2014control completed, not a current risk.\nRetention: 3 years for deal files excluding CVs; automatic minimisation deletes r\u00e9sum\u00e9 fields (age, re si dent\u2011number) on export.\nThis paragraph is generic policy text only and does not by itself indicate active processing or a breach.\nPublic\u2011source references (KSX DISC notices, company homepage) may be used for verification; no scraping of personal social media.\nConsideration shares to be listed on KSX subject to submission of em ployee integration plan to K\u2011FSC and FOS\u2011style post\u2011closing report (fictional oversight body).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC condition",
+      "reason": "Negated MAC language; do not tag as material_adverse_change"
+    },
+    {
+      "matched_text": "No seller representation on MAC",
+      "reason": "Negated MAC representation; not a material_adverse_change signal"
+    },
+    {
+      "matched_text": "not MNPI",
+      "reason": "Explicit negation of MNPI status"
+    },
+    {
+      "matched_text": "no live overseas transfer",
+      "reason": "Negated cross-border transfer; control not active"
+    },
+    {
+      "matched_text": "control completed, not a current risk",
+      "reason": "Completed control; not an active privacy risk"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR from former employee",
+      "reason": "DSAR events are privacy-relevant but no explicit allowed rule name provided"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure completed",
+      "reason": "Erasure events are privacy-relevant but not in allowed rule list"
+    },
+    {
+      "concept": "retention policy marker",
+      "matched_text": "Retention: 3 years for deal files excluding CVs",
+      "reason": "Retention schedules are privacy-relevant but there is no specific allowed rule for retention"
+    }
+  ]
+}

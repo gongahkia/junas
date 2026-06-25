@@ -1,0 +1,381 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='Data Subject Access Request DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='Data Subject Access Request DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_privacy_events_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_privacy_events_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@lcmh.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.ortega@seagrove.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpa@lcmh.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy   @ bayfrontlex.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Devi Nair",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Quek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jun Wei Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. L. Ortega",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only initials and last 2 digits of phone numbers kept",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no new collection will occur for ex\u2011employees beyond statutory need",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6 0 0 0 0 0 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 9 9 9 9 9",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team access enforced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only Bayfront Lex LLP and Orchid Quay Capital Advisors (internal) may view non\u2011public revenue ranges",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 9 9 9 9 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Subject Access Request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: M&A due\u2011diligence data room for proposed acquisition of Seagrove Robotics Pte. Ltd.; issuer is a Mainboard\u2011listed company; MNPI handling under SFA and SGX Listing Rule 703.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111; Transfer Impact Assessment per PDPA s.26 completed 30\u2011May\u20112026; contractual clauses ensuring comparable protection (PDPC guidance) are in DPA Schedule 2.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.ortega@seagrove.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpa@lcmh.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6 0 0 0 0 0 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 9 9 9 9 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Subject Access Request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Devi Nair",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Quek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jun Wei Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: M&A due\u2011diligence data room for proposed acquisition of Seagrove Robotics Pte. Ltd.; issuer is a Mainboard\u2011listed company; MNPI handling under SFA and SGX Listing Rule 703.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111; Transfer Impact Assessment per PDPA s.26 completed 30\u2011May\u20112026; contractual clauses ensuring comparable protection (PDPC guidance) are in DPA Schedule 2.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Devi Nair, DPO, with review by Mr. Adrian Quek, Partner, Bayfront Lex LLP (SG law firm); contact: dpo@lcmh.example; E m a i l: privacy   @ bayfrontlex.example\nScope: M&A due\u2011diligence data room for proposed acquisition of Seagrove Robotics Pte. Ltd.; issuer is a Mainboard\u2011listed company; MNPI handling under SFA and SGX Listing Rule 703.\nPDPA basis: consent obtained via onboarding forms (ref: ONB\u20112O26\u2011SEA\u2011**37**), purpose\u2011limited; minimisation applied: CVs truncated and NRIC fields masked (T\u2011XXX\u2011XXXXZ).\nCross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111; Transfer Impact Assessment per PDPA s.26 completed 30\u2011May\u20112026; contractual clauses ensuring comparable protection (PDPC guidance) are in DPA Schedule 2.\nData Subject Access Request DSAR REQ\u20114f3a\u2011009 received from Mr. Jun Wei Tan on 28\u2011May\u20112026 via https://portal.lcmh.example/dsar?id=REQ-4f3a-009; identity verified; response due in 21 days.\nErasure: upon consent withdrawal by Ms. L. Ortega (l.ortega@seagrove.example) on 27\u2011May\u20112026, marketing records tagged DEL\u2011PEN; system purge completed 31\u2011May\u20112026 23:59 SGT, with audit hash 9c:a1:\u2022\u2022:3e (this is not a device MAC).\nRetention: finance payroll extracts retained for 5 years from cessation per retention schedule FIN\u2011R\u201105; archived in sg\u2011east\u20112 vault; no new collection will occur for ex\u2011employees beyond statutory need.\nMinimisation: deal\u2011room folders \u201cHR\u2011Profiles\u201d and \u201cVendor\u2011KYC\u201d now contain redacted fields only; full birth dates removed; only initials and last 2 digits of phone numbers kept (e.g., +65\u2011***\u2011**42).\nMNPI control: clean\u2011team access enforced; only Bayfront Lex LLP and Orchid Quay Capital Advisors (internal) may view non\u2011public revenue ranges; however, this memo contains no MNPI and does not alter previously disclosed information on SGXNet.\nNegative assurance: there has been no Material Adverse Change (no MAC) under the draft SPA, and no insider dealing risk is created by the routine DSAR processing.\nPolicy\u2011only control: the system is configured to not collect device MAC addresses or precise geolocation; references to \u201cMAC\u201d herein are contract terms only.\nNote on public sources: candidate education history used for verification was drawn from public alumni directories and company web pages; no scraping of restricted sources.\nException record: request XFR\u20112O26\u2011B7 to send 3 files to au\u2011syd\u2011tr1 was rejected on 01\u2011Jun\u20112026 due to missing comparable protection; export will not proceed until DPA Schedule 2 is countersigned.\nClarification: an earlier placeholder string \u201cNRIC:SxxxxxxxA\u201d appearing in a template was never used in production; it was replaced with tokens like S\u2011*******A before any processing.\nFor queries, contact PDPA team at pdpa@lcmh.example or call +65 6 0 0 0 0 0 0; office: 38 Pelican Quay, #22\u201101, Lion Harbour, Singapore 0 9 9 9 9 9",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prepared by: Ms. Priya Devi Nair, DPO, with review by Mr. Adrian Quek, Partner, Bayfront Lex LLP (SG law firm); contact: dpo@lcmh.example; E m a i l: privacy   @ bayfrontlex.example\nScope: M&A due\u2011diligence data room for proposed acquisition of Seagrove Robotics Pte. Ltd.; issuer is a Mainboard\u2011listed company; MNPI handling under SFA and SGX Listing Rule 703.\nPDPA basis: consent obtained via onboarding forms (ref: ONB\u20112O26\u2011SEA\u2011**37**), purpose\u2011limited; minimisation applied: CVs truncated and NRIC fields masked (T\u2011XXX\u2011XXXXZ).\nCross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111; Transfer Impact Assessment per PDPA s.26 completed 30\u2011May\u20112026; contractual clauses ensuring comparable protection (PDPC guidance) are in DPA Schedule 2.\nData Subject Access Request DSAR REQ\u20114f3a\u2011009 received from Mr. Jun Wei Tan on 28\u2011May\u20112026 via https://portal.lcmh.example/dsar?id=REQ-4f3a-009; identity verified; response due in 21 days.\nErasure: upon consent withdrawal by Ms. L. Ortega (l.ortega@seagrove.example) on 27\u2011May\u20112026, marketing records tagged DEL\u2011PEN; system purge completed 31\u2011May\u20112026 23:59 SGT, with audit hash 9c:a1:\u2022\u2022:3e (this is not a device MAC).\nRetention: finance payroll extracts retained for 5 years from cessation per retention schedule FIN\u2011R\u201105; archived in sg\u2011east\u20112 vault; no new collection will occur for ex\u2011employees beyond statutory need.\nMinimisation: deal\u2011room folders \u201cHR\u2011Profiles\u201d and \u201cVendor\u2011KYC\u201d now contain redacted fields only; full birth dates removed; only initials and last 2 digits of phone numbers kept (e.g., +65\u2011***\u2011**42).\nMNPI control: clean\u2011team access enforced; only Bayfront Lex LLP and Orchid Quay Capital Advisors (internal) may view non\u2011public revenue ranges; however, this memo contains no MNPI and does not alter previously disclosed information on SGXNet.\nNegative assurance: there has been no Material Adverse Change (no MAC) under the draft SPA, and no insider dealing risk is created by the routine DSAR processing.\nPolicy\u2011only control: the system is configured to not collect device MAC addresses or precise geolocation; references to \u201cMAC\u201d herein are contract terms only.\nNote on public sources: candidate education history used for verification was drawn from public alumni directories and company web pages; no scraping of restricted sources.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Adrian Quek, Partner",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MNPI",
+      "reason": "Negated statement; should not be treated as MNPI presence."
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated Material Adverse Change; do not flag as MAC."
+    },
+    {
+      "matched_text": "no insider dealing risk",
+      "reason": "Explicit negation; not an insider risk signal."
+    },
+    {
+      "matched_text": "device MAC addresses",
+      "reason": "Policy-only negation; not collecting these identifiers."
+    },
+    {
+      "matched_text": "9c:a1:\u2022\u2022:3e",
+      "reason": "Explicitly noted as not a device MAC address."
+    },
+    {
+      "matched_text": "NRIC:SxxxxxxxA",
+      "reason": "Placeholder example; not a real NRIC/FIN."
+    },
+    {
+      "matched_text": "S\u2011*******A",
+      "reason": "Masked token; not a real NRIC/FIN."
+    },
+    {
+      "matched_text": "T\u2011XXX\u2011XXXXZ",
+      "reason": "Masked token; not a real NRIC/FIN."
+    },
+    {
+      "matched_text": "export will not proceed",
+      "reason": "Blocked transfer; not a live cross-border transfer event."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "internal reference ID",
+      "matched_text": "REQ\u20114f3a\u2011009",
+      "reason": "Could be an internal request/session identifier associated with a DSAR but not covered by a specific allowed PII rule."
+    },
+    {
+      "concept": "internal transfer request ID",
+      "matched_text": "XFR\u20112O26\u2011B7",
+      "reason": "Internal exception/transfer reference; may be PII in context but no explicit rule for such IDs."
+    },
+    {
+      "concept": "onboarding form reference",
+      "matched_text": "ONB\u20112O26\u2011SEA\u2011**37**",
+      "reason": "Internal reference tied to consent records; not clearly mapped to a listed PII rule."
+    },
+    {
+      "concept": "DSAR portal URL with request ID",
+      "matched_text": "https://portal.lcmh.example/dsar?id=REQ-4f3a-009",
+      "reason": "URL contains an internal identifier that may link to an individual; not directly covered by listed PII rules."
+    },
+    {
+      "concept": "postal address (full)",
+      "matched_text": "38 Pelican Quay, #22\u201101, Lion Harbour, Singapore 0 9 9 9 9 9",
+      "reason": "Full SG address is personal data, but the allowed rule only targets the 6\u2011digit postal code and spacing hinders strict detection."
+    }
+  ]
+}

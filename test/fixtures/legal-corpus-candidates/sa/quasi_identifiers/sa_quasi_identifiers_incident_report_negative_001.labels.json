@@ -1,0 +1,197 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 15,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 12,
+    "old_must_detect_count": 9,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_quasi_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "issuer-relations@al-najm.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-08-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The event did not impact financial guidance, and the CMA Market Conduct Department was notified within the same trading day.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "These details were confined to the internal loss ticket and are being redacted prior to any cross-border log transfer under PDPL; no transfer has occurred pending SDAIA guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@al-najm.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1991-08-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IMEI 35-2099-001234-567",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal user ID UN-04192",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border log transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "being redacted prior to any cross-border log transfer under PDPL",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA pre-approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Positive cluster for assessment: an operations analyst employed by Al-Najm Desert Utilities PJSC, residing in Al Khobar (Al Aqrabiyah) with DOB 1991-08-14, used a company-issued Galaxy S21 (IMEI 35-2099-001234-567), internal user ID UN-04192, and presented a partially redacted Iqama *****4287 when filing the loss report",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama *****4287",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 1010-XXXXXXX",
+      "rule": "sa_commercial_registration"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "issuer-relations@al-najm.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-08-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The event did not impact financial guidance, and the CMA Market Conduct Department was notified within the same trading day.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "These details were confined to the internal loss ticket and are being redacted prior to any cross-border log transfer under PDPL; no transfer has occurred pending SDAIA guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The event did not impact financial guidance, and the CMA Market Conduct Department was notified within the same trading day.\nNo customer billing data or National ID numbers were stored on the device; the vendor portal only displayed role mailboxes and helpline references.\nForm fields observed in an old template included placeholders such as National ID/Iqama: 0000-0000-0000 and CR: 1010-XXXXXXX, which are invalid and were never populated.\nGeneric demographics in a training dataset (e.g., age band 30\u201339, Eastern Province) were present but are non-identifying on their own.\nPositive cluster for assessment: an operations analyst employed by Al-Najm Desert Utilities PJSC, residing in Al Khobar (Al Aqrabiyah) with DOB 1991-08-14, used a company-issued Galaxy S21 (IMEI 35-2099-001234-567), internal user ID UN-04192, and presented a partially redacted Iqama *****4287 when filing the loss report.\nThese details were confined to the internal loss ticket and are being redacted prior to any cross-border log transfer under PDPL; no transfer has occurred pending SDAIA guidance.\nBackups indicated a device alias \u201cENG-Tablet-Blue\u201d and a masked vendor account \u201cqamra-inv-ops@\u201d associated with QamraPay Services LLC, a third-party processor with a signed data processing agreement.\nThe issuer\u2019s insider list was not implicated, and the records relate only to routine network access; no unpublished earnings, project codenames, or capital markets d",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Al-Najm Desert Utilities PJSC, residing in Al Khobar",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "age band 30\u201339",
+      "reason": "Generic demographic not identifying on its own; negative/adversarial fixture."
+    },
+    {
+      "matched_text": "Eastern Province",
+      "reason": "Generic regional reference; not identifying alone."
+    },
+    {
+      "matched_text": "National ID numbers",
+      "reason": "Generic mention without any identifier value."
+    },
+    {
+      "matched_text": "\u201cNational ID\u201d",
+      "reason": "Generic form label noted as blank; no PII value present."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "placeholder ID field",
+      "matched_text": "National ID/Iqama: 0000-0000-0000",
+      "reason": "Invalid placeholder under a National ID/Iqama label; context says never populated."
+    },
+    {
+      "concept": "masked/partial email or account ID",
+      "matched_text": "qamra-inv-ops@",
+      "reason": "Truncated account identifier looks like an email local-part without a domain."
+    },
+    {
+      "concept": "device alias",
+      "matched_text": "ENG-Tablet-Blue",
+      "reason": "Unique device alias could identify a device but not clearly mapped to a listed device identifier rule."
+    }
+  ]
+}

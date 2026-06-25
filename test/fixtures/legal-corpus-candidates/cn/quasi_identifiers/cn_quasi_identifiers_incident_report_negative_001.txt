@@ -1,0 +1,14 @@
+Incident Report: Network credential stuffing event at Qilin Harbor Robotics Co., Ltd. (Unified Social Credit Code: 91QH8ZQ9L3M7720XY1), PRC jurisdiction.
+The issuer is listed on the SSE STAR Market; this notice summarizes already disclosed operational impacts and does not contain undisclosed inside information under the Securities Law.
+On 2026-05-29 03:20 CST, automated login attempts targeted the employee self-service portal and a shared service mailbox it-helpdesk@qilinharbor.cn.
+No production systems, trading interfaces, or investor relations platforms were compromised; the event has been reported to the CSRC liaison and the exchange per CSL/DSL incident handling procedures.
+Preliminary forensics show password spraying from rotating CN and SG IP ranges; logs indicate failures across generic usernames (e.g., "ap_admin", "guest", "temp1").
+Data categories potentially exposed are limited to salted hashes and device metadata; no bank card numbers, no precise addresses, and no resident ID full strings were accessed.
+One affected profile shows a warehouse technician born 1990-07, stationed at Qinghe Bay District, Yongtai City, Huannan Province, using device hostname WH-QH-038 and internal payroll ID 004512, with a masked resident ID shown as 9900001990****22X.
+A separate log entry lists "DOB: 1975-**-**; Role: shift supervisor; City: coastal prefecture" without any name or full ID, which is insufficient to identify a natural person alone.
+HR onboarding templates found on the file share included blank fields (Name: _______, ID No.: _______, Bank: _______); no filled forms were exfiltrated.
+The string 990105199001019999 appears in a test CSV as a dummy pattern for validation only and does not correspond to any real resident ID under PIPL.
+For cross-border considerations under the CAC security assessment regime, we have paused export of portal logs to the backup instance in Baojiang SAR pending internal sign-off.
+Environmental and safety operations were unaffected; no ESG metrics or emissions data were altered, and the plant continued normal shifts.
+We have rotated credentials, enforced MFA for all roles, and revalidated MLPS 2.0 controls; users under 14 are not present in our workforce registry.
+Employees with questions should contact the Service Desk at service@qilinharbor.cn; do not include personal identifiers in emails.

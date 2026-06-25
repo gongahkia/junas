@@ -1,0 +1,253 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_special_category_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Employee Code DS-ALPHA",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a biometric fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet posted to the Investor Announcements page",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "are not for trading",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Compliance Gate",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before any trade or communication",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verification relies on role-based checks and ticket numbers, not personal email addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "our forms use generic fields such as Name, Role, Department, and Date",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@lapis-hoa.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@lapis-hoa.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Requests for access, rectification, or deletion (DSAR) may be sent to privacy.office@lapis-hoa.vn or hotline 1800-000-VN; verification relies on role-based checks and ticket numbers, not personal email addresses.\nFilings published on SGCT\u0110 become public immediately; recycling old press quotes, place metaphors, or sports slogans in internal memos does not create MNPI.\nBanking records processed for employee reimbursements via LotusPay Salary follow the retention workflow of 5 years active, 2 years archive, then purge, with audit logs retained for compliance review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: HR records, employee banking, and issuer/securities disclosure documents are processed under Ngh\u1ecb \u0111\u1ecbnh 13/2023/N\u0110-CP and Lu\u1eadt Ch\u1ee9ng kho\u00e1n.\nUnder Ngh\u1ecb \u0111\u1ecbnh 13, \u201cpersonal data\u201d includes information associated with or helping identify a specific person; our forms use generic fields such as Name, Role, Department, and Date.\nUnder Lu\u1eadt Ch\u1ee9ng kho\u00e1n, MNPI means issuer or securities information not yet public that could materially impact prices; drafts containing such content must be escalated to Compliance Gate and are not for trading.\nFor issuer disclosures, our filings are made to the Securities Disclosure Portal of S\u1edf Giao d\u1ecbch Ch\u1ee9ng kho\u00e1n Th\u1ee7 \u0110\u00f4 (SGCT\u0110), a domestic exchange, following public notice procedures and timestamping.\nData subject: Employee Code DS-ALPHA \u2014 special-category data processed only with explicit consent includes a biometric fingerprint template used solely for door access at Factory B, encrypted at rest and in transit.\nRetention: biometric templates are deleted within 12 months after employment termination; payroll and reimbursement documents follow a 10-year retention policy under the Financial Records Lifecycle Standard.\nTransfers: banking details are exchanged with DragonBank ePass for payroll and with the Vietnam Securities Custody Center (VSCC) for employee share plans; data remains within Viet Nam unless mandated by law.\nWe do not collect union membership or political opinions, and references to club fandoms or sports banter in chat (e.g., Thanh Son Falcons) are ignored by systems.\nOur Diversity Promise Policy and Blue Kite DEI Vision include generic wellness prose and place metaphors; such materials are informational only and are not used to make trading or staffing decisions.\nPublic/stale fact: the \u201cCloud Box 12\u201d product roadmap was announced last quarter on our Investor Announcements page; any pre-announcement drafts are treated as MNPI and quarantined.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Account: 000-XYZ-8888",
+      "reason": "placeholder format; explicitly not a valid identifier"
+    },
+    {
+      "matched_text": "Trade Ticket No.: TT-VN-ABCD-12345",
+      "reason": "placeholder format; explicitly not a valid identifier"
+    },
+    {
+      "matched_text": "Diversity Promise Policy",
+      "reason": "policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Blue Kite DEI Vision",
+      "reason": "policy name; DEI prose"
+    },
+    {
+      "matched_text": "Cloud Box 12",
+      "reason": "product name; public/stale fact"
+    },
+    {
+      "matched_text": "Thanh Son Falcons",
+      "reason": "sports team; not personal data"
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "negated special-category; no specific person"
+    },
+    {
+      "matched_text": "political opinions",
+      "reason": "negated special-category; no specific person"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "email_address",
+      "matched_text": "privacy.office@lapis-hoa.vn",
+      "reason": "Functional mailbox for DSAR; may not identify a specific person under VN Decree 13"
+    },
+    {
+      "concept": "phone_number",
+      "matched_text": "1800-000-VN",
+      "reason": "Vanity hotline; organizational contact not tied to a specific person"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Requests for access, rectification, or deletion (DSAR)",
+      "reason": "Privacy rights process reference but no explicit allowed rule for DSAR markers"
+    },
+    {
+      "concept": "consent basis",
+      "matched_text": "explicit consent",
+      "reason": "Mentions consent basis; allowed rule only covers withdrawal markers"
+    },
+    {
+      "concept": "retention/deletion",
+      "matched_text": "biometric templates are deleted within 12 months after employment termination",
+      "reason": "Retention/deletion control; no explicit retention marker rule provided"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "payroll and reimbursement documents follow a 10-year retention policy",
+      "reason": "Retention schedule referenced; not mapped to an allowed rule"
+    },
+    {
+      "concept": "retention workflow",
+      "matched_text": "Banking records processed for employee reimbursements via LotusPay Salary follow the retention workflow of 5 years active, 2 years archive, then purge, with audit logs retained for compliance review",
+      "reason": "Retention timeline/control; no allowed retention rule"
+    },
+    {
+      "concept": "cross-border transfer boundary",
+      "matched_text": "data remains within Viet Nam unless mandated by law",
+      "reason": "States domestic-only transfer boundary; not a live cross-border transfer per allowed marker"
+    }
+  ]
+}

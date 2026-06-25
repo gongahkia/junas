@@ -1,0 +1,236 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "consent of parent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@aurumvahana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aurumvahana.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AAAAZ0000Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11AAAAA0000A1Z1",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout from 01 June 2026 until 30 minutes after the conclusion of the Board meeting scheduled for 30 June 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any investor interaction must rely solely on information already disseminated through an exchange filing or published on the Company\u2019s website; sharing internal draft decks or customer churn analyses is not permitted",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no communication is to be made to analysts or media prior to such filing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated persons",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000-0000-0000",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children are under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "users under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not request Aadhaar/PAN/GSTIN unless strictly mandated by law or KYC rules applicable to that transaction, and never store images of government IDs without necessity and retention limits",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid collecting DOB where age gating can be achieved by a yes/no declaration",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect personal emails of minors in promotions",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "This note intentionally excludes live financial figures and any client-identifiable content",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "consent of parent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Internal Note: India compliance update for Aurum Vahana Limited (listed on the Sundarashtra Stock Exchange), Q4 close and customer-data hygiene.\nUnder the Digital Personal Data Protection Act, 2023, personal data is any data about an identifiable individual; children are under 18, and processing requires verifiable consent of parent/guardian.\nConsent collection must be specific and granular; do not request Aadhaar/PAN/GSTIN unless strictly mandated by law or KYC rules applicable to that transaction, and never store images of government IDs without necessity and retention limits",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Note: India compliance update for Aurum Vahana Limited (listed on the Sundarashtra Stock Exchange), Q4 close and customer-data hygiene.\nUnder the Digital Personal Data Protection Act, 2023, personal data is any data about an identifiable individual; children are under 18, and processing requires verifiable consent of parent/guardian.\nConsent collection must be specific and granular; do not request Aadhaar/PAN/GSTIN unless strictly mandated by law or KYC rules applicable to that transaction, and never store images of government IDs without necessity and retention limits.\nSample onboarding form placeholders observed in UAT: \u201cAadhaar (test): 0000-0000-0000\u201d, \u201cPAN (test): AAAAZ0000Z\u201d, \u201cGSTIN (test): 11AAAAA0000A1Z1\u201d; these are invalid and must not be treated as live data or exported beyond the UAT sandbox.\nRole-based contacts only are approved for outreach (e.g., privacy@aurumvahana.example; investor.relations@aurumvahana.example); do not collect personal emails of minors in promotions.\nFor avoidance of doubt, the press release issued by Aurum Vahana Limited on 12 March 2025 and the exchange intimation uploaded to the Sundarashtra Stock Exchange portal on 14 January 2025 are public and may be shared; citing these does not create UPSI.\nUnder the Insider Trading (Prohibition of Insider Trading) Regulations, 2015 of the Sundarashtra Securities Authority, UPSI means information not generally available that is likely to materially affect the price of the Company\u2019s listed securities.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Role-noun possessive used as a defined company reference; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "UPSI",
+      "reason": "Regulatory defined term mention; not itself a disclosure of MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "Aadhaar placeholder",
+      "matched_text": "0000-0000-0000",
+      "reason": "Looks like Aadhaar format but explicitly marked test/invalid; some strict detectors may not flag all-zero sequences"
+    },
+    {
+      "concept": "consent workflow",
+      "matched_text": "deploy a verifiable parental consent workflow",
+      "reason": "Consent is a privacy compliance trigger under DPDPA, but no explicit allowed rule label for generic consent flows"
+    },
+    {
+      "concept": "retention control",
+      "matched_text": "retention limits",
+      "reason": "Indicates retention limitation, but there is no dedicated retention label in the allowed rules"
+    }
+  ]
+}

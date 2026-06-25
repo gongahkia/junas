@@ -1,0 +1,313 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_special_category_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/special_category/sg_special_category_term_sheet_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_special_category_term_sheet_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_special_category_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ir@bluebanyan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation Policy",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "its HR Manager is a member of the Crescent Office Staff Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of a controlling stake of up to 70% of the issued shares of Mango Ridge Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing acknowledgements",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "major transaction",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cleansing announcements",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Earn-out contingent on FY2027 EBITDA thresholds",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical certificates",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masking/anonymisation of personal data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition of a controlling stake of up to 70% of the issued shares of Mango Ridge Pte. Ltd. by Blue Banyan Limited via a share purchase.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to shareholder approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition of a controlling stake of up to 70% of the issued shares of Mango Ridge Pte. Ltd. by Blue Banyan Limited via a share purchase.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to shareholder approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Blue Banyan Limited (SGX Mainboard issuer; UEN: 2015BANYANZ) as Buyer and Mango Ridge Pte. Ltd. (UEN: 2013MANGOZ) as Target; this term sheet is non-binding except for confidentiality, PDPA, costs and governing law.\nTransaction: Proposed acquisition of a controlling stake of up to 70% of the issued shares of Mango Ridge Pte. Ltd. by Blue Banyan Limited via a share purchase.\nConsideration: Mix of cash and new Blue Banyan shares (ISIN: ZZ0000000000 placeholder), with exact quantum and formula to be agreed by reference to 30 trading-day VWAP; no price-sensitive figure is set out herein.\nRegulatory/SGX: Expected to be a major transaction under SGX-ST Listing Manual Chapter 10, subject to shareholder approval and SGX-ST clearance; not an IPT under Chapter 9 (to be confirmed).\nPublic Information: The parties refer to the non-binding MOU announced on SGXNet on 12 Feb 2026 and intend that this term sheet contains only information already generally available.\nConditions Precedent: Satisfactory legal/financial/tax due diligence conducted in a PDPA-compliant manner, MAS confirmations where applicable, no material adverse change, key customer contracts renewal, and standard corporate approvals.\nPDPA/Data Room: Seller to provide a clean room with masking/anonymisation of personal data; no uploading of national identification numbers, medical certificates, or biometric templates; Buyer to sign data intermediary terms and follow the Data Minimisation Policy.\nEmployment/Integration: Post-completion, Target to adopt the Harmony DEI Charter and SugarLeaf Wellness Programme; no retrenchment exercise without prior consultation and fair selection metrics unrelated to protected characteristics.\nIntentional sensitive disclosure: For HR purposes only, Target confirms that its HR Manager is a member of the Crescent Office Staff Union; Buyer will not process or rely on this union membership for redundancy or promotion decisions.\nMNPI Handling: Any non-public information shared will be treated as inside information under the SFA and SGX Listing Rule 703; wall-crossing acknowledgements and cleansing announcements to be coordinated through the Company Secretary.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Orchard Cloud",
+      "reason": "False-positive bait product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Banyan One",
+      "reason": "False-positive bait product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Granite Edge",
+      "reason": "False-positive bait product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Path Diversity Policy",
+      "reason": "False-positive bait policy label; not PII/MNPI"
+    },
+    {
+      "matched_text": "sail past Sentosa",
+      "reason": "False-positive bait metaphor/place; not PII/MNPI"
+    },
+    {
+      "matched_text": "score a hat-trick with Lion City Strikers",
+      "reason": "False-positive bait sports metaphor; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "National ID data",
+      "matched_text": "national identification numbers",
+      "reason": "Generic reference to sensitive identifiers without any specific number; not covered by pattern-based ID rules"
+    },
+    {
+      "concept": "PDPA processor obligations",
+      "matched_text": "data intermediary terms",
+      "reason": "Indicates PDPA data intermediary status/contracting but no specific allowed marker category"
+    },
+    {
+      "concept": "Information/data barrier",
+      "matched_text": "clean room",
+      "reason": "May indicate a data/information barrier but not explicitly covered by a specific MNPI/PDPA marker beyond wall-crossing"
+    },
+    {
+      "concept": "MNPI classification",
+      "matched_text": "inside information",
+      "reason": "Refers to insider information status; not a dedicated allowed rule beyond nonpublic marker"
+    },
+    {
+      "concept": "Transaction timeline gate",
+      "matched_text": "long-stop date 30 Sep 2026",
+      "reason": "Timing constraint that can be market-relevant but not one of the allowed embargo markers"
+    },
+    {
+      "concept": "Statutory scheme reference",
+      "matched_text": "Companies Act 1967 s210",
+      "reason": "Legal statute reference; not covered by a specific allowed rule"
+    }
+  ]
+}

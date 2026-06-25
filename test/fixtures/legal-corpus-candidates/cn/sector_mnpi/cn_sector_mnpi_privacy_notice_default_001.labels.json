@@ -1,0 +1,357 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 30,
+    "new_must_detect_count": 16,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "USCC: 92321000MA9X7Y321P",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 91110108MA7C2R45QX",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 92500000MA0K3L8Z9T",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@qinhuai-digital.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-4000-8899-01",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang Yanyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-disclosure ESG/climate audit findings",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier policies",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unannounced cyber incident indicators (e.g., a zero-day exploitation of the Fenriver VPN) are treated as MNPI until public disclosure",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "32**************17",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRC resident ID numbers",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft token-issuance whitepapers for a virtual asset pilot",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Processor shall process PI only for portfolio onboarding, issuer due diligence, employment HR workflows, and cyber incident response",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-4000-8899-01",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor shall process PI only for portfolio onboarding, issuer due diligence, employment HR workflows, and cyber incident response, in accordance with PIPL, the Cybersecurity Law, the Data Security Law, and internal information-barrier policies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unannounced cyber incident indicators (e.g., a zero-day exploitation of the Fenriver VPN) are treated as MNPI until public disclosure and handled under the Cybersecurity Law; simulated incidents in training are educational only and not tied to any live client environment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+86-21-4000-8899-01",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang Yanyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processor shall process PI only for portfolio onboarding, issuer due diligence, employment HR workflows, and cyber incident response, in accordance with PIPL, the Cybersecurity Law, the Data Security Law, and internal information-barrier policies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unannounced cyber incident indicators (e.g., a zero-day exploitation of the Fenriver VPN) are treated as MNPI until public disclosure and handled under the Cybersecurity Law; simulated incidents in training are educational only and not tied to any live client environment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing and MNPI Handling Addendum between Qinhuai Digital Services Co., Ltd. (USCC: 92321000MA9X7Y321P) and Fenriver Asset Management (Beijing) Co., Ltd. (USCC: 91110108MA7C2R45QX) for PRC operations.\nThis Addendum governs Personal Information under the PIPL and non-public information under the PRC Securities Law as part of cloud hosting and transaction analytics services.\nProcessor shall process PI only for portfolio onboarding, issuer due diligence, employment HR workflows, and cyber incident response, in accordance with PIPL, the Cybersecurity Law, the Data Security Law, and internal information-barrier policies.\nCategories include names, work emails, role titles, PRC resident ID numbers (e.g., 32**************17, fictional example), device identifiers, and employees\u2019 dependent data; sensitive PI for minors under 14 requires separate guardian consent.\nMNPI may arise from draft token-issuance whitepapers for a virtual asset pilot and pre-disclosure ESG/climate audit findings relating to an issuer; such MNPI is segregated with access strictly need-to-know.\nController shall provide insider lists for live mandates and enforce blackout windows around board approvals and exchange filing dates; Processor maintains tamper-evident logs and prohibits tipping or selective disclosure.\nWe operate physical and logical information barriers between research analytics and client coverage teams, with segregated collaboration spaces for deal-stage workstreams and a ban on personal devices in the clean room.\nUnannounced cyber incident indicators (e.g., a zero-day exploitation of the Fenriver VPN) are treated as MNPI until public disclosure and handled under the Cybersecurity Law; simulated incidents in training are educational only and not tied to any live client environment.\nPricing schedules, draft term sheets for a carbon-credit tokenization POC, and supplier SLAs are Confidential Information and may constitute inside information where linked to an issuer\u2019s material transactions.\nCross-border transfers (e.g., support access from our Singapore operations center) require separate PIPL consent, security assessment by the competent PRC cyberspace regulator where thresholds are met, and standard contracts; data localization applies to designated critical information infrastructure.\nRetention: MNPI repositories are retained for 6 years from mandate close; HR records for 10 years per statutory archiving; cyber logs for 12 months unless legal hold applies; upon expiry we anonymize or delete and record the action.\nData subjects (employees, candidates, and client contacts) may request access, correction, or deletion; where legal retention obligations override, we will explain the legal basis and partially fulfill the request.\nPlease contact Ms. Liang Yanyan, Data Protection Officer, at dpo@qinhuai-digital.example.cn or +86-21-4000-8899-01 for PIPL requests and MNPI handling queries.\nSub-processors include Zhongbei Cloud Compute Co., Ltd. (USCC: 92500000MA0K3L8Z9T) for PRC hosting; we will give 30 days\u2019 notice of changes and maintain an information barrier between managed services and advisory teams.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Processor",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Controller",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Confidential Information",
+      "reason": "Defined term, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: MNPI repositories are retained for 6 years from mandate close; HR records for 10 years per statutory archiving; cyber logs for 12 months unless legal hold applies; upon expiry we anonymize or delete and record the action",
+      "reason": "Retention and deletion controls are legally relevant under PIPL but no explicit allowed rule for retention."
+    },
+    {
+      "concept": "dsar_rights_marker",
+      "matched_text": "Data subjects (employees, candidates, and client contacts) may request access, correction, or deletion; where legal retention obligations override, we will explain the legal basis and partially fulfill the request",
+      "reason": "Data subject rights and override handling are relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "data_localisation_marker",
+      "matched_text": "data localization applies to designated critical information infrastructure",
+      "reason": "Localisation requirement is a legal compliance marker not in allowed rules."
+    },
+    {
+      "concept": "minor_guardian_consent_marker",
+      "matched_text": "guardian consent",
+      "reason": "Consent requirement for minors is relevant but only withdrawal is in allowed rules."
+    },
+    {
+      "concept": "cac_security_assessment",
+      "matched_text": "security assessment by the competent PRC cyberspace regulator",
+      "reason": "CAC security assessment requirement is relevant to cross-border transfers but not an allowed rule."
+    },
+    {
+      "concept": "cross_border_standard_contracts",
+      "matched_text": "standard contracts",
+      "reason": "PRC SCCs are relevant for cross-border transfers but not in the allowed rules."
+    }
+  ]
+}

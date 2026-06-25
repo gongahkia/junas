@@ -1,0 +1,326 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 29,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 24,
+    "previous_must_detect_count": 18,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Dr. Maja Feld",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jorin Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elira Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Teren Ulf",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lunaria-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@lunaria-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@lunaria-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LNS-2934",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hashed employee IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only aggregated sustainability metrics",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "individual CVs, medical notes, and union status are not exported",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Data Export Approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "export of HR and investor-relations records",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfer mechanism",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union status",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced capacity forecasts",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list handling",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAR insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted access",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EU MAR safeguards: datasets containing draft Helios yield guidance and unannounced capacity forecasts are classified as inside information and are explicitly excluded from any export.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@lunaria-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Maja Feld",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jorin Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elira Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Teren Ulf",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "EU MAR safeguards: datasets containing draft Helios yield guidance and unannounced capacity forecasts are classified as inside information and are explicitly excluded from any export.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Data Protection Officer, Dr. Maja Feld, dpo@lunaria-se.example; compliance liaison: Mr. Jorin Hale, compliance@lunaria-se.example.\nScope: export of HR and investor-relations records to NimbusFrame Ltd (processor) in the Federated Archipelago for CSRD/SFDR reporting dashboards.\nLawful basis: Art 6(1)(c) legal obligation for CSRD/SFDR disclosures and Art 6(1)(f) legitimate interests; no automated decision-making under Art 22 will occur.\nSpecial categories: Art 9 data limited to voluntary workforce diversity indicators; for this export Art 9 fields are excluded and remain stored only within the EEA.\nTransfer mechanism: standard contractual clauses and encryption with EEA-held keys; TIA completed 04 June 2026 with low residual risk; no onward transfers to further third countries.\nMinimisation: only aggregated sustainability metrics and hashed employee IDs (e.g., LNS-2934) are transmitted; individual CVs, medical notes, and union status are not exported.\nRetention: exported datasets retained by NimbusFrame for 12 months post-publication of the annual CSRD report, then deleted and certificate of erasure returned within 30 days.\nDSAR workflow: Ms. Elira Voss requested access and erasure on 28 May 2026; copy provided on 30 May 2026 and her email headers older than 180 days were erased from the export.\nConsent withdrawal: Mr. Teren Ulf withdrew consent for optional diversity analytics on 01 June 2026; his Art 9 responses are suppressed and will not be transferred or processed further.\nEU MAR safeguards: datasets containing draft Helios yield guidance and unannounced capacity forecasts are classified as inside information and are explicitly excluded from any export.\nInsider list handling: the MAR insider list is maintained locally under restricted access; hash-only test data used in training is synthetic and does not contain MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "processor",
+      "reason": "Role noun label; not PII/MNPI"
+    },
+    {
+      "matched_text": "there is no live cross-border transfer",
+      "reason": "Negated statement; not a live privacy event"
+    },
+    {
+      "matched_text": "payroll bank details",
+      "reason": "Category mention without any personal value; negated transfer"
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "Negated transfer; category mention only"
+    },
+    {
+      "matched_text": "health certificates",
+      "reason": "Negated transfer; category mention only"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Appears in a negated control statement; term alone should not trigger detection"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "Art 9 special-category context",
+      "matched_text": "voluntary workforce diversity indicators",
+      "reason": "Indicates sensitive categories may exist but no explicit category values are enumerated in allowed rules"
+    },
+    {
+      "concept": "transfer impact assessment",
+      "matched_text": "TIA completed 04 June 2026",
+      "reason": "Governance signal for cross-border transfers not explicitly covered by allowed marker rules"
+    },
+    {
+      "concept": "third-country destination",
+      "matched_text": "Federated Archipelago",
+      "reason": "Indicates non-EEA processing location relevant to cross-border compliance but not itself an allowed marker"
+    }
+  ]
+}

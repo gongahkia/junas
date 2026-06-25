@@ -1,0 +1,16 @@
+Internal Incident Report (Operational/Cyber) — Kingdom of Saudi Arabia — 2026-06-04 10:15 AST; Ref BT-CSIRT-2026-061.
+Barq Transmissions JSC (CR 1012-5566100) reports suspected unauthorized export of issuer documents from the Issuer Disclosure Portal (IDP) prior to market release.
+At 09:42 AST, Mr. Sami Al‑Hathloul (Treasury Analyst, DOB 1986-02-13, Riyadh HQ) using workstation EN‑RYD‑TR‑19 (SN RY‑88314, locale ar‑SA, header date 18‑11‑1447H) accessed “Q3 earnings guidance—draft” and “dividend scenarios—confidential”.
+His AD username s.alhathloul86, company email s.alhathloul@barqtrans.jsc.sa, employee ID BT‑TR‑0442, and Iqama ending 4632 are recorded in the access log and HR file.
+The session originated via VPN Gateway North (SessionID 7f2a9b1e‑11c3‑4ac1‑a9e2‑7d22c0b77f42, internal IP 10.44.19.22) minutes after a badge swipe at turnstile GHQ‑03 at 07:58.
+Extracted files included a board‑secretariat agenda draft and a liquidity forecast; this non‑public issuer information may constitute MNPI under the Securities Regulator’s Market Conduct Division (SR‑MCD) framework.
+One attachment referenced client Sahra Mining LLC (CR 4030‑7788123) and a supplier hedge roll plan; all names and CRs in the attachment are to be treated as confidential issuer data.
+No external transfer has been confirmed; however, an attempted upload to object store bt‑report‑exports‑ry was blocked, and outbound to a foreign region triggered an ADAI cross‑border transfer check (permit request ADAI/TP/2026/1442 logged for contingency).
+For PDPL compliance, personal data minimization has been applied, and any onward transfer outside the Kingdom will await the Authority for Data and AI (ADAI) guidance; a Senior Data Approval review is scheduled today at 14:00 AST.
+Separately, web analytics show visitors aged 30–35 from Eastern Province using generic tablet model NX‑210 and AST timezone; these demographics are not tied to any name or account.
+Another standalone log lists city “Jeddah”, device language Arabic, and browser build 112.0 for a session with no login, which by itself does not identify a person.
+Ms. Rania Al‑Qattan (Compliance Officer) is coordinating issuer workflow remediation and SR‑MCD notice drafting; she is not implicated in the access.
+Immediate actions: credentials for s.alhathloul86 were revoked, device certificate for EN‑RYD‑TR‑19 rotated, and the IDP export role “FIN_TREASURY_RW” temporarily disabled.
+No trading halt has been requested at this time, but an embargo on external communications concerning Q3 performance remains in effect pending SR‑MCD confirmation.
+Data subjects may contact data‑incident@barqtrans.jsc.sa or +966‑55‑123‑8890; regulators may use compliance@barqtrans.jsc.sa for secure liaison.
+Root cause analysis and lessons learned will be finalized within 72 hours as required by PDPL incident timelines, with an update to the Board Risk Committee.

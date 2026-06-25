@@ -1,0 +1,25 @@
+{
+  "doc_id": "nric_in_url_01",
+  "document_type": "SPA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "_note": "NRIC embedded in URL path and query string. The NRIC detector must catch both; the SPA defined-term suppression must keep 'SPA' from firing as definitive_agreement.",
+  "must_detect": [
+    {"rule": "sg_nric_fin", "matched_text": "S2233445A"},
+    {"rule": "sg_nric_fin", "matched_text": "S6677889K"},
+    {"rule": "sg_uen", "matched_text": "201912345Z"},
+    {"rule": "sg_uen", "matched_text": "T11LL2222B"},
+    {"rule": "named_person", "matched_text": "Dr Mei Lin Tan"},
+    {"rule": "named_person", "matched_text": "Mr Ravi Kumar"},
+    {"rule": "transaction_codename", "matched_text": "Project Pegasus"},
+    {"rule": "financial_amount", "matched_text": "$1.2 billion"},
+    {"rule": "email_address", "matched_text": "mei.tan@vega.sg"},
+    {"rule": "definitive_agreement", "matched_text": "Share Purchase Agreement"},
+    {"rule": "definitive_agreement", "matched_text": "SHARE PURCHASE AGREEMENT"},
+    {"rule": "embargo_marker", "matched_text": "Embargoed"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "SPA", "reason": "defined term SPA must not fire as standalone definitive_agreement"},
+    {"matched_text": "user", "reason": "URL path token must not fire as named_person"}
+  ]
+}

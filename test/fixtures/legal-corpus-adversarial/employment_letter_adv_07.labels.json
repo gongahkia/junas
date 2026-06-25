@@ -1,0 +1,45 @@
+{
+  "doc_id": "employment_letter_adv_07",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Samantha Tan"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 95,000"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "samantha.tan@quantuminsights.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Clara Lim"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "clara.lim@quantuminsights.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6789 0123"
+    }
+  ],
+  "must_not_detect": [],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

@@ -1,0 +1,15 @@
+Operational Incident Report — Al‑Nimr Renewables Sukuk Issuer SPC (KSA CR 4 8 2 1 - 1 1 0 9 - 0 0 1), dated 1448‑09‑28 (2026‑02‑07).
+On 2026‑02‑05, a vendor SFTP misconfiguration exposed a staging folder for 47 minutes; SOC review found no external connections; event severity: Moderate.
+The folder contained issuer onboarding forms and DPA Schedule 3 (Processor Security Controls) with masked fields; sample: Iqama No. I q a m a : 7 3 2 4 9 1 ** 6, contact: Ms. Huda Faris, h.faris@al‑nimr‑renew.sa.
+A pending DSAR from Mr. Rami Al‑Qadri (ID ref: I q a m a  9 9 0 0 1 2 0 3 4 *) included a consent withdrawal for marketing; request logged under PDPL ticket PDPL‑KSA/24/0091.
+As of 2026‑02‑06 10:14 AST, the DSAR was fulfilled and erasure applied to CRM AlFalak v2.1; retention override closed; evidence: erasure certificate URL https://privacy.al‑nimr‑renew.sa/dsar/PDPL‑KSA‑24‑0091?hash=0x7e-f1.
+Cross‑border transfer: two files were queued for analytics in ‘R i y a d h ‑ L D N Data Lake’ via SDAIA permit SDAIA‑EXP‑2 5 8 7 (status: approved 2025‑11‑03); transfer halted before execution; no personal data left KSA.
+Compliance memo PDPL‑Transfer‑Note/2025‑17 and Data Export Approval Form A‑3 were present in the folder; both are policy documents without live personal data.
+CMA market‑conduct follow‑up: the folder also had draft earnings guidance (Q2 prelim ranges) and pre‑listing issuer workflow notes; MNPI marked INTERNAL‑NP; access limited to 3 users, verified by IAM.
+We confirm that no national exchange disclosure timelines were breached and no non‑public board materials were disseminated beyond the issuer team; all users recertified 2026‑01‑31.
+Completed control statement: “SFTP external ACLs are now closed and key rotation completed on 2026‑02‑06”; this statement reflects remediation completed and is not a live risk.
+Negative precision bait: the export set did not include MAC addresses, device fingerprints, or live session tokens; filenames like onboarding_form_FINAL‑v03.pdf are generic.
+Minimisation step executed: onboarding forms were re‑templated to collect only the last 4 digits of Iqama and CR; example CR: 1 0 1 ‑ 8 7 0 ‑ 3 3 2 9, hashed in transit.
+Retention review: issuer HR attachments older than 180 days moved to cold storage per Policy PDPL‑Retention‑05; no change to SDAIA‑approved data‑export scope.
+Contact: Mr. Sami Al‑Mazyan, DPO, dpo@al‑nimr‑renew.sa; incident desk: +966‑55‑000‑0000 (09:00–18:00 KSA); alt: sirt@al‑nimr‑renew.sa.
+Note: the “Supplier GreenScore” mention in the ESG annex is public‑source content and not MNPI; jira ref: esg‑track/green‑scope‑21, lowercase prose intended.

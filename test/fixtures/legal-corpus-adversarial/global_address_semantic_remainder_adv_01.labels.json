@@ -1,0 +1,13 @@
+{
+  "doc_id": "global_address_semantic_remainder_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "AU",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "postal_address", "matched_text": "the issue 2026 will be discussed", "reason": "labelled prose with year-like number is not an address"},
+    {"rule": "au_postal_address", "matched_text": "Airport Driveway Adelaide Airport SA", "reason": "street-name bait lacks required AU postcode"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "No-key items 34/35/79 adversarial fixture for generic address prose and AU address bait."
+}

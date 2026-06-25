@@ -1,0 +1,347 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_special_category_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@haneulinstruments.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830512-1876543",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lee So",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seo Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Na Hye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830512-1876543",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park Jun-ho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lee So-min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seo Min-gyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Na Hye-jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@haneulinstruments.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.54",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "peanut allergy",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "requiring EpiPen",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "active membership in Haneul Tech Union Local 77",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "+17%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 35b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 18,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park\u2019s fingerprint template hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident registration numbers",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unaudited Q2 revenue forecast",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "indicative private placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "investor update withheld pending assessment",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal/PrivatePlacement/TermSheet_Cheongmae_Growth_SPC.docx",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@haneulinstruments.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830512-1876543",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lee So",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seo Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Na Hye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.\nAn HR share was also accessed that included resident registration numbers; for example, Mr. Park Jun-ho (R&D engineer, RRN 830512-1876543), with a recorded peanut allergy requiring EpiPen and active membership in Haneul Tech Union Local 77.\nBadge-access logs show Mr. Park\u2019s fingerprint template hash (tpl_id 0xAF34C9) stored for Seoryeon Plant turnstiles; templates may have been read, and access keys were rotated within two hours",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.\nAn HR share was also accessed that included resident registration numbers; for example, Mr. Park Jun-ho (R&D engineer, RRN 830512-1876543), with a recorded peanut allergy requiring EpiPen and active membership in Haneul Tech Union Local 77.\nBadge-access logs show Mr. Park\u2019s fingerprint template hash (tpl_id 0xAF34C9) stored for Seoryeon Plant turnstiles; templates may have been read, and access keys were rotated within two hours.\nNo patient charts, religious beliefs, or sexual orientation fields are maintained in the core HRIS, and the Harmony Inclusion Charter is purely a DEI policy statement.\nRoot cause: Ms. Lee So-min (Finance) opened a spoofed supplier email titled \u201cJune VAT Invoice,\u201d originating from a typosquatted domain; her Q2 security training was outstanding at the time.\nA subtle indicator in the SIEM showed exfiltration of clinic_reimbursements.xlsx at 08:57, suggesting targeting of health reimbursement line-items.\nContainment: egress to suspicious ranges blocked, compromised credentials invalidated, VPN certificates redeployed, and the Blue Crane Resilience Policy moved to phase 2; we will weather this typhoon with discipline.\nNotifications: preliminary notice filed to the National Data Privacy Commission of Korea and the Capital Markets Integrity Division of the Korea Capital Markets Oversight Bureau per PIPA and FSCMA; investor update withheld pending assessment.\nWe assess limited probability of identity theft, but resident-number exposure elevates risk; credit monitoring and union liaison outreach will be offered to affected staff.\nNote that \u201cBlue Crane\u201d is an internal policy codename and is unrelated to the Seoryeon Blue Cranes baseball club or any consumer product branding.\nFor investor-relations queries contact Mr. Seo Min-gyu at ir@haneulinstruments.example.kr; for data protection contact Dr. Na Hye-jin, CISO, at security@haneulinstruments.example.kr",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access is confirmed for IR/2026_Q2_guidance_draft.pptx and Deal/PrivatePlacement/TermSheet_Cheongmae_Growth_SPC.docx containing important, non-public information under the Financial Services and Capital Markets Act.\nMNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.\nAn HR share was also accessed that included resident registration numbers; for example, Mr. Park Jun-ho (R&D engineer, RRN 830512-1876543), with a recorded peanut allergy requiring EpiPen and active membership in Haneul Tech Union Local 77.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seoryeon Blue Cranes baseball club",
+      "reason": "Sports team reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "Harmony Inclusion Charter",
+      "reason": "DEI policy name; not special-category personal data"
+    },
+    {
+      "matched_text": "religious beliefs",
+      "reason": "Negated special-category bait; explicitly stated as not maintained"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Negated special-category bait; explicitly stated as not maintained"
+    },
+    {
+      "matched_text": "Blue Crane",
+      "reason": "Internal policy codename not matching Project <Name> pattern"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "health data indicator",
+      "matched_text": "clinic_reimbursements.xlsx",
+      "reason": "Implies potential exfiltration of health-related reimbursement data but not directly mapped to a specific special-category rule or individual"
+    }
+  ]
+}

@@ -1,0 +1,506 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 5,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_sector_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ABN 12 345 678 901",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ACN 000 000 000",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@barinyametals.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "companysecretary@barinyametals.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 3 0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rowan Teague",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Greaves",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jarrah Nanku",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Greaves",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Teague",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nanku",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nanku is on approved mental\u2011health leave",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP\u2011JN\u201104",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Acc 77**004",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ref: TR\u2011BML\u2011040",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remain non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not disclose externally",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Policy P\u2011WALL\u20117",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$88/MWh",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$0.88",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$1.05",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$40m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "would reasonably be expected to affect our securities if generally known",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011announcement DPT/crypto pilot \u201cOreCoin\u201d",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "private token issuance",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a heads of agreement for a private token issuance by Barinya Metals Digital Pty Ltd to circa 9 wholesale clients has been executed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet with Nantjara Utilities for a 15\u2011year renewable PPA",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220k units p.a. from FY27",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "i n s i d e r list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only wall\u2011crossed persons may access the virtual data room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not disclose externally until the cleansing strategy is settled",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a step\u2011down on Scope 2 intensity",
+      "rule": "esg_target_revision"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "circulated to Board/ELT only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rid=ZX\u201177\u20110pq",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IR\u2011RPT\u20112 9 1",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP\u2011JN\u20110 4",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "restrict access to People & Safety only and avoid inclusion in any board pack beyond aggregate absentee metrics",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@barinyametals.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "companysecretary@barinyametals.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rowan Teague",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Greaves",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jarrah Nanku",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Teague",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nanku",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Greaves",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$0.88",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$1.05",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$40m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A$40m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Insider arrangements: attach i n s i d e r list BRY\u2011IL\u201104.2 naming Dr. Rowan Teague (CEO), Ms. Hana Greaves (GC), Mr. Jarrah Nanku (Ops), and two external wall\u2011crossed funds (Opal Ridge Capital and Red Ochre Super); trading blackout remains in force for all \u201cinsiders\u201d until announcement",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subtle contextual signal: the draft remuneration letter for Dr. Teague links FY26 STI deferral to an EBITDA covenant in the pending A$40m facility; while not itself determinative, this could indirectly signal performance trends if circulated.\nEmployment/health PII: HR file ref EMP\u2011JN\u201104 shows Mr. Nanku is on approved mental\u2011health leave through 17 Jun; restrict access to People & Safety only and avoid inclusion in any board pack beyond aggregate absentee metrics.\nCredit/transactions: proposed A$40m revolving credit facility with Larrakia Mutual Bank Pty Ltd contemplates 2.0x net\u2011debt/EBITDA, 50 bps sustainability\u2011linked margin ratchet, and security over ML 2043; draft settlement instruction (B S B 1 2 3\u20114 5 6; Acc 77**004; Ref: TR\u2011BML\u2011040) must not be emailed to vendors",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 901; ACN 000 000 000) \u2014 strictly confidential, circulated to Board/ELT only.\nPurpose: advise on (i) pre\u2011announcement DPT/crypto pilot \u201cOreCoin\u201d and (ii) March c y b e r intrusion, plus an ESG PPA under negotiation, all subject to continuous disclosure obligations under Corporations Act s674 and market misconduct s1043A.\nCrypto: a heads of agreement for a private token issuance by Barinya Metals Digital Pty Ltd to circa 9 wholesale clients has been executed; indicative pricing band A$0.88\u2013A$1.05 per token and a 12\u2011month lock\u2011up remain non\u2011public and would reasonably be expected to affect our securities if generally known.\nCyber: on 22 Mar a ransomware event impacted our exploration data room; no customer data exfiltration confirmed; forensic log \u201cIR\u2011RPT\u20112 9 1\u201d indicates lateral movement blocked; we have not paid and intend to lodge a privacy notification with the federal regulator; do not disclose externally until the cleansing strategy is settled.\nESG/climate: draft term sheet with Nantjara Utilities for a 15\u2011year renewable PPA at A$88/MWh includes a carbon credit sharing mechanism (220k units p.a. from FY27) and a step\u2011down on Scope 2 intensity; these commercial terms are not generally available.\nInsider arrangements: attach i n s i d e r list BRY\u2011IL\u201104.2 naming Dr. Rowan Teague (CEO), Ms. Hana Greaves (GC), Mr. Jarrah Nanku (Ops), and two external wall\u2011crossed funds (Opal Ridge Capital and Red Ochre Super); trading blackout remains in force for all \u201cinsiders\u201d until announcement.\nInformation barriers: Research/IR and Operations are quarantined under Policy P\u2011WALL\u20117; only wall\u2011crossed persons may access the virtual data room at https://intranet.barinyametals.com.au/c0mpl1ance/wall?rid=ZX\u201177\u20110pq; any tipping or selective disclosure (including site tours) is prohibited.\nSubtle contextual signal: the draft remuneration letter for Dr. Teague links FY26 STI deferral to an EBITDA covenant in the pending A$40m facility; while not itself determinative, this could indirectly signal performance trends if circulated.\nEmployment/health PII: HR file ref EMP\u2011JN\u201104 shows Mr. Nanku is on approved mental\u2011health leave through 17 Jun; restrict access to People & Safety only and avoid inclusion in any board pack beyond aggregate absentee metrics.\nCredit/transactions: proposed A$40m revolving credit facility with Larrakia Mutual Bank Pty Ltd contemplates 2.0x net\u2011debt/EBITDA, 50 bps sustainability\u2011linked margin ratchet, and security over ML 2043; draft settlement instruction (B S B 1 2 3\u20114 5 6; Acc 77**004; Ref: TR\u2011BML\u2011040) must not be emailed to vendors.\nOperations note (benign): the induction module \u201cInsider Lists & Crypto/Cyber Basics\u201d in our LMS is purely educational and uses generic market examples without reference to Barinya projects or pricing.\nPrecision caution: a public GreenBench Analytics 2025 climate\u2011risk index is cited in the ESG slide for definitions only; reliance is on public\u2011source material and there is nothing novel therein.\nMarketing safe harbour: the community brochure mentioning \u201cOreCoin wallets\u201d is branding only and contains no offer terms, no pricing, and no promise of returns.\nNegative/boilerplate: for the avoidance of doubt, no material adverse change has occurred, this memo is not a MAC notice or cleansing notice, and no director is requested to trade or tip based on non\u2011public information.\nWorkflow (operational, lower\u2011case): action: circulate docu ment drafts to legal@barinyametals.com.au and companysecretary@barinyametals.com.au by cob friday; do not upload to external folders.\nContact: Ms. Greaves",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal & Compliance Memorandum \u2014 Barinya Metals Ltd (ABN 12 345 678 901; ACN 000 000 000) \u2014 strictly confidential, circulated to Board/ELT only.\nPurpose: advise on (i) pre\u2011announcement DPT/crypto pilot \u201cOreCoin\u201d and (ii) March c y b e r intrusion, plus an ESG PPA under negotiation, all subject to continuous disclosure obligations under Corporations Act s674 and market misconduct s1043A.\nCrypto: a heads of agreement for a private token issuance by Barinya Metals Digital Pty Ltd to circa 9 wholesale clients has been executed; indicative pricing band A$0.88\u2013A$1.05 per token and a 12\u2011month lock\u2011up remain non\u2011public and would reasonably be expected to affect our securities if generally known.\nCyber: on 22 Mar a ransomware event impacted our exploration data room; no customer data exfiltration confirmed; forensic log \u201cIR\u2011RPT\u20112 9 1\u201d indicates lateral movement blocked; we have not paid and intend to lodge a privacy notification with the federal regulator; do not disclose externally until the cleansing strategy is settled.\nESG/climate: draft term sheet with Nantjara Utilities for a 15\u2011year renewable PPA at A$88/MWh includes a carbon credit sharing mechanism (220k units p.a. from FY27) and a step\u2011down on Scope 2 intensity; these commercial terms are not generally available.\nInsider arrangements: attach i n s i d e r list BRY\u2011IL\u201104.2 naming Dr. Rowan Teague (CEO), Ms. Hana Greaves (GC), Mr. Jarrah Nanku (Ops), and two external wall\u2011crossed funds (Opal Ridge Capital and Red Ochre Super); trading blackout remains in force for all \u201cinsiders\u201d until announcement.\nInformation barriers: Research/IR and Operations are quarantined under Policy P\u2011WALL\u20117; only wall\u2011crossed persons may access the virtual data room at https://intranet.barinyametals.com.au/c0mpl1ance/wall?rid=ZX\u201177\u20110pq; any tipping or selective disclosure (including site tours) is prohibited.\nSubtle contextual signal: the draft remuneration letter for Dr. Teague links FY26 STI deferral to an EBITDA covenant in the pending A$40m facility; while not itself determinative, this could indirectly signal performance trends if circulated.\nEmployment/health PII: HR file ref EMP\u2011JN\u201104 shows Mr. Nanku is on approved mental\u2011health leave through 17 Jun; restrict access to People & Safety only and avoid inclusion in any board pack beyond aggregate absentee metrics.\nCredit/transactions: proposed A$40m revolving credit facility with Larrakia Mutual Bank Pty Ltd contemplates 2.0x net\u2011debt/EBITDA, 50 bps sustainability\u2011linked margin ratchet, and security over ML 2043; draft settlement instruction (B S B 1 2 3\u20114 5 6; Acc 77**004; Ref: TR\u2011BML\u2011040) must not be emailed to vendors.\nOperations note (benign): the induction module \u201cInsider Lists & Crypto/Cyber Basics\u201d in our LMS is purely educational and uses generic market examples without reference to Barinya projects or pricing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "OreCoin wallets",
+      "reason": "Branding reference; not a crypto wallet address."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; rule excludes tagging 'no MAC' statements."
+    },
+    {
+      "matched_text": "Insider Lists & Crypto/Cyber Basics",
+      "reason": "Educational module title; not a market-sensitive disclosure."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "bank_routing_number",
+      "matched_text": "B S B 1 2 3\u20114 5 6",
+      "reason": "Likely an Australian BSB number but spaced/obfuscated; not explicitly covered by listed rules."
+    },
+    {
+      "concept": "asset_identifier",
+      "matched_text": "ML 2043",
+      "reason": "Mining lease number may be commercially sensitive but not covered by a specific allowed rule."
+    },
+    {
+      "concept": "internal_document_id",
+      "matched_text": "BRY\u2011IL\u201104.2",
+      "reason": "Insider-list identifier string may be sensitive but not clearly mapped to an allowed rule beyond the insider list marker itself."
+    }
+  ]
+}

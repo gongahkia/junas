@@ -1,0 +1,16 @@
+Laporan Insiden Operasional (Cyber) – PT Arunika Finansia Tbk (kode internal IDX: AFX-00)
+Tanggal: 14 Mei 2026; Unit: Keamanan Informasi & Kepatuhan OJK
+Ringkasan: Sesi tabletop dan satu insiden minor pada lingkungan UAT NusaPay CryptoPoints; tidak ada dampak ke produksi, layanan, atau pelaporan ESG kami.
+Kronologi: Email simulasi phishing ditandai oleh SOC; satu kunci API sandbox ditemukan tertanam pada repositori demo; kunci dicabut dan repositori diprivat dalam 27 menit.
+Dampak: Tidak ada kebocoran data pelanggan produksi; hanya token uji dan data sintetis; SLA operasional terpenuhi; tidak ada pengaruh ke penilaian ISO 27001 maupun target emisi Scope 2.
+Kategori data yang terlibat (UAT): alamat surel dummy, nomor HP fiktif, dan ID pelanggan sintetis; tidak berisi KTP, rekening bank, atau lokasi riil sesuai UU PDP.
+Status keterbukaan: Konten edukasi tabletop ini telah dipublikasikan di laman Pusat Keamanan kami pada 12 Mei 2026; tidak ada kewajiban keterbukaan informasi ke OJK/IDX untuk kejadian yang bersifat simulasi.
+Materi edukasi yang digunakan menyebutkan istilah “insider list”, “information barrier”, “blackout”, dan “tipping” hanya sebagai definisi pelatihan, tanpa data nama pegawai atau daftar yang aktual.
+Rujukan kepatuhan: Pedoman Manajemen Risiko TI dan Keterbukaan Informasi emiten; digunakan formulir generik: Form-IR/00A dan Form-IB/00B.
+Catatan komersial: contoh “term sheet” dalam materi pemasaran menjelaskan skema biaya langganan NusaPay CryptoPoints untuk edukasi, tidak memuat harga transaksi atau syarat negosiasi aktual.
+Kontak publik: helpdesk keamanan di security@arunika.example.id dan layanan konsumen 150-909 untuk pertanyaan umum; jangan kirimkan data pribadi melalui email.
+Temuan forensik awal pada 13 Mei 2026 mengindikasikan satu akses tidak sah ke bucket log berisi metadata transaksi uji (hash, waktu, user UAT anonim); temuan ini masih diverifikasi secara internal dan belum disampaikan ke OJK/IDX pending penilaian materialitas.
+Tindak lanjut: rotasi kredensial sandbox, peningkatan pemindaian secret pada CI, dan penegasan SOP dinding informasi antara tim pengembangan dan tim treasury.
+Penilaian ESG: tidak ada dampak ke target iklim, pengelolaan e-waste, atau kebijakan tenaga kerja; konten iklan “green compute” kami tetap bersifat pemasaran dan tidak mengandung klaim material.
+Catatan non-materi: Penundaan minor pada rilis aplikasi versi 3.2 (fitur dompet aset kripto edukatif) hanya karena uji regresi; tidak mempengaruhi prospek usaha sebagaimana telah diumumkan di siaran pers 10 Mei 2026.
+Pernyataan: Dokumen ini disusun untuk latihan dan perbaikan proses operasional; penggunaan istilah pasar modal dimaksudkan untuk kepatuhan pelatihan, bukan pengungkapan informasi material.

@@ -1,0 +1,468 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 900,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 80,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.50 per share equivalent'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 900,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 80,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.50 per share equivalent'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1 , 2 0 0 , 0 0 0 , 0 0 0'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 34,
+    "old_must_detect_count": 24,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_universal_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sand Kite",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For Board circulation only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed until 2026-07-15 08:00 GST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subscription Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transitional Services",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AED 7.50 per share equivalent",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for release",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "target signing 2026-07-20",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Long Stop Date 2026-11-15",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "45m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no dealing in any securities of Sands Reef or affiliates",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public announcement before embargo",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no RNS/ADX filings until embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID masked only: 784-19**-****123-9",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@ s a n d s - r e e f . a e",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "234 56 78",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CL-ADGM-2A7Z9",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DXB-10XX-923847",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DIFC-LD-00AB19",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "trade licence/Emirates ID copies used for KYC only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman Q. Barakat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H.E. Dr. Layla Al Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sbarakat@redmangrove.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: acquisition of 62.5% of Sands Reef Hospitality Co. (DIFC-LD-00AB19) for cash and rollover; implied enterprise value AED 1 , 2 0 0 , 0 0 0 , 0 0 0",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sbarakat@redmangrove.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "234 56 78",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CL-ADGM-2A7Z9",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DXB-10XX-923847",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: acquisition of 62.5% of Sands Reef Hospitality Co. (DIFC-LD-00AB19) for cash and rollover; implied enterprise value AED 1 , 2 0 0 , 0 0 0 , 0 0 0",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sand Kite",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "45m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Project Sand Kite (Non-Public; For Board circulation only) \u2014 Embargoed until 2026-07-15 08:00 GST\nParties: Acquirer Red Mangrove Capital Limited (ADGM Commercial Licence CL-ADGM-2A7Z9; FSRA supervised), Target Sands Reef Holdings LLC (Dubai mainland; Trade Licence TL-DXB-10XX-923847), Seller Al-Bahri Family Holdings SPC (RAK)\nTransaction: acquisition of 62.5% of Sands Reef Hospitality Co. (DIFC-LD-00AB19) for cash and rollover; implied enterprise value AED 1 , 2 0 0 , 0 0 0 , 0 0 0\nConsideration: AED 900,000,000 cash at Completion + AED 80,000,000 earn-out subject to FY2027 EBITDA \u2265 AED 180,000,000; rollover by Seller equals 12.5% post-Completion\nConditions precedent: ADGM no-objection, DIFC registrar filing, foreign ownership notification if required, internal IC approvals, KYC (Emirates ID masked only: 784-19**-****123-9), no public announcement before embargo\nMAC/MAE: customary MAC applies; for the avoidance of doubt, cost inflation up to 9% YoY and any pandemics first declared before 2025 shall not constitute a MAC\nDe f i n i t i v e  A g r e e m e n t s: Share Purchase Agreement, Shareholders\u2019 Agreement, Subscription Agreement, Transitional Services; target signing 2026-07-20; Long Stop Date 2026-11-15\nGovernance: Board to be 5 members; Mr. Salman Q. Barakat to join as director; H.E. Dr. Layla Al Nouri to chair Audit Committee (independent; family-origin disclosure: Al Nouri\u2014Ajman/Levant roots)\nPricing and metrics: headline price AED 7.50 per share equivalent; implied EV/EBITDA 8.2x; minimum cash at bank AED 45m; net debt cap AED 120m\nConfidentiality/IR: strictly confidential; issuer IR draft not for release; see data packet https://ir.sandsreef.ae/p/data?deal=PX%2Dsk-07&uid=0x00F-AB; Non-Reliance Notice to be signed before VDR access\nPublic-source note (stale and not relied upon): per 2023 website archive https://sands-reef.example/pdfs/esg-2023.pdf the group reported 12 resorts and 2 pipelines\nu a e  p d p l: personal data will be processed within DIFC/ADGM; trade licence/Emirates ID copies used for KYC only; contact privacy@ s a n d s - r e e f . a e for data subject rights\nCompliance and market-abuse: no dealing in any securities of Sands Reef or affiliates; SCA/DFSA market abuse prohibitions apply; potential ADX Growth Market listing in 2027 subject to SCA approval; no RNS/ADX filings until embargo\nProcess notes (internal, lowercase): t-3 to ic; circulate redlines; align tax workstream; update dd tracker; room 4 hold; spa-day at Mirage Oasis is personal time and not transaction-related\nNotices: Primary contact \u2014 Mr. Salman Q. Barakat, Head of Corporate Development, Red Mangrove Capital Limited (ADGM); sbarakat@redmangrove.capital; tel +971 5X 234 56 78\nMiscellaneous: governing law DIFC; dispute forum DIFC Courts (Small Claims excluded); this term sheet is non-binding except confidentiality, exclusivity (45 days), governing law, and costs",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Acquirer",
+      "reason": "Role noun defined term, not a person\u2019s name or identifier."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun defined term, not a person\u2019s name or identifier."
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun defined term, not a person\u2019s name or identifier."
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role noun used generically; not PII."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Header/role grouping; not PII."
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "family_origin/ethnic_origin",
+      "matched_text": "Al Nouri\u2014Ajman/Levant roots",
+      "reason": "Sensitive origin information may be special-category personal data under PDPL, but not mapped to an allowed rule."
+    },
+    {
+      "concept": "processing_location",
+      "matched_text": "personal data will be processed within DIFC/ADGM",
+      "reason": "Privacy-relevant processing location; not clearly a cross-border transfer marker in the allowed rules."
+    },
+    {
+      "concept": "DSAR/rights channel",
+      "matched_text": "data subject rights",
+      "reason": "Indicates data subject rights handling; no specific DSAR rule provided in allowed markers."
+    },
+    {
+      "concept": "pre-listing MNPI",
+      "matched_text": "potential ADX Growth Market listing in 2027 subject to SCA approval",
+      "reason": "Material non-public listing intent; listing MNPI not explicitly covered in provided MNPI rule set (non-DPT)."
+    }
+  ]
+}

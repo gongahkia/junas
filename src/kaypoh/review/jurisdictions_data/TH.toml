@@ -1,0 +1,21 @@
+code = "TH"
+label = "Thailand"
+pii_rules = ["TH_PDPA_PERSONAL_DATA"]
+mnpi_rules = ["TH_SEA_INSIDER_TRADING"]
+references = [
+    "Thailand Personal Data Protection Act B.E. 2562 (2019)",
+    "Thailand Securities and Exchange Act B.E. 2535 (1992) sections 241-243",
+]
+aliases = ["TH", "THAILAND"]
+
+# Thai national-ID: 13 digits with the canonical X-XXXX-XXXXX-XX-X dashed layout.
+# v1 ships the dashed form only because the bare-digit form collides too cheaply with
+# random 13-digit runs; the dashed format is what appears on physical ID cards and in
+# official forms.
+[[recognizers]]
+name = "Thai national ID"
+rule_name = "th_national_id"
+pattern = '\b\d-\d{4}-\d{5}-\d{2}-\d\b'
+severity = "high"
+reason = "Thailand 13-digit national identifier"
+validator = "th_national_id"

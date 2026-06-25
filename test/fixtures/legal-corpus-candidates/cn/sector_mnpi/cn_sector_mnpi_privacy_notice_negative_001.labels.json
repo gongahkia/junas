@@ -1,0 +1,275 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 24,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 18,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "FAKE1234567890ABCD",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@zccs.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@zccs.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric access templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border: limited transfer of telemetry to our SG cloud processor \u201cAurora Stack Pte.\u201d under the CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 study accounts",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "users under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "initials only in logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we may verify via non-sensitive tokens instead of resident ID",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device IDs",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "work email aliases",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a restricted insider-list is maintained",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending engagement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prospective STAR Market applicant",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until CSRC disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234567890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "110105-000000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Special PI: biometric access templates for data center entry and security logs after tabletop cyber incident drills; no production breach data is used for promotion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1234567890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "110105-000000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Special PI: biometric access templates for data center entry and security logs after tabletop cyber incident drills; no production breach data is used for promotion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Special PI: biometric access templates for data center entry and security logs after tabletop cyber incident drills; no production breach data is used for promotion.\nBenign use example: our \u201cGreenHash Classroom\u201d demo shows insider-list and blackout features using randomly generated tickers; it does not reference any actual SSE/SZSE issuer.\nInformation barriers: staff in advisory, crypto lab, and ESG ratings are separated by role-based access; marketing may reuse the words \u201cinsider-list,\u201d \u201ctipping,\u201d and \u201ccommercial terms\u201d in training without market sensitivity.\nRetention: operational logs 180 days, HR files per statutory period, crypto-sim sandbox telemetry 30 days; deletion is irreversible and audit-tracked.\nDSAR: submit access/correction/deletion requests to privacy@zccs.example.cn or via the \u201c\u4e2a\u4eba\u4fe1\u606f\u8bf7\u6c42\u8868\u201d (Form PI-01); we may verify via non-sensitive tokens instead of resident ID.\nCross-border: limited transfer of telemetry to our SG cloud processor \u201cAurora Stack Pte.\u201d under the CAC Standard Contract; we have not triggered a security assessment filing to date.\nSecurity: AES-256 at rest, segregation by tenant, and vendor due diligence; our cyber incident playbooks are public on docs.zccs.example.cn/help and include CAC reporting templates.\nInsider handling (positive control): a restricted insider-list is maintained for a pending engagement by a prospective STAR Market applicant using our custody API pilot; access is confined",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider-list and blackout features",
+      "reason": "Educational demo context; explicitly non-sensitive and not referencing actual issuers"
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Training/marketing reuse without market sensitivity"
+    },
+    {
+      "matched_text": "Commercial terms",
+      "reason": "Explicitly marked public/stale and not indicative of current negotiations"
+    },
+    {
+      "matched_text": "CNID-110105-000000-TEST",
+      "reason": "Explicit placeholder; not real PII"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "Retention: operational logs 180 days, HR files per statutory period, crypto-sim sandbox telemetry 30 days; deletion is irreversible and audit-tracked",
+      "reason": "Retention and erasure controls are legally relevant but not mapped to an explicit allowed rule token"
+    },
+    {
+      "concept": "DSAR rights",
+      "matched_text": "DSAR: submit access/correction/deletion requests",
+      "reason": "DSAR/rights-to-access-correct-delete are relevant but no specific allowed DSAR rule token is provided"
+    },
+    {
+      "concept": "consent basis for minors",
+      "matched_text": "guardian consent",
+      "reason": "Indicates consent requirement but only consent withdrawal is defined in allowed rules"
+    },
+    {
+      "concept": "masked identifier example",
+      "matched_text": "****1234",
+      "reason": "Illustrates masked resident ID digits; relevant to PII handling but not a concrete identifier under allowed rules"
+    }
+  ]
+}

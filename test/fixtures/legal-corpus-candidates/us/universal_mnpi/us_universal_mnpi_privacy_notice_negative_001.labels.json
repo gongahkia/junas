@@ -1,0 +1,197 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 13,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 11,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_universal_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "analyst@novamedbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst call",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@novamedbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@novamedbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@novamedbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026-09-30 08:00 ET",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mrn",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USR-XX-0000",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not accept screenshots of ids",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "analyst@novamedbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst call",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "retention + disclosure workflow note \u2014 novamed bank & health services, inc. (us issuer; ir/compliance)\nscope: we apply ccpa/hipaa/glba principles to information reasonably linkable to a consumer, household, or patient; employee and analyst interactions are governed by us policy NBHS-IR-17\ndsar intake: submit via portal at novamedbank.example/privacy or email privacy@novamedbank.example with [form: request type], [form: state], and [form: proof]; we do not accept screenshots of ids; examples in training use invalid shapes like ssn XXX-XX-0000 or aba 000000000\nprocessors: pinecap analytics llc (vendor id V-0421, fictional) processes de-identified website metrics under a dpa; no glba \u201ccustomer information\u201d is transferred to pinecap for advertising\nretention: analyst call recordings retained 24 months; marketing cookies 13 months; operational logs 18 months; a 7% sample is reviewed for qa; deletion holds apply during sec inquiries or audits\nhipaa boundary: ir scripts must not include phi; patient anecdotes must be aggregated or sourced from public cms/nih reports; mrn and claim ids are not collected in ir workflows\nreg fd: communications use only public-source or already-announced facts (e.g., form 8-k filed 2024-02-01 and archived on sec.gov); if a question seeks mnpi, staff must defer to ir@novamedbank.example\nembargo: do not publish the q2 investor faq to ir.novamedbank.example before 2026-09-30 08:00 ET to align with reg fd web disclosure timing\ncontract note (negated mac language): our standard vendor dpa states \u201cno material adverse effect shall be deemed to arise from general economic conditions\u201d; this boilerplate is not a transaction signal\nprecision reminder: phrases like \u201cdeal,\u201d \u201cdefinitive,\u201d or \u201cmaterial\u201d in template clauses or news summaries do not by themselves indicate mnpi; use the decision tree in NBHS-IR-17 appx. b\nfalse-positive bait disclaimer: training files may include masked tokens such as acct 0000-XX-1234 or card 41XX XXXX XXXX 1111; these are dummies and never stored in production systems\nemployee wellness: spa-day vouchers for the wellness pilot are tracked only as aggregated usage counts and are unrelated to securities disclosures\nsecurity + access: role mailboxes (analyst@novamedbank.example, privacy@novamedbank.example) are used for processing; access logs store hashed ids like USR-XX-0000 only\ndsar response: verify requestors via two-factor challenge and last interaction timestamp; respond within 45 days; glba-covered \u201ccustomer information\u201d is exempt from sale opt-out while still honoring access and deletion where permitted\nescalation: suspected mnpi or phi exposure should be paused and routed to compliance@novamedbank.example; see the public hotline at novamedbank.example/help for gener",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ssn XXX-XX-0000",
+      "reason": "Masked training bait; invalid SSN shape and explicitly noted as dummy"
+    },
+    {
+      "matched_text": "aba 000000000",
+      "reason": "Training bait example of routing number; explicitly noted as dummy"
+    },
+    {
+      "matched_text": "acct 0000-XX-1234",
+      "reason": "Masked training bait; not real account data"
+    },
+    {
+      "matched_text": "card 41XX XXXX XXXX 1111",
+      "reason": "Masked training bait; not real card data"
+    },
+    {
+      "matched_text": "material adverse effect",
+      "reason": "Negated MAC/MAE language; do not label per rule 8"
+    },
+    {
+      "matched_text": "definitive",
+      "reason": "Template word in disclaimer; not a definitive agreement"
+    },
+    {
+      "matched_text": "deal",
+      "reason": "Template word in disclaimer; not a transaction signal"
+    },
+    {
+      "matched_text": "material",
+      "reason": "Template word in disclaimer; generic, not MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "vendor identifier",
+      "matched_text": "V-0421",
+      "reason": "Internal/vendor ID reasonably linkable but not mapped to an allowed PII rule (e.g., employee_id/customer_account_number)"
+    },
+    {
+      "concept": "claims identifiers",
+      "matched_text": "claim ids",
+      "reason": "Healthcare claim identifiers are PII-adjacent but not clearly covered by the allowed rules list"
+    },
+    {
+      "concept": "GLBA data classification",
+      "matched_text": "glba-covered \u201ccustomer information\u201d",
+      "reason": "Legally significant category of personal financial information but not a specific allowed PII rule in this taxonomy"
+    }
+  ]
+}

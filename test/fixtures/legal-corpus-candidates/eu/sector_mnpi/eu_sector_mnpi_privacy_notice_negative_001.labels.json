@@ -1,0 +1,255 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 22,
+    "current_must_detect_count": 7,
+    "current_must_not_detect_count": 0,
+    "previous_ideal_must_detect_count": 18,
+    "previous_must_detect_count": 7,
+    "previous_must_not_detect_count": 0
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@riverglass.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation and security",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an event insider list is active pending disclosure",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft CSRD Scope 2 recalculation that may alter prior KPIs is in internal review and not approved for external release",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list entries preserved for 5 years after last update per Union market abuse rules",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "simulated blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti-tipping practices",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not approved for external release",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-List Essentials",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account IDs are masked (e.g., 0000-XXX-0000)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Live MAR control: a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment; an event insider list is active pending disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Live MAR control: a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment; an event insider list is active pending disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers: limited support data may be sent to CloudPort Lydavia Inc. (Lydavia) under 2021 SCCs and transfer impact assessments; contact dpo@riverglass.example.\nRetention: insider-list entries preserved for 5 years after last update per Union market abuse rules; training rosters 12 months; cyber incident drill notes 90 days.\nInformation barriers: we operate segregated mailboxes and access controls; simulated blackout windows are used in e-learning to explain internal dealing prohibitions and anti-tipping practices.\nCrypto and cybersecurity references in brochures (e.g., token custody \u201chow it works\u201d, incident response \u201cplaybook\u201d) are educational only and do not describe live systems or events.\nESG/climate data for CSRD/SFDR are aggregated or anonymised; no investor profiling for automated decisions is performed.\nDSAR: to access, rectify, or erase data, submit via https://privacy.riverglass.example or write to the DPO Office, P.O. Box 410, 1000 AB Eurocity.\nCommercial terms shown in onboarding demos (e.g., \u201cnet 30\u201d, \u201crebate up to X%\u201d) are examples and are not binding offers nor reflective of any ongoing negotiation.\nTraining artefacts for \u201cInsider-List Essentials\u201d use synthetic roles and initials only; no real staff records are exposed.\nLive MAR control: a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment; an event insider list is active pending disclosure.\nReferences to \u201ctipping\u201d, \u201cblackout\u201d, \u201cinsider list\u201d, or \u201cinformation barrier\u201d in our CryptoSafe Academy materials are intended to raise awareness and have no market impact.\nDraft CSRD Scope 2 recalculation that may alter prior KPIs is in internal review and not approved for external release; staff are reminded of MAR obligations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "DSAR/erasure rights",
+      "matched_text": "DSAR: to access, rectify, or erase data",
+      "reason": "DSAR and erasure are privacy-event markers but no explicit DSAR rule is listed in allowed PII rules"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "insider-list entries preserved for 5 years after last update",
+      "reason": "Retention is relevant under GDPR but not enumerated as a specific detectable rule in the provided list"
+    },
+    {
+      "concept": "consent basis",
+      "matched_text": "explicit consent",
+      "reason": "Consent is referenced but only withdrawal is defined as a detectable marker in allowed rules"
+    },
+    {
+      "concept": "embargo/pending disclosure",
+      "matched_text": "pending disclosure",
+      "reason": "Indicates disclosure timing but the allowed embargo_marker list is limited to specific phrases not present here"
+    },
+    {
+      "concept": "postal address (EU)",
+      "matched_text": "P.O. Box 410, 1000 AB Eurocity",
+      "reason": "Postal address is PII but only specific country postal-address rules are provided; no EU-general rule listed"
+    },
+    {
+      "concept": "storage limitation/security control",
+      "matched_text": "cryptographic seed phrases are never stored in production logs",
+      "reason": "Security/storage-limitation control is privacy-relevant but not a listed detectable marker beyond data minimisation"
+    }
+  ]
+}

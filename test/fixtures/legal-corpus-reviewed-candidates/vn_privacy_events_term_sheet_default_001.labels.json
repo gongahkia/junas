@@ -1,0 +1,421 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_privacy_events_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/privacy_events/vn_privacy_events_term_sheet_default_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_privacy_events_term_sheet_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_privacy_events_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealroom@auroragrowthcapital.asia",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 1,250,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 85,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "export of onboarding forms to a Singapore cloud region",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@vietnexa.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ms.quynh.nguyen@vietnexa.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "linhtb@saigonmeridian.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@vietnexa.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 28 9900 4411",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0039281-77",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tran Bao Linh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Quynh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation requires collection of business email, role, and corporate phone only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public announcement has been made",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if any price-sensitive draft is produced",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Le Thi Mai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Do Van Kiet",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "intends to seek a Vietnamese exchange listing in Q4 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI Register",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Skylark Cloud Pte. Ltd. (Singapore)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "onboarding form captures name, role, and business email",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no government ID copies retained beyond salted hash",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of VND-denominated preferred shares representing 12% post-money, with a call option to acquire an additional 3% upon milestone completion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pricing: Pre-money valuation VND 1,250,000,000,000; share price VND 85,000; closing targeted within 45 days subject to Vietnamese Securities Law and corporate approvals.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal: Ms. Nguyen Thi Quynh withdrew consent on 02 Jun 2026 for optional wellness programme data; processing ceased and audit tag CONSENT-WD-2026-07 applied; no further use is permitted.\nCompleted control (negated risk): Offshore log shipping to non-Vietnam regions was disabled in June 2024; this is a completed control and does not indicate any current cross-border leakage",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ms.quynh.nguyen@vietnexa.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "linhtb@saigonmeridian.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 28 9900 4411",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0039281-77",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Quynh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tran Bao Linh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Le Thi Mai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Do Van Kiet",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of VND-denominated preferred shares representing 12% post-money, with a call option to acquire an additional 3% upon milestone completion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pricing: Pre-money valuation VND 1,250,000,000,000; share price VND 85,000; closing targeted within 45 days subject to Vietnamese Securities Law and corporate approvals.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 1,250,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 85,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12M",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment in VietNexa Holdings JSC by Aurora Growth Capital LP\nParties: VietNexa Holdings JSC (issuer) and Aurora Growth Capital LP (investor); contact: dealroom@auroragrowthcapital.asia\nTransaction: Subscription of VND-denominated preferred shares representing 12% post-money, with a call option to acquire an additional 3% upon milestone completion.\nPricing: Pre-money valuation VND 1,250,000,000,000; share price VND 85,000; closing targeted within 45 days subject to Vietnamese Securities Law and corporate approvals.\nConditions precedent: Board and shareholder approvals, local law filings, and no trading halt triggers under Vietnamese Securities Law; no rights of first refusal outstanding.\nMNPI handling: No MNPI will be shared during diligence; analysis relies on publicly available disclosures and anonymized KPIs; if any price-sensitive draft is produced, pre-clearance and logging in the MNPI Register is mandatory.\nData Processing Addendum: Schedule D attached; retention tag RET-12M applies to investor relations datasets; minimisation requires collection of business email, role, and corporate phone only.\nCross-border transfer: Data-Export Approval DEA-26-041 authorizes export of onboarding forms to a Singapore cloud region with field masking; exporter contact privacy@vietnexa.vn; transfer limited to investor relations and payroll tools.\nDSAR and erasure: DSAR #VNX-DS-119 received 17 May 2026; payroll metadata for employee records anonymized and erasure completed 20 May 2026; confirmation sent to ms.quynh.nguyen@vietnexa.vn.\nConsent withdrawal: Ms. Nguyen Thi Quynh withdrew consent on 02 Jun 2026 for optional wellness programme data; processing ceased and audit tag CONSENT-WD-2026-07 applied; no further use is permitted.\nCompleted control (negated risk): Offshore log shipping to non-Vietnam regions was disabled in June 2024; this is a completed control and does not indicate any current cross-border leakage.\nFunding mechanics: Proceeds to VietNexa escrow at Saigon Meridian Bank, Account 0039281-77; authorized signatory Mr. Tran Bao Linh; contact linhtb@saigonmeridian.com; tel +84 28 9900 4411.\nInvestor onboarding: Aurora Growth Capital LP onboarding form captures name, role, and business email; KYC verification performed by BaoLam Securities Co.; no government ID copies retained beyond salted hash; minimisation verified by Compliance Memo Ref CM-2026-08.\nListing context: VietNexa intends to seek a Vietnamese exchange listing in Q4 2026; internal compliance memo dated 02 Jun 2026 confirms that no public announcement has been made and the term sheet omits price-sensitive figures.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Completed control (negated risk): Offshore log shipping to non-Vietnam regions was disabled in June 2024; this is a completed control and does not indicate any current cross-border leakage",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun used as a defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun used as a defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "we always encrypt at rest and never transfer abroad",
+      "reason": "Policy-only template statement; not a live cross-border event."
+    },
+    {
+      "matched_text": "Offshore log shipping to non-Vietnam regions was disabled in June 2024",
+      "reason": "Completed control; not an active cross-border transfer."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR #VNX-DS-119",
+      "reason": "DSAR events are in scope but no explicit allowed rule name provided."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure completed 20 May 2026",
+      "reason": "Erasure events are in scope but not listed among allowed rules."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention tag RET-12M applies to investor relations datasets",
+      "reason": "Retention controls are relevant but no explicit allowed rule name provided."
+    },
+    {
+      "concept": "data-export approval ID",
+      "matched_text": "DEA-26-041",
+      "reason": "Cross-border governance identifier; not covered by existing allowed rules."
+    },
+    {
+      "concept": "DSAR portal marker",
+      "matched_text": "DSAR portal for all data subjects",
+      "reason": "Indicates data subject request mechanism; no explicit allowed rule for DSAR portals."
+    }
+  ]
+}

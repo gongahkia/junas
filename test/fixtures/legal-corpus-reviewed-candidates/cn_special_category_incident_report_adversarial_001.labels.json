@@ -1,0 +1,436 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_special_category_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/special_category/cn_special_category_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_special_category_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 33,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_special_category_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qian Ruo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Resident ID: 37 0 9********** 764X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership: Yongdao Tech Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR survey captured her sexual orientation as bisexual",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "qian.ruo@nanhaidevices.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Yufeng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R e s . I D: 44************12 8",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric: facial recognition template (FaceMap v2) and palm vein hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pre-employment genetic screening record indicating beta-thalassemia carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "beta-thalassemia carrier status",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Miss Zhou Yuting",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 13",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pediatric asthma treatment invoices",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pediatric asthma",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Kai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Res. ID: 51************33 6",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "zhou.kai+guardian@nanhaidevices.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data flagged under PIPL Art. 28",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed and therefore constitutes inside information under issuer rules",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed and therefore constitutes inside information under issuer rules",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-06-03, intrusion via third-party benefits portal \u201cLotusPay HR\u201d and VPN appliance \u201cWindFox-310\u201d led to exfiltration of HR records, medical subsidy files, and an access key to the Finance draft folder",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border context",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Backups synced to OrchidCloud-SG (region sg-east-2) at https://vault.orchidcloud.sg/bucket?id=cn-ndev&obj=hr.zip&uid=cnid_37**********764X",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZCO cross-border filing and Standard Contract will be initiated within 10 working days",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization and retention per Company Privacy Policy v3.4",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Liao Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@nanhaidevices.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-20-0000-0000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@nanhaidevices.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U S C C: 9Y1 2A3B4 5C6D7E8F9",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U S C C: 7Z 7Z 7Z 7Z 7Z 7Z 7Z 7Z 7Z",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-20-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial recognition template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 13",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Compliance: data minimization and retention per Company Privacy Policy v3.4; CSL OCII status: not applicable; DSL classification: Important Data (tentative), pending ZSRB guidance; religious beliefs or party membership fields are prohibited in production and any occurrence in test data will be purged.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "change (NSE) and Zhonghua Securities Regulatory Bureau (ZSRB) as a preliminary notice; not yet publicly disclosed and therefore constitutes inside information under issuer rules.\nOn 2026-06-03, intrusion via third-party benefits portal \u201cLotusPay HR\u201d and VPN appliance \u201cWindFox-310\u201d led to exfiltration of HR records, medical subsidy files, and an access key to the Finance draft folder.\nIdentified subjects (examples): Ms. Qian Ruo (Resident ID: 37 0 9********** 764X), union membership: Yongdao Tech Workers Union; HR survey captured her sexual orientation as bisexual; email: qian.ruo@nanhaidevices.cn.\nMr. Han Yufeng (R e s . I D: 44************12 8), biometric: facial recognition template (FaceMap v2) and palm vein hash; pre-employment genetic screening record indicating beta-thalassemia carrier status.\nMiss Zhou Yuting (dependent; age 13), pediatric asthma treatment invoices under employee Mr. Zhou Kai (Res. ID: 51************33 6); minor data flagged under PIPL Art. 28; contact masked: zhou.kai+guardian@nanhaidevices.cn.\nAdditional fields included vaccination codes and hospital names; the phrase political affiliation appears in a training checklist here only as a heading and not tied to a person.\nSystems impacted: HR onboarding workflow, payroll export SFTP, and budgeting folder; finance draft contained Q2 unaudited revenue and a draft supplier framework with Qiyun Robotics Co. (counterparty U S C C: 7Z 7Z 7Z 7Z 7Z 7Z 7Z 7Z 7Z), constituting MNPI before public disclosure.\nCross-border context: Backups synced to OrchidCloud-SG (region sg-east-2) at https://vault.orchidcloud.sg/bucket?id=cn-ndev&obj=hr.zip&uid=cnid_37**********764X; ZCO cross-border filing and Standard Contract will be initiated within 10 working days.\nLocation markers in logs include Yongdao District, Huapu City, and a hostname \u201cnse-t1.hxroom\u201d; note: references to the Nanhai Tigers sports club in a test dataset are non-personal and irrelevant.\nContainment: access tokens rotated, BlueCrane IDS signatures updated, RedPanda WAF rules deployed; preliminary assessment indicates no material adverse change and no MAC trigger under NSE Listing Manual (internal policy name only).\nEmployment workflows temporarily paused for new hires; existing employees continue unaffected; our project kanban notes (\u201ctodo: fix runbook; de dupe id-map; avoid hardcoded secret\u201d) are operational and not personal data.\nNotifications: individualized notices to 214 staff begin 2026-06-06; DPO: Dr. Liao Mei, dpo@nanhaidevices.cn, hotline +86-20-0000-0000; issuer liaison: Mr. Chen Rui, ir@nanhaidevices.cn.\nCompliance: data minimization and retention per Company Privacy Policy v3.4; CSL OCII status: not applicable; DSL classification: Important Data (tentative), pending ZSRB guidance; religious beliefs or party membership fields are prohibited in production and any occurrence in test data will be purged.",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "qian.ruo@nanhaidevices.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "zhou.kai+guardian@nanhaidevices.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-20-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qian Ruo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Yufeng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Kai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Liao Mei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial recognition template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 13",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Compliance: data minimization and retention per Company Privacy Policy v3.4; CSL OCII status: not applicable; DSL classification: Important Data (tentative), pending ZSRB guidance; religious beliefs or party membership fields are prohibited in production and any occurrence in test data will be purged.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Notifications: individualized notices to 214 staff begin 2026-06-06; DPO: Dr. Liao Mei, dpo@nanhaidevices.cn, hotline +86-20-0000-0000; issuer liaison: Mr. Chen Rui, ir@nanhaidevices.cn",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Filed to Nanhai Stock Exchange (NSE) and Zhonghua Securities Regulatory Bureau (ZSRB) as a preliminary notice; not yet publicly disclosed and therefore constitutes inside information under issuer rules.\nOn 2026-06-03, intrusion via third-party benefits portal \u201cLotusPay HR\u201d and VPN appliance \u201cWindFox-310\u201d led to exfiltration of HR records, medical subsidy files, and an access key to the Finance draft folder.\nIdentified subjects (examples): Ms. Qian Ruo (Resident ID: 37 0 9********** 764X), union membership: Yongdao Tech Workers Union; HR survey captured her sexual orientation as bisexual; email: qian.ruo@nanhaidevices.cn.\nMr. Han Yufeng (R e s . I D: 44************12 8), biometric: facial recognition template (FaceMap v2) and palm vein hash; pre-employment genetic screening record indicating beta-thalassemia carrier status.\nMiss Zhou Yuting (dependent; age 13), pediatric asthma treatment invoices under employee Mr. Zhou Kai (Res. ID: 51************33 6); minor data flagged under PIPL Art. 28; contact masked: zhou.kai+guardian@nanhaidevices.cn.\nAdditional fields included vaccination codes and hospital names; the phrase political affiliation appears in a training checklist here only as a heading and not tied to a person.\nSystems impacted: HR onboarding workflow, payroll export SFTP, and budgeting folder; finance draft contained Q2 unaudited revenue and a draft supplier framework with Qiyun Robotics Co. (counterparty U S C C: 7Z 7Z 7Z 7Z 7Z 7Z 7Z 7Z 7Z), constituting MNPI before public disclosure.\nCross-border context: Backups synced to OrchidCloud-SG (region sg-east-2) at https://vault.orchidcloud.sg/bucket?id=cn-ndev&obj=hr.zip&uid=cnid_37**********764X; ZCO cross-border filing and Standard Contract will be initiated within 10 working days.\nLocation markers in logs include Yongdao District, Huapu City, and a hostname \u201cnse-t1.hxroom\u201d; note: references to the Nanhai Tigers sports club in a test dataset are non-personal and irrelevant.\nContainment: access tokens rotated, BlueCrane IDS signatures updated, RedPanda WAF rules deployed; preliminary assessment indicates no material adverse change and no MAC trigger under NSE Listing Manual (internal policy name only).\nEmployment workflows temporarily paused for new hires; existing employees continue unaffected; our project kanban notes (\u201ctodo: fix runbook; de dupe id-map; avoid hardcoded secret\u201d) are operational and not personal data.\nNotifications: individualized notices to 214 staff begin 2026-06-06; DPO: Dr. Liao Mei, dpo@nanhaidevices.cn, hotline +86-20-0000-0000; issuer liaison: Mr. Chen Rui, ir@nanhaidevices.cn.\nCompliance: data minimization and retention per Company Privacy Policy v3.4; CSL OCII status: not applicable; DSL classification: Important Data (tentative), pending ZSRB guidance; religious beliefs or party membership fields are prohibited in production and any occurrence in test data will be purged.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun defined term, not a natural person"
+    },
+    {
+      "matched_text": "LotusPay HR",
+      "reason": "product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "WindFox-310",
+      "reason": "product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Yongdao District",
+      "reason": "place name only, not PII per allowed rules"
+    },
+    {
+      "matched_text": "Huapu City",
+      "reason": "place name only, not PII per allowed rules"
+    },
+    {
+      "matched_text": "nse-t1.hxroom",
+      "reason": "technical hostname, not in allowed PII/MNPI rules"
+    },
+    {
+      "matched_text": "Nanhai Tigers",
+      "reason": "sports team name (false-positive bait), not PII"
+    },
+    {
+      "matched_text": "political affiliation",
+      "reason": "heading mention only; not tied to a person"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC reference; do not label per rule 8"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "negated reference and not an allowed MAC/MAE phrase"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "internal identifier / masked CN ID in URL",
+      "matched_text": "uid=cnid_37**********764X",
+      "reason": "May include a masked resident identifier inside a URL parameter; not clearly covered by a specific allowed rule for strict detection."
+    }
+  ]
+}

@@ -1,0 +1,395 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_special_category_memo_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/special_category/id_special_category_memo_default_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_special_category_memo_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_special_category_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@arunikafin.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0451",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Joel",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kupu",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 1,250,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "informasi ini material dan belum dipublikasikan",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "informasi ini material dan belum dipublikasikan",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "+18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kupu-Kupu",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bapak Dimas Prakoso",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AFN-EMP-0451",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cuti medis untuk penanganan diabetes tipe 1",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "diabetes tipe 1",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "template biometrik wajah",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mengungkapkan agama Islam",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "keanggotaan serikat Serikat Karyawan Arunika",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Ratna Wening",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "salat Jumat",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Joel P. Santara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "kemitraan sesama jenis",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aira Prakoso (12)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "(12)",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dilarang menyimpan rapor atau ID sekolah di HRIS",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@arunikafin.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mohon tidak disebarluaskan di luar Komite Investasi",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "jangan membahas \u201cProject Kupu-Kupu\u201d di pertandingan Bandung Fire Monkeys atau kafe di Senopati",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pilot token GarudaMint",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Dewan menyetujui in-principle akuisisi 80% PT LayarPay Digital",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pengumuman direncanakan setelah pernyataan efektif dari OJKM",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditional Shares Purchase Agreement",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@arunikafin.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0451",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Joel",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kupu",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 1,250,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,250,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal Memo \u2014 PT Arunika Fintek Nusantara \u2014 Rahasia (MNPI)\nPerihal: Rencana akuisisi PT LayarPay Digital dan isu ketenagakerjaan; perencanaan keterbukaan sesuai Peraturan OJKM dan kewajiban emiten BEA\nRingkasan transaksi: Dewan menyetujui in-principle akuisisi 80% PT LayarPay Digital dengan valuasi IDR 1,250,000,000,000; pengumuman direncanakan setelah pernyataan efektif dari OJKM; informasi ini material dan belum dipublikasikan\nKepatuhan pasar modal: Sesuai Peraturan OJKM No. 12/2026 tentang Keterbukaan Informasi Emiten BEA, perseroan wajib menyampaikan ringkasan Rencana Akuisisi dalam 2 hari kerja; mohon tidak disebarluaskan di luar Komite Investasi\nPII khusus: Bapak Dimas Prakoso (CFO, ID karyawan internal AFN-EMP-0451) sedang cuti medis untuk penanganan diabetes tipe 1 dan telah mendaftarkan template biometrik wajah untuk akses ruang data aman\nBeliau mengungkapkan agama Islam untuk pengaturan potongan zakat pada payroll serta keanggotaan serikat Serikat Karyawan Arunika; kelola sesuai UU PDP dan Kebijakan Perlindungan Data 2026\nData anak: putrinya, Aira Prakoso (12), akan dimasukkan dalam manfaat kesehatan perusahaan; dilarang menyimpan rapor atau ID sekolah di HRIS\nCatatan bahasa: frasa \u201cmodal politik\u201d pada deck strategi bersifat metaforis dan tidak merujuk afiliasi politik pribadi siapa pun\nKontrol MNPI: draft Public Expose untuk BEA mengecualikan proyeksi uplift dari dompet SakuQu dan pilot token GarudaMint; proyeksi internal TPV +18% tetap hanya di folder merah\nKepatuhan perilaku: jangan membahas \u201cProject Kupu-Kupu\u201d di pertandingan Bandung Fire Monkeys atau kafe di Senopati; tim social listening memantau risiko rumor\nFasilitas kerja: Ibu Ratna Wening (Head of Ops) meminta penjadwalan fleksibel terkait salat Jumat; perlakukan sebagai observansi agama standar tanpa dampak kinerja\nRecruitment/benefit: Mr. Joel P. Santara mengungkap kemitraan sesama jenis untuk manfaat pasangan; data ini bersifat sangat rahasia dan kategori khusus",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SakuQu",
+      "reason": "Product name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "GarudaMint",
+      "reason": "Product/token name; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "\u201cBiometric Breeze\u201d",
+      "reason": "UI theme name; disclaimer states not related to biometrics/genetic data"
+    },
+    {
+      "matched_text": "WartaChat",
+      "reason": "Platform/product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bandung Fire Monkeys",
+      "reason": "Sports team; non-PII"
+    },
+    {
+      "matched_text": "modal politik",
+      "reason": "Metaphor; not political affiliation data"
+    },
+    {
+      "matched_text": "Kebijakan Keberagaman 2026",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Kebijakan Perlindungan Data 2026",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Senopati",
+      "reason": "Place name; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "regulatory pre-clear/embargo control",
+      "matched_text": "pra-clear rilis pers dengan Pengawasan Pasar Modal OJKM",
+      "reason": "Indicates regulatory pre-clearance of press release; compliance-sensitive but not a listed marker token"
+    },
+    {
+      "concept": "information barrier",
+      "matched_text": "tetap hanya di folder merah",
+      "reason": "Implies restricted access to sensitive projections; not an explicit barrier term but suggests internal segregation"
+    },
+    {
+      "concept": "pre-disclosure content control",
+      "matched_text": "draft Public Expose untuk BEA mengecualikan proyeksi uplift",
+      "reason": "Describes intentionally excluding sensitive projections pre-disclosure; MNPI control but not a specific allowed rule token"
+    },
+    {
+      "concept": "product roadmap MNPI",
+      "matched_text": "dompet SakuQu",
+      "reason": "Product feature uplift could be material if disclosed; not explicitly covered by listed MNPI markers"
+    }
+  ]
+}

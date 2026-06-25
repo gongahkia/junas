@@ -1,0 +1,332 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_special_category_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/special_category/sa_special_category_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_special_category_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 25,
+    "new_must_detect_count": 13,
+    "old_ideal_must_detect_count": 18,
+    "old_must_detect_count": 13,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "audit@gulf-aurora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1035 991 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al-Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq Al-Rumayh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Saeed Al-Hizam",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: we do not collect MAC addresses, advertising IDs, or device fingerprints for marketing; our oasis-of-controls network segmentation protects issuer MNPI; product tools SandFalcon CRM and PalmDate Pro are limited to service provision.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Records of Processing Activities are maintained under internal KCMA-ICS guidance; audit oversight: Mr. Saeed Al-Hizam, Internal Audit Lead, audit@gulf-aurora.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@gulf-aurora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers require a permit from the Shamal Data & Algorithms Authority (SDAxA)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint minutiae template (biometric)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HbA1c diabetes-care records (health)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic screening code GNT-c4f2",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@gulf-aurora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2O141223443",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1035 991 2O8",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U-7x3/19",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean-room environment with role-based access",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer HR and health files remain in-KSA unless an SDAxA waiver is granted",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "audit@gulf-aurora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1035 991 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al-Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq Al-Rumayh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tareq",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Saeed Al-Hizam",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: we do not collect MAC addresses, advertising IDs, or device fingerprints for marketing; our oasis-of-controls network segmentation protects issuer MNPI; product tools SandFalcon CRM and PalmDate Pro are limited to service provision.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Records of Processing Activities are maintained under internal KCMA-ICS guidance; audit oversight: Mr. Saeed Al-Hizam, Internal Audit Lead, audit@gulf-aurora.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Protection Officer: Ms. Laila Al-Qassim, dpo@gulf-aurora.example; DSAR portal: https://portal.gulf-aurora.example/dsar?id=U-7x3%2F19.\nWe process personal data per KSA PDPL including names, Iqama or national ID, contact details, and for certain risk controls, biometric and health data with explicit consent.\nFor Mr. Tareq Al-Rumayh (Iq ama No. 1035 991 2O8, client ref U-7x3/19), we retain a fingerprint minutiae template (biometric), HbA1c diabetes-care records (health), and genetic screening code GNT-c4f2 for fitness-to-work documentation.\nWe do not store sexual-orientation data about employees or clients, and union or political affiliation is neither required nor processed for service delivery.\nMNPI is any non-public issuer information relevant to the securities markets; under KCMA market-conduct follow-up we segregate MNPI and redact such content from DSARs while providing a meaningful summary, and we do not trade on MNPI.\nCross-border transfers require a permit from the Shamal Data & Algorithms Authority (SDAxA); issuer HR and health files remain in-KSA unless an SDAxA waiver is granted and standard contractual commitments are executed.\nFor verification we hash Iqama numbers and retain masked commercial registration copies for corporate signatories; e.g., Mr. Tareq\u2019s Iqama is stored as sha256:e1c9b7\u2026 and image ref IM G-12 7A accessible only to compliance.\nRetention: biometric templates are kept 3 years post-relationship, health records 1 year unless a legal claim is ongoing, and MNPI tied to board actions is retained until public disclosure on the Najd Exchange bulletin.\nSecurity: we do not collect MAC addresses, advertising IDs, or device fingerprints for marketing; our oasis-of-controls network segmentation protects issuer MNPI; product tools SandFalcon CRM and PalmDate Pro are limited to service provision.\nPublic sources like the Al-Waha City Gazette and Desert Falcons FC fan pages may be consulted for open-source due diligence; such public references are not special-category personal data under PDPL.\nWe respect diversity and inclusion principles; religion and politics appear only in training examples and policy narratives, not as attributes in your record; project note: todo align sprints with Open Palm Policy v2.1.\nTo exercise PDPL rights (access, correction, deletion, restriction, or objection), contact privacy@gulf-aurora.example or use the DSAR portal; we respond within 30 days subject to identity verification and MNPI safeguards.\nIssuer KYC and listing workflows for Al-Mithaq Metals PJSC (fictional) include board resolutions and draft prospectus materials; such drafts may constitute MNPI and are handled in a clean-room environment with role-based access.\nRecords of Processing Activities are maintained under internal KCMA-ICS guidance; audit oversight: Mr. Saeed Al-Hizam, Internal Audit Lead, audit@gulf-aurora.example.\nThis notice does not grant rights over securities and is not material non-public communication; places, product names, and sports references are illustrative only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual-orientation data",
+      "reason": "Negated special-category policy statement; not actual data about a person."
+    },
+    {
+      "matched_text": "union or political affiliation",
+      "reason": "Negated special-category policy statement; not actual data about a person."
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated collection example; avoid false-positive PII tagging."
+    },
+    {
+      "matched_text": "advertising IDs",
+      "reason": "Negated collection example; avoid false-positive PII tagging."
+    },
+    {
+      "matched_text": "device fingerprints",
+      "reason": "Negated collection example; not biometric PII here."
+    },
+    {
+      "matched_text": "religion and politics",
+      "reason": "Policy narrative/negated context; not attributes stored about an individual."
+    },
+    {
+      "matched_text": "Al-Waha City Gazette",
+      "reason": "Place/news source example; not PII."
+    },
+    {
+      "matched_text": "Desert Falcons FC",
+      "reason": "Sports team example; not PII."
+    },
+    {
+      "matched_text": "SandFalcon CRM",
+      "reason": "Product name; not PII."
+    },
+    {
+      "matched_text": "PalmDate Pro",
+      "reason": "Product name; not PII."
+    },
+    {
+      "matched_text": "Open Palm Policy v2.1",
+      "reason": "Policy name example; not PII."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "customer_or_session_identifier",
+      "matched_text": "U-7x3%2F19",
+      "reason": "Appears as a DSAR portal id parameter; could be an internal session ID or the same customer reference."
+    },
+    {
+      "concept": "retention_period",
+      "matched_text": "biometric templates are kept 3 years post-relationship, health records 1 year unless a legal claim is ongoing",
+      "reason": "Retention durations are privacy-relevant under PDPL but there is no explicit retention rule in the allowed set."
+    },
+    {
+      "concept": "hashed_identifier",
+      "matched_text": "sha256:e1c9b7\u2026",
+      "reason": "Hash of an Iqama number may be pseudonymous personal data; no direct rule provided for hashed IDs."
+    },
+    {
+      "concept": "internal_asset_or_image_reference",
+      "matched_text": "IM G-12 7A",
+      "reason": "Could be an internal reference identifier; not covered by current allowed PII rules."
+    },
+    {
+      "concept": "mnpi_handling/information_barrier",
+      "matched_text": "we segregate MNPI and redact such content from DSARs while providing a meaningful summary",
+      "reason": "Indicates MNPI handling controls and segregation; relevant to market conduct but not a specific allowed MNPI marker."
+    }
+  ]
+}

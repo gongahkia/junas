@@ -1,0 +1,474 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lan.nguyen@aurorarobotics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bao.pham@aurorarobotics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@aurorarobotics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No. 98765432100",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Lan (CFO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Bao Pham",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is a member of the Tech Workers Union of Thu Duc",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is under ongoing treatment for Type 1 diabetes",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is under ongoing treatment for Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "her facial-recognition biometric template is registered for treasury sign-off",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company\u2019s medical plan",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "(age 12)",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his declared Buddhist faith is noted",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "prior membership in the fictional Green Growth Party",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the acquisition of LotusPay Systems Co., Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 22,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 22,000 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "call option for 51% of LotusPay Systems",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced Q4 margin guidance",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may have a significant price impact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be shared before HOSE disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public statements will be made until disclosure via HOSE Portal",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 660 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "such forecasts are price-sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000 ordinary shares",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSC filing draft attached",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft board risk register",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Lan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nguyen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Robotics Joint Stock Company (Aurora Robotics JSC), headquartered at Thu Duc Innovation Park, Ho Chi Minh City, proposes a VND-denominated strategic equity financing and the acquisition of LotusPay Systems Co., Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This term sheet contains MNPI under the Securities Law of Vietnam; non-public revenue forecasts and the unannounced Q4 margin guidance may have a significant price impact and must not be shared before HOSE disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, references to genetic models in device QA are algorithmic and do not constitute personal genetic data; sexual-orientation content rules in marketing are outside the scope of this financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: T+2 settlement through VSD, cash funded from Blue Bamboo Capital escrow at Mekong Trust Bank; signatory verification includes biometric gate at the issuer\u2019s treasury office.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Termination: either party may terminate if SSC approval is denied or if the issuer\u2019s audited earnings deviate materially from MNPI forecasts; governing law: Socialist Republic of Vietnam.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lan.nguyen@aurorarobotics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bao.pham@aurorarobotics.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen Thi Lan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Bao Pham",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nguyen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nguyen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Robotics Joint Stock Company (Aurora Robotics JSC), headquartered at Thu Duc Innovation Park, Ho Chi Minh City, proposes a VND-denominated strategic equity financing and the acquisition of LotusPay Systems Co., Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This term sheet contains MNPI under the Securities Law of Vietnam; non-public revenue forecasts and the unannounced Q4 margin guidance may have a significant price impact and must not be shared before HOSE disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, references to genetic models in device QA are algorithmic and do not constitute personal genetic data; sexual-orientation content rules in marketing are outside the scope of this financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: T+2 settlement through VSD, cash funded from Blue Bamboo Capital escrow at Mekong Trust Bank; signatory verification includes biometric gate at the issuer\u2019s treasury office.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Termination: either party may terminate if SSC approval is denied or if the issuer\u2019s audited earnings deviate materially from MNPI forecasts; governing law: Socialist Republic of Vietnam.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 22,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 660 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aurora Robotics Joint Stock Company (Aurora Robotics JSC), headquartered at Thu Duc Innovation Park, Ho Chi Minh City, proposes a VND-denominated strategic equity financing and the acquisition of LotusPay Systems Co., Ltd.\nInvestor: Blue Bamboo Capital Co., Ltd. (VN) will subscribe 30,000,000 ordinary shares at VND 22,000 per share and obtain a call option for 51% of LotusPay Systems; settlement to occur via the Vietnam Securities Depository.\nThis term sheet contains MNPI under the Securities Law of Vietnam; non-public revenue forecasts and the unannounced Q4 margin guidance may have a significant price impact and must not be shared before HOSE disclosure.\nRegulatory conditions: approval by the State Securities Commission, shareholder resolutions per the Law on Enterprises, and HOSE listing readiness; SSC filing draft attached.\nUse of proceeds: repay revolving facility with Mekong Trust Bank, Account No. 98765432100, Branch: District 1, HCMC; remaining funds to scale LotusPay Core v3.1 and TigerCloud ARM modules.\nKey management and insider list: Ms. Nguyen Thi Lan (CFO), lan.nguyen@aurorarobotics.vn, is a member of the Tech Workers Union of Thu Duc and is under ongoing treatment for Type 1 diabetes; her facial-recognition biometric template is registered for treasury sign-off; her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company\u2019s medical plan.\nIR contact: Mr. Bao Pham, bao.pham@aurorarobotics.vn, affirms no public statements will be made until disclosure via HOSE Portal; his declared Buddhist faith is noted for calendar accommodations only.\nFor clarity, references to genetic models in device QA are algorithmic and do not constitute personal genetic data; sexual-orientation content rules in marketing are outside the scope of this financing.\nRepresentations and warranties include ownership of LotusPay IP, compliance with Sunrise Equal Opportunity Policy, and no sponsorship obligations with the Saigon Firebirds football club.\nPricing model and valuation: VND 660 billion pre-money based on consolidated non-public pipeline in Hai Thuong Commune and pilot deployments; such forecasts are price-sensitive.\nClosing mechanics: T+2 settlement through VSD, cash funded from Blue Bamboo Capital escrow at Mekong Trust Bank; signatory verification includes biometric gate at the issuer\u2019s treasury office.\nCovenants: maintain Vietnamese banking relationships, deliver quarterly reports to SSC, and adhere to Anti-Political Bias Charter; Ms. Nguyen\u2019s prior membership in the fictional Green Growth Party is disclosed for conflict vetting, with no ongoing affiliation.\nConditions precedent: anti-corruption certifications, union consultation minutes, bank consent letters, and HOSE acceptance of the issuer\u2019s listing profile; no material adverse change from the draft board risk register.\nContact and notices: Investor relations at ir@aurorarobotics.vn; legal notices to 12 Orchid Lane, Thu Duc Innovation Park, HCMC; we value inclusion and diversity across teams.\nMetaphor for alignment: the parties are building a bamboo bridge together, not chasing dragons; policy templates and product names herein are illustrative.\nTermination: either party may terminate if SSC approval is denied or if the issuer\u2019s audited earnings deviate materially from MNPI forecasts; governing law: Socialist Republic of Vietnam.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "genetic models",
+      "reason": "Non-personal algorithmic reference; false-positive bait per instruction"
+    },
+    {
+      "matched_text": "sexual-orientation content rules",
+      "reason": "Policy/prose reference, not a data point about a person"
+    },
+    {
+      "matched_text": "Saigon Firebirds football club",
+      "reason": "Sports team name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Sunrise Equal Opportunity Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Anti-Political Bias Charter",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "bamboo bridge",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "LotusPay Core v3.1",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "TigerCloud ARM modules",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Hai Thuong Commune",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC; excluded by rule"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "postal_address (VN)",
+      "matched_text": "12 Orchid Lane, Thu Duc Innovation Park, HCMC",
+      "reason": "Postal addresses are PII under VN law but no explicit generic postal_address rule is provided"
+    },
+    {
+      "concept": "biometric_control_reference",
+      "matched_text": "biometric gate at the issuer\u2019s treasury office",
+      "reason": "Biometric processing mentioned but not linked to an identified person"
+    },
+    {
+      "concept": "trade_union_data_processing",
+      "matched_text": "union consultation minutes",
+      "reason": "May contain special-category PII but presented as a generic document type"
+    }
+  ]
+}

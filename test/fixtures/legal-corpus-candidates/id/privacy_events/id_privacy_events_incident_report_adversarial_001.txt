@@ -1,0 +1,14 @@
+Laporan Insiden Operasional & Privasi — PT Aruna Sinyal Tbk (emiten IDX), 12 Mei 2026, kepada OJK dan Dewan Direksi.
+Ringkasan: 11 Mei 2026, anomali API di modul onboarding fintech Dompet Rasi memproses 132 formulir karyawan/mitra secara duplikat.
+Data terpengaruh: nama, email layanan, no. telepon kerja, dan ID internal karyawan (EMP-**0A9-77**), tanpa kata sandi/biometrik; tidak ada kredensial pelanggan yang bocor.
+Isu akuisisi PT Quantum Lendera telah diumumkan secara publik via keterbukaan informasi; Notulen Rapat Direksi 10/05 hanya memuat ringkasan publik; laporan ini tidak memuat istilah transaksi non-publik (MNPI).
+Peristiwa privasi: (1) DSAR dari Bapak Surya Handoko (REQ-PII-00 7) diterima via https://portal.arunasinyal.co.id/dsar?id=REQ-PII-007 dan dipenuhi 12/05 (ekstrak log + ringkasan pemrosesan).
+(2) Penarikan persetujuan oleh Ibu N. Dewi untuk pemasaran e-mail diverifikasi dan dicatat di CRM; status selesai 12/05, tidak ada pengiriman setelah penarikan.
+(3) Cross-border transfer: permintaan ekspor vendor CloudKampana Pte. Ltd. (SG) untuk log ter-anonim disetujui di Memo Kepatuhan 16/05; pengiriman berisi data terdeidentifikasi saja.
+Kontrol selesai: minimisasi berlaku; field 'DOB' di Em ployee On boar ding Form F-OB-23 dinonaktifkan, dan retensi log login dipangkas 180→90 hari sesuai Jadwal Retensi UU PDP internal.
+Kontrol kebijakan saja (bukan insiden aktif): larangan membawa media eksternal ke trade-floor tetap berlaku; tidak ada pelanggaran terdeteksi minggu ini.
+Tata kelola vendor: Lampiran DPA Schedule 2 mencantumkan subprosesor PT Satrya Data Mandiri; tidak ada perubahan sejak persetujuan OJK-IS/2026/112 (kode internal).
+Erasure: penghapusan data untuk akun mitra a.n. Bapak A. Pramana (ID Mitra MTR-3x-91) dijalankan; catatan keuangan disimpan hanya sebagai agregat sesuai kebijakan POJK pencatatan.
+Forensik: hash berkas contoh SRV-ops_11-05 (sha256: 1f:0a:..:e9) menunjukkan tidak ada ekfiltrasi; alamat MAC bukan 00-1A-2B-3C-4D-5E (negated), hanya trafik internal 10.23.×.×.
+Komunikasi eksternal: draf keterbukaan informasi IDX disiapkan oleh Ibu Melati Sari (Corporate Secretary) menyatakan kejadian tidak material; publik dapat merujuk pressroom perusahaan.
+Kontak: DPO Bapak Raka Wiratama, dpo@arunasinyal.co.id, +62-21-77xx-09; saluran darurat insiden https://secops.arunasinyal.co.id/notify?case=INC-11-05.

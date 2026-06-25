@@ -1,0 +1,344 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_sector_mnpi_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_term_sheet_negative_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_sector_mnpi_term_sheet_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 29,
+    "current_must_detect_count": 8,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 23,
+    "previous_must_detect_count": 17,
+    "previous_must_not_detect_count": 8
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_sector_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@northbridgemarkets.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpfin@greenledger.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0800 000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "constitutes inside information under UK MAR",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until an RNS is released",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list procedures per UK MAR Art. 18",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list procedures per UK MAR Art. 18 will be maintained by both parties",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list templates",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "watch-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "watch-list/blackout definitions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers to be observed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition by Northbridge of 51% of the issued share capital of GreenLedger",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a draft clause envisages a 12-month exclusive supply of GreenLedger\u2019s climate-data API to Northbridge\u2019s ESG analytics unit",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this intention is not yet announced and constitutes inside information under UK MAR until an RNS is released",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any communications to the market to be via RNS",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Northbridge of 51% of the issued share capital of GreenLedger via subscription for new ordinary shares; this intention is not yet announced and constitutes inside information under UK MAR until an RNS is released.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber and IT: Parties acknowledge a tabletop cyber incident drill schedule and adopt a shared response playbook; this is an operations-only programme and does not indicate any live breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "corpfin@greenledger.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Northbridge of 51% of the issued share capital of GreenLedger via subscription for new ordinary shares; this intention is not yet announced and constitutes inside information under UK MAR until an RNS is released.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber and IT: Parties acknowledge a tabletop cyber incident drill schedule and adopt a shared response playbook; this is an operations-only programme and does not indicate any live breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00999999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00444444",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Northbridge Markets plc (Company No. 00999999; LEI: 0TESTNORTHBRIDGE0000; provisional ISIN for consideration shares: GB00-TEST-0000) and GreenLedger Platforms Ltd (Company No. 00444444).\nTransaction: Proposed acquisition by Northbridge of 51% of the issued share capital of GreenLedger via subscription for new ordinary shares; this intention is not yet announced and constitutes inside information under UK MAR until an RNS is released.\nListing/Regulatory: Northbridge is admitted to the Main Market of London Stock Exchange and is FCA-authorised; transaction subject to UK Listing Rules, DTR 2.2, and any applicable change-in-control notifications.\nConsideration: Structure and price to be agreed; no cash amounts are set in this draft; any ESG-linked or crypto-related earn-out mechanics are illustrative only for training purposes.\nConditions precedent: Satisfactory confirmatory due diligence; no material adverse change; customary FCA and competition clearances; completion documentation to include clean team and information barrier protocols.\nCommercial framework: Non-binding heads to explore enterprise crypto custody services and climate-data integrations; references to \u201cstaking\u201d, \u201ctoken\u201d and \u201ccarbon score\u201d herein are for product training and marketing copy only and do not describe live services.\nCyber and IT: Parties acknowledge a tabletop cyber incident drill schedule and adopt a shared response playbook; this is an operations-only programme and does not indicate any live breach.\nExclusivity: 60-day mutual exclusivity on negotiations; a draft clause envisages a 12-month exclusive supply of GreenLedger\u2019s climate-data API to Northbridge\u2019s ESG analytics unit, which has not been publicly announced.\nGovernance: Northbridge to nominate two directors post-completion; board observer rights for GreenLedger during integration; employee consultation to follow UK practice and any TUPE analysis (if applicable).\nCompliance: Insider-list procedures per UK MAR Art. 18 will be maintained by both parties; sample insider list templates and watch-list/blackout definitions in this pack are part of internal education and not indicative of live restrictions.\nMarket conduct: No tipping, wall-crossing only via Compliance; information barriers to be observed; any communications to the market to be via RNS through an FCA-approved Primary Information Provider.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "staking",
+      "reason": "Crypto term used in marketing/training context only; not market-sensitive here."
+    },
+    {
+      "matched_text": "token",
+      "reason": "Crypto term used in marketing/training context only; not market-sensitive here."
+    },
+    {
+      "matched_text": "carbon score",
+      "reason": "ESG term used in marketing/training context only; not market-sensitive here."
+    },
+    {
+      "matched_text": "tabletop cyber incident drill",
+      "reason": "Operational exercise; not a live incident or disclosure."
+    },
+    {
+      "matched_text": "operations-only programme",
+      "reason": "Explicitly states non-incident operations context; avoid false MNPI flag."
+    },
+    {
+      "matched_text": "marketing copy only",
+      "reason": "Explicitly non-binding marketing example; not MNPI."
+    },
+    {
+      "matched_text": "illustrative only for training purposes",
+      "reason": "Explicitly educational; not MNPI."
+    },
+    {
+      "matched_text": "no unpublished performance metrics or forecasts are included",
+      "reason": "Explicit negation indicates absence of sensitive non-public metrics."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "provisional_isin_pre_announcement",
+      "matched_text": "provisional ISIN for consideration shares: GB00-TEST-0000",
+      "reason": "Provisional securities identifiers can be sensitive pre-announcement but there is no explicit rule for ISINs."
+    },
+    {
+      "concept": "disclosure_channel_control",
+      "matched_text": "RNS through an FCA-approved Primary Information Provider",
+      "reason": "Release-channel control is compliance-relevant but not mapped to a specific rule beyond general disclosure risk."
+    },
+    {
+      "concept": "employment_change_indicator",
+      "matched_text": "employee consultation to follow UK practice and any TUPE analysis (if applicable)",
+      "reason": "Signals potential workforce/transfer implications that could be sensitive but no specific allowed rule applies."
+    }
+  ]
+}

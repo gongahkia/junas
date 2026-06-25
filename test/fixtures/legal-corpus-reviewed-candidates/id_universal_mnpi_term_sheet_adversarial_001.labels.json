@@ -1,0 +1,291 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_universal_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/universal_mnpi/id_universal_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_universal_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_universal_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "investor@nusantarapay-prima.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sekretariat@nusantarapay-prima.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project BATIK",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 9,5",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo sampai 15-07-2026 17:00 WIB",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 750.000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 150.000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Dian Paramesti",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bapak Arman Suryadinata",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "N O N - P U B L I C",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 9,5 t",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "penandatanganan CSPA 30-06-2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "long-stop date 30-09-2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "publikasi keterbukaan ke OJK/BEI tidak sebelum tanggal embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn-out hingga IDR 150.000.000.000 jika GMV 12 bulan > IDR 9,5 triliun",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "penutupan bergantung pada persetujuan OJK/BEI dan RUPS",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "akses data room https://dataroom.sandaracap.co.id/p/btk?tok=en=pr0j-b4 t1k dibatasi sampai keterbukaan ke O J K dan BEI",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "investor@nusantarapay-prima.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sekretariat@nusantarapay-prima.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project BATIK",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 9,5",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "TERM SHEET \u2014 Project BATIK \u2014 N O N - P U B L I C // Embargo sampai 15-07-2026 17:00 WIB \u2014 Doc ID: TS-0JK-2O26-BTK-\u03b17\nPihak: PT Nusantara Pay Prima Tbk (Perseroan) dan PT Kaldera Data Teknologi (Target) \u2014 penasihat: Sandara Capital Asia \u2014 kontak: Ibu Dian Paramesti, investor@nusantarapay-prima.co.id\nStruktur: Akuisisi 55% saham biasa Target oleh Perseroan melalui CSPA dan SHA definitif; penutupan bergantung pada persetujuan OJK/BEI dan RUPS.\nHarga & Mekanisme: IDR 750.000.000.000 tunai, penyesuaian NWC; earn-out hingga IDR 150.000.000.000 jika GMV 12 bulan > IDR 9,5 triliun.\nPendanaan: kombinasi kas internal dan obligasi domestik rencana 2026; tidak ada penerbitan HMETD pada tahap ini.\nSyarat Terdahulu: tidak ada pelanggaran ketentuan fintech; izin/registrasi BI dan Kominfo tetap berlaku; pernyataan tidak ada perubahan material merugikan (MAE).\nKlarifikasi MAE: kegagalan mencapai proyeksi pengguna Q3 atau perubahan tarif MDR yang diumumkan publik tidak dianggap MAC/MAE.\nKerahasiaan: informasi ini material non-public; akses data room https://dataroom.sandaracap.co.id/p/btk?tok=en=pr0j-b4 t1k dibatasi sampai keterbukaan ke O J K dan BEI.\nPersetujuan: Direksi & RUPS Perseroan, rekomendasi Komite Audit (POJK 42/2020), serta notifikasi ke OJK sesuai POJK 31/2015 dan Peraturan BEI I-E.\nJadwal: penandatanganan CSPA 30-06-2026; long-stop date 30-09-2026; publikasi keterbukaan ke OJK/BEI tidak sebelum tanggal embargo.\nIntegrasi: migrasi pengguna ke dompet \u201cSeruni\u201d dalam 90 hari; tidak ada PHK massal; key personnel retention untuk Bapak Arman Suryadinata (CEO Target) selama 24 bulan.\nCatatan publik: data pertumbuhan pengguna 2024 mengacu pada rilis terbuka Bank Sentra Nusantara dan BPS; harga saham historis BEI 2023 merupakan informasi umum.\nnext steps: align comms, draf keterbukaan versi bahasa, uji skenario q&a, dan tim hr boleh booking spa-jumat setelah penandatanganan.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "spa-jumat",
+      "reason": "False-positive bait (spa-day)"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "Signing date marker",
+      "matched_text": "penandatanganan CSPA 30-06-2026",
+      "reason": "Signing milestone in Indonesian; not explicitly in enumerated embargo markers"
+    },
+    {
+      "concept": "Long-stop date marker",
+      "matched_text": "long-stop date 30-09-2026",
+      "reason": "Key deal timeline event; not explicitly listed in embargo markers"
+    },
+    {
+      "concept": "internal_document_id",
+      "matched_text": "Doc ID: TS-0JK-2O26-BTK-\u03b17",
+      "reason": "Internal document identifier could be sensitive but not covered by allowed rules"
+    },
+    {
+      "concept": "internal_reference_id",
+      "matched_text": "INV-IDN-20l9-OJk3",
+      "reason": "Internal archive reference; potentially sensitive but no matching allowed rule"
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "akses data room https://dataroom.sandaracap.co.id/p/btk?tok=en=pr0j-b4 t1k dibatasi sampai keterbukaan ke O J K dan BEI",
+      "reason": "Indicates restricted data room access until disclosure; conceptually an info barrier but not a standard keyword"
+    }
+  ]
+}

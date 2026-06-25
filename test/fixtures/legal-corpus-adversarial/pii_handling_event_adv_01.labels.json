@@ -1,0 +1,17 @@
+{
+  "doc_id": "pii_handling_event_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "EU",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "cross_border_transfer_marker", "matched_text": "transferred outside Singapore", "reason": "negated — 'was not transferred outside Singapore'"},
+    {"rule": "cross_border_transfer_marker", "matched_text": "standard contractual clauses", "reason": "negated — 'Without any standard contractual clauses'"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "withdraw consent", "reason": "negated — 'did not withdraw consent'"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "DSAR", "reason": "negated — 'No DSAR was received'"},
+    {"rule": "consent_withdrawal_marker", "matched_text": "erasure request", "reason": "negated — 'no erasure request pending'"},
+    {"rule": "data_minimisation_marker", "matched_text": "data minimisation", "reason": "negated — 'No data minimisation review'"},
+    {"rule": "data_minimisation_marker", "matched_text": "over-collection", "reason": "negated — 'no over-collection'"}
+  ],
+  "_label_source": "hand"
+}

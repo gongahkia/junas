@@ -1,0 +1,208 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_special_category_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "investor-relations@bafc.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacydesk@bafc.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee Code ZN-2041",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a chronic health condition (Type 1 diabetes)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank account numbers",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "phone numbers",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect only role data; do not request TIN, SSS No, or bank account numbers—mark fields as “not applicable for disclosure” to avoid PII spillover",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "store strictly with Medical Services, not with HRIS exports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no user-specific biometric records are exported to deal rooms",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially material",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [],
+  "must_not_detect": [
+    {
+      "matched_text": "Kawayan Card",
+      "reason": "Product name / marketing bait, not PII or MNPI"
+    },
+    {
+      "matched_text": "Sampaguita Savings",
+      "reason": "Product name / marketing bait, not PII or MNPI"
+    },
+    {
+      "matched_text": "MangoPay QR",
+      "reason": "Product name / marketing bait, not PII or MNPI"
+    },
+    {
+      "matched_text": "the Cebu Coral Kings fan promo",
+      "reason": "Sports/marketing reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "The Harana Inclusion Policy",
+      "reason": "Policy name, not personal data"
+    },
+    {
+      "matched_text": "Rainbow Values Policy",
+      "reason": "Policy name, not personal data"
+    },
+    {
+      "matched_text": "Social Harmony Standard",
+      "reason": "Policy/standard name, not personal data"
+    },
+    {
+      "matched_text": "full-court press",
+      "reason": "Metaphor, not health or sponsorship data"
+    },
+    {
+      "matched_text": "MMX-CUST-TEST",
+      "reason": "Placeholder account label indicated as non-personal"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "Philippine Social Security System number",
+      "matched_text": "SSS No",
+      "reason": "Government ID reference is sensitive but no explicit allowed rule for SSS number"
+    },
+    {
+      "concept": "Potential MNPI category",
+      "matched_text": "draft allocations",
+      "reason": "Could be material to investors but not clearly covered by a specific MNPI rule beyond general contingency"
+    },
+    {
+      "concept": "Potential MNPI category",
+      "matched_text": "unfinalized board actions",
+      "reason": "Could be material corporate actions but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "Potential MNPI category",
+      "matched_text": "undisclosed counterparty consents",
+      "reason": "Non-public consents may be material but not explicitly covered by listed MNPI rules"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
+}

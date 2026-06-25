@@ -1,0 +1,208 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 13,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 9,
+    "old_must_detect_count": 5,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@alnaqlholding.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer workflow",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced RSE filing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information-barrier controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we will not require live account numbers and will verify using masked ID tokens only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KSA-CR-77X-000-ALN",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "climate-linked sukuk framework",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@alnaqlholding.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AlNaql Holding KSA \u2014 Retention and Transfer Workflow Note (PDPL context, issuer operations)\nScope: We process limited PII under KSA PDPL (e.g., role names, role emails, masked National ID/Iqama tokens, and Commercial Registration (CRN) references) for issuer-portal operations at Rimal Securities Exchange (RSE).\nFor onboarding, we record CRN placeholders (e.g., CRN: KSA-CR-77X-000-ALN) and hash any ID/Iqama digits (e.g., ID: 2XX-XX-XXXX), which are stored separately from deal folders.\nEducational/marketing materials may reference crypto custody, ESG scoring, cyber hygiene, insider-list management, information barriers, blackout windows, and anti-tipping policies strictly as training content without trading or deal signals.\nDSAR: Data subjects may submit requests via the role mailbox privacy.office@alnaqlholding.example; we will not require live account numbers and will verify using masked ID tokens only.\nCross-border transfer workflow: exports of issuer-admin metadata to processors in the Gulf are paused pending gateway clearance by the Suhail Data Authority for Information Assurance (SDAIA) under our model clauses; until approval, only redacted test datasets move through the \u201cNakhla\u201d pipeline.\nRetention: routine issuer logs (access, wall-crossing attestations, training completion) are kept 3 years; marketing ESG survey responses are anonymized within 90 days; crypto sandbox telemetry is rotated every 30 days.\nInformation-barrier controls: corporate finance and research systems are segregated; insider-list registries for tabletop drills use role codes (e.g., CF-01, SEC-04) and do not include personal emails.\nOperational example (benign): our \u201cSouqToken\u201d demo shows how a custody API signs test transactions using fictional wallets and public/stale keys, with no link to any listing timetable.\nPublic/stale fact handling: if an ESG milestone or cyber bulletin is already announced on the RSE issuer page, we tag it as public and move it to the open archive within 24 hours.\nPositive MNPI perimeter (rare): we may retain, in encrypted form, a temporary insider list for an unannounced RSE filing by an AlNaql affiliate regarding a planned climate-linked sukuk framework; access is restricted to the market-conduct team until disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider-list management",
+      "reason": "Educational/marketing context; not MNPI."
+    },
+    {
+      "matched_text": "information barriers",
+      "reason": "Educational/marketing context; not MNPI."
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Educational/marketing context; not MNPI."
+    },
+    {
+      "matched_text": "anti-tipping policies",
+      "reason": "Educational/marketing context; not MNPI."
+    },
+    {
+      "matched_text": "blackout-notice templates",
+      "reason": "Tabletop drill context; not a live blackout or MNPI."
+    },
+    {
+      "matched_text": "crypto custody",
+      "reason": "Training content; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "ESG scoring",
+      "reason": "Training content; not market-sensitive MNPI."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR",
+      "reason": "DSAR is a privacy-rights event, but this schema lacks an explicit DSAR rule."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: routine issuer logs (access, wall-crossing attestations, training completion) are kept 3 years",
+      "reason": "Data retention is a privacy-event marker but no explicit retention rule is provided in the allowed list."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "marketing ESG survey responses are anonymized within 90 days",
+      "reason": "Anonymization/retention timing is privacy-relevant but not mapped to an allowed rule here."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "crypto sandbox telemetry is rotated every 30 days",
+      "reason": "Rotation/retention period is privacy-relevant but no explicit rule exists in the allowed list."
+    },
+    {
+      "concept": "local_id_placeholder",
+      "matched_text": "ID: 2XX-XX-XXXX",
+      "reason": "Masked local ID/Iqama example; unclear classification under strict sa_national_id/sa_iqama rules."
+    }
+  ]
+}

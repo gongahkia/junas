@@ -1,0 +1,372 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/jurisdictional_mnpi/hk_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@jadeharbour.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@jadeharbour.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Irisa Ko Yuen\u2011ning",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daxin Bo\u2011Lei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee No. e8\u2011 4 2 \u2011hk",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access/correction/erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Company Secretary",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Compliance Manager",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "id=UHk-2 9 a",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JHRL-EMP-0O1-\u039e7",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ap\u2011southeast\u2011\u0394",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "safe harbours for incomplete negotiations",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "leakage is suspected",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project teal\u2011satin",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed\u2011period restrictions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011public\u2014Issuer\u2011material",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disclosure deferral may apply",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading halt",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0O1-",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Irisa Ko Yuen",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Collection: HR records for applicants and employees (ref# JHRL-EMP-0O1-\u039e7), VDR materials for Project teal\u2011satin (proposed acquisition with Azure Peak Capital (HK) Limited), and fund LP contact details; generic website telemetry is anonymised.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purposes: recruitment and payroll, vendor onboarding for HKEX fee settlement, and evaluation of the Amber Reef Autonomics Ltd target; no MAC is anticipated and no forward\u2011looking revenue guidance is provided in this workflow note.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross\u2011border transfers: personal data and deal documents may be hosted in \u201cap\u2011southeast\u2011\u0394\u201d with access by Silver Kestrel Partners GP Ltd; transfers are subject to contractual safeguards and PCPD guidance on comparable protection; dataset tag: D\u039b\u2011 1 4 3 \u2011hk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "0O1-",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Irisa Ko Yuen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daxin Bo\u2011Lei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Collection: HR records for applicants and employees (ref# JHRL-EMP-0O1-\u039e7), VDR materials for Project teal\u2011satin (proposed acquisition with Azure Peak Capital (HK) Limited), and fund LP contact details; generic website telemetry is anonymised.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purposes: recruitment and payroll, vendor onboarding for HKEX fee settlement, and evaluation of the Amber Reef Autonomics Ltd target; no MAC is anticipated and no forward\u2011looking revenue guidance is provided in this workflow note.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross\u2011border transfers: personal data and deal documents may be hosted in \u201cap\u2011southeast\u2011\u0394\u201d with access by Silver Kestrel Partners GP Ltd; transfers are subject to contractual safeguards and PCPD guidance on comparable protection; dataset tag: D\u039b\u2011 1 4 3 \u2011hk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unit 1903, 19/F, Meridian Forge Tower, 88 Kata Street, Kowloon\u2014this address is fictional and for notice only",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Jade Harbour Robotics Limited (an HKEX-listed issuer) \u2014 Privacy & MNPI Handling Workflow for M&A, fund interactions, and employment data under PDPO and SFO.\nScope: PDPO personal data (data relating to a living individual whose identity is directly or indirectly ascertainable) and \u201cinside information\u201d under Part XIVA of the SFO and the HKEX Listing Rules; selective disclosure is prohibited and public release must be made as soon as reasonably practicable via hkexnews.hk.\nCollection: HR records for applicants and employees (ref# JHRL-EMP-0O1-\u039e7), VDR materials for Project teal\u2011satin (proposed acquisition with Azure Peak Capital (HK) Limited), and fund LP contact details; generic website telemetry is anonymised.\nProcessing purposes: recruitment and payroll, vendor onboarding for HKEX fee settlement, and evaluation of the Amber Reef Autonomics Ltd target; no MAC is anticipated and no forward\u2011looking revenue guidance is provided in this workflow note.\nRetention: recruitment data 12 months, employee data 7 years post\u2011cessation, deal\u2011room logs 6 years; destruction by cryptographic erasure; non\u2011issuer operational updates (e.g., office Wi\u2011Fi maintenance) are logged but not considered price\u2011sensitive.\nMNPI classification: draft term sheet dated 2025\u201105\u201118 and unaudited Q2 pipeline metrics are non\u2011public and issuer\u2011material; disclosure deferral may apply under safe harbours for incomplete negotiations, with closed\u2011period restrictions for directors during the Model Code \u201cblackout\u201d (1 month before interim/annual results).\nPublic\u2011status precision: the 2024 sustainability report and the 2025\u201104\u201115 announcement already published on hkexnews.hk (URL: https://www.hkexnews.hk/listedco/listconews/SEHK/2025/0415/LTN2025-0415-JHRL.pdf) are treated as public and therefore not MNPI, notwithstanding stale content.\nSelective disclosure control: any analyst or fund briefing by Ms. Irisa Ko Yuen\u2011ning (Company Secretary) must use slides concurrently uploaded to hkexnews.hk and our website; if leakage is suspected, Compliance will request a trading halt and submit an inside information announcement without delay.\nCross\u2011border transfers: personal data and deal documents may be hosted in \u201cap\u2011southeast\u2011\u0394\u201d with access by Silver Kestrel Partners GP Ltd; transfers are subject to contractual safeguards and PCPD guidance on comparable protection; dataset tag: D\u039b\u2011 1 4 3 \u2011hk.\nData subject rights: access/correction/erasure requests may be lodged at dpo@jadeharbour.example.hk or via https://privacy.jadeharbour.example.hk/req?id=UHk-2 9 a; identity may be verified against employee No. e8\u2011 4 2 \u2011hk; fees only where permitted by PDPO.\nThird\u2011party sharing: payroll vendor (Lintel Wave Systems (Asia) Ltd), background checker (Mosslight Screening HK), and external counsel (Oriole & Tang Solicitors) receive only necessary personal data; fund LP lists sourced from public press releases and directories are not confidential.\nTiming and governance: inside information is escalated to the Disclosure Committee within 2 hours of awareness and, absent a safe harbour, announced as soon as reasonably practicabl",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC \u2014 rule excludes this from detection"
+    },
+    {
+      "matched_text": "https://www.hkexnews.hk/listedco/listconews/SEHK/2025/0415/LTN2025-0415-JHRL.pdf",
+      "reason": "Public HKEX filing reference \u2014 not MNPI"
+    },
+    {
+      "matched_text": "hkexnews.hk",
+      "reason": "Public disclosure portal reference \u2014 not MNPI itself"
+    },
+    {
+      "matched_text": "non\u2011issuer operational updates",
+      "reason": "Explicitly stated as not price\u2011sensitive"
+    },
+    {
+      "matched_text": "2024 sustainability report",
+      "reason": "Public report reference \u2014 not MNPI"
+    },
+    {
+      "matched_text": "2025\u201104\u201115 announcement",
+      "reason": "Public announcement reference \u2014 not MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention",
+      "reason": "Data retention governance is relevant but no explicit allowed rule name for retention marker"
+    },
+    {
+      "concept": "erasure_control",
+      "matched_text": "destruction by cryptographic erasure",
+      "reason": "Erasure/destruction control is privacy-relevant but not clearly mapped to an allowed rule"
+    },
+    {
+      "concept": "internal_id tag",
+      "matched_text": "D\u039b\u2011 1 4 3 \u2011hk",
+      "reason": "Looks like a dataset/internal identifier but not clearly covered by allowed identifier rules"
+    },
+    {
+      "concept": "HK MNPI materiality",
+      "matched_text": "price\u2011sensitive",
+      "reason": "Local materiality term is relevant to MNPI but not directly covered by allowed MNPI rules"
+    }
+  ]
+}

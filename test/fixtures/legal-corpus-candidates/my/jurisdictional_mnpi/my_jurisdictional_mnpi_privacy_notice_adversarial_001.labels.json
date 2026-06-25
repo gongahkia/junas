@@ -1,0 +1,325 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 7,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: invalid rule 'retention' text='are kept 7 years'",
+      "drop must_detect: invalid rule 'retention' text='are kept 12 months'",
+      "drop must_detect: invalid rule 'retention' text='are archived for audit for 3 years'",
+      "drop ideal_must_detect: invalid rule 'retention' text='are kept 7 years'",
+      "drop ideal_must_detect: invalid rule 'retention' text='are kept 12 months'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ject.request@auripalms.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-ops@trimaxx.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0O12-7X",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nor Aini Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During the closed period (30 days before the quarterly results announcement), access to draft financials and financing terms is restricted to named users approved by Ms. Nor Aini Salleh, Head of Compliance, via privacy@auripalms.com.my.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Notwithstanding the above, draft terms for Project Langsat financing have not been announced and are treated as MNPI until an immediate announcement is made; blackout windows apply to insiders and consultants.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Langsat",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@auripalms.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Razak Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MY-EMP-0O12-7X",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: cloud processing occurs in MY-South-1 zone operated by CloudHexa Networks Sdn. Bhd.; standard contractual clauses are appended and onward transfers require written consent",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period (30 days before the quarterly results announcement)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows apply to insiders and consultants",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data subjects may submit a DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked bank ref. 9XX-3 2-77",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no national ID numbers are collected for the internship programme",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoidance of selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until an immediate announcement is made",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data.sub ject.request@auripalms.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ject.request@auripalms.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-ops@trimaxx.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0O12-7X",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nor Aini Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During the closed period (30 days before the quarterly results announcement), access to draft financials and financing terms is restricted to named users approved by Ms. Nor Aini Salleh, Head of Compliance, via privacy@auripalms.com.my.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Notwithstanding the above, draft terms for Project Langsat financing have not been announced and are treated as MNPI until an immediate announcement is made; blackout windows apply to insiders and consultants.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Langsat",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During the closed period (30 days before the quarterly results announcement), access to draft financials and financing terms is restricted to named users approved by Ms. Nor Aini Salleh, Head of Compliance, via privacy@auripalms.com.my.\nFor avoidance of doubt, the press release dated 3 Mar 2024 summarising FY2023 revenue is already in the public domain and does not constitute MNPI, and general product brochures for PalmOne Analytics\u2122 are non-sensitive.\nPublic filing reference: Main Market issuer portal announcement dated 15 May 2026 regarding the RM40m Facility Agreement with Tideway Trustee Sdn. Bhd. \u2014 status: published; ref: APB-FA-2O26-001 (note the letter O).\nNotwithstanding the above, draft terms for Project Langsat financing have not been announced and are treated as MNPI until an immediate announcement is made; blackout windows apply to insiders and consultants.\nData subjects may submit a DSAR by email to data.sub ject.request@auripalms.com.my or via https://auripalms.com.my/privacy?req=dsar%2F2O26-0 6, providing Employee Code MY-EMP-0O12-7X for verification.\nWe will acknowledge within 7 days and respond within 21 days, subject to identity verification; where requests concern board papers tied to issuer disclosures, responses may be deferred until publication to the market.\nCross-border transfer: cloud processing occurs in MY-South-1 zone operated by CloudHexa Networks Sdn. Bhd.; standard contractual clauses are appended and onward transfers require written consent.\nRetention: payroll records (incl. masked bank ref. 9XX-3 2-77) are kept 7 years; candidate CVs are kept 12 months; IR call logs during blackout windows are archived for audit for 3 years.\nNegative covenant: no MAC is deemed to have occurred solely due to public-source news articles or analyst commentary; training slides that paraphrase published announcements are not MNPI.\nIncident reporting: suspected unauthorised access to MNPI must be reported within 24 hours to Encik Razak Idris at sec-ops@trimaxx.capital and escalated for issuer clearance before any external com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "press release dated 3 Mar 2024",
+      "reason": "Public domain reference; not MNPI"
+    },
+    {
+      "matched_text": "Main Market issuer portal announcement dated 15 May 2026",
+      "reason": "Public filing; not MNPI"
+    },
+    {
+      "matched_text": "status: published",
+      "reason": "Explicitly public status; not MNPI"
+    },
+    {
+      "matched_text": "Facility Agreement",
+      "reason": "Not an allowed definitive_agreement type per rule list"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC; rule excludes negated MAC phrases"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Role-noun/defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun/defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun/defined term; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "embargo_marker",
+      "matched_text": "immediate announcement",
+      "reason": "Issuer-specific disclosure timing phrase is legally relevant for selective disclosure but not in enumerated embargo terms"
+    },
+    {
+      "concept": "insider_list_marker",
+      "matched_text": "insiders",
+      "reason": "References insider status but not an explicit insider list; borderline for rule scope"
+    }
+  ]
+}

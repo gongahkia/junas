@@ -1,0 +1,271 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026-10-15 09:00 KST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution limited to role mailboxes",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@mohae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@mohae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "face scans",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank account details",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr files must not store resident-number",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect family info, bank account details, or face scans",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no personal data is collected",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "note: the term sheet cited is the old version announced last year; no definitive agreement executed, and no live negotiations are described here.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deal checklist (generic form labels): counterparty name field, price field, percent field, and closing date field; leave values blank in templates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mac clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9999999",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "note: the term sheet cited is the old version announced last year; no definitive agreement executed, and no live negotiations are described here.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deal checklist (generic form labels): counterparty name field, price field, percent field, and closing date field; leave values blank in templates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mac clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9999999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal memo \u2014 issuer communications and compliance review for mohae dynamics co., ltd.\nscope: investor-relations draft update, stale research notes, and board process checklist; korea jurisdiction; fscma and pipa compliance.\npublic-source baseline: refer to press release dated 2025-03-12 on our website and archived hanul exchange (hxk) announcement; nothing new beyond that.\nhr files must not store resident-number; purge placeholders like 000000-0000000 and test ids like Z9-9999999.\nmarking protocol: do not add \u201cnon-public\u201d headers unless content is truly internal; this draft relies on public data only.\nir draft remains under an internal embargo until 2026-10-15 09:00 KST; distribution limited to role mailboxes ir@mohae and legal@mohae.\nnote: the term sheet cited is the old version announced last year; no definitive agreement executed, and no live negotiations are described here.\nmac/mae: the board asked for a summary; current draft includes a negated mac clause example for training: \u201cno material adverse change has occurred since the audited 2024 accounts.\u201d\ndeal checklist (generic form labels): counterparty name field, price field, percent field, and closing date field; leave values blank in templates.\nproject-management notes: update the tracker, lower-case headings, and move remaining tasks to next sprint; no sensitive fields in the shared sheet.\nresearch notes are derivative of public analyst webinars and trade press; citations to \u201ckorea tech weekly\u201d and \u201cseoul capital journal\u201d are public.\nemployment onboarding: verify consent under pipa; do not collect family info, bank account details, or face scans; use the public hr helpline portal.\ninvestor-relations q&a: only use stale percentages from the 2024 annual report, e.g., r&d ratio approx 12% (already disclosed).\nfor mnpi screening, flag any live code names; none are used in this memo, and training examples should be obviously dummy.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day raffle",
+      "reason": "false-positive bait; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "negated MAC language per rule; do not label"
+    },
+    {
+      "matched_text": "Z9-9999999",
+      "reason": "test ID example; not a recognized PII format in allowed rules"
+    },
+    {
+      "matched_text": "T-0000",
+      "reason": "ticket number example; not in allowed PII rules"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "email address without TLD",
+      "matched_text": "ir@mohae",
+      "reason": "may not match strict email regex; internal role mailbox"
+    },
+    {
+      "concept": "email address without TLD",
+      "matched_text": "legal@mohae",
+      "reason": "may not match strict email regex; internal role mailbox"
+    },
+    {
+      "concept": "KR RRN category mention",
+      "matched_text": "resident-number",
+      "reason": "policy reference to resident registration number without an actual identifier value"
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
+    "status": "owner_approved_in_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_sector_mnpi_memo_default_001",
+    "label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T07:04:53Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/sector_mnpi/in_sector_mnpi_memo_default_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_sector_mnpi_memo_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_sector_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ethics@nandini-renew.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arjun Bose",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Kavita Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nisha Raman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@nandini-renew.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked tokens",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "truncated to non-identifying formats",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked PAN/Aadhaar and GSTIN hashes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "store only pseudonymised IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children\u2019s records",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "is not public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window remains closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware intrusion",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "grey list",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "segregated drives",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list update",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list acknowledgements",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure risk",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ahead of formal filings and broad dissemination",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "report suspected tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG-linked rupee bond term sheet",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 reductions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Digital-asset pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenisation of carbon credits",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "token custody architecture",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "indicative coupon",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "step-up triggers",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft pricing",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deal-channel access only to named insiders",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "named insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insiders only",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ethics@nandini-renew.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arjun Bose",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Kavita Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nisha Raman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "grey list",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "From: Ms. Priya Mehta, Chief Compliance Officer, compliance@nandini-renew.example.\nSubject: DPDPA and PIT controls for upcoming ESG bond, digital-asset pilot, and cyber-incident response.\n1) UPSI warning: The proposed ESG-linked rupee bond term sheet (pre-board approval) contains indicative coupon and step-up triggers tied to Scope 2 reductions and is not public; trading window remains closed from circulation of the Board pack until 48 hours after disclosure to the exchange.\n2) Cyber incident: Our wind farm SCADA subnetwork experienced a ransomware intrusion with limited turbine downtime; containment and CERT-In intimation are in progress and the event is currently undisclosed; please ensure no external communication beyond approved messaging.\n3) Digital-asset pilot: We signed a non-binding MOU with RavaPay Digital Assets Pvt Ltd for a closed-loop tokenisation of carbon credits and custody services; pilot timelines and commercial fee ranges are draft and restricted under our Code of Fair Disclosure.\n4) Information barriers: Treasury and Sustainability teams must operate on segregated drives; create a \u201crestricted list\u201d and \u201cgrey list\u201d for counterparties (RavaPay Digital Assets Pvt Ltd, Oorja Carbon Markets LLP) and enforce deal-channel access only to named insiders.\n5) Insider list update: Add Mr. Arjun Bose (Treasury), Dr. Kavita Iyer (CIO), and Ms. Nisha Raman (Sustainability) with official emails and phone numbers; PAN and Aadhaar must be captured only as masked tokens per our DPDPA SOP, and GSTIN details of counterparties should be truncated to non-identifying formats.\n6) DPDPA compliance: For vendor onboarding and internship KYC, process only masked PAN/Aadhaar and GSTIN hashes; obtain granular consent, and for any data principals under 18 engaged through our campus solar labs, collect verifiable guardian consent and offer an opt-out.\n7) Selective disclosure risk: No sharing of bond pricing ranges, cyber forensics, or token custody architecture with analysts, suppliers, or industry bodies ahead of formal filings and broad dissemination; avoid informal \u201creadouts\u201d on messaging apps.\n8) Subtle risk: A calendar invite titled \u201cESG PPAs\u2014draft pricing\u201d was sent to two external bankers; the materials were blanked but the subject line implies non-public pricing\u2014do not forward and limit attendance to insiders only.\n9) Communications: Draft exchange intimation for the cyber event and a high-level ESG bond FAQ are prepared; both must be released simultaneously to the exchange and website to avoid asymmetry.\n10) Commercial terms hygiene: Negotiation notes on carbon-credit purchase floors and custody fee caps must remain in the \u201cNRL-ESG-Restricted\u201d workspace; do not discuss ranges during vendor demos or trainings.\n11) Training/benign use: The marketing team will host an educational webinar titled \u201cCrypto custody and information barriers 101\u201d for employees, which will only cover generic controls and definitions without deal specifics, timelines, or counterparties.\n12) Children\u2019s data: The Green Schools outreach is collecting student feedback; treat all children\u2019s records as sensitive, store only pseudonymised IDs, and delete raw forms within 7 days post-aggregation.\n13) Tipping and whistle: Any approach seeking details on the cyber event, ESG bond, or digital-token pilot must be redirected to compliance; report suspected tipping at ethics@nandini-renew.example.\n14) Action items: Confirm insider list acknowledgements today, shift all drafts to restricted folders, and prepare a single-source press release and investor presentation for simultaneous dissemination under the PIT policy.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Priya Mehta, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board of Directors",
+      "reason": "Role/committee noun, not an identifiable individual"
+    },
+    {
+      "matched_text": "Audit & Risk Committee",
+      "reason": "Committee role noun, not an identifiable individual"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "consent marker",
+      "matched_text": "obtain granular consent",
+      "reason": "Indicates consent collection but only consent-withdrawal is an allowed rule"
+    },
+    {
+      "concept": "consent for minors",
+      "matched_text": "verifiable guardian consent",
+      "reason": "Consent requirement for children is legally relevant but not mapped to an allowed rule"
+    },
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "delete raw forms within 7 days post-aggregation",
+      "reason": "Specifies deletion timeline but there is no explicit retention rule in the allowed set"
+    },
+    {
+      "concept": "KYC processing of PII",
+      "matched_text": "vendor onboarding and internship KYC",
+      "reason": "Implies identity data processing but not directly covered by an allowed PII rule"
+    },
+    {
+      "concept": "commercial terms MNPI",
+      "matched_text": "bond pricing ranges",
+      "reason": "Non-public pricing ranges are sensitive but not enumerated as a specific rule beyond selective disclosure risk"
+    },
+    {
+      "concept": "commercial terms MNPI",
+      "matched_text": "commercial fee ranges",
+      "reason": "Non-public commercial terms are sensitive but no specific rule code fits"
+    },
+    {
+      "concept": "commercial terms MNPI",
+      "matched_text": "purchase floors",
+      "reason": "Negotiation floor terms are sensitive but lack a matching rule like unit price/royalty rate"
+    },
+    {
+      "concept": "commercial terms MNPI",
+      "matched_text": "custody fee caps",
+      "reason": "Fee caps are sensitive deal terms but there is no specific allowed rule without amounts"
+    },
+    {
+      "concept": "deal-stage pricing MNPI",
+      "matched_text": "ESG PPAs\u2014draft pricing",
+      "reason": "Subject line implies non-public pricing but relies on contextual interpretation"
+    },
+    {
+      "concept": "information barrier workspace marker",
+      "matched_text": "NRL-ESG-Restricted",
+      "reason": "Indicates restricted workspace naming convention but not explicitly covered by an allowed rule"
+    }
+  ]
+}

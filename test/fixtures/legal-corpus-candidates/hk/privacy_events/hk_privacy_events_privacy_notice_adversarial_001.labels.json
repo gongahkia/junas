@@ -1,0 +1,358 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leona Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011Border Transfer Memo",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Staff ID H N\u20119 2 1 3",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H N\u20119 2 1 3",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HN\u2011EMP\u201104_7xB",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "priva cy@harbornova.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data export approval HN\u2011CBT\u20112026\u201111",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Yuetron Marine Systems Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside\u2011list entry \u201cIL\u2011YMS\u201100a\u201d",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cy@harbornova.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI (SFO): pre\u2011announcement diligence for proposed acquisition of Yuetron Marine Systems Ltd. was designated \u201cinside information\u201d from 2026\u201102\u201114 to 2026\u201103\u201101; the restricted list was enforced and closed after disclosure on 2026\u201103\u201102; there is no current live MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "004b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cy@harbornova.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leona Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI (SFO): pre\u2011announcement diligence for proposed acquisition of Yuetron Marine Systems Ltd. was designated \u201cinside information\u201d from 2026\u201102\u201114 to 2026\u201103\u201101; the restricted list was enforced and closed after disclosure on 2026\u201103\u201102; there is no current live MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "004b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact for PDPO requests: Mr. Adrian Ko, Data Protection Officer, priva cy@harbornova.hk; DSAR portal https://portal.harbornova.hk/dsar?id=7f%2D1c%2Fhk.\nPersonal data categories: candidate resumes, staff emails, initials, employee codes (no government ID scans saved), and investor KYC attestations; data minimisation applied to only necessary fields on Orchid\u2011\u03b2 onboarding forms.\nCross\u2011border transfer: EU/SG processing for cloud hosting and AML screening; although PDPO s.33 is not in force, equivalent safeguards adopted via Schedule 2 SCC\u2011style clauses and completed DPIA Expt\u2011004b.\nData export approval HN\u2011CBT\u20112026\u201111 was granted by the Privacy Committee on 2026\u201103\u201118; transfer keys rotated 2026\u201103\u201119; doc ref Sched\u20112 // expt\u2011 0 0 4 b.\nDSAR: request HN\u2011EMP\u201104_7xB received 2026\u201104\u201130 and fulfilled 2026\u201105\u201103 within PDPO s.18 time frame; copies provided and excessive payroll attachments redacted (minimisation).\nConsent withdrawal: Ms. Leona Tse (ex\u2011Analyst) withdrew consent for marketing emails on 2026\u201104\u201112; suppression list updated same day and mailings disabled; no further outreach is scheduled.\nErasure: redundant CVs from closed requisition HR\u2011R e q\u2011 21 were securely deleted 2026\u201102\u201114; wipe log sha256: c3f1..7ba9 retained for audit; restore points checked with no residuals.\nRetention: investor due diligence records for Type 9 activities retained 5 years post\u2011exit per internal policy aligning to SFC AML Guidelines; staff payroll records retained 7 years post\u2011termination.\nMNPI (SFO): pre\u2011announcement diligence for proposed acquisition of Yuetron Marine Systems Ltd. was designated \u201cinside information\u201d from 2026\u201102\u201114 to 2026\u201103\u201101; the restricted list was enforced and closed after disclosure on 2026\u201103\u201102; there is no current live MNPI.\nEmployment data sharing to Mainland support centre is not active; a runbook exists but has not been executed and no cross\u2011border movement to CN has occurred.\nNegative control statements for precision: no MAC clause was triggered in the draft SPA; we do not collect biometric templates; certain director details were taken from public sources (company bulletin); jira notes: \u201ctodo adjus",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "role noun / defined term"
+    },
+    {
+      "matched_text": "Processors",
+      "reason": "role noun / defined term"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role noun / defined term"
+    },
+    {
+      "matched_text": "Privacy Committee",
+      "reason": "role noun / defined term"
+    },
+    {
+      "matched_text": "no MAC clause",
+      "reason": "negated material adverse change"
+    },
+    {
+      "matched_text": "we do not collect biometric templates",
+      "reason": "negated special category statement"
+    },
+    {
+      "matched_text": "is not in force",
+      "reason": "negated/absence of legal trigger"
+    },
+    {
+      "matched_text": "is not active",
+      "reason": "negated processing/transfer status"
+    },
+    {
+      "matched_text": "has not been executed",
+      "reason": "negated activity status"
+    },
+    {
+      "matched_text": "no cross\u2011border movement to CN has occurred",
+      "reason": "negated cross-border transfer"
+    },
+    {
+      "matched_text": "there is no current live MNPI",
+      "reason": "negated MNPI status"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "DSAR portal",
+      "matched_text": "DSAR portal https://portal.harbornova.hk/dsar?id=7f%2D1c%2Fhk",
+      "reason": "DSAR handling marker not listed in allowed rules"
+    },
+    {
+      "concept": "DSAR fulfilment",
+      "matched_text": "DSAR: request HN\u2011EMP\u201104_7xB received 2026\u201104\u201130 and fulfilled 2026\u201105\u201103",
+      "reason": "DSAR event not covered by allowed rule set"
+    },
+    {
+      "concept": "erasure",
+      "matched_text": "Erasure: redundant CVs from closed requisition HR\u2011R e q\u2011 21 were securely deleted 2026\u201102\u201114",
+      "reason": "Erasure/deletion marker not present in allowed PII rules"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "investor due diligence records for Type 9 activities retained 5 years post\u2011exit",
+      "reason": "Retention marker not present in allowed PII rules"
+    },
+    {
+      "concept": "retention",
+      "matched_text": "staff payroll records retained 7 years post\u2011termination",
+      "reason": "Retention marker not present in allowed PII rules"
+    },
+    {
+      "concept": "security/audit hash",
+      "matched_text": "wipe log sha256: c3f1..7ba9 retained for audit",
+      "reason": "Technical artifact potentially sensitive but not in allowed rule set"
+    },
+    {
+      "concept": "tracking URL",
+      "matched_text": "onboarding batch URL https://harbornova.hk/onboard?batch=19%2FQ4&ref=hn\u2011int",
+      "reason": "URL parameters may indicate internal tracking but URL is not an allowed PII rule"
+    },
+    {
+      "concept": "customer/account code",
+      "matched_text": "PortfolioCode F\\ u nd\u2011 2 9 A",
+      "reason": "Portfolio code may be an account identifier but not clearly mapped to an allowed rule"
+    }
+  ]
+}

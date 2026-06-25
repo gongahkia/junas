@@ -1,0 +1,62 @@
+{
+  "doc_id": "memo_adv_17",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "transaction_codename",
+      "matched_text": "Project Phoenix"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Eleanor Tan"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "201234567K"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 45 million"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Marcus Lim"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S7654321Z"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "marcus.lim@orbitaldynamics.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "eleanor.tan@acquisitions.sg"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6876 5432"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined term abbreviation"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

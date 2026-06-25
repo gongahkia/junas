@@ -1,0 +1,411 @@
+{
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [
+    "drop must_detect: invalid Singapore UEN shape rule='sg_uen' text='2O16 1 2 7 4 9 E F'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 12 Jul 2026 18:00 SGT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to acquire 62.5% of Obsidian Renewables Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "binding term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$248,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$18m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board blackout continues until release",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain insider list per s.218",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "strictly con fi den tial // do not forward",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not trade in Caravel securities until public disclosure",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "major transaction under Listing Rule 1015",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Alina Tey",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "alina.tey@caravelpacific.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daren Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "d.khoo@caravelpacific.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6l2l 0O88",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1I-8O-3X-xx",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "O0l-7Z9q",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect only necessary personal data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid NRIC scans in VDR",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$248,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$18m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Alina Tey",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "alina.tey@caravelpacific.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daren Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "d.khoo@caravelpacific.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1I-8O-3X-xx",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Caravel Pacific Holdings Ltd. (Mainboard-listed on SGX-ST) to acquire 62.5% of Obsidian Renewables Pte. Ltd. for approx. S$248,000,000 in cash; binding term sheet signed 20 Jun 2026, definitive SPA in near-final form.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: S$120,000,000 bridge from Shoreline Bank (SG) Ltd.; balance from internal resources; net debt cap at completion S$18m; expected EPS accretion ~11% in FY2027.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Timeline: sign by 05 Jul 2026, announce via SGXNet immediately after embargo lifts, closing in Q4 2026; Board blackout continues until release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR draft notes: todo: align ir faq; no change to FY2026 guidance; include non-IFRS bridge; draft investor call deck T+1; strictly con fi den tial // do not forward.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "248,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transaction expected to be a major transaction under Listing Rule 1015; no MGO under the Singapore Code on Take-overs and Mergers as target is private.\nMAC/MAE: closing condition waived except for revocation of core Energy Market Authority permits; general market downturns excluded; due diligence shows no material adverse change since 31 Mar 2026",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transaction expected to be a major transaction under Listing Rule 1015; no MGO under the Singapore Code on Take-overs and Mergers as target is private.\nMAC/MAE: closing condition waived except for revocation of core Energy Market Authority permits; general market downturns excluded; due diligence shows no material adverse change since 31 Mar 2026.\nFinancing: S$120,000,000 bridge from Shoreline Bank (SG) Ltd.; balance from internal resources; net debt cap at completion S$18m; expected EPS accretion ~11% in FY2027.\nTimeline: sign by 05 Jul 2026, announce via SGXNet immediately after embargo lifts, closing in Q4 2026; Board blackout continues until release.\nCompliance: This memo contains MNPI under the SFA and SGX Listing Manual; maintain insider list per s.218; PDPA note\u2014collect only necessary personal data, avoid NRIC scans in VDR.\nPublic references (non-MNPI): sector growth from 2024 SGX update and a 2021 industry blog; Obsidian\u2019s 2023 revenue S$80m per public ACRA abstracts.\nocr noise/refs: Data room https://cp-holdings.example/d/lantern?auth=O0l-7Z9q ; Vendor A/C: 1I-8O-3X-xx at Cit y Br anch; UEN (target): 2O16 1 2 7 4 9 E F.\nIR draft notes: todo: align ir faq; no change to FY2026 guidance; include non-IFRS bridge; draft investor call deck T+1; strictly con fi den tial // do not forward.\nConditions precedent: key customer consents, EMA notification, and no prohibition by MAS; long-stop 30 Nov 2026; warranties capped at 12% of price with 18-month survival.\nNegative/benign: this is not a press release; team reminder: book meeting rooms; spa-day e-vouchers for staff wellness are not part of deal consideration.\nContacts: Ms. Alina Tey (General Counsel), alina.tey@caravelpacific.com; Mr. Daren Khoo (CFO), d.khoo@caravelpacific.com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC \u2014 Board Memorandum \u2014 Embargo until 12 Jul 2026 18:00 SGT \u2014 Project Lantern\nCaravel Pacific Holdings Ltd. (Mainboard-listed on SGX-ST) to acquire 62.5% of Obsidian Renewables Pte. Ltd. for approx. S$248,000,000 in cash; binding term sheet signed 20 Jun 2026, definitive SPA in near-final form.\nTransaction expected to be a major transaction under Listing Rule 1015; no MGO under the Singapore Code on Take-overs and Mergers as target is private.\nMAC/MAE: closing condition waived except for revocation of core Energy Market Authority permits; general market downturns excluded; due diligence shows no material adverse change since 31 Mar 2026.\nFinancing: S$120,000,000 bridge from Shoreline Bank (SG) Ltd.; balance from internal resources; net debt cap at completion S$18m; expected EPS accretion ~11% in FY2027.\nTimeline: sign by 05 Jul 2026, announce via SGXNet immediately after embargo lifts, closing in Q4 2026; Board blackout continues until release.\nCompliance: This memo contains MNPI under the SFA and SGX Listing Manual; maintain insider list per s.218; PDPA note\u2014collect only necessary personal data, avoid NRIC scans in VDR.\nPublic references (non-MNPI): sector growth from 2024 SGX update and a 2021 industry blog; Obsidian\u2019s 2023 revenue S$80m per public ACRA abstracts.\nocr noise/refs: Data room https://cp-holdings.example/d/lantern?auth=O0l-7Z9q ; Vendor A/C: 1I-8O-3X-xx at Cit y Br anch; UEN (target): 2O16 1 2 7 4 9 E F.\nIR draft notes: todo: align ir faq; no change to FY2026 guidance; include non-IFRS bridge; draft investor call deck T+1; strictly con fi den tial // do not forward.\nConditions precedent: key customer consents, EMA notification, and no prohibition by MAS; long-stop 30 Nov 2026; warranties capped at 12% of price with 18-month survival.\nNegative/benign: this is not a press release; team reminder: book meeting rooms; spa-day e-vouchers for staff wellness are not part of deal consideration.\nContacts: Ms. Alina Tey (General Counsel), alina.tey@caravelpacific.com; Mr. Daren Khoo (CFO), d.khoo@caravelpacific.com; deal desk +65 6l2l 0O88.\nThis document contains embargoed price-sensitive information; do not trade in Caravel securities until public disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun/defined term; not PII or MNPI"
+    },
+    {
+      "matched_text": "MAC/MAE: closing condition waived except for revocation of core Energy Market Authority permits; general market downturns excluded; due diligence shows no material adverse change since 31 Mar 2026.",
+      "reason": "Public, benign, or negated material-event context; not strict MNPI truth."
+    },
+    {
+      "matched_text": "spa",
+      "reason": "Bait/non-agreement usage such as spa-day; not a definitive agreement."
+    },
+    {
+      "matched_text": "S$80m",
+      "reason": "Public, benign, or personal-expense amount; not strict MNPI truth."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": []
+}

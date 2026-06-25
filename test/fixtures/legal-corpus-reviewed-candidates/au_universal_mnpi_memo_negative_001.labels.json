@@ -1,0 +1,215 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "AU",
+    "doc_id": "au_universal_mnpi_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/au/universal_mnpi/au_universal_mnpi_memo_negative_001.txt",
+    "source_jurisdiction": "AU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/au_universal_mnpi_memo_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance@harbourquokka.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@harbourquokka.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "abn 00 000 000 000",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acn 000 000 000",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account no: 00000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bsb: 000-000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee id: 0000-xxxx",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scheme implementation deed",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for release before 15 september 2026 07:00 aest",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15 september 2026 07:00 aest",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "circulate internally only",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreements: there is no executed scheme implementation deed with red fern metals pty ltd; any term sheet remains non-binding\nmac/mae: current language is expressly negated \u2014 routine store closures and the spa-day staff wellbeing pilot do not constitute a material adverse change\ncontinuous disclosure: if anything moves from draft to sign, we brief the company secretary for a standard exchange price query response template\nemployment/health records: attach only de-identified leave certificates to the board pack; use the \u201cemployee id: 0000-xxxx\u201d placeholder per policy\ncredit files: for subsidiary lending panels, include only bureau score bands and consent forms; do not paste sample \u201caccount no: 00000000, bsb: 000-000\u201d into decks\nresearch note excerpt (public): government budget papers and central bank statements are the sole macro inputs referenced\nforms inventory: generic templates labeled \u201cname\u201d, \u201cdob\u201d, \u201caddress\u201d remain blank; remove any sample pii before circulation\ncontact points: send queries to compliance@harbourquokka.example and ir@harbourquokka.example; do not use personal mailboxes\nthird-party references: vendor health insurer \u201csouthern kookaburra health ltd\u201d is cited for the spa-day pilot terms already posted on their website",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC language; do not label per rule 8"
+    },
+    {
+      "matched_text": "spa-day staff wellbeing pilot",
+      "reason": "Wellbeing program reference; not a Share Purchase Agreement (SPA)"
+    },
+    {
+      "matched_text": "project management",
+      "reason": "Not a transaction codename; generic heading"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "date of birth field label",
+      "matched_text": "dob",
+      "reason": "Field label without a value; indicative of PII but not covered by strict rules"
+    },
+    {
+      "concept": "name field label",
+      "matched_text": "name",
+      "reason": "Field label without a value; could indicate PII fields but no actual personal data"
+    },
+    {
+      "concept": "address field label",
+      "matched_text": "address",
+      "reason": "Field label without a value; not an actual postal address"
+    }
+  ]
+}

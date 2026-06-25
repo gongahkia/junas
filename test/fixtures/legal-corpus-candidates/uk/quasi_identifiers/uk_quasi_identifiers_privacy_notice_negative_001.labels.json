@@ -1,0 +1,232 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 16,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 15,
+    "previous_must_detect_count": 9,
+    "previous_must_not_detect_count": 4
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_quasi_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealsurveillance@northquay-plc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacyoffice@northquay-plc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0800 000 9999",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NQH-LPT-LE-437A",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NQ-008721",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "u12987",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LE-16-204",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer outside the UK",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "month/year of birth 06/1987",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example of data in scope for a single Trade Surveillance Analyst: month/year of birth 06/1987, ordinarily based at the Larksbury office, company laptop serial NQH-LPT-LE-437A, payroll reference NQ-008721, internal user ID u12987, access fob LE-16-204, role mailbox dealsurveillance@northquay-plc.example, and expense card suffix 6621",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymisation of alert narratives",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "proportional redactions",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealsurveillance@northquay-plc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer outside the UK",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NQH-LPT-LE-437A",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northquay Holdings plc \u2013 Market Conduct Privacy and Retention Notice (UK)\nWe process personal data under the UK GDPR for employees, workers and contractors supporting our UK issuer obligations and market conduct controls.\nCategories processed include HR enrolment data, role-based contact points, security logs, and trade surveillance artefacts generated to comply with UK MAR-aligned rules.\nIn particular, our insider-list and restricted-list workflows capture only business contact fields and timestamps; sample screen prints used in training are redacted and use dummy identifiers.\nExample of data in scope for a single Trade Surveillance Analyst: month/year of birth 06/1987, ordinarily based at the Larksbury office, company laptop serial NQH-LPT-LE-437A, payroll reference NQ-008721, internal user ID u12987, access fob LE-16-204, role mailbox dealsurveillance@northquay-plc.example, and expense card suffix 6621.\nGeneric forms may display labels such as \u201cName\u201d, \u201cDD/MM/YYYY\u201d, \u201cAddress line 1\u201d, or \u201cAccount number #### #### #### ####\u201d; these are templates and not records of a specific person.\nReferences to instruments in surveillance scenarios use fabricated codes (e.g., ZZ00NQ000000) and publicly announced events; training materials avoid material non-public information and stale examples are clearly marked.\nOur lawful bases include legal obligation for issuer record-keeping and legitimate interests in preventing market abuse; we do not rely on consent for monitoring required by regulation.\nWhere required by law, we may disclose records to the Britanic Markets Authority or a UK regulated market operator; any transfer outside the UK uses standard contractual safeguards and proportional redactions.\nRetention: insider list entries are retained for five years from list closure; surveillance alerts are retained for up to three years unless escalated; device tele",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name",
+      "reason": "Template label example; not a specific person\u2019s data"
+    },
+    {
+      "matched_text": "DD/MM/YYYY",
+      "reason": "Template date placeholder; not an actual DOB"
+    },
+    {
+      "matched_text": "Address line 1",
+      "reason": "Template address placeholder; not a real address"
+    },
+    {
+      "matched_text": "Account number #### #### #### ####",
+      "reason": "Masked template; not an actual account number"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "retention_policy_marker",
+      "matched_text": "Retention: insider list entries are retained for five years from list closure; surveillance alerts are retained for up to three years unless escalated; device telemetry rolls off after ninety days",
+      "reason": "Retention details are privacy-relevant but there is no explicit allowed rule name for retention markers."
+    },
+    {
+      "concept": "dsar_rights_marker",
+      "matched_text": "Data subject rights (access, rectification, restriction, objection) can be exercised by contacting privacyoffice@northquay-plc.example or our helpline on 0800 000 9999; identity will be verified using neutral questions",
+      "reason": "DSAR/rights invocation is legally relevant but not mapped to an allowed rule name."
+    },
+    {
+      "concept": "restricted_list_marker",
+      "matched_text": "restricted-list",
+      "reason": "Restricted lists are market-compliance sensitive, but there is no explicit allowed rule for restricted lists."
+    },
+    {
+      "concept": "partial_payment_card_identifier",
+      "matched_text": "expense card suffix 6621",
+      "reason": "Last-4 of a card can be linkable PII but there is no specific allowed rule for card suffixes."
+    },
+    {
+      "concept": "location_quasi_identifier",
+      "matched_text": "ordinarily based at the Larksbury office",
+      "reason": "Work location is a quasi-identifier; only covered when combined under quasi-identifier combination."
+    }
+  ]
+}

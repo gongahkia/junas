@@ -1,0 +1,88 @@
+Kaypoh Latency Benchmark Report
+
+Generated: 2026-06-08_12-47-24
+Target URL: http://127.0.0.1:58309
+Warmups per file: 0
+Measured repetitions per file: 1
+
+Inputs:
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/10000_words.txt
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/1000_words.txt
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/2000_words.txt
+- /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/5000_words.txt
+
+file                            words    chars        min       mean        p50        p95        max
+----------------------------------------------------------------------------------------------------
+10000_words.txt                 10000    98889    172.712    172.712    172.712    172.712    172.712
+1000_words.txt                   1000     8889     18.158     18.158     18.158     18.158     18.158
+2000_words.txt                   2000    18889     34.604     34.604     34.604     34.604     34.604
+5000_words.txt                   5000    48889     81.000     81.000     81.000     81.000     81.000
+
+Detailed results:
+
+File: 10000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/10000_words.txt
+Words: 10000
+Chars: 98889
+Measured runs: 1
+Summary: min=172.712 ms, mean=172.712 ms, p50=172.712 ms, p95=172.712 ms, max=172.712 ms
+Mean backend total: 163.934 ms
+Average backend timings per step (ms):
+- total: mean=163.934 min=163.934 max=163.934
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=172.712
+  server_total_ms=163.934
+  timings_ms:
+    total: 163.934
+
+File: 1000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/1000_words.txt
+Words: 1000
+Chars: 8889
+Measured runs: 1
+Summary: min=18.158 ms, mean=18.158 ms, p50=18.158 ms, p95=18.158 ms, max=18.158 ms
+Mean backend total: 14.846 ms
+Average backend timings per step (ms):
+- total: mean=14.846 min=14.846 max=14.846
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=18.158
+  server_total_ms=14.846
+  timings_ms:
+    total: 14.846
+
+File: 2000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/2000_words.txt
+Words: 2000
+Chars: 18889
+Measured runs: 1
+Summary: min=34.604 ms, mean=34.604 ms, p50=34.604 ms, p95=34.604 ms, max=34.604 ms
+Mean backend total: 30.423 ms
+Average backend timings per step (ms):
+- total: mean=30.423 min=30.423 max=30.423
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=34.604
+  server_total_ms=30.423
+  timings_ms:
+    total: 30.423
+
+File: 5000_words.txt
+Path: /private/var/folders/55/fw1sdntj20v8650vsmkn7s8c0000gn/T/tmpwwtfg5wn/5000_words.txt
+Words: 5000
+Chars: 48889
+Measured runs: 1
+Summary: min=81.000 ms, mean=81.000 ms, p50=81.000 ms, p95=81.000 ms, max=81.000 ms
+Mean backend total: 76.579 ms
+Average backend timings per step (ms):
+- total: mean=76.579 min=76.579 max=76.579
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=81.000
+  server_total_ms=76.579
+  timings_ms:
+    total: 76.579
+
+JSON report: /Users/gongahkia/Desktop/coding/projects/kaypoh/reports/latency_2026-06-08_12-47-24.json
+CSV report : /Users/gongahkia/Desktop/coding/projects/kaypoh/reports/latency_2026-06-08_12-47-24.csv

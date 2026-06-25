@@ -1,0 +1,245 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_universal_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/universal_mnpi/ph_universal_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_universal_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "risk@mlri.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it\u2011ops@mlri.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@mlri.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800\u2011000\u20110000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non\u2011public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive service addendum",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not send customer pii to these role mailboxes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops@mlri.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal incident note \u2014 operations & cybersecurity, for board and ir drafting",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board note: no dividend or guidance update proposed; any percentage impacts in internal dashboards are immaterial and within tolerance bands",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "risk@mlri.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops@mlri.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal incident note \u2014 operations & cybersecurity, for board and ir drafting",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board note: no dividend or guidance update proposed; any percentage impacts in internal dashboards are immaterial and within tolerance bands",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal incident note \u2014 operations & cybersecurity, for board and ir drafting\nissuer: Maharlika Logistics & Retail, Inc. (MLRI), listed on the Metro Philippine Exchange (MPEX)\ndate: 30 May 2026; incident window: 27\u201329 May 2026; prepared by risk & compliance (role inbox: risk@mlri.ph)\nsummary: intermittent outage in warehouse scanning app due to third\u2011party api throttling; no evidence of data exfiltration under the Data Privacy Act\nregulatory context: SRC and Data Privacy Act reporting considered; a preliminary current report was already posted on 28 May via the issuer website and MPEX bulletin, so this note repeats public, stale facts\nsystems affected: north hub dc wms node\u201103; users experienced 7\u201312 minute delays; approx. 0.6% of orders delayed same day; recovery complete\npii assessment: only employee codes and hashed customer references observed in logs; no names, addresses, or government ids processed; ticket ids (e.g., INC\u20110000, REF\u2011XYZ123) are placeholders\nbanking interfaces: read\u2011only gateway to BaryoBank TestNet paused; no accounts, balances, or payments touched; hr payroll cycle unaffected\nmnpi screen: this draft is intended to exclude material non\u2011public information; there is no forecast change and no material adverse change is expected from the outage\nir handling: embargoed until 09:00 PHT 03 Jun 2026 for alignment with routine website maintenance; after that, post faq and link to the already\u2011announced bulletin\ncontracts: no termination rights triggered; the definitive service addendum with Qwerty Cloud Services, Ltd. was executed in 2024 and remains in good standing (no mae)\nboard note: no dividend or guidance update proposed; any percentage impacts in internal dashboards are immaterial and within tolerance bands\nops actions: raise api quota with vendor, add circuit breakers, and run a tabletop drill; pm will track in sprint board; draft checklist attached\nhr/wellness: field teams get meal stipends; the spa day raffle proceeds next week as planned; staff hotline: 1800\u2011000\u20110000 (ivr)\ncontact points: it\u2011ops@mlri.ph; compliance@mlri.ph; do not send customer pii to these role mailboxes\npublic references: see MLRI newsroom archive post dated 28 May 2026 and MPEX ticker notice MLRI\u20112026\u201105\u201128 for the same content; press mentions picked up by Metro Business Daily yesterday\ndisclaimer: nothing herein is a solicitation; terms like \u201cmaterial non\u2011public information\u201d, \u201cdefinitive agreement\u201d, or \u201cembargo\u201d appear in a general compliance sense",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day raffle",
+      "reason": "HR/wellness phrase; not a Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC context; per rule 8, do not label."
+    },
+    {
+      "matched_text": "no mae",
+      "reason": "Negated MAE abbreviation; per rule 8, do not label."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "internal ticket identifier",
+      "matched_text": "INC\u20110000",
+      "reason": "Example internal ID; could function like an internal_session_id but category not clearly covered."
+    },
+    {
+      "concept": "internal ticket identifier",
+      "matched_text": "REF\u2011XYZ123",
+      "reason": "Example internal ID; could function like an internal_session_id but category not clearly covered."
+    },
+    {
+      "concept": "employee_id reference",
+      "matched_text": "employee codes",
+      "reason": "Mentions employee identifiers without values; relevant PII concept but not explicitly covered by strict rules."
+    },
+    {
+      "concept": "customer identifier (pseudonymous)",
+      "matched_text": "hashed customer references",
+      "reason": "Indicates presence of customer-linked identifiers, but no explicit rule match and values not provided."
+    },
+    {
+      "concept": "device/asset identifier",
+      "matched_text": "north hub dc wms node\u201103",
+      "reason": "Could be a device or asset ID potentially linkable to individuals; not clearly covered by allowed rules."
+    },
+    {
+      "concept": "public notice identifier",
+      "matched_text": "MLRI\u20112026\u201105\u201128",
+      "reason": "Unique bulletin/ticker notice ID; potentially sensitive in market context but not mapped to a current MNPI rule."
+    }
+  ]
+}

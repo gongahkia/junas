@@ -1,0 +1,418 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2987645",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A123456(9)",
+      "rule": "hk_hkid"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZP1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Lam",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Joey Cheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "j.cheng@hmcap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "012-456-987654-003",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6187 0390",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@hmholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 5298 4401",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal.ops@hmholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. K. Wong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3120459",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Pelican",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 428m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be price-sensitive under the SFO",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access to the corporate network",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 3 2 1 4 5 6 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6 0 2 9 1 1 3 4",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Z 7 8 9 0 1 2 (3)",
+      "rule": "hk_hkid"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a.lam%40hmholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR2987645",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HK00 P SBK 0000 0000 0000 00",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Blue Pearl Logistics Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7 8 9 0 1 2 (3",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Also exposed: a draft SPA for Project Pelican (proposed acquisition of Blue Pearl Logistics Ltd., CR: 3120459) and an internal term sheet with unaudited 2Q revenue HKD 428m; this information is not generally known and may be price-sensitive under the SFO.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Immediate actions: notified the Hong Kong Capital Markets Authority (HKCMA) under s.201 internal guidance, VHX under Rule 17.11\u2011style guidance, reset credentials, rotated keys, and disabled the exfiltration path; cross\u2011reference: public policy \u201cGroup Cyber Standard v2.1\u201d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The company hotline remains +852 3000 0000 (generic IVR), whereas investor relations emails must use ir@vhx-hmhk.example; do not circulate confidential files via personal accounts.\nAn accounting worksheet listed \u201cClient Seg Fund \u2013 Class B \u2013 IBAN: HK00 P SBK 0000 0000 0000 00\u201d, which is an invalid format for Hong Kong and should be disregarded.\nCRM export shows partial numbers with breaks: tel 6 0 2 9 1 1 3 4 and hk id Z 7 8 9 0 1 2 (3) for \u201cTemp Staff A\u201d (role-only name used in test records)",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@hmholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "j.cheng@hmcap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal.ops@hmholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6187 0390",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6 0 2 9 1 1 3 4",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7 8 9 0 1 2 (3",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZP1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2987645",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Lam",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Joey Cheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Also exposed: a draft SPA for Project Pelican (proposed acquisition of Blue Pearl Logistics Ltd., CR: 3120459) and an internal term sheet with unaudited 2Q revenue HKD 428m; this information is not generally known and may be price-sensitive under the SFO.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Immediate actions: notified the Hong Kong Capital Markets Authority (HKCMA) under s.201 internal guidance, VHX under Rule 17.11\u2011style guidance, reset credentials, rotated keys, and disabled the exfiltration path; cross\u2011reference: public policy \u201cGroup Cyber Standard v2.1\u201d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Pelican",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 428m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Meridian Holdings Limited (CR No.: 2987645; BR No.: 54122367-000) \u2014 Cyber/Operational Incident Report \u2014 Victoria Harbour Exchange (VHX) Listing Rule 13.09 Notification Context\nOn 28 May 2026, our fund subsidiary Harbour Meridian Capital Asia Ltd. (VHX code: HMCA; HKCMA CE No.: XZ9183) detected unauthorized access to the corporate network affecting HR, fund ops, and M&A working folders.\nThe intrusion affected the HR share drive at 22/F, Seaview Exchange Tower, 88 Tern Street, Wan Chai, Hong Kong; incident contacts: +852 6187 0390 and security@hmholdings.example.\nFiles included PD under the PDPO: an employee roster with HKID A123456(9) [checksum mismatch] and HKSAR Passport No. ZP1234567 for Mr. Adrian Lam (Head of IT), together with payroll bank data.\nA contractor record for Ms. Joey Cheng showed mobile 9 3 2 1 4 5 6 0 and email j.cheng@hmcap.example; bank a/c at Pearl Shore Bank (HK) 012-456-987654-003; SWIFT: PSBK HX HH XXX (spacing reflects OCR artefacts).\nAlso exposed: a draft SPA for Project Pelican (proposed acquisition of Blue Pearl Logistics Ltd., CR: 3120459) and an internal term sheet with unaudited 2Q revenue HKD 428m; this information is not generally known and may be price-sensitive under the SFO.\nFor avoidance of doubt, this memo does not include any material adverse change representation and is not a profit forecast.\nOne URL contained embedded identifiers: https://intra.hmholdings.example/ticket/INC-2026-0519?uid=a.lam%40hmholdings.example&clid=CR2987645.\nPhysical address logs show courier labels to \u201cFunds Ops, 2/F, Jade Harbour Centre, 6 Kingfisher Lane, Central, HKSAR\u201d; role-only sender: \u201cFinance Manager\u201d, with generic form fields [Name: ____] and [ID No.: ____].\nA bait note in the folder referenced \u201cPublic Enquiries Hotline 1770\u201d and help@cityservices.example (these are public/placeholder contacts and not our identifiers).\nThe company hotline remains +852 3000 0000 (generic IVR), whereas investor relations emails must use ir@vhx-hmhk.example; do not circulate confidential files via personal accounts.\nAn accounting worksheet listed \u201cClient Seg Fund \u2013 Class B \u2013 IBAN: HK00 P SBK 0000 0000 0000 00\u201d, which is an invalid format for Hong Kong and should be disregarded.\nCRM export shows partial numbers with breaks: tel 6 0 2 9 1 1 3 4 and hk id Z 7 8 9 0 1 2 (3) for \u201cTemp Staff A\u201d (role-only name used in test records).\nImmediate actions: notified the Hong Kong Capital Markets Authority (HKCMA) under s.201 internal guidance, VHX under Rule 17.11\u2011style guidance, reset credentials, rotated keys, and disabled the exfiltration path; cross\u2011reference: public policy \u201cGroup Cyber Standard v2.1\u201d.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Tern Street, Wan Chai, Hong Kong",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "An accounting worksheet listed \u201cClient Seg Fund \u2013 Class B \u2013 IBAN: HK00 P SBK 0000 0000 0000 00\u201d, which is an invalid format for Hong Kong and should be disregarded.\nCRM export shows partial numbers with breaks: tel 6 0 2 9 1 1 3 4 and hk id Z 7 8 9 0 1 2 (3) for \u201cTemp Staff A\u201d (role-only name used in test records)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference (do not label per rule 8)"
+    },
+    {
+      "matched_text": "Public Enquiries Hotline 1770",
+      "reason": "Public helpline bait; not company/individual PII"
+    },
+    {
+      "matched_text": "help@cityservices.example",
+      "reason": "Public/placeholder contact email"
+    },
+    {
+      "matched_text": "+852 3000 0000",
+      "reason": "Generic company hotline (public IVR)"
+    },
+    {
+      "matched_text": "ir@vhx-hmhk.example",
+      "reason": "Functional investor relations mailbox; not an individual under PDPO"
+    },
+    {
+      "matched_text": "Finance Manager",
+      "reason": "Role-only sender; not a named person per rule 5"
+    },
+    {
+      "matched_text": "Temp Staff A",
+      "reason": "Role-only/test name; not a named person per rule 5"
+    },
+    {
+      "matched_text": "Name: ____",
+      "reason": "Generic form field placeholder"
+    },
+    {
+      "matched_text": "ID No.: ____",
+      "reason": "Generic form field placeholder"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "HK Business Registration number",
+      "matched_text": "BR No.: 54122367-000",
+      "reason": "Corporate identifier not covered by allowed rules list"
+    },
+    {
+      "concept": "Regulatory central entity/licence number",
+      "matched_text": "HKCMA CE No.: XZ9183",
+      "reason": "Regulatory ID not mapped to an allowed PII rule"
+    },
+    {
+      "concept": "Exchange/local issuer code",
+      "matched_text": "VHX code: HMCA",
+      "reason": "Corporate code not covered by allowed rules"
+    },
+    {
+      "concept": "SWIFT/BIC code",
+      "matched_text": "PSBK HX HH XXX",
+      "reason": "Financial identifier not included in allowed bank_account rules"
+    },
+    {
+      "concept": "IBAN-like bank identifier (invalid for HK)",
+      "matched_text": "IBAN: HK00 P SBK 0000 0000 0000 00",
+      "reason": "Potential bank account string in invalid/atypical format; may be out of scope for strict detectors"
+    },
+    {
+      "concept": "HK postal address",
+      "matched_text": "22/F, Seaview Exchange Tower, 88 Tern Street, Wan Chai, Hong Kong",
+      "reason": "No HK address rule in allowed list"
+    },
+    {
+      "concept": "HK postal address",
+      "matched_text": "Funds Ops, 2/F, Jade Harbour Centre, 6 Kingfisher Lane, Central, HKSAR",
+      "reason": "No HK address rule in allowed list"
+    },
+    {
+      "concept": "URL with embedded identifiers",
+      "matched_text": "https://intra.hmholdings.example/ticket/INC-2026-0519?uid=a.lam%40hmholdings.example&clid=CR2987645",
+      "reason": "Contains encoded email and CR number; no dedicated URL rule"
+    },
+    {
+      "concept": "Internal ticket ID",
+      "matched_text": "INC-2026-0519",
+      "reason": "Potentially sensitive system identifier not mapped to allowed rules"
+    }
+  ]
+}

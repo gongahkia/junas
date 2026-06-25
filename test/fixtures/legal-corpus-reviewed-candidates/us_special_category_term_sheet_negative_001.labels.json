@@ -1,0 +1,234 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_special_category_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/special_category/us_special_category_term_sheet_negative_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_special_category_term_sheet_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 15,
+    "new_must_detect_count": 3,
+    "old_ideal_must_detect_count": 13,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_special_category_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Palisade Meridian Therapeutics, Inc., a Delaware corporation (issuer, healthcare IT), and Northlake Ridge Financial LLC, a Nevada limited liability company (investor, bank-affiliated), in a strategic financing and commercial alliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: Restrictions on share repurchases during note standstill; ordinary-course operations to continue; no obligation to provide selective guidance or forecasts beyond public materials.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor_relations@palisademeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "800-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Acct 0000000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Patient Subject \u2014 Rowan Hale has a scheduled oncology infusion course at Willow Bluff Clinic",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean-team protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Patient Subject \u2014 Rowan Hale has a scheduled oncology infusion course at Willow Bluff Clinic",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Rowan Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "executed NDA",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no obligation to provide selective guidance or forecasts beyond public materials",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "All investor and analyst updates will be made via public webcast and press release",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No customer-level account data to be exchanged in diligence; test identifiers only",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Palisade Meridian Therapeutics, Inc., a Delaware corporation (issuer, healthcare IT), and Northlake Ridge Financial LLC, a Nevada limited liability company (investor, bank-affiliated), in a strategic financing and commercial alliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: Restrictions on share repurchases during note standstill; ordinary-course operations to continue; no obligation to provide selective guidance or forecasts beyond public materials.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Parties: Palisade Meridian Therapeutics, Inc., a Delaware corporation (issuer, healthcare IT), and Northlake Ridge Financial LLC, a Nevada limited liability company (investor, bank-affiliated), in a strategic financing and commercial alliance.\nStructure: Senior unsecured convertible notes and multi-year commercial partnership for integration of Arcadia Care Cloud with RiverGate Wallet (product names are branding only).\nListing: Issuer intends to remain listed on a U.S. national securities exchange; no change-of-control or governance terms herein shall require delisting or shareholder vote beyond customary thresholds.\nConsideration/Valuation: Principal amount, conversion mechanics, and valuation caps to be negotiated; no per-share price or dollar amounts are set in this draft.\nUse of Proceeds: To expand Arcadia Care Cloud pilots in Garnet City and Orchid Falls community care sites and to enhance revenue-cycle modules; geographic names are illustrative.\nRegulatory/Compliance: Parties will comply with U.S. federal securities laws, including Regulation FD and Rule 10b-5; healthcare and financial data handling to meet HIPAA and GLBA standards; no MNPI will be shared except under executed NDA and clean-team protocols.\nAnalyst/Investor Communications: All investor and analyst updates will be made via public webcast and press release; inquiries should be sent to investor_relations@palisademeridian.example; public helpline 800-000-0000.\nEmployee & DEI: No collective bargaining agreements implicated by this transaction; generic DEI commitments under the Beacon Equity Pledge and wellness messaging under Blue Ribbon Wellness may be referenced using sports metaphors (e.g., we play like the Garnet City Guardians) without conveying patient or employee-specific data.\nData & Banking Ops: No customer-level account data to be exchanged in diligence; test identifiers only (CUSIP 000-ABC-000; ISIN ZZ0000000000); corporate settlement routing placeholders ABA 000000000 and Acct 0000000000 for formatting checks only.\nClosing Conditions: Customary internal approvals, absence of legal injunctions, confirmatory diligence, and required healthcare-site consents; joint public disclosures to follow the Open Field Disclosure Policy (policy name is internal governance).\nCovenants: Restrictions on share repurchases during note standstill; ordinary-course operations to continue; no obligation to provide selective guidance or forecasts beyond public materials.\nTermination: Either party may terminate if a material adverse effect occurs or regulatory approval is denied; no break fee or reverse termination fee is specified in this draft.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Arcadia Care Cloud",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "RiverGate Wallet",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Beacon Equity Pledge",
+      "reason": "Policy/pledge name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Blue Ribbon Wellness",
+      "reason": "Program/branding name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Garnet City Guardians",
+      "reason": "Sports team metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Orchid Falls Flyers",
+      "reason": "Sports team metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Open Field Disclosure Policy",
+      "reason": "Internal policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "CUSIP 000-ABC-000",
+      "reason": "Security identifier placeholder, not PII/MNPI"
+    },
+    {
+      "matched_text": "ISIN ZZ0000000000",
+      "reason": "Security identifier placeholder, not PII/MNPI"
+    },
+    {
+      "matched_text": "ABA 000000000",
+      "reason": "Bank routing placeholder, not a covered PII category"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "issuer",
+      "reason": "Role-noun party descriptor"
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role-noun party descriptor"
+    },
+    {
+      "matched_text": "Willow Bluff Clinic",
+      "reason": "Facility/place name, not individual PII"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "blackout/standstill restriction",
+      "matched_text": "note standstill",
+      "reason": "Functions like a trading/repurchase restriction window; related to blackout concepts but not explicitly labeled as such in allowed rules."
+    },
+    {
+      "concept": "disclosure governance policy",
+      "matched_text": "Open Field Disclosure Policy",
+      "reason": "Relevant to MNPI/disclosure controls but no explicit allowed rule for internal policy markers."
+    },
+    {
+      "concept": "need-to-know/attorney-eyes-only restriction",
+      "matched_text": "this PHI reference is limited to counsel and should not appear in external communications",
+      "reason": "Indicates access limitation and information control for PHI, but not clearly mapped to an allowed MNPI/PII rule."
+    }
+  ]
+}

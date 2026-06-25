@@ -1,0 +1,15 @@
+Operational Incident Report — Isla Meridian Holdings, Inc. (PSE-listed), 18 July 2026.
+Summary: brief outage of third-party SFTP gateway used by Payroll and Investor Relations; services were restored within 49 minutes.
+Vendor: Cordillera Data Services OPC (service location: Taguig; DR node: Jurong, SG) under Data Processing Agreement Schedule 2 (Security Controls).
+No personal data under the Data Privacy Act was exfiltrated; the files queued contained only test employee headers and masked account fields (e.g., Account No: XX-XXXX-1234).
+No MNPI within the meaning of the SRC was present; prior updates on the IR calendar were already publicly posted via SEC Form 17-C and PSE EDGE.
+Data subject request: one HR deletion request was COMPLETED on 16 July 2026 for employee code E-004512 per Erasure Ticket ER-26-0716.
+Cross-border transfer: no new export was initiated during the incident, and existing approval DEX-2025-04 remains in effect with standard contractual clauses annexed.
+Retention and minimisation: per Records Schedule HR-3.2, only fields strictly necessary for payroll routing (Employee No., bank code, masked account suffix) are retained; no retention expiry was breached.
+Consent management: no consent withdrawals were logged this period; the HR onboarding form (Rev. 2026-01) continues to operate with layered notices and unticked boxes by default.
+Security: NPC breach thresholds were not triggered; internal review indicates the SFTP retry logic queued encrypted blobs (AES-256) with rotating keys; no credentials were compromised.
+Banking data: sample artifacts in the queue used placeholders (e.g., TIN: N/A, Payroll Ref: PR-VOID-0001), and did not identify any individual when combined with other datasets.
+ESG: uptime deviation and vendor corrective actions are logged under Sustainability Risk Register SRR-OP-2026-019; no community or environmental impact.
+Capital markets: as incidental downtime did not affect operations materially, no supplemental SRC Rule 17 disclosure is required beyond the routine IT controls narrative in the 17-Q.
+Actions closed: vendor RFO accepted, DPA Schedule 2 audit checklist signed, and change record CR-OPS-614 promoted to production with no personal data changes.
+Next review: Data Export Approval DEX-2025-04 will be revalidated in Q4; if scope changes, the NPC will be notified in line with NPC Circular policy, but no such trigger exists at present.

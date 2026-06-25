@@ -1,0 +1,333 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_quasi_identifiers_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/quasi_identifiers/hk_quasi_identifiers_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_quasi_identifiers_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_quasi_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-09-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@harborjade.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=hk-tealbanyan-042",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HJ-3220",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EJ\u20114102",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer assessments",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Tse, DOB 1986-09-14, M&A Associate at HJC (Sheung Wan office), device: Samsung SM\u2011G9910, last login 2026-05-31 21:07 HKT, session sid=hk-tealbanyan-042, custody acct HJ-3220 (client sandbox), access point \"HJC-5G-19\", location approx. 22.280N/114.150E",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "https://portal.harborjade.example.com/matters/teal?sid=hk%2Dtealbanyan%2D042",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Teal Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not share it externally until authorised disclosure",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "anonymisation by hashing then truncating",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-09-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process personal data relating to living individuals whose identity is directly or indirectly ascertainable, and we segregate material non-public information (specific corporation information not generally known and price-material) from public-source content.\nMr. Rowan Tse, DOB 1986-09-14, M&A Associate at HJC (Sheung Wan office), device: Samsung SM\u2011G9910, last login 2026-05-31 21:07 HKT, session sid=hk-tealbanyan-042, custody acct HJ-3220 (client sandbox), access point \"HJC-5G-19\", location approx. 22.280N/114.150E.\nProject codename Teal Banyan; matter ref MA/2026/TEAL; link https://portal.harborjade.example.com/matters/teal?sid=hk%2Dtealbanyan%2D042 for access by approved data users.\nWe do not collect MAC addresses for marketing; security logs may store a truncated device identifier (e.g., 98-3A-**-**-C7) and browser fingerprint hash \u201cb3 f1  9d  0a\u201d.\nUnder PDPO, data users may transfer to processors (e.g., Citrine Trustees (Asia) Ltd., CloudWorks Pearl DC) subject to written safeguards and cross-border transfer assessments for storage in Jurong and Taipei.\nFor access/correction requests (DSAR), contact our DPO at dpo@harborjade.example.com; we acknowledge within 2 working days and aim to respond within 40 days, subject to permitted exemptions.\nEmployment candidates: we may collect CV data and references; generic descriptions such as \u201cfemale, 30s, Mid-Levels resident\u201d alone are not used to identify a person and do not trigger enhanced review.\nNegative bait: a line like \u201cborn 03/1992, junior auditor, iPhone 11, Quarry Bay, acct TST-9912\u201d without a name is insufficient to single out any living individual in our systems.\nMNPI handling: inside information relating to a specific corporation (e.g., draft term sheets, unaudited revenue) not generally known and likely price-sensitive is ring-fenced; staff must not share it externally until authorised disclosure.\nMr. Tse\u2019s OCR scan appears as M r .  R o w a n   T s e; reconcile with HR master where employee no. EJ\u20114102 is stored separately from trading logs and fund subscription records.\nRetention: M&A data rooms (Teal Banyan) 7 years; recruitment records 2 years; device telemetry 90 days; anonymisation by hashing then truncating, with deletion logs maintained.\nTransfers to auditors and counsel (e.g., Jade Peak Legal, Azure Reef Partners) occur under engagement letters; no bank account numbers or payment transactions are transmitted for this matter.\noperational note: update the dpia after pilot, do not upload marketing brochures, and avoid marking Wikipedia excerpts as confidential\u2014public-source material is outside S F O MNPI scope.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "HJC",
+      "reason": "Company abbreviation defined in parentheses; not PII/MNPI."
+    },
+    {
+      "matched_text": "female",
+      "reason": "Generic demographic not identifying alone."
+    },
+    {
+      "matched_text": "30s",
+      "reason": "Generic age range not identifying alone."
+    },
+    {
+      "matched_text": "Mid-Levels resident",
+      "reason": "Generic location descriptor not identifying alone."
+    },
+    {
+      "matched_text": "born 03/1992",
+      "reason": "Separated weak identifier without a name; not sufficient to identify a person."
+    },
+    {
+      "matched_text": "junior auditor",
+      "reason": "Generic occupation not identifying alone."
+    },
+    {
+      "matched_text": "iPhone 11",
+      "reason": "Generic device model not identifying alone."
+    },
+    {
+      "matched_text": "Quarry Bay",
+      "reason": "Generic location not identifying alone."
+    },
+    {
+      "matched_text": "acct TST-9912",
+      "reason": "Account reference without an identified person; not PII on its own."
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated collection statement; do not label."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "truncated MAC address",
+      "matched_text": "98-3A-**-**-C7",
+      "reason": "Looks like a device identifier but obfuscated; not a full MAC address per allowed rule."
+    },
+    {
+      "concept": "browser fingerprint hash",
+      "matched_text": "b3 f1  9d  0a",
+      "reason": "Potential persistent identifier; not covered by an explicit allowed rule."
+    },
+    {
+      "concept": "device model identifier",
+      "matched_text": "Samsung SM\u2011G9910",
+      "reason": "May act as a device identifier; not clearly a device serial number under allowed rules."
+    },
+    {
+      "concept": "precise geolocation coordinate",
+      "matched_text": "22.280N/114.150E",
+      "reason": "Highly identifying location data but not explicitly covered by a standalone rule."
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "Privacy-event (access/correction) signal; no explicit allowed rule for DSAR."
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "7 years",
+      "reason": "Legally relevant retention marker; no explicit allowed rule."
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "2 years",
+      "reason": "Legally relevant retention marker; no explicit allowed rule."
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "90 days",
+      "reason": "Legally relevant retention marker; no explicit allowed rule."
+    },
+    {
+      "concept": "matter reference identifier",
+      "matched_text": "MA/2026/TEAL",
+      "reason": "Internal case/matter ID; not mapped to an allowed identifier rule."
+    },
+    {
+      "concept": "access point identifier (SSID)",
+      "matched_text": "HJC-5G-19",
+      "reason": "Potential device/network identifier; not covered by an allowed rule."
+    }
+  ]
+}

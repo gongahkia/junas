@@ -1,0 +1,575 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_sector_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/sector_mnpi/vn_sector_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_sector_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "le.vy@orchidriver.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sieu.phan@mekonglantern.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@orchidriver.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 93 552 4491",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. L\u00ea Th\u1ea3o Vy",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Phan B\u1ea3o Si\u00eau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nguy\u1ec5n Quang Hi\u1ebfu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tr\u1ea7n Minh Ki\u00ean",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID OR-0291",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No. 456-777999",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 2,400,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 50,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "48,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220 MW",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list as of 02 Jun 2026",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced cyber incident disrupting hydro plant SCADA telemetry since 27 May 2026",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "renegotiation of PPAs with Northern Grid Company for 220 MW solar portfolio",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenization of green certificates on the LotusChain network",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contingent on technical due diligence of custodial wallets",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "likely to have a material price impact",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 30,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "95%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": ">5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft TPSE disclosure prepared but not released",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID OR-8812",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID OR-0074",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no proprietary trading of OREN shares or derivatives until public disclosure on TPSE",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window from signing until TPSE disclosure",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "absence of undisclosed data breaches post-27 May 2026",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG KPIs for water intensity (<1.6 m3/MWh) and carbon intensity (<120 gCO2/kWh)",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending sandbox application to PSC-VN",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "OR-0291",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Phan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Conditional Acquisition of Orchid River Energy JSC by Mekong Lantern Holdings LLC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Overview: Investor to acquire 35% via private placement of new shares and a call option over certain renewable subsidiaries; target signing Q3 2026 with staged closings.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list: Insider list as of 02 Jun 2026 includes Ms. L\u00ea Th\u1ea3o Vy (CFO, Employee ID OR-0291), Mr. Nguy\u1ec5n Quang Hi\u1ebfu (Head of Cybersecurity, ID OR-8812), and Mr. Tr\u1ea7n Minh Ki\u00ean (Corporate Secretary, ID OR-0074); updates to be filed to the Company Secretary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and conduct: Blackout window from signing until TPSE disclosure; no tipping or selective disclosure; all diligence through encrypted data room access; breach constitutes a termination event.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee arrangements: Retention pool of 1.5% in RSUs for key employees; cybersecurity remediation bonus for Mr. Nguy\u1ec5n Quang Hi\u1ebfu; HR contact: hr@orchidriver.vn.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,400,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "le.vy@orchidriver.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sieu.phan@mekonglantern.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@orchidriver.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 93 552 4491",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "OR-0291",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Phan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Conditional Acquisition of Orchid River Energy JSC by Mekong Lantern Holdings LLC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Overview: Investor to acquire 35% via private placement of new shares and a call option over certain renewable subsidiaries; target signing Q3 2026 with staged closings.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list: Insider list as of 02 Jun 2026 includes Ms. L\u00ea Th\u1ea3o Vy (CFO, Employee ID OR-0291), Mr. Nguy\u1ec5n Quang Hi\u1ebfu (Head of Cybersecurity, ID OR-8812), and Mr. Tr\u1ea7n Minh Ki\u00ean (Corporate Secretary, ID OR-0074); updates to be filed to the Company Secretary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and conduct: Blackout window from signing until TPSE disclosure; no tipping or selective disclosure; all diligence through encrypted data room access; breach constitutes a termination event.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee arrangements: Retention pool of 1.5% in RSUs for key employees; cybersecurity remediation bonus for Mr. Nguy\u1ec5n Quang Hi\u1ebfu; HR contact: hr@orchidriver.vn.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 2,400,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 50,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 30,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "95%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,400,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "48,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Conditional Acquisition of Orchid River Energy JSC by Mekong Lantern Holdings LLC\nParties and contacts: Orchid River Energy JSC (issuer) represented by Ms. L\u00ea Th\u1ea3o Vy, CFO, le.vy@orchidriver.vn, +84 93 552 4491; Mekong Lantern Holdings LLC (investor) represented by Mr. Phan B\u1ea3o Si\u00eau, Managing Director, sieu.phan@mekonglantern.com.\nOverview: Investor to acquire 35% via private placement of new shares and a call option over certain renewable subsidiaries; target signing Q3 2026 with staged closings.\nValuation and price: Pre-money valuation VND 2,400,000,000,000; issuance of 48,000,000 new ordinary shares at VND 50,000 per share; 10% purchase price in escrow at Annam Trust Bank.\nListing context: Issuer is listed on T\u00e2n Ph\u00fa Securities Exchange (TPSE); transaction subject to Vietnam Securities Law disclosures and PSC-VN approval for a private placement to a strategic investor.\nMNPI: Non-public ESG/climate event \u2014 renegotiation of PPAs with Northern Grid Company for 220 MW solar portfolio; and an unannounced cyber incident disrupting hydro plant SCADA telemetry since 27 May 2026, both likely to have a material price impact.\nCrypto/DPT: Issuer is negotiating a pilot tokenization of green certificates on the LotusChain network, with a pending sandbox application to PSC-VN; no public announcement and contingent on technical due diligence of custodial wallets.\nInsider list: Insider list as of 02 Jun 2026 includes Ms. L\u00ea Th\u1ea3o Vy (CFO, Employee ID OR-0291), Mr. Nguy\u1ec5n Quang Hi\u1ebfu (Head of Cybersecurity, ID OR-8812), and Mr. Tr\u1ea7n Minh Ki\u00ean (Corporate Secretary, ID OR-0074); updates to be filed to the Company Secretary.\nInformation barriers: Investor to implement and certify information barriers between advisory and trading desks; no proprietary trading of OREN shares or derivatives until public disclosure on TPSE.\nBlackout and conduct: Blackout window from signing until TPSE disclosure; no tipping or selective disclosure; all diligence through encrypted data room access; breach constitutes a termination event.\nConditions precedent: (i) PSC-VN approval; (ii) cyber remediation to restore at least 95% plant telemetry; (iii) ESG KPIs for water intensity (<1.6 m3/MWh) and carbon intensity (<120 gCO2/kWh); (iv) consent of existing VND term lenders.\nCommercial terms: Representations include absence of undisclosed data breaches post-27 May 2026 and accuracy of crypto wallet governance; break fee VND 30,000,000,000; MAC includes failure of the tokenization sandbox or adverse PPA tariff changes >5%.\nFunding and banking: Settlement to Account No. 456-777999 at Mekong Sun Bank \u2013 District 7 Branch; escrow agent: Annam Trust Bank, Hoi An; SWIFT-like routing per bank instructions.\nEmployee arrangements: Retention pool of 1.5% in RSUs for key employees; cybersecurity remediation bonus for Mr. Nguy\u1ec5n Quang Hi\u1ebfu; HR contact: hr@orchidriver.vn.\nEducation/marketing note: The company\u2019s operations handbook offers general ESG scoring and crypto custody explanations for staff training and marketing and does not contain issuer-specific performance or deal details.\nRegulatory and notices: Formal notices to Investor and Issuer contacts via email and courier; draft TPSE disclosure prepared but not released; filings to PSC-VN within 24 hours post-signing.\nConfidentiality: Parties acknowledge this term sheet contains MNPI under Vietnamese law; distribution is limited to named recipients on the insider list; unauthorized sharing may trigger penalties and reporting.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Conditional Acquisition of Orchid River Energy JSC by Mekong Lantern Holdings LLC",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-noun term, not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "employee_id",
+      "matched_text": "ID OR-8812",
+      "reason": "Looks like an internal employee identifier but not explicitly labeled as Employee ID."
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "ID OR-0074",
+      "reason": "Looks like an internal employee identifier but not explicitly labeled as Employee ID."
+    },
+    {
+      "concept": "material_adverse_change",
+      "matched_text": "MAC includes failure of the tokenization sandbox or adverse PPA tariff changes >5%",
+      "reason": "Refers to MAC but does not include the explicit phrase Material Adverse Change/Effect; mapping to the rule may be too pattern-specific."
+    }
+  ]
+}

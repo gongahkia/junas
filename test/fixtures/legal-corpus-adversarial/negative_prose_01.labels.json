@@ -1,0 +1,17 @@
+{
+  "doc_id": "negative_prose_01",
+  "document_type": "generic",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "_note": "Negative-prose probe: lowercase 'project plan / status', 'mac mini' (consumer product, not legal MAC), and 'no material adverse impact' (negated). Tests precision of MNPI rules.",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Andrew Goh"}
+  ],
+  "must_not_detect": [
+    {"matched_text": "Project status", "reason": "lowercase 'project' in 'project status is green' must not fire transaction_codename"},
+    {"matched_text": "Project plan", "reason": "lowercase 'project plan' must not fire transaction_codename"},
+    {"matched_text": "mac", "reason": "lowercase 'mac' in 'mac mini' is a consumer-product reference, not the MAC clause"},
+    {"matched_text": "MAC clause", "reason": "negated context: 'no MAC clause concerns' must not fire material_adverse_change"},
+    {"matched_text": "buyer", "reason": "'buyer agreement framework' is generic prose, not a definitive_agreement reference"}
+  ]
+}

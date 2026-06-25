@@ -1,0 +1,411 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_sector_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/sector_mnpi/hk_sector_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_sector_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_sector_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cosec@pearl\u2011meridian.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 58 00 4 2 10",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. T. K. Fan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Orla Cheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PM\u2011HKG\u2011EID Z9\u2011 0 2 1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PM\u2011HKG\u2011EID Z9\u2011 0 1 4",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "172.25.6.9",
+      "rule": "ip_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project LANTERN",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list (v0.9)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier file",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier breach",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure risk",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information under Part XIVA SFO",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CVE\u20112026\u20114X71",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "detected anomalous API calls",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "patched OAuth scope leak (CVE\u20112026\u20114X71 placeholder)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "rotated HSM keys",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disabled the warm path",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPT pilot exchange integration",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG telemetry node (Scope 2)",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e reductions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability KPIs",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011conditional",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0x9a**...**1c",
+      "rule": "crypto_wallet_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Given price\u2011sensitivity and deal\u2011stage context (pre\u2011conditional SPA to acquire Orchid Vault (BVI) Ltd.; earn\u2011out tied to verified tCO2e reductions), the Board considers this inside information under Part XIVA SFO unless a safe harbour applies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operationally, a junior ops analyst forwarded sanitized syslogs to a distribution marketing list; while content was non\u2011customer and redacted, this may constitute an internal information\u2011barrier breach and selective disclosure risk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External reference for staff background only (public, non\u2011issuer specific): https://www.hk\u2011market\u2011primer.example/part\u2011xiva?topic=cyber&lang=en, do not circulate as issuer guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+852 58 00 4 2 10",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Orla Cheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Given price\u2011sensitivity and deal\u2011stage context (pre\u2011conditional SPA to acquire Orchid Vault (BVI) Ltd.; earn\u2011out tied to verified tCO2e reductions), the Board considers this inside information under Part XIVA SFO unless a safe harbour applies.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operationally, a junior ops analyst forwarded sanitized syslogs to a distribution marketing list; while content was non\u2011customer and redacted, this may constitute an internal information\u2011barrier breach and selective disclosure risk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External reference for staff background only (public, non\u2011issuer specific): https://www.hk\u2011market\u2011primer.example/part\u2011xiva?topic=cyber&lang=en, do not circulate as issuer guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project LANTERN",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pearl Meridian Holdings Limited \u2014 Incident Report (Hong Kong) \u2014 02 Jun 2026 22:17 HKT; Stock code 72Z1; Project LANTERN\nSummary: On 01 Jun 2026, Nova Harbour Digital Assets (HK) Ltd. detected anomalous API calls to a cold\u2011to\u2011warm key\u2011rotation service supporting a DPT pilot exchange integration; ESG telemetry node (Scope 2) values were overwritten.\nPreliminary assessment indicates potential exfiltration of a hashed wallet allowlist (mask: 0x9a**...**1c) and limited access to vendor GreenFlux meter IDs (GF- 3 5 7 -B), with no evidence of customer PII beyond masked emails.\nGiven price\u2011sensitivity and deal\u2011stage context (pre\u2011conditional SPA to acquire Orchid Vault (BVI) Ltd.; earn\u2011out tied to verified tCO2e reductions), the Board considers this inside information under Part XIVA SFO unless a safe harbour applies.\nWe have opened an information barrier file; an insider list (v0.9) is maintained by CoSec including Mr. T. K. Fan and Ms. Orla Cheng, with staff refs PM\u2011HKG\u2011EID Z9\u2011 0 2 1 and PM\u2011HKG\u2011EID Z9\u2011 0 1 4, respectively.\nBlackout window under the Model Code remains in force (01\u201315 Jun), and all directors and relevant employees are reminded not to deal; any wall\u2011crossing of prospective cornerstone funds requires pre\u2011clearance and cleansing announcement planning.\nNo material adverse change (MAC) has arisen under the draft term sheet as of 02 Jun, and the vendor confirms the earn\u2011out sustainability KPIs remain auditable.\nOperationally, a junior ops analyst forwarded sanitized syslogs to a distribution marketing list; while content was non\u2011customer and redacted, this may constitute an internal information\u2011barrier breach and selective disclosure risk.\nContainment actions: rotated HSM keys, disabled the warm path, patched OAuth scope leak (CVE\u20112026\u20114X71 placeholder), and invoked the incident response retainer with Jade Banyan Cyber LLP (ticket JB\u2011IR\u2011hk\u201100 7).\nWe have drafted a confidential suspension request under Listing Rule 13.10 with the Exchange and prepared a short\u2011form Part XIVA holding announcement; legal to advise on safe harbour pending forensics.\nFor clarity, the attached \u201cInsider List 101\u201d slide deck is for staff training only and references crypto, blackout windows, and tipping scenarios in a generic educational context.\nExternal reference for staff background only (public, non\u2011issuer specific): https://www.hk\u2011market\u2011primer.example/part\u2011xiva?topic=cyber&lang=en, do not circulate as issuer guidance.\nDeal room link (restricted): https://briefcase.pearl\u2011meridian.hk/p?r=ORCH\u2011ID%3D7%2F7&u=reg\u2011wall\u2011cross; if clicking fails, use Pro ject L A N T E R N folder \\\\172.25.6",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Insider List 101",
+      "reason": "Educational/training reference; not issuer-specific MNPI"
+    },
+    {
+      "matched_text": "crypto",
+      "reason": "Generic educational mention; not market sensitive in context"
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Educational context; not a live blackout reference"
+    },
+    {
+      "matched_text": "tipping scenarios",
+      "reason": "Educational context; not live tipping risk"
+    },
+    {
+      "matched_text": "Pro ject L A N T E R N",
+      "reason": "Spaced variant does not match 'Project <Name>' codename rule"
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "device_serial_number",
+      "matched_text": "GF- 3 5 7 -B",
+      "reason": "Meter ID identifies a device; unclear linkage to an individual under PDPO."
+    },
+    {
+      "concept": "internal_ticket_id",
+      "matched_text": "JB\u2011IR\u2011hk\u201100 7",
+      "reason": "Internal incident ticket could be sensitive operational data but not covered by current rules."
+    },
+    {
+      "concept": "stock_code",
+      "matched_text": "Stock code 72Z1",
+      "reason": "Issuer identifier; not itself MNPI but contextually relevant."
+    },
+    {
+      "concept": "embargo/pre-announcement",
+      "matched_text": "confidential suspension request",
+      "reason": "Indicates pending disclosure controls but does not use explicit embargo terms from allowed rules."
+    },
+    {
+      "concept": "commercial_term_signal",
+      "matched_text": "earn\u2011out",
+      "reason": "Deal mechanics can be price sensitive but not mapped to current financial amount/percentage rules."
+    }
+  ]
+}

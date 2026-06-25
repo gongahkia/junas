@@ -1,0 +1,365 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_special_category_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/special_category/uk_special_category_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_special_category_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 35,
+    "current_must_detect_count": 14,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 25,
+    "previous_must_detect_count": 17,
+    "previous_must_not_detect_count": 4
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@westriven-capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo.office@westriven-capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 3 3 0  1 2 3  9 9 9 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eloise N. Bracken",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan K. Latchford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Latchford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "staff ref WR\u2013EMP 0I-L7?9",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Portvale Financial Staff Union membership",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health notes (epilepsy treatment)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health notes (epilepsy treatment)",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template and gate logs (biometric ID)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a one\u2011time facial vector match",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates 90 days",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the HR\u2011stored orientation field (\u201cgay\u201d) from the optional DEI survey",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "prayer\u2011room booking metadata indicating religious observance",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not process genetic data about him",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "id=9f3a-0O0l-77",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "case ref DSAR\u201120 26/0O7\u2011LS B",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "International transfers: CloudBridge Pro (processor in Wrenland) receives limited HR records under the UK IDTA with Londale\u2011style supplemental controls; MarketPilot Lite hosts no MNPI",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation: delete chat logs unrelated to work",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List Standard",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAR insider\u2011list handling applies",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "precise non\u2011public deal details",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tealhawk",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eloise",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Latchford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo.office@westriven-capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0 3 3 0  1 2 3  9 9 9 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eloise",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Latchford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Latchford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tealhawk",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Data Protection Office, Ms. Eloise N. Bracken, privacy@westriven-capital.co.uk, tel 0 3 3 0  1 2 3  9 9 9 9.\nScope: employment and financial\u2011services records; this note does not constitute a material adverse change and includes public\u2011source references (e.g., Wrenford Echo notices) where relevant.\nNamed subject: Mr. Rowan K. Latchford (staff ref WR\u2013EMP 0I-L7?9) requests access to his data under Art.15; case link https://portal.westrivencapital.co.uk/dsar?id=9f3a-0O0l-77.\nSpecial\u2011category items for Mr. Latchford include occupational health notes (epilepsy treatment), fingerprint template and gate logs (biometric ID), Portvale Financial Staff Union membership, and the HR\u2011stored orientation field (\u201cgay\u201d) from the optional DEI survey.\nSubtle sources may also reveal beliefs, e.g., prayer\u2011room booking metadata indicating religious observance; the \u201chealth of the market\u201d phrase in reports is not health data about him.\nRetention: biometric templates 90 days; OH files 6 years; union records while active + 1 year; DEI survey fields 12 months; calendar invites about the Northminster Red Rovers are business chatter only.\nDSAR exclusions: per UK MAR and our Insider List Standard, we redact precise non\u2011public deal details (e.g., Project Tealhawk workpapers) and only provide what does not disclose MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Northminster Red Rovers",
+      "reason": "Sports team name; not PII/SCD or MNPI."
+    },
+    {
+      "matched_text": "genetic strategy",
+      "reason": "Product metaphor; not genetic data about a person."
+    },
+    {
+      "matched_text": "health of the market",
+      "reason": "Generic phrase; not a health condition about an individual."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC; rule specifies not to label negated MAC/MAE."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "internal URL/identifier",
+      "matched_text": "https://portal.westrivencapital.co.uk/dsar?id=9f3a-0O0l-77",
+      "reason": "Contains an internal case/link identifier; no explicit URL rule, and only the query token maps to internal_session_id."
+    },
+    {
+      "concept": "purpose limitation",
+      "matched_text": "M r .  R o w a n \u2018 s  image is not reused for new purposes",
+      "reason": "Indicates a purpose limitation control about a person\u2019s image, which is privacy-relevant but not covered by an explicit allowed marker."
+    }
+  ]
+}

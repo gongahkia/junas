@@ -1,0 +1,300 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 19,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 16,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hamid Al Saraf",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Al Nasser",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@nebulafinserv.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer-relations@nimbus-exchange.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-0-0000-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID images",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID E-00XX-FAKE-1234",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tra de lic ence scans",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-FAKE-7753-AD",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew marketing consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer approvals",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data-export approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note: null-routing rule \u201cGulfBridge-EXIM\u201d now active and documented; this line is policy-only and does not indicate a breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "issuer-relations@nimbus-exchange.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-0-0000-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hamid Al Saraf",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Al Nasser",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Note: null-routing rule \u201cGulfBridge-EXIM\u201d now active and documented; this line is policy-only and does not indicate a breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy workflow: Mr. Hamid Al Saraf withdrew marketing consent via portal; DSAR #DSR-AD-118 opened; erasure of marketing preferences completed and audit hash 1f:aa:0c recorded.\nRetention handling: records tagged RMB-PDPL-3Y; test copies purged early on 17 Apr 2026; no backup restoration was required.\nMNPI check: the batch included a draft deal timetable for Marab Reef Holdings PJSC (ADGM venue) but repository ACL limited to compliance; access logs show 0 external reads; no non-public market-sensitive issuer information was disclosed.\nFor clarity, device telemetry was not collected; no MAC addresses, IMEI, or biometrics were captured by this workflow.\nNegative context that should not trigger alerts: this paragraph references a public press note by Marab Reef Holdings dated last quarter and generic policy P-07; it contains no personal data and no MNPI.\nDPO review: Ms. Leila Al Nasser confirmed DSAR response scope and approved redaction set per DPA Schedule 3; confirmation sent to privacy@nebulafinserv.ae.\nData-export approval for Bahrain resubmitted as DEA-ADGM-77-ZZ; see https://dpa.nebulafinserv.ae/schedule?ref=E- 7 7 -ZZ; actual transfer remains disabled pending fresh sign-off.\nADGM/DIFC context: no market disclosure obligations were triggered and no SCA reporting thresholds met; incident treated as operational with zero customer impact.\nContact window: issuer-relations@nimbus-exchange.example.ae for listing queries and secops hotline +971-0-0000-000 (placeholder) for follow-up; jira-ops ticket finsec- 0045 closed.\nNote: null-routing rule \u201cGulfBridge-EXIM\u201d now active and documented; this line is policy-only and does not indicate a breach.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no records left the UAE",
+      "reason": "Negated cross-border outcome (no egress)"
+    },
+    {
+      "matched_text": "this is a completed control and not an ongoing privacy risk",
+      "reason": "Completed-control language; not a live risk"
+    },
+    {
+      "matched_text": "no MAC addresses",
+      "reason": "Negated device identifier collection"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Mentioned only in a negated context (not collected)"
+    },
+    {
+      "matched_text": "biometrics",
+      "reason": "Mentioned only in a negated context (not captured)"
+    },
+    {
+      "matched_text": "actual transfer remains disabled",
+      "reason": "Negated cross-border transfer status"
+    },
+    {
+      "matched_text": "no non-public market-sensitive issuer information was disclosed",
+      "reason": "Negated MNPI disclosure"
+    },
+    {
+      "matched_text": "no personal data",
+      "reason": "Explicit negative assertion (no PII present)"
+    },
+    {
+      "matched_text": "no MNPI",
+      "reason": "Explicit negative assertion (no MNPI present)"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "sensitive personal data (ethnic/origin)",
+      "matched_text": "family-origin notes",
+      "reason": "Family-origin may imply special-category data, not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "pseudonymised/audit identifier",
+      "matched_text": "audit hash 1f:aa:0c",
+      "reason": "Unique hash may function as an indirect identifier but not covered by allowed categories"
+    },
+    {
+      "concept": "internal request identifier",
+      "matched_text": "DXB-2 9 1-AX",
+      "reason": "Internal control ID that could indirectly link to a person or dataset; not in allowed rules"
+    },
+    {
+      "concept": "data-export approval ID",
+      "matched_text": "DEA-ADGM-77-ZZ",
+      "reason": "Operational identifier potentially linkable to datasets; not in allowed rules"
+    },
+    {
+      "concept": "internal reference ID",
+      "matched_text": "E- 7 7 -ZZ",
+      "reason": "Identifier in URL parameter; not mapped to allowed categories"
+    },
+    {
+      "concept": "internal ticket number",
+      "matched_text": "finsec- 0045",
+      "reason": "Operational ticket ID that could be associated with individuals; not in allowed rules"
+    },
+    {
+      "concept": "retention code/marker",
+      "matched_text": "RMB-PDPL-3Y",
+      "reason": "Retention marker relevant for compliance but not in allowed category list"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure of marketing preferences completed",
+      "reason": "Erasure/RTBF is a privacy event but no explicit allowed category provided"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR #DSR-AD-118",
+      "reason": "Data subject access request reference is privacy-relevant but no explicit allowed category"
+    },
+    {
+      "concept": "policy/information-barrier label",
+      "matched_text": "GulfBridge-EXIM",
+      "reason": "Could relate to data egress controls; no direct allowed MNPI/PII category"
+    }
+  ]
+}

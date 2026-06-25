@@ -1,0 +1,296 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_privacy_events_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/privacy_events/ae_privacy_events_term_sheet_negative_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_privacy_events_term_sheet_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 16,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "TL-FA-12345-X",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-NC-00987-Z",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-0000-0000-0000",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@falajdatasystems.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a one-time transfer of onboarding contact fields to a group processor in Bahran Archipelago was completed",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMSU Data Export Approval Ref AE-DEX-24-019A was granted",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent-withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-____-_____",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric or Emirates ID images",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer status",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Nuyar to acquire up to 22% (mix of primary/secondary), subject to free-zone registrar clearance and competition filing, with no price guidance in this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market conduct: this document contains no non-public market-sensitive issuer information; all forward-looking references are aligned to publicly disclosed guidance and stale quarterly metrics.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Nuyar to acquire up to 22% (mix of primary/secondary), subject to free-zone registrar clearance and competition filing, with no price guidance in this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Nuyar to acquire up to 22% (mix of primary/secondary), subject to free-zone registrar clearance and competition filing, with no price guidance in this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market conduct: this document contains no non-public market-sensitive issuer information; all forward-looking references are aligned to publicly disclosed guidance and stale quarterly metrics.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPL compliance: For UAE PDPL purposes, personal data means data relating to an identified or indirectly identifiable natural person; the parties agree this term sheet contains no family-origin data and does not require Emirates ID scans.\nOnboarding form (illustrative only): Emirates ID No [EID-0000-0000-0000]; Trade Licence No [TL-____-_____]; Nationality [dropdown]; Family Origin [not collected]; Contact [role mailbox], used to evaluate process design and not processed here",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed Strategic Investment by Nuyar Capital SPV (Desert Gate Free Zone) in Falaj Data Systems PJSC (Rimal Exchange).\nOverview: Non-binding except for confidentiality, costs, data protection, and governing law; all deal headlines publicly announced via Rimal Exchange notice dated 2025-02-10 filed with Emirates Markets Supervisory Unit (EMSU).\nTransaction: Nuyar to acquire up to 22% (mix of primary/secondary), subject to free-zone registrar clearance and competition filing, with no price guidance in this term sheet.\nConditions precedent: Clean trade licence for both parties (Target TL-FA-12345-X; Investor TL-NC-00987-Z), board approvals, and absence of material adverse change since last public report.\nPDPL compliance: For UAE PDPL purposes, personal data means data relating to an identified or indirectly identifiable natural person; the parties agree this term sheet contains no family-origin data and does not require Emirates ID scans.\nOnboarding form (illustrative only): Emirates ID No [EID-0000-0000-0000]; Trade Licence No [TL-____-_____]; Nationality [dropdown]; Family Origin [not collected]; Contact [role mailbox], used to evaluate process design and not processed here.\nData protection: Schedule 4 (Data Processing Agreement) appended; processors limited to CloudWadi FZ-LLC and ArchivePalm SPC; data minimisation and purpose limitation applied to KYC-only fields.\nData export approval: EMSU Data Export Approval Ref AE-DEX-24-019A was granted for restricted investor contact fields under standard terms; no biometric or Emirates ID images were included.\nCross-border transfer status: a one-time transfer of onboarding contact fields to a group processor in Bahran Archipelago was completed under free-zone standard clauses and logged in the compliance memo dated 2025-01-12.\nRights handling: no open DSAR, erasure, or consent-withdrawal requests exist for this transaction; the privacy inbox privacy@falajdatasystems.example remains available if needed.\nRetention: retention schedule RS-5Y-KYC applies to statutory KYC copies; this term sheet itself is not a repository of personal data and contains only generic placeholders.\nMarket conduct: this document contains no non-public market-sensitive issuer information; all forward-looking references are aligned to publicly disclosed guidance and stale quarterly metrics.\nGovernance: AD region free-zone governing law applies; disputes to be referred to the Rimal Arbitration Centre; no security interests are created by this term sheet.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role noun used as a party label, not a natural person name."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun used as a party label, not a natural person name."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ae_trade_licence placeholder",
+      "matched_text": "TL-____-_____",
+      "reason": "Placeholder underscores; field indicates a trade licence but not an actual identifier."
+    },
+    {
+      "concept": "regulatory approval reference",
+      "matched_text": "EMSU Data Export Approval Ref AE-DEX-24-019A",
+      "reason": "Compliance reference relevant to cross-border processing but not clearly mapped to an allowed rule beyond transfer context."
+    },
+    {
+      "concept": "cross-border transfer heading",
+      "matched_text": "Cross-border transfer status",
+      "reason": "Indicates transfer context; reflects a completed event rather than a live transfer marker."
+    },
+    {
+      "concept": "biometric mention (negated)",
+      "matched_text": "biometric or Emirates ID images",
+      "reason": "Mentions special-category data in a negated context; relevance to tagging can be debated."
+    }
+  ]
+}

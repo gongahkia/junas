@@ -1,0 +1,94 @@
+{
+  "doc_id": "sha_adv_04",
+  "document_type": "SHA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SHAREHOLDERS AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "234567"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "dr.tan.weiming@example.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6789 0123"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "siti.aishah@example.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S3456789C"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "678901"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 7890 1234"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "ramasamy.muthu@example.sg"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "199812345A"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "079903"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 1,000,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

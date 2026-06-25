@@ -1,0 +1,390 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "virat.lertsiri@ndf.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "suda@ndf.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "arun.ops@ndf.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 2 123 4 2 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chanin Phromsiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Project TAMARIND \u2014 proposed 12.5% private placement (THB 1,850,000,000) to Lantern Orchard Pte. Ltd., a Singapore SPV, and related financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing structure includes a cross-border shareholder loan to Naduni Foods Manufacturing (Lao) Co., Ltd.; term sheet v4 and deal checklist item 7 (AFA filing) are attached.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any press outreach before embargo will be a breach; call Mr. Chanin Phromsiri (+66 2 123 4 2 1 ext. 4 2 1) before sharing draft statements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TAMARIND",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,850,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 28,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,850,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260715",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 15 July 2026, 09:00 ICT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed 12.5% private placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet v4",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor Rights Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "execution on 28 June 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "conditions include OCMR waiver, SLE listing notice, and foreign investment clearance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cross-border shareholder loan to Naduni Foods Manufacturing (Lao) Co., Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout reminder: trading black-out applies 20 June\u201315 July 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate outside NDF or advisers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any press outreach before embargo will be a breach",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Virat Lertsiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID: TH\u2014\u039e\u20141 4 3-9",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A/C Ref: XX-77-\u03a3\u03a3",
+      "rule": "bank_customer_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "virat.lertsiri@ndf.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "suda@ndf.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "arun.ops@ndf.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 2 123 4 2 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chanin Phromsiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Project TAMARIND \u2014 proposed 12.5% private placement (THB 1,850,000,000) to Lantern Orchard Pte. Ltd., a Singapore SPV, and related financing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing structure includes a cross-border shareholder loan to Naduni Foods Manufacturing (Lao) Co., Ltd.; term sheet v4 and deal checklist item 7 (AFA filing) are attached.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Any press outreach before embargo will be a breach; call Mr. Chanin Phromsiri (+66 2 123 4 2 1 ext. 4 2 1) before sharing draft statements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TAMARIND",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1,850,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 28,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,850,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260715",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Re: Project TAMARIND \u2014 proposed 12.5% private placement (THB 1,850,000,000) to Lantern Orchard Pte. Ltd., a Singapore SPV, and related financing.\nDefinitive documents (SSA and Investor Rights Agreement) scheduled for execution on 28 June 2026; conditions include OCMR waiver, SLE listing notice, and foreign investment clearance.\nMAC/MAE: buyer termination right limited by carve-outs; no material adverse effect has occurred and current sector protests do not constitute a MAC under cl. 9.3",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY NON-PUBLIC; embargo until 15 July 2026, 09:00 ICT; do not circulate outside NDF or advisers.\nRe: Project TAMARIND \u2014 proposed 12.5% private placement (THB 1,850,000,000) to Lantern Orchard Pte. Ltd., a Singapore SPV, and related financing.\nDefinitive documents (SSA and Investor Rights Agreement) scheduled for execution on 28 June 2026; conditions include OCMR waiver, SLE listing notice, and foreign investment clearance.\nMAC/MAE: buyer termination right limited by carve-outs; no material adverse effect has occurred and current sector protests do not constitute a MAC under cl. 9.3.\nFinancing structure includes a cross-border shareholder loan to Naduni Foods Manufacturing (Lao) Co., Ltd.; term sheet v4 and deal checklist item 7 (AFA filing) are attached.\nEmployment/IR: retention agreements for 12 key employees (aggregate bonus THB 28,000,000) and investor-relations draft Q&A prepared; contact Khun Virat Lertsiri at virat.lertsiri@ndf.co.th.\nResearch note: elasticity study \u201cSnack Revival Q2/2569\u201d draws only on public sources (Siam Markets Digest 2024 edition) and does not contain confidential metrics.\nBlackout reminder: trading black-out applies 20 June\u201315 July 2026 per OCMR Circular SorFai 10/2566; breaches may trigger SEA s.58-equivalent enforcement.\nData room link: ht tps://dataroom.ndf-secure.local/p/PRJ-TMRND?e=20260715&u=ir_draft&v=0.9 (EmpID: TH\u2014\u039e\u20141 4 3-9; A/C Ref: XX-77-\u03a3\u03a3).\nnon-material note: the staff wellness spa-day next Friday is unrelated to this transaction and should not be included in the IR timeline.\nnext steps: circulate redlines to counsel, align board packs, prep Q&A, book rooms, chase signatures; owners: suda@ndf.co.th, arun.ops@ndf.co.th.\nFor avoidance of doubt, this memo does not assert the occurrence of any MAC and is not a Form 56-1 update; public CSR policy at www.ndf.co.th/csr is unchanged.\nAny press outreach before embargo will be a breach; call Mr. Chanin Phromsiri (+66 2 123 4 2 1 ext. 4 2 1) before sharing draft statements.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "buyer",
+      "reason": "Role noun; not PII/MNPI on its own."
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "Irrelevant bait (wellness event), not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "transaction_codename",
+      "matched_text": "Prj: T\u039bM\u039bR1ND",
+      "reason": "Stylised codename reference ('Prj') and non-standard characters; does not match 'Project <Name>' pattern."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "e=20260715",
+      "reason": "URL parameter resembles an embargo/expiry date but not explicitly labeled as such."
+    }
+  ]
+}

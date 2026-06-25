@@ -1,0 +1,242 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 14,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 8,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "92310000MA9X1Q2Z7R",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "110105199912120019",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it-security@qiyun-robotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@qiyun-robotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer-relations@qiyun-robotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber/Operational Incident Report (CN PIPL/CSL/DSL)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an ACL change on the HR onboarding share permitted external VPN access for approximately 42 minutes",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-051",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As an issuer on the Huadong Stock Exchange Growth Board, we assessed MNPI exposure and confirm no undisclosed operating metrics, financing arrangements, or trading plans were included; contents mirror publicly posted ESG training summaries.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Remediation by 09:56 CST included rollback of ACL, credential rotation, and log preservation; external hits accessed only the onboarding checklist and a generic cybersecurity awareness poster.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110105199912120019",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "it-security@qiyun-robotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer-relations@qiyun-robotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-051",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As an issuer on the Huadong Stock Exchange Growth Board, we assessed MNPI exposure and confirm no undisclosed operating metrics, financing arrangements, or trading plans were included; contents mirror publicly posted ESG training summaries.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Remediation by 09:56 CST included rollback of ACL, credential rotation, and log preservation; external hits accessed only the onboarding checklist and a generic cybersecurity awareness poster.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110105199912120019",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "One QA test string resembling a resident identity number appeared: CN Resident ID 110105199912120019 (checksum intentionally invalid).\nNo actual employee PI, payroll accounts, tax filing numbers, or hukou scans were present; no minors under 14 are implicated per PIPL.\nInternal references included: HR workflow ID WF-EMP-2026-051, service account svc-hr-onboard, and company settlement account alias FIN-SET-0043 (non-bank internal code).\nUnder PIPL/CSL/DSL classification, the materials are ordinary business data; not important data or core data and not a personal information system.\nAs an issuer on the Huadong Stock Exchange Growth Board, we assessed MNPI exposure and confirm no undisclosed operating metrics, financing arrangements, or trading plans were included; contents mirror publicly posted ESG training summaries.\nNotifications were sent to the Shenghai New District Human Resources Bureau and the municipal cyberspace authority; no cross-border transfers occurred and no cross-border security assessment filing is triggered.\nPublic helpline numbers referenced in staff FAQs are non-personal: municipal service 12045 and capital markets investor line 12086; these are not employee contacts.\nRoot cause: an employment workflow script bypassed the network segment allowlist on a test subnet during change window CHG-2026-05-28-A.\nRemediation by 09:56 CST included rollback of ACL, credential rotation, and log preservation; external hits accessed only the onboarding checklist and a generic cybersecurity awareness poster.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "400-000-0000",
+      "reason": "Public helpline-style placeholder in a form; non-personal and explicitly labeled as a template value."
+    },
+    {
+      "matched_text": "12045",
+      "reason": "Public helpline number; non-personal per document."
+    },
+    {
+      "matched_text": "12086",
+      "reason": "Public helpline number; non-personal per document."
+    },
+    {
+      "matched_text": "[Employee]",
+      "reason": "Placeholder in a form label; not an actual personal record."
+    },
+    {
+      "matched_text": "[________]",
+      "reason": "Placeholder for ID number in a form; not actual PII."
+    },
+    {
+      "matched_text": "[XX Province/XX City]",
+      "reason": "Placeholder address; not an actual personal address."
+    },
+    {
+      "matched_text": "[Operations]",
+      "reason": "Placeholder department; not an actual personal record."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "employee_id-like workflow identifier",
+      "matched_text": "WF-EMP-2026-051",
+      "reason": "Internal HR workflow ID could indirectly link to an identifiable employee but is not covered by a specific allowed rule."
+    },
+    {
+      "concept": "service account identifier",
+      "matched_text": "svc-hr-onboard",
+      "reason": "Service account name may be an account identifier; not clearly mapped to a listed rule."
+    },
+    {
+      "concept": "internal account alias",
+      "matched_text": "FIN-SET-0043",
+      "reason": "Internal settlement account alias could be an account identifier but is not a bank account number and not in allowed rules."
+    },
+    {
+      "concept": "cross_border_transfer_marker (negated)",
+      "matched_text": "no cross-border transfers occurred",
+      "reason": "Cross-border transfer is a privacy-event marker, but this instance is explicitly negated; included for legal relevance."
+    },
+    {
+      "concept": "issuer context for MNPI sensitivity",
+      "matched_text": "As an issuer on the Huadong Stock Exchange Growth Board",
+      "reason": "Issuer context may make the incident market-sensitive even if not material; not directly covered by a specific MNPI rule."
+    }
+  ]
+}

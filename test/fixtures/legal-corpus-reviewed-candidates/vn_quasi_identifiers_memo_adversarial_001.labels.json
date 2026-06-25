@@ -1,0 +1,509 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled VN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-vn-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved VN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T03:12:44Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T03:12:44Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
+    "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_quasi_identifiers_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/quasi_identifiers/vn_quasi_identifiers_memo_adversarial_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_quasi_identifiers_memo_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_resolved_label_warnings": [
+    {
+      "disposition": "Resolved during VN Stage B QA cleanup. These were label-cleaner drops or category normalizations on already approved Stage A labels; the dropped spans were not active strict labels after prior deterministic reconciliation, and Stage A owner approval remains unchanged.",
+      "resolved_at_utc": "2026-06-03T13:05:43Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='bank_customer_reference'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='bank_customer_reference'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='bank_customer_reference'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "VN Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_quasi_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tran Minh Quang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/07/1986",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "quang.tran@nsmaterials.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0907 88 66 45",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@nsmaterials.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.4.8.21",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=U1-221-443",
+      "rule": "cookie_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=u1_221_443",
+      "rule": "cookie_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pham Thu Lan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Stonebird",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 18,500/share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8.3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TRX\u2011VN\u20112026\u201111458",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "must be minimized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact accounts and device IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tran Minh Quang (born 14/07/1986), Deputy Finance Manager at NSM, sits at HQ: 10F Northern Park Tower, 88 Phuong Minh Blvd., Ward Thien Phuc, Ho Giang City; contact: quang.tran@nsmaterials.vn and 0907 88 66 45",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Device and accounts linked to him include laptop asset tag NSM\u2011LT\u201107A9; handset \u201cGalaxy A51\u201d IMEI 3581\u201100\u2011**\u2011**\u20119432; Thien Phong Commercial Bank payroll AC***7 4 2 9; VPN session U1\u2011221\u2011443 at 21:17 ICT 05/05/2026 (IP 10.4.8.21); Zalo: quangtm86; cookie sid=u1_221_443",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Access log excerpt shows \u201cH o G i a n g \u2011 G u e s t \u2011 W i f i\u201d SSID, device MAC f0:9a:4c:**:**:2d, and shared drive path \\\\nsm\u2011fs01\\fi n \\q2_draf t; these stand\u2011alone items are quasi\u2011identifiers and are sensitive only when linkable to a person",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSM\u2011LT\u201107A9",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3581\u201100\u2011**\u2011**\u20119432",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AC***7 4 2 9",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U1\u2011221\u2011443",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "U1-221-443",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "f0:9a:4c:**:**:2d",
+      "rule": "mac_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Q2\u20112026 draft earnings",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material and non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "wire ref TRX\u2011VN\u20112026\u201111458",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transferred only as required for NSB\u2011VN submissions",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-221-443",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NSM is preparing \u201cProject Stonebird\u201d disclosures (Q2 earnings draft and a private placement outline) for SGE; timing and pricing are not yet public and must be handled in line with MNPI policy P\u2011MNPI\u201104.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 05/05 he downloaded \u201cQ2\u20112026 draft earnings\u201d and the private placement term sheet (indicative VND 18,500/share, 12.0% allotment to Blue Fern Fund Ltd., fictional) via https://intra.nsmaterials.vn/d/r?sid=U1-221-443&doc=Sto ne bird_v2.pdf and shared a screenshot with CFO Ms. Pham Thu Lan at 21:19; these items are material and non\u2011public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 18",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NSM is preparing \u201cProject Stonebird\u201d disclosures (Q2 earnings draft and a private placement outline) for SGE; timing and pricing are not yet public and must be handled in line with MNPI policy P\u2011MNPI\u201104.\nMr. Tran Minh Quang (born 14/07/1986), Deputy Finance Manager at NSM, sits at HQ: 10F Northern Park Tower, 88 Phuong Minh Blvd., Ward Thien Phuc, Ho Giang City; contact: quang.tran@nsmaterials.vn and 0907 88 66 45.\nDevice and accounts linked to him include laptop asset tag NSM\u2011LT\u201107A9; handset \u201cGalaxy A51\u201d IMEI 3581\u201100\u2011**\u2011**\u20119432; Thien Phong Commercial Bank payroll AC***7 4 2 9; VPN session U1\u2011221\u2011443 at 21:17 ICT 05/05/2026 (IP 10.4.8.21); Zalo: quangtm86; cookie sid=u1_221_443",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "quang.tran@nsmaterials.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-221-443",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/07/1986",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tran Minh Quang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Pham Thu Lan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NSM is preparing \u201cProject Stonebird\u201d disclosures (Q2 earnings draft and a private placement outline) for SGE; timing and pricing are not yet public and must be handled in line with MNPI policy P\u2011MNPI\u201104.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 05/05 he downloaded \u201cQ2\u20112026 draft earnings\u201d and the private placement term sheet (indicative VND 18,500/share, 12.0% allotment to Blue Fern Fund Ltd., fictional) via https://intra.nsmaterials.vn/d/r?sid=U1-221-443&doc=Sto ne bird_v2.pdf and shared a screenshot with CFO Ms. Pham Thu Lan at 21:19; these items are material and non\u2011public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Stonebird",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 18",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8.3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Securities Law, MNPI refers to issuer/securities information not yet public with a likely significant price impact; our internal reviewer is the National Securities Bureau (NSB\u2011VN) liaison per SGE rules (fictional bodies).\nNSM is preparing \u201cProject Stonebird\u201d disclosures (Q2 earnings draft and a private placement outline) for SGE; timing and pricing are not yet public and must be handled in line with MNPI policy P\u2011MNPI\u201104.\nMr. Tran Minh Quang (born 14/07/1986), Deputy Finance Manager at NSM, sits at HQ: 10F Northern Park Tower, 88 Phuong Minh Blvd., Ward Thien Phuc, Ho Giang City; contact: quang.tran@nsmaterials.vn and 0907 88 66 45.\nDevice and accounts linked to him include laptop asset tag NSM\u2011LT\u201107A9; handset \u201cGalaxy A51\u201d IMEI 3581\u201100\u2011**\u2011**\u20119432; Thien Phong Commercial Bank payroll AC***7 4 2 9; VPN session U1\u2011221\u2011443 at 21:17 ICT 05/05/2026 (IP 10.4.8.21); Zalo: quangtm86; cookie sid=u1_221_443.\nOn 05/05 he downloaded \u201cQ2\u20112026 draft earnings\u201d and the private placement term sheet (indicative VND 18,500/share, 12.0% allotment to Blue Fern Fund Ltd., fictional) via https://intra.nsmaterials.vn/d/r?sid=U1-221-443&doc=Sto ne bird_v2.pdf and shared a screenshot with CFO Ms. Pham Thu Lan at 21:19; these items are material and non\u2011public.\nHe also reviewed the signed amendment with Bao Minh Capital Bank (BMCB) to roll the VND facility from 9.2% to 8.3% with covenant relief through 2027 (Doc: BM C B / A M N D / 2 0 2 6 \u2011 0 3; wire ref TRX\u2011VN\u20112026\u201111458; \u201ccredit package delta\u201d tab shows forward\u2011looking ratios).\nThe draft board minute states there has been no material adverse change and no MAC trigger under the 2024 notes; this sentence is generic commercial language and is not PII.\nPer Decree 13, the above cluster is personal data associated with a specific person and must be minimized, access\u2011controlled, and transferred only as required for NSB\u2011VN submissions; redact accounts and device IDs in external working papers.\nAccess log excerpt shows \u201cH o G i a n g \u2011 G u e s t \u2011 W i f i\u201d SSID, device MAC f0:9a:4c:**:**:2d, and shared drive path \\\\nsm\u2011fs01\\fi n \\q2_draf t; these stand\u2011alone items are quasi\u2011identifiers and are sensitive only when linkable to a person.\nSeparated weak identifiers example: age 34, District 7 of Ho Giang, device tag TB\u20110011, and user code u\u20111995\u2011d7 appear in a facilities ticket; without a name or role, these should not identify any individual on their own.\nOCR artifacts: \u201cN S M \u2011 2 0 2 6 \u2011 1 1 3   E m p l o y e e   C a r d\u201d and codes 00\u20117 3 \u20116 1 with phone ext x 2 3 4 5 were scraped from a scan; treat as low confidence until verified against the HR system.\nMarket context references (e.g., publicly available provincial mining quota summaries and product names like \u201cStoneMix 50\u201d) are public\u2011source and not MNPI; do not over\u2011restrict such materials.\nThe team is mostly mid\u2011career finance staff and manufacturing engineers; generic demographics and job categories are not by themselves identifying data.\nnext steps: legal to send redline by eod, finance to scrub q2 tabs for pii and mnpi markers, it to validate role\u2011based access on SGE folder; questions to compliance@nsmaterials.vn.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tran Minh Quang (born 14/07/1986), Deputy Finance Manager at NSM, sits at HQ: 10F Northern Park Tower, 88 Phuong Minh Blvd., Ward Thien Phuc, Ho Giang City; contact: quang.tran@nsmaterials.vn and 0907 88 66 45.\nDevice and accounts linked to him include laptop asset tag NSM\u2011LT\u201107A9; handset \u201cGalaxy A51\u201d IMEI 3581\u201100\u2011**\u2011**\u20119432; Thien Phong Commercial Bank payroll AC***7 4 2 9; VPN session U1\u2011221\u2011443 at 21:17 ICT 05/05/2026 (IP 10.4.8.21); Zalo: quangtm86; cookie sid=u1_221_443",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "age 34",
+      "reason": "Separated weak identifier not sufficient to identify a person alone."
+    },
+    {
+      "matched_text": "District 7 of Ho Giang",
+      "reason": "Separated location reference not sufficient to identify a person alone."
+    },
+    {
+      "matched_text": "device tag TB\u20110011",
+      "reason": "Separated device tag not sufficient to identify a person alone."
+    },
+    {
+      "matched_text": "user code u\u20111995\u2011d7",
+      "reason": "Separated user code not sufficient to identify a person alone."
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC phrase is excluded by rule."
+    },
+    {
+      "matched_text": "no MAC trigger",
+      "reason": "Negated MAC phrase is excluded by rule."
+    },
+    {
+      "matched_text": "mid\u2011career finance staff",
+      "reason": "Generic demographics/job category not PII."
+    },
+    {
+      "matched_text": "manufacturing engineers",
+      "reason": "Generic job category not PII."
+    },
+    {
+      "matched_text": "StoneMix 50",
+      "reason": "Public-source product name; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "employee_card_identifier",
+      "matched_text": "N S M \u2011 2 0 2 6 \u2011 1 1 3   E m p l o y e e   C a r d",
+      "reason": "OCR artifact; may be an employee card identifier but not clearly covered or verified."
+    },
+    {
+      "concept": "internal_code",
+      "matched_text": "00\u20117 3 \u20116 1",
+      "reason": "OCR-scraped code; could be an employee or asset ID but ambiguous."
+    },
+    {
+      "concept": "phone_extension",
+      "matched_text": "x 2 3 4 5",
+      "reason": "Looks like a phone extension; not clearly covered by allowed phone_number rule."
+    },
+    {
+      "concept": "wifi_ssid",
+      "matched_text": "H o G i a n g \u2011 G u e s t \u2011 W i f i",
+      "reason": "SSID can be a quasi-identifier only when linked to a person; not in allowed rule list."
+    },
+    {
+      "concept": "username",
+      "matched_text": "quangtm86",
+      "reason": "App handle/username can be PII but no explicit allowed rule for usernames."
+    },
+    {
+      "concept": "access_control_marker",
+      "matched_text": "access\u2011controlled",
+      "reason": "Privacy control mention relevant to compliance but not explicitly in allowed marker rules."
+    }
+  ]
+}

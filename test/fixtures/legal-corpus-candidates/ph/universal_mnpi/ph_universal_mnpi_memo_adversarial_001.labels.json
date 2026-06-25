@@ -1,0 +1,400 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Cross-jurisdiction strict-tier maintenance after AU Stage B precision guards: removed strict expectations for template email aliases and definitional/generic non-public markers that current deterministic strict mode intentionally suppresses. Removed items remain in ideal_must_detect.",
+  "_label_tiers_version": "cross-jurisdiction-au-stage-b-precision-realign-2026-06-02",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "AU Stage B precision guards created five cross-jurisdiction strict misses. Codex manually audited the fixture contexts and found the current deterministic suppressions defensible for strict mode: template email alias format, defined-term MNPI statements, or generic MNPI references. Existing project-owner Stage A readiness approval is preserved; this is internal benchmark maintenance, not legal advice.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_strict_expectations": [
+      {
+        "category": "PII",
+        "matched_text": "firstname.lastname@azucenacapital.ph",
+        "rule": "email_address"
+      }
+    ],
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-candidates-after-au-stage-b-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sampaguita",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-07-15 09:00 PHT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 1.25 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "+18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Atty. Isidro Calaunan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "isidro.calaunan@azucenacapital.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct 17-0X4-**82",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lira Navotas",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN 9xx-3x2-1x9",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "firstname.lastname@azucenacapital.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "regfilings@psc.gov.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for public circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not to be released before embargo",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Underwriting Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S h a r e   P u r c h a s e   A g r e e m e n t",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not share outside the Board",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed primary offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft IR deck",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal research note",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing to be supported by bridge facility with Isla Verde Bank, acct 17-0X4-**82, subject to CRBP single borrower limits.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing checklist: LSE-PH listing notice, PSC pre-effective clearance, tax clearance certificate, CRBP FX rules if proceeds held offshore, KYC refresh for Coral Reef Partners.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For avoidance of doubt, despite market volatility this briefing is not guidance; all employees should use firstname.lastname@azucenacapital.ph aliases only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "isidro.calaunan@azucenacapital.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "regfilings@psc.gov.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lira Navotas",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing to be supported by bridge facility with Isla Verde Bank, acct 17-0X4-**82, subject to CRBP single borrower limits.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing checklist: LSE-PH listing notice, PSC pre-effective clearance, tax clearance certificate, CRBP FX rules if proceeds held offshore, KYC refresh for Coral Reef Partners.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For avoidance of doubt, despite market volatility this briefing is not guidance; all employees should use firstname.lastname@azucenacapital.ph aliases only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sampaguita",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PHP 1.25 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2014 non-public; Project Sampaguita board memo re proposed primary offering by Azucena Capital Holdings, Inc. (LSE-PH issuer).\nContact Atty. Isidro Calaunan, Compliance Head, isidro.calaunan@azucenacapital.ph, +63 2 8123 4567.\nEmbargo until 2026-07-15 09:00 PHT; draft IR deck and PSC Form 17-C current report not to be released before embargo.\nTerm sheet: PHP 1.25 billion primary shares at an indicative 6.5% discount to VWAP; cornerstone allocation 19.9% to Coral Reef Partners Pte. Ltd.\nFinancing to be supported by bridge facility with Isla Verde Bank, acct 17-0X4-**82, subject to CRBP single borrower limits.\nBoard to approve execution of the Share Purchase Agreement and Underwriting Agreement; S h a r e   P u r c h a s e   A g r e e m e n t is definitive.\nMAC/MAE: No Material Adverse Change has occurred since Q1; absence of MAE is a condition precedent, and this is not a MAC.\nHR/tax: retention RSUs to 14 key employees, gross-up for fringe benefits tax; payroll to coordinate BID remittances; update privacy notices under the Data Privacy Act.\nInternal research note: projected FY26 EBITDA uplift +18% post-offer; sensitivity assumes no tariff hike; not for public circulation.\nPublic-source reference: per Manila Ledger 2024-02-03 article on power sector capex, peer averages are stable; this sentence is non-proprietary.\nIR draft link http://ir.azucenacapital.ph/d/17C?draft=Y&k=1a-9z-4x; doccode AZC-IR-2026-0715; O C R br e ak rn rn.\nClosing checklist: LSE-PH listing notice, PSC pre-effective clearance, tax clearance certificate, CRBP FX rules if proceeds held offshore, KYC refresh for Coral Reef Partners.\nlowercase project note: todo: align timelines with hr and finance, move the sprint demo to fri; bring spa-day raffle vouchers for wellness week.\nFor avoidance of doubt, despite market volatility this briefing is not guidance; all employees should use firstname.lastname@azucenacapital.ph aliases only.\nA cco un t na me: Az u c ena Ca p ital Offe r Pro c eeds Esc row; s ign at or y Ms. Lira Navotas; TIN 9xx-3x2-1x9 (placeholder only).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "false-positive bait; not Share Purchase Agreement"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "role noun used as a defined group; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "bank account name",
+      "matched_text": "A cco un t na me: Az u c ena Ca p ital Offe r Pro c eeds Esc row",
+      "reason": "May be a bank account holder/reference name; not clearly covered by allowed rules and refers to an entity rather than a person."
+    },
+    {
+      "concept": "internal document code",
+      "matched_text": "AZC-IR-2026-0715",
+      "reason": "Could function as an internal or tracking identifier; not mapped to a defined PII rule."
+    },
+    {
+      "concept": "confidential URL/token",
+      "matched_text": "http://ir.azucenacapital.ph/d/17C?draft=Y&k=1a-9z-4x",
+      "reason": "Contains a draft flag and possible access token; URLs are not covered by allowed rules but may imply sensitive access."
+    },
+    {
+      "concept": "cross-border transfer",
+      "matched_text": "CRBP FX rules if proceeds held offshore",
+      "reason": "Indicates offshore handling; relevant to cross-border activity but not clearly a personal data transfer event."
+    },
+    {
+      "concept": "KYC data processing",
+      "matched_text": "KYC refresh for Coral Reef Partners",
+      "reason": "Implies identity verification/processing; no specific PII values present and not mapped to a listed privacy-event marker."
+    },
+    {
+      "concept": "privacy notice update",
+      "matched_text": "update privacy notices under the Data Privacy Act",
+      "reason": "Indicates a privacy compliance action; not directly covered by consent/minimisation/transfer markers."
+    }
+  ]
+}

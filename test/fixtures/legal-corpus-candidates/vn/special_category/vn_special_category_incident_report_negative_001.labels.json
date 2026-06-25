@@ -1,0 +1,153 @@
+{
+  "doc_id": "vn_special_category_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "VN",
+  "destination_jurisdiction": "VN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cco@apm.vn"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@hoaviet-bank.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cco@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NV-4382"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "tình trạng sức khỏe: điều trị tăng huyết áp"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "tình trạng sức khỏe: điều trị tăng huyết áp"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusPay API",
+      "reason": "Product/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "DragonShield WAF",
+      "reason": "Product/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "CloudRồng Vault",
+      "reason": "Service/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "ZeroTrust Nguồn Tre 2.1",
+      "reason": "Product/version name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Bamboo ERP – An toàn dữ liệu",
+      "reason": "Process/policy/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Minh bạch Thịnh Vượng 2025",
+      "reason": "Policy/slogan; not PII or MNPI."
+    },
+    {
+      "matched_text": "Khu công nghệ Hiệp Phú",
+      "reason": "Place name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Số CCCD: null",
+      "reason": "Null placeholder for ID; no actual PII value present."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Mã tài khoản nội bộ: ACC-12X34-000",
+      "concept": "internal account identifier",
+      "reason": "Could be a customer or staff account number (PII) if linked to a person; text states not linked to a specific person."
+    },
+    {
+      "matched_text": "Mã định danh giao dịch hiển thị dạng giả lập: TX-00X-APM-789A",
+      "concept": "transaction/session ID",
+      "reason": "May identify an individual's transaction if associated with a person; here described as simulated and not linked to a person."
+    },
+    {
+      "matched_text": "dữ liệu này đã được cô lập và xóa khỏi gói log dùng cho phân tích",
+      "concept": "erasure/minimisation",
+      "reason": "Describes deletion of personal data; a privacy-event control but already completed, which may be out-of-scope for strict markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
+}

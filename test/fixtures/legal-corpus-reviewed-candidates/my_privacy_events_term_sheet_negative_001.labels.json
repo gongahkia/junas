@@ -1,0 +1,296 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status. Current strict tier was realigned after SA/US precision guards; ideal_must_detect preserves removed strict spans for gap review.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_privacy_events_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_term_sheet_negative_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_privacy_events_term_sheet_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "global_stale_strict_realign": {
+      "reason": "Current precision guards suppress these spans; strict must_detect was realigned while ideal_must_detect preserved the broader auto-label signal.",
+      "removed_must_detect": [
+        {
+          "category": "PII",
+          "matched_text": "DSAR",
+          "rule": "consent_withdrawal_marker"
+        }
+      ],
+      "reviewed_at": "2026-06-05T15:14:44Z",
+      "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json"
+    },
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-05T15:14:44Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed strategic acquisition by Orion Accretive Berhad (Main Market, Bursa Malaysia) of 70% equity in Kelana Digital Utilities Sdn Bhd via subscription and purchase.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security and audits: No known personal data breach or leak has been identified in public audit summaries for the last 24 months; this statement is not an admission of liability.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Facilities to be arranged by Blue Parakeet Bank Berhad; no bank account numbers or payment identifiers are provided or required by this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed strategic acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@orionaccretive.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer of limited HR/payroll fields to a group processor outside Malaysia has been approved",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect only necessary fields (e.g., Name, NRIC/Passport, role, start date)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed strategic acquisition by Orion Accretive Berhad (Main Market, Bursa Malaysia) of 70% equity in Kelana Digital Utilities Sdn Bhd via subscription and purchase",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70% equity",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive financial projections",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider trading prohibitions",
+      "rule": "tipping_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed strategic acquisition by Orion Accretive Berhad (Main Market, Bursa Malaysia) of 70% equity in Kelana Digital Utilities Sdn Bhd via subscription and purchase.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security and audits: No known personal data breach or leak has been identified in public audit summaries for the last 24 months; this statement is not an admission of liability.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Facilities to be arranged by Blue Parakeet Bank Berhad; no bank account numbers or payment identifiers are provided or required by this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet: Proposed strategic acquisition by Orion Accretive Berhad (Main Market, Bursa Malaysia) of 70% equity in Kelana Digital Utilities Sdn Bhd via subscription and purchase.\nScope and basis: Indicative and non-binding (save for exclusivity and confidentiality); references only public/stale information already announced on Bursa LINK on 14 May 2026 (Ref: OAB/IA/0000).\nConsideration and structure: Final price mechanism to be determined by audited FY2024 EBITDA and customary completion accounts; no price-sensitive figures are set out herein.\nConditions precedent: Shareholders\u2019 approval, compliance with Bursa Listing Requirements, any required notifications to the Securities Commission Malaysia, and no material adverse change.\nNo undisclosed MNPI: Parties confirm compliance with CMSA insider trading prohibitions; data room excludes unpublished price-sensitive financial projections and contains only redacted, policy-level materials.\nPDPA framework: Data Processing Addendum (Schedule PDPA-1) applies, incorporating data minimisation and purpose limitation; onboarding forms collect only necessary fields (e.g., Name, NRIC/Passport, role, start date).\nRetention and erasure policy: Records retained under documented schedules (7 years or as required by Malaysian law); erasure workflows exist but there are no pending erasure requests as at this term sheet date.\nDSAR handling: Access/correction requests are processed via dpo@orionaccretive.my with standard SLAs; no open DSARs affect the Target or Completion.\nData export approval: Cross-border transfer of limited HR/payroll fields to a group processor outside Malaysia has been approved by the Company\u2019s Data Governance Committee under PDPA s129 safeguards (Approval DX-0000, dated 02/2026).\nConsent withdrawal: Where consent is relied upon, the withdrawal mechanism in Schedule PDPA-2 applies; no consent withdrawals impacting diligence have been received.\nDPA schedules: Annex A (permitted data categories), Annex B (authorised recipients/sub-processors), Annex C (retention triggers); no live deviations or waivers have been granted.\nSecurity and audits: No known personal data breach or leak has been identified in public audit summaries for the last 24 months; this statement is not an admission of liability.\nEmployment and notices: No transfer of employment is triggered on Completion; existing PDPA notices remain valid and will be refreshed post-Completion as a policy update only.\nFinancing: Facilities to be arranged by Blue Parakeet Bank Berhad; no bank account numbers or payment identifiers are provided or required by this term sheet.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Completion",
+      "reason": "Capitalized transactional milestone/role term, not PII/MNPI data."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role noun; not a personal name or MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role noun for an entity; not PII/MNPI."
+    },
+    {
+      "matched_text": "no price-sensitive figures are set out herein",
+      "reason": "Negated MNPI statement indicating absence of sensitive figures."
+    },
+    {
+      "matched_text": "no bank account numbers or payment identifiers are provided or required by this term sheet",
+      "reason": "Negated PII statement indicating absence of bank/payment identifiers."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Records retained under documented schedules (7 years or as required by Malaysian law)",
+      "reason": "Indicates data retention period/policy relevant to PDPA, but no explicit retention rule enumerated."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "erasure workflows exist but there are no pending erasure requests as at this term sheet date",
+      "reason": "Mentions erasure workflows; relevant to PDPA erasure rights but not a listed rule."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "Access/correction requests are processed via dpo@orionaccretive.my with standard SLAs; no open DSARs affect the Target or Completion",
+      "reason": "DSAR handling reference; DSAR marker not explicitly in allowed rules."
+    },
+    {
+      "concept": "identity_document_reference",
+      "matched_text": "NRIC/Passport",
+      "reason": "References collection of national ID/passport fields without actual numbers; falls outside strict numeric ID rules."
+    },
+    {
+      "concept": "embargo_timing_reference",
+      "matched_text": "signing/Completion",
+      "reason": "Refers to announcement timing but lacks explicit markers like Signing Date/Closing Date."
+    }
+  ]
+}

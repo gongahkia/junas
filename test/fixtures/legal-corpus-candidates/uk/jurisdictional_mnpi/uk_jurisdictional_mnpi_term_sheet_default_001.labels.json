@@ -1,0 +1,367 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 30,
+    "current_must_detect_count": 14,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 23,
+    "previous_must_detect_count": 12,
+    "previous_must_not_detect_count": 3
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hawthorn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eliza.hawthorn@britanniafinserv.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@britanniafinserv.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Recommended Acquisition of Northbridge Payments plc by Britannia FinServ plc",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure outside wall-crossed investors and advisers",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed recipients only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC definitions",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Target signing of a definitive SPA by 28 June 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cleansing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "court-sanctioned scheme of arrangement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Fully underwritten bridge and term facilities",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity until 15 July 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a33.2 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "break fee",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Proposed Recommended Acquisition of Northbridge Payments plc by Britannia FinServ plc.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: Approval by both sets of shareholders, ALA eligibility and prospectus approval, clearance by the Crown Takeover Council and Crown Competition Bureau, and customary regulatory and antitrust approvals.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Fully underwritten bridge and term facilities provided by Thamesgate Bank plc and Harbour & Mews Capital Ltd; the pricing grid, leverage covenants, and MAC definitions are not public and constitute inside information limited to wall-crossed recipients only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality and updates: Given Britannia\u2019s free float and average daily volume, any revision to consideration exceeding 1.5% or any addition/removal of financing conditions is likely material to the issuer and will require prompt IAS notification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal protections: Exclusivity until 15 July 2026, customary no-shop, and a break fee of \u00a33.2 million subject to ALA guidance on indemnities and the Crown Takeover Council\u2019s consent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "eliza.hawthorn@britanniafinserv.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hawthorn",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Proposed Recommended Acquisition of Northbridge Payments plc by Britannia FinServ plc.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: Approval by both sets of shareholders, ALA eligibility and prospectus approval, clearance by the Crown Takeover Council and Crown Competition Bureau, and customary regulatory and antitrust approvals.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Fully underwritten bridge and term facilities provided by Thamesgate Bank plc and Harbour & Mews Capital Ltd; the pricing grid, leverage covenants, and MAC definitions are not public and constitute inside information limited to wall-crossed recipients only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality and updates: Given Britannia\u2019s free float and average daily volume, any revision to consideration exceeding 1.5% or any addition/removal of financing conditions is likely material to the issuer and will require prompt IAS notification.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal protections: Exclusivity until 15 July 2026, customary no-shop, and a break fee of \u00a33.2 million subject to ALA guidance on indemnities and the Crown Takeover Council\u2019s consent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a33.2 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed investors",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Proposed Recommended Acquisition of Northbridge Payments plc by Britannia FinServ plc.\nConsideration: 212 pence in cash plus 0.18 new Britannia FinServ shares per Northbridge share; new shares to be admitted to the Official List of the Albion Listing Authority (ALA) and to trading on the Londinium Securities Exchange Main Market.\nStructure: To be implemented by a court-sanctioned scheme of arrangement under applicable UK company law, with an alternative contractual offer at Britannia\u2019s election.\nConditions precedent: Approval by both sets of shareholders, ALA eligibility and prospectus approval, clearance by the Crown Takeover Council and Crown Competition Bureau, and customary regulatory and antitrust approvals.\nFinancing: Fully underwritten bridge and term facilities provided by Thamesgate Bank plc and Harbour & Mews Capital Ltd; the pricing grid, leverage covenants, and MAC definitions are not public and constitute inside information limited to wall-crossed recipients only.\nDisclosure and announcement: This term sheet contains inside information for Britannia FinServ plc; an announcement via the Issuer Announcement Service (IAS) will be made prior to 7:00 a.m. UK time on signing, with no selective disclosure outside wall-crossed investors and advisers.\nClosed periods and dealing restrictions: PDMRs and all staff on the insider list are subject to blackout windows and may not deal in the securities of either issuer until cleansing occurs following the IAS announcement.\nMateriality and updates: Given Britannia\u2019s free float and average daily volume, any revision to consideration exceeding 1.5% or any addition/removal of financing conditions is likely material to the issuer and will require prompt IAS notification.\nTimetable: Target signing of a definitive SPA by 28 June 2026; IAS announcement the same day before market open; shareholder circular to be posted within 14 days under ALA Listing Rule XR 10.4; long-stop date 30 September 2026.\nPublicly available information: As disclosed in Northbridge Payments plc\u2019s IAS notice dated 3 May 2026 announcing its strategic review, the board commenced a formal sale process; this reference is public and not MNPI.\nStale or broad information: The Guild of Retail FinTechs issued a broad press release on 1 March 2026 regarding contactless limits, which is public and not issuer-specific, and Britannia\u2019s 2024 Annual Report (published 12 April 2026 via IAS) noted an 18.2% EBITDA margin; included for background only.\nEmployee and integration matters: No compulsory redundancies are currently envisaged for Northbridge staff for at least 6 months post-completion, with consultation conducted in line with UK employment practices.\nDeal protections: Exclusivity until 15 July 2026, customary no-shop, and a break fee of \u00a33.2 million subject to ALA guidance on indemnities and the Crown Takeover Council\u2019s consent.\nConduct of business: Northbridge will operate in the ordinary course and refrain from dividends, share buy-backs, or material contracts outside the ordinary course without Britannia\u2019s consent, save as required by applicable law or regulator.\nMiscellaneous: The canteen refurbishment at Britannia\u2019s Leambridge office will proceed in July and has no bearing on the transaction or disclosure obligations.\nQueries: Lead contact Ms. Eliza Hawthorn, Chief Financial Officer, email eliza.hawthorn@britanniafinserv.co.uk; all external enquiries to be routed to Britannia FinServ Investor Re",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eliza Hawthorn, Chief Financial Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hawthorn, Chief Financial Officer, email eliza.hawthorn@britanniafinserv.co.uk",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "public and not MNPI",
+      "reason": "Explicitly stated as public information; not MNPI per document."
+    },
+    {
+      "matched_text": "public and not issuer-specific",
+      "reason": "Broad public press-release reference; not issuer-specific MNPI."
+    },
+    {
+      "matched_text": "18.2% EBITDA margin",
+      "reason": "Stale public information from published Annual Report; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "timeline gate",
+      "matched_text": "long-stop date 30 September 2026",
+      "reason": "Material transaction milestone but not an enumerated embargo marker term."
+    },
+    {
+      "concept": "PDMR dealing restrictions",
+      "matched_text": "PDMRs",
+      "reason": "UK MAR-relevant role designation; no explicit rule category provided."
+    },
+    {
+      "concept": "UK disclosure mechanism",
+      "matched_text": "Issuer Announcement Service (IAS)",
+      "reason": "Regulatory disclosure channel; relevant to public/non-public status but not an explicit rule."
+    },
+    {
+      "concept": "definitive agreement label variant",
+      "matched_text": "Heads of Terms",
+      "reason": "Document-type indicator akin to a term sheet but not listed in definitive agreement rule variants."
+    },
+    {
+      "concept": "financing covenant MNPI",
+      "matched_text": "pricing grid",
+      "reason": "Precise financing terms are inside information but not mapped to a specific MNPI sub-rule."
+    },
+    {
+      "concept": "financing covenant MNPI",
+      "matched_text": "leverage covenants",
+      "reason": "Covenant terms are inside information but not mapped to a specific MNPI sub-rule."
+    }
+  ]
+}

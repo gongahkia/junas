@@ -1,0 +1,388 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_special_category_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+82-02-123-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-0419",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ara Jeong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. So",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Example anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic and by Hanstream Cloud KR for backup, under contractual safeguards and breach notification to the competent securities authority if required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This notice also applies to investors who sign up for Aurora Pay dividend payouts and SoriWatch alerts, but does not apply to fan clubs or the Haneul Thunder sports schedule.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nothing in this notice is a political football; however, political opinions you voluntarily disclose on internal social platforms are deleted after 30 days unless required for investigation of a code-of-conduct concern.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@mokdan-semi.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@mokdan-semi.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dae-hoon Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee No. E-0419",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric face template for gate access",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a recent occupational health report indicating hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dues-paying member of the Orion Fab Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "important information not yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. So-yeon Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "important information not yet publicly disclosed under FSCMA",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list roles",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked resident-number",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "79XX01-2XXXXXX",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "political opinions you voluntarily disclose",
+      "rule": "political_opinion"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+82-02-123-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-0419",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ara Jeong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. So",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Example anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Example anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic and by Hanstream Cloud KR for backup, under contractual safeguards and breach notification to the competent securities authority if required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This notice also applies to investors who sign up for Aurora Pay dividend payouts and SoriWatch alerts, but does not apply to fan clubs or the Haneul Thunder sports schedule.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nothing in this notice is a political football; however, political opinions you voluntarily disclose on internal social platforms are deleted after 30 days unless required for investigation of a code-of-conduct concern.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-02-123-0000, 17-3 Haneul-ro, Seongwon-gu, Haneul City, Boram-do 09999, Republic of Korea.\nWe process personal data of employees, contractors, and investor-relations (IR) contacts for HR management, deal execution, and exchange disclosure obligations consistent with the Capital Markets Act (FSCMA) on material nonpublic information.\nIdentifiable fields may include name, resident-number for identity verification, employment details, payroll data, and insider-list roles relating to important information not yet publicly disclosed.\nExample anchor: Mr. Dae-hoon Lim (Employee No. E-0419) \u2014 resident-number: 79XX01-2XXXXXX, biometric face template for gate access, and a recent occupational health report indicating hypertension; he is recorded as a dues-paying member of the Orion Fab Workers Union solely for payroll deduction and compliance.\nExample anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.\nWe do not collect genetic data, except where an employee voluntarily submits a medical certificate; however, our engineers may reference genetic algorithms in software documentation.\nAccess to MNPI is strictly need-to-know; IR drafts, insider lists, and deal rooms are restricted until filings are made public on the Haneul Stock Exchange (HSE) portal and via press release.\nTransfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic and by Hanstream Cloud KR for backup, under contractual safeguards and breach notification to the competent securities authority if required.\nRetention: insider lists and pre-deal communications are retained 5 years after public disclosure; employee health surveillance records are retained 3 years under workplace safety guidance; biometric templates are deleted within 30 days of separation.\nData subject rights (PIPA): you may request access, correction, deletion, or suspension via privacy@mokdan-semi.example.kr or DPO Ms. So",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contacts for HR management, deal execution, and exchange disclosure obligations consistent with the Capital Markets Act (FSCMA) on material nonpublic information.\nIdentifiable fields may include name, resident-number for identity verification, employment details, payroll data, and insider-list roles relating to important information not yet publicly disclosed.\nExample anchor: Mr. Dae-hoon Lim (Employee No. E-0419) \u2014 resident-number: 79XX01-2XXXXXX, biometric face template for gate access, and a recent occupational health report indicating hypertension; he is recorded as a dues-paying member of the Orion Fab Workers Union solely for payroll deduction and compliance.\nExample anchor: Ms. Ara Jeong (IR officer) \u2014 maintains draft earnings call scripts and an acquisition term sheet for Greenpeak Robotics Co. that constitute important information not yet publicly disclosed under FSCMA.\nWe do not collect genetic data, except where an employee voluntarily submits a medical certificate; however, our engineers may reference genetic algorithms in software documentation.\nAccess to MNPI is strictly need-to-know; IR drafts, insider lists, and deal rooms are restricted until filings are made public on the Haneul Stock Exchange (HSE) portal and via press release.\nTransfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic and by Hanstream Cloud KR for backup, under contractual safeguards and breach notification to the competent securities authority if required.\nRetention: insider lists and pre-deal communications are retained 5 years after public disclosure; employee health surveillance records are retained 3 years under workplace safety guidance; biometric templates are deleted within 30 days of separation.\nData subject rights (PIPA): you may request access, correction, deletion, or suspension via privacy@mokdan-semi.example.kr or DPO Ms. So-yeon Park at dpo@mokdan-semi.example.kr; we respond within 10 business days.\nWe may need to verify identity with a masked resident-number and a one-time code; an unreasonable or manifestly unfounded request may be refused with written reasons.\nThis notice also applies to investors who sign up for Aurora Pay dividend payouts and SoriWatch alerts, but does not apply to fan clubs or the Haneul Thunder sports schedule.\nOur Open Horizon Inclusion Policy uses plain language about sexual orientation and religion as general DEI topics without recording such attributes unless you expressly provide them for accommodations.\nNothing in this notice is a political football; however, political opinions you voluntarily disclose on internal social platforms are deleted after 30 days unless required for investigation of a code-of-conduct concern.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Aurora Pay",
+      "reason": "Product/service name, not PII or MNPI"
+    },
+    {
+      "matched_text": "SoriWatch",
+      "reason": "Product/service name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Haneul Thunder",
+      "reason": "Sports team/schedule reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "Open Horizon Inclusion Policy",
+      "reason": "Policy name (generic DEI prose), not PII or MNPI"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI reference not tied to an identifiable person"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic DEI reference not tied to an identifiable person"
+    },
+    {
+      "matched_text": "political football",
+      "reason": "Metaphor, not a special-category personal data reference"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "retention marker",
+      "matched_text": "insider lists and pre-deal communications are retained 5 years after public disclosure",
+      "reason": "Retention schedule is privacy-relevant but no explicit retention rule is provided in allowed list"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "employee health surveillance records are retained 3 years under workplace safety guidance",
+      "reason": "Retention of health records is privacy-relevant but no explicit retention rule is provided"
+    },
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "biometric templates are deleted within 30 days of separation",
+      "reason": "Deletion timeframe is privacy-relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "DSAR rights",
+      "matched_text": "you may request access, correction, deletion, or suspension",
+      "reason": "Data subject rights/erasure are privacy-relevant but no explicit DSAR rule is provided"
+    },
+    {
+      "concept": "DSAR SLA",
+      "matched_text": "we respond within 10 business days",
+      "reason": "Response SLA is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "concept": "breach notification obligation",
+      "matched_text": "breach notification to the competent securities authority if required",
+      "reason": "Regulatory breach notification is compliance-relevant but not clearly covered by an allowed MNPI/PII rule"
+    }
+  ]
+}

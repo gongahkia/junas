@@ -1,0 +1,380 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_quasi_identifiers_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/quasi_identifiers/us_quasi_identifiers_incident_report_default_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_quasi_identifiers_incident_report_default_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dhale@averishealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "877-555-0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-03-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1970-01-01",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon Carver",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mina Caldwell",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Carver",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1986-03-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SID:b7f4-9c2e-77aa",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AVH-IT-0441",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@averishealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investorrelations@averishealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1970-01-01",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MRN prefixes P-00",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "-3.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "-3.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure concerns under Reg FD and Rule 10b-5",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "West Ormond, NM via VPN node vpn-west-02 using device AVH-IT-0441 (Zevon T490) and corporate email dhale@averishealthbank.com",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1970-01-01, ZIP 12345, and device S-0000-TEST",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S-0000-TEST",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 30\u201339, ZIP prefix 606, device model ZetaPhone 11, employer size 1\u201350",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct ****4829",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "****3107",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "misrouted email auto-forwarded a restricted ShareBox link",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft investor deck",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary unaudited Q3 HSA deposit growth",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "was not broadly disseminated",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clinic consolidation plans",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if trading were to occur",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential Item 8.01 Form 8\u2011K",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mina Caldwell, Interim CISO, initiated containment at 10:42 ET by revoking SID:b7f4-9c2e-77aa, disabling auto-forward rules on dhale@averishealthbank.com, and rotating API keys tied to app role hb-support-rw.\nWe notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dhale@averishealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "877-555-0142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-03-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1970-01-01",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Leon Carver",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mina Caldwell",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Carver",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Hale (DOB 1986-03-14), Senior Systems Administrator, logged in from West Ormond, NM via VPN node vpn-west-02 using device AVH-IT-0441 (Zevon T490) and corporate email dhale@averishealthbank.com.\nA phishing page captured Mr. Hale\u2019s session token (SID:b7f4-9c2e-77aa) and was used for 23 minutes to view 27 masked HSA summaries (acct ****4829, ****3107) and 14 clinic lab order headers (site code NM-OR-12; MRN prefixes P-00).\nNo full SSNs, complete account numbers, diagnoses, or lab results were opened, but names and dates were redacted at the UI layer rather than at the API.\nA separate misrouted email auto-forwarded a restricted ShareBox link to Mr. Leon Carver, an analyst at Westridge Analytics, containing a draft investor deck with preliminary unaudited Q3 HSA deposit growth (-3.1% to -3.6%) and tentative clinic consolidation plans.\nThe link was active for 17 minutes and was not broadly disseminated, creating potential selective disclosure concerns under Reg FD and Rule 10b-5 if trading were to occur.\nDr. Mina Caldwell, Interim CISO, initiated containment at 10:42 ET by revoking SID:b7f4-9c2e-77aa, disabling auto-forward rules on dhale@averishealthbank.com, and rotating API keys tied to app role hb-support-rw.\nWe notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer.\nAdditional separated attributes observed in anonymized metrics\u2014age 30\u201339, ZIP prefix 606, device model ZetaPhone 11, employer size 1\u201350\u2014are aggregated and cannot be linked to an individual record.\nFor clarity, no patient treatment decisions, loan decisions, or ACH transfers were executed from the compromised session, and core banking ledgers at Braddon Trust Bank, N.A. (our internal processing sandbox) were isolated.\nAs of now, we assess limited exposure of quasi-identifiers relating to Mr. Hale (DOB, role, device tag, location, email, session ID) and limited exposure of masked account metadata, but no unmasked PHI or GLBA account data.\nTo mitigate Reg FD risk, we have scheduled a broad webcast and will furnish public slides with the same preliminary metrics within 24 hours; Mr. Carver confirmed deletion and no further dissemination.\nContact: privacy@averishealthbank.com or investorrelations@averishealthbank.com for additional information; customers may also call 877-555-0142",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The incident originated when Mr. Darius Hale (DOB 1986-03-14), Senior Systems Administrator, logged in from West Ormond, NM via VPN node vpn-west-02 using device AVH-IT-0441 (Zevon T490) and corporate email dhale@averishealthbank.com.\nA phishing page captured Mr. Hale\u2019s session token (SID:b7f4-9c2e-77aa) and was used for 23 minutes to view 27 masked HSA summaries (acct ****4829, ****3107) and 14 clinic lab order headers (site code NM-OR-12; MRN prefixes P-00).\nNo full SSNs, complete account numbers, diagnoses, or lab results were opened, but names and dates were redacted at the UI layer rather than at the API.\nA separate misrouted email auto-forwarded a restricted ShareBox link to Mr. Leon Carver, an analyst at Westridge Analytics, containing a draft investor deck with preliminary unaudited Q3 HSA deposit growth (-3.1% to -3.6%) and tentative clinic consolidation plans.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We notified our HIPAA Privacy Officer and GLBA Safeguards Coordinator; notifications to state privacy regulators (including California\u2019s CCPA) and to the federal market regulator regarding a potential Item 8.01 Form 8\u2011K are under evaluation.\nInventory review shows a non-personal example row in a training file with DOB 1970-01-01, ZIP 12345, and device S-0000-TEST; this illustrative data was not part of the incident and does not identify any consumer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "West Ormond, NM",
+      "reason": "Location of login is a weak identifier and part of a quasi-identifier cluster but not a standalone rule."
+    },
+    {
+      "concept": "system host identifier",
+      "matched_text": "vpn-west-02",
+      "reason": "Internal hostname/node may identify a user's connection but lacks a dedicated rule."
+    },
+    {
+      "concept": "facility/site code",
+      "matched_text": "site code NM-OR-12",
+      "reason": "Operational code not clearly mapped to a PII rule but could be linkable in context."
+    },
+    {
+      "concept": "device model",
+      "matched_text": "Zevon T490",
+      "reason": "Device model is a weak attribute; not directly covered as device_serial_number."
+    },
+    {
+      "concept": "postal code",
+      "matched_text": "ZIP 12345",
+      "reason": "US ZIP alone is a weak identifier and not covered by a specific rule."
+    },
+    {
+      "concept": "postal prefix",
+      "matched_text": "ZIP prefix 606",
+      "reason": "Aggregated ZIP prefix is a weak identifier without a specific rule."
+    },
+    {
+      "concept": "age band",
+      "matched_text": "age 30\u201339",
+      "reason": "Age band is aggregated and not a direct date_of_birth; weak identifier."
+    },
+    {
+      "concept": "device model",
+      "matched_text": "device model ZetaPhone 11",
+      "reason": "Device model is a weak attribute and not directly mapped to a rule."
+    },
+    {
+      "concept": "aggregated employer size",
+      "matched_text": "employer size 1\u201350",
+      "reason": "Aggregated attribute is not directly PII but could be a quasi-identifier in combination."
+    },
+    {
+      "concept": "internal role identifier",
+      "matched_text": "hb-support-rw",
+      "reason": "Internal application role may be linkable to an employee but lacks a specific rule."
+    }
+  ]
+}

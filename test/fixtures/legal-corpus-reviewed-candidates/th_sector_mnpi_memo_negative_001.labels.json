@@ -1,0 +1,303 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "TH",
+    "doc_id": "th_sector_mnpi_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/th/sector_mnpi/th_sector_mnpi_memo_negative_001.txt",
+    "source_jurisdiction": "TH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/th_sector_mnpi_memo_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Positive MNPI \u2014 financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA\u2011compliant stock exchange announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@om\u2011pcl.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid adding personal emails",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data fields are redacted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no personal files are attached",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "please do not include personal data beyond role titles",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG-linked revolving credit facility",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-signing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under negotiation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only the Treasury, Legal, and IR role groups are wall\u2011crossed",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Positive MNPI \u2014 financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA\u2011compliant stock exchange announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board and Compliance Committee, Orchid Meridian Public Company Limited (OM\u2011PCL)\nSubject: PDPA/SEA compliance update on training materials using crypto/ESG/cyber/insider-list/information-barrier vocabulary; no price-sensitive content except as noted\n\nCrypto (marketing): Q3 brochure for \u201cOM Crypto Rewards\u201d describes wallet hygiene and merchant QR acceptance as educational content only; no token issuance, no exchange listing, and no revenue guidance.\nESG/climate (public): Our 2025 emissions target and solar retrofit milestones are already in the One Profile (public), and the sustainability KPIs used in supplier scorecards are unchanged.\nCyber (tabletop): IT ran a tabletop exercise and phishing drill; there is no reportable incident, outage, or customer data loss; only playbook updates ensued.\nInsider-list (policy): The training deck uses placeholder roles (e.g., \u201cCFO\u201d, \u201cIR\u201d) without names, and the sample insider list is a blank form; PDPA reminder to avoid adding personal emails until an actual deal trigger.\nInformation-barrier/blackout (education): The quarterly refresher reiterates wall-crossing procedures, tipping prohibitions, and a standard blackout window example; these are policy examples, not live restrictions.\nCross-border docs (operations): Template NDAs and a draft DPA with Cloud Strata Services Sdn. Bhd. (fictional, MY) are procedural; data fields are redacted and retain Thai PDPA controller\u2013processor clauses.\nEmployment (PDPA): HR is updating the consent form and privacy notice; training uses generic employee ID placeholders and no personal files are attached.\nCommercial terms (benign): Procurement\u2019s published \u201cStandard Trading Terms v3.2\u2011TH\u201d clarifies payment cycles and service levels; no counterparty-specific pricing or exclusivity is included.\nPositive MNPI \u2014 financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA\u2011compliant stock exchange announcement.\nDisclosure planning: If executed, we will prepare a current report and update the One Profile; until then, only the Treasury, Legal, and IR role groups are wall\u2011crossed and will be added to the insider list at signing.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Notice of Blackout Period \u2014 Sample",
+      "reason": "Template/example; not a live blackout restriction"
+    },
+    {
+      "matched_text": "OM\u2011ISIN\u2011THXX0000",
+      "reason": "Dummy code; not a live securities identifier or PII/MNPI"
+    },
+    {
+      "matched_text": "CUS\u2011TH\u2011000X",
+      "reason": "Dummy code; not a live securities identifier or PII/MNPI"
+    },
+    {
+      "matched_text": "wall-crossing procedures",
+      "reason": "Educational policy example; not a live information barrier event"
+    },
+    {
+      "matched_text": "tipping prohibitions",
+      "reason": "Educational policy example; not a live tipping risk"
+    },
+    {
+      "matched_text": "Insider-list (policy)",
+      "reason": "Section header/policy context; not a live insider list event"
+    },
+    {
+      "matched_text": "OM Crypto Rewards",
+      "reason": "Marketing/educational content; not MNPI"
+    },
+    {
+      "matched_text": "Token Vault",
+      "reason": "Internal sandbox reference; not a launch/ICO/listing signal"
+    },
+    {
+      "matched_text": "2025 emissions target",
+      "reason": "Already public per One Profile; not MNPI"
+    },
+    {
+      "matched_text": "minor VPN patch",
+      "reason": "Public/stale operational note; not a cyber incident MNPI"
+    },
+    {
+      "matched_text": "employee ID",
+      "reason": "Placeholder mention only; not an actual identifier"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "Cross-border docs (operations)",
+      "reason": "References cross-border documentation but does not clearly indicate a live personal-data transfer."
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "draft DPA with Cloud Strata Services Sdn. Bhd. (fictional, MY)",
+      "reason": "Suggests potential overseas processing arrangement; unclear if any live transfer of personal data is occurring."
+    },
+    {
+      "concept": "consent/notice update",
+      "matched_text": "HR is updating the consent form and privacy notice",
+      "reason": "Indicates changes to consent/notice documents but not a live consent withdrawal, DSAR, erasure, or retention event."
+    }
+  ]
+}

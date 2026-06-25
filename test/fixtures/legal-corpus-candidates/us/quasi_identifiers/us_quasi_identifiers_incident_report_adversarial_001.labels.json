@@ -1,0 +1,276 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 23,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "jpike@hearthstone-capital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lgarner@everwell-care.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonas Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Luis Garner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Dalton",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To address potential Reg FD exposure, IR will post a press release with the same ranges and trial context and furnish a contemporaneous current report under federal securities law by 08:30 ET prior to market open; no forward-looking guidance beyond what will be broadly disclosed is authorized.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project note (non\u2011determinative): move \u201cq2-readout\u201d to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-source references (e.g., prior conference posters and last quarter\u2019s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@everwell-care.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1\u2011833\u2011555\u20110190",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "08/14/1986",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 39",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EW\u2011LG\u2011021",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to a covered market actor",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Luis Garner (fictional) \u2014 Endpoint Administrator at Everwell Therapeutics, Inc., based in North Braxton, PA 00091 \u2014 b. 08/14/1986 (age 39), signed in from device EW\u2011LG\u2011021 (Windows 11), account lgarner@everwell-care.com, via VPN sess\u2011 8 3 4 1 \u2011A9, desk ext x4128, and misapplied a \u201cexternal edit\u201d policy to the IR folder",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sess\u2011 8 3 4 1 \u2011A9",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/1979",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "identified a misconfiguration that exposed a cloud folder to an external research domain for 23 minutes",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "are preparing broad public disclosure",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially material non-public information",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "jpike@hearthstone-capital.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lgarner@everwell-care.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jonas Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Luis Garner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Dalton",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To address potential Reg FD exposure, IR will post a press release with the same ranges and trial context and furnish a contemporaneous current report under federal securities law by 08:30 ET prior to market open; no forward-looking guidance beyond what will be broadly disclosed is authorized.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project note (non\u2011determinative): move \u201cq2-readout\u201d to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-source references (e.g., prior conference posters and last quarter\u2019s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A OneDrive link labeled IR-Preview_Q2.xlsx and Trial_Apollo_Readout.pptx was auto-shared to jpike@hearthstone-capital.example (Mr. Jonas Pike, equity analyst, fictional) when an invite template was reused from a prior non-deal roadshow.\nContent included preliminary ranges for Q2 net interest income from HSA custodial accounts and an early, not-yet-public clinical response rate (62% at n=128) for Program Apollo; this is potentially material non-public information under Regulation FD and raises Rule 10b-5 concerns regarding selective disclosure to a covered market actor.\nWe immediately revoked the link, preserved access logs, and are preparing broad public disclosure; trading operations are normal and a halt is not anticipated absent further developments.\nThe folder also contained an operational export (GLBA/HIPAA-adjacent) listing patient age bands, 3\u2011digit ZIPs, benefit card BINs truncated to last 4, and device models; no full names, no SSNs, and no diagnosis codes were present, and under CCPA/HIPAA/GLBA this data may be reasonably linkable only in combination.\nMr. Luis Garner (fictional) \u2014 Endpoint Administrator at Everwell Therapeutics, Inc., based in North Braxton, PA 00091 \u2014 b. 08/14/1986 (age 39), signed in from device EW\u2011LG\u2011021 (Windows 11), account lgarner@everwell-care.com, via VPN sess\u2011 8 3 4 1 \u2011A9, desk ext x4128, and misapplied a \u201cexternal edit\u201d policy to the IR folder.\nAssociated artifacts include app token D E: AD: BE: EF: 00:12 (application key string, not a device identifier) and a reset URL https://portal.everwell-care.com/reset?uid=af 4 2 - 7 0 9 &ts=1726 0 5 used to revoke the share; the audit trail shows outbound traffic to hearthstone-capital.example for 4 file previews, no downloads.\nSimilar weak identifiers exist elsewhere in the corpus without linkage to a person (e.g., DOB month-year 03/1979; ZIP3 606; device \u201ciOS 17\u201d; account ending \u2022\u20227310; session code R- 1 9 0 - B), and these alone should not be treated as identifying.\nProxy and CASB logs confirm only jpike@hearthstone-capital.example accessed the link; the analyst viewed chart thumbnails but did not authenticate into any internal system, and we see no lateral movement.\nWe did not collect SSNs or device MAC addresses in this workflow; \u201cMAC\u201d in our tickets refers to mandatory access control, not media access control; product names \u201cEndpoint Shield 4.2\u201d and \u201cOrion EHR Bridge\u201d appear in logs as configuration labels only.\nMs. Priya Dalton (fictional), Chief Risk Officer, approved initial notification under our incident playbook; questions may be sent to compliance@everwell-care.com or 1\u2011833\u2011555\u20110190 (fictional).\nTo address potential Reg FD exposure, IR will post a press release with the same ranges and trial context and furnish a contemporaneous current report under federal securities law by 08:30 ET prior to market open; no forward-looking guidance beyond what will be broadly disclosed is authorized.\nCustomer communications under GLBA and business-associate obligations will note that only age bands, ZIP3, device model, and truncated payment card BINs were in scope; we have initiated mailing suppression to avoid duplicate notices across households.\nproject note (non\u2011determinative): move \u201cq2-readout\u201d to a separate channel after redteam re-check; this line is generic workflow guidance and contains no consumer or patient data.\nPublic-source references (e.g., prior conference posters and last quarter\u2019s earnings deck) were cited in the draft slides for benchmarking; these citations do not constitute new MNPI and will remain intact after redaction.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC",
+      "reason": "Acronym for mandatory access control here; not a device MAC address."
+    },
+    {
+      "matched_text": "Trial_Apollo_Readout.pptx",
+      "reason": "Filename; not a 'Project <Name>' transaction codename."
+    },
+    {
+      "matched_text": "project note",
+      "reason": "Lowercase phrase; not a 'Project <CapitalizedName>' transaction codename."
+    },
+    {
+      "matched_text": "Program Apollo",
+      "reason": "Program name; not a 'Project <Name>' transaction codename."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "mac_address lookalike",
+      "matched_text": "D E: AD: BE: EF: 00:12",
+      "reason": "Colon-delimited hex resembles a MAC address but is explicitly an application key string, not a device identifier."
+    },
+    {
+      "concept": "bank/account last4 lookalike",
+      "matched_text": "account ending \u2022\u20227310",
+      "reason": "Could be a truncated financial or customer account number; category ambiguous from context."
+    },
+    {
+      "concept": "weak geolocation",
+      "matched_text": "ZIP3 606",
+      "reason": "3-digit ZIP is a quasi-identifier that may be linkable in combination but has no dedicated rule."
+    },
+    {
+      "concept": "device/OS version",
+      "matched_text": "iOS 17",
+      "reason": "OS version can be a weak device identifier but is not covered by an allowed rule."
+    },
+    {
+      "concept": "internal session/code",
+      "matched_text": "R- 1 9 0 - B",
+      "reason": "Internal code shown as an example of a weak identifier not linked to a person; may resemble an internal_session_id but is not person-linked here."
+    },
+    {
+      "concept": "phone extension",
+      "matched_text": "desk ext x4128",
+      "reason": "Extension may identify an employee but phone extensions are not an allowed phone_number category."
+    },
+    {
+      "concept": "planned disclosure timing",
+      "matched_text": "by 08:30 ET prior to market open",
+      "reason": "Time of intended public disclosure is sensitive operationally but is not an explicit embargo marker per allowed rules."
+    }
+  ]
+}

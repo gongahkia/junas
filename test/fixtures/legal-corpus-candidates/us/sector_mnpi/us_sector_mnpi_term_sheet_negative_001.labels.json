@@ -1,0 +1,277 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 27,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 13,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "inquiries@syndicate.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Unsecured convertible notes and a non-exclusive revenue cycle optimization partnership focused on telehealth diagnostics; no financing amount stated in this summary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists and Blackouts: Issuer to maintain an insider list and impose blackout windows around earnings; template to be provided, no individual names in this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cybersecurity: Parties will conduct tabletop exercises; no customer PII will be shared pre-close; security attestations to rely on SOC 2 reports provided via a secure data room.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to analysts or investors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer has identified a recent security incident in a non-production environment under forensic review that has not yet been publicly disclosed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not yet been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@meditherm.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@crownmeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-00-0000",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234-XXXX-7890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional MNPI carve-out",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not shared privately with analysts",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side research may receive only publicly available materials",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD policies apply",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no customer PII will be shared pre-close",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "protected health information to remain de-identified",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "inquiries@syndicate.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Unsecured convertible notes and a non-exclusive revenue cycle optimization partnership focused on telehealth diagnostics; no financing amount stated in this summary.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists and Blackouts: Issuer to maintain an insider list and impose blackout windows around earnings; template to be provided, no individual names in this term sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cybersecurity: Parties will conduct tabletop exercises; no customer PII will be shared pre-close; security attestations to rely on SOC 2 reports provided via a secure data room.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet \u2014 Proposed Strategic Collaboration and Convertible Notes between Meditherm Diagnostics, Inc. (DE, SEC registrant) and Crown Meridian Bank, N.A. (U.S. banking organization).\nTransaction: Unsecured convertible notes and a non-exclusive revenue cycle optimization partnership focused on telehealth diagnostics; no financing amount stated in this summary.\nPurpose: Fund cloud migration and patient scheduling upgrades; partnership to provide non-advisory operational analytics and treasury solutions.\nTenor/Conversion: Market-standard U.S. convertible note mechanics to be negotiated; no pricing or cap included in this draft.\nConditions Precedent: Board approvals, customary diligence, HIPAA-compliant BAAs, GLBA information-security review, and any required banking notices.\nRegulatory/Disclosure: Reg FD policies apply; no selective disclosure to analysts or investors; public updates, if material, to be made via Form 8-K and press release.\nInformation Barriers: Bank to maintain information-barrier controls between research, sales and trading, and advisory; employees must complete annual e-learning.\nInsider Lists and Blackouts: Issuer to maintain an insider list and impose blackout windows around earnings; template to be provided, no individual names in this term sheet.\nCybersecurity: Parties will conduct tabletop exercises; no customer PII will be shared pre-close; security attestations to rely on SOC 2 reports provided via a secure data room.\nIntentional MNPI carve-out: Issuer has identified a recent security incident in a non-production environment under forensic review that has not yet been pub",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not a person or PII/MNPI value"
+    },
+    {
+      "matched_text": "Bank",
+      "reason": "Role-noun defined term, not a person or PII/MNPI value"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not a person or PII/MNPI value"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "SEC reporting channel",
+      "matched_text": "Form 8-K",
+      "reason": "Signals material event disclosure mechanism but not explicitly covered by a specific allowed rule name."
+    },
+    {
+      "concept": "health data compliance gating",
+      "matched_text": "HIPAA-compliant BAAs",
+      "reason": "Legally significant privacy compliance requirement but not mapped to an allowed PII/MNPI rule."
+    },
+    {
+      "concept": "banking data security compliance",
+      "matched_text": "GLBA information-security review",
+      "reason": "Regulatory control relevant to sensitive financial data but not a defined allowed rule."
+    }
+  ]
+}

@@ -1,0 +1,508 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 26,
+    "old_ideal_must_detect_count": 30,
+    "old_must_detect_count": 26,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 3,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al Qasir",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID: EID-FIC-7429-1188",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rami.alq@palmcircuit.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Darwish",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "leila.darwish@cgres.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zayed Qatani",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "z.qatani@falcon-grove.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "has Type 1 diabetes managed by insulin therapy",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "has Type 1 diabetes managed by insulin therapy",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris-scan biometric template ID BIO-IX-7712",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declares he is not a member of any trade union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "identifies his religious affiliation as Shafi\u2019i Muslim",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ADGM Commercial Licence CL-ADGM-55421",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DIFC Fund Licence DF-FND-88310",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Trade Licence TL-DIFC-009876-FIC",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al Qasir",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until public announcement via an SCA-compliant channel",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a blackout applies",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation, and minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no political party roles or donations are declared by him",
+      "rule": "political_opinion"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data room to include redacted/sanitised special-category fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID copies to be masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing is restricted",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CL-ADGM-55421",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DIFC-009876-FIC",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Palm Circuit Payments DIFC Ltd by Saffron Harbour Technologies ADGM Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 80% of the issued shares for AED 62,500,000 (cash) plus an earn-out; completion subject to UAE SCA notification, ADGM FSRA change-of-control clearance (if applicable), DIFC Registrar filings, and PDPL-compliant processing; the information herein constitutes MNPI until a formal announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key Person data for diligence: Mr. Rami Al Qasir (CEO) has Type 1 diabetes managed by insulin therapy, and he consents to limited processing of this health data solely for transaction due diligence under the PDPL.\nSpecial-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rami.alq@palmcircuit.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "leila.darwish@cgres.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "z.qatani@falcon-grove.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CL-ADGM-55421",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DIFC-009876-FIC",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al Qasir",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al Qasir",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al Qasir",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Darwish",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zayed Qatani",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Palm Circuit Payments DIFC Ltd by Saffron Harbour Technologies ADGM Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 80% of the issued shares for AED 62,500,000 (cash) plus an earn-out; completion subject to UAE SCA notification, ADGM FSRA change-of-control clearance (if applicable), DIFC Registrar filings, and PDPL-compliant processing; the information herein constitutes MNPI until a formal announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Palm Circuit Payments DIFC Ltd by Saffron Harbour Technologies ADGM Ltd\nTransaction: Buyer to acquire 80% of the issued shares for AED 62,500,000 (cash) plus an earn-out; completion subject to UAE SCA notification, ADGM FSRA change-of-control clearance (if applicable), DIFC Registrar filings, and PDPL-compliant processing; the information herein constitutes MNPI until a formal announcement.\nParties: Buyer \u2014 Saffron Harbour Technologies ADGM Ltd (ADGM Commercial Licence CL-ADGM-55421); Seller \u2014 Falcon Grove Ventures SPC (DIFC Fund Licence DF-FND-88310); Key Person \u2014 Mr. Rami Al Qasir (Emirates ID: EID-FIC-7429-1188).\nTarget: Palm Circuit Payments DIFC Ltd (Trade Licence TL-DIFC-009876-FIC), registered office: Unit 17, Al Noor District, Dubai International Financial Centre, UAE; principal products include CloudSpice Wallet v3 and PearlPay Switch.\nKey Person data for diligence: Mr. Rami Al Qasir (CEO) has Type 1 diabetes managed by insulin therapy, and he consents to limited processing of this health data solely for transaction due diligence under the PDPL.\nSpecial-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation.\nContact details: rami.alq@palmcircuit.example; family origin recorded as Emirati\u2013Moroccan for HR/KYC in DIFC; no political party roles or donations are declared by him.\nMechanics: Exclusivity 60 days; Long Stop Date 30 November 2026; earn-out equal to 20% of EBITDA if the issuer lists on the GulfBridge Exchange (an ADGM-recognised venue) within 18 months of completion.\nMNPI and conduct: Until public announcement via an SCA-compliant channel, all recipients are wall-crossed and added to the insider list; dealing is restricted under ADGM Market Abuse Regulations and SCA Market Conduct rules; a blackout applies from signing to publication.\nConditions precedent: PDPL-compliant customer consent refresh; FSRA no-objection letter; DIFC Registrar update of controllers; data room to include redacted/sanitised special-category fields; Emirates ID copies to be masked in all shared documents.\nWarranties: No sanctions or AML deficiencies; CloudSpice Wallet v3 conforms to local tokenisation and PCI-equivalent specs; sports sponsorship with the Desert Falcons youth club is non-exclusive and not material to revenue.\nPolicies and DEI: Buyer operates an Open Doors Policy and an Inclusion First Policy; sexual orientation is referenced here only in a generic policy context and not about any person.\nBenign language: Even if, metaphorically, the camel outruns the caravan in the Al Waha Corridor, performance obligations remain measured by the signed covenants.\nNotices: Buyer legal contact \u2014 Ms. Leila Darwish, General Counsel, Crescent Gate Legal LLP, leila.darwish@cgres.example; Seller contact \u2014 Mr. Zayed Qatani, z.qatani@falcon-grove.example.\nConfidentiality and PDPL: This term sheet is confidential; each party will implement UAE PDPL safeguards (privacy notices, RoPA, DPT assessments) and avoid exporting special-category data outside the UAE without lawful basis.\nGoverning law: Non-binding except for confidentiality, PDPL/MNPI undertakings, exclusivity, and costs; governing law of ADGM; disputes to ADGM Courts or the Gulf Arbitration Centre (DIFC) by mutual electi",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Special-category and biometric data: Mr. Al Qasir is enrolled for building access with an iris-scan biometric template ID BIO-IX-7712, declares he is not a member of any trade union, and identifies his religious affiliation as Shafi\u2019i Muslim; all such data will be processed with explicit consent, purpose limitation, and minimisation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Leila Darwish, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Palm Circuit Payments DIFC Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term for a company"
+    },
+    {
+      "matched_text": "Key Person",
+      "reason": "Defined role label, not PII by itself"
+    },
+    {
+      "matched_text": "CloudSpice Wallet v3",
+      "reason": "Product name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "PearlPay Switch",
+      "reason": "Product name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Open Doors Policy",
+      "reason": "Generic policy name bait"
+    },
+    {
+      "matched_text": "Inclusion First Policy",
+      "reason": "Generic policy name bait"
+    },
+    {
+      "matched_text": "Desert Falcons",
+      "reason": "Sports team/sponsorship bait"
+    },
+    {
+      "matched_text": "Al Waha Corridor",
+      "reason": "Place/metaphor bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "the camel outruns the caravan",
+      "reason": "Metaphorical phrase bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic policy context, not about a person"
+    },
+    {
+      "matched_text": "GulfBridge Exchange",
+      "reason": "Venue name, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ethnicity/family origin",
+      "matched_text": "family origin recorded as Emirati\u2013Moroccan",
+      "reason": "Sensitive PII under PDPL context but no explicit allowed rule for ethnicity/family-origin"
+    },
+    {
+      "concept": "cross-border transfer control",
+      "matched_text": "avoid exporting special-category data outside the UAE without lawful basis",
+      "reason": "Cross-border transfer restriction is relevant but phrased as a prohibition; allowed rule may exclude negated controls"
+    },
+    {
+      "concept": "consent refresh",
+      "matched_text": "PDPL-compliant customer consent refresh",
+      "reason": "Consent-related processing is relevant but no allowed rule for general consent (only withdrawal marker)"
+    },
+    {
+      "concept": "data transfer assessment (PDPL)",
+      "matched_text": "DPT assessments",
+      "reason": "Legally relevant privacy assessment; acronym may be confused with digital token rules and not covered by allowed markers"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_quasi_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1992-10-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MH-TA-4472",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "49%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MH-LT-09-3F",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account ending 4411",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "one treasury analyst at My Hoa Petrochem JSC, born 1992-10-03, office location Ward 7, Binh Thanh District, Ho Chi Minh City, internal employee ID MH-TA-4472, company laptop asset tag MH-LT-09-3F, payroll account ending 4411 at Thu Do Community Bank",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not submit personal documents to the role mailbox",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cleansed through public disclosure before investor briefings",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative size: Approximately VND [xx,xxx,xxx] (illustrative), final terms to be aligned with market conditions; this is not a pricing confirmation and should not be relied upon as valuation guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "MH-TA-4472",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-10-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative size: Approximately VND [xx,xxx,xxx] (illustrative), final terms to be aligned with market conditions; this is not a pricing confirmation and should not be relied upon as valuation guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "49%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Key staff retention (positive identifiers for workflow testing): one treasury analyst at My Hoa Petrochem JSC, born 1992-10-03, office location Ward 7, Binh Thanh District, Ho Chi Minh City, internal employee ID MH-TA-4472, company laptop asset tag MH-LT-09-3F, payroll account ending 4411 at Thu Do Community Bank; no individual salary disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Strategic Investment in My Hoa Petrochem JSC (a Vietnamese joint stock company), for discussion purposes under Vietnam Enterprise Law conventions.\nParties: Investor\u2014Sunrise Mekong Capital LP; Issuer\u2014My Hoa Petrochem JSC; the intention to pursue a private placement was publicly announced on 15 January of the prior year and referenced in the Issuer\u2019s annual report.\nTransaction: Private placement of convertible bonds, subject to registration under Vietnamese securities regulations and compliance with HOSE listing rules; no commitment to pricing until formal approval.\nIndicative size: Approximately VND [xx,xxx,xxx] (illustrative), final terms to be aligned with market conditions; this is not a pricing confirmation and should not be relied upon as valuation guidance.\nUse of proceeds: Upgrades to the Long An production facility and environmental improvements; these projects were disclosed in the Q4 operational update and at a publicly webcast investor briefing.\nConditions precedent: Corporate approvals, customary legal opinions, and regulatory filings; the parties confirm no reliance on inside information beyond publicly filed documents and announced plans.\nKey staff retention (positive identifiers for workflow testing): one treasury analyst at My Hoa Petrochem JSC, born 1992-10-03, office location Ward 7, Binh Thanh District, Ho Chi Minh City, internal employee ID MH-TA-4472, company laptop asset tag MH-LT-09-3F, payroll account ending 4411 at Thu Do Community Bank; no individual salary disclosed.\nInformation covenants: Quarterly updates and ad hoc notices consistent with Vietnam Securities Law; any potentially material non-public information will be cleansed through public disclosure before investor briefings.\nForm fields (placeholders only): Tax ID: 000-0-000; Enterprise Registration No.: ERN-XX-000000; Account No.: 00-XYZ-000000; Device ID: DEV-000-XYZ; these values are invalid and not intended to identify any person.\nPublic disclosure: The Issuer has published draft bond terms on its website and notes that the transaction timeline is indicative and may be adjusted; previous board resolutions have been posted to the public repository.\nListing and conversion: Conversion shares to be admitted to trading on HOSE, subject to exchange approval; foreign ownership limit remains at 49% as previously disclosed, with no change contemplated.\nData protection: Processing of personal data will comply with Vietnam\u2019s Decree 13; any personal data examples in this document are non-attributable and included solely to test internal compliance steps.\nCommunications: General enquiries via ir@myhoa.example.vn and the public helpline 1800-000-000; do not submit personal documents to the role mailbox.\nGoverning law and non-binding nature: Vietnamese law governs; this term sheet is non-binding except for expenses and governing law, and it reflects public, already announced information to avoid inadvertent MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ir@myhoa.example.vn",
+      "reason": "Role mailbox; not associated with an identifiable individual"
+    },
+    {
+      "matched_text": "1800-000-000",
+      "reason": "Public helpline; not an individual's phone number"
+    },
+    {
+      "matched_text": "Tax ID: 000-0-000",
+      "reason": "Explicit placeholder; not identifying any person"
+    },
+    {
+      "matched_text": "Enterprise Registration No.: ERN-XX-000000",
+      "reason": "Explicit placeholder/company identifier; not personal data"
+    },
+    {
+      "matched_text": "Account No.: 00-XYZ-000000",
+      "reason": "Explicit placeholder; not identifying any person"
+    },
+    {
+      "matched_text": "Device ID: DEV-000-XYZ",
+      "reason": "Explicit placeholder; not identifying any person"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role noun/defined party label, not a person\u2019s name"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined party label, not a person\u2019s name"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/defined party label, not a person\u2019s name"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "location as PII",
+      "matched_text": "Ward 7, Binh Thanh District, Ho Chi Minh City",
+      "reason": "Work location can help identify a specific person when combined with other attributes; no explicit address rule provided for VN"
+    },
+    {
+      "concept": "material_event",
+      "matched_text": "Conversion shares to be admitted to trading on HOSE",
+      "reason": "Admission to trading can be a material listing event but is presented as planned/subject to approval and likely public; not clearly within strict MNPI rules"
+    }
+  ]
+}

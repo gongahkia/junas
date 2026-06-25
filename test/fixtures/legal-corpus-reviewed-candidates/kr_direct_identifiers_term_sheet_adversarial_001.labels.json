@@ -1,0 +1,366 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_direct_identifiers_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_direct_identifiers_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "h.jang@crescentcap.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "713-84-20957",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-10-8455-0032",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AL7902331",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "452-771-009312",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Jang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Joon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Purchase of 8,200,000 common shares and KRW 40,000,000,000 convertible bonds at KRW 4,880 per share, subject to FSCMA compliance and KRX consent; closing conditions apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Bank details for Closing: Gyeongcheon Bank account 452-771-009312 (beneficiary: Seonghae Microsystems); SWFT: GCBKKR22 (label only, not an actual SWIFT).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory filings: FSC/FSS pre-review, DART submission before Closing; information herein constitutes MNPI until posted on DART and acknowledged by KRX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 40,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 4,880",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "713-84-20957",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Joon-ki Ryu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 4,880 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,200,000 common shares",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "920101-1 23 4567",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7 13-8 4-20 957",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "h . j a n g @ c r e s c e n t c a p . c o . k r",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "82 - 10 - 84 55 - 0032",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ms.jang%40crescentcap.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no open posting prior to KRX acknowledgment",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "h.jang@crescentcap.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "713-84-20957",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-10-8455-0032",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AL7902331",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "452-771-009312",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Jang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Joon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Purchase of 8,200,000 common shares and KRW 40,000,000,000 convertible bonds at KRW 4,880 per share, subject to FSCMA compliance and KRX consent; closing conditions apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Bank details for Closing: Gyeongcheon Bank account 452-771-009312 (beneficiary: Seonghae Microsystems); SWFT: GCBKKR22 (label only, not an actual SWIFT).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory filings: FSC/FSS pre-review, DART submission before Closing; information herein constitutes MNPI until posted on DART and acknowledged by KRX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 40,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 4,880",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,200,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "FSS review",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "713-84-20957 (S e o n g r i m Tax O f f i c e); Registered Address: 12F, Namgye Plaza, Songrim-dong, Seongrim-si, Gyeonggi-do 17400.\nInvestor: Crescent Capital Partners L.P.; Contact: Ms. Hana Jang, IR Lead; email: h.jang@crescentcap.co.kr; phone: +82-10-8455-0032.\nTransaction: Purchase of 8,200,000 common shares and KRW 40,000,000,000 convertible bonds at KRW 4,880 per share, subject to FSCMA compliance and KRX consent; closing conditions apply.\nUse of proceeds: expansion of Aurora-Line batteries (product name), working capital; no change to employment terms; Compliance Officer (role-only) to monitor KR labor law impacts.\nBank details for Closing: Gyeongcheon Bank account 452-771-009312 (beneficiary: Seonghae Microsystems); SWFT: GCBKKR22 (label only, not an actual SWIFT).\nKey Person: Mr. Joon-ki Ryu (CTO); Resident registration no.: 920101-1 23 4567 (invalid checksum, HR onboarding mockup only, not for DART filing); KR passport: AL7902331",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Equity and CB Investment in Seonghae Microsystems Co., Ltd. (KR issuer) \u2014 draft for FSC/FSS review and KRX listing committee consideration.\nIssuer: Seonghae Microsystems Co., Ltd.; Company BRN (\uc0ac\uc5c5\uc790\ub4f1\ub85d\ubc88\ud638): 713-84-20957 (S e o n g r i m Tax O f f i c e); Registered Address: 12F, Namgye Plaza, Songrim-dong, Seongrim-si, Gyeonggi-do 17400.\nInvestor: Crescent Capital Partners L.P.; Contact: Ms. Hana Jang, IR Lead; email: h.jang@crescentcap.co.kr; phone: +82-10-8455-0032.\nTransaction: Purchase of 8,200,000 common shares and KRW 40,000,000,000 convertible bonds at KRW 4,880 per share, subject to FSCMA compliance and KRX consent; closing conditions apply.\nUse of proceeds: expansion of Aurora-Line batteries (product name), working capital; no change to employment terms; Compliance Officer (role-only) to monitor KR labor law impacts.\nBank details for Closing: Gyeongcheon Bank account 452-771-009312 (beneficiary: Seonghae Microsystems); SWFT: GCBKKR22 (label only, not an actual SWIFT).\nKey Person: Mr. Joon-ki Ryu (CTO); Resident registration no.: 920101-1 23 4567 (invalid checksum, HR onboarding mockup only, not for DART filing); KR passport: AL7902331 (fictional); home office: 17-2 Baekchon-gil, Seongrim-si, Gyeonggi-do 17402.\nRegulatory filings: FSC/FSS pre-review, DART submission before Closing; information herein constitutes MNPI until posted on DART and acknowledged by KRX.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-defined party term, not a person"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role-defined party term, not a person"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role title, not a named individual"
+    },
+    {
+      "matched_text": "Key Person",
+      "reason": "Role label, not PII by itself"
+    },
+    {
+      "matched_text": "Public Helpdesk 1555",
+      "reason": "Generic helpline, not living-individual PII"
+    },
+    {
+      "matched_text": "info@issuer.co.kr",
+      "reason": "Generic mailbox placeholder, not personal PII"
+    },
+    {
+      "matched_text": "+82-2-000-0000",
+      "reason": "Template switchboard/placeholder, not real personal number"
+    },
+    {
+      "matched_text": "TAX ID: 000-00-00000",
+      "reason": "Placeholder form text, not a real identifier"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "postal_address (KR)",
+      "matched_text": "12F, Namgye Plaza, Songrim-dong, Seongrim-si, Gyeonggi-do 17400",
+      "reason": "Street address of a company; address PII not covered by an explicit allowed rule here."
+    },
+    {
+      "concept": "home_address (KR)",
+      "matched_text": "home office: 17-2 Baekchon-gil, Seongrim-si, Gyeonggi-do 17402",
+      "reason": "Home/office address of a named individual; address PII lacks a specific allowed rule."
+    },
+    {
+      "concept": "company_number",
+      "matched_text": "KRCORP-00931-SSM",
+      "reason": "Company identifier may be sensitive in context but not mapped to an allowed rule."
+    },
+    {
+      "concept": "swift_bic_code",
+      "matched_text": "GCBKKR22",
+      "reason": "Bank identifier code present but no allowed rule for SWIFT/BIC."
+    },
+    {
+      "concept": "nonpublic_draft_marker",
+      "matched_text": "draft for FSC/FSS review and KRX listing committee consideration",
+      "reason": "Signals nonpublic draft status; useful MNPI context but not a defined marker rule."
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_direct_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_direct_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "482-916-374-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-001",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PA1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0012-3456-7890",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "julio.manahan@mabuhay-renewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-filings@mabuhay-renewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 927 555 0100",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8555 0101",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julio P. Manahan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TIN-123-456-789-001",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Acct: 0 0 1 2 3 4 5 6 7 8 9 0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "d p o @ m a b u h a y - r e n e w a b l e s . p h",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Atty. Lira C. Dayo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-00921",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-77123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julio",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Engineer",
+      "rule": "transaction_codename"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "julio.manahan@mabuhay-renewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec-filings@mabuhay-renewables.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-00921",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 927 555 0100",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-77123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 2 8555 0101",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-916-374-000",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-001",
+      "rule": "ph_tin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julio",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Engineer",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Example record element: Mr. Julio P. Manahan (Project Engineer), TIN 123-456-789-001 (invalid checksum flag), PH Passport No. PA1234567 (expired 2023), Bank Acct No. 0012-3456-7890 at Isla Commercial Bank, Corp email julio.manahan@mabuhay-renewables.ph",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123 Tindalo St., Brgy. San Lorenzo, Makati City 1227",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "911",
+      "reason": "Public helpline number; not personal data"
+    },
+    {
+      "matched_text": "8888 Citizens\u2019 Complaint Center",
+      "reason": "Public helpline reference; not PII"
+    },
+    {
+      "matched_text": "SSS No.: 00-0000000-0",
+      "reason": "Explicit placeholder example; not actual PII"
+    },
+    {
+      "matched_text": "Passport: P<PHL<<________",
+      "reason": "Explicit placeholder MRZ; not actual passport data"
+    },
+    {
+      "matched_text": "HR Head",
+      "reason": "Role-only title, not a named person"
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Role-only title, not a named person"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; exclude per rule 8"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Generic column label; not PII"
+    },
+    {
+      "matched_text": "ID No",
+      "reason": "Generic column label; not PII"
+    },
+    {
+      "matched_text": "Account No",
+      "reason": "Generic column label; not PII"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "company_registration_number",
+      "matched_text": "MRH-2021-12345",
+      "reason": "PH SEC registration number (corporate identifier) not covered by an explicit allowed rule"
+    },
+    {
+      "concept": "local_government_clearance_number",
+      "matched_text": "BGY-SLZ-2026-00921",
+      "reason": "Barangay Clearance No. is a local government ID not mapped to an allowed rule"
+    },
+    {
+      "concept": "mayors_permit_number",
+      "matched_text": "MKT-2026-77123",
+      "reason": "Local business permit identifier not in allowed rules"
+    },
+    {
+      "concept": "facility_plant_code",
+      "matched_text": "MRH-LAG-02",
+      "reason": "Internal facility code; potential identifier but no matching rule"
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "Unit 1203 Salcedo Tower, 123 Tindalo St., Brgy. San Lorenzo, Makati City 1227, Philippines",
+      "reason": "Full PH address is identifying but there is no generic postal address rule for PH"
+    },
+    {
+      "concept": "obfuscated_postal_address",
+      "matched_text": "M a k a t i  C i t y  1 2 2 7",
+      "reason": "Obfuscated city/postal text indicates address info without a matching rule"
+    },
+    {
+      "concept": "tracking_url_with_identifier",
+      "matched_text": "https://portal.mrh.ph/case/lookup?ref=SEC17C&emp=TIN-123-456-789-001",
+      "reason": "Case tracking URL embeds a TIN; URLs are not mapped to an allowed rule"
+    },
+    {
+      "concept": "internal_ticket_id",
+      "matched_text": "MRHI-IR-2026-0515",
+      "reason": "Internal incident/ticket reference; not covered by current rules"
+    },
+    {
+      "concept": "autonomous_system_number",
+      "matched_text": "AS64555",
+      "reason": "Network ASN related to incident forensics; not mapped to allowed MNPI/PII rules"
+    }
+  ]
+}

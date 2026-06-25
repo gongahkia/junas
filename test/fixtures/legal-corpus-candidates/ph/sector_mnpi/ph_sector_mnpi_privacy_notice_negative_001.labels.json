@@ -1,0 +1,206 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@islanova.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@islanova.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier program",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement green token issuance",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not to be shared until public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked payroll/account tokens",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "anonymization follows deletion where feasible",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal data",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@islanova.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal data",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IslaNova Capital Holdings, Inc. Privacy Notice and DSAR Workflow (PH)\nWe process personal data under the Data Privacy Act of 2012 (RA 10173) for HR, payroll, tax compliance, banking operations, and capital-markets services for our Philippine issuer group.\nPII collected may include employee reference IDs, corporate email aliases, role titles, office location tags, masked payroll/account tokens, and audit logs, from which identity may be apparent when combined with other data.\nWe do not request government ID images via chat or email; uploads are only accepted through our DPO-managed secure portal.\nDSARs may be lodged via dpo@islanova.example or the Service Desk form; we verify identity through role-based checks and respond within RA 10173 and its IRR timelines.\nData may be transferred to processors at Makiling Tech Park and to our cloud subprocessor \u201cAuroraCompute PH-2,\u201d subject to standard contractual safeguards, encryption at rest, and access control.\nRetention: HR files 5 years post-separation, tax workpapers 10 years, trading system logs 7 years, and crypto operations training materials 2 years; anonymization follows deletion where feasible.\nOperational use of terms such as crypto, ESG/climate, blackout, information barrier, tipping, and commercial terms in training modules is educational and not market-sensitive.\nExample: our ESG/climate glossary explains \u201csustainability-linked token\u201d as a product concept without referencing any issuer timetable or pricing.\nWe maintain an information-barrier program separating research, markets, and advisory units; exception requests require DPO and Compliance Gate approval.\nA pre-announcement green token issuance and its draft commercial terms are accessible only to staff on the insider list for MDX-PH preparatory filing, and are not to be shared until public disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto",
+      "reason": "Educational/marketing context; not market-sensitive"
+    },
+    {
+      "matched_text": "ESG/climate",
+      "reason": "Educational glossary mention; not market-sensitive"
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational mention; no active blackout period referenced"
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Educational mention; not an actual tipping risk statement"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: HR files 5 years post-separation, tax workpapers 10 years, trading system logs 7 years, and crypto operations training materials 2 years",
+      "reason": "Retention is a privacy-event marker but no explicit allowed rule name for retention in the list"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSARs may be lodged via dpo@islanova.example or the Service Desk form; we verify identity through role-based checks and respond within RA 10173 and its IRR timelines",
+      "reason": "DSAR handling is a privacy-event marker but there is no explicit DSAR rule name in the allowed list"
+    },
+    {
+      "concept": "dpt_pre_listing_marker",
+      "matched_text": "MDX-PH preparatory filing",
+      "reason": "Suggests a token pre-filing context but not explicitly mapped to a DPT pre-listing rule by string pattern"
+    }
+  ]
+}

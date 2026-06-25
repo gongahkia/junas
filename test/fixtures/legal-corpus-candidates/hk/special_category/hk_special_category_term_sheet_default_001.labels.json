@@ -1,0 +1,449 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Celia Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Fiona Cheung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Victor Pang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealroom@harborzenith.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "victor.pang@orchidpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes treatment plan",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes treatment plan",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "registered facial-recognition access template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "observes Buddhist religious holidays",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "is a member of the Harbour Tech Workers\u2019 Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "29.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 4.20",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 4.20 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information restrictions",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information provisions",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no onward transfer of personal data outside Hong Kong without prior written approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced in the VDR",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to avoid speculative rumours",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subscription of new shares",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "secondary purchase",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "standstill at 29.9% for 18 months",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of new shares (19.9%) and secondary purchase (10.0%) from Blue Lattice Technology Limited (selling shareholder) for an aggregate post-closing holding of 29.9%.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Company to make announcement under Part XIVA of the Securities and Futures Ordinance and the Listing Rules upon signing; Takeovers Code not triggered as post-closing stake remains below 30%.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee representation: Ms. Celia Lau (Head of Operations) is a member of the Harbour Tech Workers\u2019 Union and observes Buddhist religious holidays; the Buyer will honour union facility time and reasonable accommodation post-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing covenants: Investor board seat; standstill at 29.9% for 18 months; non-solicitation of employees for 12 months; customary restrictive covenants.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Equity from Orchid Peak Capital Fund I and a vendor loan from Blue Lattice Technology Limited at 6.5% p.a.; no margin lending or pledged shares permitted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Sha",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "victor.pang@orchidpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Celia Lau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Fiona Cheung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Victor Pang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of new shares (19.9%) and secondary purchase (10.0%) from Blue Lattice Technology Limited (selling shareholder) for an aggregate post-closing holding of 29.9%.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: Company to make announcement under Part XIVA of the Securities and Futures Ordinance and the Listing Rules upon signing; Takeovers Code not triggered as post-closing stake remains below 30%.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employee representation: Ms. Celia Lau (Head of Operations) is a member of the Harbour Tech Workers\u2019 Union and observes Buddhist religious holidays; the Buyer will honour union facility time and reasonable accommodation post-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing covenants: Investor board seat; standstill at 29.9% for 18 months; non-solicitation of employees for 12 months; customary restrictive covenants.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Equity from Orchid Peak Capital Fund I and a vendor loan from Blue Lattice Technology Limited at 6.5% p.a.; no margin lending or pledged shares permitted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Sha",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 4.20",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "29.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of new shares (19.9%) and secondary purchase (10.0%) from Blue Lattice Technology Limited (selling shareholder) for an aggregate post-closing holding of 29.9%.\nPrice and consideration: HKD 4.20 per share, payable in cash at completion; any adjustment is price-sensitive and subject to applicable inside information restrictions.\nRegulatory: Company to make announcement under Part XIVA of the Securities and Futures Ordinance and the Listing Rules upon signing; Takeovers Code not triggered as post-closing stake remains below 30%.\nConditions precedent: Receipt of all necessary confirmations from the Hong Kong stock exchange and securities regulator, shareholder approvals (if required), no MAC, and completion of confirmatory due diligence.\nMNPI handling: Specific, non-public and price-sensitive information to be ring-fenced in the VDR; Investor acknowledges obligations under inside information provisions and the Company\u2019s disclosure controls and procedures.\nKey person: Mr. Adrian Tse (CTO) is critical to AuroraPay and Nimbus ERP product lines; he has a documented Type 1 diabetes treatment plan and a registered facial-recognition access template for the Quarry Bay data lab; consents obtained under the PDPO for VDR disclosure.\nEmployee representation: Ms. Celia Lau (Head of Operations) is a member of the Harbour Tech Workers\u2019 Union and observes Buddhist religious holidays; the Buyer will honour union facility time and reasonable accommodation post-closing.\nData protection: PDPO-compliant notices and consents for all personal data in the VDR, including special-category data as above; no onward transfer of personal data outside Hong Kong without prior written approval.\nPost-closing covenants: Investor board seat; standstill at 29.9% for 18 months; non-solicitation of employees for 12 months; customary restrictive covenants.\nFinancing: Equity from Orchid Peak Capital Fund I and a vendor loan from Blue Lattice Technology Limited at 6.5% p.a.; no margin lending or pledged shares permitted.\nAnnouncements and communications: Bilingual announcement draft within 5 business days of signing; no reference to sports sponsorships (including the Kowloon Kites) until completion to avoid speculative rumours.\nInterpretation aids: The deal is a lighthouse for future capital deployment, but metaphors do not modify risk factors; product code-names (AuroraPay, Nimbus ERP, DragonShield) are internal tags only.\nDEI policy: The Company\u2019s Inclusive Workforce Charter 2026 references religion, sexual orientation, and gender identity in general; this policy language is non-individual and does not describe any person.\nAssets and locations: Assets include the Tsim Sha Tsui showroom and the Quarry Bay data lab; no land premium issues; Investor will comply with the Fund Manager Code of Conduct where relevan",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "role-noun header/defined term"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "selling shareholder",
+      "reason": "role-noun (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "negated MAC reference (excluded by rule)"
+    },
+    {
+      "matched_text": "AuroraPay",
+      "reason": "product name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Nimbus ERP",
+      "reason": "product name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "DragonShield",
+      "reason": "product name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Kowloon Kites",
+      "reason": "sports team (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Tsim Sha Tsui",
+      "reason": "place name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Quarry Bay",
+      "reason": "place name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "lighthouse",
+      "reason": "metaphor (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Inclusive Workforce Charter 2026",
+      "reason": "policy name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Fund Manager Code of Conduct",
+      "reason": "policy name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "generic policy reference (non-individual)"
+    },
+    {
+      "matched_text": "gender identity",
+      "reason": "generic policy reference (non-individual)"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "generic policy reference (non-individual)"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "inside information announcement trigger",
+      "matched_text": "Part XIVA of the Securities and Futures Ordinance",
+      "reason": "Signals statutory HK inside information announcement obligations but not directly mapped to an allowed nonpublic marker rule term."
+    },
+    {
+      "concept": "embargo-like communications restriction",
+      "matched_text": "until completion",
+      "reason": "Timing restriction functions like a press hold but does not use the specific embargo keywords enumerated by the rules."
+    },
+    {
+      "concept": "consent status",
+      "matched_text": "consents obtained under the PDPO for VDR disclosure",
+      "reason": "Indicates consent processing, relevant to PDPO, but rules exclude already-completed controls from detection."
+    },
+    {
+      "concept": "standstill period",
+      "matched_text": "standstill at 29.9% for 18 months",
+      "reason": "Period restriction may be market-sensitive akin to a blackout, but not clearly covered by allowed blackout marker vocabulary."
+    }
+  ]
+}

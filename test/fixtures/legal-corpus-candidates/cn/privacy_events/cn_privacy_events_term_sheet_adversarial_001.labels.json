@@ -1,0 +1,446 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 22,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "9L3Q0ZB3T1K90012X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "5Y1Z0LQ3D7F88006M",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 60,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border telemetry",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@qincheng-ne.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.huai@qincheng-ne.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-09-2888-7000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lan Ziran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Huai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation checks",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID: 41*************18",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "37*************65",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 personal information (<14)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uSER_00l-O",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masking of res i d e n t  I D fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-09-2888-7000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Partial Acquisition between Zheyu SkyBridge Holdings (Linghai) Co., Ltd. (Unified Social Registry Code: 9L3Q0ZB3T1K90012X) and Qincheng Novel Energy Tech Co., Ltd. (Unified Social Registry Code: 5Y1Z0LQ3D7F88006M), with an option over Yucheng Sensors (Linghai) Co., Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Payment and milestones: Tranche A CNY 120,000,000 at closing; Tranche B CNY 60,000,000 upon customer acceptance of \u201cproject qingyao alpha\u201d; option exercise window closes 24 months after Tranche A.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Legal: This term sheet is non-binding except for confidentiality, data handling, governing law (Linghai Province), and dispute resolution before the Yunhe Arbitration Commission (fictional); closing targeted within 60 days of CP satisfaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "chen.huai@qincheng-ne.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-09-2888-7000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lan Ziran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Huai",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Partial Acquisition between Zheyu SkyBridge Holdings (Linghai) Co., Ltd. (Unified Social Registry Code: 9L3Q0ZB3T1K90012X) and Qincheng Novel Energy Tech Co., Ltd. (Unified Social Registry Code: 5Y1Z0LQ3D7F88006M), with an option over Yucheng Sensors (Linghai) Co., Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Payment and milestones: Tranche A CNY 120,000,000 at closing; Tranche B CNY 60,000,000 upon customer acceptance of \u201cproject qingyao alpha\u201d; option exercise window closes 24 months after Tranche A.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Legal: This term sheet is non-binding except for confidentiality, data handling, governing law (Linghai Province), and dispute resolution before the Yunhe Arbitration Commission (fictional); closing targeted within 60 days of CP satisfaction.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CNY 60,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Mr. Chen Huai, Chief Compliance Officer, +86-09-2888-7000 ext 931; chen.huai@qincheng-ne.example.cn; postal Tower 9, Jinghai New District, Linghai (fictional)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Investment and Partial Acquisition between Zheyu SkyBridge Holdings (Linghai) Co., Ltd. (Unified Social Registry Code: 9L3Q0ZB3T1K90012X) and Qincheng Novel Energy Tech Co., Ltd. (Unified Social Registry Code: 5Y1Z0LQ3D7F88006M), with an option over Yucheng Sensors (Linghai) Co., Ltd.\nTransaction: Investor subscribes CNY 180,000,000 of Series C Preferred Shares in the Issuer at a pre-money valuation of CNY 1,200,000,000; call option for 60% of Yucheng Sensors at 8x FY2027 audited net profit.\nConditions precedent: internal DPA schedule approval, Linghai Market Order Bureau filing (competition), and completion of data localisation checks per DSL/CSL; onboarding form review to confirm masking of res i d e n t  I D fields.\nInside information/MNPI: the Parties confirm no inside information remains following a pre-disclosure circular filed with Haihua Exchange (fictional) on 2026-05-28; no Material Adverse Change has occurred since 2026 Q1 management accounts, and \u201cMAC\u201d expressly excludes completed privacy notice rollouts.\nCross-border transfer: pseudonymised device telemetry to Yongzhou Analytics Cloud (Seaqiong) proceeded under Central Cyberspace Directorate of Linghai filing No. LH-CAC-2025-\u03b17; standard contract lodged and approval memo dated 2025-12-10 is on file.\nPrivacy workflows: two employee DSARs (refs: DSAR-2044 and DSAR-2045) answered within 15 working days; erasure executed for ex-intern Ms. Lan Ziran (ID: 41*************18) on 2026-04-22 under ticket ER-\u0394-3F4A, with audit log retained 6 months.\nConsent withdrawal: one customer withdrew consent for cross-border telemetry on 2026-05-03; exports for that profile halted and local-only processing enabled; retention shortened to 90 days for derived metrics tied to that profile.\nNegative control statement: no minors\u2019 personal information (<14) is processed in this transaction scope; any child-related templates in the DPA are policy-only and do not indicate live processing.\nEmployment workflows: HRIS \u201cRenHe Gate v4.2\u201d collects role, team, and contact only; bank info stored as alias tokens; onboarding forms include referee contacts and masked resident IDs (e.g., 37*************65); retention per HR-2026-07 is 3 years post-termination; minimisation checks completed monthly.\nData export approvals: Approval Memo LHCAD/CBT/2026/009 appended; note\u2014control is policy-only for payroll, and payroll data is not exported outside mainland PRC.\nIT note: device MAC addresses are not collected by default and \u201cnot a MAC capture workflow\u201d applies; investor deck relies on public-source product materials and excludes MNPI.\nData localisation: DSL-compliant storage confirmed for mapping caches (geo_cache_cn) in Linghai Region Node A; network routes for analytics mirroring use anonymised IDs only.\nPayment and milestones: Tranche A CNY 120,000,000 at closing; Tranche B CNY 60,000,000 upon customer acceptance of \u201cproject qingyao alpha\u201d; option exercise window closes 24 months after Tranche A.\nRepresentations: Issuer warrants PIPL-compliant notices presented to employees and customers; data subject rights channel active at privacy@qincheng-ne.example.cn and via portal https://datahub.qne-ex.example.cn/dsar?req=\u0394-2045.\nAccess to schedules: DPA Schedule available at https://dealroom.haihua-ex.example.cn/dpa?v=4.1&org=QNE-9L3Q0ZB3T1K90012X&sid=TS-2026-\u0394; Standard Contract and cross-border filings archived in folder \u201cCBT-\u03b17\u201d.\nIdentifiers and obfuscation: project code YN-\u03b2-7712; staff code uSER_00l-O; hashed issuer ID 77c1::ab9f::440e; file tag TS/QNE/ZSH/2026/\u03a3; USCC refs: 9L3Q0ZB3T1K90012X and 5Y1Z0LQ3D7F88006M.\nClarification for precision: no ongoing cross-border transfers occur for employee resident IDs; any historical export was completed and purged per ER-\u0394-204, and this sentence does not indicate a current privacy risk.\nContacts: Mr. Chen Huai, Chief Compliance Officer, +86-09-2888-7000 ext 931; chen.huai@qincheng-ne.example.cn; postal Tower 9, Jinghai New District, Linghai (fictional).\nLegal: This term sheet is non-binding except for confidentiality, data handling, governing law (Linghai Province), and dispute resolution before the Yunhe Arbitration Commission (fictional); closing targeted within 60 days of CP satisfaction.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Chen Huai, Chief Compliance Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "the Parties",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Defined-term abbreviation, not to be labeled as MNPI"
+    },
+    {
+      "matched_text": "project qingyao alpha",
+      "reason": "Not a transaction codename pattern (Project <Name>)"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR-2044",
+      "reason": "Data subject access request reference; event marker not in allowed rule list"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR-2045",
+      "reason": "Data subject access request reference; event marker not in allowed rule list"
+    },
+    {
+      "concept": "Erasure marker",
+      "matched_text": "erasure executed",
+      "reason": "Erasure event is a privacy handling event but not an allowed detection rule key"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "retention shortened to 90 days",
+      "reason": "Retention change is a privacy handling event but not an allowed detection rule key"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "retention per HR-2026-07 is 3 years post-termination",
+      "reason": "Retention policy reference; not an allowed detection rule key"
+    },
+    {
+      "concept": "Cross-border filing number",
+      "matched_text": "LH-CAC-2025-\u03b17",
+      "reason": "Regulatory filing ID relevant to CAC cross-border transfer but not covered by allowed rules"
+    },
+    {
+      "concept": "Data export approval ID",
+      "matched_text": "LHCAD/CBT/2026/009",
+      "reason": "Approval memo identifier relevant to cross-border compliance but not in allowed rules"
+    },
+    {
+      "concept": "Hash/IPv6-like identifier",
+      "matched_text": "77c1::ab9f::440e",
+      "reason": "Looks like an identifier string; may be a hash or malformed IPv6; not clearly covered by allowed rules"
+    },
+    {
+      "concept": "MAC address mention (negative control)",
+      "matched_text": "device MAC addresses are not collected",
+      "reason": "Mentions MAC addresses but no actual MAC values; avoid false positives"
+    },
+    {
+      "concept": "Resident ID mention",
+      "matched_text": "masking of res i d e n t  I D fields",
+      "reason": "Obfuscated reference to resident IDs indicates PII category but not a concrete identifier number"
+    }
+  ]
+}

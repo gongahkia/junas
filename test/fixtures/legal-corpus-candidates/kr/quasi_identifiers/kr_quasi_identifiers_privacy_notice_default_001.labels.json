@@ -1,0 +1,330 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_quasi_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sj.han@haneulbridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-07-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Seo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Blue Ginkgo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900714",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Seo\u2011jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@haneulbridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 35",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IRHSJ-07",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HBX4-9931-AG3",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SGE-IR-2025-06-14-0421",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we avoid collecting precise home addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not track precise geolocation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank and brokerage accounts display only last 4 digits",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border copies are encrypted",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "900714-2******",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account ending 4421",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Example linkable cluster: Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example, working at our Gukseong City Haneum\u2011gu office, using SeorimPhone X4 serial HBX4-9931-AG3 with VPN session SGE-IR-2025-06-14-0421, payroll account ending 4421 at Daran Mutual Bank (fictional), resident-number 900714-2****** (salted hash)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only pre-cleared users (e.g., IRHSJ-07) may access",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI is shared strictly on a need\u2011to\u2011know basis",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Saejin Trustees LLC (archival in JP)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident-number values are never stored in cleartext",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "badge IDs and device serials are segregated from inquiry text",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we never require resident registration card images for IR portal access",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "directly or in combination) and FSCMA (important information not yet publicly disclosed), we process data for investor-relations responses, insider lists, and corporate actions on the Sejong Growth Exchange (fictional).\nCategories: name, corporate email, resident-number (tokenized), DOB, role/title, business location, device and session metadata, payroll and brokerage account identifiers (masked), and IR inquiry content; we avoid collecting precise home addresses.\nExample linkable cluster: Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example, working at our Gukseong City Haneum\u2011gu office, using SeorimPhone X4 serial HBX4-9931-AG3 with VPN session SGE-IR-2025-06-14-0421, payroll account ending 4421 at Daran Mutual Bank (fictional), resident-number 900714-2****** (salted hash).\nThe above identifiers, when combined, may identify a living individual and are processed on the basis of employment necessity and legal obligations; we verify DSARs by confirming at least two such attributes.\nMNPI handling: \u201cProject Blue Ginkgo\u201d (convertible note timetable and pricing) is treated as important information under FSCMA until posted to the SGE disclosure portal; only pre-cleared users (e.g., IRHSJ-07) may access, and all downloads are watermarked.\nRetention: insider lists and MNPI access logs are kept until public disclosure plus 5 years; resident-number tokens and payroll records are retained 5 years after employment end; investor-relations inquiries (including email threads) are retained 3 years; device logs are retained 6 months.\nTransfers: we engage processors HosuCloud Korea Ltd. (hosting in KR) and Saejin Trustees LLC (archival in JP), applying PIPA Art. 28\u20118 consent and transfer assessments; cross-border copies are encrypted and limited to file hashes and masked account digits.\nData subject rights: to request access, correction, deletion, or transfer, contact our DPO at dpo@haneulbridge.example or submit via https://privacy.haneulbridge.example; we will respond within statutory periods.\nSecurity and minimization: resident-number values are never stored in cleartext; bank and brokerage accounts display only last 4 digits; badge IDs and device serials are segregated from inquiry text; we do not track precise geolocation.\nWe compile non-identifying aggregates for service improvement (e.g., \u201cfemale, 20s, West District of Baeryeong City, NexaPhone A1 device, equity interest topic\u201d), which are not used to single out individuals.\nGeneric HR descriptors\u2014such as \u201cAnalyst, Goryeon Province office, age 42,\u201d without any account, email, or device\u2014are not treated as identifying alone and are stored only in anonymized statistics.\nDisclosures: we may disclose minimal data to the Korea Markets Surveillance Bureau (fictional) or the Yeongbuk District Court (fictional) when lawfully requested; otherwise, MNPI is shared strictly on a need\u2011to\u2011know basis.\nWe do not combine investor website cookies with employment files, and we never require resident registration card images for IR portal access; inquiries sent from anonymous web forms will be answered without identity verification unless they touch MNPI.",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sj.han@haneulbridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-07-14",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Seo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Blue Ginkgo",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900714",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet publicly disclosed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under PIPA (personal info identifiable directly or in combination) and FSCMA (important information not yet publicly disclosed), we process data for investor-relations responses, insider lists, and corporate actions on the Sejong Growth Exchange (fictional).\nCategories: name, corporate email, resident-number (tokenized), DOB, role/title, business location, device and session metadata, payroll and brokerage account identifiers (masked), and IR inquiry content; we avoid collecting precise home addresses.\nExample linkable cluster: Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example, working at our Gukseong City Haneum\u2011gu office, using SeorimPhone X4 serial HBX4-9931-AG3 with VPN session SGE-IR-2025-06-14-0421, payroll account ending 4421 at Daran Mutual Bank (fictional), resident-number 900714-2****** (salted hash).\nThe above identifiers, when combined, may identify a living individual and are processed on the basis of employment necessity and legal obligations; we verify DSARs by confirming at least two such attributes.\nMNPI handling: \u201cProject Blue Ginkgo\u201d (convertible note timetable and pricing) is treated as important information under FSCMA until posted to the SGE disclosure portal; only pre-cleared users (e.g., IRHSJ-07) may access, and all downloads are watermarked.\nRetention: insider lists and MNPI access logs are kept until public disclosure plus 5 years; resident-number tokens and payroll records are retained 5 years after employment end; investor-relations inquiries (including email threads) are retained 3 years; device logs are retained 6 months.\nTransfers: we engage processors HosuCloud Korea Ltd. (hosting in KR) and Saejin Trustees LLC (archival in JP), applying PIPA Art. 28\u20118 consent and transfer assessments; cross-border copies are encrypted and limited to file hashes and masked account digits.\nData subject rights: to request access, correction, deletion, or transfer, contact our DPO at dpo@haneulbridge.example or submit via https://privacy.haneulbridge.example; we will respond within statutory periods.\nSecurity and minimization: resident-number values are never stored in cleartext; bank and brokerage accounts display only last 4 digits; badge IDs and device serials are segregated from inquiry text; we do not track precise geolocation.\nWe compile non-identifying aggregates for service improvement (e.g., \u201cfemale, 20s, West District of Baeryeong City, NexaPhone A1 device, equity interest topic\u201d), which are not used to single out individuals.\nGeneric HR descriptors\u2014such as \u201cAnalyst, Goryeon Province office, age 42,\u201d without any account, email, or device\u2014are not treated as identifying alone and are stored only in anonymized statistics.\nDisclosures: we may disclose minimal data to the Korea Markets Surveillance Bureau (fictional) or the Yeongbuk District Court (fictional) when lawfully requested; otherwise, MNPI is shared strictly on a need\u2011to\u2011know basis.\nWe do not combine investor website cookies with employment files, and we never require resident registration card images for IR portal access; inquiries sent from anonymous web forms will be answered without identity verification unless they touch MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "female, 20s, West District of Baeryeong City, NexaPhone A1 device, equity interest topic",
+      "reason": "Aggregated demographic example; not used to single out a specific individual per text."
+    },
+    {
+      "matched_text": "Analyst, Goryeon Province office, age 42",
+      "reason": "Generic descriptor example explicitly stated as non-identifying alone."
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention: insider lists and MNPI access logs are kept until public disclosure plus 5 years",
+      "reason": "Statutory retention timeline is privacy-relevant, but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "resident-number tokens and payroll records are retained 5 years after employment end",
+      "reason": "Retention of sensitive identifiers and payroll records is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "investor-relations inquiries (including email threads) are retained 3 years",
+      "reason": "Retention periods are privacy-relevant yet lack a designated rule in the provided list."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "device logs are retained 6 months",
+      "reason": "Short-term device log retention is privacy-relevant but not covered by a listed rule."
+    },
+    {
+      "concept": "consent/legal basis",
+      "matched_text": "applying PIPA Art. 28\u20118 consent and transfer assessments",
+      "reason": "Refers to consent and transfer assessment basis; allowed list includes consent_withdrawal_marker but not general consent/legal basis."
+    },
+    {
+      "concept": "DSAR response SLA",
+      "matched_text": "we will respond within statutory periods",
+      "reason": "Data subject rights response timelines are privacy-relevant but not mapped to a specific allowed rule."
+    }
+  ]
+}

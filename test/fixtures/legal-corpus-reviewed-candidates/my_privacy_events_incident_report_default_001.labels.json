@@ -1,0 +1,314 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_privacy_events_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_incident_report_default_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_privacy_events_incident_report_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_privacy_events_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@suntera-mekar.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal room segregation: Financing and M&A workspaces, including the virtual data room for the proposed sukuk arranged with Kelana Trust Partners Berhad, run on a separate tenancy and were not connected to the affected SFTP endpoint.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Containment: The misconfiguration was fixed at 23:10 MYT on 31 May 2026; access keys rotated, and least-privilege policies re-applied per BNM RMiT guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@suntera-mekar.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@suntera-mekar.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@suntera-mekar.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Firdaus Bin Leman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nor Aina Binti Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Ariff Haikal Bin Musa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border replication",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exclude date of birth",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect only initials plus employee ID hash",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "remove direct identifiers from filenames",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "date of birth",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRIC numbers",
+      "rule": "my_mykad"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank account details",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout procedures",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal watchlist",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal room segregation",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "separate tenancy",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider information standard",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data classification: PDPA personal data potentially implicated was limited to employee names contained in file titles; no NRIC numbers, bank account details, health data, or addresses were exposed, and no MNPI under the CMSA was accessed.\nCross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@suntera-mekar.com.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal room segregation: Financing and M&A workspaces, including the virtual data room for the proposed sukuk arranged with Kelana Trust Partners Berhad, run on a separate tenancy and were not connected to the affected SFTP endpoint.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Containment: The misconfiguration was fixed at 23:10 MYT on 31 May 2026; access keys rotated, and least-privilege policies re-applied per BNM RMiT guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: A misconfiguration on a vendor SFTP endpoint operated by Seroja Cloud Sdn Bhd briefly exposed HR onboarding form filenames (HRF-ONB/24) to an authenticated but non-privileged service role; no file contents were accessed.\nData classification: PDPA personal data potentially implicated was limited to employee names contained in file titles; no NRIC numbers, bank account details, health data, or addresses were exposed, and no MNPI under the CMSA was accessed.\nCross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place.\nMinimisation: Effective immediately, onboarding forms will exclude date of birth and collect only initials plus employee ID hash; existing documents were re-indexed to remove direct identifiers from filenames.\nDSAR and consent: A DSAR from Encik Firdaus Bin Leman was received on 1 Jun 2026 via dsar@suntera-mekar.com.my and fulfilled within 48 hours; Puan Nor Aina Binti Rahman withdrew consent for recruitment profile retention, and erasure was completed on 1 Jun 2026 with confirmation captured in Compliance Memo CCM-2026-11.\nErasure control: In accordance with DPA Schedule 2 (Security and Deletion), Seroja Cloud executed secure deletion of transient access logs at 04:30 MYT on 1 Jun 2026; audit checksum provided and verified by our DPO.\nRetention: HR onboarding materials retention reduced from 18 months to 6 months; legacy archives are scheduled for purge on 15 Jun 2026, with litigation hold exceptions documented.\nBursa/CMSA assessment: Company Secretary reviewed LR 9.03 and CMSA s.188; the event is not material and does not involve price-sensitive information (e.g., no unaudited financials or deal terms), thus no immediate Bursa announcement is required.\nDeal room segregation: Financing and M&A workspaces, including the virtual data room for the proposed sukuk arranged with Kelana Trust Partners Berhad, run on a separate tenancy and were not connected to the affected SFTP endpoint.\nPolicy-only control statement: Our insider information standard prohibits storing projections or term sheets on HR systems; this control was already in force and was not breached.\nContainment: The misconfiguration was fixed at 23:10 MYT on 31 May 2026; access keys rotated, and least-privilege policies re-applied per BNM RMiT guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: Replication to our Singapore recovery zone occurred previously under Data-Export Approval DEX-2026-014; during the incident window, no cross-border transfer of data subject email addresses took place",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention",
+      "reason": "Retention policy reference is a privacy handling event but no explicit allowed rule name for retention markers is provided."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention reduced from 18 months to 6 months",
+      "reason": "Indicates a change to data retention periods; coverage desirable though no retention-marker rule is defined."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "scheduled for purge",
+      "reason": "Planned deletion tied to retention; not covered by an explicit allowed rule."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure control",
+      "reason": "Describes deletion controls; there is no explicit erasure-marker rule in the allowed list."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "erasure was completed",
+      "reason": "Records data subject erasure fulfillment; rule not explicitly available."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "secure deletion",
+      "reason": "Describes deletion of logs; erasure marker not listed among allowed rules."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR and consent",
+      "reason": "DSAR processing is referenced; no explicit DSAR marker rule is listed."
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "A DSAR",
+      "reason": "Indicates a data subject access request; not mapped to an allowed rule."
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "addresses",
+      "reason": "Generic reference to addresses without a Malaysia-specific postal-address rule in the allowed list."
+    },
+    {
+      "concept": "employee_id",
+      "matched_text": "employee ID hash",
+      "reason": "Mentions an employee ID in hashed form; semantically relevant PII but not an actual identifier value."
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "price-sensitive information",
+      "reason": "MNPI concept is referenced (negated); no specific allowed marker token for price sensitivity beyond context."
+    }
+  ]
+}

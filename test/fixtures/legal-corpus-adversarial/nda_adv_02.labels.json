@@ -1,0 +1,57 @@
+{
+  "doc_id": "nda_adv_02",
+  "document_type": "NDA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T12LL3456E"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9876 5432"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 8765 4321"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "wei.ming.tan@example.sg"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "siti.abdullah@business.sg"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 1,000,000"
+    }
+  ],
+  "must_not_detect": [],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

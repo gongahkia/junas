@@ -1,0 +1,268 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: text not verbatim rule='data_minimisation_marker' text='No collection of bank accounts or addresses beyond generic form labels.'",
+    "drop ideal_must_detect: text not verbatim rule='data_minimisation_marker' text='No collection of bank accounts or addresses beyond generic form labels.'",
+    "drop ideal_must_detect: text not verbatim rule='selective_disclosure_risk' text='No commercial\u2011term signals will be communicated beyond published materials.'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 22,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 19,
+    "old_must_detect_count": 10,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "9Z000TEST0000000X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7XFAKE0000000000Q",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-ops@haitang.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@ylgroup.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sample HR forms must use placeholders only (e.g., Resident ID: CNID-XXXX-XXXX-XXXX)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de-identified training records",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not yet been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information before any SSE/CSRC announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti\u2011tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer circulars to use public information only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only anonymized telemetry may be shared for model tuning",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC transfer impact self-assessment to be recorded",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Non-binding proposal for Yulan to subscribe for Series C preferred shares of Haitang, anticipated to represent approximately 12% of post-money equity; price per share and valuation to be confirmed; indicative closing targeted for Q3 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Internal resources plus potential A\u2011share non-public issuance; issuer is evaluating a non-public issuance plan that has not yet been publicly disclosed and may constitute inside information before any SSE/CSRC announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: Closing will occur after satisfaction of conditions and regulatory clearances; long\u2011stop date 31 December 2026; no break fee; no dividends on pref prior to conversion unless required by PRC law.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr-ops@haitang.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@ylgroup.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Non-binding proposal for Yulan to subscribe for Series C preferred shares of Haitang, anticipated to represent approximately 12% of post-money equity; price per share and valuation to be confirmed; indicative closing targeted for Q3 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Internal resources plus potential A\u2011share non-public issuance; issuer is evaluating a non-public issuance plan that has not yet been publicly disclosed and may constitute inside information before any SSE/CSRC announcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: Closing will occur after satisfaction of conditions and regulatory clearances; long\u2011stop date 31 December 2026; no break fee; no dividends on pref prior to conversion unless required by PRC law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: Closing will occur after satisfaction of conditions and regulatory clearances; long\u2011stop date 31 December 2026; no break fee; no dividends on pref prior to conversion unless required by PRC law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet \u2014 Proposed Strategic Investment between Yulan Environmental Tech Group Co., Ltd. (SSE-listed issuer; USCC: 9Z000TEST0000000X) and Haitang Cloud Robotics Co., Ltd. (USCC: 7XFAKE0000000000Q)\nTransaction: Non-binding proposal for Yulan to subscribe for Series C preferred shares of Haitang, anticipated to represent approximately 12% of post-money equity; price per share and valuation to be confirmed; indicative closing targeted for Q3 2026.\nPurpose: Strategic cooperation on green logistics robots and low\u2011carbon data services, including an ESG/climate dashboard demonstration for marketing and customer education.\nRegulatory: Subject to Yulan board and shareholder approvals, Shanghai Stock Exchange disclosure templates, CSRC filing if applicable, and SAMR anti-monopoly notification if thresholds are met; any issuer circulars to use public information only.\nFinancing: Internal resources plus potential A\u2011share non-public issuance; issuer is evaluating a non-public issuance plan that has not yet been publicly disclosed and may constitute inside information before any SSE/CSRC announcement.\nData/PIPL: Each party will comply with PIPL, CSL, and DSL; processing of minors under 14 is excluded; conduct a personal information protection impact assessment prior to any pilot; sample HR forms must use placeholders only (e.g., Resident ID: CNID-XXXX-XXXX-XXXX).\nCross\u2011border: No cross-border export of personal information or important data; only anonymized telemetry may be shared for model tuning; CAC transfer impact self-assessment to be recorded; no live datasets will leave PRC servers.\nEmployment workflows: Any secondment or PoC will use de-identified training records; approvals via role mailboxes (e.g., hr-ops@haitang.example.cn); no collection of bank accounts or addresses beyond generic form labels.\nInformation\u2011barrier: Yulan will maintain an information\u2011barrier and insider\u2011list per SSE/CSRC rules; blackout and anti\u2011tipping reminders will be issued via compliance training; these references are for operational policy education and are not investment advice.\nCyber: Parties may conduct a tabletop cyber incident drill and vulnerability disclosure run\u2011through; no production logs or incident forensics will be exchanged.\nCrypto: Employee onboarding may include a crypto wallet anti\u2011phishing awareness module and product names used for training; no token issuance, mining, or trading is contemplated under this transaction.\nCommercial: No exclusivity on public tenders; ESG marketing claims limited to publicly available methodologies; demos may use public/stale datasets (SSE website notice dated 2024\u201103\u201101); no commercial\u2011term signals will be communicated beyond published materials.\nConditions precedent: No\u2011change in Haitang\u2019s material IP ownership; confirmation that no minors\u2019 data is processed; vendor security questionnaire (C-Form v2) completion; absence of export control restrictions.\nClosing mechanics: Closing will occur after satisfaction of conditions and regulatory clearances; long\u2011stop date 31 December 2026; no break fee; no dividends on pref prior to conversion unless required by PRC law.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_resident_id placeholder",
+      "matched_text": "Resident ID: CNID-XXXX-XXXX-XXXX",
+      "reason": "Placeholder example of a resident ID in HR forms; relevant to sensitive ID handling but not an actual identifier value."
+    },
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "tabletop cyber incident drill",
+      "reason": "Refers to a simulated incident rather than a real pre-disclosure cyber event."
+    },
+    {
+      "concept": "cross_border_transfer_policy",
+      "matched_text": "No cross-border export of personal information or important data",
+      "reason": "Negated cross-border transfer statement; relevant to transfer controls but excluded from labeling per rule on negated controls."
+    },
+    {
+      "concept": "esg_climate_pre_disclosure",
+      "matched_text": "ESG/climate dashboard demonstration",
+      "reason": "ESG feature mention for marketing/education; not clearly a pre-disclosure of material ESG information."
+    }
+  ]
+}

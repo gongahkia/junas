@@ -1,0 +1,90 @@
+{
+  "doc_id": "sha_adv_10",
+  "document_type": "SHA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SHAREHOLDERS AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan Wei Ming"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678B"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "238888"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "tanwm@example.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S3456789C"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "120456"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9234 5678"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "sitiaishah@example.sg"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T12LL3456B"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "048623"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9345 6789"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "contact@abcinnovations.sg"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 1,500,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "Defined term"
+    },
+    {
+      "matched_text": "PARTIES",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

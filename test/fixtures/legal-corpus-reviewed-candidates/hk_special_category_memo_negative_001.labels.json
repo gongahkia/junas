@@ -1,0 +1,262 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+      "status": "strict_tier_public_helpline_realign"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose. Post-JP/KR global gate realignment removed public/generic helpline phone spans from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_last_strict_realign": {
+    "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
+    "reviewed_at_utc": "2026-05-31T02:44:00Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+    "status": "strict_tier_public_helpline_realign"
+  },
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_special_category_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/special_category/hk_special_category_memo_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_special_category_memo_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lian Xu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "she is undergoing treatment for a chronic autoimmune condition",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "she is undergoing treatment for a chronic autoimmune condition",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@blueharbour.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "which do not collect real identifiers at this stage",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uses pseudonymised IDs (EmpRef: EMP-XX-2048)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpRef: EMP-XX-2048",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XX-2048",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The board noted that the Harbour Securities Authority\u2019s guidance on \u201cspecific information\u201d is adopted by analogy; however, none of the information below would reasonably be price-sensitive.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "XX-2048",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lian Xu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The board noted that the Harbour Securities Authority\u2019s guidance on \u201cspecific information\u201d is adopted by analogy; however, none of the information below would reasonably be price-sensitive.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: confirm that current M&A outreach by Opal Gate Capital Partners with our board does not involve undisclosed inside information under the Securities and Futures Ordinance.\nThe facts cited below are either stale, publicly announced on 2025-01-15 via the Exchange e-bulletin, or generic product descriptors (e.g., \u201cLotus Prime\u201d and \u201cHarbour Shield\u201d).\nPlaceholder forms used in diligence include fields such as Name: ______; Position: ______; ID Ref: XX-0000-000; Account: 123-ABC-000, which do not collect real identifiers at this stage.\nAny references to pipeline funds, including Coral Reef SPV and Tidepool Growth Fund II, refer to marketing decks already circulated to all registered dealers.\nFor avoidance of doubt, team nicknames like Kowloon Kites and office slogans about wellness challenges are non-personal and not health data.\nDiversity and inclusion statements (the Evergreen Equity Charter and the Orchid Workplace Policy) are aspirational and contain no individual-level attributes.\nThe board noted that the Harbour Securities Authority\u2019s guidance on \u201cspecific information\u201d is adopted by analogy; however, none of the information below would reasonably be price-sensitive.\nPositive PDPO sensitivity: during a voluntary benefits check, Ms. Lian Xu informed HR that she is undergoing treatment for a chronic autoimmune condition, and this health data will be ring-fenced per our PDPO Health Annex.\nNo biometric templates, genetic profiles, religious affiliation lists, union membership records, sexual orientation metrics, or political opinion surveys are collected in the M&A workstream.\nSeparately, analyst chatter about a \u201cDragon Boat\u201d integration play is merely a sports metaphor used in internal training and does not denote a transaction.\nPublic helplines (e.g., HSA hotline 3900-0000X and Exchange desk 2800-XX00) are included as generic contacts; staff must use compliance@blueharbour.example for escalations.\nEmployment onboarding with Jade Peak Advisors uses pseudonymised IDs (EmpRef: EMP-XX-2048) and redacted CVs; any special-category fields will be collected only with explicit consent.\nConclusion: based on the SFO standard for inside information and PDPO principles, current materials comprise public, non-specific, or administrative content, save for the single health disclosure abov",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Lotus Prime",
+      "reason": "Product name; not personal data"
+    },
+    {
+      "matched_text": "Harbour Shield",
+      "reason": "Product name; not personal data"
+    },
+    {
+      "matched_text": "Kowloon Kites",
+      "reason": "Team nickname; not personal data"
+    },
+    {
+      "matched_text": "Dragon Boat",
+      "reason": "Sports metaphor; not a transaction codename"
+    },
+    {
+      "matched_text": "Evergreen Equity Charter",
+      "reason": "Policy name/DEI statement; not personal data"
+    },
+    {
+      "matched_text": "Orchid Workplace Policy",
+      "reason": "Policy name/DEI statement; not personal data"
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "Negated generic category; no individual-level data"
+    },
+    {
+      "matched_text": "genetic profiles",
+      "reason": "Negated generic category; no individual-level data"
+    },
+    {
+      "matched_text": "HSA hotline 3900-0000X",
+      "reason": "Public helpline example with obfuscated digits; not a person's phone"
+    },
+    {
+      "matched_text": "Exchange desk 2800-XX00",
+      "reason": "Public helpline example with obfuscated digits; not a person's phone"
+    },
+    {
+      "matched_text": "3900-0000",
+      "reason": "Public/generic helpline or regulator information line; not personal contact data for strict PII benchmarking."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "employee_id (pseudonymised example)",
+      "matched_text": "EmpRef: EMP-XX-2048",
+      "reason": "Looks like an employee reference but includes placeholders and is not tied to an identifiable individual."
+    },
+    {
+      "concept": "pseudonymisation / data minimisation control",
+      "matched_text": "uses pseudonymised IDs (EmpRef: EMP-XX-2048) and redacted CVs",
+      "reason": "Legally relevant privacy measure but not explicitly covered beyond a broad minimisation marker."
+    },
+    {
+      "concept": "segregation of special-category data",
+      "matched_text": "this health data will be ring-fenced per our PDPO Health Annex",
+      "reason": "Indicates protective processing of health data, but no specific allowed rule for segregation/ring-fencing."
+    },
+    {
+      "concept": "consent requirement for special-category data",
+      "matched_text": "any special-category fields will be collected only with explicit consent",
+      "reason": "Consent capture is relevant, but only withdrawal is enumerated in allowed markers."
+    }
+  ]
+}

@@ -1,0 +1,469 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 4
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 46,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 34,
+    "old_must_detect_count": 27,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@almeshkat.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "5  55  82  91  02",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hashim Al\u2011Badr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rawan Al\u2011Saif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al\u2011Qassimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Strategic Acquisition of Red Sand Payments LLC by Al\u2011Meshkat Data Solutions JSC (RGX: AMSD\u201121), Kingdom of Saudi Arabia.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 80% of Target\u2019s issued shares for SAR 92,000,000; consideration mix 70% cash, 30% earn\u2011out; completion targeted within 120 days of KMOA non\u2011objection and RGX pre\u2011clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory/Exchange context: Buyer is an RGX\u2011listed issuer; information herein is non\u2011public and may constitute MNPI under KMOA market\u2011conduct guidance until an RGX disclosure is posted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security measures: Biometra\u2011X timekeeping devices remain on\u2011prem; \u201cgenetic\u201d only refers to genetic algorithms in fraud analytics, not genetic data; access is role\u2011based and logged per Annex D.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing conditions: KMOA non\u2011objection, RGX pre\u2011approval, clean anti\u2011bribery and sanctions checks, confirmation that no MAC has occurred due to general political risk insurance pricing or public\u2011source policy updates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Buyer may draw SAR 30,000,000 under the \u201cSitrah\u2011Blue\u201d Murabaha facility (Acct: SA** 5  8  6100  00\u20117744\u201100) from Oasis Islamic Bank FZ; proceeds dedicated to consideration and integration capex.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "92,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR No. 1  01\u201188\u201100\u2011  5566",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR No. 2  05\u201177\u2011  99001",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@almeshkat.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may constitute MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no export until permit KPDPL\u2011TX\u2011  09\u20112 4\u2011A is granted",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID/Iqama No.: 2  18\u20110  6  7  5  1  3  9  2",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template (hash ref: f1\u20113c\u2011xx\u201147)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical status (insulin\u2011dependent diabetes)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious affiliation recorded as Ismaili",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "membership in the Service Workers Association (union)",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependent child",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 14",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data not materially relevant to integration will be excluded and masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only eligibility dates and premium class will be processed",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u20111  14\u2011  00\u2011  00",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SA** 5  8  6100  00\u20117744\u201100",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project \u201cPalm Oasis,\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sharing is limited to named insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "until SDA\u2011I/A clearance",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u201cSDA\u2011I/A\u201d gateway",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "https://rgx.example/issuers/AMSD-21/dataroom?key=acq%2F%2F9",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rs\u2011acq\u2011  2026\u2011 OCR\u2011v2",
+      "rule": "internal_session_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@almeshkat.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "5  55  82  91  02",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hashim Al\u2011Badr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rawan Al\u2011Saif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al\u2011Qassimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Strategic Acquisition of Red Sand Payments LLC by Al\u2011Meshkat Data Solutions JSC (RGX: AMSD\u201121), Kingdom of Saudi Arabia.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 80% of Target\u2019s issued shares for SAR 92,000,000; consideration mix 70% cash, 30% earn\u2011out; completion targeted within 120 days of KMOA non\u2011objection and RGX pre\u2011clearance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory/Exchange context: Buyer is an RGX\u2011listed issuer; information herein is non\u2011public and may constitute MNPI under KMOA market\u2011conduct guidance until an RGX disclosure is posted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security measures: Biometra\u2011X timekeeping devices remain on\u2011prem; \u201cgenetic\u201d only refers to genetic algorithms in fraud analytics, not genetic data; access is role\u2011based and logged per Annex D.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing conditions: KMOA non\u2011objection, RGX pre\u2011approval, clean anti\u2011bribery and sanctions checks, confirmation that no MAC has occurred due to general political risk insurance pricing or public\u2011source policy updates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Buyer may draw SAR 30,000,000 under the \u201cSitrah\u2011Blue\u201d Murabaha facility (Acct: SA** 5  8  6100  00\u20117744\u201100) from Oasis Islamic Bank FZ; proceeds dedicated to consideration and integration capex.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "92,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Strategic Acquisition of Red Sand Payments LLC by Al\u2011Meshkat Data Solutions JSC (RGX: AMSD\u201121), Kingdom of Saudi Arabia.\nParties: Buyer Al\u2011Meshkat Data Solutions JSC (CR No. 1  01\u201188\u201100\u2011  5566) and Target Red Sand Payments LLC (CR No. 2  05\u201177\u2011  99001); primary contact: ir@almeshkat.test and dealroom link https://rgx.example/issuers/AMSD-21/dataroom?key=acq%2F%2F9.\nTransaction: Buyer to acquire 80% of Target\u2019s issued shares for SAR 92,000,000; consideration mix 70% cash, 30% earn\u2011out; completion targeted within 120 days of KMOA non\u2011objection and RGX pre\u2011clearance.\nRegulatory/Exchange context: Buyer is an RGX\u2011listed issuer; information herein is non\u2011public and may constitute MNPI under KMOA market\u2011conduct guidance until an RGX disclosure is posted.\nData compliance: Personal data processing to comply with the Kingdom Personal Data Protection Law (KPDPL), with any cross\u2011border transfer routed via the \u201cSDA\u2011I/A\u201d gateway; no export until permit KPDPL\u2011TX\u2011  09\u20112 4\u2011A is granted.\nIssuer workflows: Buyer will file a confidential notice via RGX e\u2011Filing; sharing is limited to named insiders on the project \u201cPalm Oasis,\u201d and this sentence is not a MAC and shall not by itself create a material adverse change.\nPII schedule: Target will provide employee rosters, national ID/Iqama details, and limited payroll/benefits files; data not materially relevant to integration will be excluded and masked.\nNamed\u2011subject clause: Mr. Hashim Al\u2011Badr (National ID/Iqama No.: 2  18\u20110  6  7  5  1  3  9  2) consents to the transfer of his fingerprint template (hash ref: f1\u20113c\u2011xx\u201147) and to disclose his medical status (insulin\u2011dependent diabetes) for occupational health clearance; his religious affiliation recorded as Ismaili and membership in the Service Workers Association (union) are included solely for payroll calendar and leave entitlements.\nSensitive minor data: Ms. Rawan Al\u2011Saif states her dependent child, Salim (age 14), is covered by the group medical plan; only eligibility dates and premium class will be processed.\nSecurity measures: Biometra\u2011X timekeeping devices remain on\u2011prem; \u201cgenetic\u201d only refers to genetic algorithms in fraud analytics, not genetic data; access is role\u2011based and logged per Annex D.\nCross\u2011border hosting: Legacy node gulf\u2011east.dc.redsand.example resides in Manama; until SDA\u2011I/A clearance, remote admin is blocked and all admin sessions must originate from KSA IP ranges documented at https://net.example/policy?id=RGX\u2011KSA\u2011IP\u2011List.\nClosing conditions: KMOA non\u2011objection, RGX pre\u2011approval, clean anti\u2011bribery and sanctions checks, confirmation that no MAC has occurred due to general political risk insurance pricing or public\u2011source policy updates.\nFinancing: Buyer may draw SAR 30,000,000 under the \u201cSitrah\u2011Blue\u201d Murabaha facility (Acct: SA** 5  8  6100  00\u20117744\u201100) from Oasis Islamic Bank FZ; proceeds dedicated to consideration and integration capex.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Strategic Acquisition of Red Sand Payments LLC",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined role noun, not a natural person or PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role noun, not a natural person or PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role noun, not a natural person or PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Desert Comet FC",
+      "reason": "Sports team false-positive bait"
+    },
+    {
+      "matched_text": "Falcon XI",
+      "reason": "Product name false-positive bait"
+    },
+    {
+      "matched_text": "Horizon DEI statement",
+      "reason": "Generic policy/DEI reference false-positive bait"
+    },
+    {
+      "matched_text": "Madinat Al\u2011Qamarah",
+      "reason": "Place/metaphor false-positive bait"
+    },
+    {
+      "matched_text": "Wadi Ar\u2011Rimalah",
+      "reason": "Place/metaphor false-positive bait"
+    },
+    {
+      "matched_text": "Vision 2035 Compliance Playbook",
+      "reason": "Generic policy title false-positive bait"
+    },
+    {
+      "matched_text": "Biometra\u2011X",
+      "reason": "Product name false-positive bait"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "access_link_with_key",
+      "matched_text": "https://rgx.example/issuers/AMSD-21/dataroom?key=acq%2F%2F9",
+      "reason": "May function as an internal session or access tokenized link; not clearly covered unless treated as internal_session_id"
+    },
+    {
+      "concept": "internal_hostname",
+      "matched_text": "gulf\u2011east.dc.redsand.example",
+      "reason": "Internal system host reference may be sensitive operational data but not covered by allowed rules"
+    },
+    {
+      "concept": "ip_allowlist_reference",
+      "matched_text": "https://net.example/policy?id=RGX\u2011KSA\u2011IP\u2011List",
+      "reason": "Link to IP ranges documentation suggests network identifiers, but no specific IP addresses to match allowed ip_address rule"
+    }
+  ]
+}

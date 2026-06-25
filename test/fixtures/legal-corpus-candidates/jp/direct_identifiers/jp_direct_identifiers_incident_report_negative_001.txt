@@ -1,0 +1,17 @@
+Midoriyama Devices K.K. — Operational Incident Report (JP) — 2026-05-28
+On 2026-05-25, vendor Hoshizora Data Services G.K. reported a short-lived access control misconfiguration in the board/exec document portal.
+The exposed folder contained training materials: board pack templates, acquisition workflow checklists, and HR onboarding form samples.
+One scanned HR form inadvertently contained an actual 個人番号 (My Number): 7531-6420-1984; we are treating this as APPI personal data.
+All other fields were samples: 氏名: ______, 住所: [Hanagawa-ken Nishisaka-shi 1-2-3], 部署: ______, 電話: 0120-777-000 (public helpline), メール: hr@midori-devices.jp (role mailbox).
+Company/tax identifiers present were non-production: 法人番号 0000000000000 (test), 登録番号 T0000000000000 (dummy), 請求先コード: C-TEST-001.
+Travel and banking fields were also placeholders: 旅券番号 AA0000000 (template), 支店コード 000, 口座番号 000-0000000 (sample only).
+The M&A references were to the already-announced share acquisition of Hinode Analytics K.K., disclosed on 2026-04-30 via KPX Growth and our website.
+Accordingly, no undisclosed enumerated material facts or tender-offer (TOB) facts under the FIEA were present in the exposed materials.
+The misconfiguration allowed read-only access from a restricted test IP range for approximately 46 minutes; no downloads were logged by external addresses.
+We have notified employees via the intranet and the public inquiry line at 0120-555-555; do not email personal documents in response to this notice.
+A voluntary incident notice will be filed with the Kanto Markets Supervision Office, and a courtesy update sent to listings@kpx-growth.example.jp (exchange liaison mailbox).
+The Board Risk Committee met on 2026-05-26 and determined the overall PII exposure to be low, subject to APPI handling of the single 個人番号 image.
+Remediation completed: vendor key rotation, deletion of sample files, replacement of dummy identifiers with clearly marked “TRAINING USE ONLY” watermarks.
+Local government and address placeholders included LG-999999 (fictional ward code) and 〒000-0000 Hanagawa-ken Nishisaka-shi Aza Ume 1-2-3; these are not real locations.
+Securities operations content (e.g., draft share transfer forms and settlement workflows) contained only blank form labels and public process descriptions.
+No payroll files, payables accounts, or passport scans beyond placeholders were exposed, and no changes to shareholdings or control were effected.

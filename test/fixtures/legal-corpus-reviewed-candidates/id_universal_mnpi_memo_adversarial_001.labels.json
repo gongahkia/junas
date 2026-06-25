@@ -1,0 +1,444 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_universal_mnpi_memo_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/universal_mnpi/id_universal_mnpi_memo_adversarial_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_universal_mnpi_memo_adversarial_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ren.arif@kudapay.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mira.t@kudapay.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@dompet-nusantara.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rendra Arif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sari Lintang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Untung Prakoso",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Project KUDA \u2014 Proposed acquisition of 35% of PT KudaPay Sentosa (fintech) by PT Dompet Nusantara Teknologi Tbk (Perseroan).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project KUDA",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 142,500,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 25,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "142,500,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 12 June 2026 09:00 WIB",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "customary MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate outside BoD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period applies",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout for insiders 1\u201312 June 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material information",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of 35% of PT KudaPay Sentosa (fintech) by PT Dompet Nusantara Teknologi Tbk (Perseroan)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDX announcement draft withheld pending OJK informal consult",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bpk. Dr. Rendra Arif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Mira Tanjung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@dompet-nusantara.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID EN-0O1-7l",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tok=ab1-2xZ",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VirtAcct 77\u201100\u2011xx\u201198",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "File-ID ProjKUDA//ID-7xL3",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "R a h a s i a",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ren.arif@kudapay.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mira.t@kudapay.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@dompet-nusantara.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rendra Arif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sari Lintang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Untung Prakoso",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Project KUDA \u2014 Proposed acquisition of 35% of PT KudaPay Sentosa (fintech) by PT Dompet Nusantara Teknologi Tbk (Perseroan).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project KUDA",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 142,500,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 25,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "142,500,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Project KUDA \u2014 Proposed acquisition of 35% of PT KudaPay Sentosa (fintech) by PT Dompet Nusantara Teknologi Tbk (Perseroan).\nNon-public; embargo until 12 June 2026 09:00 WIB; IDX announcement draft withheld pending OJK informal consult.\nTerm Sheet executed 27 May 2026; target signing of Share Purchase Agreement (S P A) by 10 June 2026 subject to standard conditions precedent.\nPurchase price approx. IDR 142,500,000,000; earn-out up to IDR 25,000,000,000 contingent on 2027 TPV; funding from internal cash (no rights issue).\nMAC/MAE: draft provides customary MAC; for clarity, no MAC has occurred to date and \u201cpandemic/BI rate moves\u201d are carved out.\nDisclosure: material information under POJK 31/POJK.04/2015; we plan OJK submission and IDX IDXNet filing immediately post-embargo unless signing slips.\nEmployment/retention: offer letters to Bpk. Dr. Rendra Arif (CEO, KudaPay) and Ibu Mira Tanjung (CTO) incl. 12\u2011mo. non-compete and RSU grants equal to 0.6% of fully diluted shares; draft emails prepared: ren.arif@kudapay.id, mira.t@kudapay.id.\nFintech compliance: target\u2019s P2P lending operations and e-money float controls reviewed; OJK registry shows status \u201caktif\u201d (public), but internal audit notes gaps in vendor KYC; remedial plan attached.\nAs publicly reported by Nusa Market Wire on 1 Apr 2026, sector NPL ratios improved; this line is public and not price-sensitive.\ninvestor-relations draft ready; quiet period applies; do not circulate outside BoD; see https://intra.dompetnusantara.co.id/board/Proj-KUDA?v=5&tok=ab1-2xZ&utm=ir_draft.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Defined-term role noun for the company, not PII/MNPI."
+    },
+    {
+      "matched_text": "S P A",
+      "reason": "Defined-term abbreviation in parentheses, avoid tagging as agreement token here."
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not a Share Purchase Agreement."
+    },
+    {
+      "matched_text": "no MAC has occurred",
+      "reason": "Negated MAC language should not be tagged as MAC/MAE."
+    },
+    {
+      "matched_text": "public and not price-sensitive",
+      "reason": "Explicitly states information is not MNPI."
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "bank_customer_reference",
+      "matched_text": "VirtAcct 77\u201100\u2011xx\u201198",
+      "reason": "Looks like a masked virtual/bank account reference; format is non-standard and partially redacted."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "File-ID ProjKUDA//ID-7xL3",
+      "reason": "Internal file/reference ID that may act as a traceable identifier but not a standard category."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "tok=ab1-2xZ",
+      "reason": "URL token parameter likely functions as an internal access/session token."
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "IDX announcement draft withheld pending OJK informal consult",
+      "reason": "Implies selective withholding of disclosure; relevance to selective disclosure depends on context."
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "confirm dd data room freeze",
+      "reason": "A data room freeze may indicate insider-controls/information barriers, but this phrasing is ambiguous."
+    },
+    {
+      "concept": "compliance_findings_mnpi",
+      "matched_text": "internal audit notes gaps in vendor KYC",
+      "reason": "Non-public compliance findings for a regulated fintech could be price-sensitive depending on severity."
+    }
+  ]
+}

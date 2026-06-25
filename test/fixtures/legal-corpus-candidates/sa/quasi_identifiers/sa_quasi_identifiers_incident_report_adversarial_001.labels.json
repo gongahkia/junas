@@ -1,0 +1,322 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "f.alharith@najdpetrotech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cma-notify@najdpetrotech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-550-000-123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-05-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985-02-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Harith",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prepared by Eng. Layla Al\u2011Jasser (CISO). Summary: unauthorized sign-in to Tadawul Issuer Portal via SSO link exposing draft Q2 guidance (MNPI) and limited personal data.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subject notification: per KSA PDPL, high-risk breach assessment initiated; SDAIA transfer registry entry prepared; contact privacy@najdpetrotech.sa, hotline +966-550-000-123.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Layla Al\u2011Jasser",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "S/N LNV-7A3X1",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sid=IR-0-7-3-9-2",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "172.19.54.22",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR EmpID IR-0142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@najdpetrotech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet announced on Tadawul",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 1 0 7 X X X 8 2 3 1",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1 0 1 3 0 5 0 1 2 3",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Named person cluster: Mr. Faisal Al\u2011Harith (Investor Relations Supervisor), DOB 1990-05-12, Riyadh HQ, email f.alharith@najdpetrotech.sa, ext 2245",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "30s",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational/Cyber Incident Report (KSA PDPL, CMA Market Conduct)",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential MNPI exposure to unauthorized session before market open",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized sign-in to Tadawul Issuer Portal via SSO link exposing draft Q2 guidance (MNPI)",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer flagged for SDAIA assessment due to potential cross-border sync and controller obligations",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA transfer registry entry prepared",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR and Iqama values redacted at source",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Control failure: shared bookmark in Chrome synced to personal iCloud; transfer flagged for SDAIA assessment due to potential cross-border sync and controller obligations.\nOther observed identifiers not tied to a named person: DOB 1985-02-03, role: procurement analyst, device model: Galaxy S10, city: Jeddah, male, 30s \u2014 generic and non-linkable.\nCommercial Registration (CR) referenced in portal meta: CR 1 0 1 3 0 5 0 1 2 3 (fictitious); no bank card numbers or payment tokens present",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "f.alharith@najdpetrotech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cma-notify@najdpetrotech.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-550-000-123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-05-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985-02-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faisal Al\u2011Harith",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prepared by Eng. Layla Al\u2011Jasser (CISO). Summary: unauthorized sign-in to Tadawul Issuer Portal via SSO link exposing draft Q2 guidance (MNPI) and limited personal data.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data subject notification: per KSA PDPL, high-risk breach assessment initiated; SDAIA transfer registry entry prepared; contact privacy@najdpetrotech.sa, hotline +966-550-000-123.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Named person cluster: Mr. Faisal Al\u2011Harith (Investor Relations Supervisor), DOB 1990-05-12, Riyadh HQ, email f.alharith@najdpetrotech.sa, ext 2245.\nDevice/user context: Lenovo ThinkPad S/N LNV-7A3X1, Windows user FALHARITH, session sid=IR-0-7-3-9-2, IP 172.19.54.22 (internal), handset iOS 16; Iqama 1 0 7 X X X 8 2 3 1 and HR EmpID IR-0142 noted in logs",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prepared by Eng. Layla Al\u2011Jasser (CISO). Summary: unauthorized sign-in to Tadawul Issuer Portal via SSO link exposing draft Q2 guidance (MNPI) and limited personal data.\nNamed person cluster: Mr. Faisal Al\u2011Harith (Investor Relations Supervisor), DOB 1990-05-12, Riyadh HQ, email f.alharith@najdpetrotech.sa, ext 2245.\nDevice/user context: Lenovo ThinkPad S/N LNV-7A3X1, Windows user FALHARITH, session sid=IR-0-7-3-9-2, IP 172.19.54.22 (internal), handset iOS 16; Iqama 1 0 7 X X X 8 2 3 1 and HR EmpID IR-0142 noted in logs.\nIssuer link path: https://issuer.najdpetrotech.sa/tadawul?draftId=DRV-2026-02&uid=f.alharith%40najdpetrotech.sa&ts=1717138840\nFiles accessed: /IR/Roadshow/Pre-close_Q2_deck_v03.pptx and buyback_schedule.xlsx (pre-disclosure); not yet announced on Tadawul.\nControl failure: shared bookmark in Chrome synced to personal iCloud; transfer flagged for SDAIA assessment due to potential cross-border sync and controller obligations.\nOther observed identifiers not tied to a named person: DOB 1985-02-03, role: procurement analyst, device model: Galaxy S10, city: Jeddah, male, 30s \u2014 generic and non-linkable.\nCommercial Registration (CR) referenced in portal meta: CR 1 0 1 3 0 5 0 1 2 3 (fictitious); no bank card numbers or payment tokens present.\nAdversarial formatting noted in logs: user id \u201cf a l h a r i t h\u201d with spaces, token k-2 1-9a- 7b split across lines; the string 00:11:22:33:44:55 is not a MAC address here.\nRegulatory impact: potential MNPI exposure to unauthorized session before market open; CMA Market Conduct and Tadawul disclosure team notified via cma-notify@najdpetrotech.sa.\nData subject notification: per KSA PDPL, high-risk breach assessment initiated; SDAIA transfer registry entry prepared; contact privacy@najdpetrotech.sa, hotline +966-550-000-123.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Other observed identifiers not tied to a named person: DOB 1985-02-03, role: procurement analyst, device model: Galaxy S10, city: Jeddah, male, 30s \u2014 generic and non-linkable.\nCommercial Registration (CR) referenced in portal meta: CR 1 0 1 3 0 5 0 1 2 3 (fictitious); no bank card numbers or payment tokens present",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "00:11:22:33:44:55",
+      "reason": "Explicitly stated not a MAC address here."
+    },
+    {
+      "matched_text": "Galaxy S10",
+      "reason": "Generic device model; not identifying by itself."
+    },
+    {
+      "matched_text": "male",
+      "reason": "Generic demographic attribute not covered by allowed rules."
+    },
+    {
+      "matched_text": "Investor Relations Supervisor",
+      "reason": "Role noun; not a named person span by itself."
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Role noun; not a named person span by itself."
+    },
+    {
+      "matched_text": "ISO 27001",
+      "reason": "Public standard reference; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "sa_iqama",
+      "matched_text": "Iqama 1 0 7 X X X 8 2 3 1",
+      "reason": "Partially redacted and spaced digits may not match strict detector patterns."
+    },
+    {
+      "concept": "sa_commercial_registration",
+      "matched_text": "CR 1 0 1 3 0 5 0 1 2 3",
+      "reason": "Spaced digits formatting may not match strict detector patterns."
+    },
+    {
+      "concept": "employee_username",
+      "matched_text": "f a l h a r i t h",
+      "reason": "Adversarial spacing; ambiguous as to whether it should be treated as a user identifier."
+    },
+    {
+      "concept": "email_address",
+      "matched_text": "f.alharith%40najdpetrotech.sa",
+      "reason": "Percent-encoded email lacks '@' and may evade strict email regex."
+    },
+    {
+      "concept": "blackout_period_reference",
+      "matched_text": "before market open",
+      "reason": "Trading window timing reference without explicit blackout/window language."
+    },
+    {
+      "concept": "internal_reference",
+      "matched_text": "24-IR-773",
+      "reason": "May be an internal log reference/ID but not clearly covered by allowed rules."
+    }
+  ]
+}

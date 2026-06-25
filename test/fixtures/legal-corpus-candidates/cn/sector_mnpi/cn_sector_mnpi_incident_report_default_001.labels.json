@@ -1,0 +1,455 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 16,
+    "old_ideal_must_detect_count": 33,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiaoyun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Han",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Wei Lanting",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lin.qy@huaxingriver.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@huaxingriver.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@huaxingriver.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86\u20110000\u2011000\u2011000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "two entries flagged as minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any transfer of logs offshore",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "should redact resident ID fields at source",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: XXXXXXXXXXXX (withheld)",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID numbers",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID fields",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC copies",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mangrove",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.5% conditional discount",
+      "rule": "contract_discount_rate"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list updated (restricted)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not tip",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selectively disclose",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure risk",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "neither of which has been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident note",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft ESG audit workpapers",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011sale",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "digital carbon asset pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DCA token tests",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss this matter",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lin.qy@huaxingriver.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@huaxingriver.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiaoyun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Qiaoyun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Han",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Wei Lanting",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mangrove",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Mangrove",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Confidential \u2013 Internal Incident & MNPI Assessment \u2013 Huaxing River Energy Technology Co., Ltd. (issuer application pending with Lingnan Equity Exchange Growth Board); USCC: XXXXXXXXXXXX (withheld).\nPrepared by Compliance; Contact: Ms. Lin Qiaoyun, Deputy CFO, lin.qy@huaxingriver.cn; Emergency: security@huaxingriver.cn.\nSummary of event: On 2026-06-03, our OT monitoring flagged lateral movement from a compromised maintenance laptop to the data staging server used for the \u201cProject Mangrove\u201d digital carbon asset pilot.\nIndicators show exfiltration of a compressed archive containing draft ESG audit workpapers, a supplier price addendum for Q3 blades at a 7.5% conditional discount, and a wallet keystore used in the sandbox DCA token tests.\nNo resident ID numbers or bank accounts are included in this report; HR payroll spreadsheets present in the same share contain resident ID fields and two entries flagged as minors, which triggers PIPL sensitive PI handling if confirmed.\nAs an applicant issuer, this incident involves potential inside information: the tokenization pilot schedule and commercial terms of the green equipment supply, neither of which has been publicly disclosed.\nImmediate actions: activated the information barrier for \u201cProject Mangrove,\u201d moved analysis to a clean team in the Legal\u2011IT enclave, and imposed a trading blackout window for all insiders from 2026\u201106\u201103 until a board\u2011approved disclosure.\nInsider list updated (restricted): Ms. Lin Qiaoyun (Deputy CFO), Mr. Zhao Han (Head of Digital Security), Dr. Wei Lanting (ESG Director), and eight engineers seconded to the DCA sandbox; do not tip or selectively disclose.\nWe engaged a cross\u2011border SOC vendor in Haihua Free Trade Zone; any transfer of logs offshore will follow PIPL/CSL/DSL and require filing with the Municipal Cyberspace Administration Commission before export.\nIssuer disclosure approach: prepare a factual cyber incident note and, if the supplier discount is deemed material, coordinate pre\u2011announcement with the Growth Board reviewer to avoid selective disclosure risk.\nSubtle risk noted: the marketing draft for the \u201cgreen token\u201d launch page mentions \u201cpre\u2011sale,\u201d which could be interpreted as a timing signal for our DCA pilot if published before formal approval.\nBy contrast, the ESG marketing team may continue general education on climate methodology and token design mockups, provided they include no pricing, listing venue, or schedule references.\nOperational containment: the affected keystore has been rotated, all sandbox wallets are paused, and OT network segmentation was tightened; production turbines remain unaffected and continue normal output.\nHR reminder: staff must not forward incident artifacts to personal email; employment workflows involving background checks should redact resident ID fields at source and store USCC copies in the sealed archive.\nFor questions or to report potential leaks, contact compliance@huaxingriver.cn or the 24h hotline +86\u20110000\u2011000\u2011000; do not discuss this matter with suppliers or prospective investors until the authorized notice is filed.\nThis memo includes a short training annex on information barriers and blackout windows for general awareness only and does not itself announce any issuance or listing plans.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Generic role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "supplier",
+      "reason": "Generic role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "Compliance",
+      "reason": "Department name; not a named person or PII"
+    },
+    {
+      "matched_text": "Emergency",
+      "reason": "Section label; not PII/MNPI"
+    },
+    {
+      "matched_text": "reviewer",
+      "reason": "Generic role noun; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_uscc redacted",
+      "matched_text": "USCC: XXXXXXXXXXXX (withheld)",
+      "reason": "Jurisdiction-local ID referenced but value is withheld/redacted, so pattern-based detection may not trigger"
+    },
+    {
+      "concept": "cn_resident_id mention",
+      "matched_text": "resident ID numbers",
+      "reason": "Mentions presence of resident IDs without providing actual identifiers"
+    },
+    {
+      "concept": "cn_resident_id mention",
+      "matched_text": "resident ID fields",
+      "reason": "References ID fields in HR data but no specific ID values"
+    },
+    {
+      "concept": "cn_uscc mention",
+      "matched_text": "USCC copies",
+      "reason": "References USCC documents without including the actual identifier"
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "inside information",
+      "reason": "Signals MNPI status contextually rather than via a standard nonpublic phrasing"
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "neither of which has been publicly disclosed",
+      "reason": "Indicates nonpublic status but regex engines may not map this phrasing directly"
+    },
+    {
+      "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident note",
+      "reason": "Pre-disclosure planning reference; not a canonical marker phrase"
+    },
+    {
+      "concept": "esg_climate_pre_disclosure",
+      "matched_text": "draft ESG audit workpapers",
+      "reason": "ESG audit material referenced pre-disclosure; engines may not have ESG pre-disclosure patterns"
+    },
+    {
+      "concept": "dpt_pre_listing_marker",
+      "matched_text": "pre\u2011sale",
+      "reason": "Crypto/DPT pre-sale timing signal, but surface form may be too generic"
+    },
+    {
+      "concept": "dpt_protocol_event_marker",
+      "matched_text": "DCA token tests",
+      "reason": "Crypto protocol sandbox activity; pattern coverage may be limited"
+    },
+    {
+      "concept": "information_barrier_operations",
+      "matched_text": "clean team",
+      "reason": "Barrier-related practice term not always included in marker lists"
+    },
+    {
+      "concept": "crypto key material",
+      "matched_text": "wallet keystore",
+      "reason": "Sensitive crypto artifact but not a wallet address per allowed rules"
+    },
+    {
+      "concept": "cross_border_location",
+      "matched_text": "Haihua Free Trade Zone",
+      "reason": "Implies cross-border operational context without an explicit transfer phrase"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "do not discuss this matter",
+      "reason": "Selective disclosure guard phrasing, may be too broad for strict matching"
+    },
+    {
+      "concept": "blackout_period_reference",
+      "matched_text": "blackout windows",
+      "reason": "Training context mention rather than an imposed trading blackout marker"
+    }
+  ]
+}

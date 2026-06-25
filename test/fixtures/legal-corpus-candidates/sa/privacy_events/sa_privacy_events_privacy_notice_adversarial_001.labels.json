@@ -1,0 +1,328 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 22,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 18,
+    "old_must_detect_count": 12,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@bayadir-amwal.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Qadir",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al\u2011Harith",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Najm",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@bayadir-amwal.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201111\u2011000\u20110000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@bayadir-amwal.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied to transactional logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list update",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR\u2011101\u2011888\u20110000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Nasser Al\u2011Bahi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "101-888-0000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1 0 1 - 8 8 8 - 0 0 0 0",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 7 0 3 - 1 2 3 - 4 5 6 7",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CUST\u2011R1m a\u201142",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal fulfilment",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@bayadir-amwal.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Qadir",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al\u2011Harith",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Najm",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Protection Officer: Dr. Layla Al\u2011Harith, dpo@bayadir-amwal.example.sa; postal: P.O. Box 55421, Riyadh 11455, Building 9, Wadi Al\u2011Ambar St, Al\u2011Mazari District (fictional)\nSecurity logs retain device fingerprints in pseudonymised form; no wi\u2011fi MAC addresses saved; ip logs hashed with pepper \u201cs1ra j\u201124\u201d; access audits retained 12 months in KSA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPA Schedule \u2014 Bayadir Al\u2011Tamwil JSC and Qamar Brokerage LLC (KSA) \u2014 Transfer & Retention Addendum v1.4 (Project Najm v2.3)\nController: Bayadir Al\u2011Tamwil JSC (Com mer cial Registration \u201cCR\u201d 1 0 1 - 8 8 8 - 0 0 0 0), Processor: Qamar Brokerage LLC (CR 7 0 3 - 1 2 3 - 4 5 6 7); contact privacy@bayadir-amwal.example.sa, +966\u201111\u2011000\u20110000\nPDPL lawful basis: performance of contract + explicit consent; categories: name, Iqama/NIN, corporate role, work email, trading account alias; no MAC addresses or GPS logs are collected or stored\nOnboarding form Ref ONB/SA/2026\u2011017: Mr. Sami Al\u2011Qadir (Iqa ma No: 2\u20229\u20220\u20221\u201177\u2011xx\u2011431) consented 2026\u201105\u201103; consent withdrawal recorded 2026\u201105\u201128 via https://portal.example.sa/consent?ref=ONB-2026-017\nDSAR ticket DSAR\u2011KSA\u201100971 received 2026\u201106\u201101 at dsar@bayadir-amwal.example.sa; identity matched via masked NIN ****\u2011**\u2011431 and customer code CUST\u2011R1m a\u201142; copy/export link: https://portal.example.sa/dsar?id=USR-7x9q&cr=101-888-0000\nOutcome: erasure completed 2026\u201106\u201103 for marketing contact fields; minimisation applied to transactional logs; retention of ledger entries reduced to 5 years subject to CMA and tax record obligations; deletion job hash a9f1::00bc..\nCross\u2011border transfer: sub\u2011vendor \u201cDaleel Cloud FZ\u2011LLC\u201d (BH) receives only salted identifiers; SDAIA transfer approval TA\u2011KSA\u201124\u2011Q2\u2011118 granted 2026\u201104\u201115; no national ID images leave the KSA data centre (policy\u2011only control, veri fied)\nNote: this memo does not authorise any new transfer; clause 7.2 is superseded by DTA\u2011KSA\u20112026\u201104 filed with SDAIA; see https://export.example.sa/approvals/TA\u2011KSA\u201124\u2011Q2\u2011118\nIssuer workflow: Al\u2011Rawdhah Industrials JSC (issuer code RWDH\u2011P) pre\u2011listing on Najd Securities Exchange; insider list update under CMA market\u2011conduct follow\u2011up concluded 2026\u201105\u201131; this notice contains no performance figures or forecasts\nCompleted control: insider portal access for Project Najm disabled 2026\u201105\u201131; no live MNPI access remains for Qamar Brokerage LLC staff, and test credentials were revoked\nRetention schedule: Iqama/NIN copies (when obtained) stored in KSA for 10 years or per CMA market\u2011conduct follow\u2011up, whichever longer; purge marker set for 2036\u201106\u201101; backup images redacted after 60 days\nPublic\u2011source references (e.g., issuer website news) may be processed; this does not entail collection of personal social media tokens; lower\u2011case pm note: todo align sprint\u201111 tasks with DSAR SLA\nData Protection Officer: Dr. Layla Al\u2011Harith, dpo@bayadir-amwal.example.sa; postal: P.O. Box 55421, Riyadh 11455, Building 9, Wadi Al\u2011Ambar St, Al\u2011Mazari District (fictional)\nSecurity logs retain device fingerprints in pseudonymised form; no wi\u2011fi MAC addresses saved; ip logs hashed with pepper \u201cs1ra j\u201124\u201d; access audits retained 12 months in KSA\nApproval: Eng. Nasser Al\u2011Bahi confirmed closure of DSAR\u2011KSA\u201100971 and consent withdrawal fulfilment; reference chain CR\u2011101\u2011888\u20110000 // USR\u20117x9q // MNPI\u2011Gate\u2011Off",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun / defined term, not PII"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun / defined term, not PII"
+    },
+    {
+      "matched_text": "CR",
+      "reason": "Defined abbreviation in quotes, not an ID value by itself"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure completed 2026\u201106\u201103",
+      "reason": "Erasure event is a privacy handling marker but no explicit allowed rule for erasure marker"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention of ledger entries reduced to 5 years",
+      "reason": "Retention change is relevant but no explicit retention marker rule provided"
+    },
+    {
+      "concept": "retention schedule",
+      "matched_text": "Retention schedule: Iqama/NIN copies (when obtained) stored in KSA for 10 years or per CMA market\u2011conduct follow\u2011up, whichever longer",
+      "reason": "Long-term retention statement; no dedicated rule for retention marker"
+    },
+    {
+      "concept": "purge/retention marker",
+      "matched_text": "purge marker set for 2036\u201106\u201101",
+      "reason": "Purge scheduling is relevant but not in allowed rule list"
+    },
+    {
+      "concept": "redaction/retention control",
+      "matched_text": "backup images redacted after 60 days",
+      "reason": "Retention/redaction timing is relevant but not mapped to an allowed rule"
+    },
+    {
+      "concept": "DSAR intake",
+      "matched_text": "DSAR ticket DSAR\u2011KSA\u201100971",
+      "reason": "DSAR event is legally relevant but no DSAR marker rule in allowed list"
+    },
+    {
+      "concept": "consent grant",
+      "matched_text": "consented 2026\u201105\u201103",
+      "reason": "Consent grant is relevant but only withdrawal marker is in allowed rules"
+    },
+    {
+      "concept": "cross-border safeguard",
+      "matched_text": "no national ID images leave the KSA data centre",
+      "reason": "Negative control for transfers; relevant but not an allowed marker and is a negated statement"
+    },
+    {
+      "concept": "MNPI access revocation",
+      "matched_text": "insider portal access for Project Najm disabled 2026\u201105\u201131",
+      "reason": "Access-control conclusion relevant to information barriers but no explicit allowed marker phrase present"
+    },
+    {
+      "concept": "MNPI access status",
+      "matched_text": "no live MNPI access remains for Qamar Brokerage LLC staff",
+      "reason": "MNPI barrier/control status is relevant but not tied to an allowed marker term"
+    },
+    {
+      "concept": "pseudonymisation/retention",
+      "matched_text": "Security logs retain device fingerprints in pseudonymised form",
+      "reason": "Security and retention practice is relevant but not an allowed rule"
+    },
+    {
+      "concept": "security hashing measure",
+      "matched_text": "ip logs hashed with pepper \u201cs1ra j\u201124\u201d",
+      "reason": "Technical safeguard relevant to privacy but not mapped to allowed rules"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "access audits retained 12 months in KSA",
+      "reason": "Retention period is relevant but no allowed retention marker rule"
+    },
+    {
+      "concept": "masked iqama/national ID",
+      "matched_text": "Iqa ma No: 2\u20229\u20220\u20221\u201177\u2011xx\u2011431",
+      "reason": "Partially masked/obfuscated ID not clearly covered by sa_iqama/sa_national_id rules"
+    },
+    {
+      "concept": "masked national ID",
+      "matched_text": "masked NIN ****\u2011**\u2011431",
+      "reason": "Partial/obfuscated national ID; not a full ID under allowed rules"
+    },
+    {
+      "concept": "issuer identifier",
+      "matched_text": "issuer code RWDH\u2011P",
+      "reason": "Issuer code is an identifier but not covered by allowed rules"
+    },
+    {
+      "concept": "internal user identifier",
+      "matched_text": "USR-7x9q",
+      "reason": "Likely internal user/account ID but not covered by allowed rules"
+    },
+    {
+      "concept": "internal user identifier",
+      "matched_text": "USR\u20117x9q",
+      "reason": "Same internal ID with different hyphen; not covered by allowed rules"
+    },
+    {
+      "concept": "transfer approval ID",
+      "matched_text": "TA\u2011KSA\u201124\u2011Q2\u2011118",
+      "reason": "Regulatory transfer approval identifier relevant to cross-border governance but not covered by allowed rules"
+    },
+    {
+      "concept": "postal code/address",
+      "matched_text": "Riyadh 11455",
+      "reason": "Postal address element is PII-like but no SA postal address rule provided"
+    }
+  ]
+}

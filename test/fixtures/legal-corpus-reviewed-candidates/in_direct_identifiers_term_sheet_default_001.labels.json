@@ -1,0 +1,437 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_direct_identifiers_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_term_sheet_default_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_direct_identifiers_term_sheet_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 212 per share'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 212 per share'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_direct_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@nimbustech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@cloudpeak.vc",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "raghav.mehta@nimbustech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "upsi_circle@nimbustech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 98100 23456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 98765 44021",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R1234568",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AABCN9999Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27AABCN9999Q1Z8",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data of children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "410501",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "411045",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "560050",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN 27AABCN9999Q1Z8",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN AABCN9999Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN QTTPS1234Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Escrow Account No. 004311234567",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport R1234568",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar 1234 5678 9012",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DPDPA-compliant notices/consents",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent will be obtained",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children (under 18 years)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no personal data of children (under 18 years) will be collected",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft Q4 results",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced vendor contracts",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window closure",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not transmit UPSI over public channels",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@nimbustech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@cloudpeak.vc",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "raghav.mehta@nimbustech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "upsi_circle@nimbustech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 98100 23456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 98765 44021",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R1234568",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AABCN9999Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27AABCN9999Q1Z8",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data of children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "410501",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "411045",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "560050",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "__________; PAN: __________; Aadhaar: __________; Bank A/c No.: __________.\nLong Stop & Signatures: Long stop date 31 January 2027; governing law: India; jurisdiction: Mumbai; signed for NimbusTech Instruments Limited by Company Secreta",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment in NimbusTech Instruments Limited (listed on NSE and BSE; CIN: L28999MH2020PLC123456), by Cloudpeak Ventures LLP (LLPIN: BCF-7891).\nStructure: Preferential allotment of 18% fully paid equity shares at INR 212 per share under SEBI ICDR Regulations, 2018; post-issue holding subject to open-offer exemptions not being triggered.\nUse of Proceeds: Capex for Phase-II sensor line at Plot A-17, Sector 21, Navi Parava, Maharashtra 410501 and working capital.\nConditions Precedent: board and shareholder approvals, NSE/BSE in-principle approvals, SEBI observation letter, KYC completion, DPDPA-compliant notices/consents for all natural-person data processed in onboarding.\nTarget Identifiers: GSTIN 27AABCN9999Q1Z8; PAN AABCN9999Q; Registered office: 5th Floor, Block E-19, Technopark Enclave, Pune 411045; corporate email: cs@nimbustech.in; website: www.nimbustech.in.\nInvestor Identifiers: Cloudpeak Ventures LLP, PAN QTTPS1234Z (invalid checksum example, not for filing), address: 302, Coral Arch, Palm Grove Road, Bengaluru 560050; contact: dealdesk@cloudpeak.vc; phone: +91 98100 23456.\nEscrow & Payment: Escrow Account No. 004311234567 with Zybanka India Ltd., Fort, Mumbai; IFSC ZYBK0001234; payment on T+2 after signing and satisfaction of CPs.\nSignatory & KYC: Mr. Raghav Mehta (CFO, NimbusTech), email raghav.mehta@nimbustech.in, phone +91 98765 44021; Passport R1234568; Aadhaar 1234 5678 9012 (placeholder, checksum invalid; not to be submitted).\nData Protection: Each Party will issue a DPDPA-compliant notice specifying purpose, retention, and grievance officer contacts; no personal data of children (under 18 years) will be collected; if later required for any customer KYC, verifiable parental consent will be obtained before processing.\nUPSI/SEBI PIT: Parties acknowledge that draft Q4 results and unannounced vendor contracts constitute UPSI; trading window closure applies from signing until 48 hours after public disclosure to NSE/BSE; only \u201cneed-to-know\u201d access; pre-clearance required from the Compliance Officer.\nConfidentiality & Clean Team: a clean team will review supplier pricing models; emails circulating UPSI must use the restricted alias upsi_circle@nimbustech.in; do not transmit UPSI over public channels or to role-only addresses outside the clean team.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "112",
+      "reason": "public helpline bait"
+    },
+    {
+      "matched_text": "1098",
+      "reason": "public helpline bait"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "Address",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "PAN",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "Aadhaar",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "Bank A/c No",
+      "reason": "generic form label bait"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "role-only term, not PII"
+    },
+    {
+      "matched_text": "Authorised Signatory",
+      "reason": "role-only term, not PII"
+    },
+    {
+      "matched_text": "Partner",
+      "reason": "role-only term, not PII"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "role-only term, not PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "role-only term, not PII"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "corporate_identifier (CIN)",
+      "matched_text": "CIN: L28999MH2020PLC123456",
+      "reason": "Indian corporate ID is legally relevant but not covered by current allowed rules"
+    },
+    {
+      "concept": "corporate_identifier (LLPIN)",
+      "matched_text": "LLPIN: BCF-7891",
+      "reason": "Indian LLP identifier is relevant but not in allowed rules"
+    },
+    {
+      "concept": "bank_routing_code (IFSC)",
+      "matched_text": "IFSC ZYBK0001234",
+      "reason": "Bank routing code may be sensitive but no explicit rule provided"
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "Registered office: 5th Floor, Block E-19, Technopark Enclave, Pune 411045",
+      "reason": "Address could be identifying but no India postal address rule provided"
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "address: 302, Coral Arch, Palm Grove Road, Bengaluru 560050",
+      "reason": "Address may identify individuals but not covered by allowed rules"
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "Plot A-17, Sector 21, Navi Parava, Maharashtra 410501",
+      "reason": "Location information may be identifying but no specific rule exists for Indian addresses"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention",
+      "reason": "Retention requirement is a privacy marker but no explicit rule name in allowed list"
+    }
+  ]
+}

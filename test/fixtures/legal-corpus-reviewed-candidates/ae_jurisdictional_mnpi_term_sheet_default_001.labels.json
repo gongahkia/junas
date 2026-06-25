@@ -1,0 +1,449 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.80 per share'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 6,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 4,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.80 per share'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 6,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 4,000,000'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_jurisdictional_mnpi_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/jurisdictional_mnpi/ae_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_jurisdictional_mnpi_term_sheet_default_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 24,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Trade Licence TL-ADGM-7841",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al Najjar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dalia Karim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rami.alnajjar@naseemholdings.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dalia.karim@barqrenewables.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn-out triggers",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "indicative synergy ranges",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ADX blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout/Dealing Restrictions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no director/officer dealings",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "delayed disclosure permitted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure controls",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prevent selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Target signing by 28 July 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-ADGM-7841",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Naseem Holdings Limited (ADGM SPV, Trade Licence TL-ADGM-7841) of a 22% strategic stake in Barq Renewables PJSC (ADX: BRQ, issuer) from Noor Oasis Investments LLC (Seller).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Off-market block trade with post-closing registration; SCA substantial holdings notification and ADX acknowledgment required; no mandatory tender offer expected as stake remains below threshold, subject to SCA no-objection.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Buyer equity AED 180,000,000; bridge facility AED 90,000,000 from Amwaj Capital SPC (DIFC), secured over acquired shares and related distributions; no public offering of securities in the UAE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: One board seat for Buyer; information rights limited to prevent selective disclosure; any forecasts or guidance to be published via ADX prior to wider circulation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Break Fees: Seller break fee AED 6,000,000 if a superior proposal is accepted; reverse break fee AED 4,000,000 if Buyer fails to secure financing on agreed terms.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rami.alnajjar@naseemholdings.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dalia.karim@barqrenewables.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-ADGM-7841",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al Najjar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dalia Karim",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Naseem Holdings Limited (ADGM SPV, Trade Licence TL-ADGM-7841) of a 22% strategic stake in Barq Renewables PJSC (ADX: BRQ, issuer) from Noor Oasis Investments LLC (Seller).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Off-market block trade with post-closing registration; SCA substantial holdings notification and ADX acknowledgment required; no mandatory tender offer expected as stake remains below threshold, subject to SCA no-objection.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Buyer equity AED 180,000,000; bridge facility AED 90,000,000 from Amwaj Capital SPC (DIFC), secured over acquired shares and related distributions; no public offering of securities in the UAE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Buyer equity AED 180,000,000; bridge facility AED 90,000,000 from Amwaj Capital SPC (DIFC), secured over acquired shares and related distributions; no public offering of securities in the UAE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: One board seat for Buyer; information rights limited to prevent selective disclosure; any forecasts or guidance to be published via ADX prior to wider circulation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Break Fees: Seller break fee AED 6,000,000 if a superior proposal is accepted; reverse break fee AED 4,000,000 if Buyer fails to secure financing on agreed terms.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Naseem Holdings Limited (ADGM SPV, Trade Licence TL-ADGM-7841) of a 22% strategic stake in Barq Renewables PJSC (ADX: BRQ, issuer) from Noor Oasis Investments LLC (Seller).\nPurchase Price: AED 7.80 per share, representing a 19% premium to the 30-day VWAP; price, earn-out triggers, and indicative synergy ranges are non-public and constitute inside information under SCA/ADX rules.\nStructure: Off-market block trade with post-closing registration; SCA substantial holdings notification and ADX acknowledgment required; no mandatory tender offer expected as stake remains below threshold, subject to SCA no-objection.\nTiming/Disclosure: Target signing by 28 July 2026; issuer disclosure to ADX without delay upon SPA execution, or delayed disclosure permitted with SCA notification where immediate publication would prejudice legitimate interests.\nConditions Precedent: SCA no-objection; issuer board approval; no material adverse change; clean legal title; customary KYC; provision of management\u2019s unaudited Q2 order book estimate (~14% YoY growth) solely for diligence\u2014this is inside information and recipients are on a wall-crossed restricted list.\nBlackout/Dealing Restrictions: Issuer is subject to ADX blackout starting 15 days before half-year results; no director/officer dealings; Buyer acknowledges selective disclosure controls and agrees to comply with SCA Market Conduct Regulations.\nPublic Reference: ADX announcement dated 12 Feb 2025 (Ref: ADX/BRQ/2025-019) regarding dividend policy and 2024 capacity expansion remains public and is not updated or supplemented by this term sheet.\nNegative/Benign Note: Al Safwa Transport LLC\u2019s relocation of its Sharjah warehouse last month is a routine third-party operational update and is not material to the issuer.\nFinancing: Buyer equity AED 180,000,000; bridge facility AED 90,000,000 from Amwaj Capital SPC (DIFC), secured over acquired shares and related distributions; no public offering of securities in the UAE.\nGovernance: One board seat for Buyer; information rights limited to prevent selective disclosure; any forecasts or guidance to be published via ADX prior to wider circulation.\nPDPL/Data Handling: Parties will exchange KYC (including Emirates ID copy of signatories and trade licence extracts) for contractual necessity and legal obligation under UAE PDPL; data hosted in ADGM; no cross-border transfer without appropriate safeguards and UAE-compliant notices.\nExclusivity/Standstill: 45 days exclusivity; Buyer will not approach other shareholders or execute on-market purchases until ADX disclosure is made and blackout restrictions permit.\nBreak Fees: Seller break fee AED 6,000,000 if a superior proposal is accepted; reverse break fee AED 4,000,000 if Buyer fails to secure financing on agreed terms.\nContacts: Mr. Rami Al Najjar, Head of M&A, Naseem Holdings Limited, rami.alnajjar@naseemholdings.ae; Ms. Dalia Karim, Company Secretary, Barq Renewables PJSC, dalia.kar",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Defined role term; not PII/MNPI on its own."
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined role term; not PII/MNPI on its own."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Generic role term; not PII/MNPI."
+    },
+    {
+      "matched_text": "ADX announcement dated 12 Feb 2025 (Ref: ADX/BRQ/2025-019)",
+      "reason": "Public reference; not MNPI."
+    },
+    {
+      "matched_text": "Al Safwa Transport LLC\u2019s relocation of its Sharjah warehouse last month is a routine third-party operational update and is not material to the issuer",
+      "reason": "Benign third-party update; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "data residency/location",
+      "matched_text": "data hosted in ADGM",
+      "reason": "Location of data hosting is PDPL-relevant but not an explicitly allowed marker."
+    },
+    {
+      "concept": "regulatory approval gate",
+      "matched_text": "SCA no-objection",
+      "reason": "Regulatory clearance condition can be material but is not a specific allowed MNPI rule."
+    },
+    {
+      "concept": "disclosure timing compliance",
+      "matched_text": "issuer disclosure to ADX without delay upon SPA execution",
+      "reason": "Issuer disclosure timing is market/regulatory sensitive but not directly mapped to a specific allowed rule beyond general non-public markers."
+    },
+    {
+      "concept": "PII category mention",
+      "matched_text": "Emirates ID copy of signatories",
+      "reason": "PII category referenced without an actual Emirates ID number; not captured by strict ID rules."
+    }
+  ]
+}

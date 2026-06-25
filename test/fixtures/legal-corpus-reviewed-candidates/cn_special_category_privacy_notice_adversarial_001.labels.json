@@ -1,0 +1,404 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_special_category_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/special_category/cn_special_category_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_special_category_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 34,
+    "new_must_detect_count": 17,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 17,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@xinyirobotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "emp:qiul-iang-004",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Liang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Lixue",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Liang\u2019s biometric fingerprints and facial template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health exam results",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a voluntary genetic-screening summary",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "self-declared religion (Daoist)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership (Yunzhou Tech Workers Union)",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sexual-orientation field: Mr. Qiu Liang self-identifies as gay",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sensitive minor PI",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer: export of payroll-support data to Blue Harbor Analytics Pte. Ltd. (SG) is on hold pending municipal cyber authority filing YNZ-DS-2026-014 and execution of China SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unified Social Credit Code (USCC) 91 90** 0087 M A 0 Y 9 Q 3 X 7",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Resident ID No. 37 08 2 5 1991 **** 3 2 1 X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-0579-2**-**360",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-13**-**7219",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-disclosure revenue drafts",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not collect any material nonpublic info for fan clubs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric logs auto-delete after 180 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-0579-2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "China SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor information",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lowercase proj mgmt: todo refresh rivergate policy and dei training; we do not collect any material nonpublic info for fan clubs; nothing here is a merger agreement or change\u2011of\u2011control commitment; metaphors like \u201cthe dragon wakes\u201d in marketing copy are ignored by compliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+86-0579-2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "China SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Liang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Lixue",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Liang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Han Lixue",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Qiu Liang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor information",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lowercase proj mgmt: todo refresh rivergate policy and dei training; we do not collect any material nonpublic info for fan clubs; nothing here is a merger agreement or change\u2011of\u2011control commitment; metaphors like \u201cthe dragon wakes\u201d in marketing copy are ignored by compliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject record (anchored): Mr. Qiu Liang (R&D Manager), Resident ID No. 37 08 2 5 1991 **** 3 2 1 X; employee id emp:qiul-iang-004; manager: Ms. Han Lixue.\nSensitive PI processed for employment and facility access: Mr. Qiu Liang\u2019s biometric fingerprints and facial template for lab turnstiles; occupational health exam results (e.g., hepatic panel); a voluntary genetic-screening summary; self-declared religion (Daoist); and union membership (Yunzhou Tech Workers Union).\nMinor information: his dependent Qiu Ze (age 12) listed for employer medical insurance; guardian consent documented by Ms. Han Lixue; tagged as sensitive minor PI per PIPL with heightened protection.\nSexual-orientation field: Mr. Qiu Liang self-identifies as gay for benefits administration; access strictly limited to HR with separate approval logs; processing based on clear, separate consent and necessity for employment benefits only.\nMNPI segregation: as issuer, pre-disclosure revenue drafts, placement timetables, and board resolutions constitute inside information and are ring-fenced in an \u201cinsider room\u201d; HR health/biometric fields are never used for trading or investor relations.\nBenign product naming: Genetic Lantern and Biometric Shield are internal product modules and do not describe any person\u2019s genetic or biometric characteristics.\nCross-border transfer: export of payroll-support data to Blue Harbor Analytics Pte. Ltd. (SG) is on hold pending municipal cyber authority filing YNZ-DS-2026-014 and execution of China SCCs; until approval, data is processed in CN-only zone Yunzhou IDC-03 with geo-fencing.\nRetention schedule: biometric logs auto-delete after 180 days; health/religion/union/sexual-orientation fields are retained 10 years post-termination or longer if a legal hold applies; minor dependent records are removed when Qiu Ze turns 14 or coverage ends, whichever is earlier.\nDSAR: submit via https://xinyi.example.cn/dsar?req=QIU-LIANG&u=socid_91%2A%2A%2A0Y9 or email privacy@xinyirobotics.cn; we verify using masked Resident ID and SMS to +86-13**-**7219; rights include access, copy, correction, deletion, and portability per PIPL.\nAccess control and audit: roles are separ a ted; HR can view health/union/sexual-orientation with dual control; Legal handles MNPI insider room; all actions logged, e.g., file://hr/records/2026/qi u l i a n g.pdf and SIEM event ql-2026-04-19.\nThis is not MNPI: public-source references (e.g., Yunzhou Daily press blurbs) and casual mentions of the Beiyun Mariners sports team are excluded from insider lists and trading windows.\nlowercase proj mgmt: todo refresh rivergate policy and dei training; we do not collect any material nonpublic info for fan clubs; nothing here is a merger agreement or change\u2011of\u2011control commitment; metaphors like \u201cthe dragon wakes\u201d in marketing copy are ignored by compliance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Genetic Lantern",
+      "reason": "Product/module name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Biometric Shield",
+      "reason": "Product/module name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Beiyun Mariners",
+      "reason": "Sports team name; not PII or MNPI."
+    },
+    {
+      "matched_text": "the dragon wakes",
+      "reason": "Metaphor in marketing copy; not PII or MNPI."
+    },
+    {
+      "matched_text": "rivergate policy",
+      "reason": "Policy name reference; not PII or MNPI."
+    },
+    {
+      "matched_text": "dei training",
+      "reason": "Generic DEI reference; not PII or MNPI."
+    },
+    {
+      "matched_text": "Yunzhou Daily",
+      "reason": "Publication name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Hai\u2019an Securities Exchange",
+      "reason": "Exchange/place name; not PII or MNPI."
+    },
+    {
+      "matched_text": "merger agreement",
+      "reason": "Negated/absent definitive agreement; should not be labeled as an agreement."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "https://xinyi.example.cn/dsar?req=QIU-LIANG&u=socid_91%2A%2A%2A0Y9",
+      "reason": "URL contains query parameters that appear to encode an identity/request token, but it is unclear if this fits the allowed identifier rules."
+    },
+    {
+      "concept": "quasi_identifier_combination",
+      "matched_text": "file://hr/records/2026/qi u l i a n g.pdf",
+      "reason": "File path appears to directly point to an individual\u2019s HR record but does not match a specific allowed PII rule pattern."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "ql-2026-04-19",
+      "reason": "SIEM event identifier may be an internal log/session ID, but classification under allowed rules is ambiguous."
+    }
+  ]
+}

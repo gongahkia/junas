@@ -1,0 +1,27 @@
+code = "KR"
+label = "Korea"
+pii_rules = ["KR_PIPA_PERSONAL_INFORMATION", "KR_PIPA_RRN_RESTRICTED"]
+mnpi_rules = ["KR_FSCMA_INSIDER_TRADING"]
+references = [
+    "Personal Information Protection Act Article 2 and Article 24-2",
+    "Financial Investment Services and Capital Markets Act Articles 174-179",
+]
+aliases = ["KR", "KOR", "KOREA", "SOUTH KOREA", "REPUBLIC OF KOREA"]
+
+[[recognizers]]
+name = "Korean resident registration number"
+rule_name = "kr_rrn"
+pattern = '(?:RRN|Resident[-\s]+(?:Registration[-\s]+)?(?:Number|No\.?)|주민등록번호|등록번호)[\s:.#-]*(\d{6}-\d{7})'
+severity = "high"
+reason = "Korean resident registration number"
+capture_group = 1
+validator = "kr_rrn"
+
+[[recognizers]]
+name = "Korean business registration number"
+rule_name = "kr_business_registration"
+pattern = '(?:Business\s+Registration\s+Number|Business\s+Reg\.?\s+No\.?|KR[-\s]?BRN|사업자등록번호)[\s:.#-]*(\d{3}-\d{2}-\d{5})'
+severity = "medium"
+reason = "Korean business registration number"
+capture_group = 1
+validator = "kr_business_registration"

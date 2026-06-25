@@ -1,0 +1,273 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_direct_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_direct_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 14,
+    "new_must_detect_count": 9,
+    "old_ideal_must_detect_count": 9,
+    "old_must_detect_count": 9,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "784-2001-1234567-4",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@alnair-holdings.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-00000000",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "FZL-123456-X",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No 000000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "for signatory verification only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team protocol",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of a majority stake in Sadaf Technologies FZ-LLC by Alnair Holdings PJSC (non-binding, for discussion only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exchange/listing context: if any post-closing listing or admission to trading is contemplated, it will follow applicable disclosure standards and market conduct rules; this document is not an offer to the public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Notices and contacts: role mailbox legal@alnair-holdings.example.ae; general enquiries helpline +971 800 0000 (public line); no personal numbers or private emails to be used for this process.\nAddress for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-2001-1234567-4",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of a majority stake in Sadaf Technologies FZ-LLC by Alnair Holdings PJSC (non-binding, for discussion only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exchange/listing context: if any post-closing listing or admission to trading is contemplated, it will follow applicable disclosure standards and market conduct rules; this document is not an offer to the public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of a majority stake in Sadaf Technologies FZ-LLC by Alnair Holdings PJSC (non-binding, for discussion only).\nParties: Buyer \u2014 Alnair Holdings PJSC; Seller \u2014 Marabit Capital SPV Ltd; Target \u2014 Sadaf Technologies FZ-LLC (all entities are UAE-based and fictional).\nCorporate identifiers (placeholders): Buyer Dubai Trade Licence TL-00000000; Buyer ADGM Commercial Registration ADGM-CR-9999999; Target Free Zone Licence FZL-123456-X (formats illustrative, not validated).\nRegulatory context: subject to applicable UAE federal securities laws and free zone market-abuse regimes (DIFC/ADGM); at term sheet stage no onshore filing is required and no non-public price-sensitive information is being shared.\nStructure and consideration: to be agreed following confirmatory due diligence; no commitment to issue or purchase securities; not price sensitive and not intended to influence trading in any market.\nKYC/AML: for signatory verification only, Buyer to verify Emirates ID 784-2001-1234567-4 of the Authorised Signatory; Family-origin (for KYC form only): [Not Collected].\nConditions precedent: standard corporate approvals, free zone NOC if applicable, competition and foreign ownership checks (if any), and tax clearance; TRN (form label) TRN 1234567890123456 (format not validated).\nNo MNPI: the parties confirm the Target\u2019s exploration of strategic options has already been publicly announced on the Target\u2019s website on 15 March 2025; no confidential projections, client lists, or unpublished results will be provided before a clean team protocol is agreed.\nNotices and contacts: role mailbox legal@alnair-holdings.example.ae; general enquiries helpline +971 800 0000 (public line); no personal numbers or private emails to be used for this process.\nAddress for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA.\nIdentification (form fields): Passport No 000000000; UAE Visa File No 123/2020/0000000; do not send copies by email; only on-site verification at the data room.\nGoverning law and forum: UAE law; disputes to be heard by a competent free zone court; bilingual Arabic/English versions to be prepared for execution.\nExchange/listing context: if any post-closing listing or admission to trading is contemplated, it will follow applicable disclosure standards and market conduct rules; this document is not an offer to the public.\nExclusivity and break fees: none at the term sheet stage; either party may terminate discussions without liability except for confidentiality and clean team obligations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Address for service (form fields): P.O. Box [________], Emirate [________], Building [________], Unit [________]; for corporate correspondence only.\nBank and settlement (placeholders): Account Name [To be provided]; IBAN AE00 0000 0000 0000 0000 000 (illustrative only); settlement mechanics to be documented in the SPA",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "+971 800 0000",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "IBAN AE00 0000 0000 0000 0000 000",
+      "reason": "Illustrative/invalid placeholder IBAN"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "TRN (form label)",
+      "reason": "Generic form label; not an actual identifier"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "Company registration number (ADGM CR)",
+      "matched_text": "ADGM-CR-9999999",
+      "reason": "Corporate registry identifier; no specific allowed rule and typically not personal PII"
+    },
+    {
+      "concept": "UAE visa file number",
+      "matched_text": "UAE Visa File No 123/2020/0000000",
+      "reason": "Government immigration identifier for an individual but no explicit rule available"
+    },
+    {
+      "concept": "UAE Tax Registration Number (TRN)",
+      "matched_text": "TRN 1234567890123456",
+      "reason": "Tax identifier likely corporate; no specific TRN rule in the allowed list"
+    },
+    {
+      "concept": "Sensitive demographic origin indicator",
+      "matched_text": "Family-origin (for KYC form only): [Not Collected]",
+      "reason": "References special-category data (ethnic/family origin) but not collected and not explicitly covered by allowed rules"
+    }
+  ]
+}

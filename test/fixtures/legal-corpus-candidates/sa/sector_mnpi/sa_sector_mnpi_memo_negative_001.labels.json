@@ -1,0 +1,297 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SA Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T12:36:18Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T12:36:18Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+    "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 25,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 25,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "pdpl@madarcloud.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insiderlist@madarcloud.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial\u2011term signals: vendor RFP matrices may use red/amber/green flags for benchmarks only; do not infer pricing guidance for any security or sukuk from procurement notes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 700-XXX-4455",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 7XX-00-12X45",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@madarcloud.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama: XXXX-XXXX-XXXXXX-X",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "must not request full National ID/Iqama\u2014use masked fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No-Personals",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer to non-KSA processors",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer register entry",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Team Charter v2.1",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider\u2011list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber\u2011incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disclosure sequencing",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remain confined to Legal",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "pdpl@madarcloud.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insiderlist@madarcloud.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial\u2011term signals: vendor RFP matrices may use red/amber/green flags for benchmarks only; do not infer pricing guidance for any security or sukuk from procurement notes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: training and operating guidance on PDPL handling, capital-markets conduct hygiene, and issuer workflows for locally listed entities.\nPDPL reminder: PII includes any data identifying a natural person directly/indirectly; marketing forms must not request full National ID/Iqama\u2014use masked fields (e.g., Iqama: XXXX-XXXX-XXXXXX-X), and route copies via the PD mailbox pdpl@madarcloud.sa.\nCross-border data: any transfer to non-KSA processors requires SDAIA assessment and a standard transfer register entry; vendor tickets must include \u201cNo-Personals\u201d if only hashed telemetry is exported.\nCR/onboarding: when collecting commercial registration, accept only business labels (e.g., CR: 7XX-00-12X45), avoid attaching signatory IDs, and store documents in the \u201cIssuer-Workflow/Disclosures/Public\u201d folder unless Legal flags otherwise.\nCrypto references in this document are educational (e.g., sandbox \u201cRimalPay Token Pilot\u201d with synthetic wallets: WAL-XX-0000); there is no live trading, custody, or exchange listing activity implied.\nESG/climate content herein is drawn from already-announced 1444H Sustainability Report excerpts and a mock \u201cNet\u2011Zero Playbook\u201d brochure; no updates to targets are proposed in this note.\nCyber tabletop: use Scenario C (training only)\u2014simulated DDoS against a staging API; incident codes and timestamps are fictitious and should not be circulated as operational alerts.\nInformation barriers: staff may reference the \u201cClean Team Charter v2.1\u201d for separations between research and corporate advisory; insider\u2011list templates must use role aliases (e.g., FIN\u201101, SEC\u201102) and the mailbox insiderlist@madarcloud.sa.\nBlackout and tipping refresher: group\u2011wide blackout windows are posted on the public IR site; avoid rumor amplification on internal chat; examples in this note are generic and not issuer\u2011specific.\nCommercial\u2011term signals: vendor RFP matrices may use red/amber/green flags for benchmarks only; do not infer pricing guidance for any security or sukuk from procurement notes.\nMNPI (restricted): the Board has received a non\u2011public cyber\u2011incident briefing on 28 Sha\u2019ban 1447H regarding temporary degradation in a private client modul",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider list",
+      "reason": "Explicitly a training roster reference; not related to trading status (non-MNPI)."
+    },
+    {
+      "matched_text": "RimalPay Token Pilot",
+      "reason": "Educational sandbox example; no live trading/custody/listing implied."
+    },
+    {
+      "matched_text": "WAL-XX-0000",
+      "reason": "Synthetic wallet example; not a real crypto wallet address."
+    },
+    {
+      "matched_text": "Net\u2011Zero Playbook",
+      "reason": "Mock brochure and already-announced content; no target updates proposed."
+    },
+    {
+      "matched_text": "simulated DDoS",
+      "reason": "Training-only tabletop scenario; not an operational cyber incident."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "nonpublic event date",
+      "matched_text": "28 Sha\u2019ban 1447H",
+      "reason": "Date of a non-public Board briefing may be market sensitive but not covered by specific allowed rules (not a defined embargo marker)."
+    },
+    {
+      "concept": "cross-border assessment",
+      "matched_text": "SDAIA assessment",
+      "reason": "Indicates regulatory gating for cross-border transfers but is a policy reference, not a live transfer marker per rules."
+    }
+  ]
+}

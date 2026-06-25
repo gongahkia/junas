@@ -1,0 +1,277 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "1523-1000",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_direct_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "secops@daonnetrix.co",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1523-1000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830101-1234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-45-67890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "830101",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@daonnetrix.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830101-1234567",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "secops@daonnetrix.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@daonnetrix.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-45-67890",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-000000-00",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uad6d\uc678 \uc774\uc804 \ud1b5\uc9c0\u00b7\ub3d9\uc758",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\ucd5c\uc18c\ud654 \uc6d0\uce59",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uc6d0\ubcf8 \uc800\uc7a5 \uae08\uc9c0",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uc804\uc0ac \uc2dc\uc2a4\ud15c \uc800\uc7a5 \uae08\uc9c0",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uac1c\uc778 \ud734\ub300\uc804\ud654 \uc218\uc9d1 \uae08\uc9c0",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ub0b4\ubd80\uc815\ubcf4\uad00\ub9ac\uaddc\uc815",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\uc811\uadfc\ud1b5\uc81c",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ub8e8\uba38\u00b7\ucd94\uc815\uce58\ub294 \uc0ac\ub0b4 \ucee4\ubba4\ub2c8\ucf00\uc774\uc158\uc5d0 \ud55c\uc815",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\uc815\ubcf4\uc8fc\uccb4 \uc694\uccad(\uc5f4\ub78c\u00b7\uc815\uc815\u00b7\uc0ad\uc81c)",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "secops@daonnetrix.co",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830101-1234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-45-67890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "830101",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ubbf8\uacf5\uac1c",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[\uc131\uba85]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uc0ac\ubc88]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uc5ec\uad8c\ubc88\ud638]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uae08\uc561]",
+      "reason": "Redaction placeholder, not actual data"
+    },
+    {
+      "matched_text": "[\uc0c1\ub300\ubc29]",
+      "reason": "Redaction placeholder, not actual data"
+    },
+    {
+      "matched_text": "[\uc77c\uc790]",
+      "reason": "Redaction placeholder, not actual data"
+    },
+    {
+      "matched_text": "[\uc8fc\uc18c]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uc5f0\ub77d\ucc98]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uacc4\uc88c\ubc88\ud638]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "830101-1******",
+      "reason": "Masked/obfuscated example, not a real identifier"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "cross-border outsourcing",
+      "matched_text": "\ud574\uc678 \uc704\ud0c1(\uc608: \ud074\ub77c\uc6b0\ub4dc \ub85c\uadf8 \ubd84\uc11d)",
+      "reason": "Implies international processing; relevant to cross-border transfer but not the explicit transfer consent phrase"
+    },
+    {
+      "concept": "security_safeguard_retention",
+      "matched_text": "\ubd84\ub9ac\ubcf4\uad00",
+      "reason": "Indicates separation of access logs as a safeguard; no explicit rule category provided"
+    },
+    {
+      "concept": "erasure/deletion marker",
+      "matched_text": "\ud30c\uae30",
+      "reason": "Refers to deletion of data; erasure is relevant but no explicit erasure rule name provided"
+    },
+    {
+      "concept": "retention_period",
+      "matched_text": "\ubcf4\uc720\uae30\uac04\uc740 \ucc44\uc6a9 \uc885\ub8cc 3\ub144, \ud22c\uc790\uc790\ubb38\uc758 1\ub144, \uac70\ub798 \uac80\ud1a0\uc790\ub8cc\ub294 \uacf5\uc2dc \ud6c4 6\uac1c\uc6d4",
+      "reason": "Specifies retention terms; retention markers are relevant but not enumerated as a distinct allowed rule name"
+    },
+    {
+      "concept": "insider reference",
+      "matched_text": "\ub0b4\ubd80\uc790",
+      "reason": "Mentions insiders generally but not as an insider list; borderline for MNPI insider-list marker"
+    }
+  ]
+}

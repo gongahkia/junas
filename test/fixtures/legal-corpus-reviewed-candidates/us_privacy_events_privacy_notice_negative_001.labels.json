@@ -1,0 +1,237 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_privacy_events_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/privacy_events/us_privacy_events_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_privacy_events_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 17,
+    "new_must_detect_count": 4,
+    "old_ideal_must_detect_count": 13,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@northcoasthealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal handling",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do-not-process flag",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimized fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields marked \u201coptional\u201d are suppressed",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "prevent collection of free text",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HB-000-AX9",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000-XYZ-1234",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure under Reg FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2025-03-15, Controller approved export of pseudonymized uptime telemetry to Processor\u2019s EU facility using the 2021 SCCs with supplemental encryption",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2021 SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GLBA opt-out notice is provided annually",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: Processor Pinnacle Data Works LLC provides analytics tooling for employee training and investor-relations sites; no direct marketing; no sale or sharing under CCPA.\nCategories of data: hashed customer IDs (e.g., HB-000-AX9), de-identified patient event metrics, GLBA customer service notes with redactions; no Social Security numbers, no live PHI transmission to Processor.\nMNPI controls: analyst portals contain only public, already-announced information; no selective disclosure under Reg FD; training uses synthetic securities examples (Ticker: MGB:NC-HB is a non-tradable placeholder).\nRetention: Processor stores logs for 18 months, then auto-deletes via retention policy; Controller retains investor FAQ submissions for 12 months in minimized fields.\nCross-border transfer approval: On 2025-03-15, Controller approved export of pseudonymized uptime telemetry to Processor\u2019s EU facility using the 2021 SCCs with supplemental encryption.\nConsent withdrawal handling: employee and consumer choices are recorded in a do-not-process flag; no adverse action is taken on withdrawal, and services remain available where lawful.\nDSAR workflow: On 2025-04-02, a household access and erasure request was fulfilled; decommissioned records were removed from active systems and from backups via the standard purge window.\nSecurity and minimization: only role-based access; fields marked \u201coptional\u201d are suppressed; data dictionaries prevent collection of free text that could include MNPI or health details.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "No cross-border transfers are pending approval as of this memo",
+      "reason": "Negated; not a live cross-border transfer marker."
+    },
+    {
+      "matched_text": "no unresolved erasure failures or consent disputes remain open",
+      "reason": "Negated; not an active erasure/consent issue."
+    },
+    {
+      "matched_text": "no Social Security numbers",
+      "reason": "Negated mention; no SSN value present."
+    },
+    {
+      "matched_text": "no live PHI transmission to Processor",
+      "reason": "Negated mention of PHI; not a data element."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention policy",
+      "matched_text": "Retention: Processor stores logs for 18 months, then auto-deletes via retention policy",
+      "reason": "Retention markers are legally relevant but no explicit retention rule is in the allowed set."
+    },
+    {
+      "concept": "retention duration",
+      "matched_text": "Controller retains investor FAQ submissions for 12 months",
+      "reason": "Retention duration is relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "DSAR and erasure",
+      "matched_text": "DSAR workflow: On 2025-04-02, a household access and erasure request was fulfilled",
+      "reason": "DSAR/erasure handling is relevant but no specific rule is provided in the allowed list."
+    },
+    {
+      "concept": "backup erasure",
+      "matched_text": "decommissioned records were removed from active systems and from backups via the standard purge window",
+      "reason": "Erasure from backups is important for compliance but not mapped to a listed rule."
+    },
+    {
+      "concept": "insider trading control",
+      "matched_text": "insider trading prohibitions under Rule 10b-5",
+      "reason": "Securities-law control reference is MNPI-relevant but not mapped to a listed MNPI rule."
+    },
+    {
+      "concept": "nonpublic information control",
+      "matched_text": "analyst portals contain only public, already-announced information",
+      "reason": "Control statement about avoiding non-public information is relevant to Reg FD but not a listed rule."
+    },
+    {
+      "concept": "de-identification control",
+      "matched_text": "the analytics dataset is configured as de-identified per the HIPAA de-identification safe harbor",
+      "reason": "De-identification status is privacy-relevant but not covered by an explicit allowed rule."
+    }
+  ]
+}

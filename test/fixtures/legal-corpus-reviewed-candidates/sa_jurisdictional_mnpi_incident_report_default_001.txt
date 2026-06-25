@@ -1,0 +1,15 @@
+Incident Report — Cybersecurity Event (Preliminary; Non-Public per CMA Market Conduct Regulations; internal circulation only)
+Issuer: AlQafil Logistics Co. (CR 7042219981), Tadawul symbol QAFL; contact: compliance@alqafil.sa, +966-11-000-1234
+On 03/06/2026 at 02:10 AST we detected anomalous access to our Riyadh payment integration via a privileged service account hosted at our vendor “NujumNet Hosting FZ-LLC,” resulting in a four-hour disruption and potential exfiltration of a legacy backup.
+The backup contained approximately 1.2 million records with names, mobile numbers, and identifiers including partial National ID/Iqama and Commercial Registration, e.g., Iqama ending 4410 and CR 7019923345, but no primary account numbers or full IBANs.
+Mr. Nasser Al‑Shehri (CISO; Iqama ending 8821) activated the IRP at 02:30 AST and isolated the affected connector; Dr. Laila Al‑Saif (DPO) is leading PDPL notifications via dpo@alqafil.sa.
+Pursuant to the KSA PDPL and its Implementing Regulations, we have prepared a breach notification to SDAIA without undue delay and imposed a temporary freeze on cross‑border transfers; our EU analytics pipeline under the SDAIA transfer consultation is paused pending DPIA updates.
+Preliminary assessment indicates a possible Q2 throughput decline of 6–8% due to shipper onboarding delays; given our issuer‑relative threshold (c.5% of quarterly revenue), this may constitute a material development requiring disclosure under the Rules on the Offer of Securities and Continuing Obligations.
+To avoid selective disclosure during the closed period from 20/06/2026 until H1 results publication, insiders are reminded of the blackout policy and no external communications are authorized beyond regulator liaison.
+If materiality is confirmed, we will publish an announcement on the Saudi Exchange (Tadawul) announcements platform outside trading hours and inform the CMA prior to release; otherwise, we will provide an internal market update in the next Board meeting.
+Note: NujumNet’s 01/06/2026 public press statement referenced a “regional security issue” without naming clients; our Tadawul announcement dated 15/04/2026 regarding the data center migration remains accurate and unrelated to this event.
+For precision, routine ERP patching completed on 31/05/2026 is operationally separate and did not contribute to this incident.
+Data subject categories include individual consignees and corporate shippers; examples include National ID endings 9923/1177 and CRs 7014456780/7021100456; no geolocation or biometric data were present.
+All tokens/keys are rotated, the HSM replacement has cleared customs and will be installed tonight, and third‑party access has been restricted to whitelisted IPs; a forensics image has been preserved.
+We have scheduled a coordination call with the CMA Market Conduct Department and will brief the Saudi Exchange Listed Company Affairs team on our intended disclosure timing.
+Please direct any queries to compliance@alqafil.sa or the incident desk at soc@alqafil.sa; media inquiries are to be declined pending regulator guidance.

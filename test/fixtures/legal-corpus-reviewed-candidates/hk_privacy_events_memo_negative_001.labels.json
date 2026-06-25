@@ -1,0 +1,324 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='erasure'",
+    "drop must_detect: invalid rule 'erasure' text='ERASURE COMPLETE'",
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop must_detect: invalid rule 'retention' text='retention table'",
+    "drop must_detect: invalid rule 'retention' text='RETAIN UNTIL'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erasure'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='ERASURE COMPLETE'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention table'",
+    "drop ideal_must_detect: invalid rule 'retention' text='RETAIN UNTIL'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='Data Access/Erasure Request'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_privacy_events_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/privacy_events/hk_privacy_events_memo_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_privacy_events_memo_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_privacy_events_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr-privacy@harborpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawals",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation controls",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HKID",
+      "rule": "hk_hkid"
+    },
+    {
+      "category": "PII",
+      "matched_text": "date of birth",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "contact number",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed recipients",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Erasure Request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbor Peak Holdings Limited \u2014 Internal Compliance Note re PDPO/SFO controls for announced acquisition of Seabright Nutrition Group Limited (Main Board issuer obligations under HKEX Listing Rules Chapter 14).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Overseas counsel confirm that Section 33-style safeguards are adopted as a matter of policy notwithstanding commencement status; PCPD guidance on cross-border transfer and consent withdrawal is reflected in the DPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr-privacy@harborpeak.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Erasure Request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbor Peak Holdings Limited \u2014 Internal Compliance Note re PDPO/SFO controls for announced acquisition of Seabright Nutrition Group Limited (Main Board issuer obligations under HKEX Listing Rules Chapter 14).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Overseas counsel confirm that Section 33-style safeguards are adopted as a matter of policy notwithstanding commencement status; PCPD guidance on cross-border transfer and consent withdrawal is reflected in the DPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbor Peak Holdings Limited \u2014 Internal Compliance Note re PDPO/SFO controls for announced acquisition of Seabright Nutrition Group Limited (Main Board issuer obligations under HKEX Listing Rules Chapter 14).\nMNPI status: transaction headline terms have been disclosed on HKEX News; board papers now carry \u201cpublic-domain\u201d watermark and no undisclosed price-sensitive terms remain in circulation.\nSFO handling: advisors (Qilin Capital Partners (HK) Limited) and counterparties are on clean lists; wall-crossed recipients were restricted pre-announcement and the insider list has since been closed with no trading clearance pending.\nDPA schedule: Schedule 3 (Data Processing) to the MSA with Cloud Meridian Pte. Ltd. is executed; Appendix A retention table and Appendix B minimisation controls have been adopted for deal-room and HR onboarding forms (fields: HKID, date of birth, contact number collected only where strictly necessary).\nCross-border transfers: Group Data Export Approval DEX-2026-014 (HK\u2192SG analytics workspace) is fully signed and logged; no active exports are in progress and previous batches were de-identified and encrypted at rest and in transit.\nConsent handling: investor and employee onboarding forms use dual-check consent boxes; two consent withdrawals were processed in Q1 with confirmation notices sent, and there are currently no outstanding withdrawals.\nDSAR registry: one open Data Access/Erasure Request from a former contractor relating to recruitment files has been validated and is due for completion within the PDPO timeframe, with erasure to be performed after statutory record checks.\nRetention: quarterly purge for legacy CVs and interview notes completed on 31 Mar 2026; the next review is scheduled for 30 Jun 2026, and no exceptions are pending approval.\nMinimisation: KYC templates revised to remove collection of middle name and full address for Hong Kong residents; only district and partial address are captured for risk-scoring and are redacted in any export.\nEmployment workflow: HR role mailbox hr-privacy@harborpeak.example receives all DSAR and consent communications; no personal email processing is permitted for PD data.\nSecurity markers: \u201cERASURE COMPLETE\u201d and \u201cRETAIN UNTIL\u201d labels are applied in the repository and trigger automatic deletion flags; the existence of these labels in this memo does not indicate any current failure or incident.\nOverseas counsel confirm that Section 33-style safeguards are adopted as a matter of policy notwithstanding commencement status; PCPD guidance on cross-border transfer and consent withdrawal is reflected in the DPA.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "A123-XX-0000",
+      "reason": "Explicitly noted placeholder example; not linked to a living individual or active instrument."
+    },
+    {
+      "matched_text": "HKG-TEST-009",
+      "reason": "Explicitly noted placeholder example; not linked to a living individual or active instrument."
+    },
+    {
+      "matched_text": "DEMO-ACCT-01",
+      "reason": "Explicitly noted placeholder example; not linked to a living individual or active instrument."
+    },
+    {
+      "matched_text": "DEX-2026-014",
+      "reason": "Internal approval code; not PII or MNPI and not associated with an individual."
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "public/nonpublic status marker",
+      "matched_text": "public-domain",
+      "reason": "Indicates information is public; related to MNPI status but not an allowed nonpublic_marker trigger."
+    },
+    {
+      "concept": "information barrier/control list",
+      "matched_text": "clean lists",
+      "reason": "Suggests compliance lists but not a specific allowed MNPI marker."
+    },
+    {
+      "concept": "trading controls",
+      "matched_text": "trading clearance",
+      "reason": "Refers to internal trading permissions; not an explicit allowed MNPI marker."
+    },
+    {
+      "concept": "consent mechanism",
+      "matched_text": "consent boxes",
+      "reason": "Indicates consent capture but allowed rules cover only consent withdrawal, not generic consent."
+    }
+  ]
+}

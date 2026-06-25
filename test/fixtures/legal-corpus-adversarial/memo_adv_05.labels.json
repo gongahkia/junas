@@ -1,0 +1,62 @@
+{
+  "doc_id": "memo_adv_05",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Oliver Green"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Fiona Tan"
+    },
+    {
+      "rule": "transaction_codename",
+      "matched_text": "Project Zenith"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "202345678W"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 75,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Green"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 7654 3210"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "oliver.green@futuresg.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S8765432L"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "fiona.tan@futuresg.sg"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

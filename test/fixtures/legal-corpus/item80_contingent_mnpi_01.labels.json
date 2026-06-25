@@ -1,0 +1,16 @@
+{
+  "doc_id": "item80_contingent_mnpi_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Helios"},
+    {"rule": "definitive_agreement", "matched_text": "SPA"},
+    {"rule": "contingent_mnpi_language", "matched_text": "subject to investment committee approval"},
+    {"rule": "contingent_mnpi_language", "matched_text": "pending regulatory approvals"},
+    {"rule": "contingent_mnpi_language", "matched_text": "Management believes"},
+    {"rule": "contingent_mnpi_language", "matched_text": "likely to close"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

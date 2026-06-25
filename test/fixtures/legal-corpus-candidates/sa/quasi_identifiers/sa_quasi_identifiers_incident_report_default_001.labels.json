@@ -1,0 +1,378 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 13,
+    "old_ideal_must_detect_count": 30,
+    "old_must_detect_count": 18,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "s.alhathloul@barqtrans.jsc.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@barqtrans.jsc.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer outside the Kingdom",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-02-13",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "30",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Hathloul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rania Al\u2011Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "At 09:42 AST, Mr. Sami Al\u2011Hathloul (Treasury Analyst, DOB 1986-02-13, Riyadh HQ) using workstation EN\u2011RYD\u2011TR\u201119 (SN RY\u201188314, locale ar\u2011SA, header date 18\u201111\u20111447H) accessed \u201cQ3 earnings guidance\u2014draft\u201d and \u201cdividend scenarios\u2014confidential\u201d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Extracted files included a board\u2011secretariat agenda draft and a liquidity forecast; this non\u2011public issuer information may constitute MNPI under the Securities Regulator\u2019s Market Conduct Division (SR\u2011MCD) framework.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For PDPL compliance, personal data minimization has been applied, and any onward transfer outside the Kingdom will await the Authority for Data and AI (ADAI) guidance; a Senior Data Approval review is scheduled today at 14:00 AST.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1012-5566100",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 4030\u20117788123",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1986-02-13",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data\u2011incident@barqtrans.jsc.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@barqtrans.jsc.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201155\u2011123\u20118890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.44.19.22",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SN RY\u201188314",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BT\u2011TR\u20110442",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7f2a9b1e\u201111c3\u20114ac1\u2011a9e2\u20117d22c0b77f42",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfer check",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data minimization has been applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public issuer information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an embargo on external communications concerning Q3 performance remains in effect",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama ending 4632",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "At 09:42 AST, Mr. Sami Al\u2011Hathloul (Treasury Analyst, DOB 1986-02-13, Riyadh HQ) using workstation EN\u2011RYD\u2011TR\u201119 (SN RY\u201188314, locale ar\u2011SA, header date 18\u201111\u20111447H) accessed \u201cQ3 earnings guidance\u2014draft\u201d and \u201cdividend scenarios\u2014confidential\u201d",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "His AD username s.alhathloul86, company email s.alhathloul@barqtrans.jsc.sa, employee ID BT\u2011TR\u20110442, and Iqama ending 4632 are recorded in the access log and HR file",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prior to market release",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Q3 earnings guidance\u2014draft",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "liquidity forecast",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board\u2011secretariat agenda draft",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "suspected unauthorized export of issuer documents",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "onward transfer outside the Kingdom",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "outbound to a foreign region",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "permit request ADAI/TP/2026/1442",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Incident Report (Operational/Cyber)",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "s.alhathloul@barqtrans.jsc.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@barqtrans.jsc.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer outside the Kingdom",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-02-13",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "30",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Hathloul",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rania Al\u2011Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "At 09:42 AST, Mr. Sami Al\u2011Hathloul (Treasury Analyst, DOB 1986-02-13, Riyadh HQ) using workstation EN\u2011RYD\u2011TR\u201119 (SN RY\u201188314, locale ar\u2011SA, header date 18\u201111\u20111447H) accessed \u201cQ3 earnings guidance\u2014draft\u201d and \u201cdividend scenarios\u2014confidential\u201d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Extracted files included a board\u2011secretariat agenda draft and a liquidity forecast; this non\u2011public issuer information may constitute MNPI under the Securities Regulator\u2019s Market Conduct Division (SR\u2011MCD) framework.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For PDPL compliance, personal data minimization has been applied, and any onward transfer outside the Kingdom will await the Authority for Data and AI (ADAI) guidance; a Senior Data Approval review is scheduled today at 14:00 AST.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "At 09:42 AST, Mr. Sami Al\u2011Hathloul (Treasury Analyst, DOB 1986-02-13, Riyadh HQ) using workstation EN\u2011RYD\u2011TR\u201119 (SN RY\u201188314, locale ar\u2011SA, header date 18\u201111\u20111447H) accessed \u201cQ3 earnings guidance\u2014draft\u201d and \u201cdividend scenarios\u2014confidential\u201d.\nHis AD username s.alhathloul86, company email s.alhathloul@barqtrans.jsc.sa, employee ID BT\u2011TR\u20110442, and Iqama ending 4632 are recorded in the access log and HR file.\nThe session originated via VPN Gateway North (SessionID 7f2a9b1e\u201111c3\u20114ac1\u2011a9e2\u20117d22c0b77f42, internal IP 10.44.19.22) minutes after a badge swipe at turnstile GHQ\u201103 at 07:58",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "At 09:42 AST, Mr. Sami Al\u2011Hathloul (Treasury Analyst, DOB 1986-02-13, Riyadh HQ) using workstation EN\u2011RYD\u2011TR\u201119 (SN RY\u201188314, locale ar\u2011SA, header date 18\u201111\u20111447H) accessed \u201cQ3 earnings guidance\u2014draft\u201d and \u201cdividend scenarios\u2014confidential\u201d.\nHis AD username s.alhathloul86, company email s.alhathloul@barqtrans.jsc.sa, employee ID BT\u2011TR\u20110442, and Iqama ending 4632 are recorded in the access log and HR file.\nThe session originated via VPN Gateway North (SessionID 7f2a9b1e\u201111c3\u20114ac1\u2011a9e2\u20117d22c0b77f42, internal IP 10.44.19.22) minutes after a badge swipe at turnstile GHQ\u201103 at 07:58.\nExtracted files included a board\u2011secretariat agenda draft and a liquidity forecast; this non\u2011public issuer information may constitute MNPI under the Securities Regulator\u2019s Market Conduct Division (SR\u2011MCD) framework.\nOne attachment referenced client Sahra Mining LLC (CR 4030\u20117788123) and a supplier hedge roll plan; all names and CRs in the attachment are to be treated as confidential issuer data.\nNo external transfer has been confirmed; however, an attempted upload to object store bt\u2011report\u2011exports\u2011ry was blocked, and outbound to a foreign region triggered an ADAI cross\u2011border transfer check (permit request ADAI/TP/2026/1442 logged for contingency).\nFor PDPL compliance, personal data minimization has been applied, and any onward transfer outside the Kingdom will await the Authority for Data and AI (ADAI) guidance; a Senior Data Approval review is scheduled today at 14:00 AST.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "IDP",
+      "reason": "defined-term abbreviation; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "SR\u2011MCD",
+      "reason": "defined-term abbreviation; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "ADAI",
+      "reason": "defined-term abbreviation; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "aged 30\u201335",
+      "reason": "aggregate demographic not identifying a person"
+    },
+    {
+      "matched_text": "\u201cJeddah\u201d",
+      "reason": "standalone city name does not identify a person"
+    },
+    {
+      "matched_text": "NX\u2011210",
+      "reason": "generic device model; not a unique identifier"
+    },
+    {
+      "matched_text": "Arabic",
+      "reason": "generic language indicator; not PII"
+    },
+    {
+      "matched_text": "FIN_TREASURY_RW",
+      "reason": "system role name; not PII"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "device asset tag",
+      "matched_text": "EN\u2011RYD\u2011TR\u201119",
+      "reason": "likely a device identifier but not clearly a device_serial_number per allowed rules"
+    },
+    {
+      "concept": "username",
+      "matched_text": "s.alhathloul86",
+      "reason": "identifying account handle but not listed in allowed PII rules"
+    },
+    {
+      "concept": "work location",
+      "matched_text": "Riyadh HQ",
+      "reason": "location can be a quasi-identifier in context but not a standalone allowed rule"
+    },
+    {
+      "concept": "access control point",
+      "matched_text": "GHQ\u201103",
+      "reason": "facility/turnstile code could be linkable but not covered by allowed rules"
+    }
+  ]
+}

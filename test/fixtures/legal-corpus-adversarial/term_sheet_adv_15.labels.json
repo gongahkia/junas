@@ -1,0 +1,74 @@
+{
+  "doc_id": "term_sheet_adv_15",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. John Tan"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "john.tan@futureventures.sg"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 5,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Emily Wong"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S8765432F"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 20,000,000"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term in the document; not PII/MNPI"
+    },
+    {
+      "matched_text": "Investors",
+      "reason": "Defined role term in the document; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lead Investor",
+      "reason": "Defined role term/heading; not PII/MNPI"
+    },
+    {
+      "matched_text": "ROFR",
+      "reason": "Defined term abbreviation; not PII/MNPI"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

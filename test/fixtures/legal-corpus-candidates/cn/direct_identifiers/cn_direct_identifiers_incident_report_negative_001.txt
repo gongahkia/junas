@@ -1,0 +1,14 @@
+Qiyun Delta Robotics Co., Ltd. (USCC 92310000MA9X1Q2Z7R, check digit invalid) — Cyber/Operational Incident Report (CN PIPL/CSL/DSL)
+On 2026-05-28 09:14 CST, an ACL change on the HR onboarding share permitted external VPN access for approximately 42 minutes.
+The exposed content was a template and training packet with placeholders: Name: [Employee], ID No.: [________], Mobile: 400-000-0000, Address: [XX Province/XX City], Dept.: [Operations]; these are form labels, not records.
+One QA test string resembling a resident identity number appeared: CN Resident ID 110105199912120019 (checksum intentionally invalid).
+No actual employee PI, payroll accounts, tax filing numbers, or hukou scans were present; no minors under 14 are implicated per PIPL.
+Internal references included: HR workflow ID WF-EMP-2026-051, service account svc-hr-onboard, and company settlement account alias FIN-SET-0043 (non-bank internal code).
+Under PIPL/CSL/DSL classification, the materials are ordinary business data; not important data or core data and not a personal information system.
+As an issuer on the Huadong Stock Exchange Growth Board, we assessed MNPI exposure and confirm no undisclosed operating metrics, financing arrangements, or trading plans were included; contents mirror publicly posted ESG training summaries.
+Notifications were sent to the Shenghai New District Human Resources Bureau and the municipal cyberspace authority; no cross-border transfers occurred and no cross-border security assessment filing is triggered.
+Public helpline numbers referenced in staff FAQs are non-personal: municipal service 12045 and capital markets investor line 12086; these are not employee contacts.
+Root cause: an employment workflow script bypassed the network segment allowlist on a test subnet during change window CHG-2026-05-28-A.
+Remediation by 09:56 CST included rollback of ACL, credential rotation, and log preservation; external hits accessed only the onboarding checklist and a generic cybersecurity awareness poster.
+Role mailboxes used for notice and escalation: it-security@qiyun-robotics.example.cn, privacy@qiyun-robotics.example.cn, and issuer-relations@qiyun-robotics.example.cn.
+Next steps: PIPL refresher training for HR and IT, DSL incident ledger entry, courtesy note to the Huadong Stock Exchange per issuer practice, and vendor management update to restrict template distribution.

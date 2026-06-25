@@ -1,0 +1,317 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_quasi_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_quasi_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 23,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 19,
+    "previous_must_detect_count": 11,
+    "previous_must_not_detect_count": 7
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tomas Veikko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 42",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 14-02-1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sess-9247",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosure@novaforge.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+358 000 123 456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A1B2-C3D4",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "I B A N: XE89 00 12 34 xx 567 x 0000 (masked)",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR health-screening snippets",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "least privilege",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tomas Veikko (age 42, DOB 14-02-1984), role: Network Operations Lead at Novaforge, was the on-call approver for the change window in Orsendal (EU-19) when the alert triggered",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Device: Aster-14 laptop SN A1B2-C3D4, a c c o u n t: tvk-admin-842, session: sess-9247; auxiliary acc ref I B A N: XE89 00 12 34 xx 567 x 0000 (masked)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber/operational incident report under EU context, prepared 23.05.2026",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "will be informed if delay criteria lapse",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "89 00 12 34",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-02-1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This incident coincided with a preliminary, non-public adjustment to FY26 output guidance (internal draft range +4% to +6%), which is considered MNPI under EU MAR for an issuer on PEX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "89 00 12 34",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+358 000 123 456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-02-1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A1B2-C3D4",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tomas Veikko",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This incident coincided with a preliminary, non-public adjustment to FY26 output guidance (internal draft range +4% to +6%), which is considered MNPI under EU MAR for an issuer on PEX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Tomas Veikko (age 42, DOB 14-02-1984), role: Network Operations Lead at Novaforge, was the on-call approver for the change window in Orsendal (EU-19) when the alert triggered.\nDevice: Aster-14 laptop SN A1B2-C3D4, a c c o u n t: tvk-admin-842, session: sess-9247; auxiliary acc ref I B A N: XE89 00 12 34 xx 567 x 0000 (masked).\nA backup task (NOVA-ESG-0421) routed selected log payloads to Lyrica Cloud Systems Ltd in the Republic of Lyrica (non-EEA), constituting a cross-border transfer.\nNo Art 9 special-category fields were intended in these logs; however, attachments may have included HR health-screening snippets, so we initiated a DPIA-lite and obtained explicit consent where feasible.\nImpact scope: 3 suppliers\u2019 emissions baselines and one windfarm availability KPI were altered for 47 minutes; GreenPulse 3.2 and MeterFlux nodes auto-synced before rollback.\nThis incident coincided with a preliminary, non-public adjustment to FY26 output guidance (internal draft range +4% to +6%), which is considered MNPI under EU MAR for an issuer on PEX.\nAn insider list was opened and delayed disclosure under MAR Art 17 considered; the competent authority (European Securities Oversight Office, ESOO) will be",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC reference; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; not an active MAC trigger"
+    },
+    {
+      "matched_text": "1979-02-02",
+      "reason": "Anonymised training data; not identifying in this matter"
+    },
+    {
+      "matched_text": "Valloren",
+      "reason": "Anonymised training data; not identifying in this matter"
+    },
+    {
+      "matched_text": "EKO\u2011Tablet-9",
+      "reason": "Anonymised training data; not identifying in this matter"
+    },
+    {
+      "matched_text": "u_guest59",
+      "reason": "Anonymised training data; not identifying in this matter"
+    },
+    {
+      "matched_text": "trade-union membership registers",
+      "reason": "Explicitly stated as out of scope; do not label special-category data"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "consent event",
+      "matched_text": "obtained explicit consent where feasible",
+      "reason": "Indicates consent collection, but only consent_withdrawal_marker is enumerated in allowed rules."
+    },
+    {
+      "concept": "DPIA initiation",
+      "matched_text": "initiated a DPIA-lite",
+      "reason": "GDPR risk assessment indicator; not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "MAR delayed disclosure",
+      "matched_text": "delayed disclosure under MAR Art 17",
+      "reason": "Disclosure delay process is MNPI-relevant but not explicitly covered by an allowed rule."
+    },
+    {
+      "concept": "esg_climate_pre_disclosure",
+      "matched_text": "ESG supplier portal affecting CSRD energy-intensity data and SFDR PAI feeds for Q2",
+      "reason": "ESG metrics handling may be market-sensitive pre-disclosure, but the rule requires clearer pre-disclosure context."
+    },
+    {
+      "concept": "account identifier (username)",
+      "matched_text": "tvk-admin-842",
+      "reason": "Likely a user/account ID; no specific allowed rule for generic usernames."
+    }
+  ]
+}

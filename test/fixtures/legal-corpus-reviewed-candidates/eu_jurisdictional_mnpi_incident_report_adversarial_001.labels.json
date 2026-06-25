@@ -1,0 +1,408 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "EU",
+    "doc_id": "eu_jurisdictional_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/eu/jurisdictional_mnpi/eu_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "EU",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/eu_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 39,
+    "current_must_detect_count": 17,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 32,
+    "previous_must_detect_count": 24,
+    "previous_must_not_detect_count": 3
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for release before RIS/OAM publication",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project \u201cAURORA\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6\u20138%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac3.5",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30\u2011day closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDMRs remain under dealing prohibition",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CSRD ESRS S4",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SFDR PAI indicator DP\u20111",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss with analysts, lenders, or vendors outside the Clean Team",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "delayed disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "by 09/09/2026 (T+4)",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement from a compromised maintenance laptop into a wind\u2011farm SCADA segment",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if recurrence occurs",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If market moves indicate a leak, we will accelerate disclosure without delay",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jorik Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+33 0 000 000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "j.hale@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpcomms@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosures@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mara Kestrel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Alina Korr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health\u2011related fields (special categories under Art. 9)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E\u201119x\u20113x5",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZZ50 9999 99 33 ****",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross\u2011border transfer was under SCCs with encryption at rest; breach notification to the Ardienne data protection authority is prepared for submission within 72h, and affected staff will receive notices from dpo@viresant.example; DPO contact: Mr. Jorik Hale, +33 0 000 000 (int) / j.hale@viresant.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This memorandum does not constitute, and should not be construed as, a material adverse change or an update to previously published guidance; no forward\u2011looking statements are being revised.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac4.2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "j.hale@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosures@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpcomms@viresant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+33 0 000 000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jorik Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mara Kestrel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Alina Korr",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross\u2011border transfer was under SCCs with encryption at rest; breach notification to the Ardienne data protection authority is prepared for submission within 72h, and affected staff will receive notices from dpo@viresant.example; DPO contact: Mr. Jorik Hale, +33 0 000 000 (int) / j.hale@viresant.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This memorandum does not constitute, and should not be construed as, a material adverse change or an update to previously published guidance; no forward\u2011looking statements are being revised.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac3.5",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac4.2m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Closed period: we are within the 30\u2011day closed period ahead of H1 results; PDMRs remain under dealing prohibition and the insider list (Section A: Core) has been updated at 10:18 CET with Dr. Mara Kestrel and team.\nPublic\u2011status note: the 02/05/2026 \u201cNetwork latency maintenance window\u201d notice (OAM ref: V I R \u2013 1 8 3 2, https://oam.nmx.example/issuer/VIR-2049?doc=1832&lang=en) is unrelated and already public.\nThis memorandum does not constitute, and should not be construed as, a material adverse change or an update to previously published guidance; no forward\u2011looking statements are being revised",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2014 inside information per Union\u2011wide Market Abuse Regulation; not for release before RIS/OAM publication by the issuer\u2019s approved mechanism.\nIssuer: Viresant Renewables SE (incorporated in Ardienne), trading on Nordhaven Multilateral Exchange (NMX) under issuer code V I R \u2013 2 0 4 9.\nAt 07:42 CET on 05/09/2026, our Security Operations noted lateral movement from a compromised maintenance laptop into a wind\u2011farm SCADA segment (Project \u201cAURORA\u201d), causing automated curtailment routines to trigger at two sites for ~3h 15m.\nPreliminary operational impact: curtailed generation equal to 6\u20138% of expected day\u2011ahead output, with indicative gross margin effect of \u20ac3.5\u2013\u20ac4.2m if not fully recovered; we assess issuer\u2011relative materiality at c. 7% of projected Q3 EBITDA if recurrence occurs.\nWe consider this precise, non\u2011public inside information likely to significantly affect the price; the Board has approved delayed disclosure under Art. 17(4) with a recorded Legit imate Interest (prevent interference with active containment/forensics) and confirmed confidentiality.\nUnless a leak is suspected, we intend to publish an ad hoc announcement via NMX OAM and the Regulated Information Service by 09/09/2026 (T+4) or earlier on containment, and will file the delayed\u2011disclosure record with the Ardienne supervisory office upon release.\nGDPR: during triage we identified exfiltration of an employee wellness export (approx. 84 data subjects) containing health\u2011related fields (special categories under Art. 9), limited to initials, hashed employee IDs (E\u201119x\u20113x5), and survey scores; the dataset was temporarily processed by our processor Lexto Metrics s.r.l. and mirrored by sub\u2011processor Frobia Solutions Ltd. in Kelvaria (third country).\nCross\u2011border transfer was under SCCs with encryption at rest; breach notification to the Ardienne data protection authority is prepared for submission within 72h, and affected staff will receive notices from dpo@viresant.example; DPO contact: Mr. Jorik Hale, +33 0 000 000 (int) / j.hale@viresant.example.\nCSRD/SFDR: incident will be reflected in CSRD ESRS S4 data\u2011security metrics and SFDR PAI indicator DP\u20111; no change to our publicly disclosed 2025 sustainability targets posted at https://reports.viresant.example/csrd2025 (public, stale reference).\nClosed period: we are within the 30\u2011day closed period ahead of H1 results; PDMRs remain under dealing prohibition and the insider list (Section A: Core) has been updated at 10:18 CET with Dr. Mara Kestrel and team.\nPublic\u2011status note: the 02/05/2026 \u201cNetwork latency maintenance window\u201d notice (OAM ref: V I R \u2013 1 8 3 2, https://oam.nmx.example/issuer/VIR-2049?doc=1832&lang=en) is unrelated and already public.\nThis memorandum does not constitute, and should not be construed as, a material adverse change or an update to previously published guidance; no forward\u2011looking statements are being revised.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role term/label; not PII or MNPI"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Generic role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated reference; rule excludes negated MAC/MAE"
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "internal identifier",
+      "matched_text": "usr: 8x\u2011**\u20114z",
+      "reason": "Looks like an obfuscated username or internal user ID, but no explicit allowed rule fits this pattern"
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "id=VIR\u201120 49\u2011INC",
+      "reason": "Incident URL token parameter could be an internal tracker/session or incident ID; category applicability is ambiguous"
+    }
+  ]
+}

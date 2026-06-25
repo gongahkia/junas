@@ -1,0 +1,16 @@
+Amberwick Finance plc — Operational Incident Report (UK) — 14 June 2026
+On 13 June 2026, Security Operations identified anomalous VPN logins to a decommissioned admin portal from a UK residential IP; controls blocked the session within 6 minutes.
+Under UK GDPR and FCA SYSC 3, we initiated an internal assessment; preliminary forensics indicate no data exfiltration and no customer-facing systems impacted.
+The only user account touched belonged to a temporary contractor (DOB 17/04/1991), based in Bexhill, role “Service Desk Analyst”, endpoint asset tag AF-LT-0441, AD username svc-analyst17, and door pass ID AF-BDG-8821; the device last missed patch cycle KB-22410.
+Generic workforce information: approximately 1,200 colleagues across London, Leeds, and Glasgow; no individual contact details are included in this report.
+References to “inside information” in this document are procedural; no unpublished forecasts, deal terms, or trading intentions are contained herein.
+Preliminary view: the event is not material under UK MAR Article 7; no trading systems or order management platforms were affected; LSE ticker placeholder “AF00” and SEDOL “0000000” are used for illustration only.
+A previously published RNS on 2 May announced the portal’s retirement; today’s incident does not change guidance and does not require a further RNS at this stage.
+We reviewed two shared mailboxes—servicedesk@amberwickfinance.co.uk and deals@amberwickfinance.co.uk—and found no targeted spear‑phishing beyond generic spam.
+Data rooms for ongoing M&A discussions are hosted on a segregated platform with separate credentials; logs show no access attempts and no downloads.
+No accounts payable data, payroll records, or customer sort codes were accessed; strings resembling account numbers (e.g., 00-00-00/00000000) in logs are test placeholders.
+The social‑media “leak” referenced a legacy sandbox and an invalid ISIN “XX0000000000”; these are non‑production artefacts not used for trading or disclosure.
+We have notified the ICO via the standard breach webform as a precaution and will update the FCA Market Watch contact point if any MAR‑relevant facts emerge; currently none do.
+HR confirms the contractor’s engagement ended in April and that equipment return was recorded on Asset Register ref AR‑2026‑00441; employment files remain secured in line with retention policy.
+For internal queries, contact security-operations@amberwickfinance.co.uk; customer queries should be directed to the public helpline listed on our website.
+For audit trail purposes, reference incident ticket AF‑INC‑26221 and SIEM case 2026‑0613‑CY‑07; evidence retained per the UK GDPR record‑keeping schedule.

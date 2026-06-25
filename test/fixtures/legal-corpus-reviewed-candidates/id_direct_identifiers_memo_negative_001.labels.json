@@ -1,0 +1,200 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_direct_identifiers_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_negative_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_direct_identifiers_memo_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@pt-bumirantai.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000000000000000",
+      "rule": "id_nik"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-000-0000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@pt-bumirantai.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "F1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "black-out internal",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tanpa memuat nilai transaksi atau proyeksi sensitif",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@pt-bumirantai.co.id",
+      "rule": "email_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0800-88-7788",
+      "reason": "Public helpline number, not a natural-person identifier"
+    },
+    {
+      "matched_text": "0800-11-12345",
+      "reason": "Public helpline number, not a natural-person identifier"
+    },
+    {
+      "matched_text": "Nama Lengkap",
+      "reason": "Generic form label, not personal data"
+    },
+    {
+      "matched_text": "Alamat Domisili",
+      "reason": "Generic form label, not personal data"
+    },
+    {
+      "matched_text": "Nomor Rekening",
+      "reason": "Generic form label, not personal data"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "Indonesian tax number (NPWP)",
+      "matched_text": "NPWP 00.000.000.0-000.000",
+      "reason": "Tax ID is personal data in ID but there is no explicit NPWP rule in the allowed set"
+    },
+    {
+      "concept": "Company identifier (NIB)",
+      "matched_text": "NIB: 9999999999999",
+      "reason": "Company ID is a direct identifier in legal/business context but no corresponding allowed rule"
+    },
+    {
+      "concept": "Postal address (ID)",
+      "matched_text": "Jl. Contoh No. 0, Jakarta",
+      "reason": "Physical address can be personal data but there is no general address rule for ID in the allowed set"
+    },
+    {
+      "concept": "Retention policy marker",
+      "matched_text": "kebijakan retensi",
+      "reason": "Data retention is a privacy governance signal but there is no explicit retention rule in the allowed set"
+    },
+    {
+      "concept": "Nonpublic information marker",
+      "matched_text": "informasi material non-publik",
+      "reason": "MNPI phrase appears in a negated context; unclear whether to tag under nonpublic_marker"
+    },
+    {
+      "concept": "KYC/compliance marker",
+      "matched_text": "Form KYC internal",
+      "reason": "Indicates collection/processing of personal data but not covered by a specific allowed rule"
+    }
+  ]
+}

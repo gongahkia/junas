@@ -1,0 +1,172 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 9,
+    "current_must_detect_count": 2,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 7,
+    "previous_must_detect_count": 3,
+    "previous_must_not_detect_count": 4
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops-support@northbridgemeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer (intentional positive)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention and minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymised and fields truncated to labels",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "diagnostic exports limited to required fields only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National Insurance number",
+      "rule": "uk_nin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Sort code",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory context: FCA-authorised UK issuer; assessment performed under UK GDPR and UK MAR.\nMAR assessment: no inside information or price-sensitive details were generated by or revealed in this incident, and no STOR was required.\nPII scope: logs contained only system IDs and role mailboxes (e.g., ops-support@northbridgemeridian.example); no natural-person contact details were processed during the outage.\nCross-border transfer (intentional positive): post-restoration, a single diagnostic export to our processor CloudNimble EU S.\u00e0 r.l. (LU) was executed under approved Data Export RQ-784.\nInternational transfer controls: DPA Schedule 2 (International Transfers) and the UK Addendum to the EU SCCs applied; data were pseudonymised and fields truncated to labels.\nEmployment data context: HR onboarding form templates include labels such as \u201cName\u201d, \u201cNational Insurance number\u201d, and \u201cSort code\u201d; templates only were accessed, with no completed forms or attachments.\nDSAR: no data-subject access requests arose from this incident; the last closed request (DSAR-2026-017) was fulfilled via the secure portal on 03 May 2026.\nConsent withdrawal: none were received in the period; marketing preference management remains opt-in by default per our Cookies and Consent Policy.\nErasure: no erasure requests were linked to this event; routine deletion remains policy-driven rather than incident-driven.\nRetention and minimisation: log retention remains 90 days under Policy RC-5, with diagnostic exports limited to required fields only as recorded in DPIA DP-OPS-41.\nProcessor governance: CloudNimble EU S.\u00e0 r.l. performance and sub-processor list were reviewed against the DPA; no changes required and no onward transfers occurred.\nMNPI bait note: test identifiers (e.g., \u201cGB00ZZZZ0000\u201d) and project names shown in screenshots are training placeholders and not linked to any l",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "GB00ZZZZ0000",
+      "reason": "Training placeholder identifier not linked to any listed security; not MNPI."
+    },
+    {
+      "matched_text": "project names",
+      "reason": "Generic phrase; not a 'Project <Name>' codename pattern."
+    },
+    {
+      "matched_text": "no inside information or price-sensitive details",
+      "reason": "Negated statement confirming absence of MNPI."
+    },
+    {
+      "matched_text": "STOR",
+      "reason": "Mentioned as not required; not an MNPI event."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "transfer safeguards",
+      "matched_text": "UK Addendum to the EU SCCs",
+      "reason": "Cross-border transfer safeguard instrument; relevant to transfers but not an explicit marker in allowed rules."
+    },
+    {
+      "concept": "privacy impact assessment reference",
+      "matched_text": "DPIA DP-OPS-41",
+      "reason": "Indicates privacy governance documentation; not covered by a specific allowed rule."
+    },
+    {
+      "concept": "data export approval reference",
+      "matched_text": "Data Export RQ-784",
+      "reason": "Evidence of a governed cross-border export; not a defined marker in allowed rules."
+    },
+    {
+      "concept": "employment data context",
+      "matched_text": "HR onboarding form templates",
+      "reason": "Indicates categories of personal data handled in templates; not directly mapped to a specific allowed rule."
+    }
+  ]
+}

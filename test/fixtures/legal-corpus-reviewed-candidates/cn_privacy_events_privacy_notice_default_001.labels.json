@@ -1,0 +1,337 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_privacy_events_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/privacy_events/cn_privacy_events_privacy_notice_default_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_privacy_events_privacy_notice_default_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "FIC-92M0-AB12-3456-789X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qiu Lanying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@jaspercrane.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-400-123-7788",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@jaspercrane.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Weilin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Dongxu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric timekeeping",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Crane\u2011IPO",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information prior to public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RCN-4403-1988-XXXX",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent for biometric timekeeping",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "omit household registration scans and nonessential bank branch codes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-listing disclosures",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12-3456-789",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-400-123-7788",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: materials for \u201cProject Crane\u2011IPO\u201d and ESOP drafts are inside information prior to public disclosure; per CSRC guidance they are stored onshore and excluded from all cross-border datasets.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Crane",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "518000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "12-3456-789",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-400-123-7788",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qiu Lanying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Weilin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qiu Lanying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Dongxu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: materials for \u201cProject Crane\u2011IPO\u201d and ESOP drafts are inside information prior to public disclosure; per CSRC guidance they are stored onshore and excluded from all cross-border datasets.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: materials for \u201cProject Crane\u2011IPO\u201d and ESOP drafts are inside information prior to public disclosure; per CSRC guidance they are stored onshore and excluded from all cross-border datasets.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Crane",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "518000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Addendum Schedule (PRC PIPL/CSL/DSL) for Jasper Crane Microdrives (Shenzhen) Co., Ltd., USCC: FIC-92M0-AB12-3456-789X; DPO: Ms. Qiu Lanying, dpo@jaspercrane.cn, Tel +86-400-123-7788.\nScope covers HR onboarding and issuer support for pre-listing disclosures under PRC Securities Law; categories include employee identifiers (PRC Resident ID placeholder RCN-4403-1988-XXXX), contact, payroll and equity grant data.\nLegal basis: performance of employment contract and statutory obligations; separate consent taken for optional benefits and biometric timekeeping; no data on minors under 14 is collected in these workflows.\nData minimisation: onboarding forms JCMD-HR-ONB v3.2 now omit household registration scans and nonessential bank branch codes, effective 2026-04-10.\nCross-border transfer: payroll calculation for expatriate assignees uses group processor Silver Banyan Payroll Pte. Ltd. (Singapore) under PRC SCCs; CAC security assessment completed 2026-03-12, filing No. QB-2026-0091.\nData Export Approval Form JCMD-TR-2026-04 was approved by the CAC liaison and IT on 2026-04-15; encryption at rest (SM4) and TLS 1.3 enforced; access limited to two named admins.\nFor avoidance of doubt, this memo does not authorize any live transfer and no production data was exported on or after 2026-05-01; only anonymised test datasets left the PRC for system UAT.\nDSAR HR-2026-011 from Mr. Zhao Weilin was fulfilled on 2026-05-22 with a copy of personnel records and training logs; disputes may be escalated to privacy@jaspercrane.cn within 15 days.\nConsent withdrawal: Ms. Qiu Lanying withdrew consent for biometric timekeeping on 2026-04-02; her facial template was erased and badge-only access enabled without impacting attendance records.\nRecruitment erasure event: candidate Mr. He Dongxu\u2019s application file was deleted on 2026-03-31 after a 6\u2011month retention period; a cryptographic tombstone was retained for audit only.\nRetention schedule: payroll/tax evidence 15 years, equity grant records 10 years, insider list 5 years post-disclosure, recruitment files 6 months; earlier deletion occurs when purpose is achieved per PIPL Art. 47.\nMNPI handling: materials for \u201cProject Crane\u2011IPO\u201d and ESOP drafts are inside information prior to public disclosure; per CSRC guidance they are stored onshore and excluded from all cross-border datasets.\nVendor management confirms no sub-processors are engaged for the Singapore payroll flow; if engaged in future, prior notice and CAC filing will be required before activation.\nContact and redress: Data Protection Contact, Unit 1207, Tower C, Yulan Tech Park, Nanshan, Shenzhen 518000; dpo@jaspercrane.cn; unresolved complaints may be filed with the local CAC office.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "DSAR event",
+      "matched_text": "DSAR HR-2026-011",
+      "reason": "Data subject access request marker is relevant but not listed as an allowed rule."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "Recruitment erasure event",
+      "reason": "Erasure/deletion event marker is relevant but not listed as an allowed rule."
+    },
+    {
+      "concept": "erasure action",
+      "matched_text": "facial template was erased",
+      "reason": "Deletion of biometric data is relevant but there is no explicit erasure marker rule."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention schedule",
+      "reason": "Retention schedule is privacy-relevant but no explicit retention marker rule exists."
+    },
+    {
+      "concept": "early deletion/retention principle",
+      "matched_text": "earlier deletion occurs when purpose is achieved per PIPL Art. 47",
+      "reason": "Privacy principle text is relevant but not covered by the allowed marker rules."
+    }
+  ]
+}

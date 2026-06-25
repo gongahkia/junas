@@ -1,0 +1,2 @@
+"""Singapore frequency-table resources."""
+

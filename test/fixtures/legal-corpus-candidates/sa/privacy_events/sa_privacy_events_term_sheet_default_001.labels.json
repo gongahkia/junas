@@ -1,0 +1,379 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 2
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 30,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 23,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "fares.alajmi@najdrobotics.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Fares Al\u2011Ajmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Desert Cloud Payments LLC (CR No. 2050-88-123456) by Najd Robotics Holding JSC (CR No. 1010-55-654321), Kingdom of Saudi Arabia; non-binding save for confidentiality, exclusivity, PDPL undertakings, and governing law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction Structure: Buyer to acquire 70% of the issued shares for SAR 148,000,000, with completion targeted within 120 days; subject to Kingdom Markets Authority (KMA) consent and Najd Securities Market issuer workflows for a post-closing reverse merger.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Export Approvals: Buyer\u2019s data-export approval for group reporting (NDAIB/XT/2026/00051) is in place but will not commence until post-closing integration; no live reporting feeds will run pre-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shari\u2019ah and Governance: Financing and consideration mechanics to be reviewed by Buyer\u2019s Shari\u2019ah Committee; no interest-bearing intercompany loans will be used for bridging.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "148,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR No. 2050-88-123456",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR No. 1010-55-654321",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@desertcloud.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data used for the transfer is minimised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "automated minimisation and masking by default",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent-withdrawal workflow",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean-team protocol",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border backup",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approvals",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimised and pseudonymised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List will be maintained and provided to KMA upon request",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public disclosures on the Najd Securities Market will be made prior to KMA clearance",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reverse merger",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "fares.alajmi@najdrobotics.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Fares Al\u2011Ajmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Desert Cloud Payments LLC (CR No. 2050-88-123456) by Najd Robotics Holding JSC (CR No. 1010-55-654321), Kingdom of Saudi Arabia; non-binding save for confidentiality, exclusivity, PDPL undertakings, and governing law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction Structure: Buyer to acquire 70% of the issued shares for SAR 148,000,000, with completion targeted within 120 days; subject to Kingdom Markets Authority (KMA) consent and Najd Securities Market issuer workflows for a post-closing reverse merger.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Export Approvals: Buyer\u2019s data-export approval for group reporting (NDAIB/XT/2026/00051) is in place but will not commence until post-closing integration; no live reporting feeds will run pre-closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shari\u2019ah and Governance: Financing and consideration mechanics to be reviewed by Buyer\u2019s Shari\u2019ah Committee; no interest-bearing intercompany loans will be used for bridging.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "148,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Desert Cloud Payments LLC (CR No. 2050-88-123456) by Najd Robotics Holding JSC (CR No. 1010-55-654321), Kingdom of Saudi Arabia; non-binding save for confidentiality, exclusivity, PDPL undertakings, and governing law.\nTransaction Structure: Buyer to acquire 70% of the issued shares for SAR 148,000,000, with completion targeted within 120 days; subject to Kingdom Markets Authority (KMA) consent and Najd Securities Market issuer workflows for a post-closing reverse merger.\nRegulatory and Listing: Parties acknowledge handling of MNPI; an Insider List will be maintained and provided to KMA upon request; no public disclosures on the Najd Securities Market will be made prior to KMA clearance.\nData Protection: The parties shall execute a Data Processing Agreement (DPA) with Schedule 2 (PDPL processing details), and Seller will deliver a compliance memo evidencing PDPL alignment, including onboarding forms KSA-PDPL-OF-01 approved by Buyer\u2019s DPO.\nCross-Border Transfer: Seller maintains a single cross-border backup to a GCC data center in Al-Ain pursuant to National Data & AI Bureau (NDAIB) approval Ref. NDAIB/XT/2026/00042; personal data used for the transfer is minimised and pseudonymised; no other cross-border transfers are active.\nRetention and Erasure: Seller\u2019s retention schedule RS-DC-09 mandates 5-year retention for transaction records and 2-year retention for onboarding logs; legacy Iqama image backups were erased on 15 Sha\u2019ban 1447 with Erasure Certificate EC-2026-27 filed, and no copies remain in production.\nDSAR and Consent: All DSARs received prior to signing (e.g., DSAR-DC-2026-014 and DSAR-DC-2026-019) are closed with response letters on file; Seller confirms a live consent-withdrawal workflow (CW-2026-03-12) is operational and no outstanding withdrawals exist at signing.\nOnboarding Data Fields: KSA-PDPL-OF-01 collects customer full name, mobile, and National ID/Iqama last 4 digits only (e.g., ****4321), with automated minimisation and masking by default; no copy of a full ID document is retained after KYC verification.\nPolicy-Only Control: Seller\u2019s policy states \u201cNo biometric or precise geolocation data is processed,\u201d which remains policy-only and was not relied upon for valuation; however, current systems do not ingest biometric templates in any environment.\nData Export Approvals: Buyer\u2019s data-export approval for group reporting (NDAIB/XT/2026/00051) is in place but will not commence until post-closing integration; no live reporting feeds will run pre-closing.\nCovenants: Seller will not enable any new processors without Buyer\u2019s written consent and DPA Schedule 3 annex; Buyer may conduct a PDPL audit and a KMA market-conduct review of insider controls during exclusivity.\nShari\u2019ah and Governance: Financing and consideration mechanics to be reviewed by Buyer\u2019s Shari\u2019ah Committee; no interest-bearing intercompany loans will be used for bridging.\nConfidentiality and MNPI Handling: All parties are \u201cinsiders\u201d for KMA purposes; dissemination limited to named advisors; a clean-team protocol applies for any dataset containing masked National ID fields.\nBenign Statement: No investor National ID copies or passport scans are attached to this term sheet, and illustrative samples in the compliance memo are synthetic and do not relate to real individuals.\nContacts: Mr. Fares Al\u2011Ajmi, Chief Legal Officer, Najd Robotics Holding JSC, fares.alajmi@najdrobotics.sa; Data Protection Officer, Desert Cloud Payments LLC, dpo@dese",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of Desert Cloud Payments LLC",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun/defined term; not a person or identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun/defined term; not a person or identifier"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/defined term; not a person or identifier"
+    },
+    {
+      "matched_text": "No biometric or precise geolocation data is processed",
+      "reason": "Negated special-category data; policy-only, no live processing"
+    },
+    {
+      "matched_text": "No investor National ID copies or passport scans are attached to this term sheet",
+      "reason": "Negated PII statement; confirms absence of attachments"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "5-year retention",
+      "reason": "Retention is a privacy-event signal but not an allowed rule category in the list"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "2-year retention",
+      "reason": "Retention period mention; no specific rule provided"
+    },
+    {
+      "concept": "retention_policy_reference",
+      "matched_text": "retention schedule RS-DC-09",
+      "reason": "Policy reference related to retention; not in allowed rules"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "erased on 15 Sha\u2019ban 1447",
+      "reason": "Erasure event reference; erasure marker not in allowed rules"
+    },
+    {
+      "concept": "erasure_certificate_reference",
+      "matched_text": "Erasure Certificate EC-2026-27",
+      "reason": "Evidence of erasure; no explicit rule for erasure certificates"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR-DC-2026-014",
+      "reason": "DSAR reference; DSAR marker not listed among allowed rules"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR-DC-2026-019",
+      "reason": "DSAR reference; DSAR marker not listed among allowed rules"
+    },
+    {
+      "concept": "pseudonymisation_marker",
+      "matched_text": "pseudonymised",
+      "reason": "Privacy technique referenced; not in allowed rules list"
+    },
+    {
+      "concept": "cross_border_approval_reference",
+      "matched_text": "NDAIB/XT/2026/00042",
+      "reason": "Regulatory approval ref. for transfer; not a defined marker category"
+    },
+    {
+      "concept": "cross_border_approval_reference",
+      "matched_text": "NDAIB/XT/2026/00051",
+      "reason": "Regulatory approval ref. for data export; not a defined marker category"
+    },
+    {
+      "concept": "local_id_category_reference",
+      "matched_text": "National ID/Iqama",
+      "reason": "Mentions ID categories without specific ID values"
+    },
+    {
+      "concept": "partial_id_reference",
+      "matched_text": "masked National ID fields",
+      "reason": "Refers to masked identifiers; no explicit rule for partial IDs"
+    },
+    {
+      "concept": "sensitive_document_reference",
+      "matched_text": "Iqama image backups",
+      "reason": "PII document type mentioned, but as a historic/erased control"
+    }
+  ]
+}

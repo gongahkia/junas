@@ -1,0 +1,396 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_universal_mnpi_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/universal_mnpi/in_universal_mnpi_privacy_notice_default_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_universal_mnpi_privacy_notice_default_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_resolved_label_warnings": [
+    {
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 480 crore'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 60 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 480 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 60 crore'"
+      ]
+    }
+  ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_universal_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavita Raneli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devansh Quara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Raneli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Quara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lawful basis: consent for candidate outreach and IR mailing lists; legitimate uses for contract performance relating to definitive agreement drafts; do not collect raw Aadhaar, only salted hashes and masked PAN references.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transfer: mirror to a Singapore data centre under contract with sub-processor Cloudnest Pte, with onward transfer logs and a country assessment consistent with guidance from the Ministry of Digital Affairs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Monsoon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NOT FOR PUBLIC DISSEMINATION",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 30 Sep 2026, 17:00 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DRAFT\u2013IR",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean-room access keys",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward to external messaging groups",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR embargo folder",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent required",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@lumosyn.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN token P-TEST-0001",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar hash AX-0000",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN alias G-NULL-42",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect raw Aadhaar",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mirror to a Singapore data centre",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "onward transfer logs",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavita Raneli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devansh Quara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Raneli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Quara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lawful basis: consent for candidate outreach and IR mailing lists; legitimate uses for contract performance relating to definitive agreement drafts; do not collect raw Aadhaar, only salted hashes and masked PAN references.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transfer: mirror to a Singapore data centre under contract with sub-processor Cloudnest Pte, with onward transfer logs and a country assessment consistent with guidance from the Ministry of Digital Affairs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Monsoon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 UPSI \u2014 Project Monsoon retention and transfer workflow note for Lumosyn Industries Limited (listed on NEXI Exchange; internal code LUMOIL); embargo until 30 Sep 2026, 17:00 IST.\nPurpose: govern handling of personal data under the Digital Personal Data Protection Act, 2023 and unpublished price sensitive information under Indian PIT Regulations for a proposed 17.5% strategic investment in Trillium Exports Limited.\nCategories: shareholder KYC (PAN token P-TEST-0001, Aadhaar hash AX-0000, GSTIN alias G-NULL-42), employee lists (children under 18 flagged; parental consent required), board contact details for Ms. Kavita Raneli and Mr. Devansh Quara.\nLawful basis: consent for candidate outreach and IR mailing lists; legitimate uses for contract performance relating to definitive agreement drafts; do not collect raw Aadhaar, only salted hashes and masked PAN references.\nRetention: UPSI folders (deal codename Monsoon) retained 7 years post-close or 2 years after termination of the definitive agreements, whichever later; DSAR requests acknowledged in 24 hours and resolved within 30 days via privacy@lumosyn.example.in.\nAccess: limited to board, finance, and advisors Verdant Ridge Advisors LLP; maintain clean-room access keys; audit trail via exchange-compliant insider list maintained by the Company Secretary.\nTransfer: mirror to a Singapore data centre under contract with sub-processor Cloudnest Pte, with onward transfer logs and a country assessment consistent with guidance from the Ministry of Digital Affairs.\nSecurity: segregate UPSI from public IR content; watermark research notes and investor-relations drafts; do not forward to external messaging groups until embargo lifts.\nMaterial Adverse Change: for avoidance of doubt, no Material Adverse Change has occurred as of the board memo date; MAE carve-outs apply per draft SPA, with pandemics and commodity shocks excluded from MAC.\nFinancial terms \u2014 NOT FOR PUBLIC DISSEMINATION: purchase price INR 480 crore, contingent earn-out up to INR 60 crore; board consent threshold 75% and standstill for 12 months.\nThis note forms part of the board memo and deal checklist; any press release drafts referencing \u201cProject Monsoon\u201d must be marked DRAFT\u2013IR and kept in the IR embargo folder.\nPublic-source clarification: per the FY2023 annual report on the issuer\u2019s website and the public exchange portal, historical revenue and director names are public and not UPSI for PIT purposes.\nChildren\u2019s data workflow: internships and campus drives must collect verifiable parental consent for anyone under 18; delete rejected applicant records after 90 days unless a litigation hold applies.\nnext steps: circulate term sheet v4 to Ms. Raneli and Mr. Quara, update definitive agreements, lock rooms for diligence, and maybe a spa day after signing to keep morale up",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "the Company Secretary",
+      "reason": "Role noun; not a person name per rule"
+    },
+    {
+      "matched_text": "issuer\u2019s website",
+      "reason": "Public-source reference; not sensitive PII/MNPI"
+    },
+    {
+      "matched_text": "Monsoon",
+      "reason": "Not in 'Project <Name>' pattern for transaction codename"
+    },
+    {
+      "matched_text": "LUMOIL",
+      "reason": "Internal code; not a supported identifier type"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "DSAR/subject rights",
+      "matched_text": "DSAR requests",
+      "reason": "Privacy-event marker relevant under DPDPA but no specific allowed rule token for DSAR"
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "retained 7 years post-close or 2 years after termination of the definitive agreements, whichever later",
+      "reason": "Data-retention duration is legally relevant but no explicit allowed rule for retention"
+    },
+    {
+      "concept": "retention/deletion period",
+      "matched_text": "delete rejected applicant records after 90 days unless a litigation hold applies",
+      "reason": "Deletion/retention policy is relevant under DPDPA but not covered by allowed rules"
+    },
+    {
+      "concept": "cross-border assessment/TIA",
+      "matched_text": "country assessment consistent with guidance from the Ministry of Digital Affairs",
+      "reason": "Transfer risk assessment is relevant but not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "standstill/blackout period",
+      "matched_text": "standstill for 12 months",
+      "reason": "Potential MNPI about restrictions; not explicitly enumerated in allowed rules"
+    }
+  ]
+}

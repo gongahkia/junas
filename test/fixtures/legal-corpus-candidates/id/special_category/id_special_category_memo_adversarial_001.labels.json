@@ -1,0 +1,287 @@
+{
+  "doc_id": "id_special_category_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "ID",
+  "destination_jurisdiction": "ID",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ldn.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-0110"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "mnpi"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@ldn.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-0110"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "mnpi"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "riwayat kesehatan: diabetes tipe 1"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "keanggotaan Serikat Pekerja Fintech Bersatu"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "enrolmen biometrik (template sidik jari fp:adk-7gQ1...)"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-2O26-l1l"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "menyatakan agama Katolik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi PT Cakrawala Peerpay"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Akuisisi PT Cakrawala Peerpay"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "mnpi wall"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Adrian Kusuma"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Ratna Permadi"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "tidak ada data genetik yang dikumpulkan"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "tidak ada informasi tentang orientasi seksual"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fp:adk-7gQ1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Proyek BungaRaya"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "bocoran istilah kode \u201cProyek BungaRaya\u201d di media sosial"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "akses dibatasi sampai RUPS dan keterbukaan ke BEI/OJK"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Profil subjek: Bapak Adrian Kusuma (Direktur Teknologi, PT LDN)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ZeroFriction Wallet",
+      "reason": "Product name; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "CloudNimbus",
+      "reason": "Partner/product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "KopiRacer FC",
+      "reason": "Sports team metaphor; not PII"
+    },
+    {
+      "matched_text": "doa dan kerja",
+      "reason": "Brand slogan; not an individual religious disclosure"
+    },
+    {
+      "matched_text": "Kota Bintang",
+      "reason": "Place name; not personal data"
+    },
+    {
+      "matched_text": "Peraturan OJK 31/POJK.04/2O15",
+      "reason": "Regulation citation; not PII/MNPI"
+    },
+    {
+      "matched_text": "LDNX",
+      "reason": "Provisional issuer code reference; not PII by itself"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated Material Adverse Change; excluded per rule 8"
+    },
+    {
+      "matched_text": "politik harga",
+      "reason": "Generic policy/metaphor; not PII"
+    },
+    {
+      "matched_text": "DEI generik",
+      "reason": "Generic DEI prose; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "kode emiten sementara LDNX (B E I staging)",
+      "concept": "nonpublic exchange identifier",
+      "reason": "Potentially MNPI context but not clearly covered by an allowed MNPI rule"
+    },
+    {
+      "matched_text": "Kontrak No. ACQ-2O26-1l",
+      "concept": "internal contract number",
+      "reason": "Could be confidential/material but no specific allowed rule matches"
+    },
+    {
+      "matched_text": "sftp://legal:in f o@intra-ldn/v a u l t",
+      "concept": "credentials in URL",
+      "reason": "Security-sensitive string with spaces; not an allowed PII category"
+    },
+    {
+      "matched_text": "//sh are/LDN/acq/IDX/RUPS_2O26.pdf",
+      "concept": "internal file path",
+      "reason": "Indicates location of MNPI document but not covered by allowed rules"
+    },
+    {
+      "matched_text": "server \u201cintra-ldn\u201d",
+      "concept": "internal system hostname",
+      "reason": "Infrastructure detail; potentially sensitive but not in allowed categories"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_agent_review": {
+    "status": "strict_tier_cleaned_owner_approved",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only."
+  },
+  "_owner_acceptance": {
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking",
+    "accepted_by": "gongahkia",
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "status": "approved",
+      "decision": "approve",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
+}

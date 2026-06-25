@@ -1,0 +1,410 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_quasi_identifiers_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/quasi_identifiers/my_quasi_identifiers_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_quasi_identifiers_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_quasi_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@kijangquantum.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3 7779 4321",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "320-77-514",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2024-05-18-2142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "401989-03-14",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-03-1989",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02/02/1980",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope covers employee HR/payroll, financing diligence, and pre-announcement Bursa disclosures; this internal governance note is not an invitation or offer to purchase securities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment/financing fields include job titles (e.g., \u201cassistant manager\u201d), salary bands (C2/C3), and recruiter links; generic demographic or job title data alone does not identify an individual under PDPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kunyit",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@suriananas.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Haris Zikri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nur Afiqah Salleh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 14-03-1989",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 35",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sess: MY-GL-2024-05-18-2142",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kunyit 2.0",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sess: gl-2024-05-xx",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Access record (cluster): Puan Nur Afiqah Salleh, Assistant Finance Manager (Shah Alam office), DOB 14-03-1989 (age 35), device Dell Latitude dl-lt-9A77x (this is not a MAC address), ac c t 320-77-514 (payroll sub-ledger), sess: MY-GL-2024-05-18-2142, https://intranet.suriananas.my/policy?user=nur.afiqah%401989-03-14&sess=MY-GL-2024-05-18-2142",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dl-lt-9A77x",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ac c t 320-77-514",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NusantaraCloud (Singapore region)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not collect full MAC addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not store MyKad numbers in logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "faiz@x",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 1x-xxx xxxx",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Building keycard 14F\u2013South, Wi-Fi SSID \u201cSNB-Guest,\u201d and geolocation tag \u201cMY/Selangor/ShahAlam\u201d were logged at 21:42 MYT to reconcile user access with the Bursa disclosure checklist for draft circulars",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@kijangquantum.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 3 7779 4321",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "320-77-514",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2024-05-18-2142",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "401989-03-14",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14-03-1989",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02/02/1980",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope covers employee HR/payroll, financing diligence, and pre-announcement Bursa disclosures; this internal governance note is not an invitation or offer to purchase securities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment/financing fields include job titles (e.g., \u201cassistant manager\u201d), salary bands (C2/C3), and recruiter links; generic demographic or job title data alone does not identify an individual under PDPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kunyit",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Controller: Suria Nanas Berhad (Main Market, fictional short name \u201cSuriaNanas\u201d); Processor: Kijang Quantum Sdn Bhd; DPO (Attn: Encik Haris Zikri): dpo@suriananas.my, +60 3 7779 4321\nScope covers employee HR/payroll, financing diligence, and pre-announcement Bursa disclosures; this internal governance note is not an invitation or offer to purchase securities.\nMNPI handling: pre-release term sheets and unaudited KPIs for \u201cProject Kunyit 2.0\u201d are MNPI until announcement to Bursa Malaysia; staff are trained in CMSA obligations and Bursa Listing Requirements, with escalation to the Compliance Officer.\nAccess record (cluster): Puan Nur Afiqah Salleh, Assistant Finance Manager (Shah Alam office), DOB 14-03-1989 (age 35), device Dell Latitude dl-lt-9A77x (this is not a MAC address), ac c t 320-77-514 (payroll sub-ledger), sess: MY-GL-2024-05-18-2142, https://intranet.suriananas.my/policy?user=nur.afiqah%401989-03-14&sess=MY-GL-2024-05-18-2142\nBuilding keycard 14F\u2013South, Wi-Fi SSID \u201cSNB-Guest,\u201d and geolocation tag \u201cMY/Selangor/ShahAlam\u201d were logged at 21:42 MYT to reconcile user access with the Bursa disclosure checklist for draft circulars.\nPDPA notice: we collect device logs and access metadata for security and audit; we do not collect full MAC addresses, we do not store MyKad numbers in logs, and we do not infer race or religion from public-source data.\nRetention: HR files 7 years post-separation; device logs 180 days; MNPI working papers retained until public disclosure + 12 months; Bursa-announced materials archived permanently in the corporate repository.\nTransfers: processing may occur in NusantaraCloud (Singapore region) under PDPA transfer safeguards and a processor contract with Kijang   Quantum   Sdn   Bhd; transfer record https://transfer.suriananas.my/tx/7c9e-12 8-4f-sg is auto-generated.\nDSAR: submit requests via dsar@kijangquantum.com or https://privacy.suriananas.my/dsar?ref=SNRB-2024-RTN-009; we will verify identity before release and will not send passwords or secrets by email.\nSeparate weak identifiers (not linked to a person): DOB 02/02/1980; role driver; device DT-55; Johor Bahru; age 41; contract code carpark-C1\u2014placeholders in anonymised test logs that should not identify anyone.\nEmployment/financing fields include job titles (e.g., \u201cassistant manager\u201d), salary bands (C2/C3), and recruiter links; generic demographic or job title data alone does not identify an individual under PDPA.\nSecurity controls: pseudonymisation, least privilege, rotating session tokens (e.g., sess: gl-2024-05-xx), and immutable audit trails; masked examples such as faiz@x.. and +60 1x-xxx xxxx are illustrative only.\nPublic-source references\u2014audited financial statements already published on Bursa Malaysia or the SC website\u2014are outside MNPI scope and may be reused with attribution; drafts not yet announced remain restricted.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "DOB 02/02/1980",
+      "reason": "Separate weak identifier explicitly noted as non-identifying."
+    },
+    {
+      "matched_text": "role driver",
+      "reason": "Separate weak identifier explicitly noted as non-identifying."
+    },
+    {
+      "matched_text": "device DT-55",
+      "reason": "Separate weak identifier explicitly noted as non-identifying."
+    },
+    {
+      "matched_text": "Johor Bahru",
+      "reason": "Separate weak identifier explicitly noted as non-identifying."
+    },
+    {
+      "matched_text": "age 41",
+      "reason": "Separate weak identifier explicitly noted as non-identifying."
+    },
+    {
+      "matched_text": "contract code carpark-C1",
+      "reason": "Placeholder code; not personal data."
+    },
+    {
+      "matched_text": "SuriaNanas",
+      "reason": "Defined short name for company; not PII/MNPI."
+    },
+    {
+      "matched_text": "MAC address",
+      "reason": "Negated example; not an actual identifier."
+    },
+    {
+      "matched_text": "mangosteenOS",
+      "reason": "Product label; not personal data."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR: submit requests via dsar@kijangquantum.com or https://privacy.suriananas.my/dsar?ref=SNRB-2024-RTN-009",
+      "reason": "DSAR workflow is a privacy-event marker but no explicit DSAR category is listed in allowed rules."
+    },
+    {
+      "concept": "masked email",
+      "matched_text": "faiz@x",
+      "reason": "Looks like an email format but intentionally masked/invalid; may or may not be captured by strict email regex."
+    },
+    {
+      "concept": "masked phone",
+      "matched_text": "+60 1x-xxx xxxx",
+      "reason": "Phone-like pattern with masked digits; borderline for strict phone detection."
+    },
+    {
+      "concept": "account identifier",
+      "matched_text": "ac c t 320-77-514 (payroll sub-ledger)",
+      "reason": "Account-like code tied to a person but unclear if it fits bank_account or customer_account_number under strict rules."
+    },
+    {
+      "concept": "physical access credential",
+      "matched_text": "Building keycard 14F\u2013South",
+      "reason": "Likely a personal access token/ID but no explicit category in the allowed rules."
+    },
+    {
+      "concept": "URL with embedded identifiers",
+      "matched_text": "https://intranet.suriananas.my/policy?user=nur.afiqah%401989-03-14&sess=MY-GL-2024-05-18-2142",
+      "reason": "Contains encoded user and session identifiers; no explicit URL category though it carries PII."
+    },
+    {
+      "concept": "case/reference ID",
+      "matched_text": "SNRB-2024-RTN-009",
+      "reason": "Appears to be a request reference code linked to an individual but no direct matching category in allowed rules."
+    }
+  ]
+}

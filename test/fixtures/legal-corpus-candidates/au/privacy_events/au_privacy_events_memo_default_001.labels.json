@@ -1,0 +1,268 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hart",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@auroraforge.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 3456 7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields exported limited to",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Theo Quain",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opted out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sahana Rook",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This memo does not report a notifiable data breach; prior privacy incidents referenced in Risk Register RR-2025-07 are closed and require no further action.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+61 2 3456 7890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hart",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Theo Quain",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Sahana Rook",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This memo does not report a notifiable data breach; prior privacy incidents referenced in Risk Register RR-2025-07 are closed and require no further action.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board Risk Committee; From: Ms. Eliza Hart, General Counsel; Contact: privacy@auroraforge.au, +61 2 3456 7890\nContext: Aurora Forge is listed on the Harbour City Exchange (HCE) and subject to continuous disclosure under the Corporations Act 2001 (Cth).\nWe approved a limited cross-border transfer of onboarding forms to Cloud Kauri NZ Ltd (sub-processor to NimbusQuarry Pty Ltd) for payroll set-up; APP 8 safeguards recorded in DPA Schedule 2.\nData Export Committee approval DXP-2026-014 granted; fields exported limited to name, work email, start date, and Aurora Forge Employee Code (minimisation applied).\nDPA Schedule 3 (Sub-processor and Overseas Recipient Register) was updated on 20 May 2026; no new transfers occur beyond New Zealand.\nNo government-issued identifiers or health records are included in this export; optional wellbeing disclosures on forms remain stored only in AU.\nAPP 12 access request (DSAR): Mr. Theo Quain sought access and correction to his employment file on 10 May; fulfilled on 15 May with identity verification and redactions of co-worker comments.\nConsent withdrawal and erasure: Former contractor Dr. Sahana Rook opted out of talent-pool retention; CV and interview notes were erased on 12 May and a deletion certificate archived.\nRetention: Recruitment data retention reduced from 24 to 12 months for unsuccessful candidates; legal hold AF-LH-22-09 was lifted on 1 May and the retention clock restarted accordingly.\nCredit checks for finance roles continue under consent-based onboarding; no credit scores are exported outside Australia, and no adverse action was taken based on automated profiling.\nMNPI controls: The export does not include budgets, forecasts, or unannounced board matters; information walls remain in place under HCE Listing Rules and insider trading provisions of the Corporations Act.\nWe confirm no generally unavailable information likely to affect the price of HCE-listed Aurora Forge securities was shared with vendors; vendor personnel are contractually restricted from dealing.\nHealth data: Workplace adjustment requests are processed locally via HR Service Desk; aggregate metrics only are shared with the Safety Committee, and no individual medical details are disclosed.\nThis memo does not report a notifiable data breach; prior privacy incidents referenced in Risk Register RR-2025-07 are closed and require no further action.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eliza Hart, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Hart, General Counsel; Contact: privacy@auroraforge.au, +61 2 3456 7890\nContext: Aurora Forge is listed on the Harbour City Exchange (HCE) and subject to continuous disclosure under the Corporations Act 2001 (Cth).\nWe approved a limited cross-border transfer of onboarding forms to Cloud Kauri NZ Ltd (sub-processor to NimbusQuarry Pty Ltd) for payroll set-up; APP 8 safeguards recorded in DPA Schedule 2.\nData Export Committee approval DXP-2026-014 granted; fields exported limited to name, work email, start date, and Aurora Forge Employee Code (minimisation applied).\nDPA Schedule 3 (Sub-processor and Overseas Recipient Register) was updated on 20 May 2026; no new transfers occur beyond New Zealand.\nNo government-issued identifiers or health records are included in this export; optional wellbeing disclosures on forms remain stored only in AU.\nAPP 12 access request (DSAR): Mr. Theo Quain sought access and correction to his employment file on 10 May; fulfilled on 15 May with identity verification and redactions of co-worker comments.\nConsent withdrawal and erasure: Former contractor Dr. Sahana Rook",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Organisational committee title; not an individual or PII."
+    },
+    {
+      "matched_text": "General Counsel",
+      "reason": "Job title/role only, not PII."
+    },
+    {
+      "matched_text": "HR Service Desk",
+      "reason": "Department/service name, not PII."
+    },
+    {
+      "matched_text": "Safety Committee",
+      "reason": "Committee name, not PII."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "APP 12 access request (DSAR)",
+      "reason": "Data subject access request event is legally relevant but there is no explicit DSAR rule in the allowed list."
+    },
+    {
+      "concept": "Access/correction request",
+      "matched_text": "sought access and correction",
+      "reason": "Indicates DSAR rights exercise; not clearly covered by an allowed rule."
+    },
+    {
+      "concept": "Erasure/deletion",
+      "matched_text": "erased on 12 May",
+      "reason": "Erasure event is relevant but no explicit erasure marker rule is provided."
+    },
+    {
+      "concept": "Erasure confirmation",
+      "matched_text": "deletion certificate archived",
+      "reason": "Evidence of deletion is a privacy event but lacks an allowed rule."
+    },
+    {
+      "concept": "Retention policy change",
+      "matched_text": "Recruitment data retention reduced from 24 to 12 months",
+      "reason": "Retention marker is relevant but not represented in the allowed rules."
+    },
+    {
+      "concept": "Legal hold/retention event",
+      "matched_text": "legal hold AF-LH-22-09 was lifted",
+      "reason": "Legal hold lift affects retention; no explicit rule in the allowed set."
+    }
+  ]
+}

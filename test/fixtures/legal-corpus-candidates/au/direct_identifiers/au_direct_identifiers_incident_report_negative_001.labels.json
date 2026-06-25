@@ -1,0 +1,181 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ACN 123 456 789",
+      "rule": "au_acn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TFN: 123 456 789 (sample/invalid)",
+      "rule": "au_tfn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN 12 345 678 901",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QX1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Medicare: 1234 56789-1 (sample/invalid)",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BSB 123-999",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account 00123456",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "000123",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00123456",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "000123",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00123456",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Greyhollow Renewables Ltd (ACN 123 456 789 - invalid) - Cyber Incident Report dated 14 June 2026.\nSummary: A contractor mailbox at Bluequartz Payroll Pty Ltd was compromised on 12 June; limited files were accessed for under 15 minutes.\nASX context: We announced the event on 13 June under Listing Rule 3.1 and confirm it does not include information that is not generally available and would be expected to materially affect the price or value of our securities.\nRegulatory context: Assessment is underway under the Privacy Act 1988 (Cth) and the Notifiable Data Breaches scheme; ASIC has been briefed via our market liaison.\nData types: Test documents and templates were present, including form labels \"Name: ______\", \"Address: ______\", \"TFN: 123 456 789 (sample/invalid)\", \"Medicare: 1234 56789-1 (sample/invalid)\", and \"Council assessment no.: 000123 (placeholder)\".\nOne onboarding scan for a casual employee included an Australian passport number QX1234567 (checksum invalid); no other clear PII was identified.\nFinancial data: CSV exports referenced \"BSB 123-999 / Account 00123456 (non-live example)\" and card tokens displayed as \"PAN: 4444 33xx xxxx 0000 (masked/invalid)\".",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name: ______",
+      "reason": "Generic form label placeholder without a value"
+    },
+    {
+      "matched_text": "Address: ______",
+      "reason": "Generic form label placeholder without a value"
+    },
+    {
+      "matched_text": "privacy@greyhollow.example",
+      "reason": "Role mailbox for public enquiries, not an identified individual"
+    },
+    {
+      "matched_text": "1300 777 210",
+      "reason": "Public/fictitious helpline number, not an individual's phone number"
+    },
+    {
+      "matched_text": "PAN: 4444 33xx xxxx 0000 (masked/invalid)",
+      "reason": "Masked/invalid payment card example; not an actual identifiable account number"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "local government assessment number",
+      "matched_text": "Council assessment no.: 000123 (placeholder)",
+      "reason": "Potential local-government identifier but no explicit rule in allowed list"
+    },
+    {
+      "concept": "nonpublic_marker (negated)",
+      "matched_text": "not generally available",
+      "reason": "References the nonpublic information concept but in a negated context"
+    },
+    {
+      "concept": "materiality language (negated)",
+      "matched_text": "would be expected to materially affect the price or value of our securities",
+      "reason": "Material-effect phrasing used to disclaim MNPI; not a direct match to allowed MNPI rules"
+    },
+    {
+      "concept": "ASX continuous disclosure rule",
+      "matched_text": "Listing Rule 3.1",
+      "reason": "Indicates market disclosure context but not a specific allowed MNPI marker"
+    }
+  ]
+}

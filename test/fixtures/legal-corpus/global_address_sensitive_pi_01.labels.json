@@ -1,0 +1,20 @@
+{
+  "doc_id": "global_address_sensitive_pi_01",
+  "document_type": "memo",
+  "source_jurisdiction": "EU",
+  "destination_jurisdiction": "AU",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Dr Jane Tan"},
+    {"rule": "eu_postal_address", "matched_text": "12 Rue de la Paix\nParis FR-75002"},
+    {"rule": "au_postal_address", "matched_text": "1 Airport Drive\nAdelaide Airport SA 5950"},
+    {"rule": "trade_union_membership", "matched_text": "工会会员: 张伟"},
+    {"rule": "political_opinion", "matched_text": "政治观点: 支持民主党"},
+    {"rule": "medical_treatment", "matched_text": "用药: 二甲双胍"},
+    {"rule": "sexual_orientation", "matched_text": "性取向: 双性恋"},
+    {"rule": "sex_life_reference", "matched_text": "性生活: 已披露避孕使用"},
+    {"rule": "sex_life_reference", "matched_text": "التاريخ الجنسي: تم الإفصاح عنه"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand",
+  "_label_note": "No-key items 34/71/48/86 hand fixture for EU/AU address breadth and multilingual sensitive-PI anchors."
+}

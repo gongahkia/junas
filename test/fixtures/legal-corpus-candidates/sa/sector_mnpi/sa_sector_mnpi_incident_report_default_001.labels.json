@@ -1,0 +1,390 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 2
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 44,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 35,
+    "old_must_detect_count": 24,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_sector_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al\u2011Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lulwa Al\u2011Rasheed",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reem Al\u2011Otaibi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI context: ESG/climate financing workstream \u201cProject Date Palm\u201d relates to a sustainability\u2011linked sukuk with Najd Renewables PJSC (term sheet: coupon 3.45%, step\u2011up KPIs on Scope 2 reduction) \u2014 not publicly announced",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Containment: credentials rotated; NCA guidance followed; forensic images secured; no evidence of lateral movement to ERP or payroll; customer PII unaffected",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Date Palm",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1012345678",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@albadrmaterials.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "185.82.14.77",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 245\u201188\u20110193\u20115",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 203\u201111\u20117745\u20112",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2059988776",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@albadrmaterials.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer: temporary log analysis by a processor in Manama requires SDAIA approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201111\u2011555\u20110199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@albadrmaterials.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "(non\u2011public)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list created (v3)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout window enforced",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no tokens have been offered to the public",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HejazChain",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.45%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "identifiers masked before export",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Salim Al\u2011Qahtani",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access restricted to need\u2011to\u2011know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate financing workstream",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability\u2011linked sukuk",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenized carbon credits",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disclosure sequencing under review",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "counterparties have not been notified pending counsel",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board sign\u2011off on disclosure timing",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "in case materiality threshold is met",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al\u2011Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lulwa Al\u2011Rasheed",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reem Al\u2011Otaibi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI context: ESG/climate financing workstream \u201cProject Date Palm\u201d relates to a sustainability\u2011linked sukuk with Najd Renewables PJSC (term sheet: coupon 3.45%, step\u2011up KPIs on Scope 2 reduction) \u2014 not publicly announced",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Containment: credentials rotated; NCA guidance followed; forensic images secured; no evidence of lateral movement to ERP or payroll; customer PII unaffected",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Date Palm",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Incident Report \u2014 AlBadr Materials PJSC (CR 1012345678) \u2014 Riyadh, KSA\nPrepared by: Mr. Nasser Al\u2011Mutairi, Compliance Officer; contact: compliance@albadrmaterials.sa\nSubject: Cyber incident affecting supplier portal and ESG data room linked to proposed green sukuk issuance (non\u2011public)\nSummary: On 12/05/2026 02:40 AST, SOC detected unauthorized API calls from IP 185.82.14.77 to vendor.albadr.sa; intrusion window 17 minutes; system isolated within 6 minutes of alert\nData impact: limited exfiltration of two employee files containing national ID/Iqama numbers (e.g., Iqama 245\u201188\u20110193\u20115 for Eng. Salim Al\u2011Qahtani and Iqama 203\u201111\u20117745\u20112 for Ms. Lulwa Al\u2011Rasheed) and one supplier CR (CR 2059988776)\nRegulatory actions: PDPL Article 17 notification submitted to SDAIA within 72 hours; CMA and Tadawul Market Surveillance informed due to potential MNPI exposure\nMNPI context: ESG/climate financing workstream \u201cProject Date Palm\u201d relates to a sustainability\u2011linked sukuk with Najd Renewables PJSC (term sheet: coupon 3.45%, step\u2011up KPIs on Scope 2 reduction) \u2014 not publicly announced\nInformation barriers: insider list created (v3) for Project Date Palm; trading blackout window enforced for listed securities of AlBadr Materials PJSC and Najd Renewables PJSC; access restricted to need\u2011to\u2011know\nCrypto/DPT aspect: the ESG data room contains a sandbox pilot for tokenized carbon credits on \u201cHejazChain\u201d with test wallet addresses; no tokens have been offered to the public; disclosure sequencing under review\nCommercial terms at risk: draft EPC addendum with Al\u2011Hasa Energy Co. (liquidated damages at SAR 12,000/day cap, FX collar 3.74\u20133.79) was stored in the affected folder; counterparties have not been notified pending counsel\nContainment: credentials rotated; NCA guidance followed; forensic images secured; no evidence of lateral movement to ERP or payroll; customer PII unaffected",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto wallets",
+      "reason": "Educational/public webinar context, not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational/public webinar context, not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Educational/public webinar context, not market-sensitive MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "FX collar range",
+      "matched_text": "FX collar 3.74\u20133.79",
+      "reason": "Commercial term signal relevant to securities context but not explicitly covered by listed MNPI financial rules"
+    },
+    {
+      "concept": "breach notification",
+      "matched_text": "PDPL Article 17 notification submitted to SDAIA within 72 hours",
+      "reason": "Privacy regulatory notification is relevant but not mapped to an allowed privacy-event marker in the rule list"
+    },
+    {
+      "concept": "data masking/anonymization",
+      "matched_text": "identifiers masked before export",
+      "reason": "Privacy control indicative of minimization/obfuscation but phrase may not be captured by current data_minimisation_marker patterns"
+    }
+  ]
+}

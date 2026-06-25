@@ -1,0 +1,284 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AU Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, AU TFN/ABN/ACN checksum issues, public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal false positives, and negated material-adverse-change wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-au-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AU Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered AU public switchboard/reception/role-mailbox contact bait, ACT-vs-Act postal-address false positives, negated material-adverse-change trigger prose, and checksum-valid TFN/ABN/ACN positives. Generated placeholder/dummy ABN/ACN/TFN labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:32:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-au-stage-a-reviewed.json",
+    "status": "owner_approved_au_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@quaralynx.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@quaralynx.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawals are actioned via",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000 000 000",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-000/00000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: ASIC Regulatory Guide 270 and OAIC guidance inform our privacy impact assessments; queries should be directed to compliance@quaralynx.example (role mailbox only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: ASIC Regulatory Guide 270 and OAIC guidance inform our privacy impact assessments; queries should be directed to compliance@quaralynx.example (role mailbox only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Quaralynx Pty Ltd \u2014 Privacy & Data Handling Compliance Memo (AU), prepared for Board Risk Committee \u2014 31 May 2026.\nThis note summarises APP compliance posture under the Privacy Act 1988 (Cth) and confirms no information herein constitutes MNPI for Corporations Act/ASX purposes.\nMNPI check: content is limited to policy controls and already-published privacy notices; no undisclosed financial forecasts or ASX Listing Rule 3.1 triggers.\nOnboarding forms: HR templates limit fields to job-relevant data only (data minimisation), and optional marketing consent is unticked by default; withdrawals are actioned via privacy@quaralynx.example.\nOne DSAR and erasure request (Ref QLX-E-077) was completed on 15 May 2026; a copy of personal data was supplied and recruitment notes were deleted in accordance with APP 12/13.\nHealth: pre-employment health declarations are stored separately with role-based access; no medical reports are exported or shared externally.\nCredit: trade credit application forms capture ABN field only for counterparties and do not request individual TFNs; any ABN displayed in this memo (000 000 000) is illustrative and invalid.\nTransactions: audit extracts use tokenised customer references (e.g., TX-000000) without card or account numbers; sample BSB/Acct values 000-000/00000000 are placeholders only.\nDPA schedule: Schedule 2 (Data Processing Details) with Orbyx Cloud Pte Ltd sets purpose limitation, subprocessor approval, and retention caps (HR records 7 years post-employment, then de-identify).\nCross-border: Data Export Approval QLX-DEX-2026-03 authorises monthly transfer of pseudonymised payroll metadata to Orbyx Cloud (Singapore) with APP 8 due diligence and s 16C accountability.\nNo other cross-border disclosures are active; prior transfers referenced in legacy accords have been sunset and decommissioned.\nConsent: no open withdrawal requests remain; marketing distribution lists are suppressed via hashed email flags upon opt-out.\nRetention: backup snapshots adhere to the Corporate Retention Schedule v3.2; expired datasets are subject to scheduled erasure jobs and deletion logs are reviewed quarterly by the Privacy Officer.\nGovernance: ASIC Regulatory Guide 270 and OAIC guidance inform our privacy impact assessments; queries should be directed to compliance@quaralynx.example (role mailbox only).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no information herein constitutes MNPI",
+      "reason": "Explicit negation that content is MNPI"
+    },
+    {
+      "matched_text": "no undisclosed financial forecasts",
+      "reason": "Negated MNPI element; not a live nonpublic item"
+    },
+    {
+      "matched_text": "ASX Listing Rule 3.1 triggers",
+      "reason": "Mentioned only in a negated context; not actually triggered"
+    },
+    {
+      "matched_text": "No other cross-border disclosures are active",
+      "reason": "Negated; indicates absence of active transfers"
+    },
+    {
+      "matched_text": "placeholders only",
+      "reason": "Indicates example values, not real PII"
+    },
+    {
+      "matched_text": "do not request individual TFNs",
+      "reason": "States absence of TFNs; no identifiers present"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "DSAR event referenced but DSAR is not an allowed rule token; also described as completed"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure request",
+      "reason": "Erasure event referenced but no explicit allowed erasure rule; also completed"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention",
+      "reason": "Indicates retention-controls section; retention marker not in allowed rule list"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention Schedule",
+      "reason": "Specifies a retention schedule; retention marker not in allowed rules"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention caps",
+      "reason": "Specifies retention limits; retention marker not in allowed rules"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure jobs",
+      "reason": "Ongoing erasure process mentioned; erasure marker not in allowed rules"
+    },
+    {
+      "concept": "health data handling",
+      "matched_text": "Health: pre-employment health declarations",
+      "reason": "References handling of sensitive health data but not tied to identifiable individuals or an allowed special-category anchor"
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "HR records 7 years post-employment",
+      "reason": "Retention timeframe relevant to privacy but no allowed retention rule token"
+    },
+    {
+      "concept": "consent withdrawal marker",
+      "matched_text": "withdrawal requests",
+      "reason": "Negated reference to consent withdrawals; conceptually relevant but not a clear allowed marker"
+    }
+  ]
+}

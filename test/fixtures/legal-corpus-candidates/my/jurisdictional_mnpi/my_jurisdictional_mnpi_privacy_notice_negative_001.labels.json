@@ -1,0 +1,244 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing is for employment administration, compliance with the Listing Requirements disclosure regime, and financing documentation, based on contract and legitimate interests.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@auroranusantara.example.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Submit access/correction/erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not send national ID copies",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers: we use cloud processors with data centres in Southeast Asia or other jurisdictions with adequate safeguards and standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished quarterly results",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No selective disclosure to analysts or lenders",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Subject Request Form (Form DSAR-MY-01)",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We verify DSARs using non-sensitive checks",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "placeholder or invalid IDs (e.g., MY-ID 1234-56-7890) will be rejected",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "staff IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "business emails",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material information is announced first",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "responses to queries use only what is already public",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we do not discuss live proposals before announcement",
+      "rule": "tipping_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing is for employment administration, compliance with the Listing Requirements disclosure regime, and financing documentation, based on contract and legitimate interests.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing is for employment administration, compliance with the Listing Requirements disclosure regime, and financing documentation, based on contract and legitimate interests.\nSubmit access/correction/erasure requests via privacy@auroranusantara.example.my or the Data Subject Request Form (Form DSAR-MY-01).\nWe verify DSARs using non-sensitive checks; do not send national ID copies; placeholder or invalid IDs (e.g., MY-ID 1234-56-7890) will be rejected.\nPublic disclosures are made via the Malaysian exchange\u2019s issuer portal; see the Company\u2019s press release dated 3 January 2022 and the Annual Report 2021 already available on our website.\nEmployees with access to unpublished quarterly results are in a trading blackout until immediate announcement via the Exchange pursuant to Chapter 9 of the Main Market Listing Requirements.\nNo selective disclosure to analysts or lenders; material information is announced first, and responses to queries use only what is already public.\nRetention: payroll records 7 years; recruitment files 12 months post-closure; investor relations query logs 24 months; deletion is by secure overwrite.\nTransfers: we use cloud processors with data centres in Southeast Asia or other jurisdictions with adequate safeguards and standard contractual clauses.\nSecurity: role-based access applies to finance, HR, and company secretarial functions; we maintain audit trails and periodic access reviews.\nThis notice excludes third-party research and non-issuer operational updates such as general banking service outages or telco maintenance.\nWe may reference stale public information (e.g., previously announced board changes) to answer queries; we do not discuss live proposals before announcement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined-term role noun; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: payroll records 7 years",
+      "reason": "Retention periods are privacy-relevant but there is no explicit retention rule in allowed categories."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "recruitment files 12 months post-closure",
+      "reason": "Retention periods are privacy-relevant but not covered by a specific allowed rule."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "investor relations query logs 24 months",
+      "reason": "Retention periods are privacy-relevant but not covered by a specific allowed rule."
+    },
+    {
+      "concept": "deletion_security",
+      "matched_text": "deletion is by secure overwrite",
+      "reason": "Erasure method is privacy-relevant but not clearly mapped to an allowed rule."
+    },
+    {
+      "concept": "employee_identifier_reference",
+      "matched_text": "payroll references",
+      "reason": "Implies identifiers within HR/payroll systems but not covered by a specific allowed PII rule."
+    },
+    {
+      "concept": "malaysia_national_id_example",
+      "matched_text": "MY-ID 1234-56-7890",
+      "reason": "Looks like a national ID example but invalid format; not reliably covered by my_mykad rule."
+    }
+  ]
+}

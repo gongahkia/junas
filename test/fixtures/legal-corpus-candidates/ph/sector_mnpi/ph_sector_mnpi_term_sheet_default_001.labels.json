@@ -1,0 +1,462 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Atty. Liza F. Mercado",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon C. Licayan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "liza.mercado@isla-cap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ramon.licayan@mabuhayverde.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Php 150,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Php 1,800,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clean Team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public communications",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9,842",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending BSP VASP application",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenized renewable energy credits",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing is conditioned",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate compliance projects",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG Earnout",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "All external communications require joint approval",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000 tCO2e emissions avoided",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "none of which has been publicly announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Buyer to acquire a 35% fully diluted stake via (i) subscription to Series B preferred shares and (ii) secondary purchase from select founders, with a Php 150,000,000 bridge convertible note available at Buyer\u2019s option.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: Aggregate purchase price of Php 1,800,000,000, of which 10% to be placed in escrow for 12 months; customary working-capital and net-debt adjustments at closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and Trading Restrictions: Directors, officers, and employees of the parties with access to material non-public information are subject to a trading blackout effective upon circulation of this term sheet until public disclosure, consistent with the SRC and SEC guidance on tipping and insider trading.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers: Due diligence to be conducted through a Clean Team subject to information-barrier protocols; access to cyber logs, wallet custody procedures, and breach reports will be ring-fenced in a secure VDR with named-user access only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident CP: The Company has disclosed an internal 14 April 2026 security incident involving unauthorized access to a KYC database (approx. 9,842 customer emails) managed by SierraCloud Technologies Corp.; closing is conditioned on timely NPC notification, remediation, and independent verification, none of which has been publicly announced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT and Custody: The Company\u2019s affiliate Baybay Digital Assets OPC has a pending BSP VASP application; closing requires either issuance of the VASP authority or implementation of an approved third-party custodial arrangement, with no public communications until formal announcements are cleared by Compliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG Earnout: An additional Php 150,000,000 earnout is payable upon verification of 180,000 tCO2e emissions avoided within 24 months post-closing, certified by Philippine Sustainability Verifiers, Inc., with data subject to third-party assurance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,800,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "liza.mercado@isla-cap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ramon.licayan@mabuhayverde.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ramon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Buyer to acquire a 35% fully diluted stake via (i) subscription to Series B preferred shares and (ii) secondary purchase from select founders, with a Php 150,000,000 bridge convertible note available at Buyer\u2019s option.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: Aggregate purchase price of Php 1,800,000,000, of which 10% to be placed in escrow for 12 months; customary working-capital and net-debt adjustments at closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout and Trading Restrictions: Directors, officers, and employees of the parties with access to material non-public information are subject to a trading blackout effective upon circulation of this term sheet until public disclosure, consistent with the SRC and SEC guidance on tipping and insider trading.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers: Due diligence to be conducted through a Clean Team subject to information-barrier protocols; access to cyber logs, wallet custody procedures, and breach reports will be ring-fenced in a secure VDR with named-user access only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident CP: The Company has disclosed an internal 14 April 2026 security incident involving unauthorized access to a KYC database (approx. 9,842 customer emails) managed by SierraCloud Technologies Corp.; closing is conditioned on timely NPC notification, remediation, and independent verification, none of which has been publicly announced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT and Custody: The Company\u2019s affiliate Baybay Digital Assets OPC has a pending BSP VASP application; closing requires either issuance of the VASP authority or implementation of an approved third-party custodial arrangement, with no public communications until formal announcements are cleared by Compliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG Earnout: An additional Php 150,000,000 earnout is payable upon verification of 180,000 tCO2e emissions avoided within 24 months post-closing, certified by Philippine Sustainability Verifiers, Inc., with data subject to third-party assurance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Php 150,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Php 1,800,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,800,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Educational/Operations-Only Note: The Company\u2019s internal training module references \u201ctrading blackout,\u201d \u201ccrypto wallet,\u201d and a \u201cbreach playbook\u201d purely as examples for staff orientation and does not contain any deal-stage or market-sensitive information.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "yer) and Mabuhay Verde Renewables, Inc. (Company), with contacts Atty. Liza F. Mercado (General Counsel, liza.mercado@isla-cap.example) and Mr. Ramon C. Licayan (CFO, ramon.licayan@mabuhayverde.example).\nStructure: Buyer to acquire a 35% fully diluted stake via (i) subscription to Series B preferred shares and (ii) secondary purchase from select founders, with a Php 150,000,000 bridge convertible note available at Buyer\u2019s option.\nConsideration: Aggregate purchase price of Php 1,800,000,000, of which 10% to be placed in escrow for 12 months; customary working-capital and net-debt adjustments at closing.\nUse of Proceeds: Expansion of 50MW rooftop solar program and ESG/climate compliance projects (including a non-public internal sandbox for tokenized renewable energy credits), subject to agreed milestones.\nRegulatory and Disclosure: Transactions subject to Philippine SEC approvals/confirmations (as applicable) and disclosure on PSE EDGE within 24 hours of signing if any PSE-listed affiliate of the parties incurs a disclosure trigger under the SRC and PSE rules.\nExclusivity and No-Shop: Company grants Buyer a 60-day exclusivity period from countersignature; Company shall not solicit or entertain competing proposals during this period.\nBlackout and Trading Restrictions: Directors, officers, and employees of the parties with access to material non-public information are subject to a trading blackout effective upon circulation of this term sheet until public disclosure, consistent with the SRC and SEC guidance on tipping and insider trading.\nInsider List: Each party shall maintain and update an insider list for the transaction; initial access persons include Atty. Liza F. Mercado and Mr. Ramon C. Licayan, to be lodged with the Buyer\u2019s Compliance Officer and retained for five years.\nInformation Barriers: Due diligence to be conducted through a Clean Team subject to information-barrier protocols; access to cyber logs, wallet custody procedures, and breach reports will be ring-fenced in a secure VDR with named-user access only.\nCyber Incident CP: The Company has disclosed an internal 14 April 2026 security incident involving unauthorized access to a KYC database (approx. 9,842 customer emails) managed by SierraCloud Technologies Corp.; closing is conditioned on timely NPC notification, remediation, and independent verification, none of which has been publicly announced.\nCrypto/DPT and Custody: The Company\u2019s affiliate Baybay Digital Assets OPC has a pending BSP VASP application; closing requires either issuance of the VASP authority or implementation of an approved third-party custodial arrangement, with no public communications until formal announcements are cleared by Compliance.\nESG Earnout: An additional Php 150,000,000 earnout is payable upon verification of 180,000 tCO2e emissions avoided within 24 months post-closing, certified by Philippine Sustainability Verifiers, Inc., with data subject to third-party assurance.\nSelective Disclosure: All external communications require joint approval; no selective disclosure to analysts, customers, or vendors is permitted, and inquiries must be routed to liza.mercado@isla-cap.example\u2014tipping is strictly prohibited.\nTaxes: Parties shall bear their respective taxes; documentary stamp tax on share issuance shall be for the Company\u2019s account, while any capital gains tax on the secondary sale shall be for the selling shareholders; stock transaction tax is inapplicable to this off-exchange transfer; appropriate filings with the BIR will be coordinated.\nEducational/Operations-Only Note: The Company\u2019s internal training module references \u201ctrading blackout,\u201d \u201ccrypto wallet,\u201d and a \u201cbreach playbook\u201d purely as examples for staff orientation and does not contain any deal-stage or market-sensitive information.\nGoverning Law and Disputes: This term sheet is governed by the laws of the Republic of the Philippines, venue in Makati City; disputes to be settled by arbitration under PDRCI rules,",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined role noun; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Defined role noun; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "crypto wallet",
+      "reason": "Educational/operations-only example; not market sensitive"
+    },
+    {
+      "matched_text": "breach playbook",
+      "reason": "Educational/operations-only example; not market sensitive"
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "embargo_marker",
+      "matched_text": "signing",
+      "reason": "Refers to execution timing but not the explicit phrase 'Signing Date'."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "closing",
+      "reason": "References closing milestone but not the explicit 'Closing Date' marker."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "effective upon circulation",
+      "reason": "Temporal effectiveness reference but not the specific 'Effective Date' marker."
+    },
+    {
+      "concept": "retention",
+      "matched_text": "retained for five years",
+      "reason": "Indicates data retention duration for insider list; retention marker not explicitly listed among allowed rule names."
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 23,
+    "current_must_detect_count": 9,
+    "current_must_not_detect_count": 9,
+    "previous_ideal_must_detect_count": 19,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 9
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 6,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms Elodie Paterson",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr Rowan Tyrell",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9Z4812053",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "QQ 12 34 56 C",
+      "rule": "uk_nin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@brackenhill-capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hello.contractor@mall-owdune.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 20 3850 7391",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 7700 912 345",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN GB14 BRCL 099901 23847605",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09-99-01",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "23847605",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "watch and restricted lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s e c u r i t y @ brackenhill- capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ms.paterson%40brackenhill-capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011close update",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean-room environment",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trade restrictions remain active",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber/Operational Event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-00731",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Incident Response Plan v4.3, governance owners are the CISO and the Compliance Officer; project status: sprint-12 bugfix hardening, not a material acquisition or disposal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@brackenhill-capital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-00731",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 7700 912 345",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9Z4812053",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms Elodie Paterson",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr Rowan Tyrell",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Incident Response Plan v4.3, governance owners are the CISO and the Compliance Officer; project status: sprint-12 bugfix hardening, not a material acquisition or disposal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09345678",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_company_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "17 Barley Court, Lundenford, ZX1 4ZZ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "uk_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "At 07:42 BST, Ms Elodie Paterson, Head of IT Risk, observed anomalous SFTP activity affecting the RNS drafting workspace for Mallowdune plc, a UK issuer on the Main Market.\nThe workspace included draft text for a pre\u2011close update; information was controlled as inside information under Article 17 UK MAR, but no MNPI was transmitted externally.\nWe isolated the segment and notified Compliance (role-only) and the Head of Dealing; incident channel: security@brackenhill-capital.co.uk and s e c u r i t y @ brackenhill- capital.co.uk",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "There is no evidence of client account movement, and no dealing took place; any trade restrictions remain active in the watch and restricted lists per MAR and FCA expectations.\nFor HR purposes, the affected contractor\u2019s phone is +44 7700 912 345 and email hello.contractor@mall-owdune.example, but Name: [Employee Name] and Date of birth: [dd/mm/yyyy] appear only as generic form labels.\nWe lodged an initial incident notification via FCA Connect; this document is not an announcement draft and should not be treated as an RNS",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09345678; FCA FRN 932847) \u2014 Cyber/Operational Event dated 05 June 2026.\nAt 07:42 BST, Ms Elodie Paterson, Head of IT Risk, observed anomalous SFTP activity affecting the RNS drafting workspace for Mallowdune plc, a UK issuer on the Main Market.\nThe workspace included draft text for a pre\u2011close update; information was controlled as inside information under Article 17 UK MAR, but no MNPI was transmitted externally.\nWe isolated the segment and notified Compliance (role-only) and the Head of Dealing; incident channel: security@brackenhill-capital.co.uk and s e c u r i t y @ brackenhill- capital.co.uk.\nContact number for the incident bridge: +44 20 3850 7391; do not use the public helpline 0800 000 1234 for internal escalations.\nRegistered office: 3rd Floor, Avalon House, 17 Barley Court, Lundenford, ZX1 4ZZ; issuer client file ref https://portal.brackenhill-capital.co.uk/tickets/INC-2026-00731?user=ms.paterson%40brackenhill-capital.co.uk.\nBanking details were stored but not exfiltrated: A/c Name Brackenhill Capital plc; Sort 09-99-01; A c c o u n t No. 23847605; IBAN GB14 BRCL 099901 23847605 (checksum mismatch flagged in test vault).\nEmployee identifiers in the log include UK Passport No. 9Z4812053 for Mr Rowan Tyrell (redacted in export) and NI number QQ 12 34 56 C, stored only in hashed form.\nTax/VAT fields: VAT GB 123 4567 89 (invalid checksum placeholder) and UTR 12345 67890 for a dormant SPV, included in a template but not used for filings.\nWe have opened a clean-room environment; back-ups show no alteration of order-entry algorithms; we did not collect MAC addresses from staff laptops.\nThere is no evidence of client account movement, and no dealing took place; any trade restrictions remain active in the watch and restricted lists per MAR and FCA expectations.\nFor HR purposes, the affected contractor\u2019s phone is +44 7700 912 345 and email hello.contractor@mall-owdune.example, but Name: [Employee Name] and Date of birth: [dd/mm/yyyy] appear only as generic form labels.\nWe lodged an initial incident notification via FCA Connect; this document is not an announcement draft and should not be treated as an RNS",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Brackenhill Capital plc (Company No. 09345678; FCA FRN 932847) \u2014 Cyber/Operational Event dated 05 June 2026.\nAt 07:42 BST, Ms Elodie Paterson, Head of IT Risk, observed anomalous SFTP activity affecting the RNS drafting workspace for Mallowdune plc, a UK issuer on the Main Market.\nThe workspace included draft text for a pre\u2011close update; information was controlled as inside information under Article 17 UK MAR, but no MNPI was transmitted externally.\nWe isolated the segment and notified Compliance (role-only) and the Head of Dealing; incident channel: security@brackenhill-capital.co.uk and s e c u r i t y @ brackenhill- capital.co.uk.\nContact number for the incident bridge: +44 20 3850 7391; do not use the public helpline 0800 000 1234 for internal escalations.\nRegistered office: 3rd Floor, Avalon House, 17 Barley Court, Lundenford, ZX1 4ZZ; issuer client file ref https://portal.brackenhill-capital.co.uk/tickets/INC-2026-00731?user=ms.paterson%40brackenhill-capital.co.uk.\nBanking details were stored but not exfiltrated: A/c Name Brackenhill Capital plc; Sort 09-99-01; A c c o u n t No. 23847605; IBAN GB14 BRCL 099901 23847605 (checksum mismatch flagged in test vault).\nEmployee identifiers in the log include UK Passport No. 9Z4812053 for Mr Rowan Tyrell (redacted in export) and NI number QQ 12 34 56 C, stored only in hashed form.\nTax/VAT fields: VAT GB 123 4567 89 (invalid checksum placeholder) and UTR 12345 67890 for a dormant SPV, included in a template but not used for filings.\nWe have opened a clean-room environment; back-ups show no alteration of order-entry algorithms; we did not collect MAC addresses from staff laptops.\nThere is no evidence of client account movement, and no dealing took place; any trade restrictions remain active in the watch and restricted lists per MAR and FCA expectations.\nFor HR purposes, the affected contractor\u2019s phone is +44 7700 912 345 and email hello.contractor@mall-owdune.example, but Name: [Employee Name] and Date of birth: [dd/mm/yyyy] appear only as generic form labels.\nWe lodged an initial incident notification via FCA Connect; this document is not an announcement draft and should not be treated as an RNS.\nUnder the Incident Response Plan v4.3, governance owners are the CISO and the Compliance Officer; project status: sprint-12 bugfix hardening, not a material acquisition or disposal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0800 000 1234",
+      "reason": "Public helpline/switchboard, not personal PII"
+    },
+    {
+      "matched_text": "0345 000 0000",
+      "reason": "Generic customer service/switchboard number"
+    },
+    {
+      "matched_text": "Name: [Employee Name]",
+      "reason": "Generic form label, no actual PII value"
+    },
+    {
+      "matched_text": "Date of birth: [dd/mm/yyyy]",
+      "reason": "Generic form label, no actual PII value"
+    },
+    {
+      "matched_text": "Compliance",
+      "reason": "Role-only reference, not a named natural person"
+    },
+    {
+      "matched_text": "Head of Dealing",
+      "reason": "Role-only reference, not a named natural person"
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Role-only reference, not a named natural person"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role-only reference, not a named natural person"
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Generic mention without any actual identifier values"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "uk_company_number",
+      "matched_text": "Company No. 09345678",
+      "reason": "Company number is an identifier but not included in the allowed rule set"
+    },
+    {
+      "concept": "fca_firm_reference_number",
+      "matched_text": "FCA FRN 932847",
+      "reason": "Regulatory firm identifier not covered by allowed rules"
+    },
+    {
+      "concept": "uk_vat_number",
+      "matched_text": "VAT GB 123 4567 89",
+      "reason": "UK VAT number pattern (invalid placeholder) not in allowed rules"
+    },
+    {
+      "concept": "uk_unique_taxpayer_reference",
+      "matched_text": "UTR 12345 67890",
+      "reason": "UK UTR not in allowed rules"
+    },
+    {
+      "concept": "uk_postcode",
+      "matched_text": "ZX1 4ZZ",
+      "reason": "Postal code/address element not in allowed rules"
+    },
+    {
+      "concept": "internal_ticket_id",
+      "matched_text": "INC-2026-00731",
+      "reason": "Internal incident/ticket identifier not mapped to an allowed rule"
+    }
+  ]
+}

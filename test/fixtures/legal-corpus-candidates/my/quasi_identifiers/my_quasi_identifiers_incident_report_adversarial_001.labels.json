@@ -1,0 +1,302 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "202001234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-07-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "31",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary scope indicates exposure of internal vendor financing term sheets (Q3 drafts) and one unsigned subscription agreement; while pricing bands are indicative only, the information is non-public and may be price-sensitive if read together with project timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational impact: procurement portal latency, two failed batch jobs (FIN-BATCH-27, PAY-ROLL-08), and delayed approval for RM-denominated vendor financing draws under the internal ref \u201cProj Tualang-5\u201d; current mitigation uses Safeguard SIEM and a temporary rule set.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Rafiq Halim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1987-11-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 38",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nor Aini Roslan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SESS-9l0O-Ocr 12 3",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SESS-4a7f",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mq-sess-7f 3",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cosec@merantiq.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@merantiq.test",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be price-sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Report for Exchange Disclosure",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling protocol",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subscription agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AssetTag MQT-AX-3  9",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CN=MQ-SOC-17",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rhalim-soc",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Rafiq Halim (b. 1987-11-03; age 38), Senior SOC Analyst, chaired the initial triage from Ops Room 2; workstation CN=MQ-SOC-17 (AssetTag MQT-AX-3  9), VPN acct: rhalim-soc, session ref SESS-9l0O-Ocr 12 3, and on-call mobile extension x2241 were used for containment",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB: 1992-07-07 | role: intern | device: android 13 | acct: user- 007 | loc: level 3 pantry",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age: 31",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age: 31 | role: contractor | device: Redmi 9C | zone: Loading Bay B | pass: VIS-4  5  6",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "202001234567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-07-07",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "31",
+      "rule": "age_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary scope indicates exposure of internal vendor financing term sheets (Q3 drafts) and one unsigned subscription agreement; while pricing bands are indicative only, the information is non-public and may be price-sensitive if read together with project timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational impact: procurement portal latency, two failed batch jobs (FIN-BATCH-27, PAY-ROLL-08), and delayed approval for RM-denominated vendor financing draws under the internal ref \u201cProj Tualang-5\u201d; current mitigation uses Safeguard SIEM and a temporary rule set.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary scope indicates exposure of internal vendor financing term sheets (Q3 drafts) and one unsigned subscription agreement; while pricing bands are indicative only, the information is non-public and may be price-sensitive if read together with project timelines.\nWe do not assess this as a material adverse change under Clause 14.2 of the Group Facility Agreement, and this is not a MAC event for covenant purposes; the generic policy \u201cGroup Information Security Standard v3.2\u201d remains in force.\nTo ensure market transparency, the Board intends to file an immediate announcement to the Darul Capital Exchange Main Board under Paragraph 9.03 of the Listing Rules if system restoration exceeds 48 hours or if MNPI dissemination risk escalates.\nPersonal data accessed in the payroll sub-system includes names and payroll IDs for 17 employees in Mukim Serindit, Daerah Lembah Permai; no national identity numbers, no credit card data, and no MAC address were collected or exported from affected tables.\nExample of a redacted log line not tied to any named individual: \u201cDOB: 1992-07-07 | role: intern | device: android 13 | acct: user- 007 | loc: level 3 pantry,\u201d which is insufficient on its own to identify a person.\nBoard oversight is led by Puan Nor Aini Roslan (Independent Non-Executive Director), who confirmed trading blackout adherence by all insiders and activation of the Company\u2019s MNPI handling protocol.\nA public-source reference (product manual for \u201cSangkarVault\u201d backup) was consulted for restoration steps; this is generic documentation and does not contain customer or employee information.\nIncident link: http://status.merantiq.test/inc/2026-06?q=user%3Drafiq.halim%40merantiq%2Etest&ticket=TCK%2D00317 (note: some reports display \u201cra fiq\u201d due to OCR breaks); SE SS: mq-sess-7f 3; mac    not   collected.\nWe have notified the Digital Safety Commission of Malaysia Raya within 72 hours and commenced vendor due diligence with KayuLilin Managed Services Sdn Bhd (fictional) regarding patch maintenance timing; procurement confirms no invoices were re-routed.\nUnrelated but similar weak identifiers appeared in a separate facilities log (not part of this matter): \u201cage: 31 | role: contractor | device: Redmi 9C | zone: Loading Bay B | pass: VIS-4  5  6,\u201d which should not be treated as identifying any person here.\nOperational impact: procurement portal latency, two failed batch jobs (FIN-BATCH-27, PAY-ROLL-08), and delayed approval for RM-denominated vendor financing draws under the internal ref \u201cProj Tualang-5\u201d; current mitigation uses Safeguard SIEM and a temporary rule set.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role-noun defined term used generically, not a specific person"
+    },
+    {
+      "matched_text": "the Board",
+      "reason": "Role-noun defined term used generically, not a specific person"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role-noun defined term used generically, not a specific person"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "email_address (percent-encoded)",
+      "matched_text": "rafiq.halim%40merantiq%2Etest",
+      "reason": "Appears to be an email address encoded in URL query; may not be detected by strict email regex."
+    },
+    {
+      "concept": "device identifier",
+      "matched_text": "CN=MQ-SOC-17",
+      "reason": "Hostname/common-name of a workstation may function as a device identifier/serial but not a standard serial pattern."
+    },
+    {
+      "concept": "device_serial_number",
+      "matched_text": "AssetTag MQT-AX-3  9",
+      "reason": "Asset tag is a device identifier but formats vary; strict detectors may not target asset-tag strings."
+    },
+    {
+      "concept": "employee_id/username",
+      "matched_text": "rhalim-soc",
+      "reason": "VPN account username identifies an employee account but not a standard employee ID format."
+    },
+    {
+      "concept": "phone_number (extension)",
+      "matched_text": "x2241",
+      "reason": "Four-digit extension may not qualify as a phone number for strict detectors."
+    },
+    {
+      "concept": "customer_account_number/account code",
+      "matched_text": "GL-9-443-xx21",
+      "reason": "Looks like an account code in URL param but not clearly a customer account number."
+    },
+    {
+      "concept": "transaction codename",
+      "matched_text": "Proj Tualang-5",
+      "reason": "Appears to be an internal project codename, but does not follow the exact 'Project <Name>' pattern required by the rule."
+    }
+  ]
+}

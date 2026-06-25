@@ -1,0 +1,333 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Clara Yuen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cyuen@harbourmeridian.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@harbourmeridian.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-11-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 39",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 33",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.24",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sess-7b91cd",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HM-CFO-MBP-12",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HM-HR-Mini-2",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The sign-in was tied to Ms. Clara Yuen, CFO (DOB 1986-11-03; age 39), Quarry Bay office, device HM-CFO-MBP-12 (laptop OS 14.4), source IP 203.0.113.24, and VPN profile \u201cHM-FIN-01\u201d",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Blue Crane Logistics Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information under the SFO (Part XIVA)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-clearance queue for staff dealing (Designated Persons)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Designated Person list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed-period dealing restrictions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "consulted the Exchange on whether immediate disclosure is required before market open",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yuen",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Files accessed included the term sheet for Project Lantern (proposed acquisition of Blue Crane Logistics Ltd.) and a draft allocation memo for Harbour Meridian Growth Fund SPC \u2013 Class A.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cyuen@harbourmeridian.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incident@harbourmeridian.example.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1986-11-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.24",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Clara Yuen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yuen",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Files accessed included the term sheet for Project Lantern (proposed acquisition of Blue Crane Logistics Ltd.) and a draft allocation memo for Harbour Meridian Growth Fund SPC \u2013 Class A.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 31 May 2026 at 02:17 HKT, the Security Operations Centre detected abnormal access to the SharePoint library \u201cM&A-Restricted\u201d via NimbusID session sess-7b91cd.\nThe sign-in was tied to Ms. Clara Yuen, CFO (DOB 1986-11-03; age 39), Quarry Bay office, device HM-CFO-MBP-12 (laptop OS 14.4), source IP 203.0.113.24, and VPN profile \u201cHM-FIN-01\u201d.\nMs. Yuen\u2019s corporate mailbox cyuen@harbourmeridian.example.hk showed forwarding rules created by an external OAuth app \u201cDocsBridge-Ext\u201d at 02:19 HKT.\nFiles accessed included the term sheet for Project Lantern (proposed acquisition of Blue Crane Logistics Ltd.) and a draft allocation memo for Harbour Meridian Growth Fund SPC \u2013 Class A.\nThese materials constitute inside information under the SFO (Part XIVA) as they contain specific, non-public financials and price-sensitive synergy assumptions for the listed issuer.\nNo payroll files, HKID copies, bank account numbers, or home addresses were accessed; business contact lists and two adviser email domains at Lighthouse Advisory (Asia) Ltd. and Pacific Ridge Partners were viewed.\nEmployment/workflow artifacts exposed included the pre-clearance queue for staff dealing (Designated Persons), and a pending employment contract template without signatures.\nGeneric training slides in the same folder referenced age bands 28\u201345, district names (e.g., North Point, Tsuen Wan), and device types (iPhone 13, Android tablet) without any linked names or accounts.\nContainment at 03:01 HKT: forced NimbusID logout, password and MFA reset for Ms. Yuen, device HM-CFO-MBP-12 quarantined, and conditional access rules tightened for Finance share libraries.\nAs a precaution under Listing Rule 13.09 and the Guidelines on Disclosure of Inside Information, the Company Secretary prepared a draft announcement and consulted the Exchange on whether immediate disclosure is required before market open.\nThe Board was informed; trading has not been suspended, and all directors were reminded of the closed-period dealing restrictions and the Designated Person list.\nPDPO (Cap. 486) assessment: the dataset comprised business contact data and role information relating to identifiable individuals; data subjects will be notified as a matter of good practice and the privacy commissioner will be briefed.\nRoot cause analysis indicates credential stuffing against a reused password; the same actor probed but did not authenticate to a Sheung Wan meeting room account \u201cMeetHub-Guest-4821\u201d and a workstation label HM-HR-Mini-2 (age 33 noted in a roster line, no name).\nFurther actions: rotate service principals tied to \u201cDocsBridge-Ext,\u201d enable session anomaly detection for Finance, and enforce re-attestation of access to \u201cM&A-Restricted.\u201d\nFor queries, contact incident@harbourmeridian.example.hk; this notice is for regulatory coordination only and does not include confidential trading instructions.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Clara Yuen, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "HKID copies",
+      "reason": "Generic category mention; no specific ID present"
+    },
+    {
+      "matched_text": "bank account numbers",
+      "reason": "Generic category mention; no specific identifier present"
+    },
+    {
+      "matched_text": "home addresses",
+      "reason": "Generic category mention; no specific address present"
+    },
+    {
+      "matched_text": "age bands 28\u201345",
+      "reason": "Aggregated demographic example; not identifiable to an individual"
+    },
+    {
+      "matched_text": "North Point",
+      "reason": "Generic location example; not linked to an individual"
+    },
+    {
+      "matched_text": "Tsuen Wan",
+      "reason": "Generic location example; not linked to an individual"
+    },
+    {
+      "matched_text": "iPhone 13",
+      "reason": "Device model example; not a unique device identifier"
+    },
+    {
+      "matched_text": "Android tablet",
+      "reason": "Device type example; not a unique device identifier"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "account identifier",
+      "matched_text": "MeetHub-Guest-4821",
+      "reason": "Meeting-room account username may be an identifiable system account but not clearly mapped to an allowed PII rule."
+    },
+    {
+      "concept": "VPN/profile identifier",
+      "matched_text": "HM-FIN-01",
+      "reason": "Internal VPN profile ID linked to a user session; could be treated as a device or account identifier but no specific allowed rule covers it."
+    },
+    {
+      "concept": "MNPI\u2014fund allocation context",
+      "matched_text": "Harbour Meridian Growth Fund SPC \u2013 Class A",
+      "reason": "Reference to draft allocation memo for a specific fund class could be price-sensitive, but not explicitly mapped to a defined MNPI rule."
+    },
+    {
+      "concept": "selective disclosure context",
+      "matched_text": "Lighthouse Advisory (Asia) Ltd",
+      "reason": "Viewing adviser email domains may raise selective-disclosure concerns, but there is no explicit allowed MNPI rule for this phrase."
+    },
+    {
+      "concept": "selective disclosure context",
+      "matched_text": "Pacific Ridge Partners",
+      "reason": "Viewing adviser email domains may raise selective-disclosure concerns, but there is no explicit allowed MNPI rule for this phrase."
+    },
+    {
+      "concept": "tipping_language",
+      "matched_text": "does not include confidential trading instructions",
+      "reason": "References trading instructions in a regulatory context; potential anti-tipping intent but not a clear match to a defined tipping-language rule."
+    }
+  ]
+}

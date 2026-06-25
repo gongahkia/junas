@@ -1,0 +1,282 @@
+{
+  "doc_id": "vn_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "source_jurisdiction": "VN",
+  "destination_jurisdiction": "VN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir.khai@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0315588999"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "99-88-77-6600"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "dsar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 905 123 456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ông Trần Đức Khải"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir.khai@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN_P12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "5600 1234 7890 55"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "99-88-77-6600"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "04 12 890 321"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Yêu cầu DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "xóa có kiểm soát nếu không còn mục đích"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "thông tin chưa công bố"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "kế hoạch phát hành riêng lẻ"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI khóa truy cập theo phân quyền RDI-Soft SecureFlow"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "ký ngày 03/06/2026"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0315588999"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "99-88-77-6600"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "dsar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800 0000",
+      "reason": "public helpline number (explicitly public)"
+    },
+    {
+      "matched_text": "Họ tên",
+      "reason": "generic form label, not actual PII data"
+    },
+    {
+      "matched_text": "Số CMND",
+      "reason": "generic form label, not actual PII data"
+    },
+    {
+      "matched_text": "Địa chỉ",
+      "reason": "generic form label, not actual PII data"
+    },
+    {
+      "matched_text": "Chuyên viên pháp chế",
+      "reason": "role-only title, not a named person"
+    },
+    {
+      "matched_text": "Quản lý dự án",
+      "reason": "role-only title, not a named person"
+    },
+    {
+      "matched_text": "123-45-678",
+      "reason": "invalid checksum/test MST per document"
+    },
+    {
+      "matched_text": "địa chỉ MAC",
+      "reason": "negated control (not collected)"
+    },
+    {
+      "matched_text": "Ban Việt",
+      "reason": "defined term for entity name, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Số CCCD 04 12 890 321",
+      "concept": "Vietnam CCCD national ID",
+      "reason": "PII but number formatting/length may not match strict vn_cccd detector expectations"
+    },
+    {
+      "matched_text": "MST 2501234567",
+      "concept": "Vietnam tax ID (MST)",
+      "reason": "Personal tax identifier under VN law but no explicit allowed rule for VN tax IDs"
+    },
+    {
+      "matched_text": "Giấy chứng nhận đăng ký doanh nghiệp: 0315588999",
+      "concept": "Vietnam enterprise registration number",
+      "reason": "Corporate identifier relevant in VN context but not covered by allowed rules"
+    },
+    {
+      "matched_text": "Địa chỉ trụ sở: Tầng 15, Tòa nhà Phú Lâm Xanh, 9 Đường Đại Phố, Phường Lộc Phúc, Quận Đông Phố, TP. Nam Hải, VN",
+      "concept": "full postal address",
+      "reason": "Address can be PII but only SG postal code rule is provided"
+    },
+    {
+      "matched_text": "ký ngày 03/06/2026",
+      "concept": "embargo/signing date",
+      "reason": "Embargo marker allowed but phrasing is Vietnamese rather than explicit 'Signing Date'"
+    },
+    {
+      "matched_text": "tài khoản nhân viên tham chiếu: 99-88-77-6600",
+      "concept": "account reference number",
+      "reason": "Potential customer/employee account number; mapping to specific rule may be ambiguous"
+    },
+    {
+      "matched_text": "Yêu cầu DSAR",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy-event marker but mapping to consent_withdrawal_marker is indirect"
+    },
+    {
+      "matched_text": "MNPI khóa truy cập theo phân quyền RDI-Soft SecureFlow",
+      "concept": "information barrier marker",
+      "reason": "Market-sensitive control phrase in Vietnamese; strict detectors may not catch"
+    },
+    {
+      "matched_text": "https://portal.banviet-holdings.vn/dsar?ref=acc%3A5600%201234%207890%2055&tag=cccd%3A04%2012%20890%20321",
+      "concept": "URL containing encoded PII",
+      "reason": "Carries encoded bank account and CCCD values; no dedicated URL-PII rule"
+    },
+    {
+      "matched_text": "https://compliance.banviet-holdings.vn/logs?id=PGX-BVA&user=ong.khai",
+      "concept": "username/user identifier in logs",
+      "reason": "Potential personal identifier but no explicit rule for usernames"
+    },
+    {
+      "matched_text": "mã cổ phiếu BVA",
+      "concept": "ticker symbol",
+      "reason": "Securities identifier relevant to MNPI context but no specific allowed rule for VN tickers"
+    },
+    {
+      "matched_text": "Sở GDCK Phú Gia (PGX)",
+      "concept": "exchange identifier",
+      "reason": "Relevant to securities/MNPI context but not covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "doc_id": "item78_pseudonymised_linkable_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Dr Jane Tan"},
+    {"rule": "employee_id", "matched_text": "EMP-48291"},
+    {
+      "rule": "internal_session_id",
+      "matched_text": "Session ID: 550e8400-e29b-41d4-a716-446655440000"
+    },
+    {"rule": "bank_customer_reference", "matched_text": "Bank CIF: CIF-778899"},
+    {"rule": "insurance_member_id", "matched_text": "Insurance member ID: IM-778899"},
+    {"rule": "medical_record_number", "matched_text": "1234567"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand"
+}

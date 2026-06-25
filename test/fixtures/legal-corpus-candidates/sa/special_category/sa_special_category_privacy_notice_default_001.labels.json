@@ -1,0 +1,369 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 16,
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 20,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al-Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lujain Al-Muqbil",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Al-Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purposes: onboarding insiders, maintaining issuer insider lists, pre-earnings lockups, DSAR responses, and compliance with market-conduct investigations by the Capital Markets Assembly Market Surveillance Unit (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9876543",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2050007774",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 204-55-9876543",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health treatment claim",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cardiac checkup",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "provides a fingerprint template for PalmGuard Biometric Vault access to the DuneTel JSC insider room",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voluntary mosque attendance preference",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union dues status",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Sami Al-Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor, age 15",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@alkhaleej-ventures.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@alkhaleej-ventures.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization and retention",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintaining issuer insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-disclosure financial models of DuneTel JSC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft prospectus content",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Oasis Transfer Gateway permit TP-09-7123",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA Transfer Logbook",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA permit renewal",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-earnings lockups",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DuneTel JSC insider room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "are segregated",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nasser Al-Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lujain Al-Muqbil",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Al-Qattan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 15",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Processing purposes: onboarding insiders, maintaining issuer insider lists, pre-earnings lockups, DSAR responses, and compliance with market-conduct investigations by the Capital Markets Assembly Market Surveillance Unit (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9876543",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This Data Processing Addendum and MNPI Handling Notice is between AlKhaleej Ventures JSC (CR 2050007774; Qasirah City HQ) as Controller and Rimal Securities Brokerage LLC as Processor for issuer operations on Al-Najm Exchange.\nFor PDPL purposes, personal data includes national ID/Iqama details, contact and employment data, and special-category personal data; MNPI refers to non-public issuer information relevant to securities markets and market-conduct follow-up under Capital Markets Assembly rules (fictional).\nNamed-subject processing: Mr. Nasser Al-Qattan (Iqama No. 204-55-9876543, fictional) submits a health treatment claim for a cardiac checkup and provides a fingerprint template for PalmGuard Biometric Vault access to the DuneTel JSC insider room.\nWe also record his voluntary mosque attendance preference and union dues status for shift scheduling, and guardian consent for Master Sami Al-Qattan (minor, age 15) to access the internship trading simulator.\nProcessing purposes: onboarding insiders, maintaining issuer insider lists, pre-earnings lockups, DSAR responses, and compliance with market-conduct investigations by the Capital Markets Assembly Market Surveillance Unit (fictional).\nData minimization and retention: health and biometric records for the named subject are retained 5 years post-termination per DesertShield Data Minimization Policy and Sahara Retention Map, then anonymized and archived in Falcon Ledger.\nCross-border transfer: any export of national ID or special-category data requires prior written approval from the Supreme Data Applications Inspection Authority (SDAIA, fictional), documented via Oasis Transfer Gateway permit TP-09-7123 and recorded in the SDAIA Transfer Logbook.\nMNPI safeguards: pre-disclosure financial models of DuneTel JSC, draft prospectus content, and insider calendars are segregated; access is logged, and trading is restricted to prevent moving the goalposts for staff performance metrics.\nSecurity measures: encryption at rest, multi-factor authentication, biometric templates hashed with HBS-512 inside PalmGuard, and access reviews by the Qasirah Risk Committee.\nLawful basis: performance of contract with the data subject, legal obligation under capital market rules, and explicit consent for health and biometric processing for Mr. Nasser Al-Qattan.\nRights: data subjects may access, correct, delete, or port their data and object to automated decision-making; submit DSARs to privacy@alkhaleej-ventures.sa or via the DEI & Privacy Portal at https://portal.alkhaleej-ventures.sa/requests (fictional).\nWe do not collect information about anyone\u2019s sexual orientation for marketing; however, our DEI charter includes inclusive language about sexual orientation as a benign policy topic.\nBenign context: references to religion in our company newsletter (e.g., holiday schedules) do not describe any individual\u2019s beliefs, and product names such as Falcon Ledger or Genetic Canvas are metaphors only.\nCommunity and culture: AlKhaleej Ventures sponsors the Qasirah Sandhawks FC youth league, and our DEI statement promotes fairness across gender, age, and background without affecting PDPL rights.\nContacts and complaints: write to the Data Protection Officer, Ms. Lujain Al-Muqbil, dpo@alkhaleej-ventures.sa, or escalate to the Capital Markets Assembly Ombud (fictional) for MNPI concerns.\nSubprocessors: CloudPalm Hosting FZE (Rimal District zone) receives pseudonymized logs; no direct identifiers or MNPI leave KSA without SDAIA permit renewal.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "role noun/defined term, not a person"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "role noun/defined term, not a person"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "benign policy mention, no individual described"
+    },
+    {
+      "matched_text": "Falcon Ledger",
+      "reason": "product/metaphor, not personal data"
+    },
+    {
+      "matched_text": "Genetic Canvas",
+      "reason": "product/metaphor, not personal data"
+    },
+    {
+      "matched_text": "Qasirah Sandhawks FC",
+      "reason": "sports team reference, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "consent marker",
+      "matched_text": "guardian consent",
+      "reason": "Consent is legally significant but only withdrawal is an allowed rule; not clearly covered by provided rule set."
+    },
+    {
+      "concept": "DSAR/rights handling",
+      "matched_text": "DSAR responses",
+      "reason": "Data subject rights processing is privacy-relevant but there is no explicit DSAR rule in the allowed set."
+    }
+  ]
+}

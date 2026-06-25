@@ -1,0 +1,16 @@
+Operational Incident Report — Harbor Peak Holdings Limited (HKEX-listed issuer)
+Incident ref: OP-2025-044; Date: 2025-05-18 16:20 HKT; Prepared by: Risk & Compliance Office
+Summary: brief misconfiguration on a document storage policy in hk-prd-ops allowed read access to a non-sensitive folder for 14 minutes; access was limited to internal network; no outage
+Data content assessment: folder held archived compliance memos, DPA Schedule (HK) templates, and blank investor/employee onboarding forms; no living individual’s identity was ascertainable within files
+Privacy impact (PDPO): no personal data accessed or disclosed; no data subject access request (DSAR) was received or needed in relation to this event
+Cross-border transfer: unrelated to the incident, Data Export Approval DEA-2025-004 authorised and completed transfer of pseudonymised security logs to Technova Systems SG on 2025-05-12 under DPA Schedule 2 (HK); controls operated as designed
+Erasure and retention: no erasure requests were triggered by this incident; retention schedule R-3 (HK) remains in effect for archived materials
+Minimisation: only template documents were present; fields for name, ID number, account, and address were unpopulated; minimisation policy P-12 requirements met
+MNPI review (SFO): no specific corporation information likely to be price-material was present; M&A references were limited to already-announced post-completion integration checklists for a subsidiary
+Regulatory assessment: notification to the SFC or HKEX Listing Division is not required; internal notice filed via info-security@harborpeakhk.example for record
+Third-party assurance: Quartz Nimbus Cloud (HK) Limited confirmed no external access beyond our service test account; audit trail reference QN-AT-8845; no credentials were exposed
+Employment data check: HR confirms no employee files, CVs, or payroll extracts in the folder; the consent withdrawal register shows zero open items
+Funds business check: Silver Typhoon Asset Management (HK) Limited verified that any fund investor onboarding materials were sample packs with invalid placeholders (e.g., InvestorID: 000-XX-VOID); no KYC documents stored
+Additional controls: no cross-border data flows occurred as part of the incident response; encryption at rest and role-based access controls remained in force
+Remediation: configuration reverted within change window; preventive change CAB-OPS-2025-061 approved; staff reminder circulated via compliance@harborpeakhk.example
+Conclusion: incident closed; no breach of PDPO; no disclosure obligation under SFO Part XIVA; no impact on listing, M&A workflows, or fund operations

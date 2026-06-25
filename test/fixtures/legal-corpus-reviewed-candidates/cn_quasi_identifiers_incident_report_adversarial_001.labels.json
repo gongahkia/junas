@@ -1,0 +1,359 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_quasi_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/quasi_identifiers/cn_quasi_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_quasi_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 33,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1991-07-16",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 33",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rui.liang@yse.com.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@yunshan-enertech.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "media@yunshan-enertech.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.44.91.12",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SESS-7f3a-c29",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "YM-2021-0089",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 2 0 0 M A 9 X 1 K 4 7 T",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 1 1 0 8 8 9 M A 0 K L 2 7 1 H",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-755-6600-1234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border path",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18\u201321%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "YSE-00291",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID (masked) 53 10 **** **** 3214",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Security Engineer, age 33, DOB 1991-07-16",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employer Yunshan EnerTech SOC (Chengdu High-Tech Zone)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Kunming trip (2026-06-01 to 2026-06-03)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "content scope limited to configuration templates and training materials",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal-only pre-disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft ESG KPI worksheet",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Q2 turbine downtime prelim 18\u201321%",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal information outbound transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 1 1 0 8 8 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-755-6600-1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-07-16",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public references: we relied on the 2025 yunshan sustainability brochure and vendor manuals; todo: close post-incident review by friday; owners: ops, hr, sec; this report is not a confirmation of breach scope and may be updated after forensic validation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "21%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rui.liang@yse.com.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9 1 1 0 8 8 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-755-6600-1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-07-16",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "YM-2021-0089",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public references: we relied on the 2025 yunshan sustainability brochure and vendor manuals; todo: close post-incident review by friday; owners: ops, hr, sec; this report is not a confirmation of breach scope and may be updated after forensic validation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "21%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Liang Rui (Security Engineer, age 33, DOB 1991-07-16), employer Yunshan EnerTech SOC (Chengdu High-Tech Zone), work login ac c t: rui.liang@yse.com.cn, WorkTalk ID: YSE-00291; sess ion: SESS-7f3a-c29 via https://sec.yse.com.cn/ticket?id=SESS-7f3a-c29&loc=cd; BYOD laptop asset tag CD-SOC-013, device SN YM-2021-0089.\nAccess originated through VPN gateway cd-gw-02 from internal IP 10.44.91.12; travel expense records show Kunming trip (2026-06-01 to 2026-06-03); resident ID (masked) 53 10 **** **** 3214 appeared in an HR \u4eba\u4e8b\u7533\u8bf7 screenshot tied to device onboarding.\nNo biometrics, no MAC addresses were recorded; no minors (<14) were involved; mobile IMEI values were not stored; content scope limited to configuration templates and training materials archived under /soc/train/2026-q2/.\nWeak identifiers elsewhere (not linked to any person): dob 1986-05, male, nanshan district, iphone 12, contractor role; this demographic set appears only in anonymized VPN session summaries and cannot identify an individual on its own.\nWe also observed strings \u201cacct: jiang.q\u201d and \u201cdev: andr11\u201d in a sample config; these are placeholders sourced from public documentation and should not be treated as personal data.\nPotential MNPI: a draft ESG KPI worksheet labeled \u201cQ2 turbine downtime prelim 18\u201321%\u201d was accessed; this is internal-only pre-disclosure and subject to coordinated release after board approval via the issuer information platform.\nIn accordance with PIPL Art. 38 and CAC cross-border filing practices, sync to hk-test.ysecloud.cn is paused pending Xinghai Municipal CAC filing and standard contract safeguards for personal information outbound transfers.\nWe notified the Provincial Securities Supervision Bureau (Xinghai) and Haihua Stock Exchange issuer services; initial assessment indicates the event does not constitute a material adverse change for disclosure purposes.\nEmployment workflow impact: Ms. Liang\u2019s BYOD policy acknowledgment (v3.2) and device attestation are under review; external sync permissions for SOC staff are temporarily disabled pending completion of the rectification plan.\nCorporate registry: Yunshan EnerTech Co., Ltd., U S C C : 9 1 1 0 8 8 9 M A 0 K L 2 7 1 H (internal record, obfuscated), registered office: 12F, Building C, Hexi Tech Park, Xinghai New District, Xinghai Province.\nCross-functional actions: rotated cd-gw-02 credentials; enforced CloudGuan v2 DLP rules; upgraded FortShield 360 signatures; no evidence of lateral movement to production OT networks.\nContact: Mr. Zhao Ming (Data Protection Officer), dpo@yunshan-enertech.cn, hotline +86-755-6600-1234; media inquiries: media@yunshan-enertech.cn; do not send resumes to these mailboxes.\npublic references: we relied on the 2025 yunshan sustainability brochure and vendor manuals; todo: close post-incident review by friday; owners: ops, hr, sec; this report is not a confirmation of breach scope and may be updated after forensic validation.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "male",
+      "reason": "Generic demographic term; not identifying by itself."
+    },
+    {
+      "matched_text": "nanshan district",
+      "reason": "Generic location mention in anonymized context; not identifying by itself."
+    },
+    {
+      "matched_text": "iphone 12",
+      "reason": "Generic device model; not a personal identifier."
+    },
+    {
+      "matched_text": "contractor role",
+      "reason": "Generic role; not a specific person or identifier."
+    },
+    {
+      "matched_text": "dob 1986-05",
+      "reason": "Partial DOB in an anonymized set; not linked to an identifiable individual."
+    },
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun in context; not PII or MNPI by itself."
+    },
+    {
+      "matched_text": "acct: jiang.q",
+      "reason": "Placeholder example from public documentation; not personal data."
+    },
+    {
+      "matched_text": "dev: andr11",
+      "reason": "Placeholder example from public documentation; not personal data."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "device_asset_tag",
+      "matched_text": "CD-SOC-013",
+      "reason": "Company asset tags can be persistent device identifiers but may not be covered by the explicit device_serial_number rule."
+    },
+    {
+      "concept": "network_hostname",
+      "matched_text": "cd-gw-02",
+      "reason": "Gateway hostnames can identify equipment or access points but do not map cleanly to an allowed rule."
+    },
+    {
+      "concept": "cross_border_destination_domain",
+      "matched_text": "hk-test.ysecloud.cn",
+      "reason": "Domain indicates an offshore destination relevant to cross-border transfer, but there is no specific rule for domains as transfer markers."
+    }
+  ]
+}

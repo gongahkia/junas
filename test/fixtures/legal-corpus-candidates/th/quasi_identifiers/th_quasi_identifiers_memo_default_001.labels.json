@@ -1,0 +1,382 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled TH Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T09:42:20Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T09:42:20Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-th-stage-a-reviewed.json",
+    "status": "owner_approved_th_stage_a_for_internal_benchmarking"
+  },
+  "_resolved_label_warnings": [
+    {
+      "basis": "Stale Azure auto-label normalization warnings remained on owner-approved Stage A labels. The current strict evaluation is clean; warnings are retained here as provenance while the active _label_warnings field is cleared for Stage B QA reporting.",
+      "resolved_at": "2026-06-03T03:31:09Z",
+      "reviewer": "Codex GPT-5.5",
+      "warnings": [
+        "drop must_not_detect: text not verbatim text='the Board'"
+      ]
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_quasi_identifiers_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "natthida.s@chanthraenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-05-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Natthida",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aran Phuttharak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Natthida",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Pre\u2011clearance on Q3 bridge financing and disclosure controls under Thai securities law and BGX/TSLC rules (fictional)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "All directors, the CFO, and any staff on the financing workstream are under blackout through quarter\u2011end; no personal dealing in Chanthra Energy PCL securities is permitted without written clearance; breaches may trigger TSLC administrative action.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@chanthraenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1988\u201103\u201102",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 36",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CE-LTP-TH-0421",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TH\u2011X9\u20112201",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BGX-DR-2026Q2-PP-221A",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account at Nopphasit Bank ends -1183",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account suffix -6720",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "must be limited to Legal/Compliance",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Natthida Srisuparn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Natthida Srisuparn (born 1990-05-17, age 36), Investor Relations Manager at Chanthra Energy PCL, accessed the draft term sheet via data room session BGX-DR-2026Q2-PP-221A from Klong Phra Campus, Room 25\u201117, using device CE-LTP-TH-0421; her corporate email is natthida.s@chanthraenergy.co.th and payroll account at Nopphasit Bank ends -1183 (internal use only)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 1.2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been disclosed to the market",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public filing has been made with TSLC or BGX",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "authorised negotiations for a THB 1.2bn unsecured bridge with Dala Capital Fund SPC (Singapore), with an option to roll into a BGX tap issuance at an indicative 6.75%",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "observe the silent period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under blackout through quarter\u2011end",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no personal dealing in Chanthra Energy PCL securities is permitted without written clearance",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "premature disclosure may be price\u2011sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward this memo beyond the deal team",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "natthida.s@chanthraenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-05-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Natthida",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aran Phuttharak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Natthida",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Pre\u2011clearance on Q3 bridge financing and disclosure controls under Thai securities law and BGX/TSLC rules (fictional)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "All directors, the CFO, and any staff on the financing workstream are under blackout through quarter\u2011end; no personal dealing in Chanthra Energy PCL securities is permitted without written clearance; breaches may trigger TSLC administrative action.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Natthida Srisuparn (born 1990-05-17, age 36), Investor Relations Manager at Chanthra Energy PCL, accessed the draft term sheet via data room session BGX-DR-2026Q2-PP-221A from Klong Phra Campus, Room 25\u201117, using device CE-LTP-TH-0421; her corporate email is natthida.s@chanthraenergy.co.th and payroll account at Nopphasit Bank ends -1183 (internal use only).\nUnder the PDPA, the combination of DOB, role, employer, device ID, session reference, and account suffix is personal data and must be limited to Legal/Compliance and archived per Policy PD-04.\nMs. Natthida is seconded to Finance through 31 Oct 2026 with no salary adjustment; she must remain on the insider list and observe the silent period; approval recorded by Mr. Aran Phuttharak (HR Director) on 27 May 2026",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Natthida is seconded to Finance through 31 Oct 2026 with no salary adjustment",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Pre\u2011clearance on Q3 bridge financing and disclosure controls under Thai securities law and BGX/TSLC rules (fictional)\nThe Board has authorised negotiations for a THB 1.2bn unsecured bridge with Dala Capital Fund SPC (Singapore), with an option to roll into a BGX tap issuance at an indicative 6.75%; this constitutes MNPI and has not been disclosed to the market.\nKhun Natthida Srisuparn (born 1990-05-17, age 36), Investor Relations Manager at Chanthra Energy PCL, accessed the draft term sheet via data room session BGX-DR-2026Q2-PP-221A from Klong Phra Campus, Room 25\u201117, using device CE-LTP-TH-0421; her corporate email is natthida.s@chanthraenergy.co.th and payroll account at Nopphasit Bank ends -1183 (internal use only).\nUnder the PDPA, the combination of DOB, role, employer, device ID, session reference, and account suffix is personal data and must be limited to Legal/Compliance and archived per Policy PD-04.\nMs. Natthida is seconded to Finance through 31 Oct 2026 with no salary adjustment; she must remain on the insider list and observe the silent period; approval recorded by Mr. Aran Phuttharak (HR Director) on 27 May 2026.\nDraft financing terms contemplate a receivables pledge over Lertsiri Mining Co., Ltd. and a cross\u2011border intercreditor deed (English law) with Dala Capital; no public filing has been made with TSLC or BGX, and premature disclosure may be price\u2011sensitive.\nDescriptions such as \u201cfemale, late 20s, from a central province, uses an Android tablet\u201d or \u201ccontractor aged ~34 located near an industrial estate\u201d are generic and, standing alone, should not be treated as identifying under PDPA.\nSeparated weak identifiers (non\u2011linked): sandbox records include a DOB of 1988\u201103\u201102, device serial TH\u2011X9\u20112201, and account suffix -6720 used as placeholders; these are not tied to any employee, customer, or vendor.\nUpon execution of the bridge and security documents, a current report must be lodged with TSLC within 72 hours and a trading notice filed with BGX by 09:00 the next trading day; Disclosure Committee pre\u2011clearance remains mandatory.\nAll directors, the CFO, and any staff on the financing workstream are under blackout through quarter\u2011end; no personal dealing in Chanthra Energy PCL securities is permitted without written clearance; breaches may trigger TSLC administrative action.\nFor PDPA or MNPI queries, contact Legal & Compliance at compliance@chanthraenergy.co.th; do not forward this memo beyond the deal team.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "role noun / defined governance body, not PII"
+    },
+    {
+      "matched_text": "the CFO",
+      "reason": "role noun / title, not PII"
+    },
+    {
+      "matched_text": "directors",
+      "reason": "role noun group, not PII"
+    },
+    {
+      "matched_text": "any staff",
+      "reason": "generic role noun, not PII"
+    },
+    {
+      "matched_text": "female, late 20s, from a central province, uses an Android tablet",
+      "reason": "generic demographics not identifying alone"
+    },
+    {
+      "matched_text": "contractor aged ~34 located near an industrial estate",
+      "reason": "generic demographics not identifying alone"
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "archived per Policy PD-04",
+      "reason": "Indicates record retention/archiving control under PDPA but no explicit allowed rule for retention in the current list"
+    }
+  ]
+}

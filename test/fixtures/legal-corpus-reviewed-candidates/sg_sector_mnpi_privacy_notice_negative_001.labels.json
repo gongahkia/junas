@@ -1,0 +1,235 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_sector_mnpi_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/sector_mnpi/sg_sector_mnpi_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_sector_mnpi_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@ficusmeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been announced on SGX",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not collect NRIC/FIN unless strictly required by law",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We do not process biometric identifiers, precise geolocation, or private keys in these workflows",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verification limited to company badge or work email domain",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list templates",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout approvals",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier attestations",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This notice is governed by Singapore law; where SFA/SGX or MAS guidance applies, we prioritise prohibitions on false trading, market manipulation, and improper disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This notice is governed by Singapore law; where SFA/SGX or MAS guidance applies, we prioritise prohibitions on false trading, market manipulation, and improper disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy and Retention Workflow Notice \u2014 Ficus Meridian Ltd. (SG) with Cedar Reef Capital Pte. Ltd.\nScope: We process personal data under the PDPA for SG law-firm and listed-company support (M&A, employment, and capital-markets), and we operate controls for SFA/SGX market conduct obligations.\nCollection: We collect work emails, role titles, and business card information from counterparties, event RSVPs, and marketing sign-ups for ESG/climate and crypto education webinars; we do not collect NRIC/FIN unless strictly required by law.\nForm labels used in templates may include \u201cGovernment ID (masked): XXXXX0000X\u201d, \u201cWallet alias (non-custodial): demo-abc123\u201d, and \u201cInsider-list role: Legal/Finance\u201d; these fields are illustrative and not linked to identifiable individuals in training materials.\nDSAR: Submit access/correction requests to dpo@ficusmeridian.example; we may request verification limited to company badge or work email domain, consistent with PDPA requirements.\nTransfers: Data may be processed by JurisWorks APAC Pte. Ltd. (SG) and Cloudia BV (NL) under PDPC Model Contractual Clauses; cross-border transfers comply with the Transfer Limitation Obligation and comparable protection standards.\nRetention: Routine HR files, marketing contact logs, and tabletop cyber incident drill notes are retained 2\u20133 years; insider-list templates, blackout approvals, and information-barrier attestations are retained no less than 5 years post-event in line with SFA/SGX expectations.\nSecurity: We maintain separate repositories for commercial-term playbooks and for crypto product names used in marketing-only content; legal operations have no access to production trading systems.\nTraining materials include benign examples of \u201ctipping,\u201d \u201cblackout,\u201d and \u201cinformation-barrier\u201d phrasing to improve staff awareness, and do not reference live issuers or live deal codenames.\nWe do not process biometric identifiers, precise geolocation, or private keys in these workflows; any crypto wallet strings shown in examples are non-functional and for formatting only.\nEmployment context: Staff may be added to an insider-list due to their role; only role descriptions are visible internally, not personal contact details.\nPositive MNPI example (restricted access): A draft insider list exists for a proposed share placement by Ficus Meridian Ltd. that has not been announced on SGX; access is limited to Corporate Secretariat and External Counsel.\nPublic/stale information such as previously announced sustainability-linked bond frameworks or past cyber incident advisories is used for training and FAQs without containing MNPI.\nThis notice is governed by Singapore law; where SFA/SGX or MAS guidance applies, we prioritise prohibitions on false trading, market manipulation, and improper disclosure.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Government ID (masked): XXXXX0000X",
+      "reason": "Masked illustrative placeholder; not an actual government ID/PII."
+    },
+    {
+      "matched_text": "Wallet alias (non-custodial): demo-abc123",
+      "reason": "Illustrative alias; not an actual crypto wallet address."
+    },
+    {
+      "matched_text": "Insider-list role: Legal/Finance",
+      "reason": "Illustrative training/template field; not a live insider list entry or identifiable person."
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Educational example in training context; not a live MNPI event."
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational example in training context; not a live MNPI event."
+    },
+    {
+      "matched_text": "information-barrier",
+      "reason": "Educational example in training context; not a live MNPI control/event."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR: Submit access/correction requests",
+      "reason": "DSAR/rights-request marker is legally relevant but not explicitly listed among allowed PII rules."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained 2\u20133 years",
+      "reason": "Retention period is a privacy control but no explicit retention rule is in the allowed list."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained no less than 5 years",
+      "reason": "Retention period is a privacy control but no explicit retention rule is in the allowed list."
+    },
+    {
+      "concept": "information_barrier_practice",
+      "matched_text": "legal operations have no access to production trading systems",
+      "reason": "Implied information barrier/segregation control without using the explicit term; useful but not clearly covered by a listed rule."
+    }
+  ]
+}

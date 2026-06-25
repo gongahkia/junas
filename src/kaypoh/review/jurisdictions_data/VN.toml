@@ -1,0 +1,22 @@
+code = "VN"
+label = "Vietnam"
+pii_rules = ["VN_PDP_PERSONAL_DATA"]
+mnpi_rules = ["VN_SECURITIES_LAW_INSIDER_TRADING"]
+references = [
+    "Vietnam Personal Data Protection Decree 13/2023/ND-CP",
+    "Vietnam Law on Securities 2019 (Law No. 54/2019/QH14) Article 12",
+]
+aliases = ["VN", "VIETNAM"]
+
+# CCCD (Căn cước công dân) — 12-digit citizen identification number. Bare 12-digit
+# numbers are too ambiguous to be useful by themselves (collide with MyKad-without-
+# dashes and arbitrary invoice numbers), so the recognizer is anchored on a CCCD /
+# CMND / "citizen ID" prefix within the same span. capture_group=1 selects only the
+# trailing digit span as the matched_text so the placeholder replacement is clean.
+[[recognizers]]
+name = "Vietnam CCCD"
+rule_name = "vn_cccd"
+pattern = '(?:CCCD|CMND|c[aă]n\s+cướ?[ck]\s+công\s+dân|citizen\s+ID)[\s:.#-]+(\d(?:[\s-]?\d){11})'
+severity = "high"
+reason = "Vietnam CCCD / CMND citizen identifier"
+capture_group = 1

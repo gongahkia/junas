@@ -1,0 +1,295 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [
+    "drop ideal_must_detect: invalid Singapore UEN shape rule='sg_uen' text='2020 123456 Z'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "S9812043I",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-queries@lumisands.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lumisands.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@lumisands.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal-ops@harboursquarelaw.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201912345X",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201834567Q",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of BlueCedar Robotics Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011generally available information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "phishing attempt",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorised access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDPA assessment: the NRIC is personal data under PDPA; however, the incident involves a single individual with low risk of significant harm, and does not meet notifiable data breach thresholds; the affected individual will be notified by HR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI/SFA/SGX assessment: accompanying materials included a draft integration timetable for the proposed acquisition of BlueCedar Robotics Pte. Ltd. (UEN: 201834567Q) and an employee transfer FAQ; these items track the issuer\u2019s SGXNet announcement dated 15 May and do not introduce non\u2011generally available information; no SFA s.218/219 concerns identified.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: run a joint tabletop with vendor against MAS cyber hygiene guidance (non\u2011FI applicability), refresh staff phishing simulations, and confirm closure with an attestation from Islet Registry Services.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts (role-only): dpo@lumisands.com.sg; ir@lumisands.com.sg; legal-ops@harboursquarelaw.sg for query consolidation; no personal emails should be used for incident correspondence.\nRegistered office (issuer): 12 Harbour Crescent #15-01, Singapore 000000; any mailed notices should reference \u201cIncident Ref: LSR-OPS-2026-05-28-A\u201d",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-queries@lumisands.com.sg), leading to brief unauthorised access to a cloud folder titled \u201cFORM: Onboarding \u2014 Contractors\u201d.\nData believed accessed: one contractor\u2019s NRIC S9812043I contained in a scanned right-to-work checklist; other visible fields were generic placeholders (e.g., \u201cMobile: +65 6XXX XXXX\u201d, \u201cBank A/c: 0XX-XXXX-XX\u201d, \u201cAddress: [Residential Address]\u201d).\nFiles in the same folder included blank templates (\u201cFORM: Employee Banking Details (Sample)\u201d), a role directory, and a public-helpline sheet (\u201cIT Support: 1800-555-2828\u201d), with no full personal emails or direct phone numbers disclosed.\nVendor context: the folder was synced by Islet Registry Services Pte. Ltd. (UEN: 201912345X) under a payroll migration work order; their incident ticket references \u201cIRS-INC-000742\u201d and a public helpdesk line 1800-555-9090.\nPDPA assessment: the NRIC is personal data under PDPA; however, the incident involves a single individual with low risk of significant harm, and does not meet notifiable data breach thresholds; the affected individual will be notified by HR.\nMNPI/SFA/SGX assessment: accompanying materials included a draft integration timetable for the proposed acquisition of BlueCedar Robotics Pte. Ltd. (UEN: 201834567Q) and an employee transfer FAQ; these items track the issuer\u2019s SGXNet announcement dated 15 May and do not introduce non\u2011generally available information; no SFA s.218/219 concerns identified.\nListing Manual Rule 703: no further disclosure obligation arises at this time; the issuer\u2019s Catalist sponsor/Company Secretary will keep SGX RegCo apprised if facts change; public enquiries may be routed to SGX Issuer Services (public helpline) 1800-555-2020.\nContainment: HR mailbox password rotation completed; OAuth tokens revoked; vendor sync keys reset; audit logs retained; no evidence of lateral movement to capital-markets or M&A repositories.\nEmployment/privacy follow\u2011up: stale copies of \u201cFORM: NRIC/FIN\u201d and \u201cFORM: Emergency Contact\u201d templates removed from shared folders; data minimisation and retention settings updated per internal PDPA policy.\nContacts (role-only): dpo@lumisands.com.sg; ir@lumisands.com.sg; legal-ops@harboursquarelaw.sg for query consolidation; no personal emails should be used for incident correspondence.\nRegistered office (issuer): 12 Harbour Crescent #15-01, Singapore 000000; any mailed notices should reference \u201cIncident Ref: LSR-OPS-2026-05-28-A\u201d",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "S9812043I",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201912345X",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201834567Q",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-queries@lumisands.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal-ops@harboursquarelaw.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PDPA assessment: the NRIC is personal data under PDPA; however, the incident involves a single individual with low risk of significant harm, and does not meet notifiable data breach thresholds; the affected individual will be notified by HR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI/SFA/SGX assessment: accompanying materials included a draft integration timetable for the proposed acquisition of BlueCedar Robotics Pte. Ltd. (UEN: 201834567Q) and an employee transfer FAQ; these items track the issuer\u2019s SGXNet announcement dated 15 May and do not introduce non\u2011generally available information; no SFA s.218/219 concerns identified.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: run a joint tabletop with vendor against MAS cyber hygiene guidance (non\u2011FI applicability), refresh staff phishing simulations, and confirm closure with an attestation from Islet Registry Services.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Vendor context: the folder was synced by Islet Registry Services Pte. Ltd. (UEN: 201912345X) under a payroll migration work order; their incident ticket references \u201cIRS-INC-000742\u201d and a public helpdesk line 1800-555-9090.\nPDPA assessment: the NRIC is personal data under PDPA; however, the incident involves a single individual with low risk of significant harm, and does not meet notifiable data breach thresholds; the affected individual will be notified by HR.\nMNPI/SFA/SGX assessment: accompanying materials included a draft integration timetable for the proposed acquisition of BlueCedar Robotics Pte. Ltd. (UEN: 201834567Q) and an employee transfer FAQ; these items track the issuer\u2019s SGXNet announcement dated 15 May and do not introduce non\u2011generally available information; no SFA s.218/219 concerns identified.\nListing Manual Rule 703: no further disclosure obligation arises at this time; the issuer\u2019s Catalist sponsor/Company Secretary will keep SGX RegCo apprised if facts change; public enquiries may be routed to SGX Issuer Services (public helpline) 1800-555-2020.\nContainment: HR mailbox password rotation completed; OAuth tokens revoked; vendor sync keys reset; audit logs retained; no evidence of lateral movement to capital-markets or M&A repositories.\nEmployment/privacy follow\u2011up: stale copies of \u201cFORM: NRIC/FIN\u201d and \u201cFORM: Emergency Contact\u201d templates removed from shared folders; data minimisation and retention settings updated per internal PDPA policy.\nContacts (role-only): dpo@lumisands.com.sg; ir@lumisands.com.sg; legal-ops@harboursquarelaw.sg for query consolidation; no personal emails should be used for incident correspondence.\nRegistered office (issuer): 12 Harbour Crescent #15-01, Singapore 000000; any mailed notices should reference \u201cIncident Ref: LSR-OPS-2026-05-28-A\u201d.\nNext steps: run a joint tabletop with vendor against MAS cyber hygiene guidance (non\u2011FI applicability), refresh staff phishing simulations, and confirm closure with an attestation from Islet Registry Services.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-queries@lumisands.com.sg), leading to brief unauthorised access to a cloud folder titled \u201cFORM: Onboarding \u2014 Contractors\u201d.\nData believed accessed: one contractor\u2019s NRIC S9812043I contained in a scanned right-to-work checklist; other visible fields were generic placeholders (e.g., \u201cMobile: +65 6XXX XXXX\u201d, \u201cBank A/c: 0XX-XXXX-XX\u201d, \u201cAddress: [Residential Address]\u201d).\nFiles in the same folder included blank templates (\u201cFORM: Employee Banking Details (Sample)\u201d), a role directory, and a public-helpline sheet (\u201cIT Support: 1800-555-2828\u201d), with no full personal emails or direct phone numbers disclosed.\nVendor context: the folder was synced by Islet Registry Services Pte. Ltd. (UEN: 201912345X) under a payroll migration work order; their incident ticket references \u201cIRS-INC-000742\u201d and a public helpdesk line 1800-555-9090.\nPDPA assessment: the NRIC is personal data under PDPA; however, the incident involves a single individual with low risk of significant harm, and does not meet notifiable data breach thresholds; the affected individual will be notified by HR.\nMNPI/SFA/SGX assessment: accompanying materials included a draft integration timetable for the proposed acquisition of BlueCedar Robotics Pte. Ltd. (UEN: 201834567Q) and an employee transfer FAQ; these items track the issuer\u2019s SGXNet announcement dated 15 May and do not introduce non\u2011generally available information; no SFA s.218/219 concerns identified.\nListing Manual Rule 703: no further disclosure obligation arises at this time; the issuer\u2019s Catalist sponsor/Company Secretary will keep SGX RegCo apprised if facts change; public enquiries may be routed to SGX Issuer Services (public helpline) 1800-555-2020.\nContainment: HR mailbox password rotation completed; OAuth tokens revoked; vendor sync keys reset; audit logs retained; no evidence of lateral movement to capital-markets or M&A repositories.\nEmployment/privacy follow\u2011up: stale copies of \u201cFORM: NRIC/FIN\u201d and \u201cFORM: Emergency Contact\u201d templates removed from shared folders; data minimisation and retention settings updated per internal PDPA policy.\nContacts (role-only): dpo@lumisands.com.sg; ir@lumisands.com.sg; legal-ops@harboursquarelaw.sg for query consolidation; no personal emails should be used for incident correspondence.\nRegistered office (issuer): 12 Harbour Crescent #15-01, Singapore 000000",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Mobile: +65 6XXX XXXX",
+      "reason": "Placeholder/masked field; not an actual phone number or personal data."
+    },
+    {
+      "matched_text": "Bank A/c: 0XX-XXXX-XX",
+      "reason": "Placeholder/masked field; not an actual bank account number."
+    },
+    {
+      "matched_text": "Address: [Residential Address]",
+      "reason": "Placeholder; no actual address disclosed."
+    },
+    {
+      "matched_text": "1800-555-2828",
+      "reason": "Public helpline; not personal data."
+    },
+    {
+      "matched_text": "1800-555-9090",
+      "reason": "Public helpline; not personal data."
+    },
+    {
+      "matched_text": "1800-555-2020",
+      "reason": "Public helpline; not personal data."
+    },
+    {
+      "matched_text": "FORM: NRIC/FIN",
+      "reason": "Template title; no personal data."
+    },
+    {
+      "matched_text": "FORM: Emergency Contact",
+      "reason": "Template title; no personal data."
+    },
+    {
+      "matched_text": "FORM: Employee Banking Details (Sample)",
+      "reason": "Sample/template; no personal data."
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only term; not a named person."
+    },
+    {
+      "matched_text": "Group DPO",
+      "reason": "Role-only term; not a named person."
+    },
+    {
+      "matched_text": "Capital Markets Counsel",
+      "reason": "Role-only term; not a named person."
+    },
+    {
+      "matched_text": "Employment Counsel",
+      "reason": "Role-only term; not a named person."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "internal incident/ticket ID",
+      "matched_text": "IRS-INC-000742",
+      "reason": "Internal ticket identifier; potentially sensitive internal reference but no specific allowed rule covers it."
+    },
+    {
+      "concept": "internal incident reference",
+      "matched_text": "LSR-OPS-2026-05-28-A",
+      "reason": "Internal tracking identifier; may be sensitive but not clearly mapped to an allowed rule."
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_privacy_events_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/privacy_events/sa_privacy_events_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_privacy_events_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 23,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Faris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al\u2011Qadri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Mazyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CMA market\u2011conduct follow\u2011up: the folder also had draft earnings guidance (Q2 prelim ranges) and pre\u2011listing issuer workflow notes; MNPI marked INTERNAL\u2011NP; access limited to 3 users, verified by IAM.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KSA CR 4 8 2 1 - 1 1 0 9 - 0 0 1",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. I q a m a : 7 3 2 4 9 1 ** 6",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID ref: I q a m a  9 9 0 0 1 2 0 3 4 *",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "h.faris@al\u2011nimr\u2011renew.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@al\u2011nimr\u2011renew.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sirt@al\u2011nimr\u2011renew.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u201155\u2011000\u20110000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "example CR: 1 0 1 \u2011 8 7 0 \u2011 3 3 2 9",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation step executed",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INTERNAL\u2011NP",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collect only the last 4 digits of Iqama and CR",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings guidance (Q2 prelim ranges)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011listing issuer workflow notes",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public board materials",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access limited to 3 users, verified by IAM",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Faris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rami Al\u2011Qadri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Mazyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CMA market\u2011conduct follow\u2011up: the folder also had draft earnings guidance (Q2 prelim ranges) and pre\u2011listing issuer workflow notes; MNPI marked INTERNAL\u2011NP; access limited to 3 users, verified by IAM.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "oarding forms and DPA Schedule 3 (Processor Security Controls) with masked fields; sample: Iqama No. I q a m a : 7 3 2 4 9 1 ** 6, contact: Ms. Huda Faris, h.faris@al\u2011nimr\u2011renew.sa.\nA pending DSAR from Mr. Rami Al\u2011Qadri (ID ref: I q a m a  9 9 0 0 1 2 0 3 4 *) included a consent withdrawal for marketing; request logged under PDPL ticket PDPL\u2011KSA/24/0091.\nAs of 2026\u201102\u201106 10:14 AST, the DSAR was fulfilled and erasure applied to CRM AlFalak v2.1; retention override closed; evidence: erasure certificate URL https://privacy.al\u2011nimr\u2011renew.sa/dsar/PDPL\u2011KSA\u201124\u20110091?hash=0x7e-f1.\nCross\u2011border transfer: two files were queued for analytics in \u2018R i y a d h \u2011 L D N Data Lake\u2019 via SDAIA permit SDAIA\u2011EXP\u20112 5 8 7 (status: approved 2025\u201111\u201103); transfer halted before execution; no personal data left KSA.\nCompliance memo PDPL\u2011Transfer\u2011Note/2025\u201117 and Data Export Approval Form A\u20113 were present in the folder; both are policy documents without live personal data.\nCMA market\u2011conduct follow\u2011up: the folder also had draft earnings guidance (Q2 prelim ranges) and pre\u2011listing issuer workflow notes; MNPI marked INTERNAL\u2011NP; access limited to 3 users, verified by IAM.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC addresses",
+      "reason": "False-positive bait explicitly negated; not present data."
+    },
+    {
+      "matched_text": "device fingerprints",
+      "reason": "False-positive bait explicitly negated; not present data."
+    },
+    {
+      "matched_text": "live session tokens",
+      "reason": "False-positive bait explicitly negated; not present data."
+    },
+    {
+      "matched_text": "onboarding_form_FINAL\u2011v03.pdf",
+      "reason": "Generic filename; not PII/MNPI."
+    },
+    {
+      "matched_text": "Supplier GreenScore",
+      "reason": "Public-source ESG content; not MNPI."
+    },
+    {
+      "matched_text": "SFTP external ACLs are now closed and key rotation completed on 2026\u201102\u201106",
+      "reason": "Completed control; not a live privacy event."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "internal tracking hash",
+      "matched_text": "https://privacy.al\u2011nimr\u2011renew.sa/dsar/PDPL\u2011KSA\u201124\u20110091?hash=0x7e-f1",
+      "reason": "URL query parameter may be an internal tracking/session identifier; not covered by allowed rules."
+    },
+    {
+      "concept": "internal ticket ID",
+      "matched_text": "PDPL\u2011KSA/24/0091",
+      "reason": "Administrative case reference that could indirectly identify a data subject; not an allowed rule."
+    },
+    {
+      "concept": "permit number",
+      "matched_text": "SDAIA\u2011EXP\u20112 5 8 7",
+      "reason": "Regulatory permit identifier relevant to cross-border governance; not in allowed rule list."
+    },
+    {
+      "concept": "cross-border destination label",
+      "matched_text": "R i y a d h \u2011 L D N Data Lake",
+      "reason": "Implies cross-border routing context; only the explicit marker is allowed."
+    },
+    {
+      "concept": "information barrier",
+      "matched_text": "access limited to 3 users, verified by IAM",
+      "reason": "Access limitation suggests insider controls but does not use canonical marker terms; borderline with allowed MNPI rules."
+    }
+  ]
+}

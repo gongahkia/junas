@@ -1,0 +1,326 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_direct_identifiers_privacy_notice_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_privacy_notice_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_direct_identifiers_privacy_notice_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 26,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 21,
+    "old_must_detect_count": 17,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "accounts@falconsandtraders.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar@desert-crescent.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-555-0123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hatim Al-Najjar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "International transfers: no cross-border transfer unless PDPL Art. 29 conditions met and SDAIA guidance followed; where used, KSA-approved clauses and transfer impact assessment logged in T-Audit/1445 registry",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: KYC and issuer files retained 10 years after account closure or transaction completion, then securely destroyed unless CMA/anti-fraud holds apply; periodic minimization reviews quarterly",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: role-based access, data-at-rest encryption, and issuer-room watermarking; processors must notify within 24h of a suspected breach affecting MNPI or PDPL-regulated data",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-77-88888",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@desert-crescent.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2099-1234-5678",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KSA-PX7788991",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 205-44-123456",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA03 8000 0000 0000 0000 1234",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-55-000321",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-66-000654",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no cross-border transfer unless PDPL Art. 29 conditions met and SDAIA guidance followed",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "periodic minimization reviews quarterly",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no offshore analytics without SDAIA-approved derogation",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Desert Crescent Tower, King Fahd Rd., Al Olaya, Riyadh 12212, KSA",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verification requires matching CR/Iqama and registered phone",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "is segregated",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Generic form elements (not accepted for DSAR verification): Name: __________, Position: __________, Phone: 800-123-0000 (public helpline), \u201cCompliance Officer\u201d without personal verification\nSubprocessor list (summary): Najah Cloud KSA (CR 101-55-000321, Riyadh DC only), Oasis Archive LLC (CR 101-66-000654, Jeddah); no offshore analytics without SDAIA-approved derogation",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "accounts@falconsandtraders.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar@desert-crescent.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-555-0123",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hatim Al-Najjar",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "International transfers: no cross-border transfer unless PDPL Art. 29 conditions met and SDAIA guidance followed; where used, KSA-approved clauses and transfer impact assessment logged in T-Audit/1445 registry",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention: KYC and issuer files retained 10 years after account closure or transaction completion, then securely destroyed unless CMA/anti-fraud holds apply; periodic minimization reviews quarterly",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: role-based access, data-at-rest encryption, and issuer-room watermarking; processors must notify within 24h of a suspected breach affecting MNPI or PDPL-regulated data",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Mr. Hatim Al-Najjar, Data Protection Officer, dpo@desert-crescent.sa, +966-11-555-0123 (fictional)\nScope: processing of investor onboarding, issuer relations, and CMA disclosure workflows under PDPL and related CMA market-conduct requirements\nDirect identifiers processed (lawful basis: contractual compliance/AML): Iqama/National ID 2099-1234-5678 (invalid check digit, sample), Passport KSA-PX7788991 (fictional), and CR copies for corporate signatories\nCompany identifiers: Client CR 205-44-123456 (fictional) and ZATCA VAT 311223344556677 (fictional) for billing and audit\nPayment channel (masked): IBAN SA03 8000 0000 0000 0000 1234 (fictional), billing email accounts@falconsandtraders.sa (fictional affiliate)\nProcessing instructions: MNPI from issuer working groups (e.g., draft prospectus numbers, non-public board minutes) is segregated; insider lists maintained and trading blackouts enforced per CMA rules\nInternational transfers: no cross-border transfer unless PDPL Art. 29 conditions met and SDAIA guidance followed; where used, KSA-approved clauses and transfer impact assessment logged in T-Audit/1445 registry\nRetention: KYC and issuer files retained 10 years after account closure or transaction completion, then securely destroyed unless CMA/anti-fraud holds apply; periodic minimization reviews quarterly\nData subject rights (PDPL): access, correction, deletion, and portability requests may be submitted at privacy.desert-crescent.sa or dsar@desert-crescent.sa; verification requires matching CR/Iqama and registered phone\nAddress for notices: Desert Crescent Tower, King Fahd Rd., Al Olaya, Riyadh 12212, KSA; mailroom reference DC-RYD-PO-009 (fictional)\nSecurity: role-based access, data-at-rest encryption, and issuer-room watermarking; processors must notify within 24h of a suspected breach affecting MNPI or PDPL-regulated data",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Subprocessor list (summary): Najah Cloud KSA (CR 101-55-000321, Riyadh DC only), Oasis Archive LLC (CR 101-66-000654, Jeddah); no offshore analytics without SDAIA-approved derogation",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "800-123-0000",
+      "reason": "Public helpline number not personal PII"
+    },
+    {
+      "matched_text": "Name: __________",
+      "reason": "Generic form field label"
+    },
+    {
+      "matched_text": "Position: __________",
+      "reason": "Generic form field label"
+    },
+    {
+      "matched_text": "\u201cCompliance Officer\u201d",
+      "reason": "Role-only title without personal identification"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "KSA VAT number",
+      "matched_text": "VAT 312345678900123",
+      "reason": "Company tax identifier relevant in KSA but no explicit allowed rule for Saudi VAT in taxonomy"
+    },
+    {
+      "concept": "KSA VAT number",
+      "matched_text": "ZATCA VAT 311223344556677",
+      "reason": "Company tax identifier relevant in KSA but no explicit allowed rule for Saudi VAT in taxonomy"
+    },
+    {
+      "concept": "Internal reference code",
+      "matched_text": "DC-RYD-PO-009",
+      "reason": "Potential internal/customer reference but not clearly mapped to any allowed identifier rule"
+    },
+    {
+      "concept": "Compliance registry reference",
+      "matched_text": "T-Audit/1445",
+      "reason": "Registry/log identifier relevant to transfer impact assessments but no explicit rule for such IDs"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "KYC and issuer files retained 10 years after account closure or transaction completion",
+      "reason": "Legally relevant retention language but no specific 'retention' rule in allowed taxonomy"
+    },
+    {
+      "concept": "DSAR/erasure rights marker",
+      "matched_text": "access, correction, deletion, and portability requests",
+      "reason": "Data subject rights language is privacy-relevant but not clearly covered by an allowed rule other than consent withdrawal"
+    },
+    {
+      "concept": "Cyber incident notification marker",
+      "matched_text": "processors must notify within 24h of a suspected breach affecting MNPI or PDPL-regulated data",
+      "reason": "Security incident notification requirement is market/privacy relevant but not clearly an allowed MNPI rule without an actual incident disclosure"
+    },
+    {
+      "concept": "Information control",
+      "matched_text": "issuer-room watermarking",
+      "reason": "Security control related to sensitive information handling; not clearly covered by an allowed MNPI information barrier marker"
+    }
+  ]
+}

@@ -1,0 +1,463 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 43,
+    "current_must_detect_count": 21,
+    "current_must_not_detect_count": 6,
+    "previous_ideal_must_detect_count": 32,
+    "previous_must_detect_count": 16,
+    "previous_must_not_detect_count": 6
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_jurisdictional_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Project LARK",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac180m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac95",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information per MAR Art 7",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.00\u20133.50%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "27\u201332%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer to Datacelica Pvt Ltd (IN) under 2021 SCCs with transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. \u00c9va Markovic",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo Richter",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@nuvoria-grid.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac10m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "d i s c l o s u r e delay intended under Art 17(4)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period under MAR Art 19 runs 01\u201330 Jul (no dealings)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing only upon clean list sign-off",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "permanent and temporary insiders to be recorded per MAR Art 18",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list section \u201c19\u2014Funding\u201d to be maintained",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price-sensitive if terms deviate >5% of last close",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": ">5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if leak occurs, immediate ad hoc disclosure via OAM",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SFDR PAI metrics draft in data room",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health data (works council sick\u2011leave statistics)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u226512%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "soft wall-cross code: L4-R K",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exclusivity until 30 Aug 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no announcement planned before signing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed \u20ac180m senior unsecured convertible notes due 2031 and option to acquire SolvaBright s.r.l. (private) for \u20ac95\u2013\u20ac110m; not announced; inside information per MAR Art 7; d i s c l o s u r e delay intended under Art 17(4).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquisition terms (confidential): exclusivity until 30 Aug 2026; draft SPA earn\u2011out \u20ac10m; 15% vendor rollover; no announcement planned before signing; if leak occurs, immediate ad hoc disclosure via OAM.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac110m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.50%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "32%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Paolo Richter",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed \u20ac180m senior unsecured convertible notes due 2031 and option to acquire SolvaBright s.r.l. (private) for \u20ac95\u2013\u20ac110m; not announced; inside information per MAR Art 7; d i s c l o s u r e delay intended under Art 17(4).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquisition terms (confidential): exclusivity until 30 Aug 2026; draft SPA earn\u2011out \u20ac10m; 15% vendor rollover; no announcement planned before signing; if leak occurs, immediate ad hoc disclosure via OAM.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project LARK",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac180m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac95",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac110m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u20ac10m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.50%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "32%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed \u20ac180m senior unsecured convertible notes due 2031 and option to acquire SolvaBright s.r.l. (private) for \u20ac95\u2013\u20ac110m; not announced; inside information per MAR Art 7; d i s c l o s u r e delay intended under Art 17(4).\nIndicated coupon 3.00\u20133.50%, initial conversion premium 27\u201332%; price-sensitive if terms deviate >5% of last close; sole global coordinator: Brunn & Kelter Banque S.A",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Governance/Contacts: Chair: Dr. \u00c9va Markovic; CFO: Mr. Paolo Richter; contact: investor.relations@nuvoria-grid.eu; data room: https://docs.eu.example/f/term?deal=GLN-2026&trk=obf%2FZ9.\nIdentifiers (placeholders): LEI 0O00F1C T10N0LEI00000; proposed ISIN ZZ000-NUVO-2031-CNV; internal ref PRJ-LARK-\u03b1; soft wall-cross code: L4-R K;    b r o k e n   l i n e s",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Project LARK | EU Issuer: Nuvoria Grid Systems SE (Valmeron Paris Regulated Market) \u2014 Date: 06 Jun 2026\nProposed \u20ac180m senior unsecured convertible notes due 2031 and option to acquire SolvaBright s.r.l. (private) for \u20ac95\u2013\u20ac110m; not announced; inside information per MAR Art 7; d i s c l o s u r e delay intended under Art 17(4).\nIndicated coupon 3.00\u20133.50%, initial conversion premium 27\u201332%; price-sensitive if terms deviate >5% of last close; sole global coordinator: Brunn & Kelter Banque S.A.\nConditions precedent: approval of an EU prospectus by the home NCA (Autorit\u00e9 des March\u00e9s Hexagonaux, AMH); publication via the Officially Appointed Mechanism (OAM) prior to pricing (Valmeron portal); expected T+15 Paris trading days; closed period under MAR Art 19 runs 01\u201330 Jul (no dealings).\nMNPI controls: selective disclosure prohibited; wall-crossing only upon clean list sign-off; permanent and temporary insiders to be recorded per MAR Art 18; insider list section \u201c19\u2014Funding\u201d to be maintained.\nGDPR/Privacy: PII includes names, business emails, and limited health data (works council sick\u2011leave statistics) from SolvaBright; lawful basis Art 6(1)(f) and Art 9(2)(b); cross-border transfer to Datacelica Pvt Ltd (IN) under 2021 SCCs with transfer impact assessment.\nESG/Use of proceeds: CSRD-aligned capex taxonomy reporting; SFDR PAI metrics draft in data room; sustainability-linked step-up +25 bps if Scope 2 intensity not reduced \u226512% by FY2028; internal policy GRID-ESG-12 applies.\nRegulatory/Listing: Regulated Information to be disseminated via OAM and press wire; AMH and host NCA notifications; stabilization within Commission Delegated Regulation (EU) 2016/1052 safe harbour.\nPublic information (non-price-sensitive): 2025 Annual Report filed on 12 Apr 2026 in the OAM (public), and a 15 Apr 2026 press release on pilot product \u201cFluxBridge Mini\u201d remains historical and generic.\nAcquisition terms (confidential): exclusivity until 30 Aug 2026; draft SPA earn\u2011out \u20ac10m; 15% vendor rollover; no announcement planned before signing; if leak occurs, immediate ad hoc disclosure via OAM.\nCovenants/MAC: leverage covenant <3.0x net debt/EBITDA post-issue; no MAC shall be triggered by sector-wide carbon price volatility, routine supplier re\u2011tenders, or media speculation.\nGovernance/Contacts: Chair: Dr. \u00c9va Markovic; CFO: Mr. Paolo Richter; contact: investor.relations@nuvoria-grid.eu; data room: https://docs.eu.example/f/term?deal=GLN-2026&trk=obf%2FZ9.\nIdentifiers (placeholders): LEI 0O00F1C T10N0LEI00000; proposed ISIN ZZ000-NUVO-2031-CNV; internal ref PRJ-LARK-\u03b1; soft wall-cross code: L4-R K;    b r o k e n   l i n e s.\nNotes: This is not an offer; subject to Board approval on 24 Jun 2026; next sprint: draft q&a, align slides; earlier webshop update on spare inverters is operational and unrelated to securities.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC reference; excluded by rule 8."
+    },
+    {
+      "matched_text": "FluxBridge Mini",
+      "reason": "Public, non-price-sensitive product reference per document."
+    },
+    {
+      "matched_text": "Chair",
+      "reason": "Role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role noun; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "financial percentage in basis points",
+      "matched_text": "sustainability-linked step-up +25 bps",
+      "reason": "Economically a rate change but not expressed with %; may fall outside strict percentage rule."
+    },
+    {
+      "concept": "data minimisation marker",
+      "matched_text": "limited health data (works council sick\u2011leave statistics)",
+      "reason": "Implies minimisation scope but not a formal retention/minimisation clause."
+    },
+    {
+      "concept": "internal deal code",
+      "matched_text": "PRJ-LARK-\u03b1",
+      "reason": "Potentially sensitive internal identifier; no explicit allowed PII rule fits."
+    },
+    {
+      "concept": "selective disclosure channel",
+      "matched_text": "https://docs.eu.example/f/term?deal=GLN-2026&trk=obf%2FZ9",
+      "reason": "Data room URL indicates non-public access; not mapped to a specific MNPI rule."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Harbourview Capital Holdings Limited — Incident Report (Cyber Operations) — Hong Kong, HKT 09:10–12:45, 12 May 2026
+Summary: A credential-harvesting phishing email led to brief exposure of two role mailboxes (ir@harbourview.capital; hr@harbourview.capital) and a read-only HR file share; no service outage occurred.
+Affected systems: Banyan HR Cloud (read-only share), Orchid Fund Portal (staging environment), LotusPay Treasury sandbox mail relay; PineGuard IDS and Lotus Shield Gateway logged anomalous logins from offshore IPs.
+Content accessed comprised mostly templated policies and public materials, including the Blue Lantern Cyber Hygiene Policy, the Inclusive Growth DEI newsletter, wellness tips, and product FAQs for the JadeBridge app.
+M&A context: An archived diligence workspace for an abandoned 2022 preliminary review was visible; it held generic checklists and a redacted board pack already summarized in past announcements (stock code placeholder 0X88).
+Fund context: Orchid Fund Portal staging used dummy investor references (INV-TEST-0001, FUND-000-ALPHA) and synthetic KYC placeholders; no live LP data or subscription agreements were present.
+MNPI assessment (SFO): No non-public specific information about any corporation likely to be price-material was identified; materials overlapped with information previously posted on market channels and were stale or generic.
+PDPO assessment: Exposed mailboxes were role-based; one HR item contained personal data with special-category aspects — Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury.
+Containment: Password resets, OAuth token revocation, conditional access re-enforcement, and DLP quarantine completed by 13:15 HKT; PineGuard rules updated and Banyan HR share set to least-privilege.
+Regulatory consultation: Listing compliance team concluded no immediate disclosure under HKEX Listing Rule 13.09; record entered in PDPO breach register; voluntary notification to PCPD considered but deferred pending root-cause memo.
+Root cause: User clicked a link spoofing “Harbourview Service Desk” from a lookalike domain; SPF aligned but DKIM failed; Blue Lantern phishing drill schedule advanced to June.
+Cultural note: As we say in training, “avoid a typhoon of clicks” — think before you sign in; also, the Kowloon Mariners charity match remains on Saturday and is unaffected.
+Third-party review: CloudSec (HK) Ltd engaged to validate telemetry and confirm no lateral movement; preliminary results align with internal findings.
+This report contains no client HKID numbers, no bank account numbers, and no live deal codenames, and is intended for internal compliance and audit only.
+Enquiries: security@harbourview.capital or public hotline +852 3900 0000 (9am–6pm HKT).

@@ -1,0 +1,276 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "TH",
+  "doc_id": "th_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hrpay@siam-neoenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 2 777 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TH9A473120",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "053-1-234567",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "093-0-556677",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 12,400,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 28",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,400,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@siam-neoenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@siam-neoenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a log relay to a Singapore SOC was active",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Khun Nithima Prakongsak",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted access to the MD&A draft and Form 56-1 One Report schedules",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may delay grid inverter shipments and revenue recognition for Q3",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hrpay@siam-neoenergy.co.th",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+66 2 777 8899",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TH9A473120",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "053-1-234567",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "093-0-556677",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 12,400,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "THB 28",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,400,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No customer consumption data or operational SCADA credentials were accessed; emergency services numbers such as 1669 are unrelated to this incident.\nCross-border implications: a log relay to a Singapore SOC was active; transfers are being assessed under PDPA Sections 28 and 37, and data subjects may contact dpo@siam-neoenergy.co.th",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Siam NeoEnergy Public Company Limited \u2014 Cyber Incident Report pursuant to the Securities and Exchange Act and stock exchange disclosure rules.\nCompany Registration No.: 0105567123456; Tax ID (TIN): 0107546123451; Registered Office: 88/19, 25F, Sukhaphiban 12 Rd., Khwaeng Thawinimit, Khet Kanchanaphisek, Bangkok 10459, Thailand.\nContact for investors: ir@siam-neoenergy.co.th, +66 2 777 8899; Data Protection Officer: dpo@siam-neoenergy.co.th.\nOn 27 May 2026 at 02:15 ICT, Khun Nithima Prakongsak (CISO; Passport TH9A473120) reported anomalous access to the vendor payment module and HR document vault.\nForensics indicates a credential-stuffing attack from an overseas IP, with temporary exfiltration of two payroll index files and one vendor master extract.\nAffected records may include employee names, compensation bands, work emails, and sample Thai National ID formats captured in templates.\nExample identifiers observed in the compromised cache: payroll mailbox hrpay@siam-neoenergy.co.th and vendor bank Account 053-1-234567 at Prasopchai Commercial Bank PCL (SWIFT PRCPTHBK).\nOne fraudulent remittance request sought to redirect THB 12,400,000 to Account 093-0-556677 in the name Hua Mak Supplies Co., Ltd., which we froze before execution.\nThis event may delay grid inverter shipments and revenue recognition for Q3 by approximately THB 28\u201335 million, constituting potential MNPI until filed via the national stock exchange e-disclosure portal to the Thai capital markets regulator.\nWe have imposed a trading blackout for directors and executives under the SEA, and restricted access to the MD&A draft and Form 56-1 One Report schedules.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1669",
+      "reason": "Public emergency/helpline number; not PII."
+    },
+    {
+      "matched_text": "1-2345-67890-12-9",
+      "reason": "Invalid Thai National ID checksum and explicitly noted as not live PII."
+    },
+    {
+      "matched_text": "Company Tax ID: __________",
+      "reason": "Placeholder text; no actual identifier present."
+    },
+    {
+      "matched_text": "Passport No.: ________",
+      "reason": "Placeholder text; no actual identifier present."
+    },
+    {
+      "matched_text": "Authorized Signatory",
+      "reason": "Role-only reference without a personal name."
+    },
+    {
+      "matched_text": "Procurement Officer",
+      "reason": "Role-only reference without a personal name."
+    }
+  ],
+  "source_jurisdiction": "TH",
+  "uncertain": [
+    {
+      "concept": "bank_identifier_bic",
+      "matched_text": "SWIFT PRCPTHBK",
+      "reason": "SWIFT/BIC identifies a financial institution; sensitive in finance context but not covered by allowed rules."
+    },
+    {
+      "concept": "th_company_registration_number",
+      "matched_text": "0105567123456",
+      "reason": "Corporate registration number is a direct company identifier; not covered by current allowed rules."
+    },
+    {
+      "concept": "th_company_tax_id",
+      "matched_text": "0107546123451",
+      "reason": "Corporate Tax ID appears; potentially sensitive identifier but not in allowed rule list."
+    },
+    {
+      "concept": "th_postal_code",
+      "matched_text": "10459",
+      "reason": "Postal code within an address; potentially an address identifier but not covered by current rules for TH."
+    }
+  ]
+}

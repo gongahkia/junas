@@ -1,0 +1,16 @@
+Seodo Advanced Fabrics Co., Ltd. — Operational Incident Report (KSE-X listed issuer)
+Incident date/time: 2026-04-12 09:18 KST; scope limited to a misconfigured guest link on internal share “Hanul-Share01.”
+Affected content: read-only access to a template folder with generic HR forms (fields: Name, 주민등록번호, Address, Dept) and sample placeholders only.
+One stray test record was detected containing an invalid 주민등록번호 900101-1234560 (checksum fail); no living person was associated with this string.
+No credentials, customer data, or production payroll files were exposed; system logs indicate three anonymous views, zero downloads.
+Containment: guest link revoked at 09:35; audit completed by IT Security and HR; ticket HC-OPS-2026-0412 closed same day.
+PIPA assessment: no processing of identifiable living-individual information occurred beyond the invalid test string; notification made out of caution.
+FSCMA/MNPI assessment: the event is operational and non-material; no undisclosed financials, deal terms, or investor-relations drafts were exposed.
+Public disclosure: bulletin posted on company IR site 2026-04-12; summary filed to KSE-X issuer portal; this report mirrors that public summary.
+Coordinating authorities: Korea Financial Oversight Service notified via routine channel; no formal enforcement inquiry opened.
+Company identifier: 사업자등록번호 123-45-67890 (invalid checksum; for identification only).
+Contacts: it-security@seodo-fabrics.co.kr (department mailbox); IR public helpline 1549-8700 (fictional).
+Address (registered): [Head Office Address], Heumcheon-gu, Buksan-do 04999, Republic of Korea (fictional).
+Local government liaison: Heumcheon Metropolitan Government Digital Safety Center informed via public inbox safety@heumcheon.go.kr; hotline 135 (fictional).
+Note: generic labels such as “Account No. ______” and “Passport No. ______” appear on the blank forms but no numbers were stored; masked samples in logs show 110-00-000000 only.
+Approvals: Compliance Officer (role), Information Security Officer (role), Head of HR (role).

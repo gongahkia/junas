@@ -1,0 +1,451 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_sector_mnpi_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/sector_mnpi/us_sector_mnpi_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_sector_mnpi_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 44,
+    "new_must_detect_count": 23,
+    "old_ideal_must_detect_count": 32,
+    "old_must_detect_count": 22,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "s.calder@vastrum.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tara.bloom@heliava.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Nand",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tara Bloom",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Project \u201cHarbor Quill\u201d for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (\u201cBuyer\u201d); non-binding summary of principal terms.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: $14.25 per share in cash, subject to a symmetric collar tied to the NQX Health Financial Index; no financing outs; expected closing in Q4 2026, pending customary approvals.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Policy carve\u2011out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to \u201cbreach\u201d are editorial and not incident\u2011related.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$14.25",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$30,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$55,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$35,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$14.25 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No selective disclosure to sell\u2011side analysts, buy\u2011side personnel, or any market professionals prior to joint press release and Form 8\u2011K",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information\u2011barrier protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti\u2011tipping reminder per Rule 10b\u20115",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout from signing until two full trading days after Form 8\u2011K",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this pilot has not been disclosed publicly",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware event on 05/22/26",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. R. Hale",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. L. Ocampo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. S. Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project \u201cHarbor Quill\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011cross",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cCryptoCare\u201d wallet pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "stablecoin reserve obligations",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No PHI or GLBA\u2011covered NPI leaves the secure clean room",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sample datasets will be tokenized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "(555) 000\u2011xx77",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "please do not forward externally",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "s.calder@vastrum.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tara.bloom@heliava.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Nand",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tara Bloom",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Project \u201cHarbor Quill\u201d for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (\u201cBuyer\u201d); non-binding summary of principal terms.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: $14.25 per share in cash, subject to a symmetric collar tied to the NQX Health Financial Index; no financing outs; expected closing in Q4 2026, pending customary approvals.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Policy carve\u2011out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to \u201cbreach\u201d are editorial and not incident\u2011related.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$14.25",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$30,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$55,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$35,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.1%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Term Sheet \u2014 Project \u201cHarbor Quill\u201d for proposed acquisition of Heliava Health Bancorp, Inc. (a U.S. issuer) by Vastrum Capital Partners, L.P. (\u201cBuyer\u201d); non-binding summary of principal terms.\nConsideration: $14.25 per share in cash, subject to a symmetric collar tied to the NQX Health Financial Index; no financing outs; expected closing in Q4 2026, pending customary approvals.\nDigital assets: carve-out for Heliava\u2019s \u201cCryptoCare\u201d wallet pilot (DPT services for patient refunds); Buyer to assume stablecoin reserve obligations with an independent on-chain attestation at or after public announcement; this pilot has not been disclosed publicly.\nCyber: Parties acknowledge a contained ransomware event on 05/22/26 impacting ~2.1% of clinic endpoints; draft forensics in data room; no confirmed exfiltration of PHI or NPI to date.\nESG/climate: Earnout up to $30,000,000 based on Scope 1+2 emissions reductions at Heliava\u2019s mail\u2011order pharmacy; green capex budget baseline anchored to 2025 public sustainability pages and utility invoices.\nRegulatory/Reg FD: No selective disclosure to sell\u2011side analysts, buy\u2011side personnel, or any market professionals prior to joint press release and Form 8\u2011K; limited wall\u2011cross of analysts permitted under NDA and information\u2011barrier protocols.\nInformation barriers: Buyer to maintain a clean team; Insider List to include Mr. R. Hale (CIO), Ms. Priya Nand (Deputy CISO), Dr. L. Ocampo (Medical Director), and external counsel at Darlowe & Mint PLLC; records retained for 5 years.\nBlackout: Employees with equity awards enter trading blackout from signing until two full trading days after Form 8\u2011K; anti\u2011tipping reminder per Rule 10b\u20115 and company policy.\nHealthcare/GLBA/HIPAA: No PHI or GLBA\u2011covered NPI leaves the secure clean room; sample datasets will be tokenized; dataset IDs: H\u2011HIP\u20113A\u2011xx91 and GL\u2011BA\u2011007\u2022\u2022; audit trail retained in VDR.\nConditions: HSR filing; OCC non\u2011objection for trust operations; Buyer agrees a cyber event at immaterial subsidiaries will not constitute a MAC; reverse termination fee: $55,000,000.\nCommercial: Key supplier consent for cloud EHR renewal; minimum cash at close: \u2265 $120,000,000; break\u2011up fee: $35,000,000; exclusivity through 08/30/26; no-shop with fiduciary out.\nBenign marketing/education: the internal ESG + crypto lunch\u2011and\u2011learn uses generic case studies and does not reference Heliava\u2019s wallets, emissions trajectories, or deal KPIs.\nContacts: Buyer\u2014Mr. S. Calder, Managing Director, s.calder@vastrum.example; Seller\u2014Ms. Tara Bloom, GC, tara.bloom@heliava.example; d a t a   r o o m: https://vault.hel iava.local/r/Tx\u20119xq3?t=1_2_xX.\nNotes: For OCR\u2014A c c t : **88 42 (masked); C U S I P : n/a; internal channel: #harbor\u2011quill; phone: (555) 000\u2011xx77; deal code: HQ\u201126\u2011A.\nPolicy carve\u2011out: Notwithstanding the above, generic policy documents and public sustainability FAQs may be shared with marketing; blog references to \u201cbreach\u201d are editorial and not incident\u2011related.\nDisclosures: This term sheet is non\u2011binding except for exclusivity, confidentiality, and information\u2011barrier covenants; governing law: Delaware; circulated to q4\u2011ops; p",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined party role term"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun treated as a party"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention marker",
+      "matched_text": "records retained for 5 years",
+      "reason": "Indicates retention period for insider-list records; retention marker not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "audit trail retained in VDR",
+      "reason": "Indicates retention of audit trail; retention marker not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "bank_account (masked)",
+      "matched_text": "A c c t : **88 42 (masked)",
+      "reason": "Looks like a masked account number but incomplete for strict bank_account detection"
+    },
+    {
+      "concept": "internal_session_id / URL token",
+      "matched_text": "https://vault.hel iava.local/r/Tx\u20119xq3?t=1_2_xX",
+      "reason": "Internal VDR link with query token may imply session or access token; not covered by allowed rules"
+    },
+    {
+      "concept": "insider communications channel",
+      "matched_text": "internal channel: #harbor\u2011quill",
+      "reason": "Internal comms handle suggests information barrier context but no explicit rule name"
+    },
+    {
+      "concept": "embargo/timeline",
+      "matched_text": "expected closing in Q4 2026",
+      "reason": "Deal timing can be sensitive but lacks exact 'Closing Date' or other embargo anchors"
+    },
+    {
+      "concept": "selective disclosure (internal circulation)",
+      "matched_text": "circulated to q4\u2011ops",
+      "reason": "Implies selective internal circulation but not an explicit selective-disclosure anchor phrase"
+    }
+  ]
+}

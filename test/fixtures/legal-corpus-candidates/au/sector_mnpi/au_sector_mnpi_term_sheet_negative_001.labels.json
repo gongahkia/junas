@@ -1,0 +1,322 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_sector_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ir@quollgroup.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deals@bluegully.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not provide personal information or account details",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share sale agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "memorandum of understanding",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011underwritten placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been announced to ASX",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A targeted intrusion at the Target impacting non\u2011production repositories is under forensic review",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000 111 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Bluegully Systems Pty Ltd by Southern Quoll Group Limited (ASX: SQ7)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Background: As announced to ASX on 3 April 2025, the parties executed a non-binding memorandum of understanding to explore a strategic combination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Share sale agreement governed by NSW law; consideration to comprise a mix of cash and scrip with the final ratio to be agreed following confirmatory due diligence; no valuation guidance is provided herein.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber: \u201cCyberShield Tabletop 2025\u201d and draft incident playbooks are for resilience exercises and do not constitute a notification of breach or disclosure under the Notifiable Data Breaches scheme.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "deals@bluegully.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000 111 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Bluegully Systems Pty Ltd by Southern Quoll Group Limited (ASX: SQ7)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Background: As announced to ASX on 3 April 2025, the parties executed a non-binding memorandum of understanding to explore a strategic combination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Share sale agreement governed by NSW law; consideration to comprise a mix of cash and scrip with the final ratio to be agreed following confirmatory due diligence; no valuation guidance is provided herein.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber: \u201cCyberShield Tabletop 2025\u201d and draft incident playbooks are for resilience exercises and do not constitute a notification of breach or disclosure under the Notifiable Data Breaches scheme.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "memorandum of understanding",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ASIC relief",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-binding Term Sheet \u2014 Proposed acquisition of Bluegully Systems Pty Ltd by Southern Quoll Group Limited (ASX: SQ7)\nParties: Buyer \u2014 Southern Quoll Group Limited (ABN 12 345 678 9X0), Target \u2014 Bluegully Systems Pty Ltd (ACN 000 111 2X3)\nBackground: As announced to ASX on 3 April 2025, the parties executed a non-binding memorandum of understanding to explore a strategic combination.\nStructure: Share sale agreement governed by NSW law; consideration to comprise a mix of cash and scrip with the final ratio to be agreed following confirmatory due diligence; no valuation guidance is provided herein.\nConditions precedent: Any required FIRB clearance (if applicable), ASIC relief/consents (if required), shareholder approval under ASX Listing Rules 7.1 and 11, standard warranties and no material adverse change, and customary third-party consents.\nCrypto references: Any references to \u201cCryptoGateway Demo Wallet\u201d or \u201cToken\u2011Safe Education Pack\u201d are internal training tools only, and this term sheet does not contemplate any token issuance, crypto exchange listing, or digital asset investment by either party.\nESG and climate: \u201cGreenScope ESG Toolkit\u201d is a marketing brochure using hypothetical climate pathways for client education; it does not contain operational emissions data, verified targets, or any internal transition timelines of either party.\nCyber: \u201cCyberShield Tabletop 2025\u201d and draft incident playbooks are for resilience exercises and do not constitute a notification of breach or disclosure under the Notifiable Data Breaches scheme.\nInsider-handling: An \u201cinsider\u2011list.xlsx\u201d template and \u201cInformation\u2011Barrier 101\u201d slides will be circulated for compliance training; the template includes no names, dates, or deal specifics and is not an active insider list.\nTrading hygiene: Staff will receive generic education on blackout periods, tipping prohibitions, and wall\u2011crossing protocols under the Corporations Act and ASX policy; materials are operational guidance only and not tied to a live timetable.\nPositive MNPI: Subject to board approval, the Buyer intends to conduct a non\u2011underwritten placement at a material discount prior to completion; this intention has not been announced to ASX.\nPositive MNPI: A targeted intrusion at the Target impacting non\u2011production repositories is under forensic review and has not been publicly disclosed; sat",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC excluded by rule"
+    },
+    {
+      "matched_text": "insider\u2011list.xlsx",
+      "reason": "Training template; not an active insider list"
+    },
+    {
+      "matched_text": "Information\u2011Barrier 101",
+      "reason": "Training material; not an active barrier event"
+    },
+    {
+      "matched_text": "blackout periods",
+      "reason": "Operational training reference; not tied to a live timetable"
+    },
+    {
+      "matched_text": "tipping prohibitions",
+      "reason": "Operational training reference; not tied to a live timetable"
+    },
+    {
+      "matched_text": "wall\u2011crossing protocols",
+      "reason": "Operational training reference; not tied to a live timetable"
+    },
+    {
+      "matched_text": "CryptoGateway Demo Wallet",
+      "reason": "Training tool; not crypto sector MNPI"
+    },
+    {
+      "matched_text": "Token\u2011Safe Education Pack",
+      "reason": "Training tool; not crypto sector MNPI"
+    },
+    {
+      "matched_text": "GreenScope ESG Toolkit",
+      "reason": "Marketing brochure; not ESG pre-disclosure"
+    },
+    {
+      "matched_text": "CyberShield Tabletop 2025",
+      "reason": "Resilience exercise; not a breach notification"
+    },
+    {
+      "matched_text": "ABN 12 345 678 9X0",
+      "reason": "Invalid placeholder; not a valid AU ABN"
+    },
+    {
+      "matched_text": "ACN 000 111 2X3",
+      "reason": "Invalid placeholder; not a valid AU ACN"
+    },
+    {
+      "matched_text": "BSB 000\u2011XXX",
+      "reason": "Placeholder; not a bank account identifier"
+    },
+    {
+      "matched_text": "Account XXX\u2011XXX",
+      "reason": "Placeholder; not a bank account identifier"
+    },
+    {
+      "matched_text": "term sheets",
+      "reason": "Illustrative marketing examples; not binding definitive agreements"
+    },
+    {
+      "matched_text": "Founders\u2019 Discount",
+      "reason": "Marketing flyer; not a binding commercial term"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "exclusivity period marker",
+      "matched_text": "exclusive negotiation window",
+      "reason": "Exclusivity can be market-sensitive in deal contexts but no explicit allowed rule covers it"
+    },
+    {
+      "concept": "pricing sensitivity without numeric percentage",
+      "matched_text": "material discount",
+      "reason": "Indicates potentially market-moving discount but lacks a numeric value required by financial_percentage rule"
+    }
+  ]
+}

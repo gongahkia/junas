@@ -1,0 +1,305 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@tamel.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@tamel.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "communications@tamel.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Seah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Clara Toh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be expected to materially affect the price of the Company\u2019s securities",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window (15 July\u201330 July)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorised access to an external virtual data room",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "external forensics engaged",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the intrusion vector was a compromised advisor account",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident timeline",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective briefings to analysts or investors will be made",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reduce the risk of selective disclosure during blackout windows",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of HarbourNova Robotics Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "planned dual-tranche SGD note issuance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal unaudited H1 FY2026 trading update",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed\u2011period access controls",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board papers on the proposed acquisition",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Telok Ayer Marine & Engineering Limited (SGX-ST Mainboard-listed) detected on 18 July 2026 an unauthorised access to an external virtual data room (operated by BlueKite Data Rooms Pte. Ltd.) used for the ongoing proposed acquisition of HarbourNova Robotics Pte. Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary review confirms access to a draft share purchase agreement, board papers on the proposed acquisition, an internal unaudited H1 FY2026 trading update, and preliminary documentation for a planned dual-tranche SGD note issuance under our MTN Programme.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The H1 trading update and financing timetable are not generally available information and may be expected to materially affect the price of the Company\u2019s securities within the meaning of Rule 703; the incident occurred within the Company\u2019s blackout window (15 July\u201330 July) ahead of the H1 results release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have commenced assessment under the PDPA and will notify the PDPC and affected individuals as soon as practicable and no later than three calendar days if the breach is notifiable; no payment card data or health data were involved.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "communications@tamel.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Seah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Clara Toh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Telok Ayer Marine & Engineering Limited (SGX-ST Mainboard-listed) detected on 18 July 2026 an unauthorised access to an external virtual data room (operated by BlueKite Data Rooms Pte. Ltd.) used for the ongoing proposed acquisition of HarbourNova Robotics Pte. Ltd.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary review confirms access to a draft share purchase agreement, board papers on the proposed acquisition, an internal unaudited H1 FY2026 trading update, and preliminary documentation for a planned dual-tranche SGD note issuance under our MTN Programme.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The H1 trading update and financing timetable are not generally available information and may be expected to materially affect the price of the Company\u2019s securities within the meaning of Rule 703; the incident occurred within the Company\u2019s blackout window (15 July\u201330 July) ahead of the H1 results release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We have commenced assessment under the PDPA and will notify the PDPC and affected individuals as soon as practicable and no later than three calendar days if the breach is notifiable; no payment card data or health data were involved.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Telok Ayer Marine & Engineering Limited (SGX-ST Mainboard-listed) detected on 18 July 2026 an unauthorised access to an external virtual data room (operated by BlueKite Data Rooms Pte. Ltd.) used for the ongoing proposed acquisition of HarbourNova Robotics Pte. Ltd.\nPreliminary review confirms access to a draft share purchase agreement, board papers on the proposed acquisition, an internal unaudited H1 FY2026 trading update, and preliminary documentation for a planned dual-tranche SGD note issuance under our MTN Programme.\nThe H1 trading update and financing timetable are not generally available information and may be expected to materially affect the price of the Company\u2019s securities within the meaning of Rule 703; the incident occurred within the Company\u2019s blackout window (15 July\u201330 July) ahead of the H1 results release.\nPersonal data in the data room included names, work emails and mobile numbers of approximately 230 employees and advisors; no NRIC or passport numbers were stored, consistent with PDPA minimisation guidelines.\nFor clarity on public status, certain high-level FY2027 margin targets were already referred to in the Investor Day deck posted on SGXNET on 5 May 2026, but the detailed monthly run-rate figures in the trading update have not been disclosed and remain non-public.\nThis incident is unrelated to the network latency event disclosed in our SGXNET announcement dated 3 March 2026 and to the cost optimisation programme communicated by press release on 12 January 2026.\nImmediate actions: access to the affected workspace has been suspended; credentials rotated; external forensics engaged; Mr. Adrian Seah (CISO) and Ms. Clara Toh (Group General Counsel) are coordinating containment and evidence preservation.\nWe have commenced assessment under the PDPA and will notify the PDPC and affected individuals as soon as practicable and no later than three calendar days if the breach is notifiable; no payment card data or health data were involved.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor Day deck posted on SGXNET on 5 May 2026",
+      "reason": "Public filing reference; not MNPI"
+    },
+    {
+      "matched_text": "SGXNET announcement dated 3 March 2026",
+      "reason": "Public filing reference; not MNPI"
+    },
+    {
+      "matched_text": "press release on 12 January 2026",
+      "reason": "Public press release reference; not MNPI"
+    },
+    {
+      "matched_text": "the Port of Pasir Putih\u2019s planned crane maintenance outage on 19\u201321 July",
+      "reason": "Third-party operational update; not issuer MNPI"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "data_minimisation_marker",
+      "matched_text": "consistent with PDPA minimisation guidelines",
+      "reason": "References PDPA data minimisation, but phrased as a general control statement rather than a live processing event."
+    },
+    {
+      "concept": "information barrier vs blackout control",
+      "matched_text": "closed\u2011period access controls",
+      "reason": "Could be tagged as an information_barrier_marker or a blackout-period control; taxonomy alignment is ambiguous."
+    },
+    {
+      "concept": "nonpublic board materials",
+      "matched_text": "board papers on the proposed acquisition",
+      "reason": "Likely nonpublic and sensitive but lacks explicit \u2018non-public\u2019 wording; semantic inference required."
+    },
+    {
+      "concept": "capital-markets pre-disclosure document",
+      "matched_text": "draft offering circular",
+      "reason": "Pre-disclosure offering materials can be MNPI, but not covered by a specific allowed rule."
+    },
+    {
+      "concept": "financing plan MNPI",
+      "matched_text": "planned dual-tranche SGD note issuance under our MTN Programme",
+      "reason": "Material financing intent without amounts; sensitive but not matched to a numeric-trigger rule."
+    },
+    {
+      "concept": "nonpublic financial update",
+      "matched_text": "internal unaudited H1 FY2026 trading update",
+      "reason": "Implies nonpublic interim financial information, but relies on context rather than explicit \u2018non-public\u2019 phrasing here."
+    },
+    {
+      "concept": "market control action",
+      "matched_text": "trading halt",
+      "reason": "Potential request to SGX RegCo is sensitive context but not covered by an allowed MNPI rule."
+    }
+  ]
+}

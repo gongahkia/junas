@@ -1,0 +1,277 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_quasi_identifiers_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/quasi_identifiers/us_quasi_identifiers_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_quasi_identifiers_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 16,
+    "old_must_detect_count": 8,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_quasi_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "XXXX-XXXX-1234",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9999999",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@northwaymeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@northwaymeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "securities blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "born 03/1984, Eastridge County, employer \u201cPineglen Community Clinic\u201d, role \u201cbilling clerk\u201d, using a home tablet model ZT-550 with MAC fragment ab:cd:**:**:90, and referencing account nickname \u201cHSA-Spring\u201d with suffix 7712",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "born 03/1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ab:cd:**:**:90",
+      "rule": "mac_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account nickname \u201cHSA-Spring\u201d",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "suffix 7712",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NBH-IR-0418",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider certifications",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out notices",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "XXXX-XXXX-1234",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9999999",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope includes customer, member, employee, and analyst interactions; our policy prohibits selective disclosure of material non-public information to sell-side or buy-side analysts, and IR releases are limited to previously announced metrics and current report filings (CR-8 equivalents).\nBenign example: the Q1 clinical network expansion and fee schedule were announced on 03/15/2025 in a public CR-8 statement and webcast; references to those facts in meetings are not MNPI.\nData minimization: only collect what is reasonably necessary; generic demographics (e.g., 30\u201339 age range, state-level location, generic job category) are treated as non-identifying unless combined with other data.\nForm labels may appear in systems (Name:, SSN:, MRN:, Account No:, Device ID:), but placeholders such as 000-00-0000, MRN 9999999, or account XXXX-XXXX-1234 are non-actionable and should be ignored in DSAR fulfillment.\nRole mailboxes (privacy@northwaymeridian.example, ir@northwaymeridian.example) and the public helpline listed on our website are the only intake channels for consumer requests and analyst inquiries.\nRetention: customer service call recordings kept 2 years; clinical device telemetry event logs 18 months; card-issuing records 7 years; delete or de-identify earlier if the purpose is satisfied and no legal hold is in place.\nCross-border transfers (e.g., to processors at Cumulonix Data Processing LLC in Arcadia State and to Northway Meridian Services Ltd in Northlake Province) use SCC-equivalent clauses and are mapped in our vendor inventory; no government IDs are transferred.\nAccess control: employees in Care Operations (roles: intake specialist, nurse navigator) and Retail Banking (roles: teller, branch supervisor) receive least-privilege access; analysts receive only public packs.\nIntentional positive cluster (incident review): Case NBH-IR-0418 logged a caller described as born 03/1984, Eastridge County, employer \u201cPineglen Community Clinic\u201d, role \u201cbilling clerk\u201d, using a home tablet model ZT-550 with MAC fragment ab:cd:**:**:90, and referencing account nickname \u201cHSA-Spring\u201d with suffix 7712 during a grievance intake; these combined quasi-identifiers require redaction under DSAR and litigation hold.\nOutside that context, separated weak identifiers such as a masked ZIP (000**), a month-year of birth, or a job title alone must not be treated as reasonably linkable without additional data.\nAnalyst interactions: prebrief materials are scrubbed for MNPI and reviewed by Legal and IR; if a question seeks non-public metrics, staff must redirect to a public CR-8 update or decline to comment.\nFinancial aid desk scripts include invalid identifier-shaped examples (e.g., CUSIP-like 0000000Z, routing 000000000) solely for training; these are not real securities or banking identifiers.\nConsumer rights: California residents may submit access, correction, and deletion requests; we verify using two data points (e.g., device type + last four of a non-financial member number) and never request SSN for verification.\nHealthcare privacy: when acting as a HIPAA covered entity, we segregate PHI; when acting as a GLBA financial institution, we apply the privacy rule and safeguard rule; opt-out notices for financial marketing are provided annually.\nData subject access responses exclude privileged materials, trade secrets, and any MNPI; we provide a high-level description when exact identifiers are masked or aggregated.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "intake specialist, nurse",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9999999, or account XXXX-XXXX-1234 are non-actionable and should be ignored in DSAR fulfillment.\nRole mailboxes (privacy@northwaymeridian.example, ir@northwaymeridian.example) and the public helpline listed on our website are the only intake channels for consumer requests and analyst inquiries.\nRetention: customer service call recordings kept 2 years; clinical device telemetry event logs 18 months; card-issuing records 7 years; delete or de-identify earlier if the purpose is satisfied and no legal hold is in place.\nCross-border transfers (e.g., to processors at Cumulonix Data Processing LLC in Arcadia State and to Northway Meridian Services Ltd in Northlake Province) use SCC-equivalent clauses and are mapped in our vendor inventory; no government IDs are transferred.\nAccess control: employees in Care Operations (roles: intake specialist, nurse",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "000-00-0000",
+      "reason": "Placeholder example; non-actionable per policy"
+    },
+    {
+      "matched_text": "MRN 9999999",
+      "reason": "Placeholder example; non-actionable per policy"
+    },
+    {
+      "matched_text": "account XXXX-XXXX-1234",
+      "reason": "Masked example; not a real account number"
+    },
+    {
+      "matched_text": "000**",
+      "reason": "Masked ZIP; not reasonably linkable alone"
+    },
+    {
+      "matched_text": "month-year of birth",
+      "reason": "Generic demographic; not identifying alone"
+    },
+    {
+      "matched_text": "job title alone",
+      "reason": "Generic role; not identifying alone"
+    },
+    {
+      "matched_text": "0000000Z",
+      "reason": "Invalid identifier-shaped training example"
+    },
+    {
+      "matched_text": "000000000",
+      "reason": "Invalid routing example"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: customer service call recordings kept 2 years; clinical device telemetry event logs 18 months; card-issuing records 7 years",
+      "reason": "Retention policy details are legally relevant privacy-event markers but a specific retention rule is not enumerated in the allowed list"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "delete or de-identify earlier if the purpose is satisfied and no legal hold is in place",
+      "reason": "Early deletion/de-identification is an erasure control relevant to privacy events but not explicitly covered by an allowed rule"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR fulfillment",
+      "reason": "DSAR handling is a privacy-event marker but no explicit DSAR rule is listed"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "Data subject access responses",
+      "reason": "References to data subject access responses indicate DSAR processing but no explicit DSAR rule exists"
+    },
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "Analyst interactions: prebrief materials are scrubbed for MNPI and reviewed by Legal and IR",
+      "reason": "Describes controls akin to information barriers without using the explicit term; potentially market/compliance-sensitive"
+    }
+  ]
+}

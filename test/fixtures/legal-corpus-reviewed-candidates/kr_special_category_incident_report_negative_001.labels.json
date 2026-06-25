@@ -1,0 +1,227 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_special_category_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/special_category/kr_special_category_incident_report_negative_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_special_category_incident_report_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_special_category_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@yuji-robotics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Hye",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260518",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Hye\u2011jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@yuji-robotics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000-0000000",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638)",
+      "rule": "kr_rrn"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@yuji-robotics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Hye",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20260518",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Ms. Seo Hye\u2011jin, HR Assistant at Yuji Robotics, reported clicking a mock payroll link and completed a credential reset the same day.\nNo access to customer records, employee resident-number data, or deal materials occurred, and no \u201cimportant information\u201d under FSCMA was exposed.\nResident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) field on a legacy onboarding PDF displayed the placeholder 000000-0000000; system logs confirm no valid numbers were stored.\nSystems affected: Dragon Shield Endpoint Suite and AsterX Cloud SSO; mitigated per Clean Harbor Data Policy v3.1 and Zero Downtime 2.0.\nWe posted an IR update on the KRSX FairNotice portal (KIND-F) on 2026-05-20 summarizing the above; this mirrors the 2026-05-22 public press note.\nThe previously announced MOU with Gyeonhwa Capital Partners (disclosed 2026-04-30) is unchanged; no term sheets or listing drafts resided in affected mailboxes.\nFor stakeholder queries, please contact security@yuji-robotics.example or ir@yuji-robotics.example; these role inboxes are monitored during business hours.\nDiversity & inclusion training (Harmony@Work and Sunrise Inclusion Charter) was reassigned to all staff; this is general DEI content and not health or biometric data.\nOur response was a full\u2011court press rather than a slow walk by the Han River, and there was no operational downtime at the Gwangjin\u2011gu office or Jeju test track.\nNo biometric, genetic, treatment, union, religion, sexual\u2011orientation, or political data was processed in relation to this event per PIPA definitions.\nA voluntary notice was filed via the supervisory cyber portal of the Korea Market Oversight Office (fictional), with no requirement for separate filings at this time.\nThis report is for awareness and investor relations; it contains no MNPI, and the internal reference is YJ-INC-20260518-CYB.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Dragon Shield Endpoint Suite",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "AsterX Cloud SSO",
+      "reason": "Product/service name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Clean Harbor Data Policy v3.1",
+      "reason": "Policy/program name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Zero Downtime 2.0",
+      "reason": "Program/slogan name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Harmony@Work",
+      "reason": "DEI program name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Sunrise Inclusion Charter",
+      "reason": "DEI policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Han River",
+      "reason": "Place/metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Gwangjin\u2011gu",
+      "reason": "Geographic place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Jeju test track",
+      "reason": "Facility/place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "KRSX FairNotice portal",
+      "reason": "Portal/product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "KIND-F",
+      "reason": "Platform code, not PII/MNPI"
+    },
+    {
+      "matched_text": "Yuji Robotics Co., Ltd",
+      "reason": "Company name, not personal data"
+    },
+    {
+      "matched_text": "Gyeonhwa Capital Partners",
+      "reason": "Company name, not personal data"
+    },
+    {
+      "matched_text": "Korea Market Oversight Office",
+      "reason": "Agency/organization name, not PII/MNPI"
+    },
+    {
+      "matched_text": "No biometric, genetic, treatment, union, religion, sexual\u2011orientation, or political data was processed in relation to this event per PIPA definitions",
+      "reason": "Negated special-category mention; not actual personal data"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "YJ-INC-20260518-CYB",
+      "reason": "Unique internal incident ID may be linkable but not clearly covered by allowed identifier rules and not person-specific."
+    },
+    {
+      "concept": "cyber incident MNPI status",
+      "matched_text": "Cyber/Operational Incident Report",
+      "reason": "Cyber events can be material pre-disclosure, but this report indicates public disclosure; not clearly a rule-triggering pre-disclosure marker."
+    },
+    {
+      "concept": "MNPI classification statement",
+      "matched_text": "no \u201cimportant information\u201d under FSCMA was exposed",
+      "reason": "References legal MNPI concept but is a negation; not a defined MNPI rule trigger."
+    }
+  ]
+}

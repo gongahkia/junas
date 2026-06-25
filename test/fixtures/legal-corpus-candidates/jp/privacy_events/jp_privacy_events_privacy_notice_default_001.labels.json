@@ -1,0 +1,295 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+81-50-1234-5678",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayumi Nara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Aoba",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 years old",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: employee onboarding forms, board acquisition diligence data room, and investor relations mailing list for the Hinode Exchange growth market.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent withdrawal: employees may revoke overseas provision at any time; as of 2026-05-10, three withdrawals were completed and those profiles were excluded from subsequent exports.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention/minimisation: onboarding collects only needed fields; My Number retained for seven fiscal years then deleted; board due diligence files retained for one year post-closing; IR mailing list entries deleted within 72 hours of unsubscribe.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls (FIEA): undisclosed enumerated material facts, any tender-offer facts related to the planned Omega Microsystems KK share acquisition, and employee stock option grant schedules were ring-fenced; exported datasets contained none of the above and were pre-cleared by Compliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Third-party provision record: Jul 2025\u2013May 2026 logs show exports only to Sakura Payroll; no transfers to marketers or group companies occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Completed control: the acquisition data room for Omega Microsystems KK closed and was wiped on 2026-05-01; the wipe certificate is archived and there is no ongoing transfer from that environment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@hoshizora.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Retention/minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Specific Personal Information (My Number)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee ID",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "planned Omega Microsystems KK share acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+81-50-1234-5678",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayumi Nara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Aoba",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 years old",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope: employee onboarding forms, board acquisition diligence data room, and investor relations mailing list for the Hinode Exchange growth market.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consent withdrawal: employees may revoke overseas provision at any time; as of 2026-05-10, three withdrawals were completed and those profiles were excluded from subsequent exports.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention/minimisation: onboarding collects only needed fields; My Number retained for seven fiscal years then deleted; board due diligence files retained for one year post-closing; IR mailing list entries deleted within 72 hours of unsubscribe.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls (FIEA): undisclosed enumerated material facts, any tender-offer facts related to the planned Omega Microsystems KK share acquisition, and employee stock option grant schedules were ring-fenced; exported datasets contained none of the above and were pre-cleared by Compliance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Third-party provision record: Jul 2025\u2013May 2026 logs show exports only to Sakura Payroll; no transfers to marketers or group companies occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Completed control: the acquisition data room for Omega Microsystems KK closed and was wiped on 2026-05-01; the wipe certificate is archived and there is no ongoing transfer from that environment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Contact: Ms. Ayumi Nara (Data Protection Officer), privacy@hoshizora.example, +81-50-1234-5678\nScope: employee onboarding forms, board acquisition diligence data room, and investor relations mailing list for the Hinode Exchange growth market.\nPII categories: name, corporate email, employee ID, attendance; Specific Personal Information (My Number) used only for payroll/tax and kept in Japan; My Number is never transferred cross-border.\nCross-border transfer: approved export of non-My Number employee data to Sakura Payroll Systems Pte. Ltd. (Singapore) via AES-256 encryption and access keys; prior consent obtained under APPI cross-border rules and records kept.\nConsent withdrawal: employees may revoke overseas provision at any time; as of 2026-05-10, three withdrawals were completed and those profiles were excluded from subsequent exports.\nDSAR: Mr. Kenji Aoba requested disclosure and erasure on 2026-04-03; response issued on 2026-04-15; attendance logs over 3 years old were erased; tax documents were retained as legally required.\nRetention/minimisation: onboarding collects only needed fields; My Number retained for seven fiscal years then deleted; board due diligence files retained for one year post-closing; IR mailing list entries deleted within 72 hours of unsubscribe.\nMNPI controls (FIEA): undisclosed enumerated material facts, any tender-offer facts related to the planned Omega Microsystems KK share acquisition, and employee stock option grant schedules were ring-fenced; exported datasets contained none of the above and were pre-cleared by Compliance.\nNegative control: no biometric identifiers or precise geolocation are collected in these workflows.\nVendor commitments: SCCs are not used; the DPA Annex requires APPI-compliant foreign transfer safeguards, no onward transfer without approval, and quarterly audit logs; the 2026-03-31 audit reported no findings.\nThird-party provision record: Jul 2025\u2013May 2026 logs show exports only to Sakura Payroll; no transfers to marketers or group companies occurred.\nBoard materials: minutes contain director names with honorifics, but only redacted internal copies are circulated; external counsel received anonymised versions stored on Tohoku Legal Partners LLP servers in Tokyo.\nCompleted control: the acquisition data room for Omega Microsystems KK closed and was wiped on 2026-05-01; the wipe certificate is archived and there is no ongoing transfer from that environment.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no biometric identifiers",
+      "reason": "Negated PII category \u2014 explicitly not collected"
+    },
+    {
+      "matched_text": "precise geolocation",
+      "reason": "Negated PII category mention \u2014 explicitly not collected"
+    },
+    {
+      "matched_text": "My Number is never transferred cross-border",
+      "reason": "Negated cross-border event \u2014 do not flag as live transfer"
+    },
+    {
+      "matched_text": "there is no ongoing transfer from that environment",
+      "reason": "Completed control \u2014 not a live transfer"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "Privacy rights request marker not enumerated in allowed rule list"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure",
+      "reason": "Erasure is a privacy-event concept but not in allowed PII rule list"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retained for seven fiscal years",
+      "reason": "Retention period reference not mapped to an allowed rule"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retained for one year post-closing",
+      "reason": "Retention period reference not mapped to an allowed rule"
+    },
+    {
+      "concept": "erasure/retention",
+      "matched_text": "deleted within 72 hours of unsubscribe",
+      "reason": "Time-bound deletion policy not mapped to an allowed rule"
+    },
+    {
+      "concept": "tender offer MNPI",
+      "matched_text": "tender-offer facts",
+      "reason": "FIEA-relevant MNPI concept but not mapped to a specific allowed rule name"
+    },
+    {
+      "concept": "MNPI content",
+      "matched_text": "employee stock option grant schedules",
+      "reason": "Potentially material internal schedules; no specific allowed MNPI rule"
+    },
+    {
+      "concept": "erasure marker (completed control)",
+      "matched_text": "was wiped",
+      "reason": "Destruction action noted but erasure marker not in allowed rules"
+    },
+    {
+      "concept": "anonymization",
+      "matched_text": "anonymised versions",
+      "reason": "Data minimisation/anonymization concept not mapped to an allowed rule"
+    }
+  ]
+}

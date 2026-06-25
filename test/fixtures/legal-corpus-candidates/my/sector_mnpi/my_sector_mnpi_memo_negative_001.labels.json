@@ -1,0 +1,400 @@
+{
+  "_agent_review": {
+    "notes": "MY Stage A strict labels realigned after the IN precision audit tightened deterministic false-positive guards; broader labels remain in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T07:04:53Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T07:04:53Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
+    "status": "owner_approved_my_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_label_cleanup": {
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 12,
+    "notes": "MY Stage A strict tier reconciled to deterministic strict-mode engine after manual mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+    "old_ideal_must_detect_count": 28,
+    "old_must_detect_count": 12,
+    "removed_must_not_detect": [],
+    "reviewed_at_utc": "2026-05-29T03:59:20Z",
+    "reviewer": "codex-gpt-assisted-strict-tier-review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "governance@lumina-nusantara.ops",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9999-TEST",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive-MNPI: on 28 May, Lumina Digital Sdn Bhd detected an unauthorised access to the client onboarding portal; until immediate announcement instructions are finalised for Bursa, treat this investigation as inside information and restrict circulation to the clean team and the insider list.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: our intention to explore a potential green sukuk framework was previously stated in the 1Q operational update and remains exploratory and publicly known.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@lumina-nusantara.ops",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Staff ID: EMP-XX-0000",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account Ref: ACCT-9999-TEST",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid including any information relating directly or indirectly to identifiable individuals",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "use role titles and generic IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid attaching HR files to board packs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not include personal contact numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list template",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list administration",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restrict circulation to the clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing protocols",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted drive",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward deal-stage documents to operations",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain segregation between Treasury and Corporate Strategy",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "detected an unauthorised access to the client onboarding portal",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout dates",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-results blackout dates",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping prohibitions",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG-linked revolving facility",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "covenant waivers",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be discussed outside the project room",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-XX-0000",
+      "rule": "employee_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "governance@lumina-nusantara.ops",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9999-TEST",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive-MNPI: on 28 May, Lumina Digital Sdn Bhd detected an unauthorised access to the client onboarding portal; until immediate announcement instructions are finalised for Bursa, treat this investigation as inside information and restrict circulation to the clean team and the insider list.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: our intention to explore a potential green sukuk framework was previously stated in the 1Q operational update and remains exploratory and publicly known.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers: maintain segregation between Treasury and Corporate Strategy; do not forward deal-stage documents to operations; insider-list template must be used even for drills.\nBlackout/trading window: the pre-results blackout dates have been posted on the intranet calendar; general reminders about tipping prohibitions under the CMSA are permitted.\nCyber: tomorrow\u2019s tabletop exercise simulating a ransomware event is a drill only; no customer or payroll systems are affected.\nPositive-MNPI: on 28 May, Lumina Digital Sdn Bhd detected an unauthorised access to the client onboarding portal; until immediate announcement instructions are finalised for Bursa, treat this investigation as inside information and restrict circulation to the clean team and the insider list.\nUse generic form labels in drafts (e.g., \u201cName: [_______]\u201d, \u201cStaff ID: EMP-XX-0000\u201d, \u201cAccount Ref: ACCT-9999-TEST\u201d) and avoid attaching HR files to board packs.\nFinancing: our intention to explore a potential green sukuk framework was previously stated in the 1Q operational update and remains exploratory and publicly known.\nPositive-MNPI: a non-binding term sheet from Bank Tunas Berhad for an ESG-linked revolving facility (with draft KPI triggers and covenant waivers) was received this morning; details are circulating under wall-crossing protocols and must not be discussed outside the project room until disclosure decisions are made.\nCommercial terms marketing: the \u201cEcoTier Supplier Programme\u201d brochure mentions discounts and preferred payment terms as examples only and does not reflect any agreed changes to supplier contracts.\nInsider-list administration: when adding names, use role descriptions where possible (e.g., \u201cHead of IT Security\u201d) and ensure the list is saved on the restricted drive; do not include personal contact numbers.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Crypto Risk 101",
+      "reason": "Educational content explicitly stated as non-listing and non-revenue; not market sensitive"
+    },
+    {
+      "matched_text": "tabletop exercise simulating a ransomware event",
+      "reason": "Drill-only scenario; explicitly not a live incident"
+    },
+    {
+      "matched_text": "2024 climate survey summary",
+      "reason": "Publicly uploaded and noted as not price sensitive"
+    },
+    {
+      "matched_text": "EcoTier Supplier Programme",
+      "reason": "Marketing brochure examples; not agreed commercial terms"
+    },
+    {
+      "matched_text": "green sukuk framework",
+      "reason": "Exploratory and publicly known per prior disclosure"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "customer account/reference",
+      "matched_text": "Account Ref: ACCT-9999-TEST",
+      "reason": "Placeholder example; could be customer_account_number or bank_customer_reference and may be excluded as a non-real record"
+    },
+    {
+      "concept": "definitive agreement indicator",
+      "matched_text": "term sheet",
+      "reason": "Lowercase and described as non-binding; some detectors only flag capitalised or signed versions"
+    },
+    {
+      "concept": "information barrier practice",
+      "matched_text": "wall-crossing protocols",
+      "reason": "Compliance phrase not always on enumerated lists; detection coverage may vary"
+    },
+    {
+      "concept": "material financing event",
+      "matched_text": "ESG-linked revolving facility",
+      "reason": "May be considered exploratory or already public; materiality and non-public status are context-dependent"
+    },
+    {
+      "concept": "information barrier control",
+      "matched_text": "restricted drive",
+      "reason": "Storage-location restriction is governance control; not always explicitly mapped to barrier markers"
+    }
+  ]
+}

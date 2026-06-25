@@ -1,0 +1,366 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_jurisdictional_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adrian.ko@novaport\u2011hk.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6O1O 2O4 3",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. L. Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. H. Yeung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@novaport\u2011hk.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 55x\u20118x4\u20112x9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Quayside",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$1.18b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$600m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no submission has been made on the Exchange\u2019s E S S",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no announcement has been posted on KHXnews",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure risk",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011cross list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NDA",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NDAs",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team data rooms",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team recipients",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout list",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Quayside insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no comment but wink",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This note assesses whether the proposed acquisition of HarbourVista Logistics Pte for approx. HK$1.18bn is \u201cinside information\u201d under Part XIVA of the Securities and Futures Ordinance (local statute); no submission has been made on the Exchange\u2019s E S S and no announcement has been posted on KHXnews.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor\u2011relations may reference the 03\u2011Mar\u20112026 industry\u2011trends press release, but must not mention the contemplated acquisition until the Part XIVA announcement is posted; avoid any \u201cno comment but wink\u201d language.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: a HK$600m bridge from Harbor Mutual Bank (HM\u2011BRG\u2011771a, draft only) plus a vendor loan is contemplated; none of these terms have been shared beyond clean\u2011team recipients and are currently non\u2011public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Ko",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This note assesses whether the proposed acquisition of HarbourVista Logistics Pte for approx. HK$1.18bn is \u201cinside information\u201d under Part XIVA of the Securities and Futures Ordinance (local statute); no submission has been made on the Exchange\u2019s E S S and no announcement has been posted on KHXnews.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor\u2011relations may reference the 03\u2011Mar\u20112026 industry\u2011trends press release, but must not mention the contemplated acquisition until the Part XIVA announcement is posted; avoid any \u201cno comment but wink\u201d language.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: a HK$600m bridge from Harbor Mutual Bank (HM\u2011BRG\u2011771a, draft only) plus a vendor loan is contemplated; none of these terms have been shared beyond clean\u2011team recipients and are currently non\u2011public.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Quayside",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$600m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential \u2014 Board Update re Project Quayside (Kowloon Harbour Exchange \u201cKHEX\u201d issuer: NovaPort Holdings Limited, stock code 0Z71; this memo is governed by Group Disclosure Policy v3.1).\nThis note assesses whether the proposed acquisition of HarbourVista Logistics Pte for approx. HK$1.18bn is \u201cinside information\u201d under Part XIVA of the Securities and Futures Ordinance (local statute); no submission has been made on the Exchange\u2019s E S S and no announcement has been posted on KHXnews.\nA non-binding term sheet dated 29\u2011May\u20112026 19:40 HKT (ID: TS\u2011K8\u201119\u2011xx43) sets price bands and an earn\u2011out; execution of the SPA is targeted for 02\u2011Jun\u20112026; selective disclosure risk exists given vendor soundings conducted this week.\nIssuer\u2011relative materiality: based on FY2025 audited NAV and revenue, thresholds in the Disclosure Committee protocol (\u22655% NAV or \u22657.5% revenue impact) are likely met; prepare an announcement for immediate release upon SPA execution or earlier if a leak is \u201clikely to\u201d have occurred.\nDealers were approached for soft\u2011soundings; two declined to be wall\u2011crossed; any further approaches must be under NDA with wall\u2011cross list maintained by Compliance to avoid selective disclosure.\nDirectors and PDMRs are in a closed period under the Model Code from 15\u2011Jun until results; no dealing or share grants without prior clearance; expand the internal blackout to include all Project Quayside insiders with immediate effect.\nWe have briefed the Exchange Listing Division informally (no waiver sought); if press rumours circulate pre\u2011open, request a trading halt before 09:00; resume only after the announcement appears on KHXnews.\nMr. Adrian Ko (CFO) adrian.ko@novaport\u2011hk.com, +852 6O1O 2O4 3 (digits visually obfuscated), will coordinate the wall\u2011cross list and circulate NDAs; Ms. L. Tse (G e n e r a l   M a n a g e r) will oversee clean\u2011team data rooms.\nEmployee matters: proposed retention grants for key staff do not constitute a material adverse change under existing ESOP; this line is intentionally benign and is not inside information on its own.\nPublic\u2011status note: the 28\u2011Feb\u20112025 circular on KHXnews (Doc: E_0Z71\u2011ann\u20112025\u201102\u201128.pdf, https://khxnews.example.hk/E_0Z71\u2011ann?d=2025\u201102\u201128#v=1) concerned a PRC warehouse divestment and is stale; it is already in the public domain and unrelated to the current proposal.\nInvestor\u2011relations may reference the 03\u2011Mar\u20112026 industry\u2011trends press release, but must not mention the contemplated acquisition until the Part XIVA announcement is posted; avoid any \u201cno comment but wink\u201d language.\nFinancing: a HK$600m bridge from Harbor Mutual Bank (HM\u2011BRG\u2011771a, draft only) plus a vendor loan is contemplated; none of these terms have been shared beyond clean\u2011team recipients and are currently non\u2011public.\nFund co\u2011invest: Tidewalk Capital SP II has proposed up to 22% JV equity (non\u2011public approach); their general update about a new office lease yesterday is not issuer information and should not be treate",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun, not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "HKEX stock code",
+      "matched_text": "0Z71",
+      "reason": "Issuer trading code is legally relevant identifier but not covered by allowed PII/MNPI rules"
+    },
+    {
+      "concept": "internal transaction/term sheet identifier",
+      "matched_text": "TS\u2011K8\u201119\u2011xx43",
+      "reason": "Potentially sensitive internal reference but not mapped to a listed PII/MNPI rule"
+    },
+    {
+      "concept": "internal financing document code",
+      "matched_text": "HM\u2011BRG\u2011771a",
+      "reason": "Bank deal code could be sensitive context but not covered by allowed rule set"
+    }
+  ]
+}

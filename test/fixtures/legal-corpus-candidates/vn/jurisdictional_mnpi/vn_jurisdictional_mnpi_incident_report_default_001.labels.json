@@ -1,0 +1,285 @@
+{
+  "doc_id": "vn_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "source_jurisdiction": "VN",
+  "destination_jurisdiction": "VN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "office@thanhphongutilities.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "thanh.le@thanhphongutilities.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@thanhphongutilities.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 812 3459"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0889 123 456"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "117-998-004512"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 93 777 3125"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ông Thanh Lê"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bà Bảo Trâm"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "thanh.le@thanhphongutilities.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "office@thanhphongutilities.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@thanhphongutilities.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 812 3459"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 93 777 3125"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "CCCD 0889 123 456"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "117-998-004512"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8–10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "thông tin này hiện chưa công bố ra công chúng theo Luật Chứng khoán"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Tránh tiết lộ chọn lọc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Không công bố ra công chúng"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tấn công ransomware"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ông Thanh Lê (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bà Bảo Trâm (Trưởng phòng Nhân sự)"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "số tài khoản lương 117-998-004512"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "VX-PR-66281"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "VX-PR-66293"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "chưa đủ điều kiện công bố theo quy chế của SGDST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "cửa sổ hạn chế giao dịch (blackout) nội bộ từ 01/07 đến sau ngày công bố BCTC Q2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "chỉ chia sẻ có điều kiện với Ngân hàng Sông Xanh theo NDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "không phát tán qua các kênh bên ngoài"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "mọi trao đổi IR phải đăng ký lịch với SGDST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "đóng dấu “Không công bố ra công chúng”"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Ước tính bồi thường bảo hiểm nội bộ"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "dự kiến công bố"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "ước giảm EBITDA Q2"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0889 123 456"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "117-998-004512"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    }
+  ],
+  "must_not_detect": [],
+  "uncertain": [
+    {
+      "matched_text": "Đối tượng dữ liệu bị ảnh hưởng: danh sách nhân viên (họ tên, email nội bộ, số điện thoại di động, số tài khoản lương), một phần hồ sơ CCCD, và tệp lịch sử chấm công",
+      "concept": "breach_data_categories",
+      "reason": "Describes categories of personal data impacted rather than specific identifiers; not clearly covered by allowed PII rules."
+    },
+    {
+      "matched_text": "không duyệt gửi dữ liệu nhạy cảm qua kênh chưa mã hóa",
+      "concept": "security_control",
+      "reason": "Security/handling instruction relevant to privacy compliance but not an allowed privacy-event marker in the taxonomy."
+    },
+    {
+      "matched_text": "trong vòng 24 giờ",
+      "concept": "disclosure_timing",
+      "reason": "Indicates issuer disclosure timing control which is legally relevant for MNPI management but not explicitly covered by the allowed MNPI rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "approved",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
+}

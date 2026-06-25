@@ -1,0 +1,443 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 6
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 41,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 21,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_sector_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "norsaleem@albarqcap.fake.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tbahri@daramarkets.fake.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Saleh Al-Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rasha Al-Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tariq Bahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Investor of 22% of the issued shares of the Company and a strategic commercial agreement for tokenization of renewable energy certificates and carbon offsets.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1\u20133 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Warranty: Company represents no material cyber incident since 1447H-01-01; any non-public breach of customer wallets or key-management systems prior to announcement triggers a SAR 15,000,000 price adjustment or termination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT Licensing: Company will maintain operation within the Saudi regulatory sandbox and will not launch any stablecoin, exchange token, or DPT offering without CMA/SAMA no-objection and prior Investor consent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: Investor gets one board seat and one observer at Company; reserved matters include cybersecurity budget, custody architecture, climate-reporting methodology, and any token issuance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Educational/Marketing Carve-out: Company\u2019s public blog may use the terms \u201ccrypto\u201d, \u201cESG\u201d, and \u201cbreach\u201d in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "148,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KSA CR 101-77-88990",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 701-55-66221",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Noura Al-Saleem",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer of PDPL-regulated personal data to an EU-hosted virtual data room",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading Blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective Disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Warranty",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DPT offering",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate KPIs",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama ending 3842",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID ending 9051",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "signing",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "long stop date 1447H-03-30",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sounding",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "regulatory sandbox",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public announcement",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "norsaleem@albarqcap.fake.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tbahri@daramarkets.fake.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Saleh Al-Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rasha Al-Mutairi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tariq Bahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Investor of 22% of the issued shares of the Company and a strategic commercial agreement for tokenization of renewable energy certificates and carbon offsets.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1\u20133 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Warranty: Company represents no material cyber incident since 1447H-01-01; any non-public breach of customer wallets or key-management systems prior to announcement triggers a SAR 15,000,000 price adjustment or termination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT Licensing: Company will maintain operation within the Saudi regulatory sandbox and will not launch any stablecoin, exchange token, or DPT offering without CMA/SAMA no-objection and prior Investor consent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: Investor gets one board seat and one observer at Company; reserved matters include cybersecurity budget, custody architecture, climate-reporting methodology, and any token issuance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Educational/Marketing Carve-out: Company\u2019s public blog may use the terms \u201ccrypto\u201d, \u201cESG\u201d, and \u201cbreach\u201d in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "148,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Proposed acquisition by Investor of 22% of the issued shares of the Company and a strategic commercial agreement for tokenization of renewable energy certificates and carbon offsets.\nPurchase Price: SAR 148,000,000 cash at closing plus SAR 22,000,000 earn-out linked to ESG/climate KPIs (scope 1\u20133 reporting coverage and RECs volume), subject to CMA reporting of related-party dealings where applicable.\nConditions Precedent: CMA non-objection, completion of cyber and regulatory due diligence, and SDAIA permit for cross-border transfer of PDPL-regulated personal data to an EU-hosted virtual data room.\nCyber Incident Warranty: Company represents no material cyber incident since 1447H-01-01; any non-public breach of customer wallets or key-management systems prior to announcement triggers a SAR 15,000,000 price adjustment or termination.\nCrypto/DPT Licensing: Company will maintain operation within the Saudi regulatory sandbox and will not launch any stablecoin, exchange token, or DPT offering without CMA/SAMA no-objection and prior Investor consent.\nConfidentiality and MNPI: Parties acknowledge possession of non-public issuer information; handling shall comply with CMA Market Conduct Regulations, with an insider list maintained by Compliance naming wall-crossed individuals and timestamps.\nInformation Barriers: Investor shall enforce Chinese walls between investment banking and research/asset management teams; only approved deal team may access the data room and MNPI.\nTrading Blackout: Investor imposes a blackout on trading its own Tadawul-listed shares from signing until public announcement and during any closed periods as per CMA and Tadawul rules.\nTipping and Selective Disclosure: No market sounding or disclosure to potential co-investors unless pre-cleared by Compliance and the recipients are wall-crossed and added to the insider list.\nGovernance: Investor gets one board seat and one observer at Company; reserved matters include cybersecurity budget, custody architecture, climate-reporting methodology, and any token issuance.\nKYC and PDPL: KYC data for key managers (e.g., Mr. Saleh Al-Harbi, Iqama ending 3842; Dr. Rasha Al-Mutairi, National ID ending 9051) will be processed on a need-to-know basis, with data minimization, masking, and consent per PDPL.\nEducational/Marketing Carve-out: Company\u2019s public blog may use the terms \u201ccrypto\u201d, \u201cESG\u201d, and \u201cbreach\u201d in general educational content and brand awareness campaigns that do not reference this transaction or any non-public events.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Tariq Bahri, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term, not a person or identifier"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Role-noun defined term, not a person or identifier"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term header, not PII/MNPI"
+    },
+    {
+      "matched_text": "\u201ccrypto\u201d",
+      "reason": "Educational/marketing carve-out without market sensitivity"
+    },
+    {
+      "matched_text": "\u201cESG\u201d",
+      "reason": "Educational/marketing carve-out without market sensitivity"
+    },
+    {
+      "matched_text": "\u201cbreach\u201d",
+      "reason": "Educational/marketing carve-out without market sensitivity"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "internal issuer code",
+      "matched_text": "internal code \u201cABQF\u201d",
+      "reason": "May be non-public identifier relevant to market conduct but not covered by allowed MNPI rules"
+    },
+    {
+      "concept": "regulatory clearance status",
+      "matched_text": "CMA non-objection",
+      "reason": "Potentially material pre-approval status; no direct allowed rule"
+    },
+    {
+      "concept": "privacy regulator authorization",
+      "matched_text": "SDAIA permit",
+      "reason": "Regulatory permit related to data transfer; only cross-border phrase is explicitly covered"
+    },
+    {
+      "concept": "ESG metric detail",
+      "matched_text": "scope 1\u20133 reporting coverage",
+      "reason": "Specific ESG KPI detail may be MNPI but not explicitly enumerated"
+    },
+    {
+      "concept": "crypto custody architecture",
+      "matched_text": "key-management systems",
+      "reason": "Security architecture detail can be sensitive pre-disclosure but not a specific allowed rule"
+    },
+    {
+      "concept": "pre-announcement planning",
+      "matched_text": "Tadawul-compliant announcement drafting",
+      "reason": "Indicates pending disclosure timeline; not explicitly covered by embargo markers list"
+    }
+  ]
+}

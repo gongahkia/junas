@@ -1,0 +1,137 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "VN",
+    "doc_id": "vn_direct_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "VN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/vn_direct_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "PN0123456",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@nstech-fict.vn",
+      "rule": "email_address"
+    }
+  ],
+  "must_detect": [],
+  "must_not_detect": [
+    {
+      "matched_text": "NSTECH",
+      "reason": "Defined acronym for company; contract-style defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "HBX",
+      "reason": "Defined acronym for exchange; not PII/MNPI."
+    },
+    {
+      "matched_text": "UBCKHB",
+      "reason": "Defined acronym for regulator; not PII/MNPI."
+    },
+    {
+      "matched_text": "ir@nstech-fict.vn",
+      "reason": "Role mailbox (IR); not associated with a specific person under VN PD."
+    },
+    {
+      "matched_text": "1800 006 888",
+      "reason": "Public helpline number; not a personal phone number."
+    },
+    {
+      "matched_text": "1234567809",
+      "reason": "Company tax number with invalid checksum; not personal data and no matching allowed rule."
+    },
+    {
+      "matched_text": "[\u0111i\u1ec1n s\u1ed1 t\u00e0i kho\u1ea3n]",
+      "reason": "Placeholder/form label; no actual account number present."
+    },
+    {
+      "matched_text": "[T\u00ean bi\u1ec3u m\u1eabu]",
+      "reason": "Generic form label; no personal data."
+    },
+    {
+      "matched_text": "[M\u00e3 ph\u00f2ng ban]",
+      "reason": "Generic form label; no personal data."
+    },
+    {
+      "matched_text": "[Ng\u00e0y so\u1ea1n]",
+      "reason": "Generic form label; no personal data."
+    },
+    {
+      "matched_text": "LVX-000",
+      "reason": "Draft security code; not a valid listed identifier and not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "definitive_agreement",
+      "matched_text": "B\u1ea3n \u0111i\u1ec1u kho\u1ea3n giao d\u1ecbch \u0111\u1ec1 xu\u1ea5t",
+      "reason": "Vietnamese for 'Term Sheet'; may correspond to definitive agreement concept but rule expects the English phrase 'Term Sheet'."
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "L\u00f4 B12, KCN H\u00f2a Th\u1ecbnh, Ph\u01b0\u1eddng Ph\u00fa L\u00e2m, TP H\u00f2a B\u1eafc, t\u1ec9nh H\u00f2a S\u01a1n, Vi\u1ec7t Nam",
+      "reason": "Organizational address; potentially an address identifier but no generic VN address rule and not personal data."
+    }
+  ]
+}

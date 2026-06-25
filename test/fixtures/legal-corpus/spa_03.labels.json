@@ -1,0 +1,62 @@
+{
+  "doc_id": "spa_03",
+  "document_type": "SPA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "SHARE PURCHASE AGREEMENT"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Emily Tan"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S9876543B"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "123456"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 9123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "emily.tan@fictionalmail.sg"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T12LL3456B"
+    },
+    {
+      "rule": "large_number",
+      "matched_text": "10,000"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 500,000"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Agreement",
+      "reason": "This is a defined term"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

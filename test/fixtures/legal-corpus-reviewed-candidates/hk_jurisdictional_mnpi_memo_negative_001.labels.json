@@ -1,0 +1,312 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "HK",
+    "doc_id": "hk_jurisdictional_mnpi_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/hk/jurisdictional_mnpi/hk_jurisdictional_mnpi_memo_negative_001.txt",
+    "source_jurisdiction": "HK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/hk_jurisdictional_mnpi_memo_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ir@orchidreef.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not released publicly",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known to the market",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-binding term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "acquire a 55% stake in Bay Zenith Digital Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "director dealing blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside list (template only, blank)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If leakage is suspected",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redacted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "remove personal data fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "replaced with role descriptors",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no personal emails or phone numbers should be used or recorded",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive MNPI (limited to this line): a draft board paper not released publicly authorises management to negotiate a non-binding term sheet to acquire a 55% stake in Bay Zenith Digital Limited; no timetable or consideration has been agreed and this is not generally known to the market.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External communications must rely only on published announcements, circulars (if any), and the 2024 annual report; analyst Q&A is to be limited to previously disseminated facts and stale guidance as appropriate.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "307B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.9%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Positive MNPI (limited to this line): a draft board paper not released publicly authorises management to negotiate a non-binding term sheet to acquire a 55% stake in Bay Zenith Digital Limited; no timetable or consideration has been agreed and this is not generally known to the market.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External communications must rely only on published announcements, circulars (if any), and the 2024 annual report; analyst Q&A is to be limited to previously disseminated facts and stale guidance as appropriate.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "307B",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "55%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal memo: Compliance review of disclosure status \u2014 Orchid Reef Holdings Limited (stock code 09X8; non-ISIN ZX0000000000) under SFO/PDPO/HKEX Listing Rules context.\nThis note collates public/stale materials and routine controls; no inside information is intended to be circulated other than the single flagged item below for board awareness.\nPublic record: HKEXnews announcement dated 03 January 2025 (LTN20250103-ORH, illustrative) on the completed disposal of Orchid Reef (Tianjin) Limited; the disposal was categorized as below Chapter 14 thresholds and no circular was required.\nPublic record: FY2024 annual results were published on 28 March 2025, and the director dealing blackout under Appendix 10 (Model Code) closed on that date; this reference is made for clarity and is not a live trading window notification.\nPress/industry context: multiple trade publications in April 2025 reported general sector consolidation among electronics assemblers; these articles are broad, not issuer-specific, and do not constitute MNPI.\nOperational update (public): the Company\u2019s IR presentation deck dated 02 May 2025 is available on the corporate website and mirrors information already in the 2024 annual report and March results announcement.\nPDPO handling: HR\u2019s draft offer letter templates will remove personal data fields before circulation, and any CVs in deal rooms will be redacted or replaced with role descriptors in line with the PDPO\u2019s \u201cdata user\u201d obligations.\nSFO Part XIVA: any inside information will be announced via HKEXnews as soon as reasonably practicable per s.307B, with no selective disclosure to analysts or investors prior to publication.\nPositive MNPI (limited to this line): a draft board paper not released publicly authorises management to negotiate a non-binding term sheet to acquire a 55% stake in Bay Zenith Digital Limited; no timetable or consideration has been agreed and this is not generally known to the market.\nIf leakage is suspected, a trading halt request will be prepared and an announcement will be made; until then, only the Company Secretary and inside list (template only, blank) custodians are to be briefed to avoid any selective disclosure.\nPublic/stale governance item: the SFC\u2019s Guidance Note on Inside Information (August 2015) and HKEX GL97-18 are referenced for timing and content expectations; these are general frameworks, not issuer-specific instructions.\nNon-issuer update (public): Sapphire Arc Capital Fund LP disclosed a passive 4.9% long position in sector peer Nova Stride Holdings on its website in 2024; this does not relate to the Company\u2019s operations and should not be treated as issuer MNPI.\nShare register reference (public): CCASS shareholding reports for March\u2013April 2025 show routine nominee movements; there is no Board knowledge of any concert party or take-private proposal beyond public filings.\nExternal communications must rely only on published announcements, circulars (if any), and the 2024 annual report; analyst Q&A is to be limited to previously disseminated facts and stale guidance as appropriate.\nIR contact point (role mailbox): ir@orchidreef.example; no personal emails or phone numbers should be used or recorded in relation to this note.\nConclusion: other than the single non-public term-sheet authorisation described above, all items herein are public, stale, or immaterial on an issuer-relative basis and do not trigger",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role-noun defined term; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "issuer identifier",
+      "matched_text": "stock code 09X8",
+      "reason": "Local listing code may be sensitive in other contexts but is not covered by allowed PII/MNPI rules"
+    },
+    {
+      "concept": "security identifier",
+      "matched_text": "ZX0000000000",
+      "reason": "Non-ISIN/security code; not covered by allowed rules but can be sensitive in some datasets"
+    },
+    {
+      "concept": "filing identifier",
+      "matched_text": "LTN20250103-ORH",
+      "reason": "HKEXnews document reference; operational identifier not covered by allowed rules"
+    },
+    {
+      "concept": "trading control action",
+      "matched_text": "trading halt request",
+      "reason": "Market operation concept relevant to disclosure control but not mapped to an allowed rule"
+    }
+  ]
+}

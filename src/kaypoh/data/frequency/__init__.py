@@ -1,0 +1,2 @@
+"""Frequency-table resources."""
+

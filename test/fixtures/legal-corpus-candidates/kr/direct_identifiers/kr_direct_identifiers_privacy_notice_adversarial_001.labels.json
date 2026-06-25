@@ -1,0 +1,307 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ms.cho@hanseong-innovations.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-92-71354",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-92-71354",
+      "rule": "kr_business_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@hanseong-innovations.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82\u2011010\u20117 7 77\u201113 57",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji\u2011won Ahn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "912\u201108\u2011123456",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "M12 34567 8",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Min\u2011su Cho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@hanseong-innovations.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non\u2011public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt\u2011out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited overseas transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "83 01 01\u20111 23 4 567",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "83 0 101\u20111 2 3 4 567",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rrn=83%200101-1%2023%204%20567",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ACCT\u20118821**934",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct=ACCT%2D8821**934",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H I\u20112026\u201104\u2011003",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "if strictly needed",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked on ingestion",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we do not store device MAC addresses, do not collect IMEI",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "is quarantined",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR responses avoid undisclosed deal terms",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers: limited overseas transfer to Bluetide Data Pte. Ltd. (processor) for archiving with consent notice per PIPA Art. 28\u20117",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "submit DSARs",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ms.cho@hanseong-innovations.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-92-71354",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "482-92-71354\nController contact: Ms. Ji\u2011won Ahn (DPO), dpo@hanseong-innovations.co.kr, +82\u2011010\u20117 7 77\u201113 57; role\u2011only escalation: IR Manager\nScope: processing of employee records, resident\u2011number fields for payroll, deal room logs, and investor Q&A for Korea Equity eXchange (KEX) listing readiness\nIdentifiers collected: name, company email, mobile no., bank account (Darae Bank 912\u201108\u2011123456), KR passport (M12 34567 8), and, if strictly needed, rrn: 83 01 01\u20111 23 4 567 (masked on ingestion)\nExample DSAR subject (fictional): Mr. Min\u2011su Cho, ms.cho@hanseong-innovations.co.kr",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\uace0\uac1d\uba85: ____",
+      "reason": "Blank placeholder label; not personal data until completed"
+    },
+    {
+      "matched_text": "\uacc4\uc88c\ubc88\ud638: ____",
+      "reason": "Blank placeholder label; not personal data until completed"
+    },
+    {
+      "matched_text": "IR Manager",
+      "reason": "Role-only title; not a named person"
+    },
+    {
+      "matched_text": "\uc0ac\uc5c5\uc790\ub4f1\ub85d\ubc88\ud638 123\u201145\u201167891",
+      "reason": "Invalid checksum adversarial sample; not real PII"
+    },
+    {
+      "matched_text": "000000\u20110000000",
+      "reason": "Fake placeholder corporate registration number"
+    },
+    {
+      "matched_text": "1332",
+      "reason": "Public hotline number; not personal data"
+    },
+    {
+      "matched_text": "120",
+      "reason": "Public hotline number; not personal data"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "postal_address",
+      "matched_text": "124 Haneul\u2011ro, Seoryu\u2011gu, Daecheon\u2011si, Namcheon\u2011do 00000, Republic of Korea",
+      "reason": "Full Korean postal address is identifying but there is no explicit KR address rule in the allowed list"
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "7F, Solaris Bldg., 9\u20117 Yeonhwa\u2011gil, Seoryu\u2011gu, Daecheon\u2011si 00000",
+      "reason": "Full Korean address likely PII but no explicit allowed rule for KR postal addresses"
+    }
+  ]
+}

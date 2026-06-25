@@ -1,0 +1,1023 @@
+{
+  "info": {
+    "summary": "API-first PII anonymization and MNPI review service.",
+    "title": "Kaypoh Document Safety API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/anonymize": {
+      "post": {
+        "request_body_ref": "#/components/schemas/AnonymizeRequest",
+        "response_ref": "#/components/schemas/AnonymizeResponse",
+        "summary": "Anonymize a document irreversibly",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/cite-public-source": {
+      "post": {
+        "request_body_ref": "#/components/schemas/CitePublicSourceRequest",
+        "response_ref": "#/components/schemas/CitePublicSourceResponse",
+        "summary": "Cite audit-grade public evidence",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/classify": {
+      "post": {
+        "request_body_ref": "#/components/schemas/ClassifyRequest",
+        "response_ref": "#/components/schemas/ClassifyResponse",
+        "summary": "Classify one document",
+        "tags": [
+          "Classification"
+        ]
+      }
+    },
+    "/classify/batch": {
+      "post": {
+        "request_body_ref": "#/components/schemas/BatchClassifyRequest",
+        "response_ref": "#/components/schemas/BatchClassifyResponse",
+        "summary": "Classify multiple documents",
+        "tags": [
+          "Classification"
+        ]
+      }
+    },
+    "/diagnostics": {
+      "get": {
+        "response_ref": "#/components/schemas/DiagnosticsResponse",
+        "summary": "Get runtime diagnostics",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/documents/scrub": {
+      "post": {
+        "request_body_ref": "#/components/schemas/DocumentScrubRequest",
+        "response_ref": "#/components/schemas/DocumentScrubResponse",
+        "summary": "Scrub document metadata",
+        "tags": [
+          "Documents"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "response_ref": "#/components/schemas/HealthResponse",
+        "summary": "Get runtime health",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/hold-until-public": {
+      "post": {
+        "request_body_ref": "#/components/schemas/HoldUntilPublicRequest",
+        "response_ref": "#/components/schemas/HoldUntilPublicResponse",
+        "summary": "Hold high-risk MNPI until public",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/metrics": {
+      "get": {
+        "response_ref": null,
+        "summary": "Get Prometheus metrics",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/pseudonymize": {
+      "post": {
+        "request_body_ref": "#/components/schemas/PseudonymizeRequest",
+        "response_ref": "#/components/schemas/PseudonymizeResponse",
+        "summary": "Pseudonymize a document before sending",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/ready": {
+      "get": {
+        "response_ref": "#/components/schemas/ReadyResponse",
+        "summary": "Get backend readiness",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/redact": {
+      "post": {
+        "request_body_ref": "#/components/schemas/RedactRequest",
+        "response_ref": "#/components/schemas/RedactResponse",
+        "summary": "Redact a document with opaque markers",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/redact-pii": {
+      "post": {
+        "request_body_ref": "#/components/schemas/RedactPiiRequest",
+        "response_ref": "#/components/schemas/RedactPiiResponse",
+        "summary": "Redact PII only",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/reidentify": {
+      "post": {
+        "request_body_ref": "#/components/schemas/ReidentifyRequest",
+        "response_ref": "#/components/schemas/ReidentifyResponse",
+        "summary": "Reidentify previously anonymized text",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/request-approval": {
+      "post": {
+        "request_body_ref": "#/components/schemas/RequestApprovalRequest",
+        "response_ref": "#/components/schemas/RequestApprovalResponse",
+        "summary": "Request reviewer approval",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/review": {
+      "post": {
+        "request_body_ref": "#/components/schemas/ReviewRequest",
+        "response_ref": "#/components/schemas/ReviewResponse",
+        "summary": "Review a document before sending",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/review/{review_id}": {
+      "get": {
+        "response_ref": "#/components/schemas/ReviewSessionStateResponse",
+        "summary": "Inspect review session state",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/review/{review_id}/decision": {
+      "post": {
+        "request_body_ref": "#/components/schemas/ReviewDecisionRequest",
+        "response_ref": "#/components/schemas/ReviewDecisionResponse",
+        "summary": "Record a per-finding decision",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/safe-rewrite": {
+      "post": {
+        "request_body_ref": "#/components/schemas/SafeRewriteRequest",
+        "response_ref": "#/components/schemas/SafeRewriteResponse",
+        "summary": "Safely rewrite a document deterministically",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    }
+  },
+  "schemas": {
+    "AnonymizeResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "anonymization_mode",
+        "anonymized_text",
+        "document_hash",
+        "mapping_persisted",
+        "replacements",
+        "redacted_images",
+        "redacted_document"
+      ]
+    },
+    "BatchClassifyRequest": {
+      "properties": {
+        "items": {
+          "itemsRef": "#/components/schemas/ClassifyRequest",
+          "maxItems": 32,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "CitePublicSourceRequest": {
+      "properties": [
+        "text",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "document_type",
+        "review_profile",
+        "entity_id",
+        "include_suggestions",
+        "degraded_policy",
+        "surface",
+        "workflow",
+        "actor_role",
+        "recipient_domains",
+        "recipient_count",
+        "attachment_count",
+        "sensitivity_label",
+        "external_destination",
+        "requested_action",
+        "session_id",
+        "matter_id"
+      ],
+      "required": []
+    },
+    "CitePublicSourceResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "citation_policy",
+        "citations"
+      ],
+      "required": [
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document"
+      ]
+    },
+    "ClassifyRequest": {
+      "properties": {
+        "debug": {
+          "type": "boolean"
+        },
+        "entity_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "include_offending_spans": {
+          "type": "boolean"
+        },
+        "text": {
+          "maxLength": 100000,
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "DocumentScrubRequest": {
+      "properties": [
+        "document_base64",
+        "document_filename",
+        "document_mime_type"
+      ],
+      "required": [
+        "document_base64"
+      ]
+    },
+    "DocumentScrubResponse": {
+      "properties": [
+        "request_id",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "scrubbed",
+        "actions",
+        "metadata_findings",
+        "remaining_warnings"
+      ]
+    },
+    "HoldUntilPublicReasonResponse": {
+      "properties": [
+        "finding_id",
+        "user_reason",
+        "audit_rationale"
+      ],
+      "required": [
+        "finding_id",
+        "user_reason",
+        "audit_rationale"
+      ]
+    },
+    "HoldUntilPublicRequest": {
+      "properties": [
+        "text",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "document_type",
+        "review_profile",
+        "entity_id",
+        "include_suggestions",
+        "degraded_policy",
+        "surface",
+        "workflow",
+        "actor_role",
+        "recipient_domains",
+        "recipient_count",
+        "attachment_count",
+        "sensitivity_label",
+        "external_destination",
+        "requested_action",
+        "session_id",
+        "matter_id",
+        "allowed_actions",
+        "allowed_finding_ids"
+      ],
+      "required": []
+    },
+    "HoldUntilPublicResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "rewrite_policy",
+        "rewritten_text",
+        "document_hash",
+        "mapping_persisted",
+        "replacements",
+        "skipped_findings",
+        "hold_reasons"
+      ],
+      "required": [
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "rewritten_text",
+        "document_hash"
+      ]
+    },
+    "MosaicResponse": {
+      "properties": [
+        "entity_id",
+        "escalated",
+        "recent_event_count",
+        "unique_fragment_count",
+        "window_hours",
+        "threshold",
+        "escalation_reason",
+        "matched_event_ids"
+      ],
+      "required": [
+        "entity_id",
+        "escalated",
+        "recent_event_count",
+        "unique_fragment_count",
+        "window_hours",
+        "threshold"
+      ]
+    },
+    "ObservabilityResponse": {
+      "properties": [
+        "degraded",
+        "cache_status",
+        "active_pipeline",
+        "executed_layers",
+        "skipped_layers",
+        "layer_errors"
+      ]
+    },
+    "OffendingSpanResponse": {
+      "properties": [
+        "id",
+        "layer",
+        "rule",
+        "severity",
+        "matched_text",
+        "detail",
+        "start_char",
+        "end_char",
+        "start_line",
+        "start_column",
+        "end_line",
+        "end_column",
+        "is_exact",
+        "char_length",
+        "line_span",
+        "context_before",
+        "context_after",
+        "score",
+        "score_type",
+        "window_index",
+        "window_count",
+        "window_token_count",
+        "window_stride",
+        "window_max_seq_len"
+      ],
+      "required": [
+        "id",
+        "layer",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char",
+        "start_line",
+        "start_column",
+        "end_line",
+        "end_column",
+        "is_exact",
+        "char_length",
+        "line_span"
+      ]
+    },
+    "PseudonymizeResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "pseudonymized_text",
+        "anonymized_text",
+        "document_hash",
+        "mapping_persisted",
+        "mapping",
+        "replacements",
+        "redacted_images",
+        "redacted_document"
+      ]
+    },
+    "PublicSourceCitationResponse": {
+      "properties": [
+        "source_url",
+        "retrieval_timestamp",
+        "privacy_ledger_entry",
+        "finding_ids",
+        "audit_rationale"
+      ],
+      "required": [
+        "source_url",
+        "retrieval_timestamp",
+        "privacy_ledger_entry",
+        "audit_rationale"
+      ]
+    },
+    "RedactPiiRequest": {
+      "properties": [
+        "text",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "document_type",
+        "review_profile",
+        "entity_id",
+        "include_suggestions",
+        "degraded_policy",
+        "surface",
+        "workflow",
+        "actor_role",
+        "recipient_domains",
+        "recipient_count",
+        "attachment_count",
+        "sensitivity_label",
+        "external_destination",
+        "requested_action",
+        "session_id",
+        "matter_id",
+        "allowed_actions",
+        "allowed_finding_ids"
+      ],
+      "required": []
+    },
+    "RedactPiiResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "rewrite_policy",
+        "rewritten_text",
+        "document_hash",
+        "mapping_persisted",
+        "replacements",
+        "skipped_findings"
+      ],
+      "required": [
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "rewritten_text",
+        "document_hash"
+      ]
+    },
+    "RedactResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "redaction_style",
+        "redacted_text",
+        "document_hash",
+        "mapping_persisted",
+        "redactions",
+        "redacted_images",
+        "redacted_document"
+      ]
+    },
+    "ReidentifyRequest": {
+      "properties": [
+        "anonymized_text",
+        "mapping",
+        "document_hash"
+      ],
+      "required": [
+        "anonymized_text"
+      ]
+    },
+    "ReidentifyResponse": {
+      "properties": [
+        "request_id",
+        "text",
+        "replacement_count",
+        "timings_ms"
+      ]
+    },
+    "RequestApprovalRequest": {
+      "properties": [
+        "review_id",
+        "finding_ids",
+        "reason_code"
+      ],
+      "required": [
+        "review_id"
+      ]
+    },
+    "RequestApprovalResponse": {
+      "properties": [
+        "review_id",
+        "approval_status",
+        "requested_action",
+        "requested_finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "requester_id",
+        "requester_identity_source",
+        "seq",
+        "ts",
+        "hmac"
+      ],
+      "required": [
+        "review_id",
+        "requested_finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "seq",
+        "ts",
+        "hmac"
+      ]
+    },
+    "ReviewApprovalRequestState": {
+      "properties": [
+        "approval_status",
+        "finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "requester_id",
+        "requester_identity_source",
+        "seq",
+        "ts"
+      ],
+      "required": [
+        "finding_ids",
+        "required_reviewer_roles",
+        "required_policy_actor_roles",
+        "reason_code",
+        "seq",
+        "ts"
+      ]
+    },
+    "ReviewDecisionRequest": {
+      "properties": [
+        "finding_id",
+        "action",
+        "replacement_text",
+        "rationale",
+        "reviewer_id"
+      ],
+      "required": [
+        "finding_id",
+        "action"
+      ]
+    },
+    "ReviewDecisionResponse": {
+      "properties": [
+        "review_id",
+        "finding_id",
+        "action",
+        "reviewer_id",
+        "reviewer_identity_source",
+        "seq",
+        "ts",
+        "hmac"
+      ]
+    },
+    "ReviewResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms"
+      ]
+    },
+    "ReviewSessionFindingState": {
+      "properties": [
+        "id",
+        "category",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char",
+        "source",
+        "image_locator",
+        "image_ocr_confidence",
+        "image_ocr_regions",
+        "metadata",
+        "decision",
+        "decision_seq",
+        "decision_ts",
+        "decision_reviewer_id",
+        "decision_reviewer_identity_source"
+      ],
+      "required": [
+        "id",
+        "category",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char"
+      ]
+    },
+    "ReviewSessionStateResponse": {
+      "properties": [
+        "review_id",
+        "text_hash",
+        "document_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "decisions_recorded",
+        "audit_exports",
+        "pending_approvals",
+        "approvals_requested"
+      ]
+    },
+    "SafeRewriteReplacementResponse": {
+      "properties": [
+        "finding_id",
+        "action",
+        "category",
+        "rule",
+        "severity",
+        "start_char",
+        "end_char",
+        "replacement_text",
+        "original_text_hash"
+      ],
+      "required": [
+        "finding_id",
+        "action",
+        "category",
+        "rule",
+        "severity",
+        "start_char",
+        "end_char",
+        "replacement_text",
+        "original_text_hash"
+      ]
+    },
+    "SafeRewriteRequest": {
+      "properties": [
+        "text",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "document_type",
+        "review_profile",
+        "entity_id",
+        "include_suggestions",
+        "degraded_policy",
+        "surface",
+        "workflow",
+        "actor_role",
+        "recipient_domains",
+        "recipient_count",
+        "attachment_count",
+        "sensitivity_label",
+        "external_destination",
+        "requested_action",
+        "session_id",
+        "matter_id",
+        "allowed_actions",
+        "allowed_finding_ids"
+      ],
+      "required": []
+    },
+    "SafeRewriteResponse": {
+      "properties": [
+        "request_id",
+        "review_expires_at",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "degraded_policy",
+        "send_allowed",
+        "policy_decision",
+        "action_catalog",
+        "document",
+        "findings",
+        "lane_suppressed_count",
+        "lane_suppressed_findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "rewrite_policy",
+        "rewritten_text",
+        "document_hash",
+        "mapping_persisted",
+        "replacements",
+        "skipped_findings"
+      ],
+      "required": [
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "rewritten_text",
+        "document_hash"
+      ]
+    },
+    "SafeRewriteSkippedFindingResponse": {
+      "properties": [
+        "finding_id",
+        "reason"
+      ],
+      "required": [
+        "finding_id",
+        "reason"
+      ]
+    }
+  },
+  "tags": [
+    "Runtime",
+    "Classification",
+    "Anonymization",
+    "Documents"
+  ]
+}

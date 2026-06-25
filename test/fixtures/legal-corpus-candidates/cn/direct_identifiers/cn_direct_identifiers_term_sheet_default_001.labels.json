@@ -1,0 +1,455 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 26,
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 26,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91351234MA9T1Q6K2F",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00000000000000000X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13966661234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13755559876",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0751-66001234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "han.rui@emeraldharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@jadevector.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Suying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E00098765",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "440101198901018276",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6215880000123456",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 personal information (<14)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "outbound data transfer security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Standard Contract for cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited to onboarding and salary purposes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information before public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout list",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of 60% equity of Jade Vector Dynamics Co., Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13966661234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13755559876",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E00098765",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 60% equity of Jade Vector Dynamics Co., Ltd. by Emerald Harbor Robotics (Huaxing) Co., Ltd. (Unified Social Credit Code: 91351234MA9T1Q6K2F).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "510998",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "510999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "440101198901018276",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "66001234",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Contacts: Mr. Han Rui (Chairman), mobile 13966661234, email han.rui@emeraldharbor.example; Ms. Lin Suying (CFO), mobile 13755559876; registered office of Buyer: Room 2002, Building 5, Ziyun Tech Park, 128 Yuehe Road, Qingshan District, Huaxing City, Lingbei Province 510999",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "han.rui@emeraldharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13966661234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13755559876",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E00098765",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E00098765",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6215880000123456",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13966661234",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13755559876",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E00098765",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Suying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Rui",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Suying",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 60% equity of Jade Vector Dynamics Co., Ltd. by Emerald Harbor Robotics (Huaxing) Co., Ltd. (Unified Social Credit Code: 91351234MA9T1Q6K2F).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "510998",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "510999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "440101198901018276",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "66001234",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 60% equity of Jade Vector Dynamics Co., Ltd. by Emerald Harbor Robotics (Huaxing) Co., Ltd. (Unified Social Credit Code: 91351234MA9T1Q6K2F).\nSeller: Jade Vector Dynamics Co., Ltd. (Unified Social Credit Code: 00000000000000000X \u2014 placeholder, invalid checksum), registered address: Room 903, Tower C, 66 Yunhua Avenue, Qingshan District, Huaxing City, Lingbei Province 510998, PRC.\nContacts: Mr. Han Rui (Chairman), mobile 13966661234, email han.rui@emeraldharbor.example; Ms. Lin Suying (CFO), mobile 13755559876; registered office of Buyer: Room 2002, Building 5, Ziyun Tech Park, 128 Yuehe Road, Qingshan District, Huaxing City, Lingbei Province 510999.\nConsideration: RMB 220,000,000 cash plus 8,000,000 new shares of Emerald Harbor Robotics to be listed on the Huaxing Stock Exchange (HSE) Main Board; 12-month lock-up for management rollover.\nPayment mechanics: 10% deposit to escrow at Lingbei Qilin Commercial Bank, Huaxing City Branch (CNAPS: 323123000019; Account No.: 6215880000123456; SWIFT: QLCBCNHX; Account Name: Emerald Harbor Robotics (Huaxing) Co., Ltd.).\nRegulatory: filings with Huaxing City Securities & Futures Supervision Bureau (HCSFSB Filing Ref.: HCSFSB-MA-2026-017-Draft) and HSE issuer services; antitrust notification to Lingbei Provincial Market Supervision Administration.\nPIPL/CSL/DSL compliance: Parties will obtain separate informed consents; no processing of minors\u2019 personal information (<14); KYC placeholders include Resident ID No. 440101198901018276 (checksum invalid; not for identity verification) and Passport No. E00098765 (for travel booking only).\nCross-border data: any export of HR or customer data requires outbound data transfer security assessment by the Huaxing Cyberspace Administration and execution of the Standard Contract for cross-border transfer under HCA rules; encryption keys to be held by Buyer\u2019s data steward.\nEmployment: retention agreements for key employees; collection of payroll bank accounts and contact numbers limited to onboarding and salary purposes; HR form fields \u201cName: ____\u201d and \u201cID No: ____\u201d are templates only and are not PI until completed and signed.\nMNPI: this term sheet and accompanying financials constitute inside information before public disclosure on HSE; the parties will implement a trading blackout list and may seek a trading halt for Jade Vector Dynamics Co., Ltd. pending announcement.\nConditions precedent: verification of USCC and tax registration status of Seller; confirmation that the target is not a \u201ccritical data processor\u201d under DSL; completion of foreign exchange registration for consideration proceeds with the Huaxing Foreign Exchange Registration Center (HFERC), if applicable.\nCovenants: Seller to maintain ordinary-course employment workflows; Buyer may perform limited employee interviews (the CFO and department heads only) with personal contact details masked in transcripts, except where required by law.\nNotices: Buyer tel. 0751-66001234; for avoidance of doubt, public helpline 12345 and emergency number 110 must not be used for transaction communications; Seller service ema",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "128 Yuehe Road, Qingshan District, Huaxing City, Lingbei Province 510999",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term; not PII."
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term; not PII."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term; not PII."
+    },
+    {
+      "matched_text": "Name: ____",
+      "reason": "Generic template field; not personal data until completed."
+    },
+    {
+      "matched_text": "ID No: ____",
+      "reason": "Generic template field; not personal data until completed."
+    },
+    {
+      "matched_text": "12345",
+      "reason": "Public helpline number; not a personal phone number."
+    },
+    {
+      "matched_text": "110",
+      "reason": "Public emergency number; not a personal phone number."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "consent",
+      "matched_text": "separate informed consents",
+      "reason": "Consent language is privacy-relevant under PIPL but no explicit allowed rule except withdrawal."
+    },
+    {
+      "concept": "masked_cn_resident_id",
+      "matched_text": "44************8276",
+      "reason": "Masked PRC Resident ID appears PII-adjacent but not covered by specific allowed rules."
+    },
+    {
+      "concept": "trading_halt_pre_announcement",
+      "matched_text": "trading halt",
+      "reason": "Market control potentially MNPI-adjacent but not listed in allowed MNPI rules."
+    },
+    {
+      "concept": "lockup_period",
+      "matched_text": "12-month lock-up",
+      "reason": "Securities lock-up is market-relevant but not explicitly covered by allowed MNPI rules."
+    }
+  ]
+}

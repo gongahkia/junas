@@ -1,0 +1,319 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled PH Stage A strict labels to deterministic strict-mode findings after manual precision review; retained broader model-derived labels in ideal_must_detect. Narrow precision fixes covered completed DSAR/no-pending controls, PH benefit-ID/BankAcct/doccode phone bait, invalid/placeholder PH TIN, role mailboxes, training-control MNPI bait, and negated/explanatory MAC/MAE prose.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ph-stage-a-20260529",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved PH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T01:34:00Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T01:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ph-stage-a-reviewed.json",
+    "status": "owner_approved_ph_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "PH Stage B candidate label set has project-owner approval for internal benchmarking; prior strict tier remains detector-aligned and broader label breadth remains in ideal_must_detect. This is not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "walloffice@lakan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@lakan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "irmailbox@lakan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout training weeks",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no tipping or rumor-sharing",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list management",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list hygiene",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until filed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12 May security incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not circulate the draft MSE disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remediation vendor\u2019s commercial term sheet",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "as-yet-unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "as-yet-unannounced fee concessions",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must remain internal",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid including PII in attachments",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "use role codes (e.g., HRID-LDH-XXXX)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HRID-LDH-XXXX",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not upload any production bank data to test servers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AcctRef UAT-12-XX-7890",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de-identified scenarios",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Our issuer Lakan Digital Holdings, Inc. (LDH) prepares routine filings to the PH securities regulator and the Manila Securities Exchange, using internal reference SecRef PHL-LDH-000-TEST (invalid format).\nPII reminder: under PH data privacy rules, do not include staff names, addresses, or HR numbers in drafts; use role codes (e.g., HRID-LDH-XXXX) in insider lists circulated for training.\nCrypto product note: the \u201cBayanPay Token\u201d wallet shown in the marketing roadshow is a sandbox demo; no live issuance, no trading, and no investment solicitation.\nESG communication: the Climate Readiness Brochure v1.1 has been posted on our public website and contains only high-level goals, not performance metrics.\nCyber tabletop: the 3Q ransomware exercise uses simulated logs and de-identified scenarios; incident references in slides are educational examples, not current system events.\nInformation barriers: staff must route queries via the \u201cwall-crossing\u201d role mailbox walloffice@lakan.example during blackout training weeks; no tipping or rumor-sharing on external channels.\nBanking/tax operations: payroll UAT files use dummy accounts (AcctRef UAT-12-XX-7890) and mock tax ID placeholders; do not upload any production bank data to test servers.\nInsider-list management: the operations-only list \u201cOps-IL-Training-Jul\u201d is for tabletop drills and should not be used for trading restrictions.\nDo not circulate the draft MSE disclosure regarding the 12 May security incident affecting LDH\u2019s cloud gateway; until filed, the incident timeline and the remediation vendor\u2019s commercial term sheet are MNPI.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "BayanPay Token",
+      "reason": "Marketing sandbox demo; no live issuance or trading (not MNPI)."
+    },
+    {
+      "matched_text": "Climate Readiness Brochure v1.1",
+      "reason": "Publicly posted ESG content; not non-public or material."
+    },
+    {
+      "matched_text": "3Q ransomware exercise",
+      "reason": "Simulated tabletop example; not a live cyber incident."
+    },
+    {
+      "matched_text": "IPO",
+      "reason": "Generic training example; not an actual transaction or timetable."
+    },
+    {
+      "matched_text": "token listing",
+      "reason": "Generic training example; not an actual transaction or timetable."
+    },
+    {
+      "matched_text": "green bond",
+      "reason": "Generic training example; not an actual transaction or timetable."
+    },
+    {
+      "matched_text": "sandbox demo",
+      "reason": "Nonproduction context; not market-sensitive."
+    },
+    {
+      "matched_text": "marketing roadshow",
+      "reason": "Public-facing context; not non-public information."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "commercial terms MNPI",
+      "matched_text": "remediation vendor\u2019s commercial term sheet",
+      "reason": "Commercial-term content may be material and non-public but lacks explicit amounts; mapping beyond generic MNPI markers is unclear."
+    },
+    {
+      "concept": "account reference placeholder",
+      "matched_text": "AcctRef UAT-12-XX-7890",
+      "reason": "Looks like an account/customer identifier but explicitly a dummy placeholder; PII treatment may vary."
+    },
+    {
+      "concept": "employee ID placeholder",
+      "matched_text": "HRID-LDH-XXXX",
+      "reason": "Format resembles an employee identifier but is presented as an example; uncertain if it should trigger PII detectors."
+    },
+    {
+      "concept": "selective disclosure control",
+      "matched_text": "Do not circulate the draft MSE disclosure",
+      "reason": "Pre-filing circulation restriction implies selective disclosure risk; some detectors may not have a rule for this phrasing."
+    },
+    {
+      "concept": "insider list reference",
+      "matched_text": "insider-list hygiene",
+      "reason": "Subject-line reference to insider-list controls; detection depends on keyword heuristics and context sensitivity."
+    }
+  ]
+}

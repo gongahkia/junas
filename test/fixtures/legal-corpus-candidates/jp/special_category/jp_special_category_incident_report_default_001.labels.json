@@ -1,0 +1,450 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_special_category_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+81-50-1234-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Kurogane",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Keiko Yamada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sora Iwaki",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kurogane",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Yamada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor information",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected repositories included the virtual data room for Project AURORA (proposed acquisition of Morioka Robotics K.K.) and HR folder \u201cBenefits_2026.\u201d",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pending disclosure controls: treat the acquisition data as undisclosed enumerated material facts under FIEA and suspend all employee trading approvals and board member pre-clearances via the Insider List Portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mitigation steps include resetting service credentials, disabling legacy Sango IDS bypass rules, rotating KikuDrive share links, and expediting the \u201cA-17 APPI Data Minimization\u201d policy review; any later patches would be closing the barn door after the horse has bolted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project AURORA",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 2,450",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Morioka Robotics K.K",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft tender-offer (TOB) terms",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List Portal",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "suspend all employee trading approvals and board member pre-clearances",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know basis",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "service account compromise",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Riku Yamada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@hoshizora-am.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hoshizora-am.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "facial-recognition templates used for building entry",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic screening results (carrier status)",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vaccination certificates",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dialysis appointment reminders",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "temple roster entries for the H\u014dgetsu Fellowship",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "membership in the Shin-Hikari Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A-17 APPI Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "***-****-****",
+      "rule": "jp_my_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+81-50-1234-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Kurogane",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Keiko Yamada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sora Iwaki",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Keiko Yamada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kurogane",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Yamada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor information",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected repositories included the virtual data room for Project AURORA (proposed acquisition of Morioka Robotics K.K.) and HR folder \u201cBenefits_2026.\u201d",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pending disclosure controls: treat the acquisition data as undisclosed enumerated material facts under FIEA and suspend all employee trading approvals and board member pre-clearances via the Insider List Portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mitigation steps include resetting service credentials, disabling legacy Sango IDS bypass rules, rotating KikuDrive share links, and expediting the \u201cA-17 APPI Data Minimization\u201d policy review; any later patches would be closing the barn door after the horse has bolted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project AURORA",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 2,450",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected repositories included the virtual data room for Project AURORA (proposed acquisition of Morioka Robotics K.K.) and HR folder \u201cBenefits_2026.\u201d\nUndisclosed materials possibly exfiltrated include draft tender-offer (TOB) terms (indicative price JPY 2,450 per share, planned launch window 2026-07-15) and a not-yet-public board resolution approving the schedule\u2014facts deemed material under FIEA until disclosure.\nThe extraordinary board minutes included named voting records by directors and an internal note from Mr. Daichi Kurogane (CFO) regarding funding via a bridge line from Seisei Trust Bank and staggered settlement mechanics.\nFrom HR data, files contain personal data under APPI, such as Ms. Keiko Yamada\u2019s masked Individual Number (My Number, format ***-****-****), facial-recognition templates used for building entry, and genetic screening results (carrier status) from a voluntary wellness program\u2014biometric and genetic categories.\nAlso present were care-leave applications identifying minor information for Master Riku Yamada (age 12), including vaccination certificates and school contact notes, and union dues auto-deduction records indicating Mr. Sora Iwaki\u2019s membership in the Shin-Hikari Workers Union.\nA subtle subset of calendars listed Ms. Keiko Yamada\u2019s dialysis appointment reminders and temple roster entries for the H\u014dgetsu Fellowship, which combined may reveal health status and religious belief.\nNo payment card data was stored, but a folder of perks included Shin-Tama Comets baseball ticket allocations and travel itineraries for Akashima City, which are not sensitive but may aid social engineering.\nWe have notified the Higashi Capital Markets Surveillance Office and the Self-Regulatory Committee of the Shin-Tokyo Securities Association on a voluntary basis; a confidential inquiry from the exchange is anticipated.\nPending disclosure controls: treat the acquisition data as undisclosed enumerated material facts under FIEA and suspend all employee trading approvals and board member pre-clearances via the Insider List Portal.\nMitigation steps include resetting service credentials, disabling legacy Sango IDS bypass rules, rotating KikuDrive share links, and expediting the \u201cA-17 APPI Data Minimization\u201d policy review; any later patches would be closing the barn door after the horse has bolted.\nOur DEI policy Inclusive Horizons reiterates that sexual orientation and religion are respected in the workplace, but this statement is general and not linked to any person.\nFor data subjects, contact channel is privacy@hoshizora-am.example.jp or +81-50-1234-0000; for investors, contact ir@hoshizora-am.example.jp.\nMr. Kurogane will convene an emergency call with outside counsel and the Independent Special Committee to assess whether a corrective disclosure is required prior to the planned AURORA timetable.\nThis report is internal to Hoshizora Advanced Materials K.K. and Morioka Robotics K.K., and not yet public; onward sharing to third parties including vendors of NimbusGate WAF shall be on a need-to-know basis.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined descriptor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Inclusive Horizons",
+      "reason": "Policy name; generic DEI prose"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI statement not linked to a person"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic DEI statement not linked to a person"
+    },
+    {
+      "matched_text": "Shin-Tama Comets",
+      "reason": "Sports team; non-sensitive bait"
+    },
+    {
+      "matched_text": "Akashima City",
+      "reason": "Place name; non-PII bait"
+    },
+    {
+      "matched_text": "AomoriShield EDR",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "NimbusGate WAF",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "Kikyo SSO",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "Sango IDS",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "KikuDrive",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "Independent Special Committee",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Self-Regulatory Committee",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role title; not PII"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "jp_my_number",
+      "matched_text": "***-****-****",
+      "reason": "Masked placeholder implies a My Number but lacks actual digits; may not be captured by strict ID pattern"
+    },
+    {
+      "concept": "ip_address",
+      "matched_text": "overseas IP",
+      "reason": "Refers to an IP location without an actual numeric IP address value"
+    },
+    {
+      "concept": "personal data in governance records",
+      "matched_text": "named voting records by directors",
+      "reason": "Indicates identifiable voting records but no specific person names are provided"
+    }
+  ]
+}

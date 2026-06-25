@@ -1,0 +1,401 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0415",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Kemp",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia Rowe",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "t.rowe+temp@postmail.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@aurifirm-log.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@aurifirm-log.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@csic.gov.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID: EID\u20119O0l\u2011l",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mobile 04xx 517 3x9",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 1300 5",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "d a r i u s . k e m p @aurifirm-log.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HHM-83-24x",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HHM member HHM\u201183\u201124x",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "BSB 76\u201112\u20110x",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "acct 12345\u20116x",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "**** **** **** 8472",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CL\u201188I\u201100l",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN 58 123 456 0x1",
+      "rule": "au_abn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3\u20135%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Not for external release",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before market open Thu 04-Jun-2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "likely to be price\u2011sensitive",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid selective briefing",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading policy blackout (01-Jul to FY results on 26-Aug-2026)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward outside need\u2011to\u2011know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not respond to investor approaches except via Investor Relations",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no \u201copen briefing\u201d until lodgement",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the credential leakage and forecast impact in this report have not been disclosed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading halt",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be requested if",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not share externally",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "241 employees",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "33 contractors",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.1GB",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "500 records",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0415",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "58 123 456 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "t.rowe+temp@postmail.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@aurifirm-log.com.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "58 123 456 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 1300 5",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Kemp",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia Rowe",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "58 123 456 0x1 (fictional).\nOn 14-May a credential-stuffing attack via Kwalta Systems Pty Ltd (vendor) led to unauthorised access to our billing SFTP; 3.1GB of files were exfiltrated before isolation at 02:11.\nExfiltrated content includes PII (names, emails, mobile numbers) for 241 employees and 33 contractors; two files contained partial private insurer details (Harbour Health Mutual member nos. HHM-83-24x) and masked card tokens (**** **** **** 8472).\nPreliminary finance impact: delayed invoicing and churn risk indicate a Q4 revenue shortfall of 3\u20135%; this is not generally available information and is likely to be price\u2011sensitive for AFLX.\nContinuous disclosure assessment under Corporations Act s674 and ALEX Listing Rule 3.1/3.1A: while investigations are incomplete, management proposes an announcement before market open Thu 04-Jun-2026; avoid selective briefing during the trading policy blackout (01-Jul to FY results on 26-Aug-2026).\nPublic-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.\nAt this time the incident is not expected to constitute a material adverse change to long-term operations; however, a trading halt may be requested if platform downtime exceeds 72h or if customer data validation expands beyond 500 records.\nKnowledge of the above constitutes MNPI for issuer AFLX under s1042D; do not forward outside need\u2011to\u2011know, and do not respond to investor approaches except via Investor Relations; no \u201copen briefing\u201d until lodgement.\nPII specifics (examples): Mr. Darius Kemp, Chief Risk Officer \u2014 mobile 04xx 517 3x9; email d a r i u s . k e m p @aurifirm-log.com.au; Ms. Tahlia Rowe (casual driver) \u2014 EID: EID\u20119O0l\u2011l, HHM member HHM\u201183\u201124x, personal email t.rowe+temp@postmail.example.\nTransaction artefacts accessed: vendor invoices INV\u20112026\u20111l8 and INV\u20112026\u20111I9, supplier bank refs BSB 76\u201112\u20110x / acct 12345\u20116x; client acct CL\u201188I\u201100l and shipment IDs S H P \u2011 2 0 2 6 \u2011 0 4 3 3.\nOperational note (benign): fleet telematics product \u201cFleetTrack lite\u201d and warehouse WMS v4.2 are functioning normally; north coast newswire\u2019s overnight article on a freeway closure is unrelated.\nWorkstream: triage complete; draft investor text in progress; remediation run\u2011book owners @ secops to schedule patch window; follow up with Kwalta; this is ordinary pm\u2011sprint cadence, not a MAC trigger.\nInternal links: https://portal.aurifirm-log.com.au/tickets/INC?ref=AFSEC-2026-0415&uid=T%20Rowe and http://intranet.local/teams/risk/secops?page=aflx&mode=private (do not share externally).\nContact: security@aurifirm-log.com.au; Investor queries to investor.relations@aurifirm-log.com.au; hotline +61 1300 5",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A U R I F I R M  L O G I S T I C S  H O L D I N G S  L T D \u2014 Confidential Incident Report (Cyber) \u2014 Not for external release.\n02-Jun-2026 21:10 AEST; internal Ref AFSEC-2026-0415; issuer on ALEX (Australis Listed Exchange) code AFLX; ABN 58 123 456 0x1 (fictional).\nOn 14-May a credential-stuffing attack via Kwalta Systems Pty Ltd (vendor) led to unauthorised access to our billing SFTP; 3.1GB of files were exfiltrated before isolation at 02:11.\nExfiltrated content includes PII (names, emails, mobile numbers) for 241 employees and 33 contractors; two files contained partial private insurer details (Harbour Health Mutual member nos. HHM-83-24x) and masked card tokens (**** **** **** 8472).\nPreliminary finance impact: delayed invoicing and churn risk indicate a Q4 revenue shortfall of 3\u20135%; this is not generally available information and is likely to be price\u2011sensitive for AFLX.\nContinuous disclosure assessment under Corporations Act s674 and ALEX Listing Rule 3.1/3.1A: while investigations are incomplete, management proposes an announcement before market open Thu 04-Jun-2026; avoid selective briefing during the trading policy blackout (01-Jul to FY results on 26-Aug-2026).\nPublic-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.\nAt this time the incident is not expected to constitute a material adverse change to long-term operations; however, a trading halt may be requested if platform downtime exceeds 72h or if customer data validation expands beyond 500 records.\nKnowledge of the above constitutes MNPI for issuer AFLX under s1042D; do not forward outside need\u2011to\u2011know, and do not respond to investor approaches except via Investor Relations; no \u201copen briefing\u201d until lodgement.\nPII specifics (examples): Mr. Darius Kemp, Chief Risk Officer \u2014 mobile 04xx 517 3x9; email d a r i u s . k e m p @aurifirm-log.com.au; Ms. Tahlia Rowe (casual driver) \u2014 EID: EID\u20119O0",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Darius Kemp, Chief Risk Officer",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC reference; do not label negated MAC/MAE mentions"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "negated MAC context; not a positive MAC/MAE trigger"
+    },
+    {
+      "matched_text": "FleetTrack lite",
+      "reason": "product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "WMS v4.2",
+      "reason": "software/version string; not PII/MNPI"
+    },
+    {
+      "matched_text": "ALEX\u20112026\u201100981",
+      "reason": "already\u2011public announcement identifier; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "user identifier in URL",
+      "matched_text": "uid=T%20Rowe",
+      "reason": "Looks like a user ID in a query string; no specific allowed rule for this identifier type"
+    },
+    {
+      "concept": "internal case identifier",
+      "matched_text": "AFSEC-2026-0415",
+      "reason": "Internal incident/ticket reference; may be sensitive but not clearly covered by an allowed rule"
+    },
+    {
+      "concept": "statute citation",
+      "matched_text": "Corporations Act s674",
+      "reason": "Regulatory citation relevant to disclosure obligations; not an allowed MNPI marker"
+    },
+    {
+      "concept": "listing rule citation",
+      "matched_text": "ALEX Listing Rule 3.1/3.1A",
+      "reason": "Exchange rules reference; important for disclosure but not covered by allowed MNPI rules"
+    },
+    {
+      "concept": "insider trading statute citation",
+      "matched_text": "s1042D",
+      "reason": "Legal basis for MNPI; not itself an allowed MNPI marker"
+    }
+  ]
+}

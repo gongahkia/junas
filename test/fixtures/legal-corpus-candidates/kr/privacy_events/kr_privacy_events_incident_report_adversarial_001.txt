@@ -1,0 +1,16 @@
+Operational Incident Report — Hanseo Infra Materials Co., Ltd. (internal issuer code HIM/001; Jeonguk Securities Board main board)
+2026-06-04 09:30 KST; contact: dpo@hanseoinfra.example
+During vendor onboarding of Sunpine HR Suite v12, a misconfigured SFTP account exposed a staging export for 23 minutes; access logs show two internal pulls, no external IPs.
+Data involved: names (romanized), work emails, joining dates; no resident registration numbers were processed; a placeholder R RN mask “73 06-1*****” existed in one test row only.
+We did not capture MAC addresses, GPS, or device fingerprints in this workflow, and the staging dataset contained no payroll or bank-account fields.
+A cross-border transfer to Hanseo Infra Singapore Pte. under Data Export Approval DEX-19 was queued but auto-halted by policy at 07:12 KST; the export remained in ‘pending’ and did not transmit.
+Mr. Seung-ho Chae withdrew consent for overseas processing on 2026-05-30 via the onboarding form; we honored the withdrawal and logged it (C-LOG#cw/058) before the sandbox was created.
+DSAR DS-003/24 from Ms. Ji‑eun Park was verified and fulfilled; see https://dsar.hanseoinfra.example/request?id=DS-003%2F24&step=verify (status: closed).
+Vendor confirmed erasure from primary and backups at 2026-06-02 18:00 KST; chain-of-custody receipt: https://export.hanseoinfra.example/approve?id=EX-7a4c%2F19.
+Retention for onboarding test data is reduced from 30 to 7 days; Schedule 1 (Minimisation) to DPA-2026-004 updated; field “temp_resno” removed from forms effective immediately.
+Under FSCMA assessment, the incident does not contain important non-public information; investor relations posted a brief on 2026-06-03, and this does not affect the publicly announced “Project Doryeong” vendor consolidation (2026-05-20).
+We filed a courtesy notice to the listing oversight at Jeonguk Securities Board and received a no‑action email from Baecheon Supervisory Service at 12:40 KST (fictional bodies).
+Cross-border transfer approvals remain suspended for Sunpine HR until completion of DPA Schedule 3 audit; this is a completed control and not indicative of an ongoing privacy risk.
+policy note: do not connect staging to prod; no change to encryption at rest; these are standard controls only and do not introduce new processing.
+Internal QA confirms employment-only scope; no deal-room, M&A, or treasury files were co-located; public-source links in the IR note are for context only.
+EmpID H I M - 0 1 9 2 8; u-at:INC/24/117a; subproc list v2.4 (see DPA Sched.2); c o n t a c t: dpo@hanseoinfra.example.

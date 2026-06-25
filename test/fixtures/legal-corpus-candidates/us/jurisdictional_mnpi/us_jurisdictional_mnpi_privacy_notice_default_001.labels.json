@@ -1,0 +1,396 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "US Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 2
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 30,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 17,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 2,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@northbridgehf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacylegal@northbridgehf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian Eames",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Owen Sato",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI in scope includes draft earnings tables, preliminary loan loss reserves, unannounced payer-rate terms, and undisclosed clinic divestiture plans; the Processor shall segregate MNPI and prevent unauthorized use or disclosure consistent with Rule 10b-5 and Reg FD principles.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst model reconciliation requests must rely solely on metrics in public filings or the earnings deck; any \u201cwhisper\u201d ranges or draft segment margin breakouts are MNPI and must not be shared selectively.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Company will honor verifiable consumer requests under CCPA (access, deletion, correction) via dsar@northbridgehf.com within 45 days, subject to identity verification and applicable exemptions (e.g., legal holds, audit logs, fraud prevention).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@northbridgehf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@northbridgehf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the Processor shall process only the minimum necessary",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The Company will honor verifiable consumer requests under CCPA (access, deletion, correction) via dsar@northbridgehf.com within 45 days, subject to identity verification and applicable exemptions (e.g., legal holds, audit logs, fraud prevention)",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: data will be hosted in the United States; any transfer to approved subprocessors in Canada will require equivalent safeguards and prior notice via our Subprocessor List",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited: interactions with analysts, lenders, or buy-side contacts must occur only via the Company\u2019s Public Disclosure Officer (Mr. Julian Eames) or Investor Relations, and only using information that is public or concurrently made public",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced payer-rate terms",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be shared selectively",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "from two weeks before quarter-end until the close of the first business day after the earnings call",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the Processor shall segregate MNPI and prevent unauthorized use or disclosure",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "interactions with analysts, lenders, or buy-side contacts must occur only via the Company\u2019s Public Disclosure Officer (Mr. Julian Eames) or Investor Relations, and only using information that is public or concurrently made public",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no external communications may be made without Company approval to avoid inadvertent Reg FD violations",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "route any time-sensitive communications to Investor Relations for Reg FD review",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Selective disclosure is prohibited: interactions with analysts, lenders, or buy-side contacts must occur only via the Company\u2019s Public Disclosure Officer (Mr. Julian Eames) or Investor Relations, and only using information that is public or concurrently made public.\nDuring quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.\nInformation is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Selective disclosure is prohibited: interactions with analysts, lenders, or buy-side contacts must occur only via the Company\u2019s Public Disclosure Officer (Mr. Julian Eames) or Investor Relations, and only using information that is public or concurrently made public.\nDuring quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.\nInformation is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026.\nAnalyst model reconciliation requests must rely solely on metrics in public filings or the earnings deck; any \u201cwhisper\u201d ranges or draft segment margin breakouts are MNPI and must not be shared selectively.\nStale public content (e.g., the 2019 capital allocation slide deck archived on our website) remains public and does not convert into MNPI by age or lack of recent mention.\nOperational notices from non-issuer vendors (e.g., Crescent Analytics changing helpdesk hours) are not MNPI unless they reveal a material, non-public impact on the Company\u2019s performance.\nFor HIPAA-covered work, the Processor shall act as Business Associate, execute a BAA, and apply safeguards to PHI; for GLBA NPPI related to Rivermoor Bank customers, the Processor shall use data solely to perform services and not for cross-context behavioral advertising.\nThe Company will honor verifiable consumer requests under CCPA (access, deletion, correction) via dsar@northbridgehf.com within 45 days, subject to identity verification and applicable exemptions (e.g., legal holds, audit logs, fraud prevention).\nRetention: MNPI and PII shall be retained only per the Company\u2019s schedule (generally seven years for financial records, six years for designated medical records) or longer if subject to a legal hold; disposal must be irreversible and logged.\nCross-border transfers: data will be hosted in the United States; any transfer to approved subprocessors in Canada will require equivalent safeguards and prior notice via our Subprocessor List.\nThe Processor shall promptly notify the Company of any security incident affecting PII or MNPI and cooperate with investigations; no external communications may be made without Company approval to avoid inadvertent Reg FD violations.\nGovernance and audit: the Processor will train personnel on MNPI/PII handling, support audits on 30 days\u2019 notice, and maintain records of processing to evidence compliance.\nContacts: Privacy Officer (Ms. Rhea Calder) at privacy@northbridgehf.com and Privacy Counsel (Dr. Owen Sato) at privacylegal@northbridgehf.com",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar@northbridgehf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacylegal@northbridgehf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian Eames",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rhea Calder",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Owen Sato",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI in scope includes draft earnings tables, preliminary loan loss reserves, unannounced payer-rate terms, and undisclosed clinic divestiture plans; the Processor shall segregate MNPI and prevent unauthorized use or disclosure consistent with Rule 10b-5 and Reg FD principles.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Analyst model reconciliation requests must rely solely on metrics in public filings or the earnings deck; any \u201cwhisper\u201d ranges or draft segment margin breakouts are MNPI and must not be shared selectively.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The Company will honor verifiable consumer requests under CCPA (access, deletion, correction) via dsar@northbridgehf.com within 45 days, subject to identity verification and applicable exemptions (e.g., legal holds, audit logs, fraud prevention).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northbridge Health & Finance Holdings, Inc. (the \u201cCompany\u201d) \u2014 Data Processing Addendum (US MNPI/PII Annex) for services provided to the Company\u2019s healthcare and banking lines of business.\nPII in scope includes information reasonably linkable to a consumer, household, or patient under CCPA, HIPAA PHI, and GLBA nonpublic personal information; the Processor shall process only the minimum necessary and maintain role-based access controls.\nMNPI in scope includes draft earnings tables, preliminary loan loss reserves, unannounced payer-rate terms, and undisclosed clinic divestiture plans; the Processor shall segregate MNPI and prevent unauthorized use or disclosure consistent with Rule 10b-5 and Reg FD principles.\nSelective disclosure is prohibited: interactions with analysts, lenders, or buy-side contacts must occur only via the Company\u2019s Public Disclosure Officer (Mr. Julian Eames) or Investor Relations, and only using information that is public or concurrently made public.\nDuring quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.\nInformation is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026.\nAnalyst model reconciliation requests must rely solely on metrics in public filings or the earnings deck; any \u201cwhisper\u201d ranges or draft segment margin breakouts are MNPI and must not be shared selectively.\nStale public content (e.g., the 2019 capital allocation slide deck archived on our website) remains public and does not convert into MNPI by age or lack of recent mention.\nOperational notices from non-issuer vendors (e.g., Crescent Analytics changing helpdesk hours) are not MNPI unless they reveal a material, non-public impact on the Company\u2019s performance.\nFor HIPAA-covered work, the Processor shall act as Business Associate, execute a BAA, and apply safeguards to PHI; for GLBA NPPI related to Rivermoor Bank customers, the Processor shall use data solely to perform services and not for cross-context behavioral advertising.\nThe Company will honor verifiable consumer requests under CCPA (access, deletion, correction) via dsar@northbridgehf.com within 45 days, subject to identity verification and applicable exemptions (e.g., legal holds, audit logs, fraud prevention).\nRetention: MNPI and PII shall be retained only per the Company\u2019s schedule (generally seven years for financial records, six years for designated medical records) or longer if subject to a legal hold; disposal must be irreversible and logged.\nCross-border transfers: data will be hosted in the United States; any transfer to approved subprocessors in Canada will require equivalent safeguards and prior notice via our Subprocessor List.\nThe Processor shall promptly notify the Company of any security incident affecting PII or MNPI and cooperate with investigations; no external communications may be made without Company approval to avoid inadvertent Reg FD violations.\nGovernance and audit: the Processor will train personnel on MNPI/PII handling, support audits on 30 days\u2019 notice, and maintain records of processing to evidence compliance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "During quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.\nInformation is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian Eames) or Investor Relations, and only using information that is public or concurrently made public.\nDuring quiet periods and trading blackout windows (from two weeks before quarter-end until the close of the first business day after the earnings call), the Processor shall defer external-facing outputs and route any time-sensitive communications to Investor Relations for Reg FD review.\nInformation is deemed public when broadly disseminated by press release, posted to the Company\u2019s IR page, or filed/furnished on a Current Report on Form 8\u2011K; for example, the closing of the Oakview Clinic acquisition was publicly reported on April 3, 2026 under Item 2.01, and Q1 results were summarized in a press release dated April 10, 2026.\nAnalyst model reconciliation requests must rely solely on metrics in public filings or the earnings deck; any \u201cwhisper\u201d ranges or draft segment margin breakouts are MNPI and must not be shared selectively.\nStale public content (e.g., the 2019 capital allocation slide deck archived on our website) remains public and does not convert into MNPI by age or lack of recent mention.\nOperational notices from non-issuer vendors (e.g., Crescent Analytics changing helpdesk hours) are not MNPI unless they reveal a material, non-public impact on the Company\u2019s performance.\nFor HIPAA-covered work, the Processor shall act as Business Associate, execute a BAA, and apply safeguards to PHI; for GLBA NPPI related to Rivermoor Bank customers, the Processor shall use data solely to perform services and not for cross-context behavioral advertising.\nThe Company will honor verifiable consumer requests under CCPA (access, deletion, correction) via dsar@northbridgehf.com within 45 days, subject to identity verification and applicable exemptions (e.g., legal holds, audit logs, fraud prevention).\nRetention: MNPI and PII shall be retained only per the Company\u2019s schedule (generally seven years for financial records, six years for designated medical records) or longer if subject to a legal hold; disposal must be irreversible and logged.\nCross-border transfers: data will be hosted in the United States; any transfer to approved subprocessors in Canada will require equivalent safeguards and prior notice via our Subprocessor List.\nThe Processor shall promptly notify the Company of any security incident affecting PII or MNPI and cooperate with investigations; no external communications may be made without Company approval to avoid inadvertent Reg FD violations.\nGovernance and audit: the Processor will train personnel on MNPI/PII handling, support audits on 30 days\u2019 notice, and maintain records of processing to evidence compliance.\nContacts: Privacy Officer (Ms. Rhea Calder) at privacy@northbridgehf.com and Privacy Counsel (Dr. Owen Sato) at privacylegal@northbridgehf.com",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Public Disclosure Officer",
+      "reason": "Role-noun title, not PII/MNPI"
+    },
+    {
+      "matched_text": "Investor Relations",
+      "reason": "Role/function reference, not PII/MNPI value"
+    },
+    {
+      "matched_text": "Privacy Officer",
+      "reason": "Role-noun title, not PII/MNPI"
+    },
+    {
+      "matched_text": "Privacy Counsel",
+      "reason": "Role-noun title, not PII/MNPI"
+    },
+    {
+      "matched_text": "Current Report on Form 8\u2011K",
+      "reason": "Public filing reference; not MNPI by itself"
+    },
+    {
+      "matched_text": "press release dated April 10, 2026",
+      "reason": "Public disclosure reference; not MNPI"
+    },
+    {
+      "matched_text": "Item 2.01",
+      "reason": "8\u2011K item indicator; publicly filed"
+    },
+    {
+      "matched_text": "Oakview Clinic acquisition",
+      "reason": "Publicly reported transaction reference"
+    },
+    {
+      "matched_text": "2019 capital allocation slide deck",
+      "reason": "Stale public content; not MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "blackout/quiet period reference",
+      "matched_text": "quiet periods",
+      "reason": "Quiet periods function like blackout windows but term-matching may not be covered by current blackout rules."
+    },
+    {
+      "concept": "HIPAA Business Associate role",
+      "matched_text": "act as Business Associate",
+      "reason": "Legally significant designation under HIPAA; not an enumerated PII/MNPI rule."
+    },
+    {
+      "concept": "HIPAA BAA requirement",
+      "matched_text": "execute a BAA",
+      "reason": "Indicates Business Associate Agreement obligation; not an enumerated detection rule."
+    },
+    {
+      "concept": "GLBA customer data category",
+      "matched_text": "Rivermoor Bank customers",
+      "reason": "References a regulated customer group without specific identifiers; may implicate GLBA but not a defined PII rule here."
+    },
+    {
+      "concept": "embargo/gating of external communications",
+      "matched_text": "the Processor shall defer external-facing outputs",
+      "reason": "Operational gating during sensitive periods; resembles embargo control though not using canonical embargo terms."
+    },
+    {
+      "concept": "tipping/analyst guidance risk",
+      "matched_text": "\u201cwhisper\u201d ranges",
+      "reason": "Indicative of selective guidance risk under Reg FD; no explicit tipping keyword."
+    },
+    {
+      "concept": "MNPI content examples",
+      "matched_text": "draft earnings tables",
+      "reason": "Pre-release financial information is MNPI contextually but not tied to a specific MNPI rule term."
+    },
+    {
+      "concept": "financial estimate MNPI",
+      "matched_text": "preliminary loan loss reserves",
+      "reason": "Forward-looking reserve estimates are MNPI contextually; lacks a specific rule token like a dollar amount."
+    }
+  ]
+}

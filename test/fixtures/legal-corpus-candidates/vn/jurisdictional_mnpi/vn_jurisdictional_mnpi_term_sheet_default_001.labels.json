@@ -1,0 +1,432 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the VN Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "VN",
+  "doc_id": "vn_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nguyen Van Truong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Le Thi Minh Chau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "truong.nguyen@haivanridgecap.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chau.le@daisonenergy.com.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 90 4567 881",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 28 3720 9981",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NPB-ESC-004927",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 1,200,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 22,500 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 24,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is permitted only to potential investors under NDA",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exceeding 10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 15,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subscription of VND 1,200,000,000,000 convertible bonds and acquisition of 15% secondary shares from founding shareholders; closing in one tranche",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to appraisal and SSC clearance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer insiders and deal team are subject to a giao d\u1ecbch n\u1ed9i b\u1ed9 blackout from signing until HOSE CBTT is posted, and during the 10-day period before Q2 financial statements are disclosed under SSC rules",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The transaction will increase charter capital and may alter control thresholds",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer engages in selective disclosure contrary to CBTT regulations",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Escrow release at T+2 after SSC receipt of placement notice",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSC registration of private placement",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of VND 1,200,000,000,000 convertible bonds and acquisition of 15% secondary shares from founding shareholders; closing in one tranche.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure status and MNPI: As of the date hereof, the conversion terms and acquisition structure are non-public; selective disclosure is permitted only to potential investors under NDA; public announcement via HOSE CBTT portal within 24 hours of EGM resolution.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: No change of control prior to completion; no dividend beyond ordinary course; confidentiality of personal data in deal files per Decree 13 on personal data protection and internal codes HVRC-INV-572 and DSE-TEAM-104.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 22,500",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "truong.nguyen@haivanridgecap.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chau.le@daisonenergy.com.vn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 90 4567 881",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+84 28 3720 9981",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nguyen Van Truong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Le Thi Minh Chau",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Subscription of VND 1,200,000,000,000 convertible bonds and acquisition of 15% secondary shares from founding shareholders; closing in one tranche.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure status and MNPI: As of the date hereof, the conversion terms and acquisition structure are non-public; selective disclosure is permitted only to potential investors under NDA; public announcement via HOSE CBTT portal within 24 hours of EGM resolution.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: No change of control prior to completion; no dividend beyond ordinary course; confidentiality of personal data in deal files per Decree 13 on personal data protection and internal codes HVRC-INV-572 and DSE-TEAM-104.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 1,200,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 22,500",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 24,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "VND 15,000,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.75%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,500",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Investment by Hai Van Ridge Capital Co., Ltd. into Dai Son Energy Joint Stock Company (Vietnam)\nTransaction: Subscription of VND 1,200,000,000,000 convertible bonds and acquisition of 15% secondary shares from founding shareholders; closing in one tranche.\nPricing: Bonds at par, 6.75% coupon, conversion price VND 22,500 per share; secondary shares at VND 24,000; subject to appraisal and SSC clearance.\nUse of proceeds: Fund Phase II of Ninh Phu wind farm and repay short-term debt; proceeds held in escrow at Nam Phong River Bank JSC, Escrow Code NPB-ESC-004927.\nConditions precedent: Board and EGM approvals of Dai Son Energy, HOSE disclosure (CBTT), SSC registration of private placement, and customary legal opinions.\nDisclosure status and MNPI: As of the date hereof, the conversion terms and acquisition structure are non-public; selective disclosure is permitted only to potential investors under NDA; public announcement via HOSE CBTT portal within 24 hours of EGM resolution.\nBlackout window: Issuer insiders and deal team are subject to a giao d\u1ecbch n\u1ed9i b\u1ed9 blackout from signing until HOSE CBTT is posted, and during the 10-day period before Q2 financial statements are disclosed under SSC rules.\nMateriality: The transaction will increase charter capital and may alter control thresholds; management assesses a price-sensitive impact exceeding 10% of market cap relative to recent trading on HOSE.\nCounsel: Lead contact Mr. Nguyen Van Truong, Hai Van Ridge Capital (truong.nguyen@haivanridgecap.vn; +84 90 4567 881), and Issuer contact Ms. Le Thi Minh Chau, Dai Son Energy (chau.le@daisonenergy.com.vn; +84 28 3720 9981).\nPublic reference: Dai Son Energy\u2019s 2025 Annual Report and dividend plan were publicly filed on HOSE CBTT on 12 April 2026 (Ref. CBTT-DS-AR-2026); this information is stale and does not constitute MNPI.\nNegative precision check: A broad press release from the Ministry of Industry about national wind targets (dated last year) is unrelated to issuer-specific MNPI and should not guide trading decisions.\nOperational note (non-issuer): Hai Van Ridge Capital upgraded its billing system in May; this internal vendor change is not issuer information and is not material to Dai Son Energy securities.\nClosing mechanics: Escrow release at T+2 after SSC receipt of placement notice; share transfers recorded on the VSD registry; HOSE public disclosure to follow immediately after registry update.\nCovenants: No change of control prior to completion; no dividend beyond ordinary course; confidentiality of personal data in deal files per Decree 13 on personal data protection and internal codes HVRC-INV-572 and DSE-TEAM-104.\nTermination: If SSC refuses registration or HOSE requires remedial disclosures, parties may terminate without penalty; break fee VND 15,000,000,000 if issuer engages in selective disclosure contrary to CBTT regulations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "founding shareholders",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Issuer insiders",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "deal team",
+      "reason": "Generic role; not PII"
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Generic role noun; not PII"
+    },
+    {
+      "matched_text": "Counsel",
+      "reason": "Role heading; not PII"
+    },
+    {
+      "matched_text": "Lead contact",
+      "reason": "Role phrase; not PII"
+    },
+    {
+      "matched_text": "Issuer contact",
+      "reason": "Role phrase; not PII"
+    },
+    {
+      "matched_text": "Ref. CBTT-DS-AR-2026",
+      "reason": "Public filing reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "HOSE CBTT",
+      "reason": "Exchange portal reference; not MNPI by itself"
+    },
+    {
+      "matched_text": "A broad press release from the Ministry of Industry about national wind targets (dated last year)",
+      "reason": "Public, non-issuer information; not MNPI"
+    },
+    {
+      "matched_text": "HVRC-INV-572",
+      "reason": "Internal code; not personal data or MNPI"
+    },
+    {
+      "matched_text": "DSE-TEAM-104",
+      "reason": "Internal code; not personal data or MNPI"
+    },
+    {
+      "matched_text": "Ninh Phu wind farm",
+      "reason": "Project/asset reference; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "VN",
+  "uncertain": [
+    {
+      "concept": "disclosure timing",
+      "matched_text": "public announcement via HOSE CBTT portal within 24 hours of EGM resolution",
+      "reason": "Local disclosure-timing obligation may be market-sensitive but not covered by explicit allowed markers"
+    },
+    {
+      "concept": "materiality assessment",
+      "matched_text": "management assesses a price-sensitive impact exceeding 10% of market cap relative to recent trading on HOSE",
+      "reason": "Indicates material event significance; mapping to a specific MNPI rule is semantically inferred rather than pattern-based"
+    },
+    {
+      "concept": "privacy compliance marker",
+      "matched_text": "confidentiality of personal data in deal files per Decree 13 on personal data protection",
+      "reason": "Data protection duty is relevant to PII handling but not one of the enumerated privacy-event markers"
+    }
+  ]
+}

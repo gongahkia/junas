@@ -1,0 +1,43 @@
+code = "AE"
+label = "United Arab Emirates"
+pii_rules = ["AE_PDPL_PERSONAL_DATA", "AE_PDPL_SENSITIVE_CONTEXT"]
+mnpi_rules = ["AE_SCA_INSIDER_TRADING"]
+references = [
+    "UAE Federal Decree-Law 45/2021 (PDPL) Articles 1, 15, 22",
+    "UAE Data Office Resolution 1/2023",
+    "DIFC Data Protection Law 2020",
+    "ADGM Data Protection Regulations 2021",
+]
+aliases = ["AE", "UAE", "UNITED ARAB EMIRATES"]
+
+# UAE Emirates ID — 15-digit national identifier with 784 country prefix
+# (UAE ISO-3166 numeric). Format 784-YYYY-NNNNNNN-N (with or without dashes).
+# Government checksum algorithm not publicly documented; validator enforces
+# format + 784-prefix.
+[[recognizers]]
+name = "UAE Emirates ID"
+rule_name = "ae_emirates_id"
+pattern = '(?:Emirates\s+ID(?:\s+No\.?)?|EID(?:\s+No\.?)?|بطاقة\s+الهوية)[\s:.#-]*((?:784-\d{4}-\d{7}-\d)|784\d{12})\b'
+severity = "high"
+reason = "UAE Emirates ID number — national identifier (784 country prefix)"
+capture_group = 1
+validator = "ae_emirates_id"
+
+# UAE Trade Licence — DED / DMCC / ADGM / DIFC commercial licence number.
+# Format is issuer-specific; anchor strictly on issuer context.
+[[recognizers]]
+name = "UAE Trade Licence"
+rule_name = "ae_trade_licence"
+pattern = '(?:Trade\s+Licen[cs]e(?:\s+No\.?)?|Commercial\s+Licen[cs]e(?:\s+No\.?)?|\bDED\b|\bDMCC\b|ADGM\s+Licence|DIFC\s+Licence)[\s:.#\-\u2010-\u2015]*(?!contact\b|image\b|images\b|copy\b|excerpt\b)(?-i:((?=[A-Z0-9\-\u2010-\u2015]{4,30}\b)(?=[A-Z0-9\-\u2010-\u2015]*\d)[A-Z0-9][A-Z0-9\-\u2010-\u2015]{3,29}))\b'
+severity = "medium"
+reason = "UAE Trade / commercial licence number"
+capture_group = 1
+
+# UAE Passport — single uppercase letter + 8 digits. Format-only.
+[[recognizers]]
+name = "UAE Passport"
+rule_name = "ae_passport"
+pattern = '(?:UAE\s+Passport(?:\s+No\.?|\s+Number)?|Emirati\s+Passport)[\s:.#-]*([A-Z]\d{8})\b'
+severity = "high"
+reason = "UAE passport number"
+capture_group = 1

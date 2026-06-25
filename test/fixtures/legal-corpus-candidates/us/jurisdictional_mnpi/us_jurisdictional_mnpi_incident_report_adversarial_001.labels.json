@@ -1,0 +1,302 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 18,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 4,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.quist@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hews",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential\u2011stuffing attack with limited data exfiltration.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Counsel guidance: until broad dissemination, discussions should occur only in closed sessions; avoid partial metrics in one\u2011on\u2011one meetings to prevent Reg FD issues; Rule 10b\u20115 cautions apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Cyber Incident Brief",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential\u2011stuffing attack",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "limited data exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist (CISO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to analysts is prohibited under Reg FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the blackout window remains in effect for designated insiders until two full trading days after the 8\u2011K is furnished (expected T+1)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1\u2011800\u2011000\u2011AHBX",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not share these details with sell\u2011side or buy\u2011side analysts prior to public dissemination",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hews (VP, IR)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid partial metrics in one\u2011on\u2011one meetings to prevent Reg FD issues",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "discussions should occur only in closed sessions",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist, CISO",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "first name + clinic + masked DOB",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "name + phone",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Pt\u2011ID N9 3 1 . 2 0",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Acct ref: \u2022\u202271 44",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal mirror, not pub\u2011 lic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Item 1.05 Form 8\u2011K",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until two full trading days after the 8\u2011K is furnished (expected T+1)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "session cookies rotated 06:11 ET",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSO \u201cHarborGate\u201d patch v2.8 deployed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft for Board/IR",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell\u2011side or buy\u2011side analysts",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.quist@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hews",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential\u2011stuffing attack with limited data exfiltration.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Counsel guidance: until broad dissemination, discussions should occur only in closed sessions; avoid partial metrics in one\u2011on\u2011one meetings to prevent Reg FD issues; Rule 10b\u20115 cautions apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential\u2011stuffing attack with limited data exfiltration.\nPotential PII/PHI exposure: approx. 37 patient scheduling entries (first name + clinic + masked DOB) and 22 retail\u2011banking contact records (name + phone; no account balances, no SSNs); sample log token: Pt\u2011ID N9 3 1 . 2 0 / Appt: C\u20111427 / Acct ref: \u2022\u202271 44.\nWe are treating this as ma\u2011terial nonpublic information until we furnish an Item 1.05 Form 8\u2011K and issue a broadly disseminated press release; selective disclosure to analysts is prohibited under Reg FD",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "All time stamps: ET; archive tag: IR\u2011CY\u20112025\u20110914; contact escalation: Dr. Lenora Quist, CISO, l.quist@ardenahealthbank.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential\u2011stuffing attack with limited data exfiltration.\nPotential PII/PHI exposure: approx. 37 patient scheduling entries (first name + clinic + masked DOB) and 22 retail\u2011banking contact records (name + phone; no account balances, no SSNs); sample log token: Pt\u2011ID N9 3 1 . 2 0 / Appt: C\u20111427 / Acct ref: \u2022\u202271 44.\nWe are treating this as ma\u2011terial nonpublic information until we furnish an Item 1.05 Form 8\u2011K and issue a broadly disseminated press release; selective disclosure to analysts is prohibited under Reg FD.\nIR plans a same\u2011day webcast; per our insider trading policy, the blackout window remains in effect for designated insiders until two full trading days after the 8\u2011K is furnished (expected T+1).\nThis event does not involve wire transfers or customer transactions; core deposits and loan systems are operational; not expected to result in a material adverse change to Q3 results based on information currently available.\nAs previously disclosed in our Q2 Form 10\u2011Q filed 2025\u201108\u201109 and in the 05/02/2025 press release regarding multifactor rollout, our security roadmap and expected expenditures were publicly described.\nUnder HIPAA and GLBA, individual notices will be sent if scope confirms contact data use; draft notices prepared, placeholder contact: privacy@ardenahealthbank.example and 1\u2011800\u2011000\u2011AHBX.\nDo not share these details with sell\u2011side or buy\u2011side analysts prior to public dissemination; external queries should be routed to Mr. Calder Hews (VP, IR) via ir@ardenahealthbank.example.\nInvestor\u2011facing language will avoid customer counts until validated; we will provide a range if necessary and furnish (not file) under Item 7.01 for talking points, with a follow\u2011up filing under Item 1.05 if thresholds met.\nForensic status: hash of suspect IP list 0x3F_57; session cookies rotated 06:11 ET; SSO \u201cHarborGate\u201d patch v2.8 deployed; task ref ops\u2011sec: hb\u20111249; more logs at https://ir.ardenahealthbank.example/sec-filings/2025/8k-item105?rid=Q9a3x (internal mirror, not pub\u2011 lic).\nTwo red\u2011team look\u2011alike events from 2024 were already summarized in our 2024 Form 10\u2011K risk factors, which are public and should not be treated as MNPI; do not conflate those with this live incident.\nHR note: no employee addresses or payroll data touched; training reminder to avoid password reuse; product codenames \u201cNimbus Vault\u201d and \u201cElm Fax\u201d remain in pilot; lower\u2011case project mgmt: backlog grooming wed, owners: tbd.\nCounsel guidance: until broad dissemination, discussions should occur only in closed sessions; avoid partial metrics in one\u2011on\u2011one meetings to prevent Reg FD issues; Rule 10b\u20115 cautions apply.\nAll time stamps: ET; archive tag: IR\u2011CY\u20112025\u20110914; contact escalation: Dr. Lenora Quist, CISO, l.quist@ardenahealthbank.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential\u2011stuffing attack with limited data exfiltration.\nPotential PII/PHI exposure: approx. 37 patient scheduling entries (first name + clinic + masked DOB) and 22 retail\u2011banking contact records (name + phone; no account balances, no SSNs); sample log token: Pt\u2011ID N9 3 1 . 2 0 / Appt: C\u20111427 / Acct ref: \u2022\u202271 44.\nWe are treating this as ma\u2011terial nonpublic information until we furnish an Item 1.05 Form 8\u2011K and issue a broadly disseminated press release; selective disclosure to analysts is prohibited under Reg FD.\nIR plans a same\u2011day webcast; per our insider trading policy, the blackout window remains in effect for designated insiders until two full trading days after the 8\u2011K is furnished (expected T+1).\nThis event does not involve wire transfers or customer transactions; core deposits and loan systems are operational; not expected to result in a material adverse change to Q3 results based on information currently available.\nAs previously disclosed in our Q2 Form 10\u2011Q filed 2025\u201108\u201109 and in the 05/02/2025 press release regarding multifactor rollout, our security roadmap and expected expenditures were publicly described.\nUnder HIPAA and GLBA, individual notices will be sent if scope confirms contact data use; draft notices prepared, placeholder contact: privacy@ardenahealthbank.example and 1\u2011800\u2011000\u2011AHBX.\nDo not share these details with sell\u2011side or buy\u2011side analysts prior to public dissemination; external queries should be routed to Mr. Calder Hews (VP, IR) via ir@ardenahealthbank.example.\nInvestor\u2011facing language will avoid customer counts until validated; we will provide a range if necessary and furnish (not file) under Item 7.01 for talking points, with a follow\u2011up filing under Item 1.05 if thresholds met.\nForensic status: hash of suspect IP list 0x3F_57; session cookies rotated 06:11 ET; SSO \u201cHarborGate\u201d patch v2.8 deployed; task ref ops\u2011sec: hb\u20111249; more logs at https://ir.ardenahealthbank.example/sec-filings/2025/8k-item105?rid=Q9a3x (internal mirror, not pub\u2011 lic).\nTwo red\u2011team look\u2011alike events from 2024 were already summarized in our 2024 Form 10\u2011K risk factors, which are public and should not be treated as MNPI; do not conflate those with this live incident.\nHR note: no employee addresses or payroll data touched; training reminder to avoid password reuse; product codenames \u201cNimbus Vault\u201d and \u201cElm Fax\u201d remain in pilot; lower\u2011case project mgmt: backlog grooming wed, owners: tbd.\nCounsel guidance: until broad dissemination, discussions should occur only in closed sessions; avoid partial metrics in one\u2011on\u2011one meetings to prevent Reg FD issues; Rule 10b\u20115 cautions apply.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "appointment_identifier",
+      "matched_text": "Appt: C\u20111427",
+      "reason": "Appointment code could be PHI-linked but not clearly covered by a specific allowed PII rule."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "rid=Q9a3x",
+      "reason": "Looks like an internal request/session identifier in a URL but not explicitly labeled as such."
+    },
+    {
+      "concept": "internal_record_id",
+      "matched_text": "IR\u2011CY\u20112025\u20110914",
+      "reason": "Archive tag may be an internal tracking identifier not directly linked to a person."
+    }
+  ]
+}

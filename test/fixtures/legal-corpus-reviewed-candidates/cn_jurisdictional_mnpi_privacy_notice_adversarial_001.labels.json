@@ -1,0 +1,286 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_jurisdictional_mnpi_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/jurisdictional_mnpi/cn_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 4,
+    "old_ideal_must_detect_count": 25,
+    "old_must_detect_count": 4,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@hx-nanorobo.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li Yuyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Guoliang",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u672a\u6ee114\u5468\u5c81\u672a\u6210\u5e74\u4eba\u4fe1\u606f",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u672a\u6ee114\u5468\u5c81\u6570\u636e",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u64a4\u56de\u540c\u610f",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u8de8\u5883\u63d0\u4f9b\uff1a",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u6700\u5c0f\u5fc5\u8981\u539f\u5219",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9ed1\u7a97\u671f",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u5f00\u4fe1\u606f",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9009\u62e9\u6027\u62ab\u9732",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u77e5\u60c5\u4eba\u540d\u518c",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u91cd\u5927\u4e8b\u9879",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91Z3 10FA KE12 3456 7Q",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "41 02 20 19 01 01 12 34 56 7 X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "32 01 19 90 07 15 00 2 3 4 X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u300a\u4e2a\u4eba\u4fe1\u606f\u51fa\u5883\u6807\u51c6\u5408\u540c\uff08\u8bd5\u884c\uff09\u300b",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "C A C\u5907\u6848\u4e2d",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u6700\u5c0f\u5b57\u6bb5",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u62ab\u9732\u65e5\u524d30\u65e5",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u62ab\u9732\u65e5\u524d10\u65e5",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u4e25\u683c\u9650\u77e5",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u53ef\u80fd\u5f71\u54cd\u6295\u8d44\u8005\u51b3\u7b56\u7684\u91cd\u5927\u4e8b\u9879",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u6545\u610f\u62ab\u9732",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 3456 7",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "12 3456 7",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Guoliang",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u77e5\u60c5\u4eba\u540d\u518c\u7ba1\u7406\uff1a\u5217\u793a\u59d3\u540d\u3001\u8eab\u4efd\u8bc1\u53f7\uff08\u8131\u654f\uff09\u3001\u5c97\u4f4d\u3001\u63a5\u89e6\u65f6\u95f4\uff1b\u793a\u4f8b\uff1aMr. Zhao Guoliang\uff08ID\uff1a32 01 19 90 07 15 00 2 3 4 X\uff09\uff0c\u5185\u63a7\u7f16\u53f7HXNR-MNPI-2025-A12\uff1b\u540d\u518c\u52a0\u5bc6\u5b58\u653e\u5e76\u6309\u9700\u5ba1\u8ba1\u7559\u75d5\u3002",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u91cd\u5927\u4e0d\u5229\u53d8\u5316\uff08MAC\uff09",
+      "reason": "Negated MAC reference; exclude per rule 8 (no-MAC)."
+    },
+    {
+      "matched_text": "\u53d1\u884c\u4eba",
+      "reason": "Role noun/defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u4f9b\u5e94\u5546",
+      "reason": "Role noun/defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "not for trading",
+      "reason": "Generic disclaimer; not an allowed embargo marker."
+    },
+    {
+      "matched_text": "Orion-\u03b2",
+      "reason": "Not a transaction codename of the form 'Project <Name>'."
+    },
+    {
+      "matched_text": "KCB-2025-\u4e34-099",
+      "reason": "Public filing reference; excluded from MNPI per negative target."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "abc123",
+      "reason": "Appears as a DSAR request token in URL; could be an internal/request ID but not clearly covered by current strict rules."
+    },
+    {
+      "concept": "insider_list_id",
+      "matched_text": "HXNR-MNPI-2025-A12",
+      "reason": "Internal control/insider list entry identifier; relevant to insider list management but not an explicit allowed rule value."
+    }
+  ]
+}

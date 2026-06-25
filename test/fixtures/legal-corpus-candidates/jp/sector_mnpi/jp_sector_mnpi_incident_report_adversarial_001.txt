@@ -1,0 +1,16 @@
+Internal Incident Report — Kawatori Nexus K.K. — 2026-06-03 09:20 JST — Confidential (取締役会資料)
+Subject: preliminary cyber incident affecting ESG data room and DPT custody; F I E A-sensitive details regarding proposed acquisition of GreenArc K.K. (Project SUMIRE).
+On 2026-06-02 23:14 our SOC observed anomalous egress from bucket “esg-room-prj-sumire” and relay host “dpt-nx-4a7-**-**”; board materials and deal calendars were accessed.
+Exfiltrated drafts include a sustainability-linked loan term sheet with 15bps margin step-up if Scope 2 > 28ktCO2e, and a slide proposing tender-offer window 07/22–08/05; these facts remain undisclosed to FDAEX and not public under FIEA.
+We have expanded the insider list (内部者名簿) to six em ployees in Group Treasury and erected an information barrier (クリーンチーム/Chinese wall); a blackout window applies until remedial disclosure.
+One HR CSV contained masked 個人番号 (e.g., ****-****-****) tied to three applicants; although redacted, under APPI (個人情報保護法) we are treating as personal data and have purged copies.
+No customer crypto-asset balances moved; “SangoVault” relayer keys were revoked and non-public security-token pilot nodes were isolated from FDAEX connectivity.
+Root cause points to a compromised contractor login for Ishiguro Rina-san (outsourced IT), account u.ishiguro+prj@kawatori-nexus.example.jp, via reused NekoDrive SSO token.
+Immediate actions: rotate SSO secrets, invalidate VPN certs, patch jump boxes, and notify DPT ops; do not forward deal decks outside the ring-fenced folder.
+Contact for this incident: Mr. Tadashi Mori-san, CISO, security@kawatori-nexus.example.jp, https://intra.kawatori-nexus.example.jp/ir?doc=PR0J-SUM1RE&tok=7d3%2F%2F.
+We will consider voluntary 報告 to the local exchange’s cyber desk within 24h, and assess whether a corrective press release is required if the tender schedule changes under FIEA Article 167 guidance.
+At this time, no material adverse change has occurred and no MAC clause is invoked in the GreenArc financing; public TCFD benchmarks cited were drawn from open sources.
+Our ESG newsletter explains insider lists, information barriers, and selective disclosure risks; it is educational content and not a disclosure of any transaction.
+marketing will host a webinar on “crypto custody resilience” using sanitized logs only; no mention of Project SUMIRE, tender-offer facts, or commercial terms will be included.
+todo: check if the board meeting on fri needs an updated blackout memo; assign drafting to Riku Aoyagi-san and confirm clean-team roster.
+Recovered log shows: GET /sumire/Board_v1  .p d f 200 from 10.28.5.13 at 23:14:05; referrer h t t p s : / / f i l e s . k a w a t o r i - n e x u s . e x a m p l e . j p /dpt/wallet?node=nx-4a7.

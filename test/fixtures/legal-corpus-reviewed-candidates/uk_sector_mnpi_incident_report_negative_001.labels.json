@@ -1,0 +1,256 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_sector_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_sector_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 15,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 9,
+    "previous_must_detect_count": 5,
+    "previous_must_not_detect_count": 8
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "infosec@northsidecap.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an insider list has been opened",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a targeted blackout applies",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorised access to a non-production API supporting analytics for a sustainability-linked note pilot, ahead of a not-yet-announced RNS",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-announced RNS",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The following item is subject to UK MAR controls until assessed by Legal and Compliance",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no external communication should be made",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no financial impact estimate is authorised for discussion",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "including consideration of an RNS if materiality is determined",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transition Plan",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transition Plan",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2013 Operational/Cyber Update (UK issuer context), 14:00 BST\nNorthside Capital plc (listed on the Brindle Exchange) issues this internal operational note for compliance and risk monitoring.\nThis advisory contains training and process content; references to blackout windows, insider lists, crypto, and commercial terms in this document are primarily educational and not price sensitive on their own.\nThis morning a marketing microsite for our RiverToken Rewards demo wallet briefly presented a certificate chain error; the site holds no live client data and normal service was restored within 22 minutes.\nAn ESG/climate tabletop exercise on scenario modelling concluded with no changes to our publicly disclosed 2025 Transition Plan; all metrics referenced are already on our website.\nInformation barriers (Chinese walls) between Research and Corporate Broking remained effective; no wall crossings occurred and staff completed refresher e-learning on UK MAR tipping prohibitions.\nThe following item is subject to UK MAR controls until assessed by Legal and Compliance.\nPreliminary forensic review indicates unauthorised access to a non-production API supporting analytics for a sustainability-linked note pilot, ahead of a not-yet-announced RNS; an insider list has been opened and a targeted blackout applies to directly involved staff.\nBased on current logs, no customer PII has been exfiltrated; records in the affected environment were synthetic and the UK GDPR notification threshold is not met at this time, pending external counsel review.\nCommercial terms with our vendor Greybanks Quant Systems Ltd are unaffected under the existing MSA; no external communication should be made and no financial impact estimate is authorised for discussion.\nOur Crypto Services brochure includes a section titled \u201cInsider Lists and Information Barriers\u201d for client education only; it does not refer to any live deal or issuer event.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Insider Lists and Information Barriers",
+      "reason": "Educational section title; not a live MNPI event."
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Training context reference; not price sensitive."
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Training context reference; not price sensitive."
+    },
+    {
+      "matched_text": "ISIN: ZZ00-000-TEST",
+      "reason": "Placeholder/invalid identifier; not MNPI."
+    },
+    {
+      "matched_text": "TIDM: NSDP",
+      "reason": "Placeholder/invalid identifier; not MNPI."
+    },
+    {
+      "matched_text": "MSA",
+      "reason": "Generic contract acronym; not an allowed definitive agreement rule."
+    },
+    {
+      "matched_text": "RiverToken Rewards",
+      "reason": "Marketing/demo context; not MNPI."
+    },
+    {
+      "matched_text": "Crypto Services brochure",
+      "reason": "Educational/marketing material; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "The following item is subject to UK MAR controls until assessed by Legal and Compliance",
+      "reason": "Indicates non-public handling under UK MAR, but not a standard explicit embargo phrase."
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "no external communication should be made",
+      "reason": "Internal communication restriction suggests selective disclosure control but not a canonical rule phrase."
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "no financial impact estimate is authorised for discussion",
+      "reason": "Controls on discussing impact imply MNPI handling but phrasing may be outside strict patterns."
+    },
+    {
+      "concept": "material_event",
+      "matched_text": "sustainability-linked note pilot",
+      "reason": "Could indicate a deal/instrument pilot relevant to investors, but materiality not explicit."
+    },
+    {
+      "concept": "regulatory_escalation_nonpublic",
+      "matched_text": "We have not notified the FCA at this stage",
+      "reason": "Signals ongoing non-public assessment and potential future disclosure without a direct rule trigger."
+    }
+  ]
+}

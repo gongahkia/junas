@@ -1,0 +1,320 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_special_category_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/special_category/my_special_category_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_special_category_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_special_category_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ALPHA-207",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This note explains how we handle personal data under PDPA 2010 and insider information under CMSA 2007/Bursa Listing Requirements for employment, financing, and deal support.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "901231",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@mentarinexus.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@mentarinexus.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a clinic certificate stating a hypertension diagnosis",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Recruitment files are retained 12 months",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "are purged on sight",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deleted after 90 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "emails, chats, and drives are culled per the Harimau Integrity Code and the Records Policy 3.4",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft covenants under negotiation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers to our Teluk Seri Shared Services Center in \u201cMSIA-2\u201d occur using standard data protection clauses and are logged",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-ALPHA-207",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "staff member K.A. Reka (HR file: EMP-ALPHA-207)",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll 7 years",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bursa announcement working papers 6 years",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Legal holds under CMSA investigations pause deletion",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "segregated to prevent inadvertent disclosure",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal-room drafts referencing AuroraPay or Cendana ERP pilots are tagged as confidential",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider information under CMSA 2007/Bursa Listing Requirements",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Role-based access applies",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We do not collect data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hypertension diagnosis",
+      "rule": "health_condition"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ALPHA-207",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This note explains how we handle personal data under PDPA 2010 and insider information under CMSA 2007/Bursa Listing Requirements for employment, financing, and deal support.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "901231",
+      "rule": "large_number"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Rainbow Inclusion Charter",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Everyone can kick goals like the Kuala Meranti Tigers",
+      "reason": "Generic DEI metaphor; not personal data"
+    },
+    {
+      "matched_text": "Kuala Meranti Tigers",
+      "reason": "Sports team; not personal data"
+    },
+    {
+      "matched_text": "AuroraPay",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Cendana ERP",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Harimau Integrity Code",
+      "reason": "Policy/code name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Records Policy 3.4",
+      "reason": "Policy reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bursa LINK",
+      "reason": "Platform name; not MNPI on its own"
+    },
+    {
+      "matched_text": "MSIA-2",
+      "reason": "Internal location code; not PII"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "my_mykad",
+      "matched_text": "IC: 901231-14-999X",
+      "reason": "Looks like Malaysian IC but includes a letter and is cited as invalid; would not match strict MyKad pattern"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "Account: 0000-1234-XX",
+      "reason": "Masked/invalid account example; not a strict bank account number but contextually sensitive"
+    },
+    {
+      "concept": "named individual",
+      "matched_text": "K.A. Reka",
+      "reason": "Identifies a person but lacks honorific/signature block required by named_person rule"
+    },
+    {
+      "concept": "biometric_identifier",
+      "matched_text": "biometric scans",
+      "reason": "Sensitive biometric modality mentioned in a negation; relevant to special-category processing but not an actual biometric datum"
+    },
+    {
+      "concept": "data subject access request",
+      "matched_text": "DSARs",
+      "reason": "Privacy-rights process marker; relevant but no explicit allowed rule label beyond consent_withdrawal_marker"
+    }
+  ]
+}

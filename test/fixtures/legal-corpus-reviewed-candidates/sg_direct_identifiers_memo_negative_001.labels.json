@@ -1,0 +1,384 @@
+{
+  "_agent_review": {
+    "notes": "Removed second-pass false-positive labels, added must-not suppressions, and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-agent-cleanup-pass",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "second_pass_blockers_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Agent-assisted detector-aligned cleanup: accepted valid engine findings into must_detect, removed strict role-mailbox expectations, and preserved human approval as pending.",
+      "reviewer": "codex-agent-review",
+      "source_report": "/tmp/kaypoh-sg-stage-a-detector-cleanup.json",
+      "status": "technical_reviewed_pending_human_approval"
+    },
+    {
+      "notes": "Second-pass GPT-style review found label-quality blockers; do not promote or mark human-approved until labels/detectors are edited and a real human reviewer approves.",
+      "reviewer": "codex-gpt-agent-second-pass",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "second_pass_needs_edit_pending_human_approval"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SG Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T02:30:40Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-agent-second-pass",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-agent-second-pass",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SG Stage A cleanup: must_detect is strict detector-aligned benchmark truth after second-pass false-positive removal; ideal_must_detect preserves broader statutory gaps. Project-owner approval is for internal benchmarking, not legal advice or external procurement claims.",
+  "_label_tiers_version": "sg-stage-a-retune-2026-05-28",
+  "_label_warnings": [
+    "drop must_detect: invalid Singapore UEN shape rule='sg_uen' text='UEN 201912345K'",
+    "drop must_detect: invalid Singapore UEN shape rule='sg_uen' text='UEN 202045678Z'",
+    "drop must_not_detect: valid Singapore NRIC/FIN should be must_detect text='S1234567A'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T02:30:40Z",
+    "accepted_by": "gongahkia",
+    "basis": "User explicitly instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sg-after-detector-cleanup.json",
+    "status": "owner_approved_sg_stage_a_for_internal_benchmarking"
+  },
+  "_owner_acceptance_history": [
+    {
+      "accepted_at_utc": "2026-05-29T01:41:07Z",
+      "accepted_by": "gongahkia",
+      "basis": "User stated the GPT-5.5-style agent review is sufficient for their purposes; this is not human legal review and does not satisfy the human-review promotion gate.",
+      "source_report": "/tmp/kaypoh-sg-agent-second-pass-review.json",
+      "status": "owner_accepted_agent_review_for_experimental_use"
+    }
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_direct_identifiers_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-29T02:30:40Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_negative_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_direct_identifiers_memo_negative_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "VEL0",
+      "rule": "sg_sgx_counter"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of OrchidPay Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1.42",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 17:30 SGT, 28 Jun 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adrian.khoo@velorise.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6100 2211",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "K9876543Q",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "G1234567N",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward outside the Deal Room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Do not collect copies of physical NRICs except as permitted by PDPC Advisory",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pre-sound investors under wall-crossing will sign PDPA-compliant NDAs",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any pricing ranges or break fees discussed constitute MNPI even if circulated verbally",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mask addresses to block level only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "999999",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "delete \u201cName: ______\u201d form scans lacking purpose",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kestrel",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tan",
+      "rule": "named_person"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "S$1.42",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "adrian.khoo@velorise.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6100 2211",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "K9876543Q",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "G1234567N",
+      "rule": "sg_nric_fin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "999999",
+      "rule": "sg_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kestrel",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201912345K",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "202045678Z",
+      "rule": "sg_uen"
+    },
+    {
+      "category": "PII",
+      "matched_text": "123-456-789-0",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed acquisition of OrchidPay Pte. Ltd. (UEN 202045678Z) and related employment/PDPA considerations; Board review under SFA/SGX disclosure controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Acquisition escrow to be opened at East Harbor Bank (SG), account 123-456-789-0 in the name of Velorise Holdings Ltd.; treasury contact ap@velorise.com.sg.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "201912345K)\nSubject: Proposed acquisition of OrchidPay Pte. Ltd. (UEN 202045678Z) and related employment/PDPA considerations; Board review under SFA/SGX disclosure controls.\nIndicative offer price S$1.42 per share and expected completion in Q4 FY2026 constitute MNPI under the SFA; embargo until 17:30 SGT, 28 Jun 2026 pursuant to SGX Listing Manual Rule 703.\nDeal team lead: Mr. Adrian Khoo, c/o Velorise Legal, adrian.khoo@velorise.com.sg, +65 6100 2211; role-only contact: Company Secretary, cosec@velorise.com.sg.\nFor KYC at the arranger bank, Mr. Adrian Khoo (Passport No. K9876543Q) and Ms. Liora Tan (FIN G1234567N) will provide certified copies; do not forward outside the Deal Room.\nHR onboarding at OrchidPay requires NRIC/FIN collection\u2014template field \u201cNRIC/FIN: S1234567A\u201d is a placeholder with an invalid checksum and must not be retained.\nGeneral enquiries 1800 000 0000 is a public helpline and not personal data; similarly, \u201cAccount No.: 00000000\u201d on forms is a generic label.\nTransfer of undertakings will trigger consent/notification to employees and contractors; role-only titles (e.g., HR Manager, CFO) may be used in notices without naming individuals.\nPre-sound investors under wall-crossing will sign PDPA-compliant NDAs; any pricing ranges or break fees discussed constitute MNPI even if circulated verbally.\nAcquisition escrow to be opened at East Harbor Bank (SG), account 123-456-789-0 in the name of Velorise Holdings Ltd.; treasury contact ap@velorise.com.sg.\nDo not collect copies of physical NRICs except as permitted by PDPC Advisory; mask addresses to block level only (e.g., 15 Veloria Lane, #12-01, Singapore 999999) in drafts.\nThe vendor\u2019s public help desk help@orchidpay.com and +65 6100 0000 are not MNPI; avoid mixing with deal correspondence.\nMaintain access logs in iBunker DMS; delete \u201cName: ______\u201d form scans lacking purpose and confirm retention schedule (12 months for unsuccessful candidates).\nPrepare holding statement referencing \u201cProject Kestrel\u201d without figures; high-level market commentary may be included if not linked to the offer.\nBoard approval will be by circular resolution; declarations of interest to note Ms. Tan",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal legal memorandum \u2014 Velorise Holdings Ltd. (SGX-ST Mainboard; Ticker: VEL0; UEN 201912345K)\nSubject: Proposed acquisition of OrchidPay Pte. Ltd. (UEN 202045678Z) and related employment/PDPA considerations; Board review under SFA/SGX disclosure controls.\nIndicative offer price S$1.42 per share and expected completion in Q4 FY2026 constitute MNPI under the SFA; embargo until 17:30 SGT, 28 Jun 2026 pursuant to SGX Listing Manual Rule 703.\nDeal team lead: Mr. Adrian Khoo, c/o Velorise Legal, adrian.khoo@velorise.com.sg, +65 6100 2211; role-only contact: Company Secretary, cosec@velorise.com.sg.\nFor KYC at the arranger bank, Mr. Adrian Khoo (Passport No. K9876543Q) and Ms. Liora Tan (FIN G1234567N) will provide certified copies; do not forward outside the Deal Room.\nHR onboarding at OrchidPay requires NRIC/FIN collection\u2014template field \u201cNRIC/FIN: S1234567A\u201d is a placeholder with an invalid checksum and must not be retained.\nGeneral enquiries 1800 000 0000 is a public helpline and not personal data; similarly, \u201cAccount No.: 00000000\u201d on forms is a generic label.\nTransfer of undertakings will trigger consent/notification to employees and contractors; role-only titles (e.g., HR Manager, CFO) may be used in notices without naming individuals.\nPre-sound investors under wall-crossing will sign PDPA-compliant NDAs; any pricing ranges or break fees discussed constitute MNPI even if circulated verbally.\nAcquisition escrow to be opened at East Harbor Bank (SG), account 123-456-789-0 in the name of Velorise Holdings Ltd.; treasury contact ap@velorise.com.sg.\nDo not collect copies of physical NRICs except as permitted by PDPC Advisory; mask addresses to block level only (e.g., 15 Veloria Lane, #12-01, Singapore 999999) in drafts.\nThe vendor\u2019s public help desk help@orchidpay.com and +65 6100 0000 are not MNPI; avoid mixing with deal correspondence.\nMaintain access logs in iBunker DMS; delete \u201cName: ______\u201d form scans lacking purpose and confirm retention schedule (12 months for unsuccessful candidates).\nPrepare holding statement referencing \u201cProject Kestrel\u201d without figures; high-level market commentary may be included if not linked to the offer.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR Manager, CFO",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800 000 0000",
+      "reason": "Public helpline number; not personal data under PDPA"
+    },
+    {
+      "matched_text": "Account No.: 00000000",
+      "reason": "Generic placeholder label; not an actual customer/bank account number"
+    },
+    {
+      "matched_text": "+65 6100 0000",
+      "reason": "Public help desk number; not personal data"
+    },
+    {
+      "matched_text": "help@orchidpay.com",
+      "reason": "Generic help desk email; not linked to an identifiable individual"
+    },
+    {
+      "matched_text": "cosec@velorise.com.sg",
+      "reason": "Role mailbox (Company Secretary); not personal data"
+    },
+    {
+      "matched_text": "ap@velorise.com.sg",
+      "reason": "Role/functional mailbox; not personal data"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only title; not a named individual"
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only title; not a named individual"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role-only title; not a named individual"
+    },
+    {
+      "matched_text": "Name: ______",
+      "reason": "Generic form label placeholder; not personal data"
+    },
+    {
+      "matched_text": "S1234567A",
+      "reason": "Invalid/template identifier explicitly described as a placeholder; not strict SG PII truth."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "consent/notification requirement",
+      "matched_text": "Transfer of undertakings will trigger consent/notification to employees and contractors",
+      "reason": "Indicates PDPA consent/notification obligations but not clearly mapped to an allowed marker rule name"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention schedule (12 months for unsuccessful candidates)",
+      "reason": "Specifies data retention period; rule list mentions retention markers generally but no explicit allowed rule name provided"
+    }
+  ]
+}

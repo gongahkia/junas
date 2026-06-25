@@ -1,0 +1,224 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 18,
+    "current_must_detect_count": 3,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 16,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 3
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_sector_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@novaterra.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@novaterra.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@novaterra.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mirroring to approved processors in Karsenia and Sagora under SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resume cross-border mirroring after SCC validation",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no\u2011tipping reminders",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list.csv",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information-barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-announced deferral of the interim ESG KPI annex",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SFTP outage",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no communication with analysts beyond public FAQs",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may interact",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@novaterra.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Preliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: short SFTP outage at the Luserne District EU data hub during a scheduled vendor patch; production resumed within maintenance window; no customer systems affected.\nData: logs comprise pseudonymous device telemetry (e.g., DEV-AXX-001), no special categories per GDPR Art 9, and no employee identifiers beyond functional IDs; DPO review complete.\nTransfer: mirroring to approved processors in Karsenia and Sagora under SCCs paused pending re-validation; TIA and SCC Annexes filed under Register Ref GRC-TR-114.\nSecurity: forensics show no exfiltration; threat model severity Low; no Art 33 notification to the competent authority required under current criteria.\nDisclosure: our public CSRD timetable (press note dated 15 Jan) remains in force; website statement confirms June release window for ESG KPIs; SFDR PAI data collection continues as planned.\nPreliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing.\nMAR: on present facts, we do not classify the above as inside information under EU MAR; blackout and no\u2011tipping reminders apply to the CSRD workstream until the next scheduled disclosure check.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "EcoChain Trace",
+      "reason": "Marketing descriptor for a pilot tool; no token issuance/listing or deal context."
+    },
+    {
+      "matched_text": "GreenLedger Token",
+      "reason": "Marketing descriptor; explicitly states no token issuance or listing."
+    },
+    {
+      "matched_text": "DEV-AXX-001",
+      "reason": "Example of pseudonymous device telemetry; not personal data in this context."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "data retention 30 days",
+      "reason": "Retention duration is a privacy-event signal but no explicit allowed rule exists for retention markers."
+    },
+    {
+      "concept": "breach_notification_reference",
+      "matched_text": "no Art 33 notification to the competent authority required under current criteria",
+      "reason": "References GDPR Art 33 notification threshold; legally relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "internal_distribution_restriction",
+      "matched_text": "do not forward internally beyond the incident channel",
+      "reason": "Confidentiality/containment instruction suggests information control but not an explicit information-barrier term."
+    },
+    {
+      "concept": "pseudonymised_data_reference",
+      "matched_text": "pseudonymous device telemetry",
+      "reason": "Indicates pseudonymised data status under GDPR; relevant but not covered by an allowed rule."
+    }
+  ]
+}

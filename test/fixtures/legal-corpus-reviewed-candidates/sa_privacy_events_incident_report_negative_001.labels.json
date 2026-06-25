@@ -1,0 +1,182 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_privacy_events_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/privacy_events/sa_privacy_events_incident_report_negative_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_privacy_events_incident_report_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 14,
+    "new_must_detect_count": 3,
+    "old_ideal_must_detect_count": 11,
+    "old_must_detect_count": 2,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Our ESG and cyber teams concluded the outage is an operational availability issue, not a confidentiality breach, and privacy risk remains low.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2050-XY-001",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID/Iqama",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Commercial Registration",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama ****-****-****",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "field-level minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "approved export",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "National ID",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfers",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Our ESG and cyber teams concluded the outage is an operational availability issue, not a confidentiality breach, and privacy risk remains low.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-24, a misconfigured SSO setting caused a 27-minute read-only interruption to the HR document portal used for issuer onboarding forms and DPA schedules.\nFor clarity, no unauthorised access occurred, and logs show no MNPI exposure relating to RGX disclosure workflows.\nThe onboarding forms contain generic labels (e.g., National ID/Iqama, Commercial Registration), but live fields were masked (e.g., Iqama ****-****-****, CR 2050-XY-001), and no identifiers were viewable.\nThe event did not involve financial accounts, customer transactions, or securities orders, and therefore does not trigger market-conduct escalation to the Kingdom Markets Authority.\nAs previously announced in March, our PDPL DPA Schedule 2 (Retention and Deletion) shortened HR-document retention to 12 months and activated field-level minimisation.\nOne data subject erasure request (DSAR) for a former contractor was completed on 2026-05-22 with verified deletion receipts; no residual artifacts remain in live systems.\nA consent withdrawal recorded in the investor-relations preference center was already actioned last quarter and required no new processing under this incident.\nCross-border transfer controls remain in force; the last approved export occurred on 2026-05-23 under ADA-K Permit REF-ADAK-26-0412 to a GCC payroll processor with hashed ID tokens only.\nNo transfers were initiated or attempted during the incident window, and the export keys are held in-country under HSM control.\nIssuer workflows (board packs, draft announcements, and analyst Q&A) stayed within the Najd Exchange portal and were not intermingled with the HR portal.\nAny reference to \u201cNational ID\u201d or \u201cIqama\u201d in templates is purely a form label; the incident affected only the availability of PDFs with placeholder text.\nOur ESG and cyber teams concluded the outage is an operational availability issue, not a confidentiality breach, and privacy risk remains low.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "DSAR/erasure marker",
+      "matched_text": "erasure request (DSAR)",
+      "reason": "DSAR and erasure are legally relevant privacy events but there is no explicit allowed rule for DSAR/erasure markers."
+    },
+    {
+      "concept": "retention/deletion schedule marker",
+      "matched_text": "Retention and Deletion",
+      "reason": "Retention/deletion controls are privacy-relevant but no specific retention_marker rule exists in the allowed set."
+    },
+    {
+      "concept": "retention duration",
+      "matched_text": "retention to 12 months",
+      "reason": "Retention duration is a privacy handling element but not covered by an allowed rule."
+    },
+    {
+      "concept": "erasure evidence",
+      "matched_text": "deletion receipts",
+      "reason": "Evidence of deletion relates to erasure handling but lacks a corresponding allowed rule."
+    },
+    {
+      "concept": "pseudonymisation/minimisation detail",
+      "matched_text": "hashed ID tokens",
+      "reason": "Hashed identifiers indicate minimisation/pseudonymisation but are not explicitly covered by an allowed rule."
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "AU Stage B QA after strict-tier reconciliation: stale auto-label warning metadata was cleared after strict labels were realigned to deterministic engine output and ideal labels were preserved for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "resolved_at_utc": "2026-06-02T04:39:19Z",
+    "reviewer": "Codex GPT-5.5",
+    "warning_buckets": [
+      "non_verbatim_span"
+    ],
+    "warning_count": 1
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_jurisdictional_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 912",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Sparrow",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.sparrow@wallaroo.energy",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Level 9, 88 Wombat Lane, Yarraville VIC 3013",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Damon Kestrel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deals@koalagrid.tech",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.84",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.60",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22\u201324%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list maintained",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kookaburra",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "is expected to exceed",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "00:01 AEST on signing until lodgement of s708A cleansing notice",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DDC minutes to be shared internally only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "will not be discussed outside the diligence room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced contract wins with Desert Rail and Platypus IoT",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced contract wins with Desert Rail and Platypus IoT",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "leak occurs",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 912",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VIC 3013",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t \u2014 Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition via scheme of arrangement under Part 5.1 of the Corporations Act 2001 (Cth), with a concurrent institutional placement and retail SPP.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 912), Ms. Lila Sparrow (CFO), l.sparrow@wallaroo.energy, Level 9, 88 Wombat Lane, Yarraville VIC 3013.\nStructure: Acquisition via scheme of arrangement under Part 5.1 of the Corporations Act 2001 (Cth), with a concurrent institutional placement and retail SPP.\nConsideration: Indicative cash price of AU$1.84 per KoalaGrid share; proposed placement floor price AU$1.60 per WLE share (~10.5% discount to last close); non-public until ASX release.\nMNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.\nTrading restrictions: Selective disclosure prohibited; insider list maintained; blackout window under Wallaroo Trading Policy applies from 00:01 AEST on signing until lodgement of s708A cleansing notice; restrictions under s1043A apply.\nConditions precedent: FIRB no objection, ASX approval for quotation of placement shares, ASIC registration of scheme booklet; no MAC condition will be included for the placement.\nPublic references: See Wallaroo\u2019s ASX announcement dated 4 April 2026 \u201cFY25 Results and Outlook\u201d and the 2025 Annual Report on asx.com.au (already public); supplier policy updates on Bilby Bank\u2019s website last month are non-issuer operational news.\nDisclosure timing: Target timetable includes non-deal roadshow under LR 3.1 continuous disclosure framework; cleansing notice to be given immediately prior to settlement; trading halt may be requested under LR 17.1 if leak occurs.\nFunding: New debt facility from Bilby Bank Limited and cash reserves; credit approval in principle subject to diligence; facility letter ref: BB-AU-2026-09//WLE.\nManagement and employment: KoalaGrid management to receive performance rights vesting over 3 years; Mr. Damon Kestrel (CEO) to enter retention deed; health and employment details will not be discussed outside the diligence room.\nDue diligence: DDC minutes to be shared internally only; projection model includes unannounced contract wins with Desert Rail and Platypus IoT; issuer-relative materiality assessed as \u201chigh\u201d for energy segment.\nPublic-source note: press release monitoring indicates community blog coverage of \u201cProject Kookaburra\u201d at http://news.wallaroo.energy/posts?id=KKB%2F2025 is speculative and not a basis for disclosure.\nCommunications: No forward-looking statements beyond those in the ASX release; selective briefing of buy-side will not occur; all investors receive the same information via market announcement.\nMiscellaneous: Internal docref: AU//KKB-TS_0 0 7; contact channel: deals@koalagrid.tech",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.sparrow@wallaroo.energy",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deals@koalagrid.tech",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "12 345 678 912",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "VIC 3013",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Sparrow",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Damon Kestrel",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t \u2014 Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Acquisition via scheme of arrangement under Part 5.1 of the Corporations Act 2001 (Cth), with a concurrent institutional placement and retail SPP.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kookaburra",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.84",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.60",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "88 Wombat Lane, Yarraville VIC 3013",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t \u2014 Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).\nParties and contacts: Wallaroo Energy Limited (ABN 12 345 678 912), Ms. Lila Sparrow (CFO), l.sparrow@wallaroo.energy, Level 9, 88 Wombat Lane, Yarraville VIC 3013.\nStructure: Acquisition via scheme of arrangement under Part 5.1 of the Corporations Act 2001 (Cth), with a concurrent institutional placement and retail SPP.\nConsideration: Indicative cash price of AU$1.84 per KoalaGrid share; proposed placement floor price AU$1.60 per WLE share (~10.5% discount to last close); non-public until ASX release.\nMNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.\nTrading restrictions: Selective disclosure prohibited; insider list maintained; blackout window under Wallaroo Trading Policy applies from 00:01 AEST on signing until lodgement of s708A cleansing notice; restrictions under s1043A apply.\nConditions precedent: FIRB no objection, ASX approval for quotation of placement shares, ASIC registration of scheme booklet; no MAC condition will be included for the placement.\nPublic references: See Wallaroo\u2019s ASX announcement dated 4 April 2026 \u201cFY25 Results and Outlook\u201d and the 2025 Annual Report on asx.com.au (already public); supplier policy updates on Bilby Bank\u2019s website last month are non-issuer operational news.\nDisclosure timing: Target timetable includes non-deal roadshow under LR 3.1 continuous disclosure framework; cleansing notice to be given immediately prior to settlement; trading halt may be requested under LR 17.1 if leak occurs.\nFunding: New debt facility from Bilby Bank Limited and cash reserves; credit approval in principle subject to diligence; facility letter ref: BB-AU-2026-09//WLE.\nManagement and employment: KoalaGrid management to receive performance rights vesting over 3 years; Mr. Damon Kestrel (CEO) to enter retention deed; health and employment details will not be discussed outside the diligence room.\nDue diligence: DDC minutes to be shared internally only; projection model includes unannounced contract wins with Desert Rail and Platypus IoT; issuer-relative materiality assessed as \u201chigh\u201d for energy segment.\nPublic-source note: press release monitoring indicates community blog coverage of \u201cProject Kookaburra\u201d at http://news.wallaroo.energy/posts?id=KKB%2F2025 is speculative and not a basis for disclosure.\nCommunications: No forward-looking statements beyond those in the ASX release; selective briefing of buy-side will not occur; all investors receive the same information via market announcement.\nMiscellaneous: Internal docref: AU//KKB-TS_0 0 7; contact channel: deals@koalagrid.tech; project-management notes are lowercase and not binding; this term sheet is non-binding except for confidentiality.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Strategic Acquisition of KoalaGrid Pty Ltd",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).\nParties and contacts: Wallaroo Energy Limited (ABN 12 345 678 912), Ms. Lila Sparrow (CFO), l.sparrow@wallaroo.energy, Level 9, 88 Wombat Lane, Yarraville VIC 3013.\nStructure: Acquisition via scheme of arrangement under Part 5.1 of the Corporations Act 2001 (Cth), with a concurrent institutional placement and retail SPP.\nConsideration: Indicative cash price of AU$1.84 per KoalaGrid share; proposed placement floor price AU$1.60 per WLE share (~10.5% discount to last close); non-public until ASX release.\nMNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.\nTrading restrictions: Selective disclosure prohibited; insider list maintained; blackout window under Wallaroo Trading Policy applies from 00:01 AEST on signing until lodgement of s708A cleansing notice; restrictions under s1043A apply.\nConditions precedent: FIRB no objection, ASX approval for quotation of placement shares, ASIC registration of scheme booklet; no MAC condition will be included for the placement.\nPublic references: See Wallaroo\u2019s ASX announcement dated 4 April 2026 \u201cFY25 Results and Outlook\u201d and the 2025 Annual Report on asx.com.au (already public); supplier policy updates on Bilby Bank\u2019s website last month are non-issuer operational news.\nDisclosure timing: Target timetable includes non-deal roadshow under LR 3.1 continuous disclosure framework; cleansing notice to be given immediately prior to settlement; trading halt may be requested under LR 17.1 if leak occurs.\nFunding: New debt facility from Bilby Bank Limited and cash reserves; credit approval in principle subject to diligence; facility letter ref: BB-AU-2026-09//WLE.\nManagement and employment: KoalaGrid management to receive performance rights vesting over 3 years; Mr. Damon Kestrel (CEO) to enter retention deed; health and employment details will not be discussed outside the diligence room.\nDue diligence: DDC minutes to be shared internally only; projection model includes unannounced contract wins with Desert Rail and Platypus IoT; issuer-relative materiality assessed as \u201chigh\u201d for energy segment.\nPublic-source note: press release monitoring indicates community blog coverage of \u201cProject Kookaburra\u201d at http://news.wallaroo.energy/posts?id=KKB%2F2025 is speculative and not a basis for disclosure.\nCommunications: No forward-looking statements beyond those in the ASX release; selective briefing of buy-side will not occur; all investors receive the same information via market announcement.\nMiscellaneous: Internal docref: AU//KKB-TS_0 0 7; contact channel: deals@koalagrid.tech",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "CFO",
+      "reason": "Job title/role, not PII or MNPI"
+    },
+    {
+      "matched_text": "CEO",
+      "reason": "Job title/role, not PII or MNPI"
+    },
+    {
+      "matched_text": "ASX: WLE",
+      "reason": "Public ticker reference, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "bank_customer_reference",
+      "matched_text": "BB-AU-2026-09//WLE",
+      "reason": "Facility letter reference may function as a bank/customer reference but is not clearly personal data"
+    },
+    {
+      "concept": "embargo/disclosure timing",
+      "matched_text": "disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing",
+      "reason": "Embargo-style timing relative to signing is material for AU continuous disclosure but not a strict keyword match"
+    },
+    {
+      "concept": "issuer_relative_materiality",
+      "matched_text": "issuer-relative materiality assessed as \u201chigh\u201d for energy segment",
+      "reason": "Materiality assessment is MNPI-relevant but not covered by current rule list"
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "C o n f i d e n t i a l",
+      "reason": "Confidential header indicates non-public status but spacing may evade strict detectors"
+    }
+  ]
+}

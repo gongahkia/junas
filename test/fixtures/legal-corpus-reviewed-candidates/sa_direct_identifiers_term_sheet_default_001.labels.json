@@ -1,0 +1,408 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 13
+  },
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SA",
+    "doc_id": "sa_direct_identifiers_term_sheet_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_term_sheet_default_001.txt",
+    "source_jurisdiction": "SA",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sa_direct_identifiers_term_sheet_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 38,
+    "new_must_detect_count": 18,
+    "old_ideal_must_detect_count": 32,
+    "old_must_detect_count": 21,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rashid.alsaif@palmgate.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 55 612 4830",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 50 914 2234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XN9123456",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZQ0045123",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2012345671",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rashid Al\u2011Saif",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet \u2014 Confidential (MNPI): Proposed acquisition of 60% of PalmGate Mobility JSC (issuer listed on the Diriyah Growth Market) by Alkhalid Holdings LLC (the Buyer).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "311456789000013",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@alkhalidholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@palmgate.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2051198765",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1017789453",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA3875000000123456789012",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2012345671",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Mariam Al\u2011Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SAR 10.00 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimize and pseudonymize data in issuer workflows",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA-registered cross-border transfer logs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "are not public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of 60% of PalmGate Mobility JSC",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending fleet lease renegotiation with Sandstorm Leasing Co",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Board approval targeted 20 Dhu al\u2011Hijjah 1447H",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "extraordinary general assembly",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team data rooms",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rashid Al\u2011Saif (CFO), National ID/Iqama 2012345671, phone +966 50 914 2234, rashid.alsaif@palmgate.example; for draft circulation only, checksum not validated",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any cross-border transfer (e.g., to a processor in Manama) requires SDAIA permit and documented safeguards",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "with consent",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rashid.alsaif@palmgate.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 55 612 4830",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 50 914 2234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XN9123456",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZQ0045123",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2012345671",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rashid Al\u2011Saif",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet \u2014 Confidential (MNPI): Proposed acquisition of 60% of PalmGate Mobility JSC (issuer listed on the Diriyah Growth Market) by Alkhalid Holdings LLC (the Buyer).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "311456789000013",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Term Sheet \u2014 Confidential (MNPI): Proposed acquisition of 60% of PalmGate Mobility JSC (issuer listed on the Diriyah Growth Market) by Alkhalid Holdings LLC (the Buyer).\nBuyer: Alkhalid Holdings LLC (CR 2051198765; VAT Registration 312345678900003); HQ: Al Qamar Business Park, Al Waha District, Riyadh 12555, KSA; contact: corpsec@alkhalidholdings.example, +966 55 612 4830.\nIssuer: PalmGate Mobility JSC (CR 1017789453; DGM code PGMT); registered office: Al Manhal Plaza, King Saud Road, Riyadh 12233, KSA; DPO: privacy@palmgate.example.\nConsideration: SAR 220,000,000 for 22,000,000 ordinary shares (SAR 10.00 per share), subject to completion accounts and working-capital adjustment mechanisms customary in the Kingdom.\nFunding: Buyer to draw SAR 150,000,000 bridge from Red Dune Bank KSA (IBAN SA3875000000123456789012) and balance from internal cash; settlement in SAR via CMA-compliant escrow.\nConditions Precedent: (i) market regulator non-objection and Diriyah Growth Market disclosure clearance; (ii) no trading by the parties on MNPI; (iii) fairness opinion; (iv) no material adverse change.\nData Protection and Transfers: Processing of personal data under Kingdom PDPL; any cross-border transfer (e.g., to a processor in Manama) requires SDAIA permit and documented safeguards; minimize and pseudonymize data in issuer workflows.\nKey Contacts (Issuer): Mr. Rashid Al\u2011Saif (CFO), National ID/Iqama 2012345671, phone +966 50 914 2234, rashid.alsaif@palmgate.example; for draft circulation only, checksum not validated.\nKYC for Signatories: Mr. Rashid Al\u2011Saif passport XN9123456 and Buyer authorized signatory Eng. Mariam Al\u2011Harbi passport ZQ0045123 will be verified by the escrow agent upon signing with consent.\nTax and Registration: Issuer Zakat/TAX No. 311456789000013; Buyer maintains updated UBO records and will provide CR extracts and certified specimen signatures.\nPayment Instructions: Escrow account details to be provided upon regulator confirmation; placeholder IBAN SA000000000000000000000 (do not use) included for formatting only.\nGeneric labels (non-identifying): Name: __________ Position: CFO; Role-only references appear in drafts and are not personal data without accompanying identifiers.\nIssuer Non-Public Information: Q3 backlog SAR 480,000,000 and pending fleet lease renegotiation with Sandstorm Leasing Co. are not public; treated as MNPI until official DGM announcement.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun/defined party, not a personal identifier"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined party, not a personal identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun/defined party, not a personal identifier"
+    },
+    {
+      "matched_text": "the parties",
+      "reason": "Role noun reference, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role-only title without personal identifier"
+    },
+    {
+      "matched_text": "IBAN SA000000000000000000000",
+      "reason": "Placeholder IBAN marked do not use (false-positive bait)"
+    },
+    {
+      "matched_text": "800-123-0000",
+      "reason": "Public helpline number, not a transaction/person identifier"
+    },
+    {
+      "matched_text": "Name: __________",
+      "reason": "Generic form label placeholder, not an identifier"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "ksa_vat_registration_number",
+      "matched_text": "VAT Registration 312345678900003",
+      "reason": "Corporate VAT/tax identifier; not in allowed rules list but potentially sensitive compliance identifier"
+    },
+    {
+      "concept": "ksa_tax_number",
+      "matched_text": "Issuer Zakat/TAX No. 311456789000013",
+      "reason": "Corporate Zakat/tax number; not covered by allowed rules but legally relevant identifier"
+    },
+    {
+      "concept": "issuer_market_code",
+      "matched_text": "DGM code PGMT",
+      "reason": "Issuer trading/market code; not mapped to an allowed MNPI rule"
+    }
+  ]
+}

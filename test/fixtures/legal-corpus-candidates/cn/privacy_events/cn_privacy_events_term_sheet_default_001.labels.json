@@ -1,0 +1,386 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 33,
+    "new_must_detect_count": 17,
+    "old_ideal_must_detect_count": 26,
+    "old_must_detect_count": 17,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_privacy_events_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91QYVR3A2L0Z900X1F",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "92OBAH6K7P1M200Z9",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@qvr-cn.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lin.xiaoyu@qvr-cn.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.ruilong@obah.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xiaoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Ruilong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer of limited employee contact data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation restricts payroll onboarding to name, mobile, and bank tail digits only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information under the Securities Law until formally disclosed per pre-filing rules",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an insider list will be maintained",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 15.00 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "onward sharing of MNPI to external parties is prohibited",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor will subscribe for RMB 180,000,000 of Series C Preferred Shares and acquire selected automation assets of the Target",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "collecting role and work email only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Export Approval Filing No. NCB-NH-2026-118",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no live cross-border transfers are scheduled at signing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal information of minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "apply for listing on the Huaxin Growth Board",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "information of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Series C Financing and Strategic Asset Acquisition \u2014 Qingyuan Vantage Robotics Co., Ltd. (USCC: 91QYVR3A2L0Z900X1F) and Orchid Bay Automation Holdings Ltd. (USCC: 92OBAH6K7P1M200Z9)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Investor will subscribe for RMB 180,000,000 of Series C Preferred Shares and acquire selected automation assets of the Target; Issuer obligations are subject to PIPL/CSL/DSL compliance and employment transfer workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Economics: 12,000,000 Series C Preferred Shares at RMB 15.00 per share; use of proceeds includes R&D and working capital; closing expected within 60 days of regulatory confirmations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 15.00",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lin.xiaoyu@qvr-cn.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "chen.ruilong@obah.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xiaoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Chen Ruilong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "information of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Series C Financing and Strategic Asset Acquisition \u2014 Qingyuan Vantage Robotics Co., Ltd. (USCC: 91QYVR3A2L0Z900X1F) and Orchid Bay Automation Holdings Ltd. (USCC: 92OBAH6K7P1M200Z9)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Series C Financing and Strategic Asset Acquisition \u2014 Qingyuan Vantage Robotics Co., Ltd. (USCC: 91QYVR3A2L0Z900X1F) and Orchid Bay Automation Holdings Ltd. (USCC: 92OBAH6K7P1M200Z9)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Investor will subscribe for RMB 180,000,000 of Series C Preferred Shares and acquire selected automation assets of the Target; Issuer obligations are subject to PIPL/CSL/DSL compliance and employment transfer workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Economics: 12,000,000 Series C Preferred Shares at RMB 15.00 per share; use of proceeds includes R&D and working capital; closing expected within 60 days of regulatory confirmations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 15.00",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet for Series C Financing and Strategic Asset Acquisition \u2014 Qingyuan Vantage Robotics Co., Ltd. (USCC: 91QYVR3A2L0Z900X1F) and Orchid Bay Automation Holdings Ltd. (USCC: 92OBAH6K7P1M200Z9)\nTransaction: Investor will subscribe for RMB 180,000,000 of Series C Preferred Shares and acquire selected automation assets of the Target; Issuer obligations are subject to PIPL/CSL/DSL compliance and employment transfer workflows.\nListing context: The Issuer intends to apply for listing on the Huaxin Growth Board; information in this term sheet constitutes inside information under the Securities Law until formally disclosed per pre-filing rules.\nEconomics: 12,000,000 Series C Preferred Shares at RMB 15.00 per share; use of proceeds includes R&D and working capital; closing expected within 60 days of regulatory confirmations.\nConditions precedent: delivery of a PRC data compliance memo, DPA Schedule 2 (Processors) and amendments, onboarding forms CN-ONB-24 and EQ-Grant-CN, and confirmation of security measures per PIPL Art. 51 et seq.\nCross-border transfers: any cross-border transfer of limited employee contact data to payroll processor Seastar Pay Ltd. (Minghai Port) requires Data Export Approval Filing No. NCB-NH-2026-118, completed on 2026-04-12; no live cross-border transfers are scheduled at signing.\nConsent: data subjects may withdraw consent by emailing privacy@qvr-cn.example; upon withdrawal, processing under the onboarding form CN-ONB-24 ceases unless another lawful basis applies (e.g., employment or statutory tax obligations).\nDSAR: access/rectification/copy requests will be processed within statutory timelines and logged in Register DSAR-2026-Alpha; all outstanding DSARs related to the Target were fulfilled and closed on 2026-05-10.\nErasure: legacy candidate CVs collected before 2025 were erased per Erasure Ticket ER-0192 on 2026-03-08; policy prohibits storage of resident ID images, and none are stored.\nRetention and minimisation: Retention Schedule R-24 limits HR logs to 24 months and source code access logs to 12 months; minimisation restricts payroll onboarding to name, mobile, and bank tail digits only.\nSensitive PI/minors: the Parties confirm no personal information of minors under 14 is collected or processed in the transferred assets; this reflects completed scoping and does not mandate new collection.\nMNPI controls: an insider list will be maintained; directors, supervisors, and designated staff are subject to trading blackout until the Issuer\u2019s public disclosure; onward sharing of MNPI to external parties is prohibited.\nProcessor oversight: DPA Schedule 2 lists Hailan Cloud (Nanhuan) Data Services and Copper Finch Logistics Tech with subprocessor veto rights; Transfer Impact Assessment Memo CN-TIA-11 is annexed for historical transfers.\nEmployment workflows: equity incentive onboarding for transferee employees uses Form EQ-Grant-CN, collecting role and work email only; resident ID numbers, if presented for tax, remain onshore and are hashed before storage.\nGoverning law and contacts: PRC law; disputes to Huadong Commercial Arbitration Center; primary contact Ms. Lin Xiaoyu, DPO, lin.xiaoyu@qvr-cn.example; investment lead Mr. Chen Ruilong, chen.ruilong@obah.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role/defined term, not a person or MNPI per se"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role/defined term, not a person or MNPI per se"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role/defined term, not a person or MNPI per se"
+    },
+    {
+      "matched_text": "the Parties",
+      "reason": "Collective role term; not PII or MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention Schedule R-24 limits HR logs to 24 months and source code access logs to 12 months",
+      "reason": "Retention controls are privacy-relevant but no explicit retention rule is available in the allowed set"
+    },
+    {
+      "concept": "dsar_marker",
+      "matched_text": "Register DSAR-2026-Alpha",
+      "reason": "DSAR tracking is privacy-relevant but DSAR marker is not an allowed rule"
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure Ticket ER-0192",
+      "reason": "Erasure events are privacy-relevant but no erasure rule exists in allowed set"
+    },
+    {
+      "concept": "cn_resident_id",
+      "matched_text": "resident ID numbers",
+      "reason": "Refers to resident ID data category but no actual identifier present to match the cn_resident_id rule"
+    },
+    {
+      "concept": "cn_resident_id_policy",
+      "matched_text": "policy prohibits storage of resident ID images, and none are stored",
+      "reason": "Negative control statement about resident ID images; relevant but not covered by an allowed rule"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "bank tail digits",
+      "reason": "Refers to bank account data but no specific account number is present for the bank_account rule"
+    },
+    {
+      "concept": "cross_border_assessment",
+      "matched_text": "Transfer Impact Assessment Memo CN-TIA-11",
+      "reason": "Cross-border assessment document is privacy-relevant but not covered by an allowed marker rule"
+    }
+  ]
+}

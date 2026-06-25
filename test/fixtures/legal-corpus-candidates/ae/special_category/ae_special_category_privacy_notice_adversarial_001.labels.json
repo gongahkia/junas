@@ -1,0 +1,339 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 26,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@nakhla-reef.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NR-00Z-1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee no. NR-00Z-1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-19**-*******-*",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric iris template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cardiac check\u2011up",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "visa\u2011medical vaccination status",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health treatment invoice",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Friday prayer schedule adjustment",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious-information",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lina Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AEC-9z5-0001",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL\u2011NR\u201112O9",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "trade\u2011licence copies (TL\u2011NR\u201112O9)",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfers to processors in the Kingdom of Barzah occur under data transfer commitments and risk assessments",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@nakhla-reef.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Hala Faruq",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing",
+      "rule": "genetic_data"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "NR-00Z-1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lina Al Qasimi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Hala Faruq",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We process personal data under UAE Federal Decree-Law 45/2021 (PDPL) and relevant DIFC/ADGM data protection rules; purposes include onboarding, verification of trade licence, access control, benefits administration, and issuer-compliance archiving.\nFor Mr. Sami Al Qasimi (employee no. NR-00Z-1), we process E m i r a t e s   I D 784-19**-*******-* and a biometric iris template for D I F C office entry gates; access logs are retained for 30 days unless a security incident extends retention.\nWe also hold his health treatment invoice for a cardiac check\u2011up dated 2026\u201103\u201118 and visa\u2011medical vaccination status, strictly for insurance reimbursement and legal obligations; these records are kept 5 years",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Desert Falcons",
+      "reason": "Sports team/news fixture; not PII/MNPI."
+    },
+    {
+      "matched_text": "Marah Island",
+      "reason": "Place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Sand Dune Pro",
+      "reason": "Product name bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "Palm Atlas",
+      "reason": "Product name bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated disclaimer; document states it does not contain MAC."
+    },
+    {
+      "matched_text": "no mac clause",
+      "reason": "Explicitly negated MAC reference; per rule do not label."
+    },
+    {
+      "matched_text": "sexual-orientation",
+      "reason": "Policy term only; explicitly not tied to a person."
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Policy term only; explicitly not tied to a person."
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "Negated collection statement; not tied to a person."
+    },
+    {
+      "matched_text": "E m i r a t e s   I D",
+      "reason": "Spaced term reference; not an actual ID number."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "biometric verification",
+      "matched_text": "controlled video check",
+      "reason": "May involve facial biometrics for identity verification but not explicitly described as biometric data."
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "access logs are retained for 30 days",
+      "reason": "Data retention detail is legally relevant but there is no explicit retention rule in the allowed set."
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "are retained 7 years",
+      "reason": "Data retention duration is legally relevant but not mapped to a specific allowed rule."
+    }
+  ]
+}

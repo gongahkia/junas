@@ -1,0 +1,351 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 3
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 18,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 0,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "disclosures@zawaya-ws.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XZ1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2439184756",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nabil Al-Qatiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tariq Al-Bishri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Kareem",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lamis Al-Dahiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The mailbox also contained non-public issuer materials, including draft Q2 revenue guidance and a board memo on a contemplated green sukuk programme, not yet announced on the Saudi Exchange (Tadawul).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pursuant to PDPL and SDAIA guidance, we lodged an initial breach notification within 72 hours and evaluated cross-border data transfer; SDAIA transfer request TR-1447-0021 for forensic triage in Abu Dhabi was prepared but not executed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2000000000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Commercial Registration CR 1014567890",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 2439184756",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Passport No. XZ1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@zawaya-ws.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 55 000 9876",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966 11 000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IBAN SA18 7000 0000 1234 5678 9012",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material cyber incident",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout decisions",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list maintained for the sukuk workstream",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border data transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA transfer request TR-1447-0021",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a contemplated green sukuk programme, not yet announced on the Saudi Exchange (Tadawul)",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet announced on the Saudi Exchange (Tadawul)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft Q2 revenue guidance",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "phishing compromise",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized mailbox access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anomalous SMTP forwarding rules",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material-event workflow",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading restrictions or blackout decisions remain internal and are not disclosed here",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One development dataset contained \u201cIqama 2000000000\u201d (invalid checksum, placeholder in a staging file) and a publicly posted customer helpline 800-111-2222; neither constitute live personal data.\nFor data-subject inquiries under PDPL, contact Dr. Lamis Al-Dahiri (DPO) at dpo@zawaya-ws.sa or +966 55 000 9876; the CFO may be reached via switchboard at +966 11 000 0000.\nAccess credentials were reset, forwarding rules purged, and internal acknowledgement letters issued to affected data subjects and the vendor",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "disclosures@zawaya-ws.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XZ1234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2439184756",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nabil Al-Qatiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Tariq Al-Bishri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Kareem",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lamis Al-Dahiri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The mailbox also contained non-public issuer materials, including draft Q2 revenue guidance and a board memo on a contemplated green sukuk programme, not yet announced on the Saudi Exchange (Tadawul).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pursuant to PDPL and SDAIA guidance, we lodged an initial breach notification within 72 hours and evaluated cross-border data transfer; SDAIA transfer request TR-1447-0021 for forensic triage in Abu Dhabi was prepared but not executed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2000000000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Mr. Nabil Al-Qatiri (Head of Compliance) detected anomalous SMTP forwarding rules and escalated per the Tadawul material-event workflow.\nData at risk included: (a) one HR onboarding file with Iqama No. 2439184756 for Mr. Tariq Al-Bishri (technician), (b) one vendor settlement sheet listing IBAN SA18 7000 0000 1234 5678 9012 for Desert Grid Services Co. (LLC), and (c) a passport scan for Ms. Hana Kareem (Passport No. XZ1234567).\nThe mailbox also contained non-public issuer materials, including draft Q2 revenue guidance and a board memo on a contemplated green sukuk programme, not yet announced on the Saudi Exchange (Tadawul).\nUnder PDPL and CMA rules, Zawaya treated this as a material cyber incident with potential MNPI exposure and initiated issuer disclosure governance via the Board Secretary.\nThe CMA Market Conduct Department was notified through the Issuer e-Portal at 22:15 AST under Case ID MC-26-00054; trading restrictions or blackout decisions remain internal and are not disclosed here.\nPursuant to PDPL and SDAIA guidance, we lodged an initial breach notification within 72 hours and evaluated cross-border data transfer; SDAIA transfer request TR-1447-0021 for forensic triage in Abu Dhabi was prepared but not executed.\nNo evidence indicates exfiltration outside KSA; logs show two message previews and zero attachments downloaded; our SOC retains copies in Riyadh only.\nThe phrase \u201cNational ID: ________\u201d appears on legacy onboarding templates and is not tied to any individual record referenced in this report.\nOne development dataset contained \u201cIqama 2000000000\u201d (invalid checksum, placeholder in a staging file) and a publicly posted customer helpline 800-111-2222; neither constitute live personal data.\nFor data-subject inquiries under PDPL, contact Dr. Lamis Al-Dahiri (DPO) at dpo@zawaya-ws.sa or +966 55 000 9876; the CFO may be reached via switchboard at +966 11 000 0000.\nAccess credentials were reset, forwarding rules purged, and internal acknowledgement letters issued to affected data subjects and the vendor.\nNo financial loss occurred; however, we are enhancing issuer workflow controls, adding SDAIA-approved data transfer assessments, and updating the insider list maintained for the sukuk workstream.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "National ID: ________",
+      "reason": "Generic form label placeholder; not tied to an individual record."
+    },
+    {
+      "matched_text": "Iqama 2000000000",
+      "reason": "Invalid checksum placeholder in a staging file; not live personal data."
+    },
+    {
+      "matched_text": "800-111-2222",
+      "reason": "Public customer helpline number; excluded by adversarial target."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "Saudi VAT number",
+      "matched_text": "VAT 310123456700003",
+      "reason": "Company tax identifier; legally relevant but not covered by allowed rule set."
+    },
+    {
+      "concept": "Regulatory case identifier",
+      "matched_text": "Case ID MC-26-00054",
+      "reason": "Issuer case reference may be sensitive MNPI metadata but not captured by any allowed rule."
+    },
+    {
+      "concept": "SDAIA transfer request ID",
+      "matched_text": "TR-1447-0021",
+      "reason": "Cross-border transfer request identifier is privacy-relevant but lacks a specific allowed rule."
+    },
+    {
+      "concept": "PDPL breach notification timing",
+      "matched_text": "breach notification within 72 hours",
+      "reason": "Privacy incident-control marker relevant to PDPL, but no explicit rule enumerated."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Aurora Fintech Services Limited — Operational Incident Report IR-2026-05-24-01 (India)
+Summary: SOC flagged increased login failures on the investor portal; no unauthorised access or data exfiltration confirmed by third‑party forensic review on 2026-05-27.
+Scope of data: Portal stores only masked contact fields and account aliases; it does not collect Aadhaar or GSTIN, and PAN is captured only in segregated onboarding forms governed by DPA Schedule 1.
+QA environments use invalid identifier-shaped values (e.g., PAN “AAAAA9999A”, GSTIN “00AAAAA0000A0Z0”) solely for testing; these were not present in production during the event.
+Under DPDPA, child means under 18; our investor portal prohibits child signup and no child data was processed or affected.
+SEBI PIT context: no unpublished price-sensitive information (UPSI) was accessed; trading window status and board agenda items referenced in logs were public/stale and already disclosed to the exchanges.
+Consent governance is by recorded checkbox on onboarding; there are currently no pending consent withdrawals, and marketing preferences are set to opt-in only via self-service.
+Positive handling event: a DSAR erasure request from a former retail investor was completed on 2026-05-20, with deletion evidence archived under ref AUR-DSAR-0421.
+Data-export approval Ref AUR-DEX-0319 remains in force for anonymised log replication to Suryanet Pte. Ltd. (SG) for resilience testing; no cross-border transfer occurred during the incident window and no personal data is included in that export.
+Subprocessors per DPA Schedule 2: Cloudleaf Datacenters Private Limited (IN) for hosting, and Suryanet Pte. Ltd. (SG) for disaster-recovery drills; encryption at rest and in transit is mandated.
+Retention and minimisation: KYC files from onboarding are retained per statutory norms and are not mirrored to the portal; security logs are minimised to 90 days rolling with event-level pseudonymisation.
+Controls status: MFA is enforced on all admin accounts, CAPTCHA was enabled prior to the event, and the VAPT completed on 2026-05-18 found no critical issues.
+Regulatory assessment: thresholds under SEBI cybersecurity circulars were not met, and no NSE/BSE disclosure was required; this report is an internal post-incident record.
+Customer communications: a generic advisory was posted on the help centre; no individual notices were necessary, and the grievance redressal desk received zero actionable privacy complaints.
+Remediation is preventive only (rate limiting tuned, alerting thresholds adjusted); no live DSAR, consent withdrawal, erasure failure, retention breach, or cross-border processing risk remains open.

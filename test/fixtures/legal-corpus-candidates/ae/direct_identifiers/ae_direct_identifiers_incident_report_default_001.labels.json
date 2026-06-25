@@ -1,0 +1,380 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 20,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 20,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 0,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CN-7654321",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9876543",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-1979-1234567-1",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AE12 123 4567890123456789",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AE55 741 0123456789012345",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "leila.barqawi@alnasmahd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ap@marjancyber.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@alnasmahd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops-inbox@alnasmahd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971 58 123 4578",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971 4 555 0420",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XN0093318",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Barqawi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Omar Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Farah Mansoor",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "neither item has been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed private placement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ADX dual-listing exploration",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized SFTP access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 28 May 2026, we detected unauthorized SFTP access that exfiltrated a folder titled \u201cADGM-listing-draft\u201d containing non-public revenue guidance and a term sheet for a proposed private placement; this constitutes MNPI under SCA/ADGM rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public contact channels are not part of the breach scope: customer helpline 800 0000 and info@example.com are generic.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "While core systems remain intact, a confidential \u201cQ3 2026 earnings range\u201d slide and a draft board resolution regarding an ADX dual-listing exploration were accessed; neither item has been publicly disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9876543",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0123456789012345",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One document included a scanned family book extract noting Ms. Leila Barqawi\u2019s family origin as \u201cAl Haurani, coastal Sharqi origin,\u201d which is sensitive personal data.\nWe notified the ADGM Office of Data Protection and the SCA Market Abuse Unit within 72 hours; internal incident ref ADS-IR-2026-044; no regulator case number issued yet.\nPlaceholder items present in drafts should be ignored as non-data: \u201cEmirates ID: __________\u201d, \u201cTRN: __________\u201d, and \u201cPassport No: ________\u201d",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "leila.barqawi@alnasmahd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops-inbox@alnasmahd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971 58 123 4578",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XN0093318",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-1979-1234567-1",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CN-7654321",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Barqawi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Omar Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Farah Mansoor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Barqawi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 28 May 2026, we detected unauthorized SFTP access that exfiltrated a folder titled \u201cADGM-listing-draft\u201d containing non-public revenue guidance and a term sheet for a proposed private placement; this constitutes MNPI under SCA/ADGM rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Public contact channels are not part of the breach scope: customer helpline 800 0000 and info@example.com are generic.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "While core systems remain intact, a confidential \u201cQ3 2026 earnings range\u201d slide and a draft board resolution regarding an ADX dual-listing exploration were accessed; neither item has been publicly disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9876543",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0123456789012345",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Files also included PII under UAE PDPL: Emirates ID 784-1979-1234567-1 for Mr. Omar Haddad (Finance), corporate bank IBAN AE12 123 4567890123456789, and passport No. XN0093318 for Ms. Farah Mansoor (external counsel)",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 ADGM context \u2014 Data Security and MNPI Exposure \u2014 5 June 2026\nReporting entity: Al Nasma Data Holdings PJSC, ADGM Reg. No. ADGM-CL-34219; Abu Dhabi DED Trade Licence CN-7654321; TRN 100234567890123.\nRegistered office: Unit 1804, Al Samaa Tower, Al Maryah Island, Abu Dhabi, UAE.\nPrimary contact: Ms. Leila Barqawi, Compliance Officer; tel +971 58 123 4578; email leila.barqawi@alnasmahd.example.\nOn 28 May 2026, we detected unauthorized SFTP access that exfiltrated a folder titled \u201cADGM-listing-draft\u201d containing non-public revenue guidance and a term sheet for a proposed private placement; this constitutes MNPI under SCA/ADGM rules.\nFiles also included PII under UAE PDPL: Emirates ID 784-1979-1234567-1 for Mr. Omar Haddad (Finance), corporate bank IBAN AE12 123 4567890123456789, and passport No. XN0093318 for Ms. Farah Mansoor (external counsel).\nSupplier records compromised: Marjan Cyber Services LLC, Dubai DED Licence 9876543, bank IBAN AE55 741 0123456789012345, accounts payable email ap@marjancyber.example.\nOne document included a scanned family book extract noting Ms. Leila Barqawi\u2019s family origin as \u201cAl Haurani, coastal Sharqi origin,\u201d which is sensitive personal data.\nWe notified the ADGM Office of Data Protection and the SCA Market Abuse Unit within 72 hours; internal incident ref ADS-IR-2026-044; no regulator case number issued yet.\nPlaceholder items present in drafts should be ignored as non-data: \u201cEmirates ID: __________\u201d, \u201cTRN: __________\u201d, and \u201cPassport No: ________\u201d.\nPublic contact channels are not part of the breach scope: customer helpline 800 0000 and info@example.com are generic.\nFor impacted stakeholders, communications were sent from privacy@alnasmahd.example and call-back number +971 4 555 0420; a separate ADGM counsel line is listed as +971 600 123 000 (service line only).\nRemediation steps included SFTP key rotation, forced resets on the ADGM Smart Form accounts, and suspension of ops-inbox@alnasmahd.example.\nWhile core systems remain intact, a confidential \u201cQ3 2026 earnings range\u201d slide and a draft board resolution regarding an ADX dual-listing exploration were accessed; neither item has been publicly disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Emirates ID: __________",
+      "reason": "Placeholder/generic form label, not actual data"
+    },
+    {
+      "matched_text": "TRN: __________",
+      "reason": "Placeholder/generic form label, not actual data"
+    },
+    {
+      "matched_text": "Passport No: ________",
+      "reason": "Placeholder/generic form label, not actual data"
+    },
+    {
+      "matched_text": "800 0000",
+      "reason": "Public helpline number; generic contact not personal data"
+    },
+    {
+      "matched_text": "info@example.com",
+      "reason": "Generic/public info address, not personal data"
+    },
+    {
+      "matched_text": "+971 600 123 000",
+      "reason": "Public service/helpline number; exclude from PII detection"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "UAE Tax Registration Number (TRN)",
+      "matched_text": "TRN 100234567890123",
+      "reason": "Corporate tax identifier relevant in UAE but no explicit allowed rule for TRN"
+    },
+    {
+      "concept": "ADGM company registration number",
+      "matched_text": "ADGM-CL-34219",
+      "reason": "Direct company identifier; useful but not covered by allowed rules"
+    },
+    {
+      "concept": "Sensitive personal data (ethnic/family origin)",
+      "matched_text": "Al Haurani, coastal Sharqi origin",
+      "reason": "Ethnic/family origin is likely special-category data under PDPL; no corresponding allowed rule provided"
+    },
+    {
+      "concept": "Internal incident reference ID",
+      "matched_text": "ADS-IR-2026-044",
+      "reason": "Internal identifier may be sensitive but not mapped to an allowed rule"
+    },
+    {
+      "concept": "Pre-listing confidential materials",
+      "matched_text": "ADGM-listing-draft",
+      "reason": "Indicates possible pre-listing context; not a defined transaction codename per allowed rules"
+    }
+  ]
+}

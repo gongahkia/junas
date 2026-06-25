@@ -1,0 +1,216 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "ID",
+    "doc_id": "id_jurisdictional_mnpi_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/id/jurisdictional_mnpi/id_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "ID",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/id_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T03:27:55Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@samudrainovasi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@samudrainovasi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@samudrainovasi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0800-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Transfer lintas batas",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Informasi Material Non-Publik",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CID: 0000-XX-VOID",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NIK/KTP",
+      "rule": "id_nik"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tanpa meminta kata sandi",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "rencana akuisisi unit bisnis",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@samudrainovasi.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "PT Samudra Inovasi Digital Tbk",
+      "reason": "Corporate entity name; not PII or MNPI"
+    },
+    {
+      "matched_text": "PT Awan Cerah Global",
+      "reason": "Corporate entity name; not PII or MNPI"
+    },
+    {
+      "matched_text": "PT Andalas Fintek Sentosa",
+      "reason": "Corporate entity name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Dompet Nusantara",
+      "reason": "Product/feature name; not a transaction codename or PII"
+    },
+    {
+      "matched_text": "rilis pers publik 12 Januari 2023",
+      "reason": "Public press release reference; not MNPI"
+    },
+    {
+      "matched_text": "Pengumuman Keterbukaan Informasi tertanggal 5 Mei 2023",
+      "reason": "Public exchange disclosure; not MNPI"
+    },
+    {
+      "matched_text": "Laporan Tahunan 2022",
+      "reason": "Public report reference; not MNPI"
+    },
+    {
+      "matched_text": "informasi publik",
+      "reason": "Explicitly public information; not MNPI"
+    },
+    {
+      "matched_text": "kode OTP",
+      "reason": "Generic term without a value; not PII"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Permintaan Akses/Subjek Data (DSAR)",
+      "reason": "Data subject rights request indicator; relevant to privacy compliance but no specific allowed DSAR rule name provided"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "Retensi: data akun nasabah disimpan 5 tahun setelah penutupan",
+      "reason": "Indicates retention period; relevant under UU PDP but no explicit retention rule token in allowed list"
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "retensi 7 tahun pasca-terminasi",
+      "reason": "Indicates HR data retention; relevant but no explicit retention rule token provided"
+    },
+    {
+      "concept": "Incident notification obligation",
+      "matched_text": "kewajiban notifikasi insiden",
+      "reason": "Security/incident notification obligation is compliance-relevant but not clearly mapped to an allowed MNPI or PII marker here"
+    }
+  ]
+}

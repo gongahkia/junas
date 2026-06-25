@@ -1,0 +1,347 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 33,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 24,
+    "old_must_detect_count": 12,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_privacy_events_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "tokeefe@carevista-thera.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1-555-0162",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devin Arledge",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of HelioCare Analytics, Inc. by CareVista Therapeutics, Inc. (U.S. issuer; healthcare analytics)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purchase Price and Structure: $210,000,000 (cash and CareVista common stock); customary working capital adjustments; no financing out.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Committed debt facility from Orchard Ridge Bank, N.A., subject to GLBA-compliant KYC and vendor onboarding forms (Annex C) and bank privacy notice alignment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective Disclosure: Mutual NDA required; no selective disclosure to lenders, vendors, or sell-side unless a concurrent press release/8-K is filed; Rule 10b-5 anti-fraud undertakings incorporated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions to Closing: HSR filing required; no OCC change-of-control approvals are applicable (no bank target); customary board and stockholder approvals for both parties.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$210,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "210,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing logs",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealroom@heliocare-analytics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin O\u2019Keefe",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "may be transferred to MediQuant Solutions Pvt. Ltd. (Pune)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limits processing to the minimum necessary",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until public announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition of HelioCare Analytics, Inc. by CareVista Therapeutics, Inc",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "simultaneous public disclosure (Form 8-K and website posting)",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unless a concurrent press release/8-K is filed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-cleared wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HSR filing required",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Committed debt facility",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCC data-export approval DXP-1187",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "De-identified analytics only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No patient-level data will be transmitted to lenders",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "synthetic datasets and redacted exports will be used",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devin Arledge was fulfilled with erasure on 2026-05-10; HR payroll stubs retained under IRS/ERISA carve-outs only.\nAnalyst Interactions: Seabright Equity Research LLC may receive diligence materials only after broad dissemination; analyst onboarding forms require MNPI attestations and wall-crossing logs maintained by Compliance.\nSelective Disclosure: Mutual NDA required; no selective disclosure to lenders, vendors, or sell-side unless a concurrent press release/8-K is filed; Rule 10b-5 anti-fraud undertakings incorporated.\nData Security for Diligence: No patient-level data will be transmitted to lenders; synthetic datasets and redacted exports will be used; a prior draft transfer of sample records was canceled and remains prohibited by policy.\nConditions to Closing: HSR filing required; no OCC change-of-control approvals are applicable (no bank target); customary board and stockholder approvals for both parties.\nRegulatory/Compliance: A HIPAA risk assessment and GLBA vendor due diligence report will be delivered pre-signing; compliance memo CM-77 (Data Minimisation Checkpoint) signed off 2026-05-28.\nContacts: Primary\u2014Ms. Tamsin O\u2019Keefe, General Counsel, tokeefe@carevista-thera.example, +1-555-0162",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "tokeefe@carevista-thera.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+1-555-0162",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devin Arledge",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of HelioCare Analytics, Inc. by CareVista Therapeutics, Inc. (U.S. issuer; healthcare analytics)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purchase Price and Structure: $210,000,000 (cash and CareVista common stock); customary working capital adjustments; no financing out.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Committed debt facility from Orchard Ridge Bank, N.A., subject to GLBA-compliant KYC and vendor onboarding forms (Annex C) and bank privacy notice alignment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective Disclosure: Mutual NDA required; no selective disclosure to lenders, vendors, or sell-side unless a concurrent press release/8-K is filed; Rule 10b-5 anti-fraud undertakings incorporated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions to Closing: HSR filing required; no OCC change-of-control approvals are applicable (no bank target); customary board and stockholder approvals for both parties.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$210,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "210,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of HelioCare Analytics, Inc. by CareVista Therapeutics, Inc. (U.S. issuer; healthcare analytics)\nPurchase Price and Structure: $210,000,000 (cash and CareVista common stock); customary working capital adjustments; no financing out.\nSecurities Law/Reg FD: These terms constitute MNPI until public announcement; any analyst or lender discussions require simultaneous public disclosure (Form 8-K and website posting) or pre-cleared wall-crossing under Reg FD.\nFinancing: Committed debt facility from Orchard Ridge Bank, N.A., subject to GLBA-compliant KYC and vendor onboarding forms (Annex C) and bank privacy notice alignment.\nData Processing: DPA Schedule 2 (HIPAA BAA + GLBA addendum) limits processing to the minimum necessary; retention is 6 years for HIPAA policy artifacts and 7 years for SEC/SOX records, unless shorter by policy.\nCross-Border Processing: De-identified analytics only may be transferred to MediQuant Solutions Pvt. Ltd. (Pune) under 2026-03-01 SCC data-export approval DXP-1187; no PHI, SSNs, or full PANs included.\nConsent Withdrawals: Patient consent withdrawal workflow CW-442 was completed on 2026-04-15; marketing suppression lists updated; no active opt-out backlog remains.\nDSAR/Erasure: Employee DSAR ER-2026-019 for Mr. Devin Arledge was fulfilled with erasure on 2026-05-10; HR payroll stubs retained under IRS/ERISA carve-outs only.\nAnalyst Interactions: Seabright Equity Research LLC may receive diligence materials only after broad dissemination; analyst onboarding forms require MNPI attestations and wall-crossing logs maintained by Compliance.\nSelective Disclosure: Mutual NDA required; no selective disclosure to lenders, vendors, or sell-side unless a concurrent press release/8-K is filed; Rule 10b-5 anti-fraud undertakings incorporated.\nData Security for Diligence: No patient-level data will be transmitted to lenders; synthetic datasets and redacted exports will be used; a prior draft transfer of sample records was canceled and remains prohibited by policy.\nConditions to Closing: HSR filing required; no OCC change-of-control approvals are applicable (no bank target); customary board and stockholder approvals for both parties.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of HelioCare Analytics, Inc",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Proposed Acquisition of HelioCare Analytics, Inc. by CareVista Therapeutics, Inc. (U.S. issuer; healthcare analytics)\nPurchase Price and Structure: $210,000,000 (cash and CareVista common stock); customary working capital adjustments; no financing out.\nSecurities Law/Reg FD: These terms constitute MNPI until public announcement; any analyst or lender discussions require simultaneous public disclosure (Form 8-K and website posting) or pre-cleared wall-crossing under Reg FD.\nFinancing: Committed debt facility from Orchard Ridge Bank, N.A., subject to GLBA-compliant KYC and vendor onboarding forms (Annex C) and bank privacy notice alignment.\nData Processing: DPA Schedule 2 (HIPAA BAA + GLBA addendum) limits processing to the minimum necessary; retention is 6 years for HIPAA policy artifacts and 7 years for SEC/SOX records, unless shorter by policy.\nCross-Border Processing: De-identified analytics only may be transferred to MediQuant Solutions Pvt. Ltd. (Pune) under 2026-03-01 SCC data-export approval DXP-1187; no PHI, SSNs, or full PANs included.\nConsent Withdrawals: Patient consent withdrawal workflow CW-442 was completed on 2026-04-15; marketing suppression lists updated; no active opt-out backlog remains.\nDSAR/Erasure: Employee DSAR ER-2026-019 for Mr. Devin Arledge was fulfilled with erasure on 2026-05-10; HR payroll stubs retained under IRS/ERISA carve-outs only.\nAnalyst Interactions: Seabright Equity Research LLC may receive diligence materials only after broad dissemination; analyst onboarding forms require MNPI attestations and wall-crossing logs maintained by Compliance.\nSelective Disclosure: Mutual NDA required; no selective disclosure to lenders, vendors, or sell-side unless a concurrent press release/8-K is filed; Rule 10b-5 anti-fraud undertakings incorporated.\nData Security for Diligence: No patient-level data will be transmitted to lenders; synthetic datasets and redacted exports will be used; a prior draft transfer of sample records was canceled and remains prohibited by policy.\nConditions to Closing: HSR filing required; no OCC change-of-control approvals are applicable (no bank target); customary board and stockholder approvals for both parties.\nRegulatory/Compliance: A HIPAA risk assessment and GLBA vendor due diligence report will be delivered pre-signing; compliance memo CM-77 (Data Minimisation Checkpoint) signed off 2026-05-28.\nContacts: Primary\u2014Ms. Tamsin O\u2019Keefe, General Counsel, tokeefe@carevista-thera.example, +1-555-0162",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "consent withdrawal (completed)",
+      "matched_text": "Patient consent withdrawal workflow CW-442 was completed on 2026-04-15",
+      "reason": "Completed control; legally relevant privacy workflow but rule set excludes labeling completed/negated privacy-event markers."
+    },
+    {
+      "concept": "DSAR/erasure (completed)",
+      "matched_text": "Employee DSAR ER-2026-019 for Mr. Devin Arledge was fulfilled with erasure on 2026-05-10",
+      "reason": "Completed DSAR and erasure; privacy-event language but completed, which rules advise not to label."
+    },
+    {
+      "concept": "data minimisation governance (completed checkpoint)",
+      "matched_text": "compliance memo CM-77 (Data Minimisation Checkpoint) signed off 2026-05-28",
+      "reason": "Minimisation control sign-off; relevant but completed/administrative and not a live minimisation marker per rules."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "HR payroll stubs retained under IRS/ERISA carve-outs only",
+      "reason": "Data retention language is in scope conceptually but there is no explicit allowed rule name for retention."
+    },
+    {
+      "concept": "data transfer prohibition (canceled transfer)",
+      "matched_text": "a prior draft transfer of sample records was canceled and remains prohibited by policy",
+      "reason": "Indicates past cross-border/data-sharing attempt was canceled and is prohibited; relevant governance signal not clearly covered by an allowed marker."
+    },
+    {
+      "concept": "privacy notice alignment",
+      "matched_text": "bank privacy notice alignment",
+      "reason": "Indicates privacy compliance alignment requirement; relevant but not mapped to a specific allowed rule."
+    }
+  ]
+}

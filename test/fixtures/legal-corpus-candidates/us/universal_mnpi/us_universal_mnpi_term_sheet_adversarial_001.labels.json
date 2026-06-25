@@ -1,0 +1,467 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 46,
+    "new_must_detect_count": 30,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 23,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_universal_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lpenn@northspire-health.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fmora@auricriver.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Penn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Felix Mora",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition term sheet: Northspire Health Systems, Inc. (a U.S. exchange\u2011listed healthcare issuer) to acquire Auric River Diagnostics, LLC (private).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aggregate consideration: $340,000,000, comprised of $220,000,000 cash and $120,000,000 in Northspire Class A common stock valued at signing VWAP; 12.5% post\u2011closing ownership cap for Auric sellers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: committed senior secured facility of $180,000,000 from Prosperon Capital Bank, N.A., per commitment letter dated 2026\u201109\u201112; remaining cash funded from issuer balance sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing conditions: absence of a Company MAE; for the avoidance of doubt, general industry reimbursement changes, pandemics, and stock price declines alone shall not constitute a MAC/MAE; HSR equivalent and state health\u2011care change\u2011of\u2011ownership approvals required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure controls: selective disclosure prohibitions apply; any analyst interactions limited to a concurrently furnished public deck; no guidance updates prior to embargo lift.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Termination: outside date 2027\u201101\u201131; $11,500,000 reverse termination fee if financing fails; mutual termination on failure to obtain required health\u2011agency consents.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project ORCHID",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$340,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$25,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$11,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "340,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026\u201109\u201115 08:00 ET",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Seller Support Agreements",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restrictive Covenant Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$14,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$2,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure prohibitions apply",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A g r e e m e n t a n d P l a n o f M e r g e r",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any analyst interactions limited to a concurrently furnished public deck",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no guidance updates prior to embargo lift",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$25,000,000 contingent earn\u2011out based on 2027 molecular panel test volumes (>150k units)",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "(>150k units)",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150k",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cust # 003\u2011FAKE\u2011991",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Acct XX\u20114Z19\u2011**73",
+      "rule": "bank_customer_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lpenn@northspire-health.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fmora@auricriver.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Liora Penn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Felix Mora",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition term sheet: Northspire Health Systems, Inc. (a U.S. exchange\u2011listed healthcare issuer) to acquire Auric River Diagnostics, LLC (private).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Aggregate consideration: $340,000,000, comprised of $220,000,000 cash and $120,000,000 in Northspire Class A common stock valued at signing VWAP; 12.5% post\u2011closing ownership cap for Auric sellers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: committed senior secured facility of $180,000,000 from Prosperon Capital Bank, N.A., per commitment letter dated 2026\u201109\u201112; remaining cash funded from issuer balance sheet.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing conditions: absence of a Company MAE; for the avoidance of doubt, general industry reimbursement changes, pandemics, and stock price declines alone shall not constitute a MAC/MAE; HSR equivalent and state health\u2011care change\u2011of\u2011ownership approvals required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure controls: selective disclosure prohibitions apply; any analyst interactions limited to a concurrently furnished public deck; no guidance updates prior to embargo lift.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Termination: outside date 2027\u201101\u201131; $11,500,000 reverse termination fee if financing fails; mutual termination on failure to obtain required health\u2011agency consents.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project ORCHID",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$340,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$180,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$25,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$11,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "340,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "14,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL \u2014 NON\u2011PUBLIC (Reg FD) \u2014 Deal Codename: Project ORCHID \u2014 Embargo until 2026\u201109\u201115 08:00 ET.\nProposed acquisition term sheet: Northspire Health Systems, Inc. (a U.S. exchange\u2011listed healthcare issuer) to acquire Auric River Diagnostics, LLC (private).\nAggregate consideration: $340,000,000, comprised of $220,000,000 cash and $120,000,000 in Northspire Class A common stock valued at signing VWAP; 12.5% post\u2011closing ownership cap for Auric sellers.\nFinancing: committed senior secured facility of $180,000,000 from Prosperon Capital Bank, N.A., per commitment letter dated 2026\u201109\u201112; remaining cash funded from issuer balance sheet.\nValuation adjustments: customary working capital true\u2011up; $25,000,000 contingent earn\u2011out based on 2027 molecular panel test volumes (>150k units).\nGovernance: no seller board seat; observer rights for 18 months; standstill and leak\u2011out restrictions (max 3% per quarter) on stock consideration.\nClosing conditions: absence of a Company MAE; for the avoidance of doubt, general industry reimbursement changes, pandemics, and stock price declines alone shall not constitute a MAC/MAE; HSR equivalent and state health\u2011care change\u2011of\u2011ownership approvals required.\nDisclosure controls: selective disclosure prohibitions apply; any analyst interactions limited to a concurrently furnished public deck; no guidance updates prior to embargo lift.\nPublic source note (benign): recent public CMS 2024 fee schedule discussions are acknowledged but not incorporated into 2025\u20132027 internal revenue projections.\nEmployee matters: $14,000,000 retention pool approved for key scientists; existing benefits (including employee wellness \u201cspa day\u201d perk) remain unchanged and are not part of consideration.\nTermination: outside date 2027\u201101\u201131; $11,500,000 reverse termination fee if financing fails; mutual termination on failure to obtain required health\u2011agency consents.\nDefinitive documents: A g r e e m e n t a n d P l a n o f M e r g e r; Seller Support Agreements; Restrictive Covenant Agreement; E f f e c t i v e T i m e mechanics per Delaware law.\nExclusivity / No\u2011shop: 45 days from this term sheet; customary fiduciary out; matching rights for four business days; expense reimbursement capped at $2,000,000.\nData room: https://vault.northspire.example/r/tx?c=ORCH1D&node=VDR-7A%2Fidx \u2014 Deal Ref: NRH\u2011ORC\u20112026\u2011\u03947 \u2014 Cust # 003\u2011FAKE\u2011991 \u2014 Acct XX\u20114Z19\u2011**73.\nContact: Ms. Liora Penn (VP, Corp Dev) \u2014 lpenn@northspire-health.example; Mr. Felix Mora (Auric CFO) \u2014 fmora@auricriver.example.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Role-noun treated as defined term; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "employee wellness \u201cspa day\u201d perk",
+      "reason": "False-positive bait; not an allowed PII/MNPI category."
+    },
+    {
+      "matched_text": "Public source note (benign)",
+      "reason": "Public-source reference; not MNPI per rule set."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "effective time marker",
+      "matched_text": "E f f e c t i v e T i m e",
+      "reason": "Functions like an effective date/time trigger but not explicitly covered by the embargo_marker rule list."
+    },
+    {
+      "concept": "internal deal reference code",
+      "matched_text": "Deal Ref: NRH\u2011ORC\u20112026\u2011\u03947",
+      "reason": "Likely confidential tracking code; no explicit allowed rule for internal references."
+    },
+    {
+      "concept": "data room URL",
+      "matched_text": "https://vault.northspire.example/r/tx?c=ORCH1D&node=VDR-7A%2Fidx",
+      "reason": "Access link may be sensitive operationally but not mapped to a specific allowed rule."
+    }
+  ]
+}

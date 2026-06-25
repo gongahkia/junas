@@ -1,0 +1,243 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "KR",
+    "doc_id": "kr_privacy_events_privacy_notice_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/kr/privacy_events/kr_privacy_events_privacy_notice_adversarial_001.txt",
+    "source_jurisdiction": "KR",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/kr_privacy_events_privacy_notice_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Jae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Negative statement: no cross\u2011border transfer of insider lists occurred during Q1; any draft \u201cKRX\u2011IPO\u20112 0 2 6 \u2011 A 1\u201d entries were deleted before sync to PrismAtlas.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@samwontesseract.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@samwontesseract.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Jae\u2011min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Min\u2011kyung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EM-4A7F-**12",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer approval granted by DPO Mr. Han Jae\u2011min on 2026\u201101\u201115",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KR\u2192SG\u2192EU",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "X X X X X X \u2011 X X X X X X X",
+      "rule": "kr_rrn"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Jae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Jae",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Negative statement: no cross\u2011border transfer of insider lists occurred during Q1; any draft \u201cKRX\u2011IPO\u20112 0 2 6 \u2011 A 1\u201d entries were deleted before sync to PrismAtlas.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI gating under FSCMA: IR exports exclude unaudited financials and transaction timetables; this memo contains no important information not publicly disclosed.\nCross\u2011border transfer approval granted by DPO Mr. Han Jae\u2011min on 2026\u201101\u201115; route: KR\u2192SG\u2192EU via TLS1.3; no transfer of resident\u2011number fields was approved.\nConsent withdrawal: request from Ms. Seo Min\u2011kyung (former IR analyst) was completed on 2026\u201102\u201102; processing status=closed and SG export tokens revoked.\nDSAR intake channel: privacy@samwontesseract.co.kr and https://privacy.samwontesseract.co.kr/dsar?req=REQ-7f2b%2D** with identity check via employee code EM-4A7F-**12.\nErasure log: HR sandbox purge finished 2026\u201102\u201105 for EM-4A7F-**12; no live system replicas remained; exception noted for statutory payroll retention under local law.\nRetention schedule (policy only): IR contact data 3 years from last interaction, HR onboarding records 5 years; auto\u2011deletion job DISPATCH_MINI runs monthly.\nMinimisation: re s i d e n t - n u m b e r stored only in segregated vault; production CRM uses dummy field \u201cRRN_HASH=H**8a\u201d and exports null values to SG/EU environments.\nCompleted control: FSS notification of outsourced processing was filed 2026\u201101\u201120; FSC pre\u2011clearance not required because no customer account or trading data is processed.\nNegative statement: no cross\u2011border transfer of insider lists occurred during Q1; any draft \u201cKRX\u2011IPO\u20112 0 2 6 \u2011 A 1\u201d entries were deleted before sync to PrismAtlas.\nPublic\u2011source reliance: IR summaries reference KRX disclosure portal and our newsroom; social media handles and scraped web data are not ingested.\nResident\u2011number (masked): X X X X X X \u2011 X X X X X X X (policy placeholder), not collected in IR systems; OCR note: legacy PDFs may show \u201cr e g - n o\u201d artefacts without live identifiers.\nInternal contact: DPO Office, Attn: Mr. Han Jae\u2011min, dpo@samwontesseract.co.kr; escalation to Audit Committee Chair available for MNPI gate reviews only.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data Controller",
+      "reason": "Role noun/defined term, not a PII/MNPI value"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term, not a PII/MNPI value"
+    },
+    {
+      "matched_text": "Sub\u2011processor",
+      "reason": "Role noun/defined term, not a PII/MNPI value"
+    },
+    {
+      "matched_text": "KRX\u2011IPO\u20112 0 2 6 \u2011 A 1",
+      "reason": "Not a 'Project <Name>' transaction codename per rule"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "pseudonymous identifier",
+      "matched_text": "RRN_HASH=H**8a",
+      "reason": "Hash of resident-number field may be personal data but not covered by an allowed rule name"
+    },
+    {
+      "concept": "DSAR request token",
+      "matched_text": "REQ-7f2b%2D**",
+      "reason": "Unique request identifier in URL could be a personal identifier but no explicit allowed rule for such tokens"
+    }
+  ]
+}

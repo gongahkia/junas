@@ -1,0 +1,16 @@
+Vintara Technologies Limited — Incident Report dated 2026-05-31 (India jurisdiction).
+Summary: Misdelivery of investor relations auto-reply forwarded a legacy KYC form to three external recipients; the file was a redacted template containing placeholders only.
+Entity context: Vintara Technologies Limited, a listed issuer on the Bharat Capital Exchange (BCX), subject to Indian insider trading and disclosure norms under the PIT framework.
+Regulatory lens: Processed personal data under the Digital Personal Data Protection Act, 2023; no processing of children’s data (under 18) and no cross-border transfer.
+Data inventory: The attachment showed generic labels — Name (as per PAN): ______, Aadhaar No.: ____________, Passport No.: ____________, Mobile: ____________, Email: ____________, Bank A/c: ____________, IFSC: ____________, Address: ____________.
+Verification: The only filled field was a test Aadhaar value 4321 9876 0123, which on validation failed checksum and belongs to no actual Data Principal; other fields were blank or masked.
+Company identifiers present were non-personal and invalidated samples — CIN U12345DL2024PLC000321 and GSTIN 27AAAAA0000A1Z0 (checksum intentionally incorrect).
+No Unpublished Price Sensitive Information was contained; contents matched already-announced FY25 investor FAQ and publicly available CSR policy; board agenda and financials were not attached.
+PIT/UPSI controls: Trading window remained closed as per schedule; the Company Secretary (role) reviewed, and the Insider List was unchanged; no escalation to the audit committee was required.
+DPDPA basis: The file was a template for seeking consent and notice; no consent was actually captured, and Data Principal rights can be exercised via dpo@vintaratech.in.
+Root cause: Mail routing rule on the role mailbox investor.relations@vintaratech.in pointed to an external test list maintained by a vendor; no click-through or download logs outside the vendor sandbox.
+Remediation: Disabled the rule, purged the message, and issued a recall; conducted a vendor DPIA addendum and updated the Record of Processing.
+Child data: Confirmed no minors’ details; the KYC template was labelled ‘adult employee onboarding’ and contained only placeholder fields.
+Reporting: Exchange intimation filed as an operational update using stale, non-price-sensitive facts; the national cybercrime public helpline was referenced in our awareness note for employees.
+Contact for Data Principals and investors: compliance@vintaratech.in; postal: Registered Office, Plot 12, Sector 8, TechPark Phase II, District Zenith, Bharatnagar 509999 (illustrative).
+For completeness, a passport placeholder P<IND<XXXXXXXXX<0 and account stub A/c No. XXXX1234, IFSC XXXX0BCX01 appeared as dummy text and do not map to live records.

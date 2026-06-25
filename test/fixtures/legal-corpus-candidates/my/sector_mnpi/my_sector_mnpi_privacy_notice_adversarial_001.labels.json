@@ -1,0 +1,391 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 3,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM180m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='target size RM180m'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "5 0 4 5 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kelarai",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID E\u20110O7/\u039cY",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List Ref: IL\u2011\u039e\u2011 0 0 7 2",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IL\u2011KEL/2 0 2 6",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011close blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpa@lintang\u2011renewables.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lintang\u2011renewables.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer impact assessments",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimised datasets",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary cyber incident indicators prior to any public disclosure",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public announcement has been made at this stage",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Rahman Yusuf",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed green sukuk",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal ESG climate recalibration of Scope 2 baselines affecting SLL KPIs",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Crypto/DPT pilot controls",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a confidential DPT pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DR\u2011WAU//2026\u00b7my",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "barriered channel",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists are maintained",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cannot be shared with investors, counterparties, or analysts before a cleansing notice",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public information likely to materially affect the price or value",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30 days before quarterly results",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "5 0 4 5 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Kelarai",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Information barriers: all deal content tagged DR\u2011WAU//2026\u00b7my is ring\u2011fenced in a restricted vault; access is limited to Cleared Persons, and \u201ctipping\u201d or selective disclosure is prohibited under s.188 CMSA and internal Code of Conduct.\nInsider lists are maintained (Insider List Ref: IL\u2011\u039e\u2011 0 0 7 2; deal\u2011specific list IL\u2011KEL/2 0 2 6) with entries for Designated Persons, close associates, and timestamps; pre\u2011close blackout windows commence 30 days before quarterly results and may be extended if ESG assurance sign\u2011off slips",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lintang Renewables Berhad (Company No. LRB-20 21-\u03a8 34567) \u2014 Data Processing & MNPI Handling Addendum (Malaysia).\nFor the purposes of the PDPA 2010, \u201cpersonal data\u201d means information relating directly or indirectly to an identified or identifiable individual; for capital market conduct, \u201cMNPI\u201d means non\u2011public information likely to materially affect the price or value of our listed securities under the CMSA and Malaysian exchange Listing Requirements.\nWe process staff and contractor identifiers (e.g., EmpID E\u20110O7/\u039cY, role data, emails, device IDs), director and candidate details, and stakeholder contact data collected via https://lnk.lintang.my/consent?rid=9f2c%20%20a7, strictly for HR, security, and governance purposes.\nMNPI we may handle includes: (i) draft commercial terms of a proposed green sukuk with Amanah Ridge Capital Sdn Bhd (e.g., target size RM180m, coupon mechanics), (ii) internal ESG climate recalibration of Scope 2 baselines affecting SLL KPIs, (iii) a confidential DPT pilot (\u201cProject Kelarai\u201d) for tokenised RECs on a private ledger, and (iv) preliminary cyber incident indicators prior to any public disclosure.\nInformation barriers: all deal content tagged DR\u2011WAU//2026\u00b7my is ring\u2011fenced in a restricted vault; access is limited to Cleared Persons, and \u201ctipping\u201d or selective disclosure is prohibited under s.188 CMSA and internal Code of Conduct.\nInsider lists are maintained (Insider List Ref: IL\u2011\u039e\u2011 0 0 7 2; deal\u2011specific list IL\u2011KEL/2 0 2 6) with entries for Designated Persons, close associates, and timestamps; pre\u2011close blackout windows commence 30 days before quarterly results and may be extended if ESG assurance sign\u2011off slips.\nData subject rights: you may request access, correction, or deletion via pdpa@lintang\u2011renewables.my or the portal https://lnk.lintang.my/dsar?id=a0x-7%2F3; we will respond within 21 days as contemplated by the PDPA, subject to legal/privileged carve\u2011outs.\nCross\u2011border transfers: vendors in SG/EU receive only minimised datasets under binding contractual safeguards and transfer impact assessments (Ref: TIA\u2011MY\u20112 0 2 6); any processor onboarding requires DPIA approvals by the DPO.\nCyber incident note: on 14\u2011May\u20112026 a potential credential\u2011stuffing event affecting 27 test accounts (UserIDs u\u2011t e s t\u2011 1\u202627) was contained; no customer wallets or DPT modules were affected and no public announcement has been made at this stage.\nCrypto/DPT pilot controls: \u201cProject Kelarai\u201d pricing simulations and validator configurations are MNPI; discussions are confined to the barriered channel and cannot be shared with investors, counterparties, or analysts before a cleansing notice.\nCommercial terms: the sukuk term sheet contemplates a 4.35% base rate with a 25 bps step\u2011up tied to emissions intensity; no material adverse change (MAC) condition has been triggered or is expected a",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated context (no MAC) should not trigger material_adverse_change label"
+    },
+    {
+      "matched_text": "token",
+      "reason": "Educational/marketing example; not MNPI"
+    },
+    {
+      "matched_text": "breach",
+      "reason": "Educational/marketing example; not MNPI"
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational/marketing example; not MNPI"
+    },
+    {
+      "matched_text": "Cleared Persons",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Designated Persons",
+      "reason": "Role noun; not PII"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "https://lnk.lintang.my/consent?rid=9f2c%20%20a7",
+      "reason": "URL contains a request identifier (rid=...) which may be a unique session/request ID not explicitly covered by allowed rules"
+    },
+    {
+      "concept": "dsar_request_identifier",
+      "matched_text": "https://lnk.lintang.my/dsar?id=a0x-7%2F3",
+      "reason": "DSAR portal URL contains a unique id parameter potentially identifying a request; DSAR markers are relevant but not mapped to an allowed rule name"
+    },
+    {
+      "concept": "internal_user_identifier",
+      "matched_text": "UserIDs u\u2011t e s t\u2011 1\u202627",
+      "reason": "Internal/test account identifiers could be personal identifiers but do not map cleanly to a listed PII rule"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention workflow",
+      "reason": "Privacy retention/erasure markers are relevant under PDPA but not listed as an allowed rule label"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "auto\u2011deletion uses policy PD\u2011RM/7y",
+      "reason": "Indicates retention duration and auto-deletion; no explicit allowed rule for retention markers"
+    },
+    {
+      "concept": "postal_address",
+      "matched_text": "Level 28, Menara Hijau, Persiaran Sutera, 5 0 4 5 0 Kuala Lum ur",
+      "reason": "Address is PII under PDPA, but no Malaysia-specific postal/address rule is available in the allowed list"
+    },
+    {
+      "concept": "privacy_impact_assessment_marker",
+      "matched_text": "DPIA approvals",
+      "reason": "DPIA is a privacy compliance signal relevant to processing, but not an allowed rule label"
+    }
+  ]
+}

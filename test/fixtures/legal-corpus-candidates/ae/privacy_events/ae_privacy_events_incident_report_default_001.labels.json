@@ -1,0 +1,301 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 19,
+    "new_must_detect_count": 12,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 12,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_privacy_events_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zayed Al Qamar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al Mansouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nabil Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@nadrahcm.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance-ops@nadrahcm.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971 2 555 0140",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-90877-AL",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID token EID-XX4321",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "applied minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "family-origin disclosure",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "family-origin fields",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Saffron Falcon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-cross logs",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The incident did not meet PDPL breach thresholds; this is a compliance memo documenting controls, not a breach notice, and DPA Schedule 4 (breach notification) was not triggered.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 04\u201305 June, a misconfigured SFTP path during vendor onboarding triggered a halt on exporting client onboarding forms to Riyada Data Services Ltd (Bahrain) pending data-export approval.\nThe forms contain PDPL personal data (name, contact, masked Emirates ID token EID-XX4321, family-origin disclosure for KYC) and a trade licence copy for corporate signatories (TL-90877-AL), covered by DPA Schedule 2.\nCross-border transfer was not executed until the Transfer Impact Assessment and Data-Export Approval Memo DEAM-1194 were signed; only test hashes left the UAE during the pause",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "compliance-ops@nadrahcm.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971 2 555 0140",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zayed Al Qamar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al Mansouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nabil Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The incident did not meet PDPL breach thresholds; this is a compliance memo documenting controls, not a breach notice, and DPA Schedule 4 (breach notification) was not triggered.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The incident did not meet PDPL breach thresholds; this is a compliance memo documenting controls, not a breach notice, and DPA Schedule 4 (breach notification) was not triggered.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The incident did not meet PDPL breach thresholds; this is a compliance memo documenting controls, not a breach notice, and DPA Schedule 4 (breach notification) was not triggered.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Saffron Falcon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We received a DSAR from Mr. Zayed Al Qamar requesting access to processing records; fulfillment was completed within 10 working days with extraction logs attached.\nMs. Laila Al Mansouri withdrew consent for marketing emails on 03 June; suppression list updated and confirmation sent, with erasure of marketing attributes completed at 14:22 GST.\nNo Emirates ID images or trade licence scans left the UAE; the data lake applied minimisation by dropping family-origin fields not required for AML/CTF, per Retention Schedule RS-9/UA.\nDeal workflow context: the ops queue briefly linked to \u201cProject Saffron Falcon\u201d (issuer onboarding) but audit shows no access to non-public issuer decks; information barriers and wall-cross logs remained intact.\nIn line with UAE financial free zone practices, our internal market-abuse follow-up found no MNPI exposure and no obligation to notify the Gulf Securities Authority or Pearl Exchange.\nThe incident did not meet PDPL breach thresholds; this is a compliance memo documenting controls, not a breach notice, and DPA Schedule 4 (breach notification) was not triggered.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "The forms contain PDPL personal data (name, contact, masked Emirates ID token EID-XX4321, family-origin disclosure for KYC) and a trade licence copy for corporate signatories (TL-90877-AL), covered by DPA Schedule 2.\nCross-border transfer was not executed until the Transfer Impact Assessment and Data-Export Approval Memo DEAM-1194 were signed; only test hashes left the UAE during the pause",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "passport copies",
+      "reason": "Policy statement without any passport number; negated control not a live identifier"
+    },
+    {
+      "matched_text": "Cross-border transfer was not executed",
+      "reason": "Negated event; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "only test hashes left the UAE",
+      "reason": "Non-personal test data; not PII or live transfer of personal data"
+    },
+    {
+      "matched_text": "No Emirates ID images or trade licence scans left the UAE",
+      "reason": "Negated export statement; should not imply cross-border transfer"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role noun; not a named natural person"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "Data subject access request is a privacy event but no specific allowed DSAR rule exists"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "Erasure was completed for ex-client Mr. Nabil Haddad",
+      "reason": "Erasure event is legally relevant but no explicit erasure rule in allowed list"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention Schedule RS-9/UA",
+      "reason": "Retention governance reference is relevant but not covered by an allowed rule"
+    },
+    {
+      "concept": "sensitive personal data (family/ethnic origin)",
+      "matched_text": "family-origin disclosure for KYC",
+      "reason": "Potential special-category data under PDPL but not directly mapped to an allowed rule"
+    },
+    {
+      "concept": "cross-border assessment",
+      "matched_text": "Transfer Impact Assessment",
+      "reason": "Cross-border compliance artifact; no specific allowed rule for TIA marker"
+    },
+    {
+      "concept": "consent implementation",
+      "matched_text": "suppression list updated",
+      "reason": "Operational opt-out handling; not an allowed rule"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure of marketing attributes",
+      "reason": "Describes deletion action but no allowed erasure rule"
+    }
+  ]
+}

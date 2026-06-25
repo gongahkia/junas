@@ -1,0 +1,411 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "CN",
+    "doc_id": "cn_direct_identifiers_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_incident_report_default_001.txt",
+    "source_jurisdiction": "CN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/cn_direct_identifiers_incident_report_default_001.txt",
+    "taxonomy_concept": "direct_identifiers"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the CN Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "CN Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 16,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "93H3200MA7Q18K2R5",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Weiqi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@haiteng-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 10 6245 7781",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "y.li@haiteng-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 21 8555 0199",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "320104199109237214",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EJ90234567",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Ren",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6214 8890 1234 5678 901",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has not been publicly disclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "han.yc@haiteng-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 571 6700 4420",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Yicheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@haiteng-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border context",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Hengzhou CAC Cross-Border Filing No. HZ-CB-2026-077",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mask CNID and bank digits server-side by default",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "without collecting full CNID",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "decision to disclose will follow the materiality assessment",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoidance-of-delay analysis",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cybersecurity incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Unit 1203, Tower B, 88 Yunhe Road, Huining District, Hengzhou 320123, PRC",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Compliance Office, 16F, Tower A, 66 Ningyuan Ave., Hexi New Area, Hengzhou 320121",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "440101198812120019",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0000 0000 0000 0000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 10 6245 7781",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 21 8555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 571 6700 4420",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Haiteng Robotics (Hengzhou) Co., Ltd. (Unified Social Credit Code: 93H3200MA7Q18K2R5), an issuer on the Hengzhou Main Board, reports a cybersecurity incident detected on 2026-05-28 21:36 CST impacting HR onboarding and the vendor settlement portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As inside information, the interruption delayed Q2 vendor payments and could affect short-term cash flow forecasts; this has not been publicly disclosed and trading remains within a closed window per Hengzhou Securities Regulatory Office guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We filed a preliminary 72-hour notice to Nanshi Municipal Cyberspace Administration (Docket: NSCAC [2026] No. 014) and initiated a data breach record per internal PIPL/CSL/DSL procedures.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Local government liaison: Hengzhou High-Tech Zone Cybersecurity Center (Ref.: HZ-HTZ-2026-221) has been notified and will conduct a joint drill review next quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320104199109237214",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320123",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "440101198812120019",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320121",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data types affected under PIPL: employee contact data (e.g., +86 21 8555 0199; y.li@haiteng-robotics.cn), limited identity data (CN Resident ID sample: 320104199109237214), and one PRC passport (EJ90234567) uploaded during onboarding by Mr. Zhao Ren.\nA small subset of payroll stubs included truncated bank account references (e.g., 6214 8890 1234 5678 901) and office address records (Unit 1203, Tower B, 88 Yunhe Road, Huining District, Hengzhou 320123, PRC); no biometric templates were processed.\nOne malformed identifier (\u201c440101198812120019\u201d) failed the resident-ID checksum and was purged during data hygiene; a generic test entry \u201c0000 0000 0000 0000\u201d was also identified and removed",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "y.li@haiteng-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "han.yc@haiteng-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 10 6245 7781",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 21 8555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 571 6700 4420",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Weiqi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Ren",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Yicheng",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Haiteng Robotics (Hengzhou) Co., Ltd. (Unified Social Credit Code: 93H3200MA7Q18K2R5), an issuer on the Hengzhou Main Board, reports a cybersecurity incident detected on 2026-05-28 21:36 CST impacting HR onboarding and the vendor settlement portal.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As inside information, the interruption delayed Q2 vendor payments and could affect short-term cash flow forecasts; this has not been publicly disclosed and trading remains within a closed window per Hengzhou Securities Regulatory Office guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We filed a preliminary 72-hour notice to Nanshi Municipal Cyberspace Administration (Docket: NSCAC [2026] No. 014) and initiated a data breach record per internal PIPL/CSL/DSL procedures.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Local government liaison: Hengzhou High-Tech Zone Cybersecurity Center (Ref.: HZ-HTZ-2026-221) has been notified and will conduct a joint drill review next quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320104199109237214",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320123",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "440101198812120019",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320121",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report: Haiteng Robotics (Hengzhou) Co., Ltd. (Unified Social Credit Code: 93H3200MA7Q18K2R5), an issuer on the Hengzhou Main Board, reports a cybersecurity incident detected on 2026-05-28 21:36 CST impacting HR onboarding and the vendor settlement portal.\nInitial triage by Ms. Lin Weiqi (Data Protection Officer) indicates unauthorized API access via a compromised vendor token; contact: privacy@haiteng-robotics.cn, +86 10 6245 7781, WeChat: HT-Compliance.\nData types affected under PIPL: employee contact data (e.g., +86 21 8555 0199; y.li@haiteng-robotics.cn), limited identity data (CN Resident ID sample: 320104199109237214), and one PRC passport (EJ90234567) uploaded during onboarding by Mr. Zhao Ren.\nA small subset of payroll stubs included truncated bank account references (e.g., 6214 8890 1234 5678 901) and office address records (Unit 1203, Tower B, 88 Yunhe Road, Huining District, Hengzhou 320123, PRC); no biometric templates were processed.\nOne malformed identifier (\u201c440101198812120019\u201d) failed the resident-ID checksum and was purged during data hygiene; a generic test entry \u201c0000 0000 0000 0000\u201d was also identified and removed.\nAs inside information, the interruption delayed Q2 vendor payments and could affect short-term cash flow forecasts; this has not been publicly disclosed and trading remains within a closed window per Hengzhou Securities Regulatory Office guidance.\nWe filed a preliminary 72-hour notice to Nanshi Municipal Cyberspace Administration (Docket: NSCAC [2026] No. 014) and initiated a data breach record per internal PIPL/CSL/DSL procedures.\nCross-border context: remote diagnostics by Pacific Nimbus Pte. Ltd. (Singapore) were suspended pending assessment; Standard Contract on file (Hengzhou CAC Cross-Border Filing No. HZ-CB-2026-077) requires revalidation after scope change.\nFor avoidance of doubt, the \u201c12345\u201d hotline listed on our footer is a public city service number and is not personal information; form placeholders such as \u201cName: ____\u201d and \u201cID No.: ____\u201d seen in screenshots were empty and non-substantive.\nNo PI of minors under 14 was involved; birthdates reviewed against HR rosters confirmed only adult employees in scope.\nIndicators of compromise show credential stuffing against a legacy OAuth client; tokens revoked at 22:04 CST and IP blocks applied at the WAF; vendor API keys rotated and least-privilege scopes enforced.\nEmployment workflow remediation: HR Manager to switch identity verification to in-person check for PRC passports and resident IDs; onboarding forms now mask CNID and bank digits server-side by default.\nIssuer obligations: we prepared a draft disclosure for Hengzhou Main Board regarding operational impact; decision to disclose will follow the materiality assessment and avoidance-of-delay analysis under issuer rules.\nData subjects may request access/rectification via dpo@haiteng-robotics.cn or by post to Compliance Office, 16F, Tower A, 66 Ningyuan Ave., Hexi New Area, Hengzhou 320121; we will verify identity using secure challenge without collecting full CNID.\nLocal government liaison: Hengzhou High-Tech Zone Cybersecurity Center (Ref.: HZ-HTZ-2026-221) has been notified and will conduct a joint drill review next quarter.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A small subset of payroll stubs included truncated bank account references (e.g., 6214 8890 1234 5678 901) and office address records (Unit 1203, Tower B, 88 Yunhe Road, Huining District, Hengzhou 320123, PRC); no biometric templates were processed.\nOne malformed identifier (\u201c440101198812120019\u201d) failed the resident-ID checksum and was purged during data hygiene; a generic test entry \u201c0000 0000 0000 0000\u201d was also identified and removed",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "12345",
+      "reason": "Public city hotline; not personal information"
+    },
+    {
+      "matched_text": "Name: ____",
+      "reason": "Empty form placeholder; not substantive PII"
+    },
+    {
+      "matched_text": "ID No.: ____",
+      "reason": "Empty form placeholder; not substantive PII"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "social media handle",
+      "matched_text": "HT-Compliance",
+      "reason": "WeChat handle is personal data in context but not covered by allowed PII rules"
+    }
+  ]
+}

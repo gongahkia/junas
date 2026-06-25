@@ -1,0 +1,254 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 19,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 13,
+    "previous_must_detect_count": 10,
+    "previous_must_not_detect_count": 4
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 1,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@moorhavencapital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@moorhavencapital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@moorhavencapital.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "not personal social media or home device telemetry",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "subject to UK-approved transfer safeguards",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished precise information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cProject Alder\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished precise information is not shared with analysts or counterparties",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market sounding",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "would delay disclosure only where permitted and subject to confidentiality controls",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal data",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Complaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We collect business contact details, role history, training records, recorded business communications for regulatory obligations, and compliance submissions, not personal social media or home device telemetry.\nWe rely on legal obligations (Companies Act and FCA rules) and legitimate interests in running our listed-issuer operations on the London market; we do not sell personal data.\nData subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ",
+      "reason": "moved from must_detect after strict runtime no longer emitted exact span during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal data",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Complaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Moorhaven Capital plc Privacy and Retention Notice for UK Staff and Market Conduct\nThis notice explains how we process personal data under UK GDPR for employees, directors, contractors, and applicants.\nWe collect business contact details, role history, training records, recorded business communications for regulatory obligations, and compliance submissions, not personal social media or home device telemetry.\nWe rely on legal obligations (Companies Act and FCA rules) and legitimate interests in running our listed-issuer operations on the London market; we do not sell personal data.\nData subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ.\nWe may share data with Greywick Transfer Services Ltd (UK registrar), Cloud Wren EU S.\u00e0 r.l. (hosting), and Stonequay Compliance Solutions Ltd (outsourced monitoring), subject to UK-approved transfer safeguards.\nRetention: HR files are retained for up to six years after employment ends, trading surveillance records for five years per FCA requirements, and aggregated metrics may be held longer in anonymised form.\nPublic information: we rely on official RNS announcements and archived press releases; for example, our 2022 systems migration and 2023 office move were announced and are stale.\nAny codes in this notice (e.g., XX00MHCPL000, SEC-ZZ-0000) are placeholders and are not securities identifiers.\nMarket conduct summary (intentional positive span): during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk.\nWe avoid selective disclosure: unpublished precise information is not shared with analysts or counterparties; where a market sounding is necessary, we follow UK MAR procedures including wall-crossing and record-keeping.\nFor MAR purposes we assess significance relative to the issuer\u2019s circumstances and would delay disclosure only where permitted and subject to confidentiality controls.\nThis notice does not concern live transactions: training references to \u201cProject Alder\u201d or \u201cearnings uplift scenarios\u201d are hypothetical and already covered in public disclosures.\nIf you are a retail shareholder, please use our public investor relations mailbox at ir@moorhavencapital.co.uk; we cannot process DSARs via social media comments.\nComplaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "4 Kelmer Yard, London W1A 4ZZ",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "XX00MHCPL000",
+      "reason": "Placeholder code explicitly stated not to be a securities identifier or sensitive data"
+    },
+    {
+      "matched_text": "SEC-ZZ-0000",
+      "reason": "Placeholder code explicitly stated not to be a securities identifier or sensitive data"
+    },
+    {
+      "matched_text": "Moorhaven Capital plc",
+      "reason": "Company name, not a natural person PII"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title, not an identifiable natural person"
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "DSAR/right-of-access marker",
+      "matched_text": "Data subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ",
+      "reason": "Data subject access request workflow is a privacy-event marker but there is no explicit DSAR rule in the allowed set"
+    },
+    {
+      "concept": "retention policy marker",
+      "matched_text": "Retention: HR files are retained for up to six years after employment ends, trading surveillance records for five years per FCA requirements, and aggregated metrics may be held longer in anonymised form",
+      "reason": "Retention controls are legally relevant but there is no explicit retention_marker in the allowed rules"
+    },
+    {
+      "concept": "UK postal address/postcode",
+      "matched_text": "London W1A 4ZZ",
+      "reason": "UK postcode/address is PII but no UK postal address/postcode rule is provided in the allowed set"
+    },
+    {
+      "concept": "sale-of-data policy",
+      "matched_text": "we do not sell personal data",
+      "reason": "Privacy policy statement relevant to data rights but not mapped to any allowed PII rule"
+    }
+  ]
+}

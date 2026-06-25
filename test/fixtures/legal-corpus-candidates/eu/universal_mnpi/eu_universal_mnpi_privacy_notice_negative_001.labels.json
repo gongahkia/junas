@@ -1,0 +1,259 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 20,
+    "current_must_detect_count": 7,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 14,
+    "previous_must_detect_count": 8,
+    "previous_must_not_detect_count": 7
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_universal_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@ferrolumen.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@ferrolumen.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee id: 0000-XX",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfers rely on sccs (2021/914/eu)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eu\u2013us data privacy framework vendors",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data minimised to role titles (e.g., sustainability officer), not names",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "wellbeing/health preferences",
+      "rule": "health_condition"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "under article 17 mar",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar intake",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 2026-08-01 07:00 cet",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive supplier framework agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "LOG-XX-000000",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hosting in ch with eea backups",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access restricted to the core disclosure group only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nothing herein creates investor guidance; research notes cite already-announced facts and avoid non-public financial amounts or percentages",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@ferrolumen.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nothing herein creates investor guidance; research notes cite already-announced facts and avoid non-public financial amounts or percentages",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ferrolumen se \u2014 privacy & retention workflow note for eu issuer processes (gdpr/mar/csrd/sfdr)\nscope: investor-relations drafts, board memo extracts, sustainability research notes, term sheet summaries, and deal checklists; public-source heavy, minimal personal data\npii per gdpr includes indirect identifiers; special-category (art 9) limited to voluntary wellbeing/health preferences from employee spa-day sign-ups; no decisions based solely on automated processing\ndsar intake via role mailbox privacy.office@ferrolumen.example; form labels: name, employee id: 0000-XX, country, request type; we do not request passport numbers or national ids\nretention: ir drafts kept 6 months, research notes 24 months, board memos 5 years; delete or anonymise thereafter; audit log ids: LOG-XX-000000 (invalid test format)\nmar workflow: public-source references dominate (e.g., 2024 csrd report excerpts, ngo ratings); historical codename bait: project reed (retired; already mentioned in our 2023 report)\nir draft embargo until 2026-08-01 07:00 cet under article 17 mar; access restricted to the core disclosure group only\ntemplate spa/term-sheet checklist uses negated mac language: \u201cno material adverse change has occurred\u201d is a drafting placeholder and not a current assessment\ndefinitive supplier framework agreement executed in 2025 was announced on the regulated market news feed and remains public; no price-sensitive amendments pending\ncross-border transfers rely on sccs (2021/914/eu) with tiare cloud s.a.r.l. (processor) hosting in ch with eea backups; transfer impact assessments stored in sharepoint-fx (eu tenant)\nwe may use eu\u2013us data privacy framework vendors solely for website analytics; opt-out cookies enabled; no special-category data flows to the us\nsfdr and csrd metrics compiled from public supplier questionnaires and esrs-e1 data; personal data minimised to role titles (e.g., sustainability officer), not names\nsecurity identifier placeholders in drafts: isin zz0000000000, lei 00000000000000000000 (invalid formats for testing); these are not live identifiers\naccess requests escalated to the dpo via dpo@ferrolumen.example; the public helpline is posted on our website; we never ask for bank account numbers in dsar flows\nupon rejection of a vendor, we purge due-diligence files within 90 days and retain only aggregate scoring; any mnpi is redacted before wider distribution\nnothing herein creates investor guidance; research notes cite already-announced facts and avoid non-public financial amounts or percentages",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "project reed",
+      "reason": "Lowercase historical codename bait; does not match 'Project <CapitalizedName>' pattern and is stated as public/retired."
+    },
+    {
+      "matched_text": "\u201cno material adverse change has occurred\u201d",
+      "reason": "Negated MAC language; explicitly excluded by rule."
+    },
+    {
+      "matched_text": "bank account numbers",
+      "reason": "Generic mention; no actual account numbers present."
+    },
+    {
+      "matched_text": "passport numbers",
+      "reason": "Generic mention; no actual passport numbers present."
+    },
+    {
+      "matched_text": "national ids",
+      "reason": "Generic mention; no actual national ID values present."
+    },
+    {
+      "matched_text": "isin zz0000000000",
+      "reason": "Invalid placeholder; not a covered identifier under allowed rules."
+    },
+    {
+      "matched_text": "lei 00000000000000000000",
+      "reason": "Invalid placeholder; not a covered identifier under allowed rules."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "retention: ir drafts kept 6 months, research notes 24 months, board memos 5 years; delete or anonymise thereafter",
+      "reason": "Data retention schedule is privacy-relevant but there is no explicit allowed rule for retention markers."
+    },
+    {
+      "concept": "cookie_controls",
+      "matched_text": "opt-out cookies enabled",
+      "reason": "Indicates cookie control/consent mechanics; relevant to privacy but not covered by a specific allowed rule unless an actual cookie_id is present."
+    },
+    {
+      "concept": "insider_list_marker",
+      "matched_text": "core disclosure group",
+      "reason": "Suggests a restricted set of insiders for MAR purposes, but no explicit 'insider list' term is used."
+    }
+  ]
+}

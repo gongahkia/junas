@@ -1,0 +1,17 @@
+Incident report — Orildera Renewables SE (EU issuer) — cyber and operational data handling event dated 14 May 2026.
+Scope: disruption in the GreenPulse KPI Engine sandbox and a triage of a phishing attempt routed to it-security@orildera.eu; no production market data systems affected.
+Jurisdiction and framework: GDPR (incl. Art 9), EU MAR, CSRD/SFDR disclosure pipeline, and internal Listing Rules for Meridian Exchange Luxembourg.
+Facts: a contractor uploaded two CSV extracts to a test bucket replicated to our processor Aurora Data Grid Ltd. in Verdania under SCCs; cross-border transfer logged and paused.
+Datasets contained vendor product labels (e.g., AuroraShield XDR, Riverline Vault) and generic wellness slogans used in UX testing; no payroll, no IDs, no biometrics.
+One record contained special-category personal data: Employee: Mara Ilion — occupational health clearance dated 2025-11-02 indicating cardiac rehabilitation, placed in error within a training note.
+All other lines referenced anonymised role accounts (e.g., ops_team@orildera.eu) and placeholder fields (e.g., EMP_ID: 0000-XX); no union, religion, political, genetic, or sex-life data.
+MAR assessment: precise information capable of influencing the price was not present; sustainability metrics mentioned were identical to figures published in the Q1 2026 Trading Update on 29 April and our CSRD Fact Book.
+Accordingly, no inside information list was opened; however, a watch note was filed with the Baltic Capital Markets Authority (BCMA) for transparency under our Notification Policy.
+GDPR assessment: no applicable Art 9(2) condition existed for that single record; event classified as a personal data breach with low risk, deleted within 2 hours, with logs retained under Art 5(1)(f).
+Transfers: SCC Module Two in place with Aurora Data Grid Ltd., plus Verdania TIA addendum; replication blocked by a geo-fence after 12 minutes and no onward sub-processing occurred.
+ESG/CSRD impact: the GreenPulse sandbox is not a source system for CSRD figures; our SFDR PAIs and taxonomy KPIs remain unchanged and are derived from production ledgers.
+Business continuity: customer portals, turbine telemetry, and investor pages ran at green status; this was a training-lab wobble, not a stadium floodlight failure.
+DEI and culture note: the Nordleaf Inclusion Playbook and “Run Together” wellbeing banners seen in the test data are generic templates and not linked to individuals.
+Bait artefacts note: an image labelled “Vesperia Blue Kites” (local club) and a city skyline mock-up were placeholders for a landing page and contain no personal data.
+Remediation actions: service ticket IR-MLX-0007 (invalid format), mail filters tightened, sandbox isolated, and a privacy-by-design checklist added to the sprint gate.
+Next steps: internal awareness via role mailbox privacy@orildera.eu, refresh of the Cross-Border Transfer SOP, and an after-action with the BCMA liaison team.

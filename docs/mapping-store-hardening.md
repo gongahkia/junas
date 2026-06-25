@@ -1,0 +1,72 @@
+# Mapping Store Hardening
+
+Kaypoh can persist `/pseudonymize` mapping tables when `KAYPOH_REVIEW_PERSIST=1` so
+`/reidentify` can restore text later from a `document_hash`. Those mappings contain the
+original PII/MNPI scalars and should be treated as sensitive secrets.
+
+## Encryption
+
+Set `KAYPOH_MAPPING_STORE_KEY` to enable authenticated encryption for newly written
+mapping files:
+
+```sh
+python - <<'PY'
+from cryptography.fernet import Fernet
+print(Fernet.generate_key().decode())
+PY
+```
+
+```sh
+export KAYPOH_MAPPING_STORE_KEY='paste-generated-key-here'
+export KAYPOH_SUBJECT_INDEX_KEY='paste-subject-index-hmac-key-here'
+export KAYPOH_REVIEW_PERSIST=1
+```
+
+Encrypted mapping files are stored as Fernet envelopes under
+`${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/mappings/`. Existing plaintext mapping files
+remain readable for compatibility, but are not rewritten automatically.
+
+Key loss is destructive: encrypted mappings cannot be recovered without the key. Rotate
+by setting a new key and rewriting only mappings that still need to be retained.
+
+`KAYPOH_SUBJECT_INDEX_KEY` is separate from `KAYPOH_MAPPING_STORE_KEY`. It HMACs
+canonical subject values into `${KAYPOH_JOURNAL_DIR:-./kaypoh-journal}/subject_index/index.json`
+so erasure requests can find affected mapping files without storing raw PII in the
+index. When `KAYPOH_REVIEW_PERSIST=1`, Kaypoh fails closed if this key is missing.
+
+## Retention
+
+Delete one mapping by hash:
+
+```sh
+PYTHONPATH=src python3 scripts/purge_mappings.py --document-hash <sha256>
+```
+
+Preview or apply age-based retention:
+
+```sh
+PYTHONPATH=src python3 scripts/purge_mappings.py --older-than-days 30 --dry-run
+PYTHONPATH=src python3 scripts/purge_mappings.py --older-than-days 30
+```
+
+For subject-initiated erasure, rebuild the reverse index if needed and erase by
+subject value with a legal/ticket citation:
+
+```sh
+PYTHONPATH=src python3 scripts/erase_subject.py --backfill
+PYTHONPATH=src python3 scripts/erase_subject.py --value 'jane@example.com' --citation DSR-2026-05-28
+```
+
+The subject erasure path deletes reversible mapping files, appends
+`subject_erasure_recorded` journal tombstones for immutable review-session findings,
+and removes the matching HMAC index bucket. CLI JSON output includes hashes and
+document/review references, not the raw subject value.
+
+## Deployment Controls
+
+- Restrict `${KAYPOH_JOURNAL_DIR}` to the service account that runs Kaypoh.
+- Use FileVault, BitLocker, LUKS, or cloud-volume encryption for disk-level protection.
+- Keep `KAYPOH_MAPPING_STORE_KEY` in a secrets manager, not in checked-in config.
+- Keep `KAYPOH_SUBJECT_INDEX_KEY` in a secrets manager; changing it requires
+  `scripts/erase_subject.py --backfill` before subject lookups will match older data.
+- Do not share mapping files between tenants; use separate journal directories for each tenant.

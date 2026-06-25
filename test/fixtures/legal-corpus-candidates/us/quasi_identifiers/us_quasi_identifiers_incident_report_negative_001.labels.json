@@ -1,0 +1,242 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 14,
+    "old_must_detect_count": 9,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_quasi_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cybersecurity@northstarvitality.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "877-555-0198",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/14/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198; do not send patient records to these addresses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SSN: 000-00-0000",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MRN: A0000000",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account #: 1111-2222-3333",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No: 0000000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 03/14/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device asset tag NV-MB-17",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "workstation host PB-CLM-17",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal financing account suffix 2214 at Riverbend Credit Union",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "uses clinic-issued phone model \u201cA12,\u201d lists ZIP prefix 1120x, and began employment in 2019",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "possible MNPI exposure",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cybersecurity@northstarvitality.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "877-555-0198",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/14/1985",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Intentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "An external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198; do not send patient records to these addresses.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.\nSeparately, an hourly registrar on the night shift uses clinic-issued phone model \u201cA12,\u201d lists ZIP prefix 1120x, and began employment in 2019; these details are not identifiable on their own.\nNo Social Security numbers, full bank account numbers, diagnoses, or prescriptions were transmitted; the field labels appearing in screenshots (Name, DOB, Policy ID) are generic.\nAn external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.\nThe incident was publicly summarized during our routine quarterly update and mirrored on ir.northstarvitality.example; no 8-K amendment was required.\nConsistent with U.S. practice, we also notified Granite Exchange Issuer Services and the United Markets Authority; neither requested additional trading halt measures.\nRemediation actions included a global password reset, token re-issue, EDR triage, and enhanced phishing simulations; no customer complaints have been logged.\nFor questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Date: 2026-05-30 | Subject: Contained phishing incident at Northstar Vitality, Inc. (NVIQ), a U.S. healthcare issuer.\nSummary: On 2026-05-28 an email spoof targeted two clinic staff and one treasury analyst; multifactor prevented credential reuse; production EHR and core banking modules were not accessed.\nPII/PHI/GLBA review indicates no exfiltration; observed activity was limited to a nonproduction training inbox and an internal sandbox.\nWe evaluated possible MNPI exposure under Rule 10b-5 and Reg FD; no material information was disclosed beyond our IR site and broad webcasts.\nSample values present in logs were placeholders from templates (e.g., SSN: 000-00-0000; MRN: A0000000; CUSIP: ZZZ000ZZZ; Account #: 1111-2222-3333), and should not be treated as live data.\nIntentional positive: one contractor profile in the access log combined DOB 03/14/1985, residence area \u201cLake Overlook,\u201d role \u201cclaims intake,\u201d device asset tag NV-MB-17, internal financing account suffix 2214 at Riverbend Credit Union, and workstation host PB-CLM-17.\nSeparately, an hourly registrar on the night shift uses clinic-issued phone model \u201cA12,\u201d lists ZIP prefix 1120x, and began employment in 2019; these details are not identifiable on their own.\nNo Social Security numbers, full bank account numbers, diagnoses, or prescriptions were transmitted; the field labels appearing in screenshots (Name, DOB, Policy ID) are generic.\nAn external sell-side analyst asked whether this impacted guidance; we referred them to our prior Q2 webcasts and the already-posted FAQ, avoiding selective disclosure.\nThe incident was publicly summarized during our routine quarterly update and mirrored on ir.northstarvitality.example; no 8-K amendment was required.\nConsistent with U.S. practice, we also notified Granite Exchange Issuer Services and the United Markets Authority; neither requested additional trading halt measures.\nRemediation actions included a global password reset, token re-issue, EDR triage, and enhanced phishing simulations; no customer complaints have been logged.\nFor questions contact cybersecurity@northstarvitality.example or our general helpline at 877-555-0198; do not send patient records to these addresses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name",
+      "reason": "Field label only; no associated value"
+    },
+    {
+      "matched_text": "DOB",
+      "reason": "Field label only in screenshot context; not an actual birth date"
+    },
+    {
+      "matched_text": "Policy ID",
+      "reason": "Field label only; not an actual identifier"
+    },
+    {
+      "matched_text": "CUSIP: ZZZ000ZZZ",
+      "reason": "Security identifier placeholder; not a person-linked PII per allowed rules"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "bank routing number",
+      "matched_text": "Routing: 000000000",
+      "reason": "Financial institution identifier may be sensitive but no explicit allowed rule for routing numbers"
+    },
+    {
+      "concept": "partial bank account identifier",
+      "matched_text": "internal financing account suffix 2214 at Riverbend Credit Union",
+      "reason": "Last-4 account digits can be identifying in context but not clearly covered by bank_account rule"
+    },
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "residence area \u201cLake Overlook,\u201d",
+      "reason": "Neighborhood/area can help identify a person when combined with other attributes; not a standalone allowed rule"
+    },
+    {
+      "concept": "partial ZIP quasi-identifier",
+      "matched_text": "ZIP prefix 1120x",
+      "reason": "Partial postal code may contribute to re-identification but lacks a specific allowed rule"
+    }
+  ]
+}

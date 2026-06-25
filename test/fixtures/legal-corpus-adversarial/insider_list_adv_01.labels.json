@@ -1,0 +1,14 @@
+{
+  "doc_id": "insider_list_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "insider_list_marker", "matched_text": "insider list", "reason": "negated context — 'no insider list was maintained'"},
+    {"rule": "insider_list_marker", "matched_text": "restricted list", "reason": "negated context — 'not a restricted list'"},
+    {"rule": "insider_list_marker", "matched_text": "wall-crossing", "reason": "negated context — 'no wall-crossing has occurred'"},
+    {"rule": "information_barrier_marker", "matched_text": "Chinese wall", "reason": "negated context — 'without any Chinese wall'"}
+  ],
+  "_label_source": "hand"
+}

@@ -1,0 +1,255 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_privacy_events_memo_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/privacy_events/jp_privacy_events_memo_negative_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_privacy_events_memo_negative_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@hoshitake.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@hoshitake.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no \u500b\u4eba\u756a\u53f7",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing window is closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Board updates on announced acquisition, employee data controls, and securities workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PPC-equivalent guidance is reflected in our Data Processing Addendum Schedule JP-DPA-02; the schedule lists permitted processors and includes the data-export approval above.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Board updates on announced acquisition, employee data controls, and securities workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PPC-equivalent guidance is reflected in our Data Processing Addendum Schedule JP-DPA-02; the schedule lists permitted processors and includes the data-export approval above.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Board updates on announced acquisition, employee data controls, and securities workflows.\nThe Board noted the public announcement on the Tokyo Bay Securities Exchange (TBSE) of the tender offer for Kogami Optics K.K.; the TOB has closed and FIEA material facts were filed with the Japan Capital Markets Authority (JCMA).\nNo undisclosed material facts remain; references to \u201cundisclosed\u201d in the policy annex are definitional only and do not indicate a live risk.\nData-export approval: cross-border transfer of de-identified employee IDs and role metadata to CloudNova SAS (Silanda) for payroll consolidation is approved under APPI with supervisory-notice alignment; minimisation applied (no \u500b\u4eba\u756a\u53f7, no home address).\nConsent: no consent-withdrawal notices were received in Q2; HR will use Form HR-APPI-05 if a withdrawal occurs, via the role mailbox privacy@hoshitake.co.jp.\nDSAR: no employee access requests are pending or received this quarter; the response template remains available in the APPI toolkit for standard use.\nErasure: one former contractor\u2019s onboarding record was erased post-offboarding; retention markers on payroll ledgers remain HLD-3Y-payroll per Schedule JP-RET-190.\nMy Number handling: onboarding forms display the label \u201c\u500b\u4eba\u756a\u53f7 (My Number): MYN-0000-0000\u201d as a placeholder; this invalid value is not stored, and actual \u500b\u4eba\u756a\u53f7 is collected only on the domestic payroll system.\nSecurity identifiers: sample code JP00-HSK-000 appears on training materials for filing practice; it is not a real ISIN or code and does not represent live securities.\nInsider control: the insider list is maintained and the dealing window is closed until post-settlement; the phrase \u201ctender offer leak\u201d appears in the risk register for training, and does not denote an incident.\nCross-border marketing dataset exports remain prohibited; last year\u2019s marketing export request was denied due to inadequate minimisation, and no live transfer exists for that set.\nPPC-equivalent guidance is reflected in our Data Processing Addendum Schedule JP-DPA-02; the schedule lists permitted processors and includes the data-export approval above.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MYN-0000-0000",
+      "reason": "Placeholder example; not a real JP My Number"
+    },
+    {
+      "matched_text": "JP00-HSK-000",
+      "reason": "Sample code; not a real ISIN or live securities identifier"
+    },
+    {
+      "matched_text": "tender offer leak",
+      "reason": "Training phrase; does not denote an incident"
+    },
+    {
+      "matched_text": "undisclosed",
+      "reason": "Definitional reference; no live nonpublic MNPI"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "retention marker",
+      "matched_text": "HLD-3Y-payroll",
+      "reason": "Indicates retention period but retention markers are not in the allowed rules"
+    },
+    {
+      "concept": "erasure event",
+      "matched_text": "Erasure",
+      "reason": "Mentions completed erasure; event markers for erasure not covered and completed controls should not be labeled"
+    },
+    {
+      "concept": "DSAR marker (negated)",
+      "matched_text": "DSAR",
+      "reason": "Access-request context is relevant privacy event but negated and not in allowed rules"
+    },
+    {
+      "concept": "consent withdrawal marker (negated)",
+      "matched_text": "consent-withdrawal",
+      "reason": "Relevant privacy event but negated; rule advises not to label negated controls"
+    },
+    {
+      "concept": "postal address PII",
+      "matched_text": "home address",
+      "reason": "Sensitive address type mentioned; no JP postal code and generic address not in allowed PII rules"
+    },
+    {
+      "concept": "cross-border destination",
+      "matched_text": "CloudNova SAS (Silanda)",
+      "reason": "Identifies foreign processor and country; contextual to transfer but not an event marker rule"
+    },
+    {
+      "concept": "blackout timeline",
+      "matched_text": "post-settlement",
+      "reason": "Indicates the end of dealing restriction; not a listed embargo marker"
+    },
+    {
+      "concept": "internal consent/DSAR process identifier",
+      "matched_text": "Form HR-APPI-05",
+      "reason": "Process reference for withdrawal handling; not mapped to an allowed event marker"
+    },
+    {
+      "concept": "retention schedule reference",
+      "matched_text": "Schedule JP-RET-190",
+      "reason": "Denotes retention policy schedule; not covered by allowed rules"
+    }
+  ]
+}

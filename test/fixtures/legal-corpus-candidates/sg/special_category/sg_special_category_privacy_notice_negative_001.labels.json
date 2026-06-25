@@ -1,0 +1,230 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_special_category_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Employee ID E\u20110913",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical certificates relating to physiotherapy",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@harbourapex.example.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "listingcompliance@harbourapex.example.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean teams",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPA minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent records until withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information not generally available and reasonably expected to affect price/value",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before wider internal circulation",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheets",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced milestones",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid unnecessary capture of NRIC, full DOB, home addresses, or photos",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exclude personal contact details",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "listingcompliance@harbourapex.example.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Harbour Apex Holdings Ltd. (SGX-ST issuer) \u2014 PDPA/SFA Retention & Transfer Workflow Note (Internal)\nScope: applies to M&A diligence, employment records, and capital-markets disclosures under the PDPA, SFA, and SGX Listing Rules.\nPDPA minimisation: collect, use, and disclose personal data only for notified purposes; avoid unnecessary capture of NRIC, full DOB, home addresses, or photos in deal or Board packs.\nRetention schedule: HR files 7 years after cessation; VDR/due\u2011diligence materials 6 years post\u2011completion; trading surveillance logs 5 years; consent records until withdrawal; then anonymise or securely destroy.\nIntentional sensitive data control: for Employee ID E\u20110913 (Finance), retain medical certificates relating to physiotherapy in 2025 for 2 years solely to verify statutory sick leave; access limited to HR Health Admin and audited quarterly.\nCross\u2011border transfers: send personal data to processors in MY/HK only under PDPA s.26 with comparable protection; use Orchid Bridge Data Transfer Addendum v2.1 and document a transfer impact assessment before onboarding.\nDSAR handling: receive requests via dpo@harbourapex.example.sg; verify identity without collecting NRIC (use staff pass suffix or registered work email); respond within 30 days unless extended with reasons recorded.\nMNPI discipline: materials containing information not generally available and reasonably expected to affect price/value must remain within clean teams; pre\u2011clear with the Disclosure Committee and release via SGXNet before wider internal circulation.\nTraining examples may reference the already\u2011announced proposal to combine with Riverstone Robotics Pte. Ltd. (public since 3 Jan 2025) but must not include draft term sheets or unannounced milestones.\nIllustrations that mention Marina Vista smartwatch, Garden City Productivity Policy, Lion City United FC, or Rainbow Spectrum DEI Charter are generic placeholders and do not identify individuals.\nM&A VDR controls: pseudonymise CVs with candidate IDs; exclude personal contact details; use view\u2011only watermarks and expiry; log downloads by role rather than name.\nThird\u2011party processors: Azure Reef Cloud Pte. Ltd. (hosting) and Cedar Quill Advisory LLP (archiving) act under written DPAs with confidentiality, retention, and SGX issuer MNPI clauses.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Marina Vista smartwatch",
+      "reason": "Product name placeholder; not PII/MNPI"
+    },
+    {
+      "matched_text": "Garden City Productivity Policy",
+      "reason": "Policy name/metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lion City United FC",
+      "reason": "Sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Spectrum DEI Charter",
+      "reason": "Generic DEI/policy placeholder; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "retention_period",
+      "matched_text": "HR files 7 years after cessation",
+      "reason": "Retention marker is legally relevant but no explicit allowed rule for retention markers."
+    },
+    {
+      "concept": "retention_period",
+      "matched_text": "VDR/due\u2011diligence materials 6 years post\u2011completion",
+      "reason": "Retention marker is legally relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "retention_period",
+      "matched_text": "trading surveillance logs 5 years",
+      "reason": "Retention control is relevant but not mapped to an allowed rule."
+    },
+    {
+      "concept": "legal_hold_marker",
+      "matched_text": "Legal hold: if notified by the Litigation Team, suspend deletion",
+      "reason": "Legal hold instructions are compliance\u2011relevant but not covered by an allowed rule."
+    },
+    {
+      "concept": "pseudonymisation_control",
+      "matched_text": "pseudonymise CVs with candidate IDs",
+      "reason": "Privacy\u2011by\u2011design control relevant to PDPA but not mapped to an allowed rule."
+    },
+    {
+      "concept": "disclosure_governance",
+      "matched_text": "pre\u2011clear with the Disclosure Committee",
+      "reason": "MNPI governance control; not clearly covered by provided MNPI rules."
+    },
+    {
+      "concept": "public_disclosure_channel",
+      "matched_text": "release via SGXNet",
+      "reason": "Public disclosure mechanism relevant to selective disclosure risk but not an explicit allowed rule."
+    }
+  ]
+}

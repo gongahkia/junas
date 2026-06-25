@@ -1,0 +1,264 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_privacy_events_term_sheet_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_term_sheet_adversarial_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_privacy_events_term_sheet_adversarial_001.txt",
+    "taxonomy_concept": "privacy_events"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.d@kelana-legal.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a.koh@novaluxe.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Dhanalakshmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer marker: documents will be mirrored to a VDR in Osaka via https://vdr.novaluxe.sg/xfer?id=fx9-12a, with transfer-limitation and equivalent-protection undertakings (PDPA s.26)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal mechanism (HR Form R\u201112) enabled and last used on 03\u2011Mar\u20112026",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retention/minimisation: government ID fields are replaced with hashed aliases and retained for 24 months post-termination",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$4.20",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$4.20 per share",
+      "rule": "contract_unit_price"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SGX-ST approval for delisting",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no\u2011detriment withdrawal clause",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Novaluxe Capital Pte. Ltd., a company listed on the Mainboard of SGX-ST; non-binding save for confidentiality, PDPA handling, and exclusivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing onboarding: New Hire Form OF\u2011Blue contains PDPA consent text and a no\u2011detriment withdrawal clause; template attached as DPA Schedule 3 for policy review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data\u2011export approvals: cross\u2011border assessment and intra\u2011group SCCs are countersigned (internal ticket \u201cXPT\u201107\u2011sg\u201d marked C O M P L E T E); no further export is scheduled pre\u2011Closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17b",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.d@kelana-legal.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a.koh@novaluxe.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Dhanalakshmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Novaluxe Capital Pte. Ltd., a company listed on the Mainboard of SGX-ST; non-binding save for confidentiality, PDPA handling, and exclusivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-closing onboarding: New Hire Form OF\u2011Blue contains PDPA consent text and a no\u2011detriment withdrawal clause; template attached as DPA Schedule 3 for policy review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data\u2011export approvals: cross\u2011border assessment and intra\u2011group SCCs are countersigned (internal ticket \u201cXPT\u201107\u2011sg\u201d marked C O M P L E T E); no further export is scheduled pre\u2011Closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$4.20",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Novaluxe Capital Pte. Ltd., a company listed on the Mainboard of SGX-ST; non-binding save for confidentiality, PDPA handling, and exclusivity.\nBuyer: Helio Quanta Holdings Ltd.; Seller: public shareholders via scheme; SG counsel: Kelana & Hsu LLC (attn: Ms. Priya Dhanalakshmi, priya.d@kelana-legal.sg; dealroom: https://deal.kelana.sg/room?code=HQL-NVC-0_7a).\nIndicative consideration S$4.20 per share, subject to no MAC; for the avoidance of doubt, the absence of a MAC is not a privacy risk nor MNPI.\nConditions precedent include SGX-ST approval for delisting, any MAS notifications, a PDPC compliance memo, and execution of DPA Schedule 2 prior to any cross-border transfer.\nCross-border transfer marker: documents will be mirrored to a VDR in Osaka via https://vdr.novaluxe.sg/xfer?id=fx9-12a, with transfer-limitation and equivalent-protection undertakings (PDPA s.26).\nPrivacy workflow: DSAR log shows 1 request closed on 12\u2011Apr\u20112026; consent withdrawal mechanism (HR Form R\u201112) enabled and last used on 03\u2011Mar\u20112026; no open requests as at signing.\nErasure marker: legacy marketing list back\u2011ups (list code \u201cC0\u2011g1\u201d) were irreversibly erased on 28\u2011Feb\u20112026; retention/minimisation: government ID fields are replaced with hashed aliases and retained for 24 months post-termination.\nPost-closing onboarding: New Hire Form OF\u2011Blue contains PDPA consent text and a no\u2011detriment withdrawal clause; template attached as DPA Schedule 3 for policy review.\nMNPI status: this term sheet and price references rely on information generally available on S G X N e t and the issuer\u2019s public materials; the parties do not expect the data herein to be material or non\u2011public under the SFA/SGX regime.\nCompleted control: privacy impact assessment (PIA ref \u201cA\u201117b\u201d) finalised on 10\u2011Apr\u20112026; all remediation items closed; this is a policy\u2011only confirmation and does not imply ongoing processing.\nData\u2011export approvals: cross\u2011border assessment and intra\u2011group SCCs are countersigned (internal ticket \u201cXPT\u201107\u2011sg\u201d marked C O M P L E T E); no further export is scheduled pre\u2011Closing.\nKey personnel: Mr. Adrian Koh (CFO) to execute a 24\u2011month service agreement; contact for signing logistics only: a.koh@novaluxe.sg; no bank account or government ID details will be collected at the term sheet stage.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "dsar_marker",
+      "matched_text": "DSAR log shows 1 request closed on 12\u2011Apr\u20112026",
+      "reason": "DSAR handling is a key privacy workflow event but there is no explicit allowed rule for DSAR markers."
+    },
+    {
+      "concept": "erasure_marker",
+      "matched_text": "Erasure marker: legacy marketing list back\u2011ups (list code \u201cC0\u2011g1\u201d) were irreversibly erased on 28\u2011Feb\u20112026",
+      "reason": "Erasure events are privacy handling markers but there is no explicit allowed rule for erasure in the current list."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained for 24 months post-termination",
+      "reason": "Retention duration is a privacy handling signal but there is no explicit retention marker rule in the allowed list."
+    },
+    {
+      "concept": "cross_border_controls_completed",
+      "matched_text": "Data\u2011export approvals: cross\u2011border assessment and intra\u2011group SCCs are countersigned (internal ticket \u201cXPT\u201107\u2011sg\u201d marked C O M P L E T E); no further export is scheduled pre\u2011Closing",
+      "reason": "Completed cross-border approvals relate to transfer governance but are not a live transfer marker and not covered by an allowed rule."
+    }
+  ]
+}

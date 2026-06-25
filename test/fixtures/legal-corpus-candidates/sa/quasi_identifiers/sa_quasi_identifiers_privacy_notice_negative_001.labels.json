@@ -1,0 +1,240 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 21,
+    "new_must_detect_count": 4,
+    "old_ideal_must_detect_count": 18,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_quasi_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1988-02-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "listings@rimaladvisory.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@rimaladvisory.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1988-02-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We delete cache copies of prospectus drafts within 24 hours",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers occur",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the requester indicated DOB 1988-02-03, residence area \u201cAl Hamra, Jeddah\u201d, employer \u201cTamkeen Energy Ltd\u201d, role \u201cProcurement Analyst\u201d, company laptop tag TE-AT-00971, payroll account tail \u20266021, and masked Iqama ref KSA-IQ-77**-**-**21, which we linked to internal user code HR-FAKE-558",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TE-AT-00971",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll account tail \u20266021",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "KSA-IQ-77**-**-**21",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HR-FAKE-558",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IMEI TEST-000-000-000",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2050-XYZ-1111",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA transfer permit",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PERM-SDAIA-FAKE-####",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We do not solicit MNPI; price\u2011sensitive information is accepted only through issuer portals after a public filing or press release",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal MNPI controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1988-02-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rimal Advisory Holdings KSA LLC processes PDPL personal data solely for issuer onboarding and compliance with market\u2011conduct obligations in the Kingdom.\nWe support listings on the Kingdom Securities Exchange (fictional) and coordinate with the Capital Markets Oversight Bureau (fictional) under internal MNPI controls.\nWe do not solicit MNPI; price\u2011sensitive information is accepted only through issuer portals after a public filing or press release, and insider lists are maintained by the issuer.\nIdentifiers we may handle include masked national ID/Iqama entries, commercial registration references, corporate role titles, and audit logs; wherever feasible we use role mailboxes such as listings@rimaladvisory.example.\nOur standard forms contain labels like \u201cFull Name\u201d, \u201cDOB\u201d, \u201cCity\u201d, \u201cDevice ID\u201d, \u201cEmployee No.\u201d, and \u201cIBAN\u201d, but these fields do not identify any individual on their own.\nCross\u2011border transfers occur only with a valid SDAIA transfer permit or under an approved mechanism, via the national gateway and encryption in transit; otherwise, data remain localized in the Kingdom.\nFor issuers such as Tamkeen Energy Ltd (fictional) we store public CR placeholders (e.g., CR 2050-XYZ-1111) and a generic switchboard email, and we do not keep board minutes or draft price ranges.\nPositive DSAR example (intentional cluster): the requester indicated DOB 1988-02-03, residence area \u201cAl Hamra, Jeddah\u201d, employer \u201cTamkeen Energy Ltd\u201d, role \u201cProcurement Analyst\u201d, company laptop tag TE-AT-00971, payroll account tail \u20266021, and masked Iqama ref KSA-IQ-77**-**-**21, which we linked to internal user code HR-FAKE-558.\nOutside such verified matches, isolated attributes like \u201clives in Riyadh\u201d or \u201cuses Android phone\u201d are treated as non\u2011identifying by themselves and are not linked.\nAccess to issuer workspaces is restricted by OTP and device posture; any on\u2011screen device identifiers (e.g., IMEI TEST-000-000-000) in training screenshots are placeholders.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Generic role noun, not an identified person"
+    },
+    {
+      "matched_text": "issuers",
+      "reason": "Generic role noun plural, not an identified person"
+    },
+    {
+      "matched_text": "Full Name",
+      "reason": "Form label only; no individual value present"
+    },
+    {
+      "matched_text": "DOB",
+      "reason": "Form label only; no individual value present"
+    },
+    {
+      "matched_text": "City",
+      "reason": "Form label only; no individual value present"
+    },
+    {
+      "matched_text": "Device ID",
+      "reason": "Form label only; no individual value present"
+    },
+    {
+      "matched_text": "Employee No",
+      "reason": "Form label only; no individual value present"
+    },
+    {
+      "matched_text": "IBAN",
+      "reason": "Form label only; no individual value present"
+    },
+    {
+      "matched_text": "lives in Riyadh",
+      "reason": "Isolated generic attribute that is non-identifying by itself"
+    },
+    {
+      "matched_text": "uses Android phone",
+      "reason": "Isolated generic attribute that is non-identifying by itself"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "retention_policy_marker",
+      "matched_text": "Retention: onboarding/KYC images and logs are kept 5 years from listing or 1 year from rejection, whichever is later",
+      "reason": "Retention policy reference is legally relevant but not explicitly covered by an allowed rule name"
+    },
+    {
+      "concept": "permit_revocation_marker",
+      "matched_text": "can be revoked upon regulator request",
+      "reason": "Revocation on regulator request is a governance control not clearly mapped to consent_withdrawal_marker"
+    },
+    {
+      "concept": "data_minimisation_policy",
+      "matched_text": "public or already\u2011announced facts may remain in deal logs without personal data",
+      "reason": "Data minimisation by excluding personal data is relevant but not explicitly a deletion/erasure marker in the allowed rules"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 13,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 11,
+    "old_must_detect_count": 7,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "EID 0000-0000-0000-000",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-FAKE-21987",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@GulfMeridianTech.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "financial account numbers",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout calendars",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market-abuse compliance: handled in accordance with UAE SCA guidance and ADGM/DIFC supervisory expectations; this note does not authorise trading or disclose any non-public timetable.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-FAKE-21987",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market-abuse compliance: handled in accordance with UAE SCA guidance and ADGM/DIFC supervisory expectations; this note does not authorise trading or disclose any non-public timetable.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Gulf Meridian Technologies LLC (controller) \u2014 DPA Schedule: UAE PDPL Data Export & Retention Workflow (ADGM affiliate: GMTech ADGM Ltd, processor).\nScope: onboarding forms for vendor/supplier diligence and facility access; categories include Full Name (as per Emirates ID), EID No. (sample format EID 0000-0000-0000-000), Trade Licence No. TL-FAKE-21987, role email, and job title.\nData minimisation: optional fields (family origin, detailed nationality history) are not collected; financial account numbers and biometric templates are out of scope.\nConsent withdrawal: available via privacy@GulfMeridianTech.example; no pending withdrawals or objections as of 2026-06-01.\nDSAR: Request GM-DSAR-1127 received 2026-05-10 for access and erasure; actioned and closed 2026-05-20 with erasure of archived onboarding form GM-ONB-8842.\nRetention: core records retained for 6 years from contract end under PDPL and securities-oversight recordkeeping; destruction of non-essential copies scheduled 2032-06-30.\nCross-border transfer: completed 2026-05-01 to sub-processor SandDune Compute W.L.L. (Bahrain) for disaster recovery; approved under ADGM transfer assessment GE-TR-45 with contractual safeguards and encryption.\nMNPI controls: no issuer insider lists, blackout calendars, or non-public term sheets were processed or transferred; content limited to vendor onboarding metadata and public exchange code lists.\nMarket-abuse compliance: handled in accordance with UAE SCA guidance and ADGM/DIFC supervisory expectations; this note does not authorise trading or disclose any non-public timetable.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "controller",
+      "reason": "Generic role noun/designation, not personal data"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Generic role noun/designation, not personal data"
+    },
+    {
+      "matched_text": "sub-processor",
+      "reason": "Generic role noun/designation, not personal data"
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Generic role noun, not a person"
+    },
+    {
+      "matched_text": "supplier",
+      "reason": "Generic role noun, not a person"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ethnic origin sensitivity",
+      "matched_text": "family origin",
+      "reason": "Potential special-category personal data under broader laws but no direct mapping in allowed rules"
+    },
+    {
+      "concept": "nationality data",
+      "matched_text": "detailed nationality history",
+      "reason": "Personal data category relevant to identity but no explicit rule provided"
+    },
+    {
+      "concept": "DSAR reference",
+      "matched_text": "GM-DSAR-1127",
+      "reason": "DSAR handling is a privacy-event but no specific DSAR marker rule in the allowed list"
+    },
+    {
+      "concept": "erasure event",
+      "matched_text": "erasure",
+      "reason": "Privacy-event reference relevant to PDPL but no explicit erasure marker rule provided"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention",
+      "reason": "Retention handling is relevant but not included in allowed marker rules"
+    },
+    {
+      "concept": "pseudonymised token",
+      "matched_text": "EID-XXXX-XXXX-XXXX-XXX",
+      "reason": "Tokenised identifier could be a quasi-identifier but mapping to provided rules is unclear"
+    }
+  ]
+}

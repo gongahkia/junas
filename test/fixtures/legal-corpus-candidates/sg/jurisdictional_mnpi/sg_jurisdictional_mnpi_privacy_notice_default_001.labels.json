@@ -1,0 +1,283 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "matched_text": "2026-0154",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dpo@harbourfinch.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@harbourfinch.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rina Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Tham",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Before any overseas transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "offshore review centre in Johur Bay",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access on a need-to-know basis",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a proposed acquisition of Bright Reef Robotics Pte. Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft terms of a convertible note offering",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced changes to dividend policy",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be selectively disclosed",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "During blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI segregated and subject to stricter access controls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring-fenced in a restricted folder",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If confidentiality cannot be maintained or a leak is suspected",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0154",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Examples include a proposed acquisition of Bright Reef Robotics Pte. Ltd., draft terms of a convertible note offering, or unannounced changes to dividend policy; these must not be selectively disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rina Koh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Tham",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Examples include a proposed acquisition of Bright Reef Robotics Pte. Ltd., draft terms of a convertible note offering, or unannounced changes to dividend policy; these must not be selectively disclosed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "elying on consent or deemed consent by contractual necessity where applicable, and we retain case files for 6 years from matter close, with MNPI segregated and subject to stricter access controls.\nAll transfers to our diligence data room provider Nimbus Vault Pte. Ltd. and our offshore review centre in Johur Bay are subject to PDPA-compliant safeguards and written undertakings ensuring comparable protection.\nBefore any overseas transfer, we assess the receiving jurisdiction\u2019s protection and implement legally enforceable obligations, encryption in transit and at rest, and access on a need-to-know basis.\nInformation that is not generally available and that a reasonable person would expect to have a material effect on the price or value of Seaglass Electronics Ltd.\u2019s securities is treated as MNPI under the SFA and the Straits Capital Exchange (SCX) Mainboard Listing Manual.\nExamples include a proposed acquisition of Bright Reef Robotics Pte. Ltd., draft terms of a convertible note offering, or unannounced changes to dividend policy; these must not be selectively disclosed.\nDuring blackout windows from circulation of relevant board papers until one hour after any immediate announcement via SCXNet under Mainboard Listing Manual Rule 7.03, only pre-cleared personnel may handle trading-related documents.\nIf confidentiality cannot be maintained or a leak is suspected, Harbour & Finch LLC will advise Seaglass Electronics Ltd. to request a trading halt from SCX pending an immediate announcement.\nAs disclosed on 15 February 2026 in Seaglass Electronics Ltd.\u2019s SCXNet filing SCXN-2026-0154 regarding the appointment of an independent director, the information therein is already generally available and is not treated as MNPI here.\nBy contrast, a draft term sheet for a placement being vetted by our capital markets team and not yet approved for release remains non-public and must be ring-fenced in a restricted folder.\nPress articles in Straits Business Daily summarising FY2023 audited results (released last year) are stale public information and do not lift any internal blackout that applies to unannounced initiatives.\nOperational updates such as a pantry refurbishment schedule at a non-listed subsidiary do not pertain to issuer performance and are not MNPI, though any personal data of contractors remains subject to PDPA.\nIndividuals may submit a data access or correction request to Ms. Rina Koh, Data Protection Officer, at dpo@harbourfinch.sg, stating the matter reference and contact particulars; we will respond within 30 days subj",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SCX",
+      "reason": "Defined acronym/reference, not a PII or MNPI span"
+    },
+    {
+      "matched_text": "SCXNet",
+      "reason": "Defined system name/acronym, not a PII or MNPI span"
+    },
+    {
+      "matched_text": "PDPA",
+      "reason": "Statutory acronym, not PII/MNPI data"
+    },
+    {
+      "matched_text": "SFA",
+      "reason": "Statutory acronym, not PII/MNPI data"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "we retain case files for 6 years from matter close",
+      "reason": "Data retention duration is legally relevant under PDPA but no explicit allowed rule exists for retention markers"
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Individuals may submit a data access or correction request",
+      "reason": "PDPA access/correction request is a DSAR-type right but not clearly mapped to an allowed rule"
+    },
+    {
+      "concept": "consent legal basis",
+      "matched_text": "relying on consent or deemed consent by contractual necessity where applicable",
+      "reason": "Consent/deemed consent basis is relevant but allowed rules only include consent_withdrawal_marker"
+    },
+    {
+      "concept": "insider access control",
+      "matched_text": "pre-cleared personnel",
+      "reason": "Indicates insider-only handling but not a clear match to insider_list_marker"
+    },
+    {
+      "concept": "listing action for MNPI management",
+      "matched_text": "trading halt",
+      "reason": "Material exchange action tied to MNPI handling but no specific allowed rule for trading halts"
+    },
+    {
+      "concept": "exchange filing reference",
+      "matched_text": "SCXN-2026-0154",
+      "reason": "Legally relevant identifier for a public filing but no allowed rule covers exchange filing numbers"
+    }
+  ]
+}

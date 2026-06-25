@@ -1,0 +1,252 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_jurisdictional_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/jurisdictional_mnpi/ae_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_jurisdictional_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@almaarifa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosure@almaarifa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "800-1122",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-ALM-2026-XYZ",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Emirates ID",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric fields",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prior to public posting",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until the ADX notice is live",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before market open (target 05 Jun 2026 07:45\u201308:00 GST per SCA Circular SCA/MA/2026/04)",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window remains closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no pre-clearance will be granted",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective investor briefings",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "short-lived denial-of-service",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DDoS profile tuning",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Impact to reporting: minor delay to internal KPI dashboards; external service levels unchanged; no regulatory downtime thresholds breached under FSRA/DFSA guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: patch deployment via change CR-FAKE-1182, DDoS profile tuning, and a post on the corporate newsroom repeating already-public FAQs; no changes to guidance contemplated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@almaarifa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Impact to reporting: minor delay to internal KPI dashboards; external service levels unchanged; no regulatory downtime thresholds breached under FSRA/DFSA guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: patch deployment via change CR-FAKE-1182, DDoS profile tuning, and a post on the corporate newsroom repeating already-public FAQs; no changes to guidance contemplated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Impact to reporting: minor delay to internal KPI dashboards; external service levels unchanged; no regulatory downtime thresholds breached under FSRA/DFSA guidance.\nPublic channels: status page and 800-1122 helpline remained available; role inbox security@almaarifa.example monitored; no selective investor briefings conducted.\nData handling: logs contain masked IPs and obfuscated device identifiers; PDPL data minimisation and deletion schedules (Policy PDPL-3.1) applied.\nTrade licence details used here are placeholders for vendor coordination only and are not government records; no copies of Emirates ID were requested from contractors.\nGovernance: Incident triaged under OCM-07; root-cause analysis pending vendor RCA; results will be summarised in the next quarterly sustainability update already scheduled.\nPositive-MNPI note: prior to public posting on the ADX eDisclosure portal before market open (target 05 Jun 2026 07:45\u201308:00 GST per SCA Circular SCA/MA/2026/04), the Board was informed; treat this operational disruption as inside information until the ADX notice is live.\nDealing controls: PDMR and employee trading window remains closed pending Q2 cycle per AMLG Dealing Code; no pre-clearance will be granted until the announcement window passes.\nLegal position: this notice is not a profit forecast, and it relies on public, previously announced information except for the embargoed disclosure timing above.\nNext steps: patch deployment via change CR-FAKE-1182, DDoS profile tuning, and a post on the corporate newsroom repeating already-public FAQs; no changes to guidance contemplated.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "special category PII (family origin)",
+      "matched_text": "family-origin",
+      "reason": "Relevant under UAE PDPL sensitivities but not covered by the allowed special-category rules list."
+    },
+    {
+      "concept": "ip_address reference",
+      "matched_text": "masked IPs",
+      "reason": "Indicates handling of IP addresses but no actual IP values present to match the ip_address rule."
+    },
+    {
+      "concept": "insider dealing control marker",
+      "matched_text": "PDMR",
+      "reason": "Signals MAR-style restricted persons and closed period context but not directly mapped to an allowed MNPI rule token."
+    },
+    {
+      "concept": "bank account reference",
+      "matched_text": "IBANs",
+      "reason": "Mentions bank account identifiers without any actual account numbers to match the bank_account rule."
+    },
+    {
+      "concept": "potential financial PII",
+      "matched_text": "beneficiary records",
+      "reason": "Alludes to records that may contain personal/financial data but no specific allowed-rule token is present."
+    }
+  ]
+}

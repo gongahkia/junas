@@ -1,0 +1,28 @@
+{
+  "doc_id": "item80_contingent_mnpi_adv_01",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Orion"},
+    {"rule": "contingent_mnpi_language", "matched_text": "subject to board approval"}
+  ],
+  "must_not_detect": [
+    {
+      "rule": "contingent_mnpi_language",
+      "matched_text": "contingent on background checks",
+      "reason": "employment-offer condition, not deal-stage MNPI"
+    },
+    {
+      "rule": "contingent_mnpi_language",
+      "matched_text": "expected to remain",
+      "reason": "generic business forecast, not gated to a deal-stage verb"
+    },
+    {
+      "rule": "contingent_mnpi_language",
+      "matched_text": "in discussions",
+      "reason": "negated by 'no longer'"
+    }
+  ],
+  "_label_source": "hand"
+}

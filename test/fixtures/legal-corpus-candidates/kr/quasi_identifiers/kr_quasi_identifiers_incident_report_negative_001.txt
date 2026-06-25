@@ -1,0 +1,14 @@
+Mireu Infra Systems Co., Ltd. — Operational Incident Summary (KRX issuer, Korea) — 2026-05-30
+Incident type: cybersecurity (phishing-induced credential replay) at subsidiary “Mireu Logistics Services”.
+Regulatory context: preliminary notice was filed via FSS DART as a voluntary disclosure; FSC reporting thresholds were not met.
+Scope: limited to internal ERP and e-mail; no production OT networks or finance ledgers affected.
+Data categories potentially accessed included generic HR fields (Name, Department, Login ID) and training records; sample forms displayed labels such as Resident Registration No., Account No., and Address but contained only placeholders.
+One affected profile combined weak identifiers: warehouse supervisor at the Busan Geoje Logistics Hub, month/year of birth 1990-04, corporate laptop model Boreas T7 (asset tag MIS-LP-3321), and internal ERP username wh_ops_023.
+No resident registration numbers (주민등록번호) or bank card numbers were stored; any strings resembling 821010-1234567 were invalid test values in templates and not linked to live records.
+We also observed filenames like “KRX_IR_2024_Q4_forecast.pdf” in mailboxes; these referred to already-published guidance dated 2025-03-31 on DART and do not constitute MNPI under the FSCMA.
+The incident did not involve undisclosed merger negotiations, financing covenants, or earnings figures; investor-relations has confirmed parity with prior public releases.
+Root cause: reuse of a training password and acceptance of a spoofed domain “mirinfra-secure.example.com” that passed a superficial DMARC check.
+Containment: forced password resets, SSO token revocation, and EDR quarantine on two laptops; indicators shared with KISA and our MSSP.
+Customer impact: none identified; consumer services and MyData APIs were segmented and unaffected.
+Employee notifications used role mailboxes (security@mirinfra.example.kr; ir@mirinfra.example.kr) and a Korean/English FAQ; no personal contact data was broadcast.
+Next steps: patching a legacy ERP plugin, enabling FIDO2 for warehouse accounts, and filing an update via KRX KIND within the statutory window; we will not include personal particulars beyond aggregate counts.

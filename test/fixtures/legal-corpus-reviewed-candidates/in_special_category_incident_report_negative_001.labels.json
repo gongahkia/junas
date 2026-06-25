@@ -1,0 +1,288 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_special_category_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/special_category/in_special_category_incident_report_negative_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_special_category_incident_report_negative_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_special_category_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "securitydesk@vakriaretail.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "With respect to MNPI, a board-deck slide referenced \u201cEPS guidance\u201d and \u201cdividend runway,\u201d but those figures were already publicly released on 01 May 2026 via Purva Stock Exchange (PSE) and mirrored on ir.vakriaretail.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "499999",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "insulin regimen schedule and clinic follow-ups",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Payroll ID PRY-4492",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar: 9999-0000-1111",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN: ABCDX1234Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN: 22ABCDE1234Z1Z",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@vakriaretail.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grievance@vakriaretail.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "198.51.100.42",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.7",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Priyam Saha (Payroll ID PRY-4492) \u2014 insulin regimen schedule and clinic follow-ups",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "18+ self-attestation",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no date of birth fields",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information for listed securities",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider Trading Code v5.3",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "securitydesk@vakriaretail.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "With respect to MNPI, a board-deck slide referenced \u201cEPS guidance\u201d and \u201cdividend runway,\u201d but those figures were already publicly released on 01 May 2026 via Purva Stock Exchange (PSE) and mirrored on ir.vakriaretail.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "499999",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Vakria Retail Limited (PSE listing: VRL-001, fictional) \u2014 Cyber/Operational Update \u2014 04 Jun 2026\nOn 02 Jun 2026, a vendor SSO misconfiguration at Tejas Cloudworks Pvt Ltd enabled read-only access to a ShareSpace folder from a public link for approximately 67 minutes.\nContents primarily included CSR summaries, ESG scorecards, and a training calendar; LotusShield EDR flagged the link at 12:11 IST and RiverGuard WAF auto-disabled external referrers.\nOne HR attachment included special-category health data: \u201cPriyam Saha (Payroll ID PRY-4492) \u2014 insulin regimen schedule and clinic follow-ups,\u201d which was not intended to be shared externally.\nNo Aadhaar, PAN, or GSTIN numbers were processed; placeholder fields present in a sample form read \u201cAadhaar: 9999-0000-1111, PAN: ABCDX1234Z, GSTIN: 22ABCDE1234Z1Z,\u201d and these are dummy values.\nWe confirm no child data (under 18) exists in the set; the \u201cYoung Achievers\u201d newsletter list requires 18+ self-attestation and no date of birth fields.\nWith respect to MNPI, a board-deck slide referenced \u201cEPS guidance\u201d and \u201cdividend runway,\u201d but those figures were already publicly released on 01 May 2026 via Purva Stock Exchange (PSE) and mirrored on ir.vakriaretail.example.\nOur Insider Trading Code v5.3 (aligned to PIT norms) was applied; no unpublished price sensitive information for listed securities was identified post-validation by the Company Secretary function.\nAs Data Fiduciary under the DPDPA, we prepared an internal breach note to dpo@vakriaretail.example and grievance@vakriaretail.example; given low risk of harm, no public notice is proposed at this time.\nAccess logs show three hits from 198.51.100.42 and two from 203.0.113.7, typical of automated scanners; CloudLedger-SaaS tokens were rotated and SAML assertions reissued.\nBioGate attendance and FaceMatch biometric modules were not connected to the affected ShareSpace and remain uncompromised.\nThe folder path resolved to Navapura Campus, Plot 88, East Kalyanpur, Varashtra 499999; no point-of-sale or payments traffic was touched.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusShield EDR",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "RiverGuard WAF",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "CloudLedger-SaaS",
+      "reason": "Product/service name, not PII/MNPI"
+    },
+    {
+      "matched_text": "BioGate",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "FaceMatch",
+      "reason": "Product/module name, not PII/MNPI"
+    },
+    {
+      "matched_text": "ShareSpace",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Inclusion Charter",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Dignity at Work Code",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Tejas Cloudworks Pvt Ltd",
+      "reason": "Company name, not personal data"
+    },
+    {
+      "matched_text": "Purva Stock Exchange",
+      "reason": "Institution name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role title, not a named person"
+    },
+    {
+      "matched_text": "Young Achievers",
+      "reason": "Program/newsletter name, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "postal address (India)",
+      "matched_text": "Navapura Campus, Plot 88, East Kalyanpur, Varashtra 499999",
+      "reason": "Likely location/address PII but no India address rule is defined in allowed rules"
+    },
+    {
+      "concept": "security listing code",
+      "matched_text": "PSE listing: VRL-001",
+      "reason": "Listed security identifier relevant to MNPI context but no specific rule for such codes"
+    },
+    {
+      "concept": "financial guidance topic",
+      "matched_text": "EPS guidance",
+      "reason": "MNPI-related topic mention; treated as public here, but guidance references can be market sensitive"
+    },
+    {
+      "concept": "dividend projections topic",
+      "matched_text": "dividend runway",
+      "reason": "MNPI-related topic mention; treated as public here, but dividend outlooks can be market sensitive"
+    },
+    {
+      "concept": "breach notification (internal)",
+      "matched_text": "internal breach note",
+      "reason": "Privacy incident process detail; no explicit breach-notice marker in allowed rules"
+    },
+    {
+      "concept": "DPDPA role reference",
+      "matched_text": "Data Fiduciary",
+      "reason": "Compliance role mention relevant to privacy governance but not mapped to an allowed rule"
+    }
+  ]
+}

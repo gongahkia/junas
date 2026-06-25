@@ -1,0 +1,217 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "UK",
+    "doc_id": "uk_universal_mnpi_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/uk/universal_mnpi/uk_universal_mnpi_term_sheet_negative_001.txt",
+    "source_jurisdiction": "UK",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/uk_universal_mnpi_term_sheet_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 13,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 2,
+    "previous_ideal_must_detect_count": 10,
+    "previous_must_detect_count": 4,
+    "previous_must_not_detect_count": 2
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_universal_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "companysecretary@brindlearc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@sb-analytics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "hold any RNS release until 07:00 BST on 15 Nov 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "transitional services agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "heads of terms",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of Sablebrook Analytics Ltd by Brindle Arc Technologies plc",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "long stop date 31 Dec 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not include personal data in working copies",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "heads of terms \u2014 proposed acquisition of Sablebrook Analytics Ltd by Brindle Arc Technologies plc, premium-listed on the LSE and supervised by the FCA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "financing: internal cash and existing facilities previously disclosed; any equity component is illustrative only and would require separate approvals in line with Listing Rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "integration: uk-only focus and customer migration planning; any synergy figures are preliminary and not for guidance.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "companysecretary@brindlearc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@sb-analytics.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "heads of terms \u2014 proposed acquisition of Sablebrook Analytics Ltd by Brindle Arc Technologies plc, premium-listed on the LSE and supervised by the FCA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "financing: internal cash and existing facilities previously disclosed; any equity component is illustrative only and would require separate approvals in line with Listing Rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "integration: uk-only focus and customer migration planning; any synergy figures are preliminary and not for guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "heads of terms \u2014 proposed acquisition of Sablebrook Analytics Ltd by Brindle Arc Technologies plc, premium-listed on the LSE and supervised by the FCA.\nscope: purchase of the entire issued share capital; consideration to be a mix of cash and vendor loan note, ranges and final pricing tbd under the board\u2019s previously announced adjacency strategy.\npublic-source context: see Brindle Arc 2025 annual report (already published) and Moorfell Research note dated 12 Jan 2026 (public) describing the sector rationale.\nconditions precedent: customary UK approvals and UK MAR compliance; for clarity, no MAE termination right arises from changes in law, tax policy, or general market indices.\ndefinitive documentation: subject to negotiation and execution of a share purchase agreement and a transitional services agreement; long stop date 31 Dec 2026 for drafting purposes.\nembargo: hold any RNS release until 07:00 BST on 15 Nov 2026 unless a leak requires earlier announcement under UK MAR obligations.\ngovernance: target to operate as a wholly owned subsidiary with reserved matters; no parent-level board appointments are expected at completion.\nfinancing: internal cash and existing facilities previously disclosed; any equity component is illustrative only and would require separate approvals in line with Listing Rules.\ntimetabling: internal review checkpoints in november; external signing/completion windows remain tbd and subject to change.\nbreak fee and costs: no break fee proposed; each party to bear its own costs; no binding exclusivity in this draft.\nwarranties/indemnities: standard private M&A terms to market practice; optional warranty and indemnity insurance may be explored but is not a condition.\nintegration: uk-only focus and customer migration planning; any synergy figures are preliminary and not for guidance.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait; not a Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "no MAE termination right arises",
+      "reason": "Negated MAE/MAC language is excluded by rule 8."
+    }
+  ],
+  "source_jurisdiction": "UK",
+  "uncertain": [
+    {
+      "concept": "selective disclosure/tipping reference",
+      "matched_text": "unless a leak requires earlier announcement under UK MAR obligations",
+      "reason": "References leak-driven early disclosure under MAR; potentially relevant to tipping/selective disclosure but not explicitly covered by listed markers."
+    },
+    {
+      "concept": "ISIN placeholder",
+      "matched_text": "ZZ0000000000",
+      "reason": "Security identifier placeholder could be legally relevant but there is no explicit rule for ISINs."
+    },
+    {
+      "concept": "regulatory news reference placeholder",
+      "matched_text": "RNS-0000X",
+      "reason": "Potential disclosure control identifier but not covered by allowed rules."
+    },
+    {
+      "concept": "market abuse regime compliance",
+      "matched_text": "UK MAR compliance",
+      "reason": "Regulatory compliance reference related to inside information handling; not clearly mapped to a specific allowed MNPI marker."
+    }
+  ]
+}

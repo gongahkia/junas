@@ -1,0 +1,317 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-02T03:19:19Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T03:19:19Z",
+    "basis": "Project owner instructed Codex to mark the HK Stage B generated/reconciled tests as approved for internal/project benchmarking after the clean Codex/GPT reconciliation. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "HK Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T03:19:19Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Gavin Lok",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Raina Chu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID EM P\u20133 4 1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric access template (hashed fingerprint)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health record (lumbar disc treatment dated 2025\u201102)",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership (Harbour Office Staff Federation no. U\u201319 8)",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared Buddhist religion",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependent child ref c h l d:CX-7 0",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic screening report",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6 3 9 8 7 2 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pr ivacy@oriole-delta.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 9 9 0 2 2 8 8",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "copies of local identity cards are not collected in the clean room unless strictly necessary and proportionate",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "please upload only redacted documents to the clean team room",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "can be withdrawn through the DSAR channel",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sea Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "specific corporation information not generally known to persons who are accustomed to or would be likely to deal in the issuer\u2019s securities and reasonably expected to be price\u2011sensitive (Part XIVA, SFO)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ring\u2011fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR responses may omit or defer such MNPI in line with exemptions",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfers: personal data may be transferred to group processors in Fosdao and Lum Tin (non\u2011local) under contractual safeguards and a transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ivacy@oriole-delta.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ivacy@oriole-delta.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 6 3 9 8 7 2 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Gavin Lok",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Raina Chu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sea Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally known",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Examples of data we process (anchored to specific individuals): Mr. Gavin Lok (Plant Supervisor, EmpID EM P\u20133 4 1) \u2014 biometric access template (hashed fingerprint) and occupational health record (lumbar disc treatment dated 2025\u201102) for site safety compliance.\nMs. Raina Chu (Analyst, clean team) \u2014 union membership (Harbour Office Staff Federation no. U\u201319 8) and declared Buddhist religion for leave arrangements; no sexual\u2011orientation data is required for her role.\nFor minors\u2019 data, Mr. Gavin Lok\u2019s dependent child ref c h l d:CX-7 0 had a genetic screening report mistakenly uploaded to the diligence room; it has been quarantined and is scheduled for purge within 72 hours.\nWe may process identity data, payroll account aliases, and contact numbers such as +852 6 3 9 8 7 2 0 1; copies of local identity cards are not collected in the clean room unless strictly necessary and proportionate.\nInside information controls: specific corporation information not generally known to persons who are accustomed to or would be likely to deal in the issuer\u2019s securities and reasonably expected to be price\u2011sensitive (Part XIVA, SFO) is ring\u2011fenced; DSAR responses may omit or defer such MNPI in line with exemptions.\nM&A codename: Project Sea Lantern; systems used include NebulaFlow CRM and Eideron Cloud; mention of the Kaiyu City Mariners (sports) is illustrative only and is not inside information, and a metaphorical tiger does not hunt here.\nNothing in this notice constitutes, or shall be deemed to constitute, a Material Adverse Change, and any reference to public\u2011source filings relies on information already available on issuer announcements and news.\nData retention: payroll and health surveillance records are kept for 7 years from cessation; biometric templates rotate every 90 days; union and religion preferences are retained only for HR purposes and can be withdrawn through the DSAR channel.\nDSAR & correction: submit at https://portal.oriole-delta.com/dsar?ref=cl%2Fhk%2Fma-017&u=EM%20P%E2%80%93341 or pr ivacy@oriole-delta.com; upon verification, we aim to respond within 40 days in accordance with PDPO requirements.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated MAC/MAE reference and should not be tagged as a material_adverse_change"
+    },
+    {
+      "matched_text": "Kaiyu City Mariners",
+      "reason": "Sports team false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "NebulaFlow CRM",
+      "reason": "Product name false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "Eideron Cloud",
+      "reason": "Product name false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "Open Harbour Inclusion Policy",
+      "reason": "Policy name false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "metaphorical tiger",
+      "reason": "Metaphor false-positive bait and not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "retention period",
+      "matched_text": "Data retention: payroll and health surveillance records are kept for 7 years from cessation",
+      "reason": "Retention markers are legally relevant but not explicitly listed among allowed rules"
+    },
+    {
+      "concept": "retention/rotation schedule",
+      "matched_text": "biometric templates rotate every 90 days",
+      "reason": "Rotation/retention schedule is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "concept": "erasure scheduling",
+      "matched_text": "it has been quarantined and is scheduled for purge within 72 hours",
+      "reason": "Erasure/deletion timing is privacy-relevant but not clearly covered by an allowed rule"
+    },
+    {
+      "concept": "internal identifier in URL",
+      "matched_text": "https://portal.oriole-delta.com/dsar?ref=cl%2Fhk%2Fma-017&u=EM%20P%E2%80%93341",
+      "reason": "Query parameters may carry quasi-identifiers but no explicit allowed rule applies"
+    },
+    {
+      "concept": "regulatory registration identifier",
+      "matched_text": "data user registration no. OD\u2013H K\u2013P D P O\u201307",
+      "reason": "Organizational registration code is sensitive in context but not listed in allowed rules"
+    },
+    {
+      "concept": "company registration number",
+      "matched_text": "Company No. OD\u20132 8 1 7 3 9",
+      "reason": "Corporate identifier could be sensitive contextually but not covered by allowed rules"
+    }
+  ]
+}

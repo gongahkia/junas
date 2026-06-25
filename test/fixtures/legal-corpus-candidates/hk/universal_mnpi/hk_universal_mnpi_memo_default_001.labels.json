@@ -1,0 +1,423 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
+      "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-30T06:38:11Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved HK Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-30T06:38:11Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-30T06:38:11Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
+    "status": "owner_approved_hk_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
+  "doc_id": "hk_universal_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 18 July 2026 12:00 HKT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 1,480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 36,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 3.2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 900,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 300,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn-out up to HKD 220,000,000",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ada Leung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calvin Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Victor Yiu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ada.leung@pearlbayholdings.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "victor.yiu@harbourcrestcap.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subscription Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Proposed acquisition of 72.5% of Gold Lantern Payments Limited by Harbour Crest Capital Fund IV, L.P. via Share Purchase Agreement and Subscription Agreement",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not to be posted before the embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "all external communications via IR only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward externally",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Limited to Board/Advisers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Proposed acquisition of 72.5% of Gold Lantern Payments Limited by Harbour Crest Capital Fund IV, L.P. via Share Purchase Agreement and Subscription Agreement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "36,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "300,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ada.leung@pearlbayholdings.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "victor.yiu@harbourcrestcap.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ada Leung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calvin Tse",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Victor Yiu",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Proposed acquisition of 72.5% of Gold Lantern Payments Limited by Harbour Crest Capital Fund IV, L.P. via Share Purchase Agreement and Subscription Agreement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 1,480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 36,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 900,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HKD 300,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "72.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "36,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "300,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "INSIDE INFORMATION",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "STRICTLY PRIVATE & CONFIDENTIAL \u2014 INSIDE INFORMATION \u2014 Project Banyan \u2014 Embargo until 18 July 2026 12:00 HKT.\nTo: Board of Pearl Bay Holdings Limited (HKEX Main Board issuer) \u2014 From: Legal & Compliance \u2014 Date: 3 June 2026.\nRe: Proposed acquisition of 72.5% of Gold Lantern Payments Limited by Harbour Crest Capital Fund IV, L.P. via Share Purchase Agreement and Subscription Agreement.\nProposed consideration HKD 1,480,000,000 cash plus earn-out up to HKD 220,000,000; completion conditioned on SFC approvals and HKEX Rule 14 VSA thresholds.\nDraft definitive agreements (Share Purchase Agreement, Shareholders\u2019 Agreement) are substantially agreed; long stop date 30 September 2026; no MAC has occurred as of today and pandemics are carved out from the MAE definition.\nBoard to approve irrevocable undertakings from Ms. Ada Leung and Mr. Calvin Tse (key management retention) with an aggregate retention pool capped at HKD 36,000,000.\nInside information handling: Part XIVA SFO safe harbour applies until embargo; classification \u201cNon-Public \u2013 Limited to Board/Advisers\u201d; all external communications via IR only.\nListing Rules 13.09 and Takeovers Code disclosures to be sequenced with pre-clearance from the HKEX Listing Division; draft announcement is ready but not to be posted before the embargo.\nFor context only, the 2024 interim report of Pearl Bay Holdings (publicly available on its website) states segment revenue of HKD 3.2b; the figure is public and does not rely on non-public data.\nFunding sources: Harbour Crest Capital Fund IV, L.P. to provide HKD 900,000,000 equity; Jade Harbour Co-Invest SCSp to bridge up to HKD 300,000,000; balance via revolving facility from Cormorant Asia Finance (private term sheet signed).",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ada Leung, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa vouchers",
+      "reason": "Wellness perk bait; not a Share Purchase Agreement (SPA)"
+    }
+  ],
+  "source_jurisdiction": "HK",
+  "uncertain": [
+    {
+      "concept": "definitive_agreement (subscription)",
+      "matched_text": "Subscription Agreement",
+      "reason": "Common definitive document but not in the enumerated set (SPA/SHA/APA/MOU/LOI/Term Sheet)."
+    },
+    {
+      "concept": "transaction deadline",
+      "matched_text": "long stop date 30 September 2026",
+      "reason": "Material milestone timing but not included in the embargo marker list (Signing/Closing/Effective/Embargoed/Press Hold)."
+    },
+    {
+      "concept": "material_adverse_change (negated)",
+      "matched_text": "MAC is expressly negated for general economic, regulatory, or market changes",
+      "reason": "Legally significant MAC allocation but excluded by rule that omits negated MAC references."
+    },
+    {
+      "concept": "material_adverse_change (negated)",
+      "matched_text": "no MAC has occurred as of today",
+      "reason": "Negated MAC status is relevant but rule excludes negated MAC language."
+    },
+    {
+      "concept": "privacy consent/transfer control",
+      "matched_text": "PDPO consents to be obtained prior to transferring employee records or payroll files",
+      "reason": "Live privacy compliance requirement; no explicit allowed rule for general consent acquisition absent cross-border or withdrawal."
+    }
+  ]
+}

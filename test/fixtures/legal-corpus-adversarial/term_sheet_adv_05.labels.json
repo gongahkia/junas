@@ -1,0 +1,70 @@
+{
+  "doc_id": "term_sheet_adv_05",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "T23LL1234A"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 15,000,000"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. John Tan"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "john.tan@quantum.sg"
+    },
+    {
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S7654321G"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Mr. Alex Lim"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Lead Contact",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "SPA",
+      "reason": "defined term abbreviation"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

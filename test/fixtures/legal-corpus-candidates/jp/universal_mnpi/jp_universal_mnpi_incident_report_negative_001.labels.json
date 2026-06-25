@@ -1,0 +1,211 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@hoshino.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "operations: due-diligence dataroom for contemplated share acquisition of Onami Tech KK (fictional) paused for 2 hours; \u53d6\u7de0\u5f79\u4f1a briefing remains on schedule.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "fiea check: no undisclosed enumerated material facts about earnings, dividends, or tender offers are implicated; risk rating \u201clow\u201d; references limited to public-source cybersecurity guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "general internal use",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo for updated note set to 2026-07-15 09:00 jst",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not submit to tdnet before the embargo date noted above",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hoshino.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share with audit and legal affairs office",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contemplated share acquisition of Onami Tech KK (fictional)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident report (jp): minor credential-spray on hr portal at Hoshino Robotics KK (fictional), detected by mfa anomalies; no service outage on core systems",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "amounts and percentages remain blanked in the term sheet",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll system stores no \u500b\u4eba\u756a\u53f7 (my number) and tokenized employee ids only",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@hoshino.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "operations: due-diligence dataroom for contemplated share acquisition of Onami Tech KK (fictional) paused for 2 hours; \u53d6\u7de0\u5f79\u4f1a briefing remains on schedule.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "fiea check: no undisclosed enumerated material facts about earnings, dividends, or tender offers are implicated; risk rating \u201clow\u201d; references limited to public-source cybersecurity guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "fiea check: no undisclosed enumerated material facts about earnings, dividends, or tender offers are implicated; risk rating \u201clow\u201d; references limited to public-source cybersecurity guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "fiea check: no undisclosed enumerated material facts about earnings, dividends, or tender offers are implicated; risk rating \u201clow\u201d; references limited to public-source cybersecurity guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "operations: due-diligence dataroom for contemplated share acquisition of Onami Tech KK (fictional) paused for 2 hours; \u53d6\u7de0\u5f79\u4f1a briefing remains on schedule.\nir draft: language limited to previously announced mid-term plan (public tdnet release 2025-02-14); embargo for updated note set to 2026-07-15 09:00 jst pending final sign-off.\nmae/mac: this event does not constitute a material adverse change under the draft share transfer agreement (amounts and percentages remain blanked in the term sheet).\nfiea check: no undisclosed enumerated material facts about earnings, dividends, or tender offers are implicated; risk rating \u201clow\u201d; references limited to public-source cybersecurity guidance.\nboard memo v1.3: incident timeline, vendor sla excerpts, and deal checklist appended; figures redacted; placeholders retained for counsel comments.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "wellness perk text, not Share Purchase Agreement (SPA)"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC language; do not label per rule"
+    },
+    {
+      "matched_text": "public tdnet release 2025-02-14",
+      "reason": "public-source reference, not MNPI"
+    }
+  ],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "board briefing timing",
+      "matched_text": "\u53d6\u7de0\u5f79\u4f1a briefing remains on schedule",
+      "reason": "Board schedule can be context for inside information but not explicitly covered by a specific MNPI rule."
+    },
+    {
+      "concept": "retention control marker",
+      "matched_text": "retention policy verified",
+      "reason": "Retention is a privacy-event marker but here it reflects a completed control; rule list lacks an explicit retention_marker."
+    },
+    {
+      "concept": "privacy impact assessment outcome",
+      "matched_text": "no leakage of \u500b\u4eba\u60c5\u5831",
+      "reason": "Legally relevant APPI phrasing about personal data leakage; not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "regulatory notice threshold",
+      "matched_text": "no regulator notice triggered per internal threshold and public jfsa faq",
+      "reason": "Compliance threshold statement may matter but not covered by current PII/MNPI rule set."
+    }
+  ]
+}

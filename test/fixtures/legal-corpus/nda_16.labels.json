@@ -1,0 +1,70 @@
+{
+  "doc_id": "nda_16",
+  "document_type": "NDA",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Alex Tan"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S2345678J"
+    },
+    {
+      "rule": "sg_uen",
+      "matched_text": "201312345W"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "contact@quantumdynamics.sg"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 500,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NON-DISCLOSURE AGREEMENT",
+      "reason": "defined-term"
+    },
+    {
+      "matched_text": "Non-Disclosure Agreement",
+      "reason": "defined-term"
+    },
+    {
+      "matched_text": "Agreement",
+      "reason": "defined-term"
+    },
+    {
+      "matched_text": "Confidential Information",
+      "reason": "defined-term"
+    },
+    {
+      "matched_text": "Receiving Party",
+      "reason": "role-noun"
+    },
+    {
+      "matched_text": "The receiving party",
+      "reason": "role-noun"
+    },
+    {
+      "matched_text": "the disclosing party",
+      "reason": "role-noun"
+    },
+    {
+      "matched_text": "the parties hereto",
+      "reason": "role-noun"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

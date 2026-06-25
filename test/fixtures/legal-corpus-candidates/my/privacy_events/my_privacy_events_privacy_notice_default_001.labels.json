@@ -1,0 +1,350 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 1,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "drop must_not_detect: text not verbatim text='There have been no notifiable incidents in the last 12 months.'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rina.dahlan@aurumkelana.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 16-555 9982",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-02",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Annex (MY) \u2014 Aurum Kelana Berhad (Reg. No. AKB202000123) as Data User and Cloudhost Nusantara Pte. Ltd. as Processor for HR onboarding, financing diligence, and vendor onboarding workflows of a Malaysian exchange-listed issuer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention and erasure: onboarding forms retained 7 years post-separation; financing diligence files retained 3 years; legal holds override erasure; erasure executed within 30 days after holds lift with purge log AKB-RET-2026-07 archived.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: any non-public, price-sensitive information in financing documents is segregated to the Disclosure Committee workspace under the Exchange blackout policy; HR processors do not access or export MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident response: any suspected breach reported to DPO within 24 hours; there have been no notifiable incidents in the last 12 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@aurumkelana.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurumkelana.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Pn. Rina Dahlan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "En. Hariz Muzaffar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exchange blackout policy",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health declaration for insurance enrolment",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee ID",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "bank account alias",
+      "rule": "bank_account"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure Committee workspace",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rina.dahlan@aurumkelana.my",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+60 16-555 9982",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-02",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Annex (MY) \u2014 Aurum Kelana Berhad (Reg. No. AKB202000123) as Data User and Cloudhost Nusantara Pte. Ltd. as Processor for HR onboarding, financing diligence, and vendor onboarding workflows of a Malaysian exchange-listed issuer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Retention and erasure: onboarding forms retained 7 years post-separation; financing diligence files retained 3 years; legal holds override erasure; erasure executed within 30 days after holds lift with purge log AKB-RET-2026-07 archived.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI controls: any non-public, price-sensitive information in financing documents is segregated to the Disclosure Committee workspace under the Exchange blackout policy; HR processors do not access or export MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident response: any suspected breach reported to DPO within 24 hours; there have been no notifiable incidents in the last 12 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Processing Annex (MY) \u2014 Aurum Kelana Berhad (Reg. No. AKB202000123) as Data User and Cloudhost Nusantara Pte. Ltd. as Processor for HR onboarding, financing diligence, and vendor onboarding workflows of a Malaysian exchange-listed issuer.\nPDPA roles and legal basis: processing necessary for employment contracts and legitimate interests; sensitive personal data (e.g., health declaration for insurance enrolment) by explicit consent; no biometric or precise geolocation is collected.\nData minimisation: only name, employee ID, contact, role, bank account alias, tax file reference and referee contacts are collected; family NRIC numbers and unrelated background data are not collected.\nDSAR: data subjects may submit access/correction/erasure requests via privacy@aurumkelana.my or https://privacy.aurumkelana.my/dsar; acknowledgement within 7 days and substantive response within 21 days per PDPA 2010.\nConsent withdrawal: staff may withdraw consent for optional health/referee data by emailing Pn. Rina Dahlan (DPO) at rina.dahlan@aurumkelana.my; withdrawal does not affect processing required by law or contract performance.\nRetention and erasure: onboarding forms retained 7 years post-separation; financing diligence files retained 3 years; legal holds override erasure; erasure executed within 30 days after holds lift with purge log AKB-RET-2026-07 archived.\nCross-border transfer: limited to encrypted hosting in Singapore by Cloudhost Nusantara; consent captured in onboarding forms; PDPA s129 conditions addressed via Transfer Impact Assessment BK-TIA-2026-03; approval closed by Compliance on 2026-03-18.\nSecurity and completed control: vendor access review completed 2026-04-30; dormant admin accounts disabled and MFA enforced; no open high-risk findings at last audit.\nMNPI controls: any non-public, price-sensitive information in financing documents is segregated to the Disclosure Committee workspace under the Exchange blackout policy; HR processors do not access or export MNPI.\nThis note does not authorise new transfers; it records that cross-border approval BK-TR-2026-014 is completed and no syncing occurs outside the sanctioned region.\nSubprocessors: Kencana Payroll Sdn Bhd (MY-only) for payroll calculation; no onward transfer to marketing or data brokers; DPIA reference AKB-DPIA-EMP-2026-02.\nDSAR handling nuance: where erasure conflicts with Companies Act record-keeping or audit evidence for listing compliance, requests are deferred with reasons and partial redaction applied where feasible.\nTraining and governance: PDPA and exchange disclosure awareness completed 2026-05-10 by En. Hariz Muzaffar (HR Ops), logged under AKB-TRN-9911; refresher due annually.\nIncident response: any suspected breach reported to DPO within 24 hours; there have been no notifiable incidents in the last 12 months.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data User",
+      "reason": "role-defined term, not PII"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "role-defined term, not PII"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role-defined term, not PII"
+    },
+    {
+      "matched_text": "Subprocessors",
+      "reason": "role/header term, not PII"
+    },
+    {
+      "matched_text": "This note does not authorise new transfers",
+      "reason": "negated control, not a live privacy event"
+    },
+    {
+      "matched_text": "no biometric or precise geolocation is collected",
+      "reason": "negated sensitive-data collection"
+    },
+    {
+      "matched_text": "no onward transfer to marketing or data brokers",
+      "reason": "negated transfer risk"
+    },
+    {
+      "matched_text": "HR processors do not access or export MNPI",
+      "reason": "negated MNPI access/export"
+    },
+    {
+      "matched_text": "government-issued identifiers for contractors are not stored in the cloud",
+      "reason": "negated storage of identifiers"
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR",
+      "reason": "Privacy event marker relevant under PDPA but not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "retention/erasure marker",
+      "matched_text": "Retention and erasure",
+      "reason": "Privacy retention/erasure handling is relevant but no explicit allowed rule provided"
+    },
+    {
+      "concept": "retention period",
+      "matched_text": "onboarding forms retained 7 years post-separation",
+      "reason": "Specifies retention duration; relevant but retention rule not in allowed list"
+    },
+    {
+      "concept": "erasure execution",
+      "matched_text": "erasure executed within 30 days",
+      "reason": "Erasure handling is relevant but no explicit allowed rule provided"
+    },
+    {
+      "concept": "legal hold vs erasure",
+      "matched_text": "legal holds override erasure",
+      "reason": "Important privacy governance nuance not covered by allowed rules"
+    },
+    {
+      "concept": "internal record/reference ID",
+      "matched_text": "AKB-RET-2026-07",
+      "reason": "Could be an internal log ID; not clearly mapped to an allowed identifier rule"
+    },
+    {
+      "concept": "internal training record ID",
+      "matched_text": "AKB-TRN-9911",
+      "reason": "Internal reference number; not clearly covered by allowed rules"
+    },
+    {
+      "concept": "transfer impact assessment reference",
+      "matched_text": "BK-TIA-2026-03",
+      "reason": "Privacy governance reference; not mapped to an allowed rule"
+    },
+    {
+      "concept": "cross-border approval reference",
+      "matched_text": "BK-TR-2026-014",
+      "reason": "Approval ID relevant to transfers; not clearly covered by allowed rules"
+    },
+    {
+      "concept": "company registration number",
+      "matched_text": "Aurum Kelana Berhad (Reg. No. AKB202000123)",
+      "reason": "Jurisdiction-specific company ID; no matching allowed rule for MY company number"
+    }
+  ]
+}

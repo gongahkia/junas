@@ -1,0 +1,415 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 4
+  },
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 38,
+    "new_must_detect_count": 18,
+    "old_ideal_must_detect_count": 32,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_privacy_events_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "m.alnajdi@zawaya.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.alqassim@najmah.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@zawaya.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Najdi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rami Al\u2011Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al\u2011Rayyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition and Financing of Najmah Cloud Technologies JSC (in incorporation) by Zawaya Capital SPC \u2014 Kingdom of Saudi Arabia",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 60% of Najmah for SAR 85,000,000 (cash and vendor loan); intended listing on Rimal Exchange Growth Market within 12 months post\u2011closing; bookrunner to be appointed; no public offer is made by this term sheet",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Zawaya vendor loan SAR 25,000,000 at 6.25% fixed; covenants include PDPL compliance certification and completion of DPA Schedule 2; breach cure period 30 days; negative pledge limited to core IP; no financing MAC has occurred as of the date hereof",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@najmah.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "processing of National ID/Iqama strictly minimised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fields masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation markers set at field\u2011level",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "diligence vault access is restricted",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only public\u2011source references may be used in press notes",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cleansing notice",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966\u20115\u2022\u2022\u2022\u20113812",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqa ma No.: XX\u2011XX\u20114 4 3 2",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 7X3\u20119\u25a0\u2011KSA",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CUS#0x44A9",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "No ongoing cross\u2011border transfer of National ID images is in scope",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "forms redesigned to remove date of birth and mother\u2019s name",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "only CR, contact email, and city retained",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor due\u2011diligence IDs are collected as masked tokens",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pseudonymisation applied to test datasets",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "m.alnajdi@zawaya.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.alqassim@najmah.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@zawaya.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al\u2011Najdi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rami Al\u2011Qassim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Huda Al\u2011Rayyan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition and Financing of Najmah Cloud Technologies JSC (in incorporation) by Zawaya Capital SPC \u2014 Kingdom of Saudi Arabia",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 60% of Najmah for SAR 85,000,000 (cash and vendor loan); intended listing on Rimal Exchange Growth Market within 12 months post\u2011closing; bookrunner to be appointed; no public offer is made by this term sheet",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Zawaya vendor loan SAR 25,000,000 at 6.25% fixed; covenants include PDPL compliance certification and completion of DPA Schedule 2; breach cure period 30 days; negative pledge limited to core IP; no financing MAC has occurred as of the date hereof",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6.25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Parties: Buyer Zawaya Capital SPC (fictional), Seller/Founder Najmah Cloud Technologies JSC (draft CR: 7X3\u20119\u25a0\u2011KSA); Contacts: Mr. Sami Al\u2011Najdi, m.alnajdi@zawaya.example, +966\u20115\u2022\u2022\u2022\u20113812; Dr. Rami Al\u2011Qassim (Legal), r.alqassim@najmah.example",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition and Financing of Najmah Cloud Technologies JSC (in incorporation) by Zawaya Capital SPC \u2014 Kingdom of Saudi Arabia\nParties: Buyer Zawaya Capital SPC (fictional), Seller/Founder Najmah Cloud Technologies JSC (draft CR: 7X3\u20119\u25a0\u2011KSA); Contacts: Mr. Sami Al\u2011Najdi, m.alnajdi@zawaya.example, +966\u20115\u2022\u2022\u2022\u20113812; Dr. Rami Al\u2011Qassim (Legal), r.alqassim@najmah.example\nTransaction: Buyer to acquire 60% of Najmah for SAR 85,000,000 (cash and vendor loan); intended listing on Rimal Exchange Growth Market within 12 months post\u2011closing; bookrunner to be appointed; no public offer is made by this term sheet\nConditions precedent: Kingdom Markets Authority (KMA) clearance for merger exemptions; issuer onboarding forms for Rimal Exchange completed; no Material Adverse Change has occurred and none is presently expected (benign statement for precision); long\u2011stop 2026\u201109\u201130\nConfidentiality and MNPI: Parties acknowledge MNPI restrictions per KMA market\u2011conduct follow\u2011up; diligence vault access is restricted; only public\u2011source references may be used in press notes; the phrase \u201cwe do not share passwords\u201d is a project note and not operational evidence\nData Protection (PDPL): PDPL compliance memo attached; DPA Schedule 2 (Controller/Processor) governs; processing of National ID/Iqama strictly minimised; do not store raw iqama images in CRM; fields masked (e.g., Iqa ma No.: XX\u2011XX\u20114 4 3 2); access logs retained 180D\nDSAR and Erasure: A DSAR from \u201cM.A.A.\u201d dated 2026\u201105\u201114 was fulfilled; disclosure issued and verified; erasure of marketing profile CUS#0x44A9 completed on 2026\u201105\u201121; retention marker updated to R\u201190D for invoices only; audit note: this is a completed workflow\nCross\u2011border transfer: Completed export of hashed employee IDs to Oryx Support Center, Dahr Oasis (outside KSA) on 2026\u201104\u201130 under SDAiA\u2011K permit PX\u20112Q1\u20118; see http://export.rimal.example/permit?id=PX-2Q1-8&ref=sdaia\u2011xfer\u20112026; no live bulk transfer is pending\nConsent withdrawal: Consent withdrawal logged for prospect \u201cL.N.Q.\u201d on 2026\u201105\u201109; marketing outreach ceased; suppression list token z7c\u2026e1; this is a completed control, not a current risk; preference center URL embedded in receipts only\nOnboarding forms (issuer workflows): forms redesigned to remove date of birth and mother\u2019s name; only CR, contact email, and city retained; com\u2011 mercial regis\u2011 tration photocopies are not required; vendor due\u2011diligence IDs are collected as masked tokens\nData retention and minimisation: Retention schedule annex\u2014payroll 5Y (stored in KSA), vendor KYC 10Y (stored in KSA); biometric templates are not collected and therefore not retained; pseudonymisation applied to test datasets; minimisation markers set at field\u2011level\nSecurity and transfers: No ongoing cross\u2011border transfer of National ID images is in scope; any prior copies were deleted 2026\u201103\u201115 per erasure certificate EC\u2011\u03b27\u2011S; policy\u2011only language herein is not an indicator of current exposure; encryption keys rotated Q2\u20112026\nRegulatory filings: Issuer to file pre\u2011listing statement with KMA and Rimal Exchange; draft submitted; any MNPI in diligence remains restricted until cleansing notice; market\u2011conduct liaison: Ms. Huda Al\u2011Rayyan, dpo@najmah.example\nFinancing: Zawaya vendor loan SAR 25,000,000 at 6.25% fixed; covenants include PDPL compliance certification and completion of DPA Schedule 2; breach cure period 30 days; negative pledge limited to core IP; no financing MAC has occurred as of the date hereof\nTermination: If KMA safe\u2011harbor clearance and SDAiA\u2011K data\u2011export acknowledgment are not obtained by the long\u2011stop, either party may terminate; for precision, buyer shall not invoke clause 12 if a material adverse change does not occur",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/section header treated as a defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Seller/Founder",
+      "reason": "Role noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun defined term, not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "retention period marker",
+      "matched_text": "access logs retained 180D",
+      "reason": "Data retention markers are legally relevant but no explicit allowed rule is provided for retention."
+    },
+    {
+      "concept": "DSAR marker",
+      "matched_text": "A DSAR from \u201cM.A.A.\u201d dated 2026\u201105\u201114 was fulfilled",
+      "reason": "DSAR events are relevant under PDPL but there is no explicit allowed DSAR rule."
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "erasure of marketing profile CUS#0x44A9 completed on 2026\u201105\u201121",
+      "reason": "Erasure events are relevant under PDPL but there is no explicit allowed erasure rule."
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "retention marker updated to R\u201190D for invoices only",
+      "reason": "Retention change is relevant but no explicit allowed rule exists for retention markers."
+    },
+    {
+      "concept": "completed cross-border transfer",
+      "matched_text": "Completed export of hashed employee IDs to Oryx Support Center, Dahr Oasis (outside KSA) on 2026\u201104\u201130 under SDAiA\u2011K permit PX\u20112Q1\u20118",
+      "reason": "Cross-border transfers are relevant but this is a completed/approved export not covered for strict markers."
+    },
+    {
+      "concept": "erasure proof/reference",
+      "matched_text": "erasure certificate EC\u2011\u03b27\u2011S",
+      "reason": "Supports deletion control but no explicit allowed rule for certificates."
+    },
+    {
+      "concept": "suppression token",
+      "matched_text": "suppression list token z7c\u2026e1",
+      "reason": "Likely a persistent identifier tied to consent status but not mapped to an allowed PII rule."
+    },
+    {
+      "concept": "pseudonymized identity (initials)",
+      "matched_text": "\u201cM.A.A.\u201d",
+      "reason": "Represents an individual but not clearly covered by named_person or other allowed PII rules."
+    },
+    {
+      "concept": "pseudonymized identity (initials)",
+      "matched_text": "\u201cL.N.Q.\u201d",
+      "reason": "Represents an individual linked to consent status but not clearly covered by allowed PII rules."
+    }
+  ]
+}

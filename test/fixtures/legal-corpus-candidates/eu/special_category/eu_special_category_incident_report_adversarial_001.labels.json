@@ -1,0 +1,380 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 37,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 30,
+    "previous_must_detect_count": 21,
+    "previous_must_not_detect_count": 7
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_special_category_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Toma\u0161 Varek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID: ORL-eID tvarek\u201494.\u2423\u2423",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hospital oncology treatment schedule",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hospital oncology treatment schedule",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership in the \u201cEnergia Workers Council\u201d",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric facial template hash (fmt v2 a6:9b:\u2026:ff)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leona Schaffner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the note \u201cpartner is male\u201d in a wellness form for Dr. Leona Schaffner, R&D lead, indicating sexual orientation",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@orlena-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer to a forensics vendor in Kaledon (non-EEA) under SCC Module 2",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops-lead@orlena-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ana\u00efs K\u00fchnert",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+00 000 000 000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ana.kuehnert@orlena-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "id=9e7a%2Dq1%2D884",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "case=CSRD-OPS-2026-112",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project \u201cPINEWIND\u201d",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced delay of Project \u201cPINEWIND\u201d turbines (250MW) by \u22659 months",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,240",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "250MW",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7\u20139%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "expected to reduce FY2026 EBITDA guidance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "likely to significantly affect the price",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insiders identified",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "list ID INS-ORL/2026-06-PINEWIND",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dealing restricted from 06.06.2026 20:30 CET",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident affecting HR and R&D drives",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "provisional ESRS E1-1 emission-intensity shift",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "06.06.2026 20",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Varek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Varek",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: cyber incident affecting HR and R&D drives, potential personal data breach under GDPR Arts 4(12) and 9, and creation of inside information under EU MAR Art 7.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer impact (non-public): unannounced delay of Project \u201cPINEWIND\u201d turbines (250MW) by \u22659 months, expected to reduce FY2026 EBITDA guidance by 7\u20139%; preliminary view is that this constitutes inside information likely to significantly affect the price on Nordmerc.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops-lead@orlena-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ana.kuehnert@orlena-se.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "06.06.2026 20",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Leona Schaffner",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Varek",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Varek",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: cyber incident affecting HR and R&D drives, potential personal data breach under GDPR Arts 4(12) and 9, and creation of inside information under EU MAR Art 7.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer impact (non-public): unannounced delay of Project \u201cPINEWIND\u201d turbines (250MW) by \u22659 months, expected to reduce FY2026 EBITDA guidance by 7\u20139%; preliminary view is that this constitutes inside information likely to significantly affect the price on Nordmerc.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: cyber incident affecting HR and R&D drives, potential personal data breach under GDPR Arts 4(12) and 9, and creation of inside information under EU MAR Art 7.\nNamed data subject: Mr. Toma\u0161 Varek (Employee ID: ORL-eID tvarek\u201494.\u2423\u2423), whose hospital oncology treatment schedule and union membership in the \u201cEnergia Workers Council\u201d were exposed in a misconfigured object-storage bucket.\nAdditional special category: biometric facial template hash (fmt v2 a6:9b:\u2026:ff) and the note \u201cpartner is male\u201d in a wellness form for Dr. Leona Schaffner, R&D lead, indicating sexual orientation.\nNo genetic data were collected for Mr. Varek; this sentence mentions genetic datasets only in a generic context for SFDR due diligence and is benign.\nScope: approximately 1,240 HR records accessed; controller is Orlena Renewables SE; processors are CloudVela GmbH and Perventa SA; cross-border transfer to a forensics vendor in Kaledon (non-EEA) under SCC Module 2.\nIncident channel: exfiltration via API key t o k e n: 4F-29 b1- R3D c\u2014br o k e n, observed in logs at https://siem.orlena-se.example/e/evt?id=9e7a%2Dq1%2D884&ts=20%3A14.\nIssuer impact (non-public): unannounced delay of Project \u201cPINEWIND\u201d turbines (250MW) by \u22659 months, expected to reduce FY2026 EBITDA guidance by 7\u20139%; preliminary view is that this constitutes inside information likely to significantly affect the price on Nordmerc.\nMAR workflow: insiders identified (list ID INS-ORL/2026-06-PINEWIND), dealing restricted from 06.06.2026 20:30 CET; notify the competent authority \u201cFMA Helveticia\u201d and the Nordmerc Exchange MAR desk.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated reference; explicitly states it does not constitute a MAC."
+    },
+    {
+      "matched_text": "Veltor City FC",
+      "reason": "Sports team name; false-positive bait not PII/MNPI."
+    },
+    {
+      "matched_text": "Blue Meadow CRM",
+      "reason": "Product name; false-positive bait not PII/MNPI."
+    },
+    {
+      "matched_text": "Inclusion & Fairness Charter",
+      "reason": "Policy name; false-positive bait not PII/MNPI."
+    },
+    {
+      "matched_text": "Nordmerc Exchange",
+      "reason": "Exchange/venue name; not itself MNPI/PII."
+    },
+    {
+      "matched_text": "Orlena Renewables SE",
+      "reason": "Company name; not PII under the given rules."
+    },
+    {
+      "matched_text": "Kaledon",
+      "reason": "Place name; not PII."
+    }
+  ],
+  "source_jurisdiction": "EU",
+  "uncertain": [
+    {
+      "concept": "genetic_data (negated)",
+      "matched_text": "No genetic data were collected for Mr. Varek",
+      "reason": "References special-category data anchored to a named person but explicitly negated."
+    },
+    {
+      "concept": "api key / credential",
+      "matched_text": "4F-29 b1- R3D c\u2014br o k e n",
+      "reason": "Sensitive secret credential; not covered by allowed rules."
+    },
+    {
+      "concept": "cryptographic key fingerprint",
+      "matched_text": "A3:44:1d: 0c:fa",
+      "reason": "Security-sensitive fingerprint; not covered by allowed rules."
+    },
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "ORL-SE-INC/\u03c0-17",
+      "reason": "Looks like an internal incident or case ID; could be treated as an internal_session_id but pattern is nonstandard."
+    },
+    {
+      "concept": "material timeline detail",
+      "matched_text": "\u22659 months",
+      "reason": "Precise non-public delay duration; MNPI-relevant but not clearly mapped to a numeric rule."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "doc_id": "jurisdiction_mnpi_variants_05",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "KR",
+  "must_detect": [
+    {"rule": "transaction_codename", "matched_text": "Project Pearl"},
+    {"rule": "nonpublic_marker", "matched_text": "inside information"},
+    {"rule": "nonpublic_marker", "matched_text": "not generally known"},
+    {"rule": "transaction_codename", "matched_text": "Project Banksia"},
+    {"rule": "nonpublic_marker", "matched_text": "price-sensitive information"},
+    {"rule": "nonpublic_marker", "matched_text": "not generally available"},
+    {"rule": "transaction_codename", "matched_text": "Project Momiji"},
+    {"rule": "nonpublic_marker", "matched_text": "undisclosed"},
+    {"rule": "nonpublic_marker", "matched_text": "unpublished material information"},
+    {"rule": "transaction_codename", "matched_text": "Project Hangang"},
+    {"rule": "nonpublic_marker", "matched_text": "not yet publicly disclosed"},
+    {"rule": "insider_list_marker", "matched_text": "restricted list"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand",
+  "_label_note": "Item 86 hand-authored HK/AU/JP/KR MNPI phrase growth using strict-runtime deterministic spans."
+}

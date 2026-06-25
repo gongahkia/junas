@@ -1,0 +1,14 @@
+Redgum Payments Ltd (ASX: RGX9) — Operational/Cyber Incident Report dated 12 Jun 2026; internal contact security@redgumpay.au, hotline 1300 000 777.
+On 10–11 Jun 2026 AEST we observed credential-stuffing attempts and a 27‑minute reconciliation delay in the Merchant Services platform; initial notification made to the Board Risk Committee, with ASIC and OAIC guidance considered.
+Primary responder Ms. Yara Deveney (DOB 13/11/1991), Incident Response Lead at Redgum Payments Ltd, based in Marribrook, QLD, used device RG-LAP-yd-019 during shift 19:00–03:00; email y.deveney@redgumpay.au; E M P - 0 1 2 9.
+Her admin console access ac c ou nt GL-4021-77 (PaymentsOps) under session sess_au-45f0-yd from IP 203.41.78.* reviewed merchant node “Eucalypt-07” and closed ticket TKT-1189 at 02:54.
+One merchant account (MCH-7721‑ALPHA) experienced three declined test authorisations ($0.00 holds) and a rate‑limit lock; no customer card PANs, health, or credit bureau data were read, and no payroll files were accessed.
+Draft finance note attached includes a preliminary, not generally available scenario analysis indicating a potential 6–8% Q4 Merchant Services revenue downside if mitigations fail; this is restricted MNPI for Listing Rule 3.1 purposes.
+Public‑source references used for context (e.g., national statistics releases and central bank bulletins) are non‑confidential and do not form part of the MNPI assessment.
+We did not collect MAC addresses, driver licence numbers, or Medicare numbers during this event; device telemetry is hashed only (example devhash b6 9c - 4f a8 - 2d).
+Evidence bundle and runbook links (internal): https://redgumpay.au/case?sid=SE S S-41 2-a&doc=lo g-2026-06-10.zip and https://redgumpay.au/ir/briefing?doc=F Y26-Q4-draft-rev2&uid=sess_4f-7a.
+Generic training examples appear in playbooks (e.g., “female, 27, NSW”, “analyst, Melbourne, Pixel 5”) and are placeholders only, not tied to any identifiable person.
+SIEM notes include a non‑linked telemetry tuple — age 43, Canberra, iPad Pro, wifi SSID “office‑guest” — which is insufficient alone to identify an individual and relates to a staging environment.
+Forensics timeline shows logins to the s y s t e m a d m i n scope by group role only; no personal address, tax file, or medical information is present in the affected tables (tbl_txn_meta, tbl_device_id).
+Compliance review under Corporations Act ss1042A–1043A and ASIC Regulatory Guide 247 concluded that immediate market disclosure is not required unless downtime exceeds 48h; we will reassess if revenue variance triggers the materiality threshold.
+Case reference RGX9‑INC‑2026‑0610; ASX liaison: Ms. Priya K. Somerville (Company Secretary), comms via governance@redgumpay.au; OAIC NDB thresholds currently not met.

@@ -1,0 +1,349 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled ID Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved ID Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-29T08:19:15Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-29T08:19:15Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-id-stage-a-reviewed.json",
+    "status": "owner_approved_id_stage_a_for_internal_benchmarking"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "ID",
+  "doc_id": "id_sector_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal.ops@halonnexus.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Ambar",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 280",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese wall",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential-stuffing incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Periode tertutup",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@halonnexus.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. R. Putri Karim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimize personal data in the data room",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ibu Mira Santoso",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bpk. Dewa Prasetyo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information material dan belum dipublikasikan",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u226570%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG uptime targets",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not trade, tip, or discuss",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-cross confirmations",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Daftar Orang Dalam",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "penundaan keterbukaan",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG-linked performance",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal.ops@halonnexus.co.id",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Ambar",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IDR 280",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "70%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese wall",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal Memo \u2014 Project Ambar (Confidential, for Board/Compliance circulation within PT Halon Nexus Tbk.)\nWe propose acquiring 60% of PT Sinar Dompet Kripto (SDK), a fintech wallet and aset kripto gateway, with BI e-money license in process and Bappebti registration pending; this constitutes information material dan belum dipublikasikan under OJK rules.\nPreliminary cyber update: SDK reported a contained credential-stuffing incident on 28 Mei involving test-wallet environments and hashed contact fields; no production fund movements detected, but treat related logs as Data Pribadi per UU PDP.\nHeadline commercial terms (indicative): purchase price IDR 280\u2013330 miliar, 24\u2011month earn\u2011out tied to monthly active wallets and ESG uptime targets (renewable-powered data centers at \u226570%), and a 12\u2011month non-compete with key founders.\nInformation barriers: Maintain Chinese wall for \u201cAmbar Room\u201d; only authorized deal team may access; external advisors bound by NDA; no selective disclosure to vendors or beta partners.\nDaftar Orang Dalam (insider list) must be opened today to include Ibu Mira Santoso (CFO), Bpk. Dewa Prasetyo (Head of Strategy), and two SDK founders; Compliance to maintain timestamps and confirmations.\nPeriode tertutup applies to directors, Komite Audit, Treasury, and any staff on the insider list for PT Halon Nexus Tbk. shares on IDX from today until public disclosure; do not trade, tip, or discuss with non-wall-crossed parties.\nSubtle risk: sustainability-linked loan diligence by Green Mahoni Capital requires access to SDK uptime/energy metrics\u2014route via the wall-crossed channel only to avoid inadvertent signaling of ESG-linked performance.\nEmployment note: the draft offer for a CTO candidate at SDK includes a token-based retention bonus aligned to the DLT roadmap; treat this as MNPI and refrain from broad HR circulation pending approval.\nOJK keterbukaan: target announcement upon SPA signing or earlier if market rumor emerges; consider penundaan keterbukaan only if strict confidentiality holds and no misleading market condition arises.\nUU PDP compliance actions: establish dasar pemrosesan, run a DPIA for incident logs, minimize personal data in the data room, and pseudonymize customer metrics before sharing with lenders.\nThis month\u2019s ESG newsletter and crypto operations handbook are training materials only; references to cyber hygiene, insider lists, and blackout windows therein are educational and not transaction-related.\nNext steps: finalize SPA long form by 12 Juni, confirm incident remediation letter from SDK by 7 Juni, and complete wall-cross confirmations for external counsel an",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational/training context reference, not transaction MNPI"
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Educational/training context reference, not transaction MNPI"
+    }
+  ],
+  "source_jurisdiction": "ID",
+  "uncertain": [
+    {
+      "concept": "phone extension",
+      "matched_text": "internal ext. 6721",
+      "reason": "May be a contact number element but not clearly covered by phone_number rule"
+    },
+    {
+      "concept": "regulatory licensing status MNPI",
+      "matched_text": "BI e-money license in process",
+      "reason": "Potentially material non-public regulatory milestone but no specific allowed rule"
+    },
+    {
+      "concept": "regulatory licensing status MNPI",
+      "matched_text": "Bappebti registration pending",
+      "reason": "Potentially material non-public regulatory milestone but no specific allowed rule"
+    },
+    {
+      "concept": "privacy impact assessment",
+      "matched_text": "run a DPIA for incident logs",
+      "reason": "Legally relevant PDP compliance measure not explicitly enumerated in allowed rules"
+    },
+    {
+      "concept": "legal basis for processing",
+      "matched_text": "establish dasar pemrosesan",
+      "reason": "Core PDP compliance concept but not explicitly listed in allowed rules"
+    },
+    {
+      "concept": "pseudonymization control",
+      "matched_text": "pseudonymize customer metrics",
+      "reason": "Privacy safeguard relevant under PDP but not an explicit allowed marker"
+    }
+  ]
+}

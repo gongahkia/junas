@@ -1,0 +1,16 @@
+Haneul Precision Holdings Co., Ltd. (JHX: HPH-A) Incident Notice — Cyber/Operational event on 2026-06-03 21:40 KST.
+Summary: unauthorized third-party login to Collaboration Portal v3.2 via partner credentials caused limited exposure of internal employee profile fields and a draft production forecast.
+Affected matter contains undisclosed operational data: projected Q3 output at Seoryeong Tech Park Line 2 to be reduced by 7–9% pending recalibration; this has not been publicly disclosed under FSCMA and remains subject to board review.
+Primary user context: Mr. Kim Min-su (Head of IT Operations, DOB 1985-07-14, Seoryeong Riverfront Office 17F) was active under AD account 'minsu.kim85' from 21:36–21:44 KST using company laptop 'HPH-NB14-5521' and VPN session 'sess-AX91B-20260603-2142'.
+The profile screen displayed only masked resident-number field '850714-*******' and office extension; logs indicate no full resident-number, payroll bank account, or biometric data were exfiltrated.
+Access path: partner SSO 'Darae Logistics Co.' vendor role with least-privilege policy was mistakenly mapped to 'Project-OPS' group during a deployment change; device fingerprint 'dfp:b7c2-HPH-PLT' and source IP 203.0.113.45 (ASN 'JHNet-IX') observed.
+Containment: accounts 'vendor-darae01' and 'minsu.kim85' were locked at 21:45; tokens cleared; password rotation enforced on all 'Project-OPS' groups; endpoint isolated via HPH-EDR policy.
+Preliminary impact: approximately 32 employee profiles viewed (names and titles only), 2 draft slides on maintenance scheduling, and 1 spreadsheet with monthly capacity assumptions; no customer data involved.
+Separate telemetry entry (not linked to the above user): a contractor aged 29 in Gujin-do office using shift code 'B', device model 'HPH-MB5', and locale 'ko-KR' opened HR FAQ at 20:10; these demographics are generic and do not identify a person alone.
+For avoidance of doubt, CSR and ESG metrics in the report library were not altered; carbon intensity figures remain as previously disclosed in the 2025 Sustainability Update.
+Pursuant to PIPA and internal security policy, we will notify affected employees and retain forensic logs for 3 years; data minimization controls around DOB and location tagging will be tightened.
+Pursuant to FSCMA disclosure standards and Jeonghan Exchange rules, potential MNPI in the draft forecast will be escrowed and disclosed if and when the board resolves a material change.
+Oversight: the Korea Financial Markets Authority (KFMA) and Jeonghan Exchange Market Surveillance were informed on 2026-06-04 09:00 KST; reference case 'KFMA-HPH-2026-0612'.
+Point of contact: Ms. Lee Hye-jin, Director, Compliance Office, ir@haneul-precision.co.kr; security inquiries: security@haneul-precision.co.kr.
+This notice is not an offer or solicitation regarding any securities; routine system maintenance planned for 2026-06-07 will proceed as scheduled.
+Investigator's note: internal anomaly detector flagged geolocation drift from Seoryeong to Daejin in 4 minutes; while unusual, packet capture shows a VPN tunnel rekey, a benign explanation.

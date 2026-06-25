@@ -1,0 +1,281 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-05T08:16:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "AE",
+    "doc_id": "ae_jurisdictional_mnpi_privacy_notice_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ae/jurisdictional_mnpi/ae_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "source_jurisdiction": "AE",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ae_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-05T08:16:58Z",
+    "basis": "Project owner instructed Codex to mark the AE Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AE Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 25,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-06-05T08:16:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@sama-creek.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@sama-creek.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-0000-0000-0000",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-AD-XXXXXX",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no onward transfer to non-adequate jurisdictions",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We minimise processing of family-origin data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "deleted at the earliest lawful opportunity",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked Emirates ID",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only published information may be shared with analysts",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout windows apply to designated insiders in line with ADX trading calendar and internal policy",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated insiders remain in blackout until public dissemination",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-results periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access segregation for MNPI repositories",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until the SCA filing is submitted and posted on ADX",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced Q2 earnings guidance revision",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board resolution",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "effective 01 Jan 2024",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until the SCA filing is submitted and posted on ADX, the issuer\u2019s unannounced Q2 earnings guidance revision and related board resolution are restricted and constitute MNPI; designated insiders remain in blackout until public dissemination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until the SCA filing is submitted and posted on ADX, the issuer\u2019s unannounced Q2 earnings guidance revision and related board resolution are restricted and constitute MNPI; designated insiders remain in blackout until public dissemination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Until the SCA filing is submitted and posted on ADX, the issuer\u2019s unannounced Q2 earnings guidance revision and related board resolution are restricted and constitute MNPI; designated insiders remain in blackout until public dissemination.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We process personal data under UAE Federal Decree-Law No. 45 of 2021 (PDPL) and, where applicable, DIFC/ADGM regimes for group operations and vendor due diligence.\nCategories include role-related HR and stakeholder data, Emirates ID details (e.g., EID-0000-0000-0000), passport copy where permitted, family-origin information only if required by law, and trade licence extracts for counterparties",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "market-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfers: limited to Dhalaat Data Services Ltd (ADGM) and Arzub Cloud FZ-LLC (UAQ Free Zone) under PDPL Article 22 and applicable adequacy/contractual safeguards; no onward transfer to non-adequate jurisdictions without additional measures.\nPublic vs non-public status: information already disclosed via ADX/DFM market announcements, SCA-approved prospectuses, or the company\u2019s press releases is treated as public; stale 2022\u20132023 operational updates are not MNPI.\nSelective disclosure is prohibited; only published information may be shared with analysts, and queries must be routed to ir@sama-creek.example with a contemporaneous disclosure assessment.\nBlackout windows apply to designated insiders in line with ADX trading calendar and internal policy; dealing approvals are recorded via the compliance portal and not granted during pre-results periods.\nUntil the SCA filing is submitted and posted on ADX, the issuer\u2019s unannounced Q2 earnings guidance revision and related board resolution are restricted and constitute MNPI; designated insiders remain in blackout until public dissemination.\nFor clarity, the warehouse capacity expansion in Al Maraya Industrial Park was announced on 10 January 2023 by press release and ADX notice, and is not MNPI.\nSupplier platform migration and routine IT maintenance reports are internal operational updates and are not issuer-level market-sensitive information.\nRetention: Emirates ID and KYC records are retained for up to 3 years post-relationship unless a longer statutory period applies; trade licence copies and disclosure logs are kept for 6 years for audit and SCA inquiries.\nWe minimise processing of family-origin data; if captured to meet labour or sanctions screening requirements, it is limited to purpose, access-logged, and deleted at the earliest lawful opportunity.\nSecurity controls include encryption at rest/in transit, access segregation for MNPI repositories, and quarterly audits of ADGM/Free Zone processors against contractual technical and organisational measures.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "is not MNPI",
+      "reason": "Explicitly public; not MNPI per document."
+    },
+    {
+      "matched_text": "are not MNPI",
+      "reason": "Explicitly public/stale; not MNPI per document."
+    },
+    {
+      "matched_text": "are not issuer-level market-sensitive information",
+      "reason": "Operational updates explicitly stated as non-market-sensitive."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "sensitive_personal_data (ethnic/family origin)",
+      "matched_text": "family-origin information",
+      "reason": "Likely sensitive under PDPL, but no specific allowed rule label for ethnic/family origin."
+    },
+    {
+      "concept": "DSAR/rights-handling marker",
+      "matched_text": "DSARs may be submitted via",
+      "reason": "Data subject rights process is a privacy-event marker, but no explicit DSAR rule in allowed list."
+    }
+  ]
+}

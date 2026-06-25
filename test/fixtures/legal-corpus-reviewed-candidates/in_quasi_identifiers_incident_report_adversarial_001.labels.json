@@ -1,0 +1,377 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery. Current strict tier was realigned after UK/EU precision guards; removed strict spans are preserved in ideal_must_detect for gap review.",
+  "_label_tiers_version": "post-uk-eu-precision-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_quasi_identifiers_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/quasi_identifiers/in_quasi_identifiers_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_quasi_identifiers_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:44:27Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 29,
+    "current_must_detect_count": 12,
+    "current_must_not_detect_count": 13,
+    "previous_ideal_must_detect_count": 29,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 13
+  },
+  "_strict_reconciliation_history": [
+    {
+      "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+      "review_profile": "strict",
+      "status": "codex_reconciled_pending_owner_review"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "shreyas.kulkarni@ravantee.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it-ops@ravantee.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RSL-PAY-99384",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-00931",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-11-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2000-02-02",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Shreyas Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aged 17",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event, Ravantee Systems Limited (Kaveri Stock Exchange code: RSL)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI exposure risk \u2014 the server path \\\\rsl-ir\\Q4\\Pravaha\\ contained Q4_draft.xlsx with unannounced order book and margin guidance for the Pravaha Solar Inverter line; under the Securities Oversight Board of India PIT Regulations this is unpublished price-sensitive information for a listed issuer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 34",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1992-11-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RSL-NT-0142",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rid-2026-05-28-BNR-042",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-E-00931",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar: 8 7 1 9  6 6 2 0  4 4 5 0",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN: A J Z P K 1 2 3 4 Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RSL-PAY-99384",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Shreyas Kulkarni, age 34 (DOB 1992-11-05), Senior Network Analyst at Ravantee Systems Limited, used device RSL-NT-0142 (Lenvon T14), signed in via session rid-2026-05-28-BNR-042 from geo-tag \u201cBendaru-South,\u201d corporate email shreyas.kulkarni@ravantee.example.in, internal payroll account RSL-PAY-99384",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the print job was purged",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading window closure",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cs.compliance@ravantee.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@ravantee.example.in",
+      "rule": "email_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "shreyas.kulkarni@ravantee.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "it-ops@ravantee.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RSL-PAY-99384",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E-00931",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-11-05",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Shreyas Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aged 17",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event, Ravantee Systems Limited (Kaveri Stock Exchange code: RSL)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI exposure risk \u2014 the server path \\\\rsl-ir\\Q4\\Pravaha\\ contained Q4_draft.xlsx with unannounced order book and margin guidance for the Pravaha Solar Inverter line; under the Securities Oversight Board of India PIT Regulations this is unpublished price-sensitive information for a listed issuer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price-sensitive information",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event, Ravantee Systems Limited (Kaveri Stock Exchange code: RSL)\nOn 28-May-2026 at 03:14 IST, the SOC identified anomalous outbound traffic from the Koraval Layout office in Bendaru, Karnataka, affecting a file server hosting employee records and IR working papers; personal data as defined under the DPDPA may be implicated.\nLinkable cluster \u2014 Mr. Shreyas Kulkarni, age 34 (DOB 1992-11-05), Senior Network Analyst at Ravantee Systems Limited, used device RSL-NT-0142 (Lenvon T14), signed in via session rid-2026-05-28-BNR-042 from geo-tag \u201cBendaru-South,\u201d corporate email shreyas.kulkarni@ravantee.example.in, internal payroll account RSL-PAY-99384.\nObfuscated identifiers in the same folder for this user included Aadhaar: 8 7 1 9  6 6 2 0  4 4 5 0 (masked copy), PAN: A J Z P K 1 2 3 4 Q (partially redacted), and badge ID EMP-E-00931; note that these were not transmitted outside the network per current logs.\nThe Wi\u2011Fi AP MAC was not 00:00:00:00:00:00 (example only); the actual AP tag ap-2F-17 is a generic asset label and is not personally identifying by itself.\nUPSI exposure risk \u2014 the server path \\\\rsl-ir\\Q4\\Pravaha\\ contained Q4_draft.xlsx with unannounced order book and margin guidance for the Pravaha Solar Inverter line; under the Securities Oversight Board of India PIT Regulations this is unpublished price-sensitive information for a listed issuer.\nTrading window closure for designated persons was initiated at 09:30 IST and the insider list was refreshed; queries to compliance may be addressed to cs.compliance@ravantee.example.in and dpo@ravantee.example.in.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "00:00:00:00:00:00",
+      "reason": "Example MAC address explicitly stated as not actual; negated context."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated statement ('There is no material adverse change')."
+    },
+    {
+      "matched_text": "RVN-PRN-8831",
+      "reason": "Separated weak identifier placeholder; not linked to any individual."
+    },
+    {
+      "matched_text": "DOB 2000-02-02",
+      "reason": "Separated weak identifier placeholder; not linked to any individual."
+    },
+    {
+      "matched_text": "junior analyst",
+      "reason": "Generic role in a placeholder example; not identifying alone."
+    },
+    {
+      "matched_text": "East Ward, Indrapur",
+      "reason": "Generic locality in a placeholder; not linked to any individual."
+    },
+    {
+      "matched_text": "A a d h a a r",
+      "reason": "Split OCR text; not an actual identifier value."
+    },
+    {
+      "matched_text": "P A N",
+      "reason": "Split OCR text; not an actual identifier value."
+    },
+    {
+      "matched_text": "G S T I N: 27RSLCO1234F1Z5",
+      "reason": "Corporate GSTIN line for fictional vendor; not personal data and not accessed."
+    },
+    {
+      "matched_text": "acct:svc-batch-07",
+      "reason": "System-owned service account; not a natural person."
+    },
+    {
+      "matched_text": "caste",
+      "reason": "Special-category term mentioned in a negated policy statement; no personal value present."
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Special-category term mentioned in a negated policy statement; no personal value present."
+    },
+    {
+      "matched_text": "health data",
+      "reason": "Special-category term mentioned in a negated policy statement; no personal value present."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "child consent requirement",
+      "matched_text": "guardian consent",
+      "reason": "Consent is legally relevant under DPDPA for processing children\u2019s data but only 'consent_withdrawal_marker' is in allowed rules."
+    },
+    {
+      "concept": "consent documentation",
+      "matched_text": "consent templates",
+      "reason": "Indicates consent process activity; not directly covered by available consent marker rule."
+    },
+    {
+      "concept": "username quasi-identifier",
+      "matched_text": "user=skulkarni92",
+      "reason": "System username can identify an individual within the organization but no explicit rule exists for usernames."
+    },
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "Bendaru-South",
+      "reason": "Geo-tag can contribute to identifiability in combination but is not a standalone rule item."
+    }
+  ]
+}

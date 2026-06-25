@@ -1,0 +1,66 @@
+{
+  "doc_id": "memo_adv_08",
+  "document_type": "memo",
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "SG",
+  "must_detect": [
+    {
+      "rule": "transaction_codename",
+      "matched_text": "Project Sapphire"
+    },
+    {
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Jonathan Tan Wei Ming"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah binti Abdullah"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Dr. Tan"
+    },
+    {
+      "rule": "phone_number",
+      "matched_text": "+65 8123 4567"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "jonathan.tan@emeraldholdings.sg"
+    },
+    {
+      "rule": "named_person",
+      "matched_text": "Ms. Siti Aishah"
+    },
+    {
+      "rule": "email_address",
+      "matched_text": "siti.aishah@emeraldholdings.sg"
+    },
+    {
+      "rule": "sg_nric_fin",
+      "matched_text": "S9876543B"
+    },
+    {
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "rule": "financial_amount",
+      "matched_text": "SGD 75,000,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "contract-defined abbreviation"
+    }
+  ],
+  "_label_source": "o1-auto",
+  "_label_model": "o1",
+  "_label_warnings": [],
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

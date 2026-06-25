@@ -1,0 +1,281 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_jurisdictional_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/jurisdictional_mnpi/my_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Public/status timing guidance: if we confirm no exfiltration and full restoration by 12:00 MYT, we will defer to quarterly disclosure and update the market in the MD&A; if any higher\u2011risk PII is implicated, immediate announcement to the Exchange and notification to affected staff under PDPA will proceed the same business day.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non\u2011Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closed period/blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure is permitted",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remains non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential material information",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we are within the closed period for Q2 FY2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Encik Firdaus Rahman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Puan Nor Aisha Idris",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "firdaus.rahman@auriga\u2011nusantara.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sec@auriga\u2011nusantara.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@auriga\u2011nusantara.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mobile numbers",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corporate emails",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP\u20114X9\u2011***",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "<3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "communications with counterparties and rating agencies must be limited to previously disclosed public details",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "analyst engagements are subject to blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "intended for Disclosure Committee and Board only",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30 days prior to the targeted results release on 29 Aug 2026",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "without breaching selective disclosure",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Public/status timing guidance: if we confirm no exfiltration and full restoration by 12:00 MYT, we will defer to quarterly disclosure and update the market in the MD&A; if any higher\u2011risk PII is implicated, immediate announcement to the Exchange and notification to affected staff under PDPA will proceed the same business day.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "At 03:40 MYT our payroll/HR SaaS provider, VantaEdge Sdn Bhd, experienced a ransomware event causing intermittent access failures to the employee portal; no customer\u2011facing systems or revenue platforms are impacted.\nPreliminary review indicates potential access to employee PII under Malaysian personal data law (PDPA), limited to names, corporate emails, mobile numbers and salary bands; no full national ID numbers are stored in the affected module (only salted hashes of internal staff IDs: EMP\u20114X9\u2011***).\nOperational impact: attendance uploads and June payroll previews delayed up to 6 hours; manufacturing and logistics run\u2011rates unaffected; unrelated facilities note \u2014 the level 9 coffee machine remained offline overnight and is not part of this incident.\nIssuer\u2011relative materiality: estimated one\u2011off response and remediation costs \u2264 RM1.8m (<3% of FY2025 consolidated PAT), though reputational risk may be material; treat as potential material information pending forensic confirmation.\nDisclosure plan: if the outage persists beyond a 4\u2011hour window or confirmed PII exfiltration exceeds 500 records, we will make an immediate announcement via the Exchange\u2019s IssuerLink by 17:00 MYT today pursuant to Main Market Listing Requirements (Paragraph 9.03); otherwise include a note in the next quarterly report (Paragraph 9.35A).\nClosed period/blackout: we are within the closed period for Q2 FY2026 (30 days prior to the targeted results release on 29 Aug 2026); directors\u2019 dealings are restricted (Paragraph 14.08), and analyst engagements are subject to blackout \u2014 no selective disclosure is permitted.\nMNPI handling: until an IssuerLink announcement is posted, this information remains non\u2011public; communications with counterparties and rating agencies must be limited to previously disclosed public details and generic risk statements in our policy.\nPublic references that can be cited without breaching selective disclosure: Annual Report 2025 cyber posture summary lodged on IssuerLink on 15 Mar 2026; Exchange announcement dated 15 Apr 2026 titled \u201cNetwork Segmentation Complete.\u201d These are historical and do not describe today\u2019s status.\nNon\u2011issuer operational update (public): VantaEdge posted \u201cdegraded service \u2014 MY region\u201d at status.vantaedge.example at 07:10 MYT; this third\u2011party notice may be referenced externally only with caution and without adding non\u2011public issuer specifics.\nFinancing context: the Revolving Credit Facility with Permai Capital Bank Berhad contains no immediate drawstop on the facts known; this incident, as presently assessed, does not constitute a material adverse change (and does not trigger any MAC clause); lenders to receive a link to the public announcement once made.\nTechnical indicators: Se r v e r   c l u s t e r \u2011 M Y \u2011 2 shows anomalous outbound calls to ft p://10.5.9.** between 03:12\u201303:17; EDR policy GK\u20118.2 blocked 6 of 6 attempts; no persistence detected; Incident Ref: A U R \u2014 2 0 2 6 / 0 6 / R A N \u2011 0 7; Contract ID with VantaEdge: MSA\u20112O26\u2011R03; secure link: https://ir.auriga\u2011nusantara.example/notice?id=AUR%2F2026%2F06%2FINT.\nPublic/status timing guidance: if we confirm no exfiltration and full restoration by 12:00 MYT, we will defer to quarterly disclosure and update the market in the MD&A; if any higher\u2011risk PII is implicated, immediate announcement to the Exchange and notification to affected staff under PDPA will proceed the same business day.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Revolving Credit Facility with Permai Capital Bank",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated; rule 8 prohibits labeling negated MAC references."
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated; rule 8 prohibits labeling negated MAC references."
+    },
+    {
+      "matched_text": "project sunleaf",
+      "reason": "Not a transaction codename (does not match 'Project <CapitalizedName>' pattern)."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "ip_address",
+      "matched_text": "10.5.9.**",
+      "reason": "Masked/partial IP-like value; resembles an IP but not a standard detectable format."
+    },
+    {
+      "concept": "salary information",
+      "matched_text": "salary bands",
+      "reason": "Employment compensation data is sensitive under PDPA but not mapped to a specific allowed PII rule."
+    },
+    {
+      "concept": "disclosure timing",
+      "matched_text": "by 17:00 MYT today",
+      "reason": "Issuer disclosure-timing commitment is compliance-relevant but not clearly covered by an allowed MNPI rule."
+    },
+    {
+      "concept": "disclosure threshold",
+      "matched_text": "500 records",
+      "reason": "Volume threshold for cyber/PII notification is materially relevant but not clearly mapped to a specific MNPI rule."
+    }
+  ]
+}

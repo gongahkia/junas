@@ -1,0 +1,366 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "project-owner",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved IN Stage B labels for internal benchmarking after manual review. Not legal advice or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-04T07:39:23Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "project-owner",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "IN",
+    "doc_id": "in_special_category_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-04T07:39:23Z",
+    "reviewer": "project-owner",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/in/special_category/in_special_category_incident_report_default_001.txt",
+    "source_jurisdiction": "IN",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/in_special_category_incident_report_default_001.txt",
+    "taxonomy_concept": "special_category"
+  },
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_special_category_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+91-00000-00000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ML-44812",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nisha Kapoor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Shashank Dev",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aarav Balan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dev",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI handling follows our Internal UPSI Handling Standard and PIT Code drafted per Indian securities regulator guidance, but an email rule forwarded previews to a Kavapur staging mailbox.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As a metaphor, the breach spread like a cracked monsoon umbrella across shared drives while a test bot named BluePanda mirrored folders.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar XXXX-1313-7788",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN XXPXX1234Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID ML-44812",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "treatment for endometriosis",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "clinic note about treatment for endometriosis",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic screening report for a thalassemia carrier marker",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his union membership record in the MettaLok Workers Forum",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor-dependent details",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Rohan Dev",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vaccination history",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "school insurance enrolment references",
+      "rule": "insurance_member_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@mettalok.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. R. Raghavan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependent of Mr. Shashank Dev",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential divestment term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not-yet-announced plant sale",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "briefly received a spreadsheet linking employee records to UPSI on projected EBITDA and a not-yet-announced plant sale",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "an email rule forwarded previews to a Kavapur staging mailbox",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+91-00000-00000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ML-44812",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nisha Kapoor",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Shashank Dev",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aarav Balan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dev",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI handling follows our Internal UPSI Handling Standard and PIT Code drafted per Indian securities regulator guidance, but an email rule forwarded previews to a Kavapur staging mailbox.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As a metaphor, the breach spread like a cracked monsoon umbrella across shared drives while a test bot named BluePanda mirrored folders.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The exposure included identifiers (Aadhaar and PAN fields), minor-dependent details, and certain UPSI relating to draft Q1 results and a confidential divestment term sheet.\nMs. Nisha Kapoor (Employee ID ML-44812) had her fingerprint template from the biometric attendance module and a clinic note about treatment for endometriosis accessed without consent.\nMaster Rohan Dev, age 16 (dependent of Mr. Shashank Dev), had his vaccination history and school insurance enrolment references viewed in the same cache.\nMr. Aarav Balan\u2019s file incorporated a genetic screening report for a thalassemia carrier marker together with his union membership record in the MettaLok Workers Forum.\nAn external processor, LotusPay Prime Pvt. Ltd., briefly received a spreadsheet linking employee records to UPSI on projected EBITDA and a not-yet-announced plant sale, breaching our PIT Code 2024.\nAlthough we are an equal opportunity employer with DEI commitments, the root cause was a misconfigured SSO scope for a service account in Indapur and not any policy choice.\nNo Aadhaar, PAN, or GSTIN numbers were fully visible; logs show placeholders like Aadhaar XXXX-1313-7788 and PAN XXPXX1234Q rendered only to audit viewers.\nA benign clarification: the word union here also refers to the union of two datasets in a Spark job, not any person\u2019s trade-union detail.\nUPSI handling follows our Internal UPSI Handling Standard and PIT Code drafted per Indian securities regulator guidance, but an email rule forwarded previews to a Kavapur staging mailbox.\nAs a metaphor, the breach spread like a cracked monsoon umbrella across shared drives while a test bot named BluePanda mirrored folders.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI reference not tied to an identified individual."
+    },
+    {
+      "matched_text": "union of two datasets",
+      "reason": "Computing term; not trade union membership."
+    },
+    {
+      "matched_text": "Kavapur Kites",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Avanya Tigers",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "SwiftLedger Pro",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Internal UPSI Handling Standard",
+      "reason": "Policy name; not MNPI itself."
+    },
+    {
+      "matched_text": "PIT Code 2024",
+      "reason": "Policy name; not MNPI/PII."
+    },
+    {
+      "matched_text": "BluePanda",
+      "reason": "Test bot name; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "IN",
+  "uncertain": [
+    {
+      "concept": "consent violation",
+      "matched_text": "accessed without consent",
+      "reason": "Indicates processing without consent; not a specific consent withdrawal marker in allowed rules."
+    },
+    {
+      "concept": "access control/minimisation",
+      "matched_text": "rendered only to audit viewers",
+      "reason": "Describes role-based restriction; allowed rules do not cover access-control markers and Rule 17 cautions against labeling completed controls."
+    },
+    {
+      "concept": "UPSI financial results",
+      "matched_text": "draft Q1 results",
+      "reason": "Clearly unpublished financial information but lacks a specific allowed MNPI rule tag beyond generic UPSI."
+    },
+    {
+      "concept": "financial metric MNPI",
+      "matched_text": "projected EBITDA",
+      "reason": "Material nonpublic financial metric without numeric amount; no direct allowed MNPI rule fits except contextual UPSI."
+    }
+  ]
+}

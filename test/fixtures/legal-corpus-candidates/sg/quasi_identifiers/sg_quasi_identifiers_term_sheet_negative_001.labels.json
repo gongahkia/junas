@@ -1,0 +1,217 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_quasi_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1990\u201107\u201119",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "OP\u2011M12",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AT\u20117F22",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@asterareef.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@lionwave.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to analysts or trade press",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any material information not generally available will be cleansed by announcement prior to definitive signing",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPA: Only the above quasi-identifiers will be provided under a data processing agreement; no NRIC, passport numbers, or residential addresses will be disclosed",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Limited HR sample (for testing payroll integration only): staff code OP\u2011M12, date of birth 1990\u201107\u201119, office location Toa Payoh logistics hub, employer Coral Metrics Pte. Ltd., role Group Payroll Analyst, laptop asset tag AT\u20117F22, internal sandbox account ID GL\u201109871",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GL\u201109871",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ARFZ",
+      "rule": "sg_sgx_counter"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any material information not generally available will be cleansed by announcement prior to definitive signing",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Convertible Notes and Strategic Alliance",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no personal emails or direct phone numbers will be shared",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Overview: Non-binding subscription of unsecured convertible notes and an option to acquire up to 15% of Coral Metrics Pte. Ltd., a wholly owned subsidiary (no price terms included in draft).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@lionwave.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Overview: Non-binding subscription of unsecured convertible notes and an option to acquire up to 15% of Coral Metrics Pte. Ltd., a wholly owned subsidiary (no price terms included in draft).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2013 Proposed Convertible Notes and Strategic Alliance between Astera Reef Technologies Ltd. (Mainboard, SGX-ST; ticker: ARFZ, placeholder) and Lionwave Ventures Pte. Ltd.\nParties: Astera Reef Technologies Ltd. (UEN: 2019-ARFZ-000; invalid for draft) and Lionwave Ventures Pte. Ltd. (UEN: 2024-LWVP-999; invalid for draft).\nOverview: Non-binding subscription of unsecured convertible notes and an option to acquire up to 15% of Coral Metrics Pte. Ltd., a wholly owned subsidiary (no price terms included in draft).\nPublic status: Heads of terms were announced on SGXNet on 12 Feb 2025; this sheet consolidates already-announced items and process steps.\nRegulatory: SGX-ST Listing Manual Rules 703 and 805 compliance; any material information not generally available will be cleansed by announcement prior to definitive signing.\nConditions precedent: Independent valuation, satisfactory due diligence, and no requirement to trigger the Singapore Code on Take-overs and Mergers (no change-of-control).\nUse of proceeds: To fund R&D for reef-sensor arrays and general working capital; precise allocation to be confirmed in the circular.\nDiligence scope: Buyer access to a virtual data room with redacted contracts, anonymised customer cohorts, and systems logs; no personal emails or direct phone numbers will be shared.\nLimited HR sample (for testing payroll integration only): staff code OP\u2011M12, date of birth 1990\u201107\u201119, office location Toa Payoh logistics hub, employer Coral Metrics Pte. Ltd., role Group Payroll Analyst, laptop asset tag AT\u20117F22, internal sandbox account ID GL\u201109871.\nPDPA: Only the above quasi-identifiers will be provided under a data processing agreement; no NRIC, passport numbers, or residential addresses will be disclosed.\nSecurities placeholders: Draft ISIN ZZ0000000000 and internal series code AR\u2011NOTE\u2011A (for layout only; not valid identifiers).\nTimetable: Target SGX-ST pre-clearance in early Q3 2026 and shareholder EGM within 60\u201390 days thereafter, subject to regulator feedback.\nDisclosure: Announcements to be made via SGXNet; no selective disclosure to analysts or trade press; questions routed to ir@asterareef.example and legal@lionwave.example (role mailboxes).\nInterim covenants: No dividends on ordinary shares and no new indebtedness above agreed headroom until completion; exceptions to be negotiated.\nGoverning law: Singapore; this term sheet is not intended to create legal obligations except for confidentiality, exclusivity (60 days), costs, and applicable SGX-ST undertakings.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role/caption treated as a defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun treated as a defined term, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "security_identifier (ISIN placeholder)",
+      "matched_text": "ZZ0000000000",
+      "reason": "ISINs are legally relevant securities IDs but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "concept": "internal security series code",
+      "matched_text": "AR\u2011NOTE\u2011A",
+      "reason": "Internal security series identifiers are relevant but not mapped to a specific allowed rule."
+    },
+    {
+      "concept": "Singapore UEN placeholder",
+      "matched_text": "2019-ARFZ-000",
+      "reason": "Looks like a UEN-style identifier but does not match allowed UEN formats."
+    },
+    {
+      "concept": "Singapore UEN placeholder",
+      "matched_text": "2024-LWVP-999",
+      "reason": "Looks like a UEN-style identifier but does not match allowed UEN formats."
+    }
+  ]
+}

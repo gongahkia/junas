@@ -1,0 +1,252 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the US Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "US",
+    "doc_id": "us_quasi_identifiers_term_sheet_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/us/quasi_identifiers/us_quasi_identifiers_term_sheet_negative_001.txt",
+    "source_jurisdiction": "US",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/us_quasi_identifiers_term_sheet_negative_001.txt",
+    "taxonomy_concept": "quasi_identifiers"
+  },
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 23,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 18,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_quasi_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000000000000",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PF-HEM-7782",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: formation of a joint venture to support patient-pay financing for Pineflow\u2019s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory and privacy conditions: closing conditioned on Hart-Scott-Rodino filings, banking non-objection from the Office of Financial Institutions Oversight (fictional), and execution of HIPAA-compliant business associate agreements and GLBA safeguards.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to analysts or other market participants",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@pineflow.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 03/1984",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device serial PF-HEM-7782",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Device IMEI: 000000000000000",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "anonymized loan tapes",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redacted servicing reports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de-identified device logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no patient charts, medical record numbers, or actual consumer account numbers will be exchanged",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For systems mapping only, one internal test profile may be processed: lab technician (employed by Pineflow), DOB 03/1984, city \u201cNorth Plainfield Ridge, OH 44100\u201d, job role \u201cHome Device Calibrator\u201d, device serial PF-HEM-7782, payroll sub-ledger acct FP-0045-77",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SSN: ___-__-____",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No: ______",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical record numbers",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "actual consumer account numbers",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulation FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any slide deck shared with sell-side analysts will be posted to the investor site and furnished under Item 7.01 of Form 8-K",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000000000000",
+      "rule": "imei"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PF-HEM-7782",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: formation of a joint venture to support patient-pay financing for Pineflow\u2019s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory and privacy conditions: closing conditioned on Hart-Scott-Rodino filings, banking non-objection from the Office of Financial Institutions Oversight (fictional), and execution of HIPAA-compliant business associate agreements and GLBA safeguards.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Binding Term Sheet for Strategic Partnership between Pineflow Therapeutic Devices LLC (DE) and Sable Ridge Bancshares, Inc. (OH).\nPineflow is a U.S. issuer listed on the Midland Market (fictional national securities exchange); Sable Ridge is an Ohio bank holding company providing consumer finance services.\nTransaction: formation of a joint venture to support patient-pay financing for Pineflow\u2019s home therapeutic devices; no pricing, exchange ratio, or issuance terms are agreed at this stage.\nPublic disclosure: any material terms will be disclosed consistent with Regulation FD via press release and Form 8-K; no selective disclosure to analysts or other market participants.\nConsideration framework: target revenue-share and potential earnout subject to performance metrics to be defined in the definitive agreements; economics are non-binding placeholders.\nRegulatory and privacy conditions: closing conditioned on Hart-Scott-Rodino filings, banking non-objection from the Office of Financial Institutions Oversight (fictional), and execution of HIPAA-compliant business associate agreements and GLBA safeguards.\nDiligence scope: limited to policies, anonymized loan tapes, redacted servicing reports, and de-identified device logs; no patient charts, medical record numbers, or actual consumer account numbers will be exchanged.\nFor systems mapping only, one internal test profile may be processed: lab technician (employed by Pineflow), DOB 03/1984, city \u201cNorth Plainfield Ridge, OH 44100\u201d, job role \u201cHome Device Calibrator\u201d, device serial PF-HEM-7782, payroll sub-ledger acct FP-0045-77.\nEmployee matters: no guarantees of employment; select employees may receive retention grants subject to board approval and plan terms; no individual compensation packages are discussed here.\nAnalyst communications: any slide deck shared with sell-side analysts will be posted to the investor site and furnished under Item 7.01 of Form 8-K; questions should be routed to ir@pineflow.example (role mailbox).\nRepresentations and covenants: customary statements regarding data security, privacy program sufficiency, and remediation of consumer complaints; forward-looking statements subject to cautionary language under applicable securities laws.\nPrior announcements: Pineflow publicly announced on 2024-07-15 its exploration of financing partnerships; this document restates that previously disclosed, non-binding intent.\nPlaceholders in diligence templates may include labels such as \u201cAccount No: ______\u201d, \u201cSSN: ___-__-____\u201d, \u201cRouting: 000000000\u201d, and \u201cDevice IMEI: 000000000000000\u201d, which are formatting examples only and not actual identifiers.\nIllustrative identifiers herein (e.g., example file number 0000-XYZ-99 and sample code PFLOW000, an invalid CUSIP-like string) are non-functional and used solely to show expected formats.\nThis term sheet is non-binding, subject to definitive documentation and applicable approvals, and is not an offer to sell or a solicitation of an offer to",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "internal account identifier",
+      "matched_text": "payroll sub-ledger acct FP-0045-77",
+      "reason": "Appears to be an internal payroll/accounting code that could link to an individual but does not map cleanly to a listed PII rule."
+    },
+    {
+      "concept": "bank routing number placeholder",
+      "matched_text": "Routing: 000000000",
+      "reason": "Routing numbers are sensitive financial identifiers but not explicitly listed among allowed PII rules."
+    },
+    {
+      "concept": "file/reference number placeholder",
+      "matched_text": "example file number 0000-XYZ-99",
+      "reason": "Looks like a reference/filing number format that could be linkable but is not covered by specified rules."
+    },
+    {
+      "concept": "security identifier placeholder",
+      "matched_text": "PFLOW000",
+      "reason": "Described as an invalid CUSIP-like string; potential identifier class not covered by the rules."
+    },
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "North Plainfield Ridge, OH 44100",
+      "reason": "City and ZIP can contribute to re-identification, but there is no general US address rule in the allowed set."
+    },
+    {
+      "concept": "employment role quasi-identifier",
+      "matched_text": "lab technician (employed by Pineflow)",
+      "reason": "Job role and employer can help identify a person but do not match a specific allowed PII rule when isolated."
+    }
+  ]
+}

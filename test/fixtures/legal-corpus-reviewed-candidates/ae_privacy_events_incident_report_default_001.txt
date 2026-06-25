@@ -1,0 +1,15 @@
+Incident Report: Nadrah Capital Markets PJSC — Operational data handling review under UAE PDPL (Ref: IR-2026-06-05)
+On 04–05 June, a misconfigured SFTP path during vendor onboarding triggered a halt on exporting client onboarding forms to Riyada Data Services Ltd (Bahrain) pending data-export approval.
+The forms contain PDPL personal data (name, contact, masked Emirates ID token EID-XX4321, family-origin disclosure for KYC) and a trade licence copy for corporate signatories (TL-90877-AL), covered by DPA Schedule 2.
+Cross-border transfer was not executed until the Transfer Impact Assessment and Data-Export Approval Memo DEAM-1194 were signed; only test hashes left the UAE during the pause.
+We received a DSAR from Mr. Zayed Al Qamar requesting access to processing records; fulfillment was completed within 10 working days with extraction logs attached.
+Ms. Laila Al Mansouri withdrew consent for marketing emails on 03 June; suppression list updated and confirmation sent, with erasure of marketing attributes completed at 14:22 GST.
+No Emirates ID images or trade licence scans left the UAE; the data lake applied minimisation by dropping family-origin fields not required for AML/CTF, per Retention Schedule RS-9/UA.
+Deal workflow context: the ops queue briefly linked to “Project Saffron Falcon” (issuer onboarding) but audit shows no access to non-public issuer decks; information barriers and wall-cross logs remained intact.
+In line with UAE financial free zone practices, our internal market-abuse follow-up found no MNPI exposure and no obligation to notify the Gulf Securities Authority or Pearl Exchange.
+The incident did not meet PDPL breach thresholds; this is a compliance memo documenting controls, not a breach notice, and DPA Schedule 4 (breach notification) was not triggered.
+Erasure was completed for ex-client Mr. Nabil Haddad on 02 June with certificate ER-2217, except records retained under legal hold for AML as per Article 7 retention derogations.
+Security validation (Control ODP-17) was completed on 05 June: encryption at rest (AES-256) and role-based access tested; no exfiltration detected in outbound gateways.
+Note that our policy states we do not store passport copies in the analytics environment; this policy-only control should not be read as evidence of current storage or loss.
+Contact for follow-up: Data Protection Officer, Nadrah Capital Markets PJSC, privacy@nadrahcm.ae, +971 2 555 0140; escalation channel: compliance-ops@nadrahcm.ae.
+For audit reporting, the Onboarding Form v3.2 and DPA Schedules 2 and 5 were appended, and Data-Export Approval DEAM-1194 was closed as compliant on 05 June GST.

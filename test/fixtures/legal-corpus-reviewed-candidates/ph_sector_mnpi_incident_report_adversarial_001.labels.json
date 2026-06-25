@@ -1,0 +1,349 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "PH",
+    "doc_id": "ph_sector_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/ph/sector_mnpi/ph_sector_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "PH",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/ph_sector_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "not for external release until Form 17-C is filed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cLRHI_SLN_pre-mkt_v3\u201d",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Php 420,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber event",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cPluma\u201d DPT wallet pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG impact: the cyber event may delay third-party assurance on FY2025 emissions data, potentially activating the SLN step-up in Q4; this timing is material and remains non-public",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nilo V. Argonza",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lrhi.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63-28-555-0188",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For internal circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list \u201cLRHI_SLN_pre-mkt_v3\u201d has been updated",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must remain within the information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not discuss this incident or the SLN pricing grid with counterparties",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security Operations Center detected anomalous outbound traffic",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "compromised service account",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenized REC settlement (testnet)",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "FY2025 emissions data",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this timing is material",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially activating",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nilo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+63-28-555-0188",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Nilo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Php 420,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "420,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lakbay Renewables Holdings, Inc. (LRHI) \u2014 Incident & MNPI Notice \u2014 03 Jun 2026 \u2014 Philippines\nFor internal circulation under S E C Philippines and PSE disclosure protocols; not for external release until Form 17-C is filed.\nOn 02 Jun 2026 at 23:14 PHT, our Security Operations Center detected anomalous outbound traffic from the Treasury workstation segment; OrbitShield SIEM alert ID T X N - 4 9 B 2 flagged exfil attempts.\nPreliminary forensics indicate a compromised service account (acct: tr3as-svc 7 2 9 - **13) with lateral movement toward the \u201cPluma\u201d DPT wallet pilot used for tokenized REC settlement (testnet).\nNo customer PII appears accessed at this time; however, two draft commercial term sheets for our sustainability-linked notes (SLN-2026) and a non-public PSE listing timetable were opened by the actor.\nThese documents contain MNPI (interest step-up at 12.5 bps per 5% KPI miss, green capex carve-out Php 420,000,000) and must remain within the information barrier; insider list \u201cLRHI_SLN_pre-mkt_v3\u201d has been updated.\nEffective immediately, a company-wide trading blackout applies to directors, officers, and project finance staff until a 17-C/17-L disclosure is posted on the PSE EDGE portal.\nDo not discuss this incident or the SLN pricing grid with counterparties; tipping and selective disclosure are prohibited under the SRC and SEC Memorandum Circulars.\nESG impact: the cyber event may delay third-party assurance on FY2025 emissions data, potentially activating the SLN step-up in Q4; this timing is material and remains non-public.\nOperations-only note: the crypto wallet training scheduled for HR orientation will proceed with demo keys only; this educational session references insider lists conceptually but has no trading relevance.\nNegative assurance: for avoidance of doubt, current information does not constitute a material adverse change under any executed term sheet, and force majeure is not claimed.\nContact: Mr. Nilo V. Argonza, Data Protection Officer, dpo@lrhi.ph, or hotline +63-28-555-0188 (ticket: SOC-INC-00O7); see https://intra.lrhi.ph/ir/SLN-2026?",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto wallet training",
+      "reason": "Training context; not a DPT MNPI event."
+    },
+    {
+      "matched_text": "Effective immediately",
+      "reason": "Not an 'Effective Date' embargo marker as defined by rule."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; do not label MAC/MAE when negated per rule."
+    },
+    {
+      "matched_text": "term sheets",
+      "reason": "Generic reference; not a capitalized definitive agreement term."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "internal_session_id",
+      "matched_text": "OrbitShield SIEM alert ID T X N - 4 9 B 2",
+      "reason": "Internal alert/ticket identifier may be sensitive operational data but is not clearly covered as PII and not linked to an individual."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "ticket: SOC-INC-00O7",
+      "reason": "Internal ticket/reference number; may be sensitive but not a defined PII/MNPI rule and not person-identifying on its own."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "jira ops/infra-crypto#144",
+      "reason": "Internal tracker ID; operational identifier not clearly covered by allowed rules."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "CAB-ESG-0021",
+      "reason": "Change ticket ID; potentially sensitive internal ops data but not PII under listed rules."
+    },
+    {
+      "concept": "account_identifier",
+      "matched_text": "acct: tr3as-svc 7 2 9 - **13",
+      "reason": "Service account identifier; could be linkable to a user with other data but not an explicit allowed PII rule."
+    }
+  ]
+}

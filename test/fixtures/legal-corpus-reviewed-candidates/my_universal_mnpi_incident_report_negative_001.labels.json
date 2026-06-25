@@ -1,0 +1,223 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_promotion": {
+    "destination_jurisdiction": "MY",
+    "doc_id": "my_universal_mnpi_incident_report_negative_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/my/universal_mnpi/my_universal_mnpi_incident_report_negative_001.txt",
+    "source_jurisdiction": "MY",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/my_universal_mnpi_incident_report_negative_001.txt",
+    "taxonomy_concept": "universal_mnpi"
+  },
+  "_resolved_label_warnings": {
+    "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
+    "count": 13,
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "resolved_by": "Codex GPT-5.5",
+    "sample": [
+      "normalise category for rule='phone_number' text='03-0000 0000'",
+      "normalise category for rule='email_address' text='secops@auroramart.invalid'",
+      "normalise category for rule='embargo_marker' text='embargo note: do not circulate externally before 20 june 2026 09:00 MYT'",
+      "normalise category for rule='phone_number' text='03-0000 0000'",
+      "normalise category for rule='email_address' text='secops@auroramart.invalid'"
+    ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "MY",
+  "doc_id": "my_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "secops@auroramart.invalid",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident summary: auroramart berhad (main market issuer, stock code 0A00) \u2014 operational cybersecurity update",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "financing covenant review: the incident does not constitute, and shall not be deemed to constitute, a material adverse change or material adverse effect under the syndicated facility agreement dated 2 january 2025 with evergreen capital bank berhad",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo note: do not circulate externally before 20 june 2026 09:00 MYT",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not include customer emails in attachments",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact any illustrative screenshots",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "track only public facts already announced or logged in incident inc-26-0514",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "our order-management staging cluster experienced unauthorised access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "syndicated facility agreement dated 2 january 2025",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "main market listing requirements para 9.03",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not circulate externally before 20 june 2026 09:00 MYT",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "secops@auroramart.invalid",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-0000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident summary: auroramart berhad (main market issuer, stock code 0A00) \u2014 operational cybersecurity update",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "financing covenant review: the incident does not constitute, and shall not be deemed to constitute, a material adverse change or material adverse effect under the syndicated facility agreement dated 2 january 2025 with evergreen capital bank berhad",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not include customer emails in attachments; redact any illustrative screenshots; standard form labels: form ir-7, sec-ops appendix b, gdpr cross-check n/a for malaysia\nexchange follow-up: we will file a factual update only, no forward-looking statements; target posting date is 20 june 2026 unless exchange queries require earlier clarification",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident summary: auroramart berhad (main market issuer, stock code 0A00) \u2014 operational cybersecurity update\non 14 may 2026, our order-management staging cluster experienced unauthorised access; a public notification was posted on 16 may under main market listing requirements para 9.03; exchange announcement ref: KE/IR/2026-XYZ-014\ninternal ref inc-26-0514; preliminary cause: misconfigured api token on a test server; production systems unaffected; downtime limited to uat\nbased on forensics completed to date, no pdpa-sensitive personal data from live systems were accessed; sample test records contained dummy values only; no identity-card scans or payment card numbers were present\nwe have engaged netshield my centre and lodged a report with the local precinct police; general helpline: 03-0000 0000; security mailbox: secops@auroramart.invalid\nreminder for teams: changeover checklist in confluence, please update jira ticket it-ops-7721; next steps meeting wed 3pm; wellness spa day vouchers remain valid\nesg note: customer service response times were maintained; no safety incidents at kuala selantan hub; e-scrap to be disposed via a licensed recycler on 21 may\nfinancing covenant review: the incident does not constitute, and shall not be deemed to constitute, a material adverse change or material adverse effect under the syndicated facility agreement dated 2 january 2025 with evergreen capital bank berhad",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC/MAE language; excluded by rule 8."
+    },
+    {
+      "matched_text": "material adverse effect",
+      "reason": "Negated MAC/MAE language; excluded by rule 8."
+    },
+    {
+      "matched_text": "wellness spa day vouchers remain valid",
+      "reason": "Non-sensitive bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "gdpr cross-check n/a for malaysia",
+      "reason": "Not a live privacy-event marker or cross-border transfer."
+    }
+  ],
+  "source_jurisdiction": "MY",
+  "uncertain": [
+    {
+      "concept": "internal incident identifier",
+      "matched_text": "inc-26-0514",
+      "reason": "May function like an internal_session_id but not clearly covered by allowed rules."
+    },
+    {
+      "concept": "internal ticket identifier",
+      "matched_text": "it-ops-7721",
+      "reason": "Could be an internal identifier akin to session/ticket IDs; not in allowed rules."
+    },
+    {
+      "concept": "exchange announcement reference",
+      "matched_text": "KE/IR/2026-XYZ-014",
+      "reason": "Market filing identifier; not clearly mapped to allowed MNPI rules."
+    },
+    {
+      "concept": "Bursa stock code",
+      "matched_text": "0A00",
+      "reason": "Security identifier; no explicit allowed rule for Malaysian ticker codes."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+Incident Report: Operational/Cyber — Meranti Quanta Holdings Ltd (Mainboard-listed in Singapore) — Incident Ref MQH-INC-2026-013
+Window: 28–29 May 2026 SGT; Location: Head Office, Harbour Vista, Singapore
+Summary: Routine patching caused intermittent outages in UAT for the GreenLedger ESG Dashboard and the CryptoSafe Demo Node; production remained stable
+Market sensitivity: None expected; references to “crypto” are limited to lab tool names and no token issuance, custody, or trading functions were affected
+Personal data: No PDPA personal data resides in the impacted UAT; log fields with “NRIC” labels hold only dummy values such as T0000000Z for testing
+Disclosure posture: Our FY2025 ESG scorecard was already released via the exchange announcement portal on 12 Apr 2026; this note merely repeats those publicly available metrics
+Governance/training: The team concurrently ran an information-barrier tabletop and refreshed anti-tipping messaging; the insider list referenced in the drill is a blank template
+Technical detail: A misconfigured API gateway rotated keys during a planned maintenance blackout; rollback executed and keys re-issued per local TRM guidelines
+Third-party coordination: A standard support ticket (SR-00X-TEST) was lodged with the hosting vendor through its public service desk; preliminary checks show no compromise indicators
+Positive MNPI span: Separately, preliminary forensics show a service account briefly accessed a folder containing draft board papers on a proposed private placement for Meranti Quanta Holdings Ltd; as this is not generally available and could be price-sensitive under the SFA and local exchange rules, a dealing blackout was imposed and relevant roles were added to the insider list pending confirmation
+Containment: Access to the affected collaboration site is now restricted to the “M&A-Restricted” security group; external sharing is disabled and no download events are observed
+Communications: No exchange announcement is contemplated at this stage; if the draft advances to an active transaction, Company Secretarial will assess continuous disclosure obligations
+Next steps: Conduct a joint cyber–legal tabletop on director duties, refresh PDPA consent/deletion training, update the information-barrier register, and test ESG data mart failover procedures
+Contact points: Please route queries to grc@merantiquanta.example (Governance, Risk & Compliance) and itsc@merantiquanta.example (IT Service Centre)

@@ -1,0 +1,341 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_promotion": {
+    "destination_jurisdiction": "JP",
+    "doc_id": "jp_sector_mnpi_incident_report_default_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/jp/sector_mnpi/jp_sector_mnpi_incident_report_default_001.txt",
+    "source_jurisdiction": "JP",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/jp_sector_mnpi_incident_report_default_001.txt",
+    "taxonomy_concept": "sector_mnpi"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_sector_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "csirt@shiroyama-robotics.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanae Kuroda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morimoto",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected business: Corporate Development workspace held a draft term sheet for a proposed acquisition of MidoriGrid KK; contents are undisclosed material facts under FIEA and remain on a need-to-know basis.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market conduct: A company-wide blackout window remains in effect until kessan release; tipping or selective disclosure regarding the contemplated acquisition or ESG targets is strictly prohibited; all media inquiries must be routed to IR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@shiroyama-robotics.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "proposed acquisition of MidoriGrid KK",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know basis",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cShirocoin\u201d employee token wallet",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list opened for Incident IR-24-061",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window remains in effect",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber-Operational Incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may change materially",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced science-based emissions targets",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "keys have been rotated",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft Scope 1\u20133 emissions recalculation",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "climate-risk narrative for FY2026",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "provisional sustainability-linked loan covenant table",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorized access",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "compromised vendor VPN account",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "csirt@shiroyama-robotics.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanae Kuroda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morimoto",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected business: Corporate Development workspace held a draft term sheet for a proposed acquisition of MidoriGrid KK; contents are undisclosed material facts under FIEA and remain on a need-to-know basis.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Market conduct: A company-wide blackout window remains in effect until kessan release; tipping or selective disclosure regarding the contemplated acquisition or ESG targets is strictly prohibited; all media inquiries must be routed to IR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to board approval",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Affected business: Corporate Development workspace held a draft term sheet for a proposed acquisition of MidoriGrid KK; contents are undisclosed material facts under FIEA and remain on a need-to-know basis.\nDigital assets: Keys for our sandbox \u201cShirocoin\u201d employee token wallet (test environment only) were stored in a subfolder; keys have been rotated and no on-chain movement was identified, but credential replay risk remains.\nESG materials: Draft Scope 1\u20133 emissions recalculation and climate-risk narrative for FY2026, as well as unannounced science-based emissions targets and a provisional sustainability-linked loan covenant table, were accessed; this information is non-public.\nContainment: Vendor VPN disabled, IAM tokens revoked, and forensic images captured; trade surveillance has been notified to enforce information barriers with the proprietary trading desk of our subsidiary Koma Capital GK.\nGovernance: Insider list opened for Incident IR-24-061, including Ms. Hanae Kuroda (CISO), Mr. Daichi Morimoto (CorpDev), and two board observers; entries will be maintained in accordance with internal FIEA procedures.\nMarket conduct: A company-wide blackout window remains in effect until kessan release; tipping or selective disclosure regarding the contemplated acquisition or ESG targets is strictly prohibited; all media inquiries must be routed to IR.\nCommercial terms risk: The leaked term sheet included preliminary valuation ranges, earn-out mechanics, and regulator-clearance milestones; all terms are subject to board approval and may change materially.\nThird parties: No customer personal data or production OT networks were affected; operations at the Nagisaka Plant continue without disruption.\nEducation: Next week\u2019s lunch-and-learn on information barriers and insider lists will use generic case studies and will not include MNPI or crypto wallet credentials.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "breach-notification timing",
+      "matched_text": "APPI notification decision to be made by 2026-06-05",
+      "reason": "Breach notification planning is privacy-relevant but not covered by the allowed privacy-event markers list."
+    },
+    {
+      "concept": "internal incident identifier",
+      "matched_text": "Incident IR-24-061",
+      "reason": "Internal case IDs can be sensitive but are not mapped to a specific allowed PII rule."
+    },
+    {
+      "concept": "earnings release timing",
+      "matched_text": "kessan release",
+      "reason": "Indicates blackout end timing, but not an explicit embargo marker per allowed list."
+    },
+    {
+      "concept": "unnamed individuals",
+      "matched_text": "two board observers",
+      "reason": "References natural persons without identifiers; legally relevant but not captured by current PII rules."
+    }
+  ]
+}

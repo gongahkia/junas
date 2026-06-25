@@ -1,0 +1,431 @@
+{
+  "_agent_review": {
+    "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled KR Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, KR resident/business number checksum issues, negated term-sheet bait, public/stale percentage bait, and the bad role-only must-not label for an actual named person; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-kr-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved KR Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T02:34:00Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "KR Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered KR resident-number shorthand/KR-BRN anchors, checksum-valid RRN/business-registration positives, negated no-executed-term-sheet wording, and public/stale percentage prose. The generated must-not label for \u201cMs. Hana Park\u201d was rejected because the text is an actual named-person reference.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T02:34:00Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-kr-stage-a-reviewed.json",
+    "status": "owner_approved_kr_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 3,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_sector_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae-min Oh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Jin-ho Ahn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sun-hee Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@daenova.internal",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-710-0042",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "remove and reissue with employee IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "confirm deletion across email archives",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Yeoubi",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber Insider Log",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping risk",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "client cap 50 wallets",
+      "rule": "volume_commitment"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG/climate audit findings",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may affect future TCFD-aligned targets",
+      "rule": "esg_target_revision"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not upload to DART until",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "940515-2374614",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sun",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet with BluePineX includes a termination-for-breach clause tied to security SLAs; these commercial terms are confidential and must not be emailed to external analysts or prospective clients.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "02-710-0042",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "940515-2374614",
+      "rule": "kr_rrn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Jin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sun",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft term sheet with BluePineX includes a termination-for-breach clause tied to security SLAs; these commercial terms are confidential and must not be emailed to external analysts or prospective clients.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Yeoubi",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Yeoubi",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Jin-ho Ahn (CISO) reports an unconfirmed cyber incident affecting two test wallet signing modules; incident details and remediation plan are MNPI and must be recorded in the Cyber Insider Log and not shared outside the wall.\nHR noted that Ms. Sun-hee Park\u2019s resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638: 940515-2374614) was inadvertently attached to the pilot access list; under PIPA, remove and reissue with employee IDs, and confirm deletion across email archives.\nCommunications with FSC/FSS should be routed through Legal; do not upload to DART until commercial and incident facts are verified and Board sign-off is obtained",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "postal_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jae-min Oh, VP Corporate Strategy, requests permission to brief two buy-side investors before KRX disclosure; this would constitute selective disclosure/tipping risk and is prohibited during the blackout window starting 3 June.\nThe IR draft deck includes climate-transition cost scenarios; until the external assurance is complete, ESG/climate assumptions are non-final and covered by the information barrier between Sustainability and IR.\nDr. Jin-ho Ahn (CISO) reports an unconfirmed cyber incident affecting two test wallet signing modules; incident details and remediation plan are MNPI and must be recorded in the Cyber Insider Log and not shared outside the wall.\nHR noted that Ms. Sun-hee Park\u2019s resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638: 940515-2374614) was inadvertently attached to the pilot access list; under PIPA, remove and reissue with employee IDs, and confirm deletion across email archives.\nCommunications with FSC/FSS should be routed through Legal; do not upload to DART until commercial and incident facts are verified and Board sign-off is obtained.\nFor educational purposes only, next week\u2019s marketing webinar will explain \u201ccrypto wallet resilience\u201d and \u201cclimate risk scoring\u201d using demo data; no client or issuer MNPI will be presented.\nThe compliance team has implemented an information barrier between Capital Markets and Product; any wall-crossing for Project Yeoubi requires written approval and addition to the insider list.\nIR may respond to general questions, but refrain from commenting on DPT fee rates or emissions targets, and use the prepared Q&A; do not reference the cyber incident until formally disclosed.\nDraft term sheet with BluePineX includes a termination-for-breach clause tied to security SLAs; these commercial terms are confidential and must not be emailed to external analysts or prospective clients.\nThe Sustainability Committee will meet on 6 June; minutes will be classified \u201cinternal restricted\u201d and may affect future TCFD-aligned targets; treat as MNPI until KRX filing.\nContact Legal/Compliance via compliance@daenova.internal or ext. 02-710-0042",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Pre-disclosure controls re virtual asset (DPT) custody pilot with BluePineX Exchange and ESG/climate audit findings; MNPI handling under FSCMA.\nAs of 30 May, commercial terms for the DPT custody pilot (intro fee 0.15%, exclusivity for Q4, client cap 50 wallets) remain non-public; treat as MNPI and restrict to the insider list \u201cProject Yeoubi\u201d.\nMr. Jae-min Oh, VP Corporate Strategy, requests permission to brief two buy-side investors before KRX disclosure; this would constitute selective disclosure/tipping risk and is prohibited during the blackout window starting 3 June.\nThe IR draft deck includes climate-transition cost scenarios; until the external assurance is complete, ESG/climate assumptions are non-final and covered by the information barrier between Sustainability and IR.\nDr. Jin-ho Ahn (CISO) reports an unconfirmed cyber incident affecting two test wallet signing modules; incident details and remediation plan are MNPI and must be recorded in the Cyber Insider Log and not shared outside the wall.\nHR noted that Ms. Sun-hee Park\u2019s resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638: 940515-2374614) was inadvertently attached to the pilot access list; under PIPA, remove and reissue with employee IDs, and confirm deletion across email archives.\nCommunications with FSC/FSS should be routed through Legal; do not upload to DART until commercial and incident facts are verified and Board sign-off is obtained.\nFor educational purposes only, next week\u2019s marketing webinar will explain \u201ccrypto wallet resilience\u201d and \u201cclimate risk scoring\u201d using demo data; no client or issuer MNPI will be presented.\nThe compliance team has implemented an information barrier between Capital Markets and Product; any wall-crossing for Project Yeoubi requires written approval and addition to the insider list.\nIR may respond to general questions, but refrain from commenting on DPT fee rates or emissions targets, and use the prepared Q&A; do not reference the cyber incident until formally disclosed.\nDraft term sheet with BluePineX includes a termination-for-breach clause tied to security SLAs; these commercial terms are confidential and must not be emailed to external analysts or prospective clients.\nThe Sustainability Committee will meet on 6 June; minutes will be classified \u201cinternal restricted\u201d and may affect future TCFD-aligned targets; treat as MNPI until KRX filing.\nContact Legal/Compliance via compliance@daenova.internal or ext. 02-710-0042 for approvals, insider list updates, and PIPA incident confirmations.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "IR",
+      "reason": "Department/role abbreviation; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Department reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "Legal/Compliance",
+      "reason": "Department/role reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "marketing webinar",
+      "reason": "Educational/marketing context explicitly without MNPI"
+    },
+    {
+      "matched_text": "Internal Legal & Compliance Memo",
+      "reason": "Document descriptor/header; not PII or MNPI"
+    },
+    {
+      "matched_text": "BluePineX Exchange",
+      "reason": "Company name; not PII"
+    }
+  ],
+  "source_jurisdiction": "KR",
+  "uncertain": [
+    {
+      "concept": "commercial term (exclusivity)",
+      "matched_text": "exclusivity for Q4",
+      "reason": "Commercial-term signal that could be market-sensitive but lacks a specific allowed rule tag"
+    },
+    {
+      "concept": "embargo/nonpublic control",
+      "matched_text": "do not upload to DART until commercial and incident facts are verified and Board sign-off is obtained",
+      "reason": "Embargo-like instruction on public filing; not matching explicit Embargoed/Press Hold markers"
+    },
+    {
+      "concept": "material_event (governance meeting)",
+      "matched_text": "The Sustainability Committee will meet on 6 June",
+      "reason": "Committee meeting tied to future ESG targets may be material, but materiality is contextual and not an explicit rule phrase"
+    },
+    {
+      "concept": "nonpublic classification",
+      "matched_text": "internal restricted",
+      "reason": "Indicates restricted classification; useful MNPI signal but not an explicitly listed marker"
+    },
+    {
+      "concept": "nonpublic management guidance",
+      "matched_text": "Pre-disclosure controls",
+      "reason": "Governance/process phrasing indicating pre-disclosure handling; not a defined rule trigger"
+    }
+  ]
+}

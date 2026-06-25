@@ -1,0 +1,342 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
+  "_promotion": {
+    "destination_jurisdiction": "SG",
+    "doc_id": "sg_jurisdictional_mnpi_incident_report_adversarial_001",
+    "label_model": "azure:gpt-5-2",
+    "label_source": "azure:gpt-5-2-auto",
+    "promoted_at_utc": "2026-06-10T07:16:49Z",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "source_fixture": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "source_jurisdiction": "SG",
+    "target_fixture": "test/fixtures/legal-corpus-reviewed-candidates/sg_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+    "taxonomy_concept": "jurisdictional_mnpi"
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "angryapplegravy@gmail.com",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 2,
+    "reason": "items 1-3 deterministic detector breadth strict-label reconciliation",
+    "reconciled_at_utc": "2026-06-10T07:15:29Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
+  "doc_id": "sg_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This information is not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list updated",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre\u2011results closed period (1 Jun\u201315 Jul)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Cyber Incident Update",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "<0.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "management assesses event not likely to be material to the issuer at this time",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@aurumtech.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@aurumtech.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@aurumtech.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Soo Lian",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Wei Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darren Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data\u2011minimisation steps recorded",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remain under NDA",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no counterparties will be briefed until any SGE\u2011Net release",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "directors/officers must not deal",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "~212",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls: External counsel and M&A counterparties on project banyan (proposed acquisition of Flaris Renewables Pte. Ltd.) remain under NDA; no counterparties will be briefed until any SGE\u2011Net release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulator/PDPA workflow: Notification draft to the Data Protection Authority of Singapore (DPAS) within 3 calendar days of assessment; breach log ref: DP\u20112 0 2 6\u201105\u2011AT\u2011017; data\u2011minimisation steps recorded.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@aurumtech.com.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Soo Lian",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Wei Ong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darren Khoo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure controls: External counsel and M&A counterparties on project banyan (proposed acquisition of Flaris Renewables Pte. Ltd.) remain under NDA; no counterparties will be briefed until any SGE\u2011Net release.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulator/PDPA workflow: Notification draft to the Data Protection Authority of Singapore (DPAS) within 3 calendar days of assessment; breach log ref: DP\u20112 0 2 6\u201105\u2011AT\u2011017; data\u2011minimisation steps recorded.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal use only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "AurumTech Holdings Ltd (SGE\u2011ST Mainboard): Internal Cyber Incident Update \u2014 Internal use only, not for SGE\u2011Net release.\nOn 30 May 2026 23:41 SGT, SOC detected anomalous egress via vendor VPN on Segment B; CIRT Case Ref: AT\u2011C I R T\u20112 0 2 6 / 05\u20110 1 7.\nScope: Preliminary indicates exposure of low\u2011sensitivity personal data under the PDPA (names, work emails, office numbers) for ~212 SG staff; EID sa m p l e AUR\u2011**47H9; no NRICs, passwords, payroll or bank a/cs implicated.\nContainment: VPN key rotated, AurumEdge WAF ruleset updated; third\u2011party \u201cCitrineVault Pte. Ltd.\u201d isolated; hash trace 89a4:2f...e f; ticket: INC\u2011202605\u2011017; link: https://intra.aurumtech.com/case?id=AT%2F2026%2F05%2F017&view=pr iv.\nImpact/materiality: Current estimate <0.5% of FY2026 opex; no interruption to trading platforms; management assesses event not likely to be material to the issuer at this time.\nMNPI/closed period: This information is not generally available and falls within the pre\u2011results closed period (1 Jun\u201315 Jul); directors/officers must not deal; insider list updated (Ms. Soo Lian, Mr. Wei Ong).\nDisclosure plan: We will assess under SGE\u2011ST Listing Manual r.703; if material, an immediate SGE\u2011Net announcement will be filed; otherwise, disclosure will be made in the next quarterly business update.\nPublic\u2011status cross\u2011check: See already\u2011published SGE\u2011Net 12 Apr 2026 \u201cOperational Resilience Update Q1\u201d (public), which discussed sector\u2011wide phishing trends; that filing did not cover this 30 May event.\nSelective disclosure controls: External counsel and M&A counterparties on project banyan (proposed acquisition of Flaris Renewables Pte. Ltd.) remain under NDA; no counterparties will be briefed until any SGE\u2011Net release.\nEmployment/HR: Affected staff will receive notice letters and credit monitoring offer; sample notice routed to com m s for QA; union representation not applicable; escalation contact dpo@aurumtech.com.sg.\nRegulator/PDPA workflow: Notification draft to the Data Protection Authority of Singapore (DPAS) within 3 calendar days of assessment; breach log ref: DP\u20112 0 2 6\u201105\u2011AT\u2011017; data\u2011minimisation steps recorded.\nInvestor relations: We do not expect this to constitute a material adverse change (no MAC) to revenue or the project banyan timeline; press queries to ir@aurumtech.com.sg; do not attribute to threat actor in any off\u2011cycle",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Darren Khoo, General Counsel",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "personal_attribute_inference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Soo Lian, Mr. Wei Ong).\nDisclosure plan: We will assess under SGE\u2011ST Listing Manual r.703; if material, an immediate SGE\u2011Net announcement will be filed; otherwise, disclosure will be made in the next quarterly business update.\nPublic\u2011status cross\u2011check: See already\u2011published SGE\u2011Net 12 Apr 2026 \u201cOperational Resilience Update Q1\u201d (public), which discussed sector\u2011wide phishing trends; that filing did not cover this 30 May event.\nSelective disclosure controls: External counsel and M&A counterparties on project banyan (proposed acquisition of Flaris Renewables Pte. Ltd.) remain under NDA; no counterparties will be briefed until any SGE\u2011Net release.\nEmployment/HR: Affected staff will receive notice letters and credit monitoring offer; sample notice routed to com m s for QA; union representation not applicable; escalation contact dpo@aurumtech.com.sg.\nRegulator/PDPA workflow: Notification draft to the Data Protection Authority of Singapore (DPAS) within 3 calendar days of assessment; breach log ref: DP\u20112 0 2 6\u201105\u2011AT\u2011017; data\u2011minimisation steps recorded.\nInvestor relations: We do not expect this to constitute a material adverse change (no MAC) to revenue or the project banyan timeline; press queries to ir@aurumtech.com.sg; do not attribute to threat actor in any off\u2011cycle calls.\nPublic\u2011source context: Harbour Times Online (1 Jun 2026) reported \u201cregional telco credential stuffing\u201d unrelated to the Company; generic ISO 27001 policy text below is boilerplate and should not trigger disclosure.\nAppendix/ref: Tooling versions \u2014 AurumEdge WAF v3.2.1, SentinelTrace SIEM v5; obfuscated test Acct 9xx\u201177\u2011123; OCR note: \u201cS G E\u2011N e t\u201d may appear as \u201cS G E Net\u201d in scanned copies.\nSign\u2011off: Mr. Darren Khoo, General Counsel & Company Secretary; contact: legal@aurumtech.com.sg",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated material adverse change should not be tagged as MNPI."
+    },
+    {
+      "matched_text": "NRICs",
+      "reason": "Generic mention without any identifier values and explicitly negated."
+    },
+    {
+      "matched_text": "names, work emails, office numbers",
+      "reason": "Data categories only; no specific PII values present."
+    },
+    {
+      "matched_text": "SGE\u2011Net 12 Apr 2026 \u201cOperational Resilience Update Q1\u201d (public)",
+      "reason": "Explicitly public filing; not MNPI."
+    },
+    {
+      "matched_text": "Harbour Times Online (1 Jun 2026) reported \u201cregional telco credential stuffing\u201d",
+      "reason": "Public news unrelated to issuer; not MNPI."
+    }
+  ],
+  "source_jurisdiction": "SG",
+  "uncertain": [
+    {
+      "concept": "employee_id",
+      "matched_text": "EID sa m p l e AUR\u2011**47H9",
+      "reason": "Looks like an obfuscated employee ID sample; unclear if it should be tagged as employee_id."
+    },
+    {
+      "concept": "internal_ticket_id",
+      "matched_text": "INC\u2011202605\u2011017",
+      "reason": "Appears to be an internal incident ticket; not clearly covered by allowed rules."
+    },
+    {
+      "concept": "internal_case_reference",
+      "matched_text": "AT\u2011C I R T\u20112 0 2 6 / 05\u20110 1 7",
+      "reason": "Internal case/reference number; may fall under internal_session_id but not explicit."
+    },
+    {
+      "concept": "internal_breach_log_id",
+      "matched_text": "DP\u20112 0 2 6\u201105\u2011AT\u2011017",
+      "reason": "Breach log reference; internal tracking ID not clearly mapped to a current rule."
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "obfuscated test Acct 9xx\u201177\u2011123",
+      "reason": "Resembles an account number but obfuscated and labeled as test."
+    },
+    {
+      "concept": "device_identifier/hash",
+      "matched_text": "hash trace 89a4:2f...e f",
+      "reason": "Cryptographic/hash-like value; potentially sensitive but not in allowed categories."
+    }
+  ]
+}

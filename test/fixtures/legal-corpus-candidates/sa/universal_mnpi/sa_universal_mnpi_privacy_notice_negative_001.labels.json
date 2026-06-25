@@ -1,0 +1,237 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner instructed Codex to mark the SA Stage B generated/reconciled tests as approved for internal/project benchmarking after manual review on 2026-06-05. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Stage B labels are project-owner approved for internal benchmarking.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 14,
+    "old_must_detect_count": 2,
+    "owner_approval_reviewed_at_utc": "2026-06-05T15:23:17Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: issuer support and investor-relations drafts on dse rules; compliance aligned with cmoc guidance, pdpl art. basics (identifying a natural person directly or indirectly)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "positive span: a draft investor-relations note references a definitive agreement under review, marked non-public until embargo date 2026-12-31 08:00 AST",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@alnajm-jsc.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term-sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo date 2026-12-31 08:00 AST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iqama: 12-XX-0000-0000",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "national id: XXXX-9999-XXXX",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "crn: 0000000000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no personal mobile numbers collected",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "these fields are masked on entry",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "internal codename field is blank by design",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "archived without pii",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "invalid identifier patterns are rejected at intake",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access/erasure requests",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: issuer support and investor-relations drafts on dse rules; compliance aligned with cmoc guidance, pdpl art. basics (identifying a natural person directly or indirectly)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "positive span: a draft investor-relations note references a definitive agreement under review, marked non-public until embargo date 2026-12-31 08:00 AST",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: issuer support and investor-relations drafts on dse rules; compliance aligned with cmoc guidance, pdpl art. basics (identifying a natural person directly or indirectly)\ndata categories: iqama/national id labels, commercial registration (crn), role mailboxes, investor helpline transcripts; no personal mobile numbers collected\nexample placeholders only: iqama: 12-XX-0000-0000 (invalid), national id: XXXX-9999-XXXX, crn: 0000000000; these fields are masked on entry\nsources: public prospectus dated 2023-05 on our website, stale research notes, supplier onboarding forms; board memo and term-sheet drafts stored in restricted drive\nretention: iqama/crn scans retained 180 days post-verification then redacted; ir drafts 90 days then archived without pii; logs 12 months\ntransfers: limited export to kingdom data authority sandbox (kda-xfr-0000 placeholder) for compliance testing; standard contractual clauses adapted to local pdpl and internal adequacy checklists\npm note: internal codename field is blank by design; non-public issuer language is flagged and routed to legal before circulation\npositive span: a draft investor-relations note references a definitive agreement under review, marked non-public until embargo date 2026-12-31 08:00 AST",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "mac/mae",
+      "reason": "Negated MAC/MAE reference; rule excludes negated material adverse change"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC language; do not label per rule 8"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "limited export to kingdom data authority sandbox",
+      "reason": "Indicates an export/transfer but destination appears domestic; not clearly a cross-border transfer under PDPL"
+    },
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "kda-xfr-0000",
+      "reason": "Transfer code suggests export context; cross-border status not clear"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained 180 days post-verification",
+      "reason": "Retention period is privacy-relevant but no explicit retention rule enumerated in allowed PII rules"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "ir drafts 90 days then archived",
+      "reason": "Retention/deletion timing is privacy-relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "logs 12 months",
+      "reason": "Log retention is privacy-relevant but retention rule not explicitly listed"
+    }
+  ]
+}

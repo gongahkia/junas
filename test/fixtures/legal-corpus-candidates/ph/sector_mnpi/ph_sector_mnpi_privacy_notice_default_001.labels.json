@@ -1,0 +1,368 @@
+{
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T13:20:58Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T13:20:58Z",
+    "basis": "Project owner stated they manually reviewed the PH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  },
+  "_strict_runtime_reconciliation": {
+    "actor": "codex-stage-b-reconcile",
+    "moved_stale_must_detect": 0,
+    "promoted_runtime_findings": 1,
+    "reason": "candidate human-reviewed Stage B strict runtime baseline reconciliation",
+    "reconciled_at_utc": "2026-06-09T05:37:31Z",
+    "source": "scripts/reconcile_candidate_strict_labels.py"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "PH",
+  "doc_id": "ph_sector_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eusebio L. Cataran",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@lmhi.example.ph",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+63 28 555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We do not collect government ID images unless mandated by KYC laws",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "request for access, correction, or erasure",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Balangay",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential-stuffing attempt",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "work emails",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "company IDs",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll bank details",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "custodial wallet tags",
+      "rule": "crypto_wallet_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "access limited to Compliance and Treasury Operations",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG-linked token pilot",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sustainability-linked note",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contemplated sustainability-linked note",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft term sheet",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial negotiations with Dalikmata Virtual Asset Exchange",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access to MNPI is role-based and logged by the Compliance Office",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident details are restricted until completion of forensics and regulatory notification",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eusebio",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For financing transactions, we also process trader onboarding files, custodial wallet tags, and pre-deal allocation notes that may constitute material non-public information under Philippine SEC guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+63 28 555 0199",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Eusebio",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For financing transactions, we also process trader onboarding files, custodial wallet tags, and pre-deal allocation notes that may constitute material non-public information under Philippine SEC guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Balangay",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Luntian Meridian Holdings, Inc. (LMHI), a Philippines issuer, issues this Privacy and MNPI Handling Notice pursuant to RA 10173 (Data Privacy Act) and the Securities Regulation Code.\nWe collect personal data apparent or directly ascertainable to identify an individual, including employee names, company IDs, payroll bank details, and work emails, for HR, tax, banking, and capital-markets purposes.\nFor financing transactions, we also process trader onboarding files, custodial wallet tags, and pre-deal allocation notes that may constitute material non-public information under Philippine SEC guidance.\nDuring the confidential \u201cProject Balangay\u201d ESG-linked token pilot and a contemplated sustainability-linked note, covered persons are under a blackout window until formal disclosure to the SEC and the local stock exchange.\nAn insider list will be maintained for Project Balangay and the transition note draft term sheet (indicative coupon 3.8% p.a.), and any tipping or selective disclosure is prohibited.\nInformation barriers segregate the digital assets desk from the sustainability reporting unit; access to MNPI is role-based and logged by the Compliance Office.\nOn 12 May 2026 we detected a credential-stuffing attempt on an LMHI vendor portal; while no exfiltration is confirmed, incident details are restricted until completion of forensics and regulatory notification.\nPersonal data may be transferred to processors (e.g., Baybay Audit Partners and Starholme Custody Services) under data sharing agreements with standard contractual clauses and NPC-compliant safeguards.\nRetention: HR and tax records are retained for 10 years; deal files, insider lists, and cyber logs are retained for seven years or longer if an SEC inquiry is pending.\nData subjects may file a request for access, correction, or erasure by writing to Mr. Eusebio L. Cataran, Data Protection Officer, at dpo@lmhi.example.ph or +63 28 555 0199.\nWe verify DSARs via two-factor checks against internal directories and will respond within 15 working days, subject to legal holds relating to MNPI or ongoing investigations.\nCommercial negotiations with Dalikmata Virtual Asset Exchange for custodial fees (draft range: 14\u201322 bps) are confidential and may be redacted from DSAR copies until publicly disclosed.",
+      "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+      "rule": "conjunctive_mnpi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LMHI",
+      "reason": "Entity abbreviation defined in parentheses; not PII/MNPI."
+    },
+    {
+      "matched_text": "blackout calendars",
+      "reason": "Appears in a marketing disclaimer; not a live MNPI control/event."
+    }
+  ],
+  "source_jurisdiction": "PH",
+  "uncertain": [
+    {
+      "concept": "cross_border_transfer_marker",
+      "matched_text": "standard contractual clauses",
+      "reason": "Implies cross-border safeguards but the document does not explicitly state an overseas transfer."
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "Retention: HR and tax records are retained for 10 years; deal files, insider lists, and cyber logs are retained for seven years or longer if an SEC inquiry is pending",
+      "reason": "Retention is a privacy-event marker but no explicit rule name is listed among allowed PII rules."
+    },
+    {
+      "concept": "dpt_pre_listing_marker",
+      "matched_text": "ESG-linked token pilot",
+      "reason": "Token pilot may involve DPT activity but not clearly a pre-listing event."
+    },
+    {
+      "concept": "financial_percentage",
+      "matched_text": "14\u201322 bps",
+      "reason": "Represents a fee rate (basis points) which is economically a percentage, but lacks a % symbol per the strict rule."
+    },
+    {
+      "concept": "quasi_identifier_combination",
+      "matched_text": "trader onboarding files",
+      "reason": "Likely bundles multiple identifiers for KYC/AML, but not a specific enumerated identifier type."
+    }
+  ]
+}
