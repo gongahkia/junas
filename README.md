@@ -68,7 +68,7 @@ A paralegal asks a public GenAI tool to turn a draft Project Raven term sheet in
 
 ## Design Principles
 
-- **Deterministic first:** rules, jurisdiction packs, scoring, and policy decide the baseline before helpers run, giving regulated buyers inspectable evidence instead of a black-box verdict; see [`docs/architecture.md`](./docs/architecture.md) and [`src/junas/review/engine.py`](./src/junas/review/engine.py).
+- **Deterministic first:** rules, jurisdiction packs, scoring, and policy decide the baseline before helpers run, giving regulated buyers inspectable evidence instead of a black-box verdict; see [`ARCHITECTURE.md`](./ARCHITECTURE.md), [`docs/architecture.md`](./docs/architecture.md), and [`src/junas/review/engine.py`](./src/junas/review/engine.py).
 - **Backend trust boundary:** adapters collect workflow context, but FastAPI owns auth, validation, findings, policy, rewrite actions, and audit events, so UI surfaces do not become parallel enforcement engines; see [`docs/adr/0001-backend-first-adapters-second.md`](./docs/adr/0001-backend-first-adapters-second.md) and [`docs/threat-model.md`](./docs/threat-model.md).
 - **LLM strictly advisory and gated:** `strict` stays deterministic, while remote/helper paths require deployer and tenant opt-ins plus privacy-ledger evidence; see [`docs/llm-governance.md`](./docs/llm-governance.md), [`docs/running.md`](./docs/running.md), and [`test/test_llm_coverage_audit.py`](./test/test_llm_coverage_audit.py).
 - **Deterministic-high non-suppression:** helper layers route only eligible ambiguous cases, so deterministic-high findings stay in the review evidence path instead of being erased by LLM, public-evidence, adapter, or policy softening; see [`src/junas/review/engine.py#L4317`](./src/junas/review/engine.py#L4317), [`test/test_source_verification.py`](./test/test_source_verification.py), and [`test/test_policy_engine.py`](./test/test_policy_engine.py).
@@ -76,7 +76,7 @@ A paralegal asks a public GenAI tool to turn a draft Project Raven term sheet in
 - **Privacy-gated external calls:** optional provider calls are disabled by default, sanitized through PrivacyGuard, and recorded as privacy-ledger/SIEM evidence when used; see [`src/junas/external/privacy_guard.py`](./src/junas/external/privacy_guard.py), [`docs/threat-model.md`](./docs/threat-model.md), and [`test/test_siem_export.py`](./test/test_siem_export.py).
 - **Audit evidence by default:** decisions, required actions, IDs, hashes/counts, SIEM events, and audit packs are first-class outputs so reviewers can reconstruct what happened without putting raw payloads in observability streams; see [`docs/admin-security.md`](./docs/admin-security.md), [`test/test_siem_export.py`](./test/test_siem_export.py), and [`test/test_audit_pack_smoke.py`](./test/test_audit_pack_smoke.py).
 
-Compact runtime spine; see [`docs/architecture.md`](./docs/architecture.md) for the full architecture.
+Compact runtime spine; see [`ARCHITECTURE.md`](./ARCHITECTURE.md) for the reviewer map and [`docs/architecture.md`](./docs/architecture.md) for the longer runtime overview.
 
 ```mermaid
 flowchart LR
@@ -553,6 +553,7 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 ## Documentation
 
 - [`INTEGRATIONS.md`](./INTEGRATIONS.md): root index for direct API, Outlook, browser, Word, desktop, DMS, and future surfaces.
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md): reviewer-facing request lifecycle, trust boundary, and invariants.
 - [`docs/architecture.md`](./docs/architecture.md): runtime architecture and core flow.
 - [`docs/statutory-coverage.md`](./docs/statutory-coverage.md): detector-to-statute coverage map.
 - [`docs/known-limitations.md`](./docs/known-limitations.md): unsupported ingest, deployment, and legal/accuracy caveats.
