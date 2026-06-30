@@ -3,6 +3,7 @@
 This folder contains operator, developer, and product documentation. Product docs under `product/` are normative for roadmap decisions: roadmap, adapter maturity, and integration claims should match those documents before implementation starts.
 
 - `running.md`: launch and operational commands
+- `public-demo.md`: gated deterministic playground route and public-demo safety controls
 - `install.md`: local, extension, Office, and server install flow
 - `admin-security.md`: identity, tenant, key, SIEM, and local pairing controls
 - `threat-model.md`: data flow, trust boundaries, threats, controls, and residual risk

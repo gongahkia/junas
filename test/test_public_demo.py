@@ -62,6 +62,28 @@ class PublicDemoTests(unittest.TestCase):
         ):
             self.assertIn(token, html)
 
+    def test_public_demo_docs_describe_gates_and_limits(self):
+        doc = (main.PROJECT_ROOT / "docs" / "public-demo.md").read_text(encoding="utf-8")
+        index = (main.PROJECT_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        for token in (
+            "disabled by default",
+            "JUNAS_PUBLIC_DEMO_ENABLED=1",
+            "JUNAS_REVIEW_PERSIST=0",
+            "PIPELINE_LAYERS=\"\"",
+            "GET /demo",
+            "POST /demo/review",
+            "forces `review_profile=\"strict\"`",
+            "fresh `PreSendReviewEngine()`",
+            "bypasses review-session persistence",
+            "JUNAS_PUBLIC_DEMO_BODY_MAX_BYTES",
+            "JUNAS_PUBLIC_DEMO_TEXT_MAX_CHARS",
+            "JUNAS_PUBLIC_DEMO_RATE_LIMIT",
+            "synthetic, non-confidential text only",
+            "does not include a live hosted URL",
+        ):
+            self.assertIn(token, doc)
+        self.assertIn("public-demo.md", index)
+
     def test_public_demo_review_is_unauthenticated_strict_and_non_persistent(self):
         self._enable_demo()
         os.environ["JUNAS_REVIEW_PERSIST"] = "1"
