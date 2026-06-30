@@ -11,11 +11,12 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 command -v hf >/dev/null
 
-TOKEN_ARGS=()
-if [[ -n "${HF_TOKEN:-}" ]]; then
-  TOKEN_ARGS=(--token "$HF_TOKEN")
-else
-  hf auth whoami >/dev/null
+if [[ -z "${HF_TOKEN:-}" ]]; then
+  WHOAMI="$(hf auth whoami 2>&1 || true)"
+  if [[ "$WHOAMI" == *"Not logged in"* || -z "$WHOAMI" ]]; then
+    printf 'hf auth required: run `hf auth login` or set HF_TOKEN\n' >&2
+    exit 69
+  fi
 fi
 
 TMP="$(mktemp -d "${TMPDIR:-/tmp}/junas-hf-space.XXXXXX")"
@@ -27,7 +28,12 @@ cp "$ROOT/pyproject.toml" "$ROOT/uv.lock" "$ROOT/config.toml" "$TMP/"
 mkdir -p "$TMP/src"
 cp -R "$ROOT/src/." "$TMP/src/"
 
-hf repo create "$SPACE_ID" --repo-type space --space-sdk docker --exist-ok "${TOKEN_ARGS[@]}"
-hf upload "$SPACE_ID" "$TMP" . --repo-type space --commit-message "Deploy Junas deterministic demo" "${TOKEN_ARGS[@]}"
+if [[ -n "${HF_TOKEN:-}" ]]; then
+  hf repo create "$SPACE_ID" --repo-type space --space-sdk docker --exist-ok --token "$HF_TOKEN"
+  hf upload "$SPACE_ID" "$TMP" . --repo-type space --commit-message "Deploy Junas deterministic demo" --token "$HF_TOKEN"
+else
+  hf repo create "$SPACE_ID" --repo-type space --space-sdk docker --exist-ok
+  hf upload "$SPACE_ID" "$TMP" . --repo-type space --commit-message "Deploy Junas deterministic demo"
+fi
 
 printf 'https://huggingface.co/spaces/%s\n' "$SPACE_ID"
