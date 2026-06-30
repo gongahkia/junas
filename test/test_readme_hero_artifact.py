@@ -9,6 +9,18 @@ from scripts import export_openapi_examples
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def _markdown_table_rows(markdown: str) -> list[list[str]]:
+    rows = []
+    for line in markdown.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if not cells or all(set(cell) <= {"-", ":"} for cell in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
 class ReadmeHeroArtifactTests(unittest.TestCase):
     def test_committed_hero_artifact_is_valid_review_response(self):
         request_path = ROOT / "docs" / "api" / "review_hero_request.json"
@@ -93,13 +105,15 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         why_start = readme.index("## Why Junas")
         design_start = readme.index("## Design Principles")
+        scope_start = readme.index("## What This Is / What This Is NOT")
         demo_start = readme.index("## Demo")
         quick_start = readme.index("## Quick Start")
         self.assertLess(why_start, design_start)
-        self.assertLess(design_start, demo_start)
+        self.assertLess(design_start, scope_start)
+        self.assertLess(scope_start, demo_start)
         self.assertLess(demo_start, quick_start)
 
-        design_section = readme[design_start:demo_start]
+        design_section = readme[design_start:scope_start]
         principles = [line for line in design_section.splitlines() if line.startswith("- **")]
         self.assertEqual(len(principles), 7)
         for token in (
@@ -136,6 +150,27 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         self.assertIn("- [Design Principles](#design-principles)", readme)
         for forbidden in ("procurement-grade", "guarantee", "guarantees"):
             self.assertNotIn(forbidden, design_section.lower())
+
+    def test_what_this_is_not_block_matches_non_goals_doc(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        non_goals = (ROOT / "docs" / "product" / "non-goals.md").read_text(encoding="utf-8")
+        design_start = readme.index("## Design Principles")
+        scope_start = readme.index("## What This Is / What This Is NOT")
+        demo_start = readme.index("## Demo")
+        self.assertLess(design_start, scope_start)
+        self.assertLess(scope_start, demo_start)
+
+        scope_section = readme[scope_start:demo_start]
+        readme_rows = _markdown_table_rows(scope_section)
+        non_goal_rows = _markdown_table_rows(non_goals)
+        self.assertEqual(readme_rows[0], ["What this is", "What this is NOT"])
+        self.assertEqual(non_goal_rows[0], ["Area", "Non-goal", "Junas boundary"])
+
+        readme_pairs = [(row[0], row[1]) for row in readme_rows[1:]]
+        doc_pairs = [(row[2], row[1]) for row in non_goal_rows[1:]]
+        self.assertEqual(readme_pairs, doc_pairs)
+        self.assertIn("./docs/product/non-goals.md", scope_section)
+        self.assertIn("- [What This Is / What This Is NOT](#what-this-is--what-this-is-not)", readme)
 
 
 if __name__ == "__main__":

@@ -8,8 +8,6 @@
 
 ## P0/Surface — Make the hero artifact visible (highest leverage)
 
-- [ ] P0/Surface: Add a "What this is / What this is NOT" block to the README sourced from `docs/product/non-goals.md`, since honest scoping (not DLP, not legal advice, not eDiscovery) is itself a credibility signal and pre-empts the most common reviewer objection (done when: a short two-column or two-list block appears in the README; every "is NOT" line matches `non-goals.md`; a docs-link test asserts consistency between the two).
-
 ## P1/Surface — Visual proof of the workflow surfaces
 
 - [ ] P1/Surface: Record a GIF or asciinema cast of the one-command demo and embed it in the README hero, since a moving demonstration converts visitors far better than static JSON and the demo target from P0/Surface makes this cheap to capture (done when: a <10MB GIF or an asciinema cast of `scripts/demo.sh` producing the three verdicts is embedded near the top of the README; a static fallback image is provided for readers who disable autoplay; the asset is uploaded via GitHub's CDN / issue-drag method rather than committed as a large binary that bloats clone size; the asset is regenerable from documented steps).
