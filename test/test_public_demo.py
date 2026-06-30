@@ -1,5 +1,8 @@
 import os
+import subprocess
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from fastapi.testclient import TestClient
@@ -83,6 +86,114 @@ class PublicDemoTests(unittest.TestCase):
         ):
             self.assertIn(token, doc)
         self.assertIn("public-demo.md", index)
+
+    def test_public_demo_hosted_artifacts_use_local_sku_and_auth_gate(self):
+        dockerfile = (main.PROJECT_ROOT / "Dockerfile.public-demo").read_text(encoding="utf-8")
+        deploy_script = (main.PROJECT_ROOT / "scripts" / "deploy_hf_space.sh").read_text(encoding="utf-8")
+        space_readme = (main.PROJECT_ROOT / "deploy" / "huggingface-space" / "README.md").read_text(
+            encoding="utf-8"
+        )
+        doc = (main.PROJECT_ROOT / "docs" / "public-demo.md").read_text(encoding="utf-8")
+
+        for token in (
+            "JUNAS_PUBLIC_DEMO_ENABLED=1",
+            "JUNAS_REVIEW_PERSIST=0",
+            "JUNAS_PUBLIC_EVIDENCE_ENABLED=0",
+            "JUNAS_LLM_ENABLED=0",
+            "JUNAS_LLM_HELPERS_ENABLED=0",
+            "uv sync --frozen --no-dev",
+            "JUNAS_API_KEY=$(uv run python -c",
+        ):
+            self.assertIn(token, dockerfile)
+        self.assertNotIn("--extra server", dockerfile)
+        for token in (
+            "--repo-type space",
+            "--space-sdk docker",
+            "Dockerfile.public-demo",
+            "deploy/huggingface-space/README.md",
+            "HF_TOKEN",
+        ):
+            self.assertIn(token, deploy_script)
+        for token in ("sdk: docker", "app_port: 8000", "suggested_hardware: cpu-basic", "no review persistence"):
+            self.assertIn(token, space_readme)
+        for token in (
+            "CPU Basic is listed as free",
+            "sleep after 48 hours of inactivity",
+            "does not include a live hosted URL",
+        ):
+            self.assertIn(token, doc)
+
+    def test_hf_space_deploy_script_fails_fast_without_auth(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fake_hf = Path(tmp) / "hf"
+            fake_hf.write_text(
+                "#!/bin/sh\n"
+                "if [ \"$1\" = auth ] && [ \"$2\" = whoami ]; then echo 'Not logged in'; exit 0; fi\n"
+                "echo unexpected hf call \"$@\" >&2\n"
+                "exit 99\n",
+                encoding="utf-8",
+            )
+            fake_hf.chmod(0o755)
+            env = dict(os.environ)
+            env.pop("HF_TOKEN", None)
+            env["PATH"] = f"{tmp}:{env['PATH']}"
+
+            result = subprocess.run(
+                [str(main.PROJECT_ROOT / "scripts" / "deploy_hf_space.sh"), "gongahkia/junas-demo"],
+                cwd=str(main.PROJECT_ROOT),
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+
+        self.assertEqual(result.returncode, 69, result)
+        self.assertIn("hf auth required", result.stderr)
+
+    def test_hf_space_deploy_script_stages_public_demo_payload_with_token(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            log_path = Path(tmp) / "hf.log"
+            fake_hf = Path(tmp) / "hf"
+            fake_hf.write_text(
+                "#!/bin/sh\n"
+                "echo \"$@\" >> \"$HF_FAKE_LOG\"\n"
+                "if [ \"$1\" = repo ] && [ \"$2\" = create ]; then exit 0; fi\n"
+                "if [ \"$1\" = upload ]; then\n"
+                "  test -f \"$3/Dockerfile\" || exit 11\n"
+                "  test -f \"$3/README.md\" || exit 12\n"
+                "  test -f \"$3/pyproject.toml\" || exit 13\n"
+                "  test -f \"$3/uv.lock\" || exit 14\n"
+                "  test -f \"$3/config.toml\" || exit 15\n"
+                "  test -d \"$3/src/junas\" || exit 16\n"
+                "  grep -q 'JUNAS_PUBLIC_DEMO_ENABLED=1' \"$3/Dockerfile\" || exit 17\n"
+                "  grep -q 'sdk: docker' \"$3/README.md\" || exit 18\n"
+                "  exit 0\n"
+                "fi\n"
+                "exit 99\n",
+                encoding="utf-8",
+            )
+            fake_hf.chmod(0o755)
+            env = dict(os.environ)
+            env["HF_TOKEN"] = "test-token"
+            env["HF_FAKE_LOG"] = str(log_path)
+            env["PATH"] = f"{tmp}:{env['PATH']}"
+
+            result = subprocess.run(
+                [str(main.PROJECT_ROOT / "scripts" / "deploy_hf_space.sh"), "gongahkia/junas-demo"],
+                cwd=str(main.PROJECT_ROOT),
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+            log = log_path.read_text(encoding="utf-8")
+
+        self.assertEqual(result.returncode, 0, result)
+        self.assertIn("https://huggingface.co/spaces/gongahkia/junas-demo", result.stdout)
+        self.assertIn("repo create gongahkia/junas-demo --repo-type space --space-sdk docker --exist-ok", log)
+        self.assertIn("upload gongahkia/junas-demo", log)
 
     def test_public_demo_review_is_unauthenticated_strict_and_non_persistent(self):
         self._enable_demo()
