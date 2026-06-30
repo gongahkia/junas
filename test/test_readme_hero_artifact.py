@@ -132,6 +132,32 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         for forbidden in ("accuracy", "recall", "precision", "procurement-grade"):
             self.assertNotIn(forbidden, why_section.lower())
 
+    def test_project_status_banner_is_near_top_and_honest(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        status_start = readme.index("Project status:")
+        hero_start = readme.index(export_openapi_examples.HERO_MARKER_START)
+        toc_start = readme.index("## Table of Contents")
+        self.assertLess(status_start, hero_start)
+        self.assertLess(status_start, toc_start)
+
+        status_end = readme.index("\n\n", status_start)
+        status = readme[status_start:status_end]
+        for token in (
+            "pre-production / portfolio-stage",
+            "deterministic core",
+            "policy contract",
+            "demo artifacts",
+            "supported-target adapter evidence",
+            "production hardening",
+            "independent eval expansion",
+            "hosted demo",
+            "[`TODO.md`](./TODO.md)",
+            "[`TEMP-TODO.md`](./TEMP-TODO.md)",
+        ):
+            self.assertIn(token, status)
+        for forbidden in ("production-ready", "complete", "guarantee", "guarantees", "procurement-grade"):
+            self.assertNotIn(forbidden, status.lower())
+
     def test_design_principles_are_near_top_and_proven(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         why_start = readme.index("## Why Junas")

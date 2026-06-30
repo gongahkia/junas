@@ -20,8 +20,6 @@
 
 ## P1/Credibility — Independent signals a reviewer can verify quickly
 
-- [ ] P1/Credibility: Add a one-paragraph "Project status" honesty banner to the README stating this is pre-production / portfolio-stage with deterministic core complete and specific hardening tracked in TODO, since a stale or over-claiming README erodes trust faster than an honest one and reviewers respect calibrated self-assessment (done when: a short status line near the top states the maturity accurately, links TODO.md, and avoids both under-selling the real depth and implying production-readiness that the open P0/Security items contradict).
-
 ## P2/Reach — Distribution, once the surface is strong (do NOT start before P0/Surface is done)
 
 - [ ] P2/Reach: Write a launch-ready project description and a short "show HN / r/programming / r/legaltech"-style post draft that leads with the demo link and one striking verdict, since stars [goal b] require the strong surface to actually be seen, but distribution before the surface exists wastes the one-shot attention (done when: a `docs/launch-notes.md` drafts the post, the one-line value proposition, and the single screenshot/verdict to lead with; it is explicitly gated on the hosted demo and README hero being live; it lists candidate venues without committing to spammy cross-posting).
