@@ -58,6 +58,11 @@ image:
 It serves FastAPI on `${PORT:-8000}` so hosts that inject `PORT` can run the same
 image without command edits.
 
+The image generates an ephemeral internal `JUNAS_API_KEY` at startup when one is
+not supplied. That keeps normal protected endpoints such as `/review`,
+`/pseudonymize`, and `/redact` closed to unauthenticated visitors while leaving
+only `/demo` and `/demo/review` public.
+
 ## Hugging Face Spaces Notes
 
 Web check performed 2026-06-30 against official Hugging Face docs:
