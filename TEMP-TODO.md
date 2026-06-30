@@ -24,8 +24,6 @@
 
 - [ ] P2/Reach: Write a launch-ready project description and a short "show HN / r/programming / r/legaltech"-style post draft that leads with the demo link and one striking verdict, since stars [goal b] require the strong surface to actually be seen, but distribution before the surface exists wastes the one-shot attention (done when: a `docs/launch-notes.md` drafts the post, the one-line value proposition, and the single screenshot/verdict to lead with; it is explicitly gated on the hosted demo and README hero being live; it lists candidate venues without committing to spammy cross-posting).
 
-- [ ] P2/Reach: Add `topics`/tags and a precise repo description optimized for discovery by the legal-tech/privacy/GenAI-governance audience, since GitHub topic search and the repo's one-liner are passive discovery surfaces (done when: the repo description matches the README hook, and relevant topics — e.g. pii, mnpi, dlp, genai-security, compliance, fastapi, presidio — are set; none overstate scope).
-
 ---
 
 ### Note on what was deliberately NOT added
