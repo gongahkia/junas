@@ -206,6 +206,8 @@ Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI cap
 | Word taskpane | `experimental` | Document review surface, not send-time enforcement. |
 | Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. |
 
+Browser GenAI screenshots: [`warn confirm`](./docs/assets/browser-extension/browser-extension-warn-confirm.png) and [`policy block`](./docs/assets/browser-extension/browser-extension-policy-block.png). They use a synthetic `chatgpt.com` fixture with the real MV3 extension and local backend; see [`docs/integrations/genai-browser.md`](./docs/integrations/genai-browser.md) for the DOM-stability caveat.
+
 ## Experimental Local Fallback
 
 The desktop watcher is intentionally outside the primary Quick Start. Use it only for opt-in local fallback workflows where a user explicitly chooses file or clipboard review against a local daemon.

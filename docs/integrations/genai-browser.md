@@ -24,6 +24,16 @@ These host matches only mean the script is present on those origins. They do not
 
 The adapter does not capture keystrokes continuously, does not scrape full pages, and does not persist prompt text in extension storage.
 
+## Visual Capture
+
+These screenshots were captured against a synthetic `chatgpt.com` fixture routed through Playwright while loading the real MV3 extension from `integrations/browser_extension/` and a deterministic local backend. They are illustrative; coverage still depends on third-party DOM stability, target editor behavior, CSP, extension permissions, and submit flow.
+
+| Warn-confirm flow | Policy-blocked panel |
+|---|---|
+| ![Rendered native confirm text from the Junas extension on a synthetic ChatGPT fixture](../assets/browser-extension/browser-extension-warn-confirm.png) | ![Junas policy-blocked panel on a synthetic ChatGPT fixture](../assets/browser-extension/browser-extension-policy-block.png) |
+
+The warn-confirm screenshot renders the native confirm text in-page so the artifact remains reproducible and does not capture the operator desktop. The policy-block screenshot shows the real fixed bottom-right `#junas-review-result` panel emitted by `content.js`.
+
 ## Target Assumptions
 
 | Target | Assumption | Known limitation |
