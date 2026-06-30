@@ -228,6 +228,47 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         self.assertIn("./docs/product/non-goals.md", scope_section)
         self.assertIn("- [What This Is / What This Is NOT](#what-this-is--what-this-is-not)", readme)
 
+    def test_accuracy_evaluation_section_is_scoped_and_sourced(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        section_start = readme.index("## Accuracy & Evaluation")
+        runtime_start = readme.index("## Runtime Modes")
+        section = readme[section_start:runtime_start]
+
+        self.assertIn("- [Accuracy & Evaluation](#accuracy--evaluation)", readme)
+        for token in (
+            "in-domain regression evidence over committed fixtures",
+            "not a claim about general-world accuracy",
+            "./docs/accuracy.md",
+            "detector-level span evidence",
+            "F-beta=2",
+            "https://microsoft.github.io/presidio/evaluation/",
+            "https://github.com/microsoft/presidio-research",
+            "./reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json",
+            "1,428 approved legal/cross-jurisdiction documents",
+            "17,552 strict expected labels",
+            "strict recall `1.0000`",
+            "strict precision `0.9269`",
+            "not an independent market benchmark",
+            "./docs/candidate_corpus_status.md",
+            "https://aclanthology.org/2022.cl-4.19/",
+            "https://huggingface.co/datasets/ai4privacy/pii-masking-300k",
+            "future comparison targets only",
+            "no Junas score on those datasets is claimed",
+            "There is no public MNPI benchmark",
+            "Public-evidence matching and LLM adjudication accuracy are outside",
+        ):
+            self.assertIn(token, section)
+        for forbidden in (
+            "procurement-grade",
+            "population-level",
+            "production-ready",
+            "guarantee",
+            "guarantees",
+            "state of the art",
+            "sota",
+        ):
+            self.assertNotIn(forbidden, section.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
