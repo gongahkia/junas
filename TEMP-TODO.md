@@ -20,8 +20,6 @@
 
 ## P2/Reach — Distribution, once the surface is strong (do NOT start before P0/Surface is done)
 
-- [ ] P2/Reach: Write a launch-ready project description and a short "show HN / r/programming / r/legaltech"-style post draft that leads with the demo link and one striking verdict, since stars [goal b] require the strong surface to actually be seen, but distribution before the surface exists wastes the one-shot attention (done when: a `docs/launch-notes.md` drafts the post, the one-line value proposition, and the single screenshot/verdict to lead with; it is explicitly gated on the hosted demo and README hero being live; it lists candidate venues without committing to spammy cross-posting).
-
 ---
 
 ### Note on what was deliberately NOT added
