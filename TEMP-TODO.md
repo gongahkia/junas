@@ -20,8 +20,6 @@
 
 ## P1/Credibility — Independent signals a reviewer can verify quickly
 
-- [ ] P1/Credibility: Add a `CONTRIBUTING.md` and a small set of `good first issue`-labeled issues drawn from the existing TODO's lower-risk items, since a contribution on-ramp is a standard star/credibility signal and converts interested visitors into stargazers/contributors (done when: `CONTRIBUTING.md` documents the `uv`-based dev setup, the test/lint commands, and the deterministic-local invariant contributors must preserve; at least 5 genuinely scoped good-first-issues exist that do not touch the security-sensitive core).
-
 - [ ] P1/Credibility: Add a one-paragraph "Project status" honesty banner to the README stating this is pre-production / portfolio-stage with deterministic core complete and specific hardening tracked in TODO, since a stale or over-claiming README erodes trust faster than an honest one and reviewers respect calibrated self-assessment (done when: a short status line near the top states the maturity accurately, links TODO.md, and avoids both under-selling the real depth and implying production-readiness that the open P0/Security items contradict).
 
 ## P2/Reach — Distribution, once the surface is strong (do NOT start before P0/Surface is done)
