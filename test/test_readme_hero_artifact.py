@@ -182,6 +182,31 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         for forbidden in ("procurement-grade", "guarantee", "guarantees"):
             self.assertNotIn(forbidden, design_section.lower())
 
+    def test_design_section_has_compact_architecture_diagram(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        design_start = readme.index("## Design Principles")
+        scope_start = readme.index("## What This Is / What This Is NOT")
+        design_section = readme[design_start:scope_start]
+
+        for token in (
+            "Compact runtime spine",
+            "```mermaid",
+            "flowchart LR",
+            "Adapters / direct API<br/>Outlook, browser, DMS, clients",
+            "FastAPI backend<br/>trust boundary",
+            "Deterministic review engine<br/>PII + MNPI + citations",
+            "Policy decision<br/>allow / warn / block / approval / rewrite",
+            "Actions + audit evidence<br/>redact / hold / approval / SIEM",
+            "Optional public evidence",
+            "Optional LLM helpers",
+            "privacy-gated opt-in",
+            "tenant + deployer gated",
+            "advisory only",
+            "./docs/architecture.md",
+        ):
+            self.assertIn(token, design_section)
+        self.assertGreaterEqual(design_section.count("-."), 4)
+
     def test_what_this_is_not_block_matches_non_goals_doc(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         non_goals = (ROOT / "docs" / "product" / "non-goals.md").read_text(encoding="utf-8")

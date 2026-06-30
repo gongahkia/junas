@@ -10,8 +10,6 @@
 
 ## P1/Surface — Visual proof of the workflow surfaces
 
-- [ ] P1/Surface: Add a compact architecture/data-flow diagram to the README that shows adapters → backend trust boundary → deterministic engine → policy → audit, since the existing Mermaid diagram is buried below the fold and the trust-boundary story is a key credibility point (done when: a single clear diagram appears in the README's design or architecture section; it visually distinguishes the deterministic core from optional gated LLM/public-evidence layers; it is consistent with `docs/architecture.md`).
-
 ## P1/Demo — A hosted, clickable playground (highest single conversion lever, higher effort)
 
 - [ ] P1/Demo: Stand up a free hosted demo of the deterministic-only profile so visitors can try Junas without cloning, since a public link in the README is the single highest-converting surface for a tool whose output is visually legible (done when: a public URL runs the offline/deterministic local profile on a free tier suitable for a FastAPI app — e.g. Hugging Face Spaces via Docker, or Render/Railway free tier — and is linked from the README hero; the deployment uses the local SKU that excludes public-evidence and LLM-adjudicator modules; cold-start/sleep behavior of the free tier is documented so the link is not perceived as broken; no secrets, provider keys, or persistence are required).

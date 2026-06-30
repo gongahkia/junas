@@ -75,6 +75,20 @@ A paralegal asks a public GenAI tool to turn a draft Project Raven term sheet in
 - **Privacy-gated external calls:** optional provider calls are disabled by default, sanitized through PrivacyGuard, and recorded as privacy-ledger/SIEM evidence when used; see [`src/junas/external/privacy_guard.py`](./src/junas/external/privacy_guard.py), [`docs/threat-model.md`](./docs/threat-model.md), and [`test/test_siem_export.py`](./test/test_siem_export.py).
 - **Audit evidence by default:** decisions, required actions, IDs, hashes/counts, SIEM events, and audit packs are first-class outputs so reviewers can reconstruct what happened without putting raw payloads in observability streams; see [`docs/admin-security.md`](./docs/admin-security.md), [`test/test_siem_export.py`](./test/test_siem_export.py), and [`test/test_audit_pack_smoke.py`](./test/test_audit_pack_smoke.py).
 
+Compact runtime spine; see [`docs/architecture.md`](./docs/architecture.md) for the full architecture.
+
+```mermaid
+flowchart LR
+    Adapters[Adapters / direct API<br/>Outlook, browser, DMS, clients] --> Boundary[FastAPI backend<br/>trust boundary]
+    Boundary --> Engine[Deterministic review engine<br/>PII + MNPI + citations]
+    Engine --> Policy[Policy decision<br/>allow / warn / block / approval / rewrite]
+    Policy --> Evidence[Actions + audit evidence<br/>redact / hold / approval / SIEM]
+    Boundary -. privacy-gated opt-in .-> PublicEvidence[Optional public evidence]
+    Boundary -. tenant + deployer gated .-> LLM[Optional LLM helpers]
+    PublicEvidence -. annotate ambiguous cases .-> Engine
+    LLM -. advisory only .-> Engine
+```
+
 ## What This Is / What This Is NOT
 
 | What this is | What this is NOT |
