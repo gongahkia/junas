@@ -7,6 +7,9 @@ from junas.backend.schemas import ReviewResponse
 from scripts import export_openapi_examples
 
 ROOT = Path(__file__).resolve().parent.parent
+DEMO_ASSET_TAG = "readme-demo-assets-2026-06-30"
+DEMO_GIF_URL = f"https://github.com/gongahkia/junas/releases/download/{DEMO_ASSET_TAG}/junas-demo.gif"
+DEMO_FALLBACK_URL = f"https://github.com/gongahkia/junas/releases/download/{DEMO_ASSET_TAG}/junas-demo-fallback.png"
 
 
 def _markdown_table_rows(markdown: str) -> list[list[str]]:
@@ -63,6 +66,34 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         self.assertIn("policy_decision: block", readme)
         self.assertIn("SG_PDPA_PERSONAL_DATA", readme)
         self.assertIn("SG_SFA_INSIDE_INFORMATION", readme)
+
+    def test_demo_capture_is_embedded_near_hero_and_regenerable(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        capture_doc = (ROOT / "docs" / "assets" / "demo" / "README.md")
+        tape = ROOT / "docs" / "assets" / "demo" / "junas-demo.tape"
+        self.assertTrue(capture_doc.exists())
+        self.assertTrue(tape.exists())
+
+        hero_end = readme.index(export_openapi_examples.HERO_MARKER_END)
+        toc_start = readme.index("## Table of Contents")
+        capture_section = readme[hero_end:toc_start]
+        self.assertIn(DEMO_GIF_URL, capture_section)
+        self.assertIn(DEMO_FALLBACK_URL, capture_section)
+        self.assertIn("./docs/assets/demo/README.md", capture_section)
+        self.assertIn("Terminal recording of ./scripts/demo.sh producing three Junas review verdicts", capture_section)
+        self.assertIn("Static fallback PNG", capture_section)
+
+        doc_text = capture_doc.read_text(encoding="utf-8")
+        tape_text = tape.read_text(encoding="utf-8")
+        self.assertIn("vhs docs/assets/demo/junas-demo.tape", doc_text)
+        self.assertIn("magick /tmp/junas-demo.gif -coalesce", doc_text)
+        self.assertIn("Do not commit generated GIF/PNG binaries", doc_text)
+        self.assertIn(DEMO_GIF_URL, doc_text)
+        self.assertIn(DEMO_FALLBACK_URL, doc_text)
+        self.assertIn('Output "/tmp/junas-demo.gif"', tape_text)
+        self.assertIn('Type "./scripts/demo.sh"', tape_text)
+        self.assertNotIn(".gif", {path.suffix for path in (ROOT / "docs" / "assets" / "demo").iterdir()})
+        self.assertNotIn(".png", {path.suffix for path in (ROOT / "docs" / "assets" / "demo").iterdir()})
 
     def test_exporter_regenerates_hero_artifacts_from_backend_review(self):
         with tempfile.TemporaryDirectory() as tmp:
