@@ -26,7 +26,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
@@ -162,6 +162,7 @@ logger = logging.getLogger("junas.backend")
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 _state: dict[str, Any] = {}
+_demo_rate_limit_lock = Lock()
 
 RISK_ORDER = {
     Classification.SAFE: 0,
@@ -192,6 +193,10 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/safe-rewrite",
 }
 LOCAL_DAEMON_PROTECTED_PREFIXES = ("/review/",)
+PUBLIC_DEMO_BODY_MAX_BYTES = 8 * 1024
+PUBLIC_DEMO_TEXT_MAX_CHARS = 4000
+PUBLIC_DEMO_RATE_LIMIT_REQUESTS = 30
+PUBLIC_DEMO_RATE_LIMIT_WINDOW_SECONDS = 60
 OPENAPI_TAGS = [
     {
         "name": "Runtime",
@@ -247,12 +252,159 @@ Key behaviors:
   sharing a file outside the tenant boundary.
 - `GET /ready` and `GET /diagnostics` expose degraded startup, lazy-layer warming, and dependency state.
 """.strip()
+PUBLIC_DEMO_HTML = """
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Junas deterministic demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f7f7f2; color: #161a1d; }
+    main { max-width: 1120px; margin: 0 auto; padding: 28px; }
+    textarea { width: 100%; min-height: 180px; font: 14px ui-monospace, monospace; }
+    select, button { font: inherit; padding: 8px; }
+    button { cursor: pointer; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+    .panel { border: 1px solid #d8d8d0; background: #fff; padding: 14px; border-radius: 6px; }
+    .finding { border-top: 1px solid #e5e5dc; padding-top: 10px; margin-top: 10px; }
+    .muted { color: #586069; }
+    .risk { font-weight: 700; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Junas deterministic demo</h1>
+  <p class="muted">Strict-profile demo. No LLM, no public evidence, no persistence. Use synthetic text only.</p>
+  <div class="row">
+    <button type="button" data-example="pii">SG NRIC prompt</button>
+    <button type="button" data-example="mnpi">M&amp;A MNPI email</button>
+    <button type="button" data-example="clean">Clean internal note</button>
+  </div>
+  <div class="grid">
+    <section class="panel">
+      <label for="text">Text</label>
+      <textarea id="text"></textarea>
+      <div class="row">
+        <label>Source <select id="source"></select></label>
+        <label>Destination <select id="destination"></select></label>
+        <label>Profile <select id="profile"><option value="strict">strict deterministic</option></select></label>
+        <button id="review" type="button">Review</button>
+      </div>
+      <p class="muted">Requests are capped and rate-limited. Do not submit confidential or personal data.</p>
+    </section>
+    <section class="panel" id="result">
+      <p class="muted">Run a review to see policy decision, required actions, findings, and citations.</p>
+    </section>
+  </div>
+</main>
+<script>
+const jurisdictions = ["SG","US","UK","EU","HK","AU","JP","KR","MY","ID","TH","PH","VN","IN","CN","AE","SA"];
+const examples = {
+  pii: "Before using this GenAI prompt, remove Dr Jane Tan S1234567D from the draft client update.",
+  mnpi: "Project Raven will acquire GlobalTech for USD 2.5 billion before announcement. Hold until public disclosure.",
+  clean: "Internal lunch menu draft for the Singapore office. Share the vegetarian options with the team."
+};
+const text = document.getElementById("text");
+const result = document.getElementById("result");
+for (const id of ["source", "destination"]) {
+  const select = document.getElementById(id);
+  for (const code of jurisdictions) {
+    const option = document.createElement("option");
+    option.value = code;
+    option.textContent = code;
+    select.appendChild(option);
+  }
+}
+document.getElementById("destination").value = "US";
+text.value = examples.pii;
+document.querySelectorAll("[data-example]").forEach((button) => {
+  button.addEventListener("click", () => { text.value = examples[button.dataset.example]; });
+});
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[ch]);
+}
+function render(payload) {
+  const policy = payload.policy_decision || {};
+  const findings = payload.findings || [];
+  result.innerHTML = `
+    <p class="risk">${escapeHtml(policy.decision)} · send_allowed: ${escapeHtml(payload.send_allowed)}</p>
+    <p>PII ${escapeHtml(payload.pii_score)} · MNPI ${escapeHtml(payload.mnpi_score)}
+      · ${escapeHtml(payload.overall_risk)}</p>
+    <p>Required actions: ${escapeHtml((policy.required_actions || []).join(", ") || "none")}</p>
+    ${findings.map((finding) => `
+      <div class="finding">
+        <strong>${escapeHtml(finding.category)}:${escapeHtml(finding.rule)}</strong>
+        <p>${escapeHtml(finding.severity)} · ${escapeHtml(finding.legal_basis)}</p>
+        <p>${escapeHtml(finding.reason)}</p>
+      </div>
+    `).join("") || "<p>No findings.</p>"}
+  `;
+}
+document.getElementById("review").addEventListener("click", async () => {
+  result.innerHTML = '<p class="muted">Reviewing...</p>';
+  const response = await fetch("/demo/review", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      text: text.value,
+      source_jurisdiction: document.getElementById("source").value,
+      destination_jurisdiction: document.getElementById("destination").value,
+      review_profile: "strict"
+    })
+  });
+  const payload = await response.json();
+  if (!response.ok) {
+    result.innerHTML = `<p class="risk">Error ${response.status}</p>
+      <p>${escapeHtml(payload.detail || "review failed")}</p>`;
+    return;
+  }
+  render(payload);
+});
+</script>
+</body>
+</html>
+""".strip()
 
 
 def _is_truthy(value: str | None, *, default: bool = False) -> bool:
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _int_env(name: str, default: int, *, minimum: int = 1, maximum: int | None = None) -> int:
+    raw = os.environ.get(name)
+    if raw is None:
+        return default
+    try:
+        value = int(raw)
+    except ValueError:
+        return default
+    value = max(minimum, value)
+    return min(value, maximum) if maximum is not None else value
+
+
+def _public_demo_enabled() -> bool:
+    return _is_truthy(os.environ.get("JUNAS_PUBLIC_DEMO_ENABLED"), default=False)
+
+
+def _public_demo_limits() -> tuple[int, int, int, int]:
+    return (
+        _int_env("JUNAS_PUBLIC_DEMO_BODY_MAX_BYTES", PUBLIC_DEMO_BODY_MAX_BYTES, minimum=512, maximum=64 * 1024),
+        _int_env("JUNAS_PUBLIC_DEMO_TEXT_MAX_CHARS", PUBLIC_DEMO_TEXT_MAX_CHARS, minimum=100, maximum=16000),
+        _int_env("JUNAS_PUBLIC_DEMO_RATE_LIMIT", PUBLIC_DEMO_RATE_LIMIT_REQUESTS, minimum=1, maximum=300),
+        _int_env(
+            "JUNAS_PUBLIC_DEMO_RATE_LIMIT_WINDOW_SECONDS",
+            PUBLIC_DEMO_RATE_LIMIT_WINDOW_SECONDS,
+            minimum=1,
+            maximum=3600,
+        ),
+    )
 
 
 def _runtime_cli_overrides() -> dict[str, Any]:
@@ -426,6 +578,66 @@ def require_audit_access(
 def tenant_context_from_request(request: Request) -> TenantContext:
     context = getattr(request.state, "tenant_context", None)
     return context if isinstance(context, TenantContext) else DISABLED_TENANT_CONTEXT
+
+
+def _public_demo_client_key(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",", 1)[0].strip() or "unknown"
+    return request.client.host if request.client else "unknown"
+
+
+def _enforce_public_demo_rate_limit(request: Request) -> None:
+    _, _, limit, window_seconds = _public_demo_limits()
+    key = _public_demo_client_key(request)
+    now = time.monotonic()
+    cutoff = now - float(window_seconds)
+    with _demo_rate_limit_lock:
+        buckets = _state.setdefault("public_demo_rate_limit", {})
+        if not isinstance(buckets, dict):
+            buckets = {}
+            _state["public_demo_rate_limit"] = buckets
+        history = [stamp for stamp in buckets.get(key, []) if float(stamp) >= cutoff]
+        if len(history) >= limit:
+            raise HTTPException(status_code=429, detail="public demo rate limit exceeded")
+        history.append(now)
+        buckets[key] = history
+
+
+def _public_demo_review_request(raw_body: bytes) -> ReviewRequest:
+    body_cap, text_cap, _, _ = _public_demo_limits()
+    if len(raw_body) > body_cap:
+        raise HTTPException(status_code=413, detail="public demo request body too large")
+    try:
+        payload = json.loads(raw_body.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise HTTPException(status_code=400, detail="public demo expects JSON") from exc
+    if not isinstance(payload, dict):
+        raise HTTPException(status_code=400, detail="public demo expects a JSON object")
+    text = str(payload.get("text") or "")
+    if not text.strip():
+        raise HTTPException(status_code=422, detail="public demo text is required")
+    if len(text) > text_cap:
+        raise HTTPException(status_code=413, detail="public demo text is too large")
+
+    try:
+        return ReviewRequest.model_validate(
+            {
+                "text": text,
+                "source_jurisdiction": str(payload.get("source_jurisdiction") or "SG"),
+                "destination_jurisdiction": str(payload.get("destination_jurisdiction") or "US"),
+                "document_type": "genai_prompt",
+                "surface": "api",
+                "workflow": "api_review",
+                "requested_action": "send",
+                "external_destination": True,
+                "include_suggestions": True,
+                "review_profile": "strict",
+                "degraded_policy": "block_send",
+            }
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=422, detail="public demo request validation failed") from exc
 
 
 def _can_view_lane_suppressed(tenant: TenantContext) -> bool:
@@ -1821,6 +2033,61 @@ def _run_review_sync(
     return response
 
 
+def _run_public_demo_review_sync(req: ReviewRequest, request_id: str | None) -> ReviewResponse:
+    timings_ms: dict[str, float] = {}
+    t_total_start = time.perf_counter()
+    t_extract_start = time.perf_counter()
+    try:
+        document = extract_review_document(
+            req,
+            current_runtime_settings().document_ingest,
+            image_scan_enabled=False,
+            image_scan_settings=current_runtime_settings().image_scan,
+        )
+    except (ValueError, ImageScanError) as exc:
+        detail = _image_scan_error_detail(exc) if isinstance(exc, ImageScanError) else str(exc)
+        raise HTTPException(status_code=422, detail=detail) from exc
+    timings_ms["extract"] = round((time.perf_counter() - t_extract_start) * 1000.0, 3)
+    degraded_modes = _document_degraded_modes(document)
+
+    t_review_start = time.perf_counter()
+    engine = PreSendReviewEngine()
+    try:
+        result = engine.review(
+            text=document.text,
+            source_jurisdiction=req.source_jurisdiction,
+            destination_jurisdiction=req.destination_jurisdiction,
+            entity_id=req.entity_id,
+            include_suggestions=req.include_suggestions,
+            document_type=req.document_type,
+            session_id=None,
+            matter_id=None,
+            review_profile="strict",
+            tenant_id=None,
+            document_structure=getattr(document, "document_structure", None),
+        )
+    except ReviewLayerError as exc:
+        raise HTTPException(status_code=503, detail=_layer_error_detail(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=_detector_error_detail(exc)) from exc
+    degraded_modes.extend(list(getattr(result, "degraded_modes", []) or []))
+    timings_ms["review"] = round((time.perf_counter() - t_review_start) * 1000.0, 3)
+    timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
+
+    response = _build_review_response(
+        req=req,
+        request_id=request_id,
+        document=document,
+        result=result,
+        timings_ms=timings_ms,
+        degraded_modes=degraded_modes,
+        visible_findings=result.findings,
+        lane_suppressed_findings=[],
+        lane_suppressed_count=0,
+    )
+    return response
+
+
 def _public_source_citations(
     response: ReviewResponse,
     retrieval_timestamp: str,
@@ -2977,6 +3244,41 @@ async def local_pairing_claim(req: LocalPairingCodeRequest):
         "expires_at": expires_at,
         "token_type": "junas-local-client+jwt",
     }
+
+
+@app.get(
+    "/demo",
+    response_class=HTMLResponse,
+    tags=["Runtime"],
+    summary="Serve deterministic public demo playground",
+    description="Serves a static deterministic-only playground when JUNAS_PUBLIC_DEMO_ENABLED=1.",
+)
+async def public_demo_page():
+    if not _public_demo_enabled():
+        raise HTTPException(status_code=404, detail="public demo is disabled")
+    return HTMLResponse(PUBLIC_DEMO_HTML)
+
+
+@app.post(
+    "/demo/review",
+    response_model=ReviewResponse,
+    tags=["Runtime"],
+    summary="Run deterministic public demo review",
+    description=(
+        "Unauthenticated public-demo review path. Enabled only with JUNAS_PUBLIC_DEMO_ENABLED=1. "
+        "Forces strict text-only review, caps request size, rate-limits by client, and persists nothing."
+    ),
+)
+async def public_demo_review(request: Request):
+    if not _public_demo_enabled():
+        raise HTTPException(status_code=404, detail="public demo is disabled")
+    _enforce_public_demo_rate_limit(request)
+    req = _public_demo_review_request(await request.body())
+    return await run_in_threadpool(
+        _run_public_demo_review_sync,
+        req,
+        getattr(request.state, "request_id", None),
+    )
 
 
 @app.get(
