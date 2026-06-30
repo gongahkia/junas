@@ -89,6 +89,18 @@ suggested_hardware: cpu-basic
 No Hugging Face secrets or variables are required for the deterministic public
 demo image.
 
+Deploy with an authenticated Hugging Face CLI session:
+
+```sh
+hf auth login
+./scripts/deploy_hf_space.sh <hf-namespace/space-name>
+```
+
+CI can pass `HF_TOKEN` instead of using an interactive login. The script creates
+or reuses a Docker Space, uploads `Dockerfile.public-demo` as `Dockerfile`, adds
+`deploy/huggingface-space/README.md` as the Space metadata file, and copies only
+the package files needed to run the deterministic public demo.
+
 Cold-start copy for the README link:
 
 > Hosted on free Hugging Face CPU Basic. The first visit after 48 hours of
