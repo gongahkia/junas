@@ -15,7 +15,7 @@ RUN apt-get update \
 COPY pyproject.toml uv.lock README.md ./
 COPY config.toml ./
 COPY src ./src
-COPY scripts/preflight.py ./scripts/preflight.py
+COPY scripts/preflight.py scripts/demo.py ./scripts/
 
 RUN uv sync --frozen --no-dev --extra server \
     && uv run python -m spacy download en_core_web_sm \

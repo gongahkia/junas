@@ -1,0 +1,36 @@
+services:
+  junas-demo:
+    build:
+      context: .
+    image: junas:demo
+    environment:
+      JUNAS_HOST: 0.0.0.0
+      JUNAS_PORT: 8000
+      PIPELINE_LAYERS: ""
+      JUNAS_PUBLIC_EVIDENCE_ENABLED: "0"
+      JUNAS_PUBLIC_EVIDENCE_PROVIDER: none
+      JUNAS_LLM_ENABLED: "0"
+      JUNAS_LLM_PROVIDER: none
+      JUNAS_LLM_HELPERS_ENABLED: "0"
+      JUNAS_LLM_DEFINED_TERMS_ENABLED: "0"
+      JUNAS_LLM_COVERAGE_AUDIT_ENABLED: "0"
+      JUNAS_IMAGE_SCAN_PROVIDER: none
+      JUNAS_REVIEW_PERSIST: "0"
+      JUNAS_TENANCY_ENABLED: "0"
+    ports:
+      - "${JUNAS_DEMO_PORT:-8766}:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/ready"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+  demo:
+    build:
+      context: .
+    image: junas:demo
+    depends_on:
+      junas-demo:
+        condition: service_healthy
+    command: ["uv", "run", "python", "scripts/demo.py", "--base-url", "http://junas-demo:8000"]
