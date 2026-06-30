@@ -56,6 +56,10 @@ packaging/macos/update.sh
 packaging/macos/uninstall.sh
 ```
 
+> **Note**
+>
+> Installing the macOS LaunchAgent is optional and intended for administrator-controlled environments. It is not part of the standard developer quick-start workflow. The desktop watcher is an opt-in local fallback and should only be used when that workflow is required. See `docs/integrations/desktop-watcher.md` for more details.
+
 The LaunchAgent binds `127.0.0.1:8765` and enables local daemon ACLs.
 
 ## Extension and Office surfaces
