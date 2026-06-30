@@ -16,8 +16,6 @@
 
 - [ ] P1/Demo: Build a minimal single-page playground UI in front of the hosted demo that lets a visitor paste text, pick a jurisdiction/profile, and see findings + citations + policy decision rendered, since raw JSON undersells a tool whose strength is human-legible verdicts (done when: a single static page calls `/review` and renders findings with their legal-basis citations, the policy decision, required actions, and `send_allowed`; it ships a few one-click example inputs covering PII, MNPI, and clean text; it visibly states it is a deterministic-only demo and does not persist input; it is the page served at the hosted demo URL).
 
-- [ ] P1/Demo: Add abuse and safety guards appropriate to a public, unauthenticated demo endpoint, since the hosted playground is the one place untrusted users hit a live backend (done when: the demo profile enforces a low request-body cap and basic rate limiting, runs deterministic-only with all external/LLM paths hard-disabled, persists nothing to disk beyond ephemeral runtime, and documents that submitted text should be synthetic/non-confidential).
-
 ## P1/Credibility — Independent signals a reviewer can verify quickly
 
 ## P2/Reach — Distribution, once the surface is strong (do NOT start before P0/Surface is done)
