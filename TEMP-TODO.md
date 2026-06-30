@@ -8,8 +8,6 @@
 
 ## P0/Surface — Make the hero artifact visible (highest leverage)
 
-- [ ] P0/Surface: Promote the design philosophy from scattered mentions into one crisp, prominent "Design principles" README section, since this is the strongest credibility signal for a legal-tech/engineering reviewer (goal c) but is currently spread across docs (done when: a section of ~6 one-line principles appears above the fold or immediately after the hero, each stating the principle and why it matters to a regulated buyer: deterministic-first detection; backend as the trust boundary; LLM strictly advisory and gated; deterministic-high findings cannot be suppressed by LLM/public-evidence/adapter/policy [cite the regression guard at `engine.py:4317`]; statute-cited findings; privacy-gated external calls; audit evidence by default; each principle links to the doc or test that proves it).
-
 - [ ] P0/Surface: Add a "What this is / What this is NOT" block to the README sourced from `docs/product/non-goals.md`, since honest scoping (not DLP, not legal advice, not eDiscovery) is itself a credibility signal and pre-empts the most common reviewer objection (done when: a short two-column or two-list block appears in the README; every "is NOT" line matches `non-goals.md`; a docs-link test asserts consistency between the two).
 
 ## P1/Surface — Visual proof of the workflow surfaces

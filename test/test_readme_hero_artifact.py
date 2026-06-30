@@ -67,8 +67,11 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
     def test_why_junas_story_is_near_top_and_scoped(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         why_start = readme.index("## Why Junas")
+        design_start = readme.index("## Design Principles")
         demo_start = readme.index("## Demo")
         quick_start = readme.index("## Quick Start")
+        self.assertLess(why_start, design_start)
+        self.assertLess(design_start, demo_start)
         self.assertLess(why_start, demo_start)
         self.assertLess(demo_start, quick_start)
 
@@ -85,6 +88,54 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
             self.assertIn(token, why_section)
         for forbidden in ("accuracy", "recall", "precision", "procurement-grade"):
             self.assertNotIn(forbidden, why_section.lower())
+
+    def test_design_principles_are_near_top_and_proven(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        why_start = readme.index("## Why Junas")
+        design_start = readme.index("## Design Principles")
+        demo_start = readme.index("## Demo")
+        quick_start = readme.index("## Quick Start")
+        self.assertLess(why_start, design_start)
+        self.assertLess(design_start, demo_start)
+        self.assertLess(demo_start, quick_start)
+
+        design_section = readme[design_start:demo_start]
+        principles = [line for line in design_section.splitlines() if line.startswith("- **")]
+        self.assertEqual(len(principles), 7)
+        for token in (
+            "Deterministic first",
+            "Backend trust boundary",
+            "LLM strictly advisory and gated",
+            "Deterministic-high non-suppression",
+            "Statute-cited findings",
+            "Privacy-gated external calls",
+            "Audit evidence by default",
+        ):
+            self.assertIn(token, design_section)
+
+        for proof_link in (
+            "./docs/architecture.md",
+            "./src/junas/review/engine.py",
+            "./docs/adr/0001-backend-first-adapters-second.md",
+            "./docs/threat-model.md",
+            "./docs/llm-governance.md",
+            "./docs/running.md",
+            "./test/test_llm_coverage_audit.py",
+            "./src/junas/review/engine.py#L4317",
+            "./test/test_source_verification.py",
+            "./test/test_policy_engine.py",
+            "./docs/statutory-coverage.md",
+            "./test/test_citations.py",
+            "./src/junas/external/privacy_guard.py",
+            "./test/test_siem_export.py",
+            "./docs/admin-security.md",
+            "./test/test_audit_pack_smoke.py",
+        ):
+            self.assertIn(proof_link, design_section)
+
+        self.assertIn("- [Design Principles](#design-principles)", readme)
+        for forbidden in ("procurement-grade", "guarantee", "guarantees"):
+            self.assertNotIn(forbidden, design_section.lower())
 
 
 if __name__ == "__main__":
