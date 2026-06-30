@@ -208,6 +208,8 @@ Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI cap
 
 Browser GenAI screenshots: [`warn confirm`](./docs/assets/browser-extension/browser-extension-warn-confirm.png) and [`policy block`](./docs/assets/browser-extension/browser-extension-policy-block.png). They use a synthetic `chatgpt.com` fixture with the real MV3 extension and local backend; see [`docs/integrations/genai-browser.md`](./docs/integrations/genai-browser.md) for the DOM-stability caveat.
 
+Outlook Smart Alert renderings: [`allow`](./docs/assets/outlook/outlook-smart-alert-allow.png), [`warn`](./docs/assets/outlook/outlook-smart-alert-warn.png), [`block`](./docs/assets/outlook/outlook-smart-alert-block.png), and [`approval required`](./docs/assets/outlook/outlook-smart-alert-approval_required.png). They render the real fixture strings from [`test/fixtures/outlook_smart_alert_messages.json`](./test/fixtures/outlook_smart_alert_messages.json); see [`docs/integrations/outlook.md`](./docs/integrations/outlook.md) for client-validation limits.
+
 ## Experimental Local Fallback
 
 The desktop watcher is intentionally outside the primary Quick Start. Use it only for opt-in local fallback workflows where a user explicitly chooses file or clipboard review against a local daemon.

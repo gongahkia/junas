@@ -10,8 +10,6 @@
 
 ## P1/Surface — Visual proof of the workflow surfaces
 
-- [ ] P1/Surface: Capture the Outlook Smart Alert message text for allow/warn/block/approval-required states as screenshots or rendered fixtures, reusing the existing fixtures from the completed P1/Outlook screenshot task (done when: the four alert states are shown visually in `docs/integrations/outlook.md` and surfaced in the README; if live Outlook capture is impractical, a faithful rendered mock of the alert text is used and labeled as a rendering of the real fixture strings).
-
 - [ ] P1/Surface: Add a compact architecture/data-flow diagram to the README that shows adapters → backend trust boundary → deterministic engine → policy → audit, since the existing Mermaid diagram is buried below the fold and the trust-boundary story is a key credibility point (done when: a single clear diagram appears in the README's design or architecture section; it visually distinguishes the deterministic core from optional gated LLM/public-evidence layers; it is consistent with `docs/architecture.md`).
 
 ## P1/Demo — A hosted, clickable playground (highest single conversion lever, higher effort)
