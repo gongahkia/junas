@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import sys
+from contextlib import asynccontextmanager, contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -242,6 +244,196 @@ def build_curl_block(
     return "\n".join(lines)
 
 
+HERO_MARKER_START = "<!-- JUNAS_REVIEW_HERO_START -->"
+HERO_MARKER_END = "<!-- JUNAS_REVIEW_HERO_END -->"
+
+HERO_REVIEW_REQUEST: dict[str, Any] = {
+    "text": (
+        "Subject: Project Raven draft\n\n"
+        "Before Monday's announcement, send Dr Jane Tan S1234567D the draft SPA. "
+        "Project Raven will acquire GlobalTech for USD 2.5 billion; keep this off "
+        "ChatGPT unless redacted."
+    ),
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "US",
+    "document_type": "genai_prompt",
+    "entity_id": "Project Raven",
+    "surface": "browser_genai",
+    "workflow": "prompt_submit",
+    "requested_action": "send",
+    "external_destination": True,
+    "include_suggestions": True,
+    "review_profile": "strict",
+}
+
+
+@asynccontextmanager
+async def _noop_lifespan(app):
+    yield
+
+
+@contextmanager
+def _deterministic_demo_env():
+    updates = {
+        "PIPELINE_LAYERS": "",
+        "JUNAS_PUBLIC_EVIDENCE_ENABLED": "0",
+        "JUNAS_LLM_ENABLED": "0",
+        "JUNAS_LLM_DEFINED_TERMS_ENABLED": "0",
+        "JUNAS_LLM_COVERAGE_AUDIT_ENABLED": "0",
+        "JUNAS_IMAGE_SCAN_PROVIDER": "none",
+        "JUNAS_REVIEW_PERSIST": "0",
+        "JUNAS_TENANCY_ENABLED": "0",
+    }
+    unset = ("JUNAS_API_KEY",)
+    original = {key: os.environ.get(key) for key in (*updates.keys(), *unset)}
+    try:
+        for key, value in updates.items():
+            os.environ[key] = value
+        for key in unset:
+            os.environ.pop(key, None)
+        yield
+    finally:
+        for key, value in original.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+
+
+def _run_hero_review() -> dict[str, Any]:
+    from fastapi.testclient import TestClient
+    import junas.backend.main as backend_main
+
+    original_lifespan = backend_main.app.router.lifespan_context
+    with _deterministic_demo_env():
+        backend_main._state.clear()
+        backend_main.app.openapi_schema = None
+        backend_main.app.router.lifespan_context = _noop_lifespan
+        try:
+            with TestClient(backend_main.app) as client:
+                response = client.post("/review", json=HERO_REVIEW_REQUEST)
+            if response.status_code != 200:
+                raise RuntimeError(f"hero /review failed: {response.status_code} {response.text}")
+            payload = response.json()
+        finally:
+            backend_main.app.router.lifespan_context = original_lifespan
+            backend_main._state.clear()
+
+    policy = payload.get("policy_decision") or {}
+    findings = payload.get("findings") or []
+    if payload.get("send_allowed") is not False or policy.get("send_allowed") is not False:
+        raise RuntimeError("hero response must show send_allowed=false")
+    if policy.get("decision") != "block":
+        raise RuntimeError("hero response must produce policy_decision=block")
+    if not any(finding.get("category") == "PII" for finding in findings):
+        raise RuntimeError("hero response must include at least one PII finding")
+    if not any(finding.get("category") == "MNPI" for finding in findings):
+        raise RuntimeError("hero response must include at least one MNPI finding")
+    if not all(finding.get("legal_basis") for finding in findings):
+        raise RuntimeError("hero response findings must include legal_basis")
+    return payload
+
+
+def _select_finding(findings: list[dict[str, Any]], *, category: str, preferred_rules: tuple[str, ...]) -> dict[str, Any]:
+    for rule in preferred_rules:
+        for finding in findings:
+            if finding.get("category") == category and finding.get("rule") == rule:
+                return finding
+    for finding in findings:
+        if finding.get("category") == category:
+            return finding
+    raise RuntimeError(f"hero response has no {category} finding")
+
+
+def _suggestion_for(response_payload: dict[str, Any], finding_id: str) -> str:
+    for suggestion in response_payload.get("suggestions") or []:
+        if suggestion.get("finding_id") == finding_id:
+            return str(suggestion.get("rationale") or "")
+    return ""
+
+
+def _truncate(value: str, limit: int) -> str:
+    compact = " ".join(value.replace("→", "=>").split())
+    if len(compact) <= limit:
+        return compact
+    return compact[: limit - 3].rstrip() + "..."
+
+
+def _markdown_inline(value: Any) -> str:
+    return str(value).replace("|", "\\|")
+
+
+def build_hero_markdown(response_payload: dict[str, Any]) -> str:
+    findings = list(response_payload.get("findings") or [])
+    pii = _select_finding(findings, category="PII", preferred_rules=("sg_nric_fin",))
+    mnpi = _select_finding(
+        findings,
+        category="MNPI",
+        preferred_rules=("transaction_codename", "definitive_agreement", "material_event"),
+    )
+    pii_rationale = _suggestion_for(response_payload, str(pii["id"]))
+    mnpi_rationale = _suggestion_for(response_payload, str(mnpi["id"]))
+    policy = response_payload["policy_decision"]
+    required_actions = ", ".join(policy.get("required_actions") or [])
+    blocking = ", ".join(policy.get("blocking_findings") or [])
+
+    return "\n".join(
+        [
+            "## 60-second verdict",
+            "",
+            "Generated by `python3 scripts/export_openapi_examples.py` from a real local `/review` run. "
+            "Full artifacts: [`request`](./docs/api/review_hero_request.json), "
+            "[`response`](./docs/api/review_hero_response.json).",
+            "",
+            "| Confidential input | Junas verdict |",
+            "|---|---|",
+            "| <pre>Subject: Project Raven draft<br><br>"
+            "Before Monday's announcement, send Dr Jane Tan S1234567D the draft SPA. "
+            "Project Raven will acquire GlobalTech for USD 2.5 billion; keep this off ChatGPT unless redacted.</pre> "
+            "| **`send_allowed: false`**<br>`policy_decision: block`<br>"
+            f"`overall_risk: {response_payload['overall_risk']}`<br>"
+            f"`pii_score: {response_payload['pii_score']}` / `mnpi_score: {response_payload['mnpi_score']}`<br>"
+            f"`required_actions: {required_actions}` |",
+            "",
+            "| Finding | Generated legal basis | Generated citation string |",
+            "|---|---|---|",
+            f"| `{pii['category']}:{pii['rule']}` on `{_markdown_inline(pii['matched_text'])}` "
+            f"| `{_markdown_inline(pii['legal_basis'])}` | {_markdown_inline(_truncate(pii_rationale, 260))} |",
+            f"| `{mnpi['category']}:{mnpi['rule']}` on `{_markdown_inline(mnpi['matched_text'])}` "
+            f"| `{_markdown_inline(mnpi['legal_basis'])}` | {_markdown_inline(_truncate(mnpi_rationale, 260))} |",
+            "",
+            f"`blocking_findings: {blocking}`",
+        ]
+    )
+
+
+def write_review_hero_artifacts(output_dir: Path) -> dict[str, Path]:
+    response_payload = _run_hero_review()
+    request_path = output_dir / "review_hero_request.json"
+    response_path = output_dir / "review_hero_response.json"
+    markdown_path = output_dir / "review_hero.md"
+    request_path.write_text(json.dumps(HERO_REVIEW_REQUEST, indent=2) + "\n", encoding="utf-8")
+    response_path.write_text(json.dumps(response_payload, indent=2) + "\n", encoding="utf-8")
+    markdown_path.write_text(build_hero_markdown(response_payload) + "\n", encoding="utf-8")
+    return {"request": request_path, "response": response_path, "markdown": markdown_path}
+
+
+def update_readme_hero(readme_path: Path, hero_markdown: str) -> None:
+    original = readme_path.read_text(encoding="utf-8")
+    replacement = f"{HERO_MARKER_START}\n{hero_markdown}\n{HERO_MARKER_END}"
+    if HERO_MARKER_START in original and HERO_MARKER_END in original:
+        before, rest = original.split(HERO_MARKER_START, 1)
+        _, after = rest.split(HERO_MARKER_END, 1)
+        updated = before.rstrip() + "\n\n" + replacement + after
+    else:
+        anchor = "## Table of Contents"
+        if anchor not in original:
+            raise RuntimeError("README Table of Contents anchor not found")
+        before, after = original.split(anchor, 1)
+        updated = before.rstrip() + "\n\n" + replacement + "\n\n" + anchor + after
+    readme_path.write_text(updated, encoding="utf-8")
+
+
 def main() -> int:
     import junas.backend.main as backend_main
 
@@ -255,6 +447,11 @@ def main() -> int:
         "--output-dir",
         default=str(ROOT / "docs" / "api"),
         help="Output directory for generated files",
+    )
+    parser.add_argument(
+        "--skip-readme-hero",
+        action="store_true",
+        help="Write generated API artifacts without updating the README hero block.",
     )
     args = parser.parse_args()
 
@@ -321,8 +518,17 @@ def main() -> int:
     curl_path.write_text("\n".join(curl_lines) + "\n", encoding="utf-8")
     curl_path.chmod(0o755)
 
+    hero_paths = write_review_hero_artifacts(output_dir)
+    if not args.skip_readme_hero:
+        update_readme_hero(ROOT / "README.md", hero_paths["markdown"].read_text(encoding="utf-8").rstrip())
+
     print(f"Wrote {postman_path}")
     print(f"Wrote {curl_path}")
+    print(f"Wrote {hero_paths['request']}")
+    print(f"Wrote {hero_paths['response']}")
+    print(f"Wrote {hero_paths['markdown']}")
+    if not args.skip_readme_hero:
+        print(f"Updated {ROOT / 'README.md'}")
     return 0
 
 

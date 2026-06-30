@@ -1,0 +1,436 @@
+{
+  "request_id": "a68f0a32-626d-4004-b7b4-bf4ab887537b",
+  "review_expires_at": "2026-06-30T06:41:57Z",
+  "overall_risk": "HIGH_RISK",
+  "classification": "HIGH_RISK",
+  "document_score": 100.0,
+  "pii_score": 88.0,
+  "mnpi_score": 100.0,
+  "source_jurisdiction": "SG",
+  "destination_jurisdiction": "US",
+  "jurisdictions_applied": [
+    "SG",
+    "US"
+  ],
+  "jurisdiction_policy": "strictest_wins",
+  "document_type": "genai_prompt",
+  "review_profile": "strict",
+  "degraded_policy": "warn",
+  "send_allowed": false,
+  "policy_decision": {
+    "decision": "block",
+    "send_allowed": false,
+    "required_actions": [
+      "hold_until_public",
+      "redact_pii",
+      "request_approval",
+      "safe_rewrite"
+    ],
+    "recommended_actions": [
+      "proceed_with_warning"
+    ],
+    "blocking_findings": [
+      "mnpi:definitive_agreement:97:100:3",
+      "mnpi:transaction_codename:102:115:2",
+      "mnpi:transaction_codename:9:22:1",
+      "pii:sg_nric_fin:77:86:0"
+    ],
+    "policy_id": "default",
+    "policy_version": "2026-06-14",
+    "policy_reasons": [
+      "cross-border destination context should be shown to the user",
+      "external recipient domain should be shown to the user",
+      "high-risk MNPI requires public evidence or reviewer approval before send",
+      "high-risk PII requires safe rewrite or reviewer approval before send",
+      "low-risk finding should be shown to the user",
+      "medium-risk finding should be shown to the user"
+    ],
+    "review_id": "a68f0a32-626d-4004-b7b4-bf4ab887537b"
+  },
+  "action_catalog": [
+    "redact_pii",
+    "pseudonymize",
+    "safe_rewrite",
+    "cite_public_source",
+    "request_approval",
+    "hold_until_public",
+    "proceed_with_warning"
+  ],
+  "document": {
+    "filename": "inline.txt",
+    "mime_type": "text/plain",
+    "extraction_method": "inline_text",
+    "page_count": null,
+    "char_count": 199,
+    "extraction_quality": "accepted",
+    "extraction_warnings": [],
+    "metadata_findings": []
+  },
+  "findings": [
+    {
+      "id": "pii:sg_nric_fin:77:86:0",
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "jurisdiction": "SG+US",
+      "severity": "high",
+      "score": 85.0,
+      "matched_text": "S1234567D",
+      "start_char": 77,
+      "end_char": 86,
+      "reason": "Singapore NRIC/FIN-like identifier",
+      "legal_basis": "SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT, US_PRIVACY_BASELINE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": false,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "pii:named_person:65:76:1",
+      "category": "PII",
+      "rule": "named_person",
+      "jurisdiction": "SG+US",
+      "severity": "low",
+      "score": 25.0,
+      "matched_text": "Dr Jane Tan",
+      "start_char": 65,
+      "end_char": 76,
+      "reason": "Named person reference",
+      "legal_basis": "SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT, US_PRIVACY_BASELINE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "mnpi:material_event:30:199:0",
+      "category": "MNPI",
+      "rule": "material_event",
+      "jurisdiction": "SG+US",
+      "severity": "medium",
+      "score": 55.0,
+      "matched_text": "Before Monday's announcement, send Dr Jane Tan S1234567D the draft SPA. Project Raven will acquire GlobalTech for USD 2.5 billion; keep this off ChatGPT unless redacted.",
+      "start_char": 30,
+      "end_char": 199,
+      "reason": "Material corporate or market event language",
+      "legal_basis": "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "mnpi:transaction_codename:9:22:1",
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "jurisdiction": "SG+US",
+      "severity": "high",
+      "score": 85.0,
+      "matched_text": "Project Raven",
+      "start_char": 9,
+      "end_char": 22,
+      "reason": "Internal deal codename detected; treat as MNPI until publicly disclosed",
+      "legal_basis": "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "mnpi:transaction_codename:102:115:2",
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "jurisdiction": "SG+US",
+      "severity": "high",
+      "score": 85.0,
+      "matched_text": "Project Raven",
+      "start_char": 102,
+      "end_char": 115,
+      "reason": "Internal deal codename detected; treat as MNPI until publicly disclosed",
+      "legal_basis": "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "mnpi:definitive_agreement:97:100:3",
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "jurisdiction": "SG+US",
+      "severity": "high",
+      "score": 85.0,
+      "matched_text": "SPA",
+      "start_char": 97,
+      "end_char": 100,
+      "reason": "Definitive-agreement reference may carry MNPI before announcement",
+      "legal_basis": "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "mnpi:financial_amount:144:159:4",
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "jurisdiction": "SG+US",
+      "severity": "medium",
+      "score": 55.0,
+      "matched_text": "USD 2.5 billion",
+      "start_char": 144,
+      "end_char": 159,
+      "reason": "Specific financial amount may be material",
+      "legal_basis": "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    },
+    {
+      "id": "mnpi:conjunctive_mnpi:0:199:7",
+      "category": "MNPI",
+      "rule": "conjunctive_mnpi",
+      "jurisdiction": "SG+US",
+      "severity": "medium",
+      "score": 55.0,
+      "matched_text": "Subject: Project Raven draft\n\nBefore Monday's announcement, send Dr Jane Tan S1234567D the draft SPA. Project Raven will acquire GlobalTech for USD 2.5 billion; keep this off ChatGPT unless redacted.",
+      "start_char": 0,
+      "end_char": 199,
+      "reason": "Layer-2 conjunctive MNPI: entity/deal and non-public elements co-occur; materiality is lexicalised. Review under SFA s218/s219, MAR Art 7/14, Reg FD 17 CFR 243.100, and local inside-information rules before sending.",
+      "legal_basis": "SG_SFA_INSIDE_INFORMATION, SG_SFA_GENERALLY_AVAILABLE, US_MNPI_INSIDER_TRADING, US_REG_FD_PUBLIC_DISCLOSURE",
+      "source": "text",
+      "image_locator": null,
+      "image_ocr_confidence": null,
+      "image_ocr_regions": [],
+      "source_verification": "not_checked",
+      "metadata": {
+        "layer": "layer2",
+        "materiality_state": "lexicalised",
+        "non_public_element_satisfied": true,
+        "entity_element_satisfied": true,
+        "element_rules": {
+          "entity": [
+            "named_person"
+          ],
+          "non_public": [
+            "definitive_agreement",
+            "financial_amount",
+            "material_event",
+            "transaction_codename"
+          ],
+          "materiality": [
+            "definitive_agreement",
+            "material_event",
+            "transaction_codename"
+          ]
+        },
+        "review_required": true,
+        "internal_note": "Deterministic conjunctive MNPI element check; materiality may require lawyer review or audit_grade adjudication.",
+        "jurisdictions_considered": [
+          "SG",
+          "US"
+        ],
+        "rule_jurisdictions": [
+          "SG",
+          "US"
+        ],
+        "source_jurisdiction": "SG",
+        "destination_jurisdiction": "US",
+        "source_juris_finding": true,
+        "destination_juris_finding": true,
+        "jurisdiction_policy": "strictest_wins"
+      }
+    }
+  ],
+  "lane_suppressed_count": 0,
+  "lane_suppressed_findings": [],
+  "suggestions": [
+    {
+      "id": "suggestion:0",
+      "finding_id": "pii:sg_nric_fin:77:86:0",
+      "action": "redact",
+      "replacement_text": "[REDACTED PERSONAL DATA]",
+      "rationale": "\"S1234567D\" detected \u2192 PDPA s13 and PDPC NRIC Advisory (effective 31 Dec 2026): NRIC/FIN must not be collected, used, or disclosed without explicit purpose and consent. Mask before send. Reference: Personal Data Protection Act 2012. Reference: applicable US sectoral privacy law (state-level + sector-specific)."
+    },
+    {
+      "id": "suggestion:1",
+      "finding_id": "pii:named_person:65:76:1",
+      "action": "redact",
+      "replacement_text": "[REDACTED PERSONAL DATA]",
+      "rationale": "\"Dr Jane Tan\" detected \u2192 Named persons are personal data under PDPA s2. For counterparty principals in a definitive agreement, treat as high sensitivity and mask before any external send. Reference: Personal Data Protection Act 2012. Reference: applicable US sectoral privacy law (state-level + sector-specific)."
+    },
+    {
+      "id": "suggestion:2",
+      "finding_id": "mnpi:material_event:30:199:0",
+      "action": "verify_or_rewrite",
+      "replacement_text": "[CITE PUBLIC SOURCE OR GENERALISE CLAIM]",
+      "rationale": "\"Before Monday's announcement, send Dr Jane Tan S1234567D the draft SPA. Project\u2026\" detected \u2192 Material corporate-event language detected. Confirm public-disclosure status before sending; if not yet public, hold until announcement. Reference: Securities and Futures Act 2001 ss215, 218, 219 (insider trading / generally available information). Reference: SEC insider-trading guidance and Regulation FD (selective disclosure)."
+    },
+    {
+      "id": "suggestion:3",
+      "finding_id": "mnpi:transaction_codename:9:22:1",
+      "action": "remove_or_hold",
+      "replacement_text": "[REMOVE UNTIL PUBLICLY DISCLOSED OR APPROVED]",
+      "rationale": "\"Project Raven\" detected \u2192 Internal deal codename detected. Treat as MNPI until the underlying transaction is publicly announced; do not reference the codename in external communications. Reference: Securities and Futures Act 2001 ss215, 218, 219 (insider trading / generally available information). Reference: SEC insider-trading guidance and Regulation FD (selective disclosure)."
+    },
+    {
+      "id": "suggestion:4",
+      "finding_id": "mnpi:transaction_codename:102:115:2",
+      "action": "remove_or_hold",
+      "replacement_text": "[REMOVE UNTIL PUBLICLY DISCLOSED OR APPROVED]",
+      "rationale": "\"Project Raven\" detected \u2192 Internal deal codename detected. Treat as MNPI until the underlying transaction is publicly announced; do not reference the codename in external communications. Reference: Securities and Futures Act 2001 ss215, 218, 219 (insider trading / generally available information). Reference: SEC insider-trading guidance and Regulation FD (selective disclosure)."
+    },
+    {
+      "id": "suggestion:5",
+      "finding_id": "mnpi:definitive_agreement:97:100:3",
+      "action": "remove_or_hold",
+      "replacement_text": "[REMOVE UNTIL PUBLICLY DISCLOSED OR APPROVED]",
+      "rationale": "\"SPA\" detected \u2192 Definitive-agreement reference detected (SPA / SHA / APA / MOU / term sheet). Existence of a binding deal document is itself MNPI before public announcement. Reference: Securities and Futures Act 2001 ss215, 218, 219 (insider trading / generally available information). Reference: SEC insider-trading guidance and Regulation FD (selective disclosure)."
+    },
+    {
+      "id": "suggestion:6",
+      "finding_id": "mnpi:financial_amount:144:159:4",
+      "action": "verify_or_rewrite",
+      "replacement_text": "[CITE PUBLIC SOURCE OR GENERALISE CLAIM]",
+      "rationale": "\"USD 2.5 billion\" detected \u2192 Specific monetary value may be material non-public information. Verify the value is publicly disclosed; otherwise generalise or redact. Reference: Securities and Futures Act 2001 ss215, 218, 219 (insider trading / generally available information). Reference: SEC insider-trading guidance and Regulation FD (selective disclosure)."
+    },
+    {
+      "id": "suggestion:7",
+      "finding_id": "mnpi:conjunctive_mnpi:0:199:7",
+      "action": "verify_or_rewrite",
+      "replacement_text": "[CITE PUBLIC SOURCE OR GENERALISE CLAIM]",
+      "rationale": "\"Subject: Project Raven draft Before Monday's announcement, send Dr Jane Tan S12\u2026\" detected \u2192 Layer-2 conjunctive MNPI finding detected: entity/deal and non-public elements co-occur, with materiality recorded in finding metadata as lexicalised, quantitative, implied, or undetermined. Under SFA s218/s219, MAR Art 7/14, Reg FD 17 CFR 243.100, and local inside-information rules, hold or cite a public source until reviewer approval. Reference: Securities and Futures Act 2001 ss215, 218, 219 (insider trading / generally available information). Reference: SEC insider-trading guidance and Regulation FD (selective disclosure)."
+    }
+  ],
+  "public_evidence": null,
+  "llm_adjudication": null,
+  "privacy_ledger": [],
+  "coverage_warnings": [],
+  "degraded_modes": [
+    {
+      "mode": "materiality_lookup_not_configured",
+      "status": "skipped",
+      "reason": "no entity_size_lookup configured or entity_id not provided; financial_amount / financial_percentage findings kept at default severity. SAB 99 5% / ASX GN8 entity-relative scaling unavailable.",
+      "detail": {
+        "affected_finding_count": 1
+      }
+    }
+  ],
+  "timings_ms": {
+    "extract": 2.875,
+    "review": 13.161,
+    "total": 16.824,
+    "policy_decision_ms": 0.17
+  }
+}
