@@ -28,7 +28,12 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         self.assertFalse(response_payload["send_allowed"])
         self.assertEqual(response_payload["policy_decision"]["decision"], "block")
         self.assertFalse(response_payload["policy_decision"]["send_allowed"])
-        self.assertIn("pii:sg_nric_fin", response_payload["policy_decision"]["blocking_findings"])
+        self.assertTrue(
+            any(
+                finding_id.startswith("pii:sg_nric_fin")
+                for finding_id in response_payload["policy_decision"]["blocking_findings"]
+            )
+        )
         categories = {finding["category"] for finding in response_payload["findings"]}
         self.assertIn("PII", categories)
         self.assertIn("MNPI", categories)

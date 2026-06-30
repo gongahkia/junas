@@ -4,8 +4,8 @@
 from __future__ import annotations
 
 import argparse
-import os
 import json
+import os
 import sys
 from contextlib import asynccontextmanager, contextmanager
 from pathlib import Path
@@ -302,6 +302,7 @@ def _deterministic_demo_env():
 
 def _run_hero_review() -> dict[str, Any]:
     from fastapi.testclient import TestClient
+
     import junas.backend.main as backend_main
 
     original_lifespan = backend_main.app.router.lifespan_context
@@ -334,7 +335,12 @@ def _run_hero_review() -> dict[str, Any]:
     return payload
 
 
-def _select_finding(findings: list[dict[str, Any]], *, category: str, preferred_rules: tuple[str, ...]) -> dict[str, Any]:
+def _select_finding(
+    findings: list[dict[str, Any]],
+    *,
+    category: str,
+    preferred_rules: tuple[str, ...],
+) -> dict[str, Any]:
     for rule in preferred_rules:
         for finding in findings:
             if finding.get("category") == category and finding.get("rule") == rule:
