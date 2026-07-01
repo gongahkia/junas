@@ -68,6 +68,54 @@ class ObservabilityManager:
             labelnames=("decision",),
             registry=self.registry,
         )
+        self.review_surface_total = Counter(
+            "junas_review_surface_total",
+            "Review responses grouped by endpoint, workflow surface, workflow, and policy decision.",
+            labelnames=("endpoint", "surface", "workflow", "decision"),
+            registry=self.registry,
+        )
+        self.policy_decisions_total = Counter(
+            "junas_policy_decisions_total",
+            "Policy decisions grouped by workflow surface and workflow.",
+            labelnames=("decision", "surface", "workflow"),
+            registry=self.registry,
+        )
+        self.policy_required_actions_total = Counter(
+            "junas_policy_required_actions_total",
+            "Required policy actions grouped by decision and workflow context.",
+            labelnames=("action", "decision", "surface", "workflow"),
+            registry=self.registry,
+        )
+        self.adapter_timeouts_total = Counter(
+            "junas_adapter_timeouts_total",
+            "Adapter timeout events grouped by surface and workflow.",
+            labelnames=("surface", "workflow", "adapter"),
+            registry=self.registry,
+        )
+        self.degraded_modes_total = Counter(
+            "junas_degraded_modes_total",
+            "Degraded review modes grouped by endpoint, workflow context, mode, and status.",
+            labelnames=("endpoint", "surface", "workflow", "mode", "status"),
+            registry=self.registry,
+        )
+        self.approval_requests_total = Counter(
+            "junas_approval_requests_total",
+            "Approval requests grouped by status and reason code.",
+            labelnames=("status", "reason_code"),
+            registry=self.registry,
+        )
+        self.approval_completed_total = Counter(
+            "junas_approval_completed_total",
+            "Completed approval decisions grouped by reviewer action.",
+            labelnames=("action",),
+            registry=self.registry,
+        )
+        self.safe_rewrite_applied_total = Counter(
+            "junas_safe_rewrite_applied_total",
+            "Safe rewrite replacements applied by endpoint, workflow context, and replacement action.",
+            labelnames=("endpoint", "surface", "workflow", "action"),
+            registry=self.registry,
+        )
         self.layer_execution_total = Counter(
             "junas_layer_execution_total",
             "Layer execution attempts grouped by outcome.",
@@ -162,6 +210,83 @@ class ObservabilityManager:
     def observe_policy_decision(self, decision: str, duration_seconds: float) -> None:
         self.policy_decision_duration_seconds.labels(decision=decision).observe(max(0.0, duration_seconds))
 
+    def observe_review_surface(self, endpoint: str, surface: str, workflow: str, decision: str) -> None:
+        self.review_surface_total.labels(
+            endpoint=_label(endpoint, "/unknown"),
+            surface=_label(surface),
+            workflow=_label(workflow),
+            decision=_label(decision),
+        ).inc()
+
+    def observe_policy_decision_result(
+        self,
+        decision: str,
+        surface: str,
+        workflow: str,
+        required_actions: list[str] | tuple[str, ...],
+    ) -> None:
+        decision_label = _label(decision)
+        surface_label = _label(surface)
+        workflow_label = _label(workflow)
+        self.policy_decisions_total.labels(
+            decision=decision_label,
+            surface=surface_label,
+            workflow=workflow_label,
+        ).inc()
+        for action in required_actions:
+            self.policy_required_actions_total.labels(
+                action=_label(action),
+                decision=decision_label,
+                surface=surface_label,
+                workflow=workflow_label,
+            ).inc()
+
+    def observe_adapter_timeout(self, surface: str, workflow: str, adapter: str = "unknown") -> None:
+        self.adapter_timeouts_total.labels(
+            surface=_label(surface),
+            workflow=_label(workflow),
+            adapter=_label(adapter),
+        ).inc()
+
+    def observe_degraded_mode(
+        self,
+        endpoint: str,
+        surface: str,
+        workflow: str,
+        mode: str,
+        status: str,
+    ) -> None:
+        self.degraded_modes_total.labels(
+            endpoint=_label(endpoint, "/unknown"),
+            surface=_label(surface),
+            workflow=_label(workflow),
+            mode=_label(mode),
+            status=_label(status),
+        ).inc()
+
+    def observe_approval_requested(self, status: str, reason_code: str) -> None:
+        self.approval_requests_total.labels(status=_label(status), reason_code=_label(reason_code)).inc()
+
+    def observe_approval_completed(self, action: str) -> None:
+        self.approval_completed_total.labels(action=_label(action)).inc()
+
+    def observe_safe_rewrite_applied(
+        self,
+        endpoint: str,
+        surface: str,
+        workflow: str,
+        action: str,
+        count: int,
+    ) -> None:
+        if count <= 0:
+            return
+        self.safe_rewrite_applied_total.labels(
+            endpoint=_label(endpoint, "/unknown"),
+            surface=_label(surface),
+            workflow=_label(workflow),
+            action=_label(action),
+        ).inc(count)
+
     def observe_layer_execution(self, layer: str, outcome: str, duration_seconds: float) -> None:
         self.layer_execution_total.labels(layer=layer, outcome=outcome).inc()
         self.layer_execution_duration_seconds.labels(layer=layer, outcome=outcome).observe(max(0.0, duration_seconds))
@@ -193,3 +318,10 @@ class ObservabilityManager:
     @property
     def content_type(self) -> str:
         return CONTENT_TYPE_LATEST
+
+
+def _label(value: object, default: str = "unknown") -> str:
+    text = str(value or "").strip()
+    if not text:
+        return default
+    return text[:120]

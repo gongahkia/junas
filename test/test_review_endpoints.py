@@ -349,6 +349,34 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 404)
 
+    def test_approval_request_and_completion_metrics_are_exported(self):
+        self.main._state["observability"] = self.main.ObservabilityManager()
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+            approval = client.post(
+                "/request-approval",
+                json={
+                    "review_id": review_id,
+                    "finding_ids": [target["id"]],
+                    "reason_code": "rewrite_required",
+                },
+            )
+            self.assertEqual(approval.status_code, 200, approval.text)
+            completed = client.post(
+                f"/review/{review_id}/decision",
+                json={"finding_id": target["id"], "action": "approve"},
+            )
+            self.assertEqual(completed.status_code, 200, completed.text)
+            metrics = client.get("/metrics")
+
+        self.assertEqual(metrics.status_code, 200, metrics.text)
+        self.assertIn(
+            'junas_approval_requests_total{reason_code="rewrite_required",status="pending"} 1.0',
+            metrics.text,
+        )
+        self.assertIn('junas_approval_completed_total{action="approve"} 1.0', metrics.text)
+
 
 class ReviewSessionPersistenceDisabledTests(unittest.TestCase):
     def setUp(self):

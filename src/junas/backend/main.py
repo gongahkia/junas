@@ -174,6 +174,7 @@ RISK_ORDER = {
 }
 LANE_SUPPRESSED_VIEW_ROLES = frozenset({"auditor", "admin"})
 APPROVAL_REVIEWER_ROLE_ORDER = ("maker", "checker", "admin")
+APPROVAL_COMPLETION_ACTIONS = frozenset({"approve", "policy_exception", "accept_risk"})
 
 SUPPRESSED_REQUEST_LOG_PATHS = {"/health", "/ready", "/metrics"}
 SPAN_CONTEXT_CHARS = 48
@@ -1583,6 +1584,43 @@ def _policy_decision_response(
     return response, policy_decision_ms
 
 
+def _metric_surface(req: ReviewRequest) -> str:
+    return req.surface or "api"
+
+
+def _metric_workflow(req: ReviewRequest) -> str:
+    return req.workflow or "api_review"
+
+
+def _observe_review_policy_metrics(
+    *,
+    endpoint: str,
+    req: ReviewRequest,
+    policy_decision: PolicyDecisionResponse,
+    degraded_modes: list[dict[str, Any]],
+) -> None:
+    observability = get_observability()
+    if observability is None:
+        return
+    surface = _metric_surface(req)
+    workflow = _metric_workflow(req)
+    observability.observe_review_surface(endpoint, surface, workflow, policy_decision.decision)
+    observability.observe_policy_decision_result(
+        policy_decision.decision,
+        surface,
+        workflow,
+        list(policy_decision.required_actions),
+    )
+    for mode in degraded_modes:
+        observability.observe_degraded_mode(
+            endpoint,
+            surface,
+            workflow,
+            str(mode.get("mode") or "unknown"),
+            str(mode.get("status") or "unknown"),
+        )
+
+
 @dataclass(frozen=True)
 class _SafeRewriteCandidate:
     finding: Any
@@ -1765,6 +1803,7 @@ def _build_review_response(
     *,
     req: ReviewRequest,
     request_id: str | None,
+    endpoint: str,
     document: Any,
     result: Any,
     timings_ms: dict[str, float],
@@ -1785,6 +1824,12 @@ def _build_review_response(
     )
     timings_ms["policy_decision_ms"] = policy_decision_ms
     timings_ms["total"] = round(timings_ms.get("total", 0.0) + policy_decision_ms, 3)
+    _observe_review_policy_metrics(
+        endpoint=endpoint,
+        req=req,
+        policy_decision=policy_decision,
+        degraded_modes=modes,
+    )
     return ReviewResponse(
         request_id=request_id,
         review_expires_at=_review_expires_at(),
@@ -2051,6 +2096,7 @@ def _run_review_sync(
     response = _build_review_response(
         req=req,
         request_id=request_id,
+        endpoint=endpoint,
         document=document,
         result=result,
         timings_ms=timings_ms,
@@ -2144,6 +2190,7 @@ def _run_public_demo_review_sync(req: ReviewRequest, request_id: str | None) -> 
     response = _build_review_response(
         req=req,
         request_id=request_id,
+        endpoint="/demo/review",
         document=document,
         result=result,
         timings_ms=timings_ms,
@@ -2335,6 +2382,7 @@ def _run_safe_rewrite_sync(
     review_response = _build_review_response(
         req=req,
         request_id=request_id,
+        endpoint=endpoint,
         document=document,
         result=result,
         timings_ms=timings_ms,
@@ -2380,6 +2428,17 @@ def _run_safe_rewrite_sync(
 
     observability = get_observability()
     if observability is not None:
+        replacement_counts: dict[str, int] = {}
+        for replacement in rewrite_replacements:
+            replacement_counts[replacement.action] = replacement_counts.get(replacement.action, 0) + 1
+        for action, count in replacement_counts.items():
+            observability.observe_safe_rewrite_applied(
+                endpoint,
+                _metric_surface(req),
+                _metric_workflow(req),
+                action,
+                count,
+            )
         observability.observe_classification(
             endpoint=endpoint,
             classification=result.overall_risk.value,
@@ -2577,6 +2636,7 @@ def _run_placeholder_review_sync(
     review_response = _build_review_response(
         req=req,
         request_id=request_id,
+        endpoint=f"/{timing_key}",
         document=document,
         result=result,
         timings_ms=timings_ms,
@@ -3547,6 +3607,12 @@ def _run_request_approval_sync(
         )
     except ReviewSessionError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_approval_requested(
+            str(result.get("approval_status") or "pending"),
+            str(result.get("reason_code") or "policy_block"),
+        )
     return RequestApprovalResponse(**result)
 
 
@@ -3989,6 +4055,9 @@ async def post_review_decision(
         )
     except ReviewSessionError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+    observability = get_observability()
+    if observability is not None and req.action in APPROVAL_COMPLETION_ACTIONS:
+        observability.observe_approval_completed(req.action)
     return ReviewDecisionResponse(**result)
 
 
