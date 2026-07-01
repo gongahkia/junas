@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/FeedbackLoop: Add a "do not train on customer text by default" invariant to LLM governance and feedback-loop docs.
 - [ ] P0/FeedbackLoop: Add a retention policy for feedback artifacts, including hashes, labels, sidecars, raw samples, legal hold, and subject erasure behavior.
 - [ ] P0/FeedbackLoop: Add an eval gate that fails if a policy or rewrite change increases false-negative risk on locked legal corpora.
 - [ ] P0/FeedbackLoop: Add a precision gate that flags noisy detector changes before they reach Outlook/browser adapters.

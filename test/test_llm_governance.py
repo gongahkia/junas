@@ -52,6 +52,31 @@ def _eval_report() -> dict:
 
 
 class LLMGovernanceTests(unittest.TestCase):
+    def test_docs_state_customer_text_training_invariant(self):
+        governance = (ROOT / "docs" / "llm-governance.md").read_text(encoding="utf-8")
+        feedback = (ROOT / "docs" / "feedback-loop.md").read_text(encoding="utf-8")
+
+        for token in (
+            "Customer Text Training Invariant",
+            "does not train, fine-tune, distill, prompt-optimize, or benchmark",
+            "Customer prompts, email bodies, document text",
+            "matched spans",
+            "reviewer rationale containing customer text",
+            "raw audit-pack contents",
+            "explicit customer sample approval",
+            "approved synthetic reproduction",
+            "retention class, legal-hold status, and subject-erasure",
+            "promotion evidence names the approved dataset without embedding raw customer text",
+        ):
+            self.assertIn(token, governance)
+        for token in (
+            "fixtures or model training by default",
+            "No training, fine-tuning, distillation, prompt optimization, or benchmarking",
+            "customer prompts, email bodies, document text, matched spans",
+            "raw audit-pack contents by default",
+        ):
+            self.assertIn(token, feedback)
+
     def test_default_manifest_records_no_promoted_adapter(self):
         result = validate_manifest(ROOT / "training" / "distillation" / "promotion_manifest.json")
 

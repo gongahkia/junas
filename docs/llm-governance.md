@@ -41,6 +41,23 @@ accepted as local-adapter promotion evidence. Required privacy checks are:
 - `privacy_ledger_recorded`
 - `pdpc_genai_personal_data_review`
 
+## Customer Text Training Invariant
+
+Junas does not train, fine-tune, distill, prompt-optimize, or benchmark LLM/student
+models on customer text by default. Customer prompts, email bodies, document text,
+matched spans, reviewer rationale containing customer text, reversible mappings, and
+raw audit-pack contents are excluded from default training and distillation inputs.
+
+Reviewer feedback may create counts, hashes, decision taxonomy labels, detector issue
+categories, and synthetic fixture tasks. It must not become model training data unless
+all of these are true:
+
+- explicit customer sample approval covers training or distillation use
+- raw sample text is scrubbed or transformed into an approved synthetic reproduction
+- retention class, legal-hold status, and subject-erasure handling are documented
+- privacy eval records the source and passes structured-token and tenant-consent checks
+- promotion evidence names the approved dataset without embedding raw customer text
+
 ## SG PDPC GenAI Consultation
 
 PDPC opened public consultation on proposed advisory guidelines for use of

@@ -7,7 +7,7 @@ quality work and, only after review gates, promoted recall-lock evidence.
 
 There is no automatic journal-to-fixture exporter. That is intentional: review journals
 can contain sensitive workflow evidence, and customer text must not flow into test
-fixtures by default.
+fixtures or model training by default.
 
 Canonical path:
 
@@ -233,6 +233,9 @@ Every feedback-derived candidate label must preserve:
 ## Non-Goals
 
 - No automatic training from reviewer decisions.
+- No training, fine-tuning, distillation, prompt optimization, or benchmarking on
+  customer prompts, email bodies, document text, matched spans, reviewer rationale, or
+  raw audit-pack contents by default.
 - No raw journal text copied into fixtures.
 - No recall lock update from unreviewed candidate labels.
 - No recall lock update from labels whose source or reason indicates strict-runtime promotion.
