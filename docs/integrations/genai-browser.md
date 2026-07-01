@@ -75,6 +75,7 @@ Managed Chrome/Edge rollout uses `docs/integrations/browser-enterprise-deploymen
 ## QA Requirements Before Expanding Claims
 
 - Selector or event tests per target surface: ChatGPT, Claude, Gemini, and generic textarea.
+- Playwright smoke test against local fixture DOM changes: `test/test_browser_extension_playwright.py`.
 - Manual Chrome/Edge matrix for managed install, local-token auth, context menu, paste review, and rewrite flows.
 - No raw prompt text in extension storage, console logs, or telemetry.
 - Explicit docs for unsupported target UI changes and degraded behavior.

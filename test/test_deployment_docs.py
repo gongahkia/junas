@@ -640,6 +640,7 @@ class DeploymentDocsTests(unittest.TestCase):
             'surface="browser_genai"',
             'workflow="prompt_submit"',
             "browser-enterprise-deployment.md",
+            "test/test_browser_extension_playwright.py",
         ):
             self.assertIn(token, text)
 
