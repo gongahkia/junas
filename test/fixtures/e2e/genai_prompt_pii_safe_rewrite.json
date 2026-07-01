@@ -1,0 +1,27 @@
+{
+  "name": "genai_prompt_pii_returns_safe_rewrite",
+  "request": {
+    "text": "Please summarize this HR note for a GenAI draft: Dr Jane Tan, NRIC S1234567D, jane@example.com, has requested medical leave details be included in the manager update.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "US",
+    "document_type": "genai_prompt",
+    "surface": "browser_genai",
+    "workflow": "prompt_submit",
+    "actor_role": "end_user",
+    "recipient_domains": ["chatgpt.com"],
+    "recipient_count": 1,
+    "attachment_count": 0,
+    "sensitivity_label": "confidential",
+    "external_destination": true,
+    "requested_action": "submit"
+  },
+  "expected": {
+    "decision": "rewrite_required",
+    "send_allowed": false,
+    "required_actions": ["safe_rewrite"],
+    "finding": {
+      "category": "PII",
+      "severity": "high"
+    }
+  }
+}

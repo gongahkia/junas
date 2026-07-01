@@ -14,9 +14,8 @@ class E2EReviewFixtureTests(unittest.TestCase):
         path = ROOT / "test" / "fixtures" / "e2e" / name
         return json.loads(path.read_text(encoding="utf-8"))
 
-    def test_high_risk_external_email_blocks_and_requires_approval(self):
-        fixture = self._load_fixture("high_risk_external_email_review.json")
-
+    def _assert_review_fixture(self, name: str) -> dict:
+        fixture = self._load_fixture(name)
         with TestClient(main.app) as client:
             response = client.post("/review", json=fixture["request"])
 
@@ -38,6 +37,13 @@ class E2EReviewFixtureTests(unittest.TestCase):
                 for finding in body["findings"]
             )
         )
+        return body
+
+    def test_high_risk_external_email_blocks_and_requires_approval(self):
+        self._assert_review_fixture("high_risk_external_email_review.json")
+
+    def test_genai_prompt_with_pii_returns_safe_rewrite_action(self):
+        self._assert_review_fixture("genai_prompt_pii_safe_rewrite.json")
 
 
 if __name__ == "__main__":
