@@ -939,7 +939,8 @@ class ReviewFindingResponse(BaseModel):
         default_factory=dict,
         description=(
             "Detector-specific structured metadata. Layer-2 conjunctive MNPI findings use this "
-            "for materiality_state, entity/non-public element booleans, and element rules."
+            "for materiality_state, entity/non-public/possession-duty element booleans, "
+            "element_count, and element rules."
         ),
     )
 

@@ -143,3 +143,27 @@ class ConjunctiveMNPITests(unittest.TestCase):
         finding = next(item for item in payload["findings"] if item["rule"] == "conjunctive_mnpi")
         self.assertEqual(finding["metadata"]["materiality_state"], "lexicalised")
         self.assertTrue(finding["metadata"]["entity_element_satisfied"])
+
+    def test_adversarial_raw_element_probes_emit_nonzero_findings(self):
+        probes = [
+            "NDA-side note for ticker ABDF: bookings cut below plan; not for street until cleanse.",
+            "Clean-team memo: ISIN SG1X00000001 margin reset below plan; hold for cleansing note.",
+            "Counsel-only draft: CUSIP 123456AB7 churn spike in enterprise accounts; no street readout yet.",
+            "Data-room note: board pack for code HZN shows ARR miss; keep to named recipients until cleanse.",
+            "Pre-clearance hold: stock code 9988 supplier loss affects run-rate; cleanse after filing.",
+            "NDA queue: code ALPHA shows same-store sales down; keep off chat until release packet.",
+            "Cleansing memo draft: deal code RIVER has loan-loss reserve build; do not brief street.",
+            "Private-side note: security KPI for symbol QRTY shows outage cost above covenant basket; "
+            "cleanse tomorrow.",
+            "Advisor room extract: code 4321 trial halt reduces milestone receipt; hold for public deck.",
+            "Named-recipient note: project tag MANTA customer loss removes pipeline; cleanse after board call.",
+        ]
+
+        for text in probes:
+            with self.subTest(text=text):
+                finding, result = self._conjunctive(text)
+                self.assertNotEqual(result.document_score, 0.0)
+                self.assertEqual(finding.severity, "high")
+                self.assertEqual(finding.metadata["materiality_state"], "lexicalised")
+                self.assertTrue(finding.metadata["possession_or_duty_element_satisfied"])
+                self.assertEqual(finding.metadata["element_count"], 4)

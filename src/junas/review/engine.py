@@ -4551,7 +4551,7 @@ class PreSendReviewEngine:
                     category="MNPI",
                     rule="conjunctive_mnpi",
                     jurisdiction=jurisdiction_label,
-                    severity="medium",
+                    severity=spec.severity,
                     matched_text=spec.matched_text,
                     start=spec.start_char,
                     end=spec.end_char,

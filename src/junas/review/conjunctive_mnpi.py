@@ -70,6 +70,12 @@ ENTITY_FINDING_RULES = frozenset({
     "in_gstin",
     "cn_uscc",
 })
+POSSESSION_DUTY_RULES = frozenset({
+    "tipping_language",
+    "selective_disclosure_risk",
+    "insider_list_marker",
+    "information_barrier_marker",
+})
 
 ORG_NAME_RE = re.compile(
     r"\b[A-Z][A-Za-z0-9&.'-]*(?:\s+[A-Z][A-Za-z0-9&.'-]*){0,5}\s+"
@@ -80,10 +86,31 @@ ISSUER_CONTEXT_RE = re.compile(
     r"\b(?:issuer|counterparty|target|vendor|purchaser|listed\s+issuer|SGX\s+counter|ticker|stock\s+code)\b",
     re.IGNORECASE,
 )
+SECURITY_CODE_RE = re.compile(
+    r"\b(?:ticker|symbol|stock\s+code|ISIN|CUSIP|security\s+code|deal\s+code|project\s+tag|code)\s+"
+    r"(?-i:[A-Z0-9][A-Z0-9.-]{2,})\b",
+    re.IGNORECASE,
+)
+RAW_NON_PUBLIC_RE = re.compile(
+    r"\b(?:NDA-side|clean[- ]team|counsel-only|data[- ]room|pre-clearance\s+hold|"
+    r"NDA\s+queue|cleansing\s+memo|private-side|advisor\s+room|named-recipient|"
+    r"not\s+for\s+street|hold\s+for\s+cleans(?:e|ing)|no\s+street\s+readout|"
+    r"keep\s+to\s+named\s+recipients|keep\s+off\s+chat|do\s+not\s+brief\s+street|"
+    r"release\s+packet)\b",
+    re.IGNORECASE,
+)
+RAW_MATERIALITY_RE = re.compile(
+    r"\b(?:bookings\s+cut|margin\s+reset|churn\s+spike|ARR\s+miss|supplier\s+loss|"
+    r"same-store\s+sales\s+down|loan-loss\s+reserve\s+build|outage\s+cost\s+above\s+covenant\s+basket|"
+    r"trial\s+halt|customer\s+loss\s+removes\s+pipeline|backlog\s+reversal|"
+    r"pricing\s+reset\s+below\s+board\s+case|run-rate|milestone\s+receipt)\b",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
 class ConjunctiveMNPIFindingSpec:
+    severity: str
     matched_text: str
     start_char: int
     end_char: int
@@ -146,7 +173,27 @@ def _entity_element(text: str, findings: list[Any], entity_id: str | None) -> di
                 "end": match.end(),
                 "matched_text": match.group(),
             }
+    match = SECURITY_CODE_RE.search(text)
+    if match:
+        return {
+            "rule": "security_code_context",
+            "start": match.start(),
+            "end": match.end(),
+            "matched_text": match.group(),
+        }
     return None
+
+
+def _raw_elements(text: str, pattern: re.Pattern[str], rule: str) -> list[dict[str, Any]]:
+    return [
+        {
+            "rule": rule,
+            "start": match.start(),
+            "end": match.end(),
+            "matched_text": match.group(),
+        }
+        for match in pattern.finditer(text)
+    ]
 
 
 def _materiality_state(findings: list[Any]) -> tuple[str, list[str]]:
@@ -194,6 +241,12 @@ def _context_span(text: str, start: int, end: int) -> tuple[int, int, str]:
     return left, right, matched
 
 
+def _severity_for_elements(materiality_state: str, possession_or_duty: bool) -> str:
+    if possession_or_duty and materiality_state in {"lexicalised", "quantitative", "implied"}:
+        return "high"
+    return "medium"
+
+
 def detect_conjunctive_mnpi(
     *,
     text: str,
@@ -208,20 +261,42 @@ def detect_conjunctive_mnpi(
 
     entity = _entity_element(text, findings, entity_id)
     non_public = [finding for finding in findings if _non_public_finding(finding)]
-    if entity is None or not non_public:
+    raw_non_public = _raw_elements(text, RAW_NON_PUBLIC_RE, "raw_nonpublic_possession_marker")
+    if entity is None or (not non_public and not raw_non_public):
         return []
 
     materiality_state, materiality_rules = _materiality_state(findings)
+    raw_materiality = _raw_elements(text, RAW_MATERIALITY_RE, "raw_materiality_marker")
+    if materiality_state == "undetermined" and raw_materiality:
+        materiality_state = "lexicalised"
+        materiality_rules = ["raw_materiality_marker"]
+    possession_or_duty = [
+        {
+            "rule": _as_rule(finding),
+            "start": int(_attr(finding, "start_char", 0) or 0),
+            "end": int(_attr(finding, "end_char", 0) or 0),
+            "matched_text": str(_attr(finding, "matched_text", "") or ""),
+        }
+        for finding in findings
+        if _as_rule(finding) in POSSESSION_DUTY_RULES
+    ]
+    possession_or_duty.extend(raw_non_public)
     starts = [int(entity["start"])]
     ends = [int(entity["end"])]
     element_rules = {
         "entity": [str(entity["rule"])],
-        "non_public": sorted({_as_rule(finding) for finding in non_public}),
+        "non_public": sorted(
+            {_as_rule(finding) for finding in non_public} | {str(item["rule"]) for item in raw_non_public}
+        ),
         "materiality": materiality_rules,
+        "possession_or_duty": sorted({str(item["rule"]) for item in possession_or_duty}),
     }
     for finding in non_public:
         starts.append(int(_attr(finding, "start_char", 0) or 0))
         ends.append(int(_attr(finding, "end_char", 0) or 0))
+    for item in [*raw_non_public, *raw_materiality, *possession_or_duty]:
+        starts.append(int(item["start"]))
+        ends.append(int(item["end"]))
 
     start, end, matched = _context_span(text, min(starts), max(ends))
     source_states = {_source_state(finding) for finding in non_public}
@@ -237,7 +312,9 @@ def detect_conjunctive_mnpi(
         "materiality_state": materiality_state,
         "non_public_element_satisfied": True,
         "entity_element_satisfied": True,
+        "possession_or_duty_element_satisfied": bool(possession_or_duty),
         "element_rules": element_rules,
+        "element_count": 2 + int(materiality_state != "undetermined") + int(bool(possession_or_duty)),
         "review_required": True,
         "internal_note": (
             "Deterministic conjunctive MNPI element check; materiality may require "
@@ -251,6 +328,7 @@ def detect_conjunctive_mnpi(
     )
     return [
         ConjunctiveMNPIFindingSpec(
+            severity=_severity_for_elements(materiality_state, bool(possession_or_duty)),
             matched_text=matched,
             start_char=start,
             end_char=end,
