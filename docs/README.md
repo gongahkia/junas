@@ -40,6 +40,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `admin-console/review-session-list-endpoint.md`: read-only review-session list endpoint requirements for pagination, tenant isolation, role checks, and no raw body exposure by default
 - `admin-console/policy-config-ui.md`: policy config UI requirements for draft, validate, publish, rollback, and audit journal events
 - `admin-console/reviewer-queue.md`: reviewer queue requirements for approval assignment, rationale, SLA, and audit trail evidence
+- `admin-console/false-positive-triage.md`: false-positive triage requirements linking reviewer rejects to fixture generation and detector issue categories
 - `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows

@@ -51,6 +51,7 @@ or a raw document browser.
   `docs/admin-console/review-session-list-endpoint.md`.
 - Policy config UI requirements: `docs/admin-console/policy-config-ui.md`.
 - Reviewer queue requirements: `docs/admin-console/reviewer-queue.md`.
+- False-positive triage requirements: `docs/admin-console/false-positive-triage.md`.
 - Policy config docs: `docs/policy/schema.md` and `docs/policy/examples.md`.
 - Decision behavior: `docs/policy/decision-contract.md` and
   `docs/policy/journal-replay.md`.

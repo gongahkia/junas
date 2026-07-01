@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/AdminUI: Add false-positive triage requirements linking reviewer rejects to fixture generation and detector issue categories.
 - [ ] P1/AdminUI: Add audit export UI requirements using existing audit-pack export and journal verification scripts.
 - [ ] P1/AdminUI: Add admin console auth requirements using existing tenant roles and refusing local-dev-only headers in production.
 - [ ] P1/AdminUI: Add admin console telemetry requirements for policy changes, approval decisions, export events, and failed access attempts.

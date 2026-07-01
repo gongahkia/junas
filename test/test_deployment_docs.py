@@ -345,6 +345,48 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_false_positive_triage_requirements(self):
+        text = (
+            ROOT / "docs" / "admin-console" / "false-positive-triage.md"
+        ).read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/false-positive-triage.md", docs_index)
+        self.assertIn("docs/admin-console/false-positive-triage.md", requirements)
+        for token in (
+            "False-Positive Triage Requirements",
+            "authorized reviewer `reject` decisions",
+            "detector issue categories",
+            "candidate fixture tasks",
+            "action=\"reject\"",
+            "docs/policy/journal-replay.md",
+            "`detector_issue_category`",
+            "`context_false_positive`",
+            "`defined_term_or_placeholder`",
+            "`public_information`",
+            "`entity_type_confusion`",
+            "`jurisdiction_mismatch`",
+            "`span_boundary_error`",
+            "`severity_or_policy_mismatch`",
+            "`duplicate_or_dedup_error`",
+            "create_fixture",
+            "file_detector_issue",
+            "scripts/generate_legal_fixture.py",
+            "scripts/generate_candidate_corpus.py",
+            "scripts/check_fixture_scrub.py",
+            "scripts/review_candidate_fixture.py",
+            "scripts/evaluate_candidate_corpus.py",
+            "customer_sample_approved",
+            "false_positive_fixture_task_created",
+            "false_positive_detector_issue_linked",
+            "No automatic detector retraining",
+            "No customer text copied into fixtures",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
