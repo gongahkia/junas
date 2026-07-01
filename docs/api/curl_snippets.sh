@@ -26,6 +26,12 @@ curl -sS -X POST "${BASE_URL}/classify/batch" \
   -H "X-API-Key: ${JUNAS_API_KEY:-dev-secret}" \
   -d '{"items":[{"include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."},{"debug":false,"text":"Public press release for next week's earnings call."}]}'
 
+# GET /demo - Serve deterministic public demo playground
+curl -sS -X GET "${BASE_URL}/demo"
+
+# POST /demo/review - Run deterministic public demo review
+curl -sS -X POST "${BASE_URL}/demo/review"
+
 # GET /diagnostics - Get runtime diagnostics
 curl -sS -X GET "${BASE_URL}/diagnostics"
 
@@ -92,10 +98,30 @@ curl -sS -X POST "${BASE_URL}/request-approval" \
   -H "Content-Type: application/json" \
   -d '{"finding_ids":["pii:sg_nric_fin:25:34:0"],"reason_code":"rewrite_required","review_id":"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb"}'
 
-# POST /review - Review a document before sending
+# POST /review - Review a document before sending (Outlook Smart Alerts email send)
 curl -sS -X POST "${BASE_URL}/review" \
   -H "Content-Type: application/json" \
-  -d '{"actor_role":"end_user","attachment_count":1,"destination_jurisdiction":"SG","document_type":"research_note","entity_id":"Acme Corp","external_destination":true,"include_suggestions":true,"recipient_count":1,"recipient_domains":["example.com"],"requested_action":"send","sensitivity_label":"confidential","source_jurisdiction":"SG","surface":"outlook","text":"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.","workflow":"email_send"}'
+  -d '{"text":"Subject: Project Atlas draft\n\nSend Dr Jane Tan S1234567D the confidential acquisition summary to outside counsel.","source_jurisdiction":"SG","destination_jurisdiction":"US","document_type":"email","surface":"outlook","workflow":"email_send","actor_role":"end_user","recipient_domains":["outside-counsel.example"],"recipient_count":2,"attachment_count":1,"sensitivity_label":"confidential","external_destination":true,"requested_action":"send","degraded_policy":"block_send","include_suggestions":true}'
+
+# POST /review - Review a document before sending (Browser GenAI prompt submit)
+curl -sS -X POST "${BASE_URL}/review" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Summarize this non-public Project Raven acquisition note for a ChatGPT prompt.","source_jurisdiction":"SG","destination_jurisdiction":"US","document_type":"prompt","surface":"browser_genai","workflow":"prompt_submit","actor_role":"end_user","recipient_domains":["chatgpt.com"],"recipient_count":1,"attachment_count":0,"external_destination":true,"requested_action":"submit","include_suggestions":true}'
+
+# POST /review - Review a document before sending (DMS document upload)
+curl -sS -X POST "${BASE_URL}/review" \
+  -H "Content-Type: application/json" \
+  -d '{"document_base64":"RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUgYW5ub3VuY2VtZW50Lg==","document_filename":"board-memo.txt","document_mime_type":"text/plain","source_jurisdiction":"SG","destination_jurisdiction":"US","document_type":"dms_document","surface":"dms","workflow":"document_upload","actor_role":"service_account","attachment_count":2,"external_destination":false,"requested_action":"upload","matter_id":"imanage:M123","session_id":"upload-M123-001","include_suggestions":true}'
+
+# POST /review - Review a document before sending (Desktop watcher file review)
+curl -sS -X POST "${BASE_URL}/review" \
+  -H "Content-Type: application/json" \
+  -d '{"document_base64":"TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRlbnRpYWwgUTEgZ3VpZGFuY2Uu","document_filename":"local-draft.txt","document_mime_type":"text/plain","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"desktop_file","surface":"desktop","workflow":"desktop_watch","actor_role":"end_user","attachment_count":1,"external_destination":false,"requested_action":"review","session_id":"desktop-watch-001","include_suggestions":true}'
+
+# POST /review - Review a document before sending (Direct API review)
+curl -sS -X POST "${BASE_URL}/review" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Gateway payload: Acme Corp will acquire GlobalTech before announcement.","source_jurisdiction":"SG","destination_jurisdiction":"HK","document_type":"service_payload","surface":"api","workflow":"api_review","actor_role":"platform_integrator","recipient_domains":["counterparty.example"],"recipient_count":1,"attachment_count":0,"external_destination":true,"requested_action":"review","entity_id":"Acme Corp","include_suggestions":true}'
 
 # GET /review/{review_id} - Inspect review session state
 curl -sS -X GET "${BASE_URL}/review/{review_id}"
@@ -103,7 +129,7 @@ curl -sS -X GET "${BASE_URL}/review/{review_id}"
 # POST /review/{review_id}/decision - Record a per-finding decision
 curl -sS -X POST "${BASE_URL}/review/{review_id}/decision" \
   -H "Content-Type: application/json" \
-  -d '{"action":"reject","finding_id":"pii:named_person:5:16:0","rationale":"Defined term in contract preamble, not a real party","replacement_text":""}'
+  -d '{"action":"reject","decision_taxonomy":"false_positive","detector_feedback":{"category":"PII","detector_issue_category":"defined_term_or_placeholder","evidence_hashes":["9b86d081884c7d659a2feaa0c55ad015"],"notes":"Defined term in contract preamble","rule_id":"named_person","severity":"low"},"finding_id":"pii:named_person:5:16:0","rationale":"Defined term in contract preamble, not a real party","replacement_text":"","reviewer_confidence":0.85}'
 
 # POST /safe-rewrite - Safely rewrite a document deterministically
 curl -sS -X POST "${BASE_URL}/safe-rewrite" \

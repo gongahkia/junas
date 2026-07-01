@@ -20,9 +20,9 @@ from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from threading import Lock, Thread
-from typing import Any, cast
+from typing import Annotated, Any, cast
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Request, Response
+from fastapi import Body, Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -69,6 +69,7 @@ from junas.backend.local_auth import (
 )
 from junas.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from junas.backend.schemas import (
+    ADAPTER_SURFACE_REVIEW_EXAMPLES,
     AnonymizationMappingEntryResponse,
     AnonymizationReplacementResponse,
     AnonymizeRequest,
@@ -3423,7 +3424,10 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
         "returns localized findings, and suggests redactions or rewrites."
     ),
 )
-async def review_document(request: Request, req: ReviewRequest):
+async def review_document(
+    request: Request,
+    req: Annotated[ReviewRequest, Body(openapi_examples=ADAPTER_SURFACE_REVIEW_EXAMPLES)],
+):
     return await run_in_threadpool(
         _run_review_sync,
         req,

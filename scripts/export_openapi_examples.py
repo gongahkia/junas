@@ -129,6 +129,37 @@ def build_request_body(operation: dict[str, Any], components: dict[str, Any]) ->
     return body
 
 
+def build_request_examples(operation: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    request_body = operation.get("requestBody")
+    if not isinstance(request_body, dict):
+        return {}
+    content = request_body.get("content", {})
+    if not isinstance(content, dict):
+        return {}
+    app_json = content.get("application/json", {})
+    if not isinstance(app_json, dict):
+        return {}
+    examples = app_json.get("examples", {})
+    if not isinstance(examples, dict):
+        return {}
+
+    out: dict[str, dict[str, Any]] = {}
+    for key, example in examples.items():
+        if not isinstance(key, str) or not isinstance(example, dict):
+            continue
+        value = example.get("value")
+        if isinstance(value, dict):
+            out[key] = example
+    return out
+
+
+def _example_label(key: str, example: dict[str, Any]) -> str:
+    summary = str(example.get("summary") or "").strip()
+    if summary:
+        return summary
+    return key.replace("_", " ").title()
+
+
 def build_response_example(operation: dict[str, Any], components: dict[str, Any]) -> dict[str, Any] | None:
     responses = operation.get("responses", {})
     if not isinstance(responses, dict):
@@ -156,8 +187,14 @@ def build_postman_item(
     method: str,
     operation: dict[str, Any],
     components: dict[str, Any],
+    body_payload_override: dict[str, Any] | None = None,
+    name_suffix: str | None = None,
 ) -> dict[str, Any]:
-    body_payload = build_request_body(operation, components)
+    body_payload = (
+        body_payload_override
+        if body_payload_override is not None
+        else build_request_body(operation, components)
+    )
     response_example = build_response_example(operation, components)
 
     headers: list[dict[str, str]] = []
@@ -188,7 +225,7 @@ def build_postman_item(
         }
 
     item = {
-        "name": f"{method.upper()} {path}",
+        "name": f"{method.upper()} {path}" + (f" - {name_suffix}" if name_suffix else ""),
         "request": request_payload,
         "response": [],
         "description": operation.get("summary", ""),
@@ -213,16 +250,24 @@ def build_curl_block(
     method: str,
     operation: dict[str, Any],
     components: dict[str, Any],
+    body_payload_override: dict[str, Any] | None = None,
+    label_suffix: str | None = None,
 ) -> str:
     lines: list[str] = []
     summary = operation.get("summary", "").strip()
+    if label_suffix:
+        summary = f"{summary} ({label_suffix})" if summary else label_suffix
     if summary:
         lines.append(f"# {method.upper()} {path} - {summary}")
     else:
         lines.append(f"# {method.upper()} {path}")
 
     base = f'curl -sS -X {method.upper()} "${{BASE_URL}}{path}"'
-    body_payload = build_request_body(operation, components)
+    body_payload = (
+        body_payload_override
+        if body_payload_override is not None
+        else build_request_body(operation, components)
+    )
 
     if body_payload is None and not path.startswith("/classify"):
         lines.append(base)
@@ -242,6 +287,26 @@ def build_curl_block(
         lines[-1] = lines[-1].rstrip(" \\")
 
     return "\n".join(lines)
+
+
+def write_adapter_surface_examples(openapi: dict[str, Any], output_dir: Path) -> Path:
+    review_operation = openapi.get("paths", {}).get("/review", {}).get("post", {})
+    examples = build_request_examples(review_operation) if isinstance(review_operation, dict) else {}
+    payload = {
+        "schema": "junas.adapter_surface_review_examples.v1",
+        "source": "OpenAPI /review requestBody application/json examples",
+        "examples": {
+            key: {
+                "summary": example.get("summary", ""),
+                "description": example.get("description", ""),
+                "value": example["value"],
+            }
+            for key, example in examples.items()
+        },
+    }
+    output_path = output_dir / "adapter_surface_review_examples.json"
+    output_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return output_path
 
 
 HERO_MARKER_START = "<!-- JUNAS_REVIEW_HERO_START -->"
@@ -490,7 +555,25 @@ def main() -> int:
             {"key": "junasApiKey", "value": "dev-secret"},
             {"key": "junasLocalToken", "value": ""},
         ],
-        "item": [
+        "item": [],
+    }
+    for path, method, operation in operations:
+        request_examples = build_request_examples(operation)
+        if request_examples:
+            for key, example in request_examples.items():
+                collection["item"].append(
+                    build_postman_item(
+                        base_url_var="baseUrl",
+                        path=path,
+                        method=method,
+                        operation=operation,
+                        components=components,
+                        body_payload_override=example["value"],
+                        name_suffix=_example_label(key, example),
+                    )
+                )
+            continue
+        collection["item"].append(
             build_postman_item(
                 base_url_var="baseUrl",
                 path=path,
@@ -498,9 +581,7 @@ def main() -> int:
                 operation=operation,
                 components=components,
             )
-            for path, method, operation in operations
-        ],
-    }
+        )
 
     postman_path = output_dir / "junas.postman_collection.json"
     postman_path.write_text(json.dumps(collection, indent=2) + "\n", encoding="utf-8")
@@ -516,20 +597,36 @@ def main() -> int:
     for index, (path, method, operation) in enumerate(operations):
         if index > 0:
             curl_lines.append("")
-        curl_lines.append(
-            build_curl_block(path=path, method=method, operation=operation, components=components)
-        )
+        request_examples = build_request_examples(operation)
+        if request_examples:
+            for example_index, (key, example) in enumerate(request_examples.items()):
+                if example_index > 0:
+                    curl_lines.append("")
+                curl_lines.append(
+                    build_curl_block(
+                        path=path,
+                        method=method,
+                        operation=operation,
+                        components=components,
+                        body_payload_override=example["value"],
+                        label_suffix=_example_label(key, example),
+                    )
+                )
+            continue
+        curl_lines.append(build_curl_block(path=path, method=method, operation=operation, components=components))
 
     curl_path = output_dir / "curl_snippets.sh"
     curl_path.write_text("\n".join(curl_lines) + "\n", encoding="utf-8")
     curl_path.chmod(0o755)
 
+    adapter_examples_path = write_adapter_surface_examples(openapi, output_dir)
     hero_paths = write_review_hero_artifacts(output_dir)
     if not args.skip_readme_hero:
         update_readme_hero(ROOT / "README.md", hero_paths["markdown"].read_text(encoding="utf-8").rstrip())
 
     print(f"Wrote {postman_path}")
     print(f"Wrote {curl_path}")
+    print(f"Wrote {adapter_examples_path}")
     print(f"Wrote {hero_paths['request']}")
     print(f"Wrote {hero_paths['response']}")
     print(f"Wrote {hero_paths['markdown']}")

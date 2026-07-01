@@ -326,6 +326,70 @@
       "description": "Classify multiple documents"
     },
     {
+      "name": "GET /demo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/demo",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "demo"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Serve deterministic public demo playground"
+    },
+    {
+      "name": "POST /demo/review",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/demo/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "demo",
+            "review"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/demo/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "demo",
+                "review"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Run deterministic public demo review"
+    },
+    {
       "name": "GET /diagnostics",
       "request": {
         "method": "GET",
@@ -1238,7 +1302,7 @@
       "description": "Request reviewer approval"
     },
     {
-      "name": "POST /review",
+      "name": "POST /review - Outlook Smart Alerts email send",
       "request": {
         "method": "POST",
         "header": [
@@ -1258,7 +1322,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"actor_role\": \"end_user\",\n  \"attachment_count\": 1,\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"research_note\",\n  \"entity_id\": \"Acme Corp\",\n  \"external_destination\": true,\n  \"include_suggestions\": true,\n  \"recipient_count\": 1,\n  \"recipient_domains\": [\n    \"example.com\"\n  ],\n  \"requested_action\": \"send\",\n  \"sensitivity_label\": \"confidential\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.\",\n  \"workflow\": \"email_send\"\n}",
+          "raw": "{\n  \"text\": \"Subject: Project Atlas draft\\n\\nSend Dr Jane Tan S1234567D the confidential acquisition summary to outside counsel.\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"surface\": \"outlook\",\n  \"workflow\": \"email_send\",\n  \"actor_role\": \"end_user\",\n  \"recipient_domains\": [\n    \"outside-counsel.example\"\n  ],\n  \"recipient_count\": 2,\n  \"attachment_count\": 1,\n  \"sensitivity_label\": \"confidential\",\n  \"external_destination\": true,\n  \"requested_action\": \"send\",\n  \"degraded_policy\": \"block_send\",\n  \"include_suggestions\": true\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1288,7 +1352,295 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"actor_role\": \"end_user\",\n  \"attachment_count\": 1,\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"research_note\",\n  \"entity_id\": \"Acme Corp\",\n  \"external_destination\": true,\n  \"include_suggestions\": true,\n  \"recipient_count\": 1,\n  \"recipient_domains\": [\n    \"example.com\"\n  ],\n  \"requested_action\": \"send\",\n  \"sensitivity_label\": \"confidential\",\n  \"source_jurisdiction\": \"SG\",\n  \"surface\": \"outlook\",\n  \"text\": \"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.\",\n  \"workflow\": \"email_send\"\n}",
+              "raw": "{\n  \"text\": \"Subject: Project Atlas draft\\n\\nSend Dr Jane Tan S1234567D the confidential acquisition summary to outside counsel.\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"surface\": \"outlook\",\n  \"workflow\": \"email_send\",\n  \"actor_role\": \"end_user\",\n  \"recipient_domains\": [\n    \"outside-counsel.example\"\n  ],\n  \"recipient_count\": 2,\n  \"attachment_count\": 1,\n  \"sensitivity_label\": \"confidential\",\n  \"external_destination\": true,\n  \"requested_action\": \"send\",\n  \"degraded_policy\": \"block_send\",\n  \"include_suggestions\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Review a document before sending"
+    },
+    {
+      "name": "POST /review - Browser GenAI prompt submit",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Summarize this non-public Project Raven acquisition note for a ChatGPT prompt.\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"prompt\",\n  \"surface\": \"browser_genai\",\n  \"workflow\": \"prompt_submit\",\n  \"actor_role\": \"end_user\",\n  \"recipient_domains\": [\n    \"chatgpt.com\"\n  ],\n  \"recipient_count\": 1,\n  \"attachment_count\": 0,\n  \"external_destination\": true,\n  \"requested_action\": \"submit\",\n  \"include_suggestions\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Summarize this non-public Project Raven acquisition note for a ChatGPT prompt.\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"prompt\",\n  \"surface\": \"browser_genai\",\n  \"workflow\": \"prompt_submit\",\n  \"actor_role\": \"end_user\",\n  \"recipient_domains\": [\n    \"chatgpt.com\"\n  ],\n  \"recipient_count\": 1,\n  \"attachment_count\": 0,\n  \"external_destination\": true,\n  \"requested_action\": \"submit\",\n  \"include_suggestions\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Review a document before sending"
+    },
+    {
+      "name": "POST /review - DMS document upload",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"document_base64\": \"RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUgYW5ub3VuY2VtZW50Lg==\",\n  \"document_filename\": \"board-memo.txt\",\n  \"document_mime_type\": \"text/plain\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"dms_document\",\n  \"surface\": \"dms\",\n  \"workflow\": \"document_upload\",\n  \"actor_role\": \"service_account\",\n  \"attachment_count\": 2,\n  \"external_destination\": false,\n  \"requested_action\": \"upload\",\n  \"matter_id\": \"imanage:M123\",\n  \"session_id\": \"upload-M123-001\",\n  \"include_suggestions\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_base64\": \"RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUgYW5ub3VuY2VtZW50Lg==\",\n  \"document_filename\": \"board-memo.txt\",\n  \"document_mime_type\": \"text/plain\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"dms_document\",\n  \"surface\": \"dms\",\n  \"workflow\": \"document_upload\",\n  \"actor_role\": \"service_account\",\n  \"attachment_count\": 2,\n  \"external_destination\": false,\n  \"requested_action\": \"upload\",\n  \"matter_id\": \"imanage:M123\",\n  \"session_id\": \"upload-M123-001\",\n  \"include_suggestions\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Review a document before sending"
+    },
+    {
+      "name": "POST /review - Desktop watcher file review",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"document_base64\": \"TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRlbnRpYWwgUTEgZ3VpZGFuY2Uu\",\n  \"document_filename\": \"local-draft.txt\",\n  \"document_mime_type\": \"text/plain\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"desktop_file\",\n  \"surface\": \"desktop\",\n  \"workflow\": \"desktop_watch\",\n  \"actor_role\": \"end_user\",\n  \"attachment_count\": 1,\n  \"external_destination\": false,\n  \"requested_action\": \"review\",\n  \"session_id\": \"desktop-watch-001\",\n  \"include_suggestions\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_base64\": \"TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRlbnRpYWwgUTEgZ3VpZGFuY2Uu\",\n  \"document_filename\": \"local-draft.txt\",\n  \"document_mime_type\": \"text/plain\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"desktop_file\",\n  \"surface\": \"desktop\",\n  \"workflow\": \"desktop_watch\",\n  \"actor_role\": \"end_user\",\n  \"attachment_count\": 1,\n  \"external_destination\": false,\n  \"requested_action\": \"review\",\n  \"session_id\": \"desktop-watch-001\",\n  \"include_suggestions\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"action_catalog\": [\n    \"redact_pii\",\n    \"pseudonymize\",\n    \"safe_rewrite\",\n    \"cite_public_source\",\n    \"request_approval\",\n    \"hold_until_public\",\n    \"proceed_with_warning\"\n  ],\n  \"classification\": \"HIGH_RISK\",\n  \"degraded_policy\": \"warn\",\n  \"destination_jurisdiction\": \"US\",\n  \"document\": {\n    \"char_count\": 112,\n    \"extraction_method\": \"inline_text\",\n    \"filename\": \"inline.txt\",\n    \"mime_type\": \"text/plain\"\n  },\n  \"document_score\": 91.0,\n  \"document_type\": \"research_note\",\n  \"findings\": [\n    {\n      \"category\": \"PII\",\n      \"end_char\": 34,\n      \"id\": \"pii:sg_nric_fin:25:34:0\",\n      \"jurisdiction\": \"SG\",\n      \"legal_basis\": \"SG_PDPA_PERSONAL_DATA, SG_PDPA_SENSITIVE_CONTEXT\",\n      \"matched_text\": \"S1234567D\",\n      \"reason\": \"Singapore NRIC/FIN-like identifier\",\n      \"rule\": \"sg_nric_fin\",\n      \"score\": 85.0,\n      \"severity\": \"high\",\n      \"start_char\": 25\n    }\n  ],\n  \"jurisdiction_policy\": \"strictest_wins\",\n  \"jurisdictions_applied\": [\n    \"SG\",\n    \"US\"\n  ],\n  \"mnpi_score\": 91.0,\n  \"overall_risk\": \"HIGH_RISK\",\n  \"pii_score\": 85.0,\n  \"policy_decision\": {\n    \"blocking_findings\": [\n      \"pii:sg_nric_fin:25:34:0\"\n    ],\n    \"decision\": \"rewrite_required\",\n    \"policy_id\": \"default\",\n    \"policy_reasons\": [\n      \"high-risk PII requires safe rewrite or reviewer approval before send\"\n    ],\n    \"policy_version\": \"2026-06-14\",\n    \"recommended_actions\": [],\n    \"required_actions\": [\n      \"redact_pii\",\n      \"request_approval\",\n      \"safe_rewrite\"\n    ],\n    \"review_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n    \"send_allowed\": false\n  },\n  \"privacy_ledger\": [],\n  \"request_id\": \"b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb\",\n  \"review_expires_at\": \"2026-06-14T09:35:00Z\",\n  \"review_profile\": \"strict\",\n  \"send_allowed\": false,\n  \"source_jurisdiction\": \"SG\",\n  \"suggestions\": [\n    {\n      \"action\": \"redact\",\n      \"finding_id\": \"pii:sg_nric_fin:25:34:0\",\n      \"id\": \"suggestion:0\",\n      \"rationale\": \"Remove or mask personal data unless it is necessary for the recipient and purpose.\",\n      \"replacement_text\": \"[REDACTED PERSONAL DATA]\"\n    }\n  ],\n  \"timings_ms\": {\n    \"review\": 3.2,\n    \"total\": 3.2\n  }\n}"
+        }
+      ],
+      "description": "Review a document before sending"
+    },
+    {
+      "name": "POST /review - Direct API review",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Gateway payload: Acme Corp will acquire GlobalTech before announcement.\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"HK\",\n  \"document_type\": \"service_payload\",\n  \"surface\": \"api\",\n  \"workflow\": \"api_review\",\n  \"actor_role\": \"platform_integrator\",\n  \"recipient_domains\": [\n    \"counterparty.example\"\n  ],\n  \"recipient_count\": 1,\n  \"attachment_count\": 0,\n  \"external_destination\": true,\n  \"requested_action\": \"review\",\n  \"entity_id\": \"Acme Corp\",\n  \"include_suggestions\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "name": "Example 200 response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "review"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"Gateway payload: Acme Corp will acquire GlobalTech before announcement.\",\n  \"source_jurisdiction\": \"SG\",\n  \"destination_jurisdiction\": \"HK\",\n  \"document_type\": \"service_payload\",\n  \"surface\": \"api\",\n  \"workflow\": \"api_review\",\n  \"actor_role\": \"platform_integrator\",\n  \"recipient_domains\": [\n    \"counterparty.example\"\n  ],\n  \"recipient_count\": 1,\n  \"attachment_count\": 0,\n  \"external_destination\": true,\n  \"requested_action\": \"review\",\n  \"entity_id\": \"Acme Corp\",\n  \"include_suggestions\": true\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1378,7 +1730,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"action\": \"reject\",\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\"\n}",
+          "raw": "{\n  \"action\": \"reject\",\n  \"decision_taxonomy\": \"false_positive\",\n  \"detector_feedback\": {\n    \"category\": \"PII\",\n    \"detector_issue_category\": \"defined_term_or_placeholder\",\n    \"evidence_hashes\": [\n      \"9b86d081884c7d659a2feaa0c55ad015\"\n    ],\n    \"notes\": \"Defined term in contract preamble\",\n    \"rule_id\": \"named_person\",\n    \"severity\": \"low\"\n  },\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\",\n  \"reviewer_confidence\": 0.85\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1410,7 +1762,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"action\": \"reject\",\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\"\n}",
+              "raw": "{\n  \"action\": \"reject\",\n  \"decision_taxonomy\": \"false_positive\",\n  \"detector_feedback\": {\n    \"category\": \"PII\",\n    \"detector_issue_category\": \"defined_term_or_placeholder\",\n    \"evidence_hashes\": [\n      \"9b86d081884c7d659a2feaa0c55ad015\"\n    ],\n    \"notes\": \"Defined term in contract preamble\",\n    \"rule_id\": \"named_person\",\n    \"severity\": \"low\"\n  },\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\",\n  \"reviewer_confidence\": 0.85\n}",
               "options": {
                 "raw": {
                   "language": "json"

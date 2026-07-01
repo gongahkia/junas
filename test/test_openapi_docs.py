@@ -1,9 +1,13 @@
+import json
 import unittest
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
 import junas.backend.main as main
+
+ROOT = Path(__file__).resolve().parent.parent
 
 
 @asynccontextmanager
@@ -125,6 +129,28 @@ class OpenApiDocsTests(unittest.TestCase):
         classify_response = schemas["ClassifyResponse"]
         self.assertIn("findings", classify_response["properties"])
         self.assertIn("Deprecated compatibility field", classify_response["properties"]["mosaic"]["description"])
+
+    def test_review_openapi_examples_cover_adapter_surfaces(self):
+        main.app.openapi_schema = None
+        with TestClient(main.app) as client:
+            response = client.get("/openapi.json")
+            self.assertEqual(response.status_code, 200)
+        payload = response.json()
+
+        examples = payload["paths"]["/review"]["post"]["requestBody"]["content"]["application/json"]["examples"]
+        artifact = json.loads((ROOT / "docs" / "api" / "adapter_surface_review_examples.json").read_text())
+        expected_surfaces = {"outlook", "browser_genai", "dms", "desktop", "api"}
+        self.assertEqual({example["value"]["surface"] for example in examples.values()}, expected_surfaces)
+        self.assertEqual({entry["value"]["surface"] for entry in artifact["examples"].values()}, expected_surfaces)
+        for key in (
+            "outlook_email_send",
+            "browser_genai_prompt_submit",
+            "dms_document_upload",
+            "desktop_watch",
+            "api_review",
+        ):
+            self.assertIn(key, examples)
+            self.assertIn(key, artifact["examples"])
 
 
 if __name__ == "__main__":

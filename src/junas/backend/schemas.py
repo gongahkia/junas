@@ -105,26 +105,125 @@ class BatchClassifyRequest(BaseModel):
     )
 
 
+ADAPTER_SURFACE_REVIEW_EXAMPLES: dict[str, dict[str, Any]] = {
+    "outlook_email_send": {
+        "summary": "Outlook Smart Alerts email send",
+        "description": "Pre-send email review with recipient domains and attachment count only.",
+        "value": {
+            "text": (
+                "Subject: Project Atlas draft\n\n"
+                "Send Dr Jane Tan S1234567D the confidential acquisition summary to outside counsel."
+            ),
+            "source_jurisdiction": "SG",
+            "destination_jurisdiction": "US",
+            "document_type": "email",
+            "surface": "outlook",
+            "workflow": "email_send",
+            "actor_role": "end_user",
+            "recipient_domains": ["outside-counsel.example"],
+            "recipient_count": 2,
+            "attachment_count": 1,
+            "sensitivity_label": "confidential",
+            "external_destination": True,
+            "requested_action": "send",
+            "degraded_policy": "block_send",
+            "include_suggestions": True,
+        },
+    },
+    "browser_genai_prompt_submit": {
+        "summary": "Browser GenAI prompt submit",
+        "description": "Prompt review before submission to a hosted GenAI surface.",
+        "value": {
+            "text": "Summarize this non-public Project Raven acquisition note for a ChatGPT prompt.",
+            "source_jurisdiction": "SG",
+            "destination_jurisdiction": "US",
+            "document_type": "prompt",
+            "surface": "browser_genai",
+            "workflow": "prompt_submit",
+            "actor_role": "end_user",
+            "recipient_domains": ["chatgpt.com"],
+            "recipient_count": 1,
+            "attachment_count": 0,
+            "external_destination": True,
+            "requested_action": "submit",
+            "include_suggestions": True,
+        },
+    },
+    "dms_document_upload": {
+        "summary": "DMS document upload",
+        "description": "Service-side DMS check-in review using matter/session context.",
+        "value": {
+            "document_base64": (
+                "RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUg"
+                "YW5ub3VuY2VtZW50Lg=="
+            ),
+            "document_filename": "board-memo.txt",
+            "document_mime_type": "text/plain",
+            "source_jurisdiction": "SG",
+            "destination_jurisdiction": "US",
+            "document_type": "dms_document",
+            "surface": "dms",
+            "workflow": "document_upload",
+            "actor_role": "service_account",
+            "attachment_count": 2,
+            "external_destination": False,
+            "requested_action": "upload",
+            "matter_id": "imanage:M123",
+            "session_id": "upload-M123-001",
+            "include_suggestions": True,
+        },
+    },
+    "desktop_watch": {
+        "summary": "Desktop watcher file review",
+        "description": "Opt-in local file review from the desktop watcher/local daemon path.",
+        "value": {
+            "document_base64": (
+                "TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRl"
+                "bnRpYWwgUTEgZ3VpZGFuY2Uu"
+            ),
+            "document_filename": "local-draft.txt",
+            "document_mime_type": "text/plain",
+            "source_jurisdiction": "SG",
+            "destination_jurisdiction": "SG",
+            "document_type": "desktop_file",
+            "surface": "desktop",
+            "workflow": "desktop_watch",
+            "actor_role": "end_user",
+            "attachment_count": 1,
+            "external_destination": False,
+            "requested_action": "review",
+            "session_id": "desktop-watch-001",
+            "include_suggestions": True,
+        },
+    },
+    "api_review": {
+        "summary": "Direct API review",
+        "description": "Direct service integration using the baseline HTTP contract.",
+        "value": {
+            "text": "Gateway payload: Acme Corp will acquire GlobalTech before announcement.",
+            "source_jurisdiction": "SG",
+            "destination_jurisdiction": "HK",
+            "document_type": "service_payload",
+            "surface": "api",
+            "workflow": "api_review",
+            "actor_role": "platform_integrator",
+            "recipient_domains": ["counterparty.example"],
+            "recipient_count": 1,
+            "attachment_count": 0,
+            "external_destination": True,
+            "requested_action": "review",
+            "entity_id": "Acme Corp",
+            "include_suggestions": True,
+        },
+    },
+}
+
+
 class ReviewRequest(BaseModel):
     model_config = ConfigDict(
         json_schema_extra={
-            "example": {
-                "text": "Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.",
-                "source_jurisdiction": "SG",
-                "destination_jurisdiction": "SG",
-                "document_type": "research_note",
-                "entity_id": "Acme Corp",
-                "surface": "outlook",
-                "workflow": "email_send",
-                "actor_role": "end_user",
-                "recipient_domains": ["example.com"],
-                "recipient_count": 1,
-                "attachment_count": 1,
-                "sensitivity_label": "confidential",
-                "external_destination": True,
-                "requested_action": "send",
-                "include_suggestions": True,
-            }
+            "example": ADAPTER_SURFACE_REVIEW_EXAMPLES["outlook_email_send"]["value"],
+            "examples": [example["value"] for example in ADAPTER_SURFACE_REVIEW_EXAMPLES.values()],
         }
     )
 
