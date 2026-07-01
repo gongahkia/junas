@@ -6,6 +6,7 @@ const DEFAULTS = {
   interceptPaste: false,
   token: ""
 };
+const JUNAS_BACKEND_TIMEOUT_MS = 8000;
 
 async function settings() {
   return chrome.storage.sync.get(DEFAULTS);
@@ -26,10 +27,25 @@ async function callJunas(text, requestedOperation) {
     review_profile: "strict",
     degraded_policy: "warn"
   };
-  const response = await fetch(`${cfg.endpoint}/${op}`, {method: "POST", headers, body: JSON.stringify(body)});
-  if (!response.ok) throw new Error(`junas ${response.status}`);
-  const result = await response.json();
-  return {operation: op, result, replacementText: replacementText(op, result)};
+  const controller = typeof AbortController === "function" ? new AbortController() : null;
+  let timedOut = false;
+  const timer = controller ? setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, JUNAS_BACKEND_TIMEOUT_MS) : null;
+  try {
+    const options = {method: "POST", headers, body: JSON.stringify(body)};
+    if (controller) options.signal = controller.signal;
+    const response = await fetch(`${cfg.endpoint}/${op}`, options);
+    if (!response.ok) throw new Error(`junas ${response.status}`);
+    const result = await response.json();
+    return {operation: op, result, replacementText: replacementText(op, result)};
+  } catch (error) {
+    if (timedOut) throw new Error("backend_timeout");
+    throw error;
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
 }
 
 function replacementText(operation, result) {

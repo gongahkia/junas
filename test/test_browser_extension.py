@@ -84,6 +84,15 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("insertText(target, text, insertionPoint)", text)
         self.assertIn("degraded_modes", text)
         self.assertIn("send_allowed", text)
+        self.assertIn("browserTelemetry", text)
+        self.assertIn("junas.browser.telemetry.v1", text)
+        self.assertIn("browser_prompt_review_started", text)
+        self.assertIn("browser_policy_decision_received", text)
+        self.assertIn("browser_user_canceled", text)
+        self.assertIn("browser_user_rewrote", text)
+        self.assertIn("browser_user_proceeded_after_warning", text)
+        self.assertIn("browser_selector_failure", text)
+        self.assertIn("browser_backend_timeout", text)
 
     def test_worker_routes_all_privacy_operations(self):
         text = (EXT / "service_worker.js").read_text(encoding="utf-8")
@@ -98,6 +107,8 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("result.anonymized_text", text)
         self.assertIn("result.redacted_text", text)
         self.assertIn('"junas-process-text"', text)
+        self.assertIn("JUNAS_BACKEND_TIMEOUT_MS", text)
+        self.assertIn('"backend_timeout"', text)
 
     def test_browser_scripts_do_not_store_or_log_prompt_text(self):
         content = (EXT / "content.js").read_text(encoding="utf-8")

@@ -505,6 +505,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const contentSource = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
             const listeners = {};
             const messages = [];
+            const telemetry = [];
             let clicked = 0;
             let confirmed = "";
             const prompt = {
@@ -537,6 +538,7 @@ class FrontendIntegrationTests(unittest.TestCase):
                   return true;
                 }
               },
+              junasTelemetrySink: (event) => telemetry.push(event),
               document: {
                 addEventListener(name, fn) {
                   listeners[name] = fn;
@@ -605,6 +607,149 @@ class FrontendIntegrationTests(unittest.TestCase):
               assert.strictEqual(messages[0].text, "warn before submit");
               assert.match(confirmed, /Submit anyway/);
               assert.strictEqual(clicked, 1);
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), [
+                "browser_prompt_review_started",
+                "browser_policy_decision_received",
+                "browser_user_proceeded_after_warning"
+              ]);
+              assert.strictEqual(telemetry[0].schema_version, "junas.browser.telemetry.v1");
+              assert.strictEqual(telemetry[0].surface, "browser_genai");
+              assert.strictEqual(telemetry[0].workflow, "prompt_submit");
+              assert.strictEqual(telemetry[1].details.decision, "warn");
+              assert.strictEqual(telemetry[1].details.finding_count, 1);
+              assert.strictEqual(telemetry[2].details.decision, "warn");
+              assert.ok(!JSON.stringify(telemetry).includes("warn before submit"));
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_browser_content_telemetry_covers_cancel_rewrite_selector_and_timeout(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
+            const listeners = {};
+            const telemetry = [];
+            const prompt = {
+              tagName: "TEXTAREA",
+              value: "secret prompt alice@example.com",
+              type: "",
+              selectionStart: 0,
+              selectionEnd: 0,
+              isContentEditable: false,
+              setRangeText(text) {
+                this.value = text;
+              },
+              dispatchEvent() {}
+            };
+            const context = {
+              setTimeout: () => 0,
+              InputEvent: function InputEvent() {},
+              window: {
+                location: {hostname: "chatgpt.com"},
+                getSelection: () => null,
+                confirm: () => false
+              },
+              junasTelemetrySink: (event) => telemetry.push(event),
+              document: {
+                addEventListener(name, fn) {
+                  listeners[name] = fn;
+                },
+                getElementById() {
+                  return null;
+                },
+                createElement() {
+                  return {style: {}, remove() {}};
+                },
+                documentElement: {appendChild() {}},
+                execCommand() {}
+              },
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({...defaults, interceptPaste: true, operation: "redact"})
+                  },
+                  onChanged: {addListener() {}}
+                },
+                runtime: {
+                  onMessage: {addListener() {}},
+                  sendMessage: async () => ({
+                    ok: true,
+                    result: {
+                      findings: [{rule: "email_address"}],
+                      degraded_modes: [],
+                      request_id: "req-1",
+                      policy_decision: {
+                        decision: "warn",
+                        send_allowed: true,
+                        review_id: "rev-1",
+                        policy_id: "default",
+                        policy_version: "2026-06-14",
+                        recommended_actions: ["proceed_with_warning"]
+                      }
+                    }
+                  })
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "content.js"});
+
+            (async () => {
+              await Promise.resolve();
+              const allowed = await context.reviewBeforeSubmit(prompt);
+              assert.strictEqual(allowed, false);
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), [
+                "browser_prompt_review_started",
+                "browser_policy_decision_received",
+                "browser_user_canceled"
+              ]);
+              assert.strictEqual(telemetry[1].details.review_id, "rev-1");
+              assert.strictEqual(telemetry[2].details.decision, "warn");
+
+              telemetry.length = 0;
+              context.reportSelectorFailure("prompt");
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), ["browser_selector_failure"]);
+              assert.strictEqual(telemetry[0].details.selector_kind, "prompt");
+
+              telemetry.length = 0;
+              context.chrome.runtime.sendMessage = async () => ({ok: false, error: "backend_timeout"});
+              const timeoutAllowed = await context.reviewBeforeSubmit(prompt);
+              assert.strictEqual(timeoutAllowed, false);
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), [
+                "browser_prompt_review_started",
+                "browser_backend_timeout"
+              ]);
+              assert.strictEqual(telemetry[1].details.backend_status, "timeout");
+              assert.strictEqual(telemetry[1].details.error_type, "backend_timeout");
+
+              telemetry.length = 0;
+              context.chrome.runtime.sendMessage = async () => ({
+                ok: true,
+                operation: "redact",
+                replacementText: "[redacted]",
+                result: {findings: [], degraded_modes: [], send_allowed: true}
+              });
+              await listeners.paste({
+                target: prompt,
+                clipboardData: {getData: () => "rewrite this secret"},
+                preventDefault() {
+                  this.prevented = true;
+                }
+              });
+              assert.strictEqual(prompt.value, "[redacted]");
+              assert.deepStrictEqual(telemetry.map((event) => event.event_name), ["browser_user_rewrote"]);
+              assert.strictEqual(telemetry[0].details.operation, "redact");
+
+              const serializedTelemetry = JSON.stringify(telemetry);
+              assert.ok(!serializedTelemetry.includes("secret prompt"));
+              assert.ok(!serializedTelemetry.includes("alice@example.com"));
+              assert.ok(!serializedTelemetry.includes("rewrite this secret"));
             })().catch((error) => {
               console.error(error);
               process.exit(1);

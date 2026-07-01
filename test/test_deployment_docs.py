@@ -641,6 +641,17 @@ class DeploymentDocsTests(unittest.TestCase):
             'workflow="prompt_submit"',
             "browser-enterprise-deployment.md",
             "test/test_browser_extension_playwright.py",
+            "Telemetry Events",
+            "junas.browser.telemetry.v1",
+            "browser_prompt_review_started",
+            "browser_policy_decision_received",
+            "browser_user_canceled",
+            "browser_user_rewrote",
+            "browser_user_proceeded_after_warning",
+            "browser_selector_failure",
+            "browser_backend_timeout",
+            "globalThis.junasTelemetrySink(event)",
+            "must not include raw prompt text",
         ):
             self.assertIn(token, text)
 

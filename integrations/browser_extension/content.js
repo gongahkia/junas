@@ -5,6 +5,25 @@ const DEFAULTS = {
   reviewBeforeSubmit: false,
   token: ""
 };
+const JUNAS_TELEMETRY_SCHEMA = "junas.browser.telemetry.v1";
+const JUNAS_TELEMETRY_KEYS = new Set([
+  "backend_status",
+  "decision",
+  "degraded_count",
+  "error_type",
+  "finding_count",
+  "operation",
+  "outcome",
+  "policy_id",
+  "policy_version",
+  "recommended_actions",
+  "request_id",
+  "required_actions",
+  "review_id",
+  "selector_kind",
+  "send_allowed",
+  "timeout_ms"
+]);
 let currentSettings = {...DEFAULTS};
 let bypassNextSubmit = false;
 
@@ -40,6 +59,76 @@ function showPanel(text) {
   panel.textContent = text;
   document.documentElement.appendChild(panel);
   setTimeout(() => panel.remove(), 9000);
+}
+
+function telemetryDetails(details) {
+  const sanitized = {};
+  for (const key of JUNAS_TELEMETRY_KEYS) {
+    if (!Object.prototype.hasOwnProperty.call(details, key)) continue;
+    const value = details[key];
+    if (Array.isArray(value)) sanitized[key] = value.map((item) => String(item).slice(0, 80)).sort();
+    else if (typeof value === "string") sanitized[key] = value.slice(0, 120);
+    else if (typeof value === "number" || typeof value === "boolean") sanitized[key] = value;
+  }
+  return sanitized;
+}
+
+function browserTelemetry(eventName, details) {
+  const event = {
+    schema_version: JUNAS_TELEMETRY_SCHEMA,
+    event_name: eventName,
+    surface: "browser_genai",
+    workflow: "prompt_submit",
+    timestamp: new Date().toISOString(),
+    details: telemetryDetails(details || {})
+  };
+  if (typeof globalThis.junasTelemetrySink === "function") {
+    try {
+      globalThis.junasTelemetrySink(event);
+    } catch (error) {}
+  }
+  if (typeof globalThis.dispatchEvent === "function" && typeof globalThis.CustomEvent === "function") {
+    try {
+      globalThis.dispatchEvent(new CustomEvent("junas:telemetry", {detail: event}));
+    } catch (error) {}
+  }
+  return event;
+}
+
+function telemetryFromResult(result, extra) {
+  const policy = result?.policy_decision || {};
+  const required = Array.isArray(policy.required_actions) ? policy.required_actions : [];
+  const recommended = Array.isArray(policy.recommended_actions) ? policy.recommended_actions : [];
+  return {
+    decision: policy.decision || "",
+    send_allowed: typeof policy.send_allowed === "boolean" ? policy.send_allowed : result?.send_allowed !== false,
+    review_id: policy.review_id || result?.review_id || result?.request_id || "",
+    request_id: result?.request_id || "",
+    policy_id: policy.policy_id || "",
+    policy_version: policy.policy_version || "",
+    finding_count: Array.isArray(result?.findings) ? result.findings.length : 0,
+    degraded_count: Array.isArray(result?.degraded_modes) ? result.degraded_modes.length : 0,
+    required_actions: required,
+    recommended_actions: recommended,
+    ...(extra || {})
+  };
+}
+
+function emitDecisionTelemetry(result, extra) {
+  const summary = telemetryFromResult(result, extra);
+  browserTelemetry("browser_policy_decision_received", summary);
+  return summary;
+}
+
+function emitBackendFailureTelemetry(error, extra) {
+  const message = String(error || "");
+  if (!message.includes("backend_timeout")) return;
+  browserTelemetry("browser_backend_timeout", {
+    backend_status: "timeout",
+    error_type: "backend_timeout",
+    timeout_ms: 8000,
+    ...(extra || {})
+  });
 }
 
 function isEditable(element) {
@@ -92,6 +181,7 @@ function reviewOutcome(result) {
 
 function reportSelectorFailure(kind) {
   const subject = kind === "submit" ? "submit button" : "prompt composer";
+  browserTelemetry("browser_selector_failure", {selector_kind: kind});
   showPanel(`Junas: ${subject} selector unavailable; submission was not blocked because no review ran.`);
 }
 
@@ -99,15 +189,20 @@ async function reviewBeforeSubmit(target) {
   const text = promptText(target).trim();
   if (!text) return true;
   showPanel("Junas: reviewing prompt");
+  browserTelemetry("browser_prompt_review_started", {operation: "review"});
   const response = await chrome.runtime.sendMessage({type: "junas-process-text", text, operation: "review"});
   if (!response?.ok) {
+    emitBackendFailureTelemetry(response?.error, {operation: "review"});
     showPanel(`Junas: ${response?.error || "review unavailable"}`);
     return false;
   }
   const outcome = reviewOutcome(response.result);
+  const summary = emitDecisionTelemetry(response.result, {operation: "review", outcome});
   if (outcome === "allow") return true;
   if (outcome === "warn") {
-    return window.confirm("Junas found review warnings. Submit anyway only if this matches policy.");
+    const proceed = window.confirm("Junas found review warnings. Submit anyway only if this matches policy.");
+    browserTelemetry(proceed ? "browser_user_proceeded_after_warning" : "browser_user_canceled", summary);
+    return proceed;
   }
   showPanel("Junas: policy blocked this prompt. Review or rewrite before submitting.");
   return false;
@@ -187,7 +282,11 @@ document.addEventListener("paste", async (event) => {
   const text = event.clipboardData?.getData("text/plain") || "";
   if (!text.trim()) return;
   if (cfg.operation === "review") {
-    chrome.runtime.sendMessage({type: "junas-process-text", text});
+    browserTelemetry("browser_prompt_review_started", {operation: "review"});
+    chrome.runtime.sendMessage({type: "junas-process-text", text}).then((response) => {
+      if (response?.ok) emitDecisionTelemetry(response.result, {operation: "review", outcome: reviewOutcome(response.result)});
+      else emitBackendFailureTelemetry(response?.error, {operation: "review"});
+    });
     return;
   }
   const insertionPoint = captureInsertionPoint(target);
@@ -195,8 +294,10 @@ document.addEventListener("paste", async (event) => {
   const response = await chrome.runtime.sendMessage({type: "junas-process-text", text});
   if (response?.ok && response.replacementText) {
     insertText(target, response.replacementText, insertionPoint);
+    browserTelemetry("browser_user_rewrote", {operation: response.operation || cfg.operation});
     return;
   }
+  emitBackendFailureTelemetry(response?.error, {operation: cfg.operation});
   insertText(target, text, insertionPoint);
   showPanel(`Junas: ${response?.error || "rewrite unavailable"}`);
 });
