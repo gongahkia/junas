@@ -67,3 +67,6 @@ Every aggregate report must include:
 `scripts/generate_product_value_report.py` reads Prometheus text metrics and writes `reports/product-value-report.json`
 with reviewed documents by surface, block rate, warn rate, rewrite rate, approval rate, and override rate. It ignores
 unknown metrics and emits only bounded labels and counts.
+
+Use `docs/product/pilot-success-rubric.md` to turn these metrics into pilot expansion,
+hold, or stop decisions.

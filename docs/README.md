@@ -40,6 +40,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/non-goals.md`: explicit control planes Junas does not replace
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
 - `product/value-metrics.md`: privacy-safe product value metrics and aggregation rules
+- `product/pilot-success-rubric.md`: measurable avoided-send, rewrite, reviewer-decision, and false-positive fatigue rubric for pilots
 - `product/glossary.md`: product vocabulary for review, rewrite, audit evidence, adapters, and surfaces
 - `product/review-examples.md`: same-contract `/review` examples for GenAI, email, legal memo, DMS, and Slack-style messages
 - `feedback-loop.md`: canonical journal-to-candidate-corpus path from reviewer decision to candidate fixture to promoted recall lock
