@@ -96,6 +96,25 @@ class DecisionStateMachineTests(unittest.TestCase):
                 decision=self.decisions_mod.Decision(finding_id="f1", action="archive"),
             )
 
+    def test_decision_taxonomy_contract_is_stable(self):
+        self.assertEqual(
+            self.decisions_mod.DECISION_TAXONOMY,
+            (
+                "false_positive",
+                "false_negative",
+                "acceptable_risk",
+                "public_source_confirmed",
+                "stale_information",
+                "policy_exception",
+            ),
+        )
+        self.assertEqual(
+            self.decisions_mod.normalize_decision_taxonomy(" false_positive "),
+            "false_positive",
+        )
+        with self.assertRaises(self.decisions_mod.ReviewSessionError):
+            self.decisions_mod.normalize_decision_taxonomy("detector_error")
+
     def test_findings_after_decisions_drops_rejected_keeps_undecided(self):
         self._seed_session()
         self.decisions_mod.record_decision(

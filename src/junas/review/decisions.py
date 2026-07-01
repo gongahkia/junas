@@ -24,7 +24,16 @@ DECISION_ACTIONS = (
     "request_changes",
     "hold",
 )
+DECISION_TAXONOMY = (
+    "false_positive",
+    "false_negative",
+    "acceptable_risk",
+    "public_source_confirmed",
+    "stale_information",
+    "policy_exception",
+)
 ALLOWED_ACTIONS = frozenset(DECISION_ACTIONS)
+ALLOWED_DECISION_TAXONOMY = frozenset(DECISION_TAXONOMY)
 REJECT_ACTIONS = frozenset({"reject"})
 AUTHORIZED_REVIEWER_IDENTITY_SOURCES = frozenset({"api_key", "jwt", "dev_header"})
 POSITIVE_CORPUS_ACTIONS = frozenset(
@@ -52,6 +61,13 @@ REVIEW_PERSIST_SPANS_ENV = "JUNAS_REVIEW_PERSIST_SPANS"
 
 class ReviewSessionError(ValueError):
     """Raised when a session cannot be located or a decision is invalid."""
+
+
+def normalize_decision_taxonomy(value: str) -> str:
+    taxonomy = value.strip()
+    if taxonomy not in ALLOWED_DECISION_TAXONOMY:
+        raise ReviewSessionError(f"decision_taxonomy must be one of {sorted(ALLOWED_DECISION_TAXONOMY)}; got '{value}'")
+    return taxonomy
 
 
 @dataclass(frozen=True)

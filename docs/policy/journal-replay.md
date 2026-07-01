@@ -8,6 +8,10 @@ storage.
 
 ## Action Compatibility
 
+Decision taxonomy is documented separately in
+`docs/policy/decision-taxonomy.md`. Taxonomy labels explain feedback meaning, while
+actions below explain workflow state.
+
 Legacy actions remain valid:
 
 - `accept`: finding is accepted as valid.

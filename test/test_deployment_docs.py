@@ -577,6 +577,40 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_decision_taxonomy_doc_defines_allowed_feedback_labels(self):
+        text = (ROOT / "docs" / "policy" / "decision-taxonomy.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        journal_replay = (ROOT / "docs" / "policy" / "journal-replay.md").read_text(
+            encoding="utf-8"
+        )
+        feedback_loop = (ROOT / "docs" / "feedback-loop.md").read_text(encoding="utf-8")
+
+        self.assertIn("policy/decision-taxonomy.md", docs_index)
+        self.assertIn("docs/policy/decision-taxonomy.md", journal_replay)
+        self.assertIn("docs/policy/decision-taxonomy.md", feedback_loop)
+        for token in (
+            "Decision Taxonomy",
+            "`false_positive`",
+            "`false_negative`",
+            "`acceptable_risk`",
+            "`public_source_confirmed`",
+            "`stale_information`",
+            "`policy_exception`",
+            "orthogonal",
+            "review actions",
+            "finding id",
+            "rule",
+            "category",
+            "severity",
+            "hashes for text-bearing fields",
+            "do not require raw prompt",
+            "not as automatic training data",
+            "DECISION_TAXONOMY",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),

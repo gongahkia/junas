@@ -53,6 +53,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `policy/examples.md`: sample tenant policy profiles for strict, soft-warning, offline, audit-grade, and GenAI review modes
 - `policy/decision-contract.md`: adapter behavior for allow, warn, block, approval-required, and rewrite-required decisions
 - `policy/journal-replay.md`: backward-compatible replay rules for review decision journal actions
+- `policy/decision-taxonomy.md`: allowed privacy-safe feedback taxonomy labels for reviewer decisions and detector-quality work
 - `api/versioning.md`: `/v1` compatibility, `/classify` deprecation, and adapter schema pinning rules
 - `api/idempotency.md`: request id, retry, and adapter idempotency guidance
 - `api/`: generated Postman collection, cURL snippets, and Python client integration notes

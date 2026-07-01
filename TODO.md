@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/FeedbackLoop: Add a decision taxonomy for false_positive, false_negative, acceptable_risk, public_source_confirmed, stale_information, and policy_exception.
 - [ ] P0/FeedbackLoop: Extend review decision payloads to optionally capture decision taxonomy, reviewer confidence, and detector feedback without requiring raw text.
 - [ ] P0/FeedbackLoop: Add tests that feedback taxonomy persists in the journal and replays correctly in `get_session_state`.
 - [ ] P0/FeedbackLoop: Add a script that exports reviewer-rejected findings into a false-positive review queue with hashed document ids and fixture sidecar templates.

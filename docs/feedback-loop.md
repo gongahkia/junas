@@ -71,6 +71,12 @@ or local pairing token into a fixture task.
 
 ### 2. Categorize Feedback
 
+First assign one decision taxonomy label from `docs/policy/decision-taxonomy.md`:
+`false_positive`, `false_negative`, `acceptable_risk`, `public_source_confirmed`,
+`stale_information`, or `policy_exception`. Taxonomy is the audit-safe reviewer
+feedback meaning. Detector issue categories below are only for false-positive fixture
+work.
+
 Map the reviewer signal into one detector issue category from
 `docs/admin-console/false-positive-triage.md`, such as:
 
@@ -207,6 +213,7 @@ Every feedback-derived candidate label must preserve:
 ## Related Documents
 
 - `docs/admin-console/false-positive-triage.md`
+- `docs/policy/decision-taxonomy.md`
 - `docs/policy/journal-replay.md`
 - `docs/accuracy.md`
 - `docs/product/value-metrics.md`
