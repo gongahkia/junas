@@ -214,6 +214,47 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_review_session_list_endpoint_requirements(self):
+        text = (
+            ROOT / "docs" / "admin-console" / "review-session-list-endpoint.md"
+        ).read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/review-session-list-endpoint.md", docs_index)
+        self.assertIn("docs/admin-console/review-session-list-endpoint.md", requirements)
+        for token in (
+            "Review Session List Endpoint Requirements",
+            "GET /admin/review-sessions",
+            "read-only list of review-session metadata",
+            "Allowed production roles",
+            "`admin`",
+            "`auditor`",
+            "`checker`",
+            "local-dev-only reviewer headers",
+            "credential-derived tenant",
+            "must not accept `tenant_id`",
+            "cursor from another tenant",
+            "`limit`",
+            "maximum 100",
+            "`cursor`",
+            "opaque server-generated cursor",
+            "`decision`",
+            "`required_action`",
+            "No raw body exposure by default",
+            "no raw content or matched text",
+            "pagination stability",
+            "tenant isolation",
+            "role checks",
+            "`matched_text`",
+            "`original_text`",
+            "`recipient`",
+            "`filename`",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
