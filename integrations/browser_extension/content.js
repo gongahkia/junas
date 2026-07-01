@@ -90,6 +90,11 @@ function reviewOutcome(result) {
   return "allow";
 }
 
+function reportSelectorFailure(kind) {
+  const subject = kind === "submit" ? "submit button" : "prompt composer";
+  showPanel(`Junas: ${subject} selector unavailable; submission was not blocked because no review ran.`);
+}
+
 async function reviewBeforeSubmit(target) {
   const text = promptText(target).trim();
   if (!text) return true;
@@ -110,7 +115,15 @@ async function reviewBeforeSubmit(target) {
 
 async function guardPromptSubmit(event, target, submitButton) {
   const cfg = currentSettings;
-  if (!cfg.reviewBeforeSubmit || !target || !submitButton) return;
+  if (!cfg.reviewBeforeSubmit) return;
+  if (!target) {
+    reportSelectorFailure("prompt");
+    return;
+  }
+  if (!submitButton) {
+    reportSelectorFailure("submit");
+    return;
+  }
   if (bypassNextSubmit) {
     bypassNextSubmit = false;
     return;

@@ -67,7 +67,8 @@ For manual browser testing, load `integrations/browser_extension/` as an unpacke
 - Backend error or timeout: show a visible Junas error panel; do not silently replace text.
 - Rewrite failure: restore the original pasted text.
 - Degraded review: display degraded coverage and `send_allowed` status from the response.
-- Target DOM mismatch: fail as no capture rather than claiming enforcement.
+- Target DOM mismatch after submit detection: show a selector-unavailable panel and do not block submit because no backend policy was evaluated.
+- Unrecognized submit controls: fail as no capture rather than claiming enforcement; the extension cannot block a submit path it did not detect.
 
 ## QA Requirements Before Expanding Claims
 

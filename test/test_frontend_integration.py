@@ -390,6 +390,129 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_browser_content_selector_failures_do_not_block_without_review(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const adaptersSource = fs.readFileSync("integrations/browser_extension/adapters.js", "utf8");
+            const contentSource = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
+            const listeners = {};
+            const panels = [];
+            const messages = [];
+            const prompt = {
+              tagName: "TEXTAREA",
+              value: "selector fallback",
+              matches(selector) {
+                return selector === "[data-testid='prompt-textarea']" || selector === "textarea";
+              },
+              closest() {
+                return null;
+              }
+            };
+            const submitButton = {
+              matches(selector) {
+                return selector === "[data-testid='send-button']";
+              },
+              closest() {
+                return null;
+              },
+              click() {}
+            };
+            const context = {
+              setTimeout: () => 0,
+              window: {
+                location: {hostname: "chatgpt.com"},
+                confirm() {
+                  throw new Error("confirm should not run");
+                }
+              },
+              document: {
+                mode: "missing_prompt",
+                addEventListener(name, fn) {
+                  listeners[name] = fn;
+                },
+                getElementById() {
+                  return null;
+                },
+                createElement() {
+                  return {style: {}, remove() {}};
+                },
+                documentElement: {
+                  appendChild(panel) {
+                    panels.push(panel.textContent);
+                  }
+                },
+                querySelector(selector) {
+                  if (this.mode === "missing_prompt" && selector === "[data-testid='send-button']") return submitButton;
+                  if (this.mode === "missing_submit" && selector === "[data-testid='prompt-textarea']") return prompt;
+                  return null;
+                }
+              },
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({...defaults, reviewBeforeSubmit: true}),
+                    set: async () => {}
+                  },
+                  onChanged: {addListener() {}}
+                },
+                runtime: {
+                  onMessage: {addListener() {}},
+                  sendMessage: async (message) => {
+                    messages.push(message);
+                    return {ok: true, result: {findings: [], degraded_modes: [], send_allowed: true}};
+                  }
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(adaptersSource, context, {filename: "adapters.js"});
+            vm.runInContext(contentSource, context, {filename: "content.js"});
+
+            (async () => {
+              await Promise.resolve();
+              const clickEvent = {
+                target: submitButton,
+                preventDefault() {
+                  this.prevented = true;
+                },
+                stopImmediatePropagation() {
+                  this.stopped = true;
+                }
+              };
+              await listeners.click(clickEvent);
+              assert.strictEqual(clickEvent.prevented, undefined);
+              assert.strictEqual(clickEvent.stopped, undefined);
+              assert.strictEqual(messages.length, 0);
+              assert.match(panels[0], /prompt composer selector unavailable/);
+              assert.match(panels[0], /not blocked because no review ran/);
+
+              context.document.mode = "missing_submit";
+              const keyEvent = {
+                key: "Enter",
+                target: prompt,
+                preventDefault() {
+                  this.prevented = true;
+                },
+                stopImmediatePropagation() {
+                  this.stopped = true;
+                }
+              };
+              await listeners.keydown(keyEvent);
+              assert.strictEqual(keyEvent.prevented, undefined);
+              assert.strictEqual(keyEvent.stopped, undefined);
+              assert.strictEqual(messages.length, 0);
+              assert.match(panels[1], /submit button selector unavailable/);
+              assert.match(panels[1], /not blocked because no review ran/);
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
     def test_outlook_launch_event_blocks_degraded_review(self):
         self.run_node(
             r"""

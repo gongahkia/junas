@@ -67,6 +67,8 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("promptTarget(event.target)", text)
         self.assertIn("reviewBeforeSubmit", text)
         self.assertIn("guardPromptSubmit", text)
+        self.assertIn("reportSelectorFailure", text)
+        self.assertIn("submission was not blocked because no review ran", text)
         self.assertIn("reviewOutcome", text)
         self.assertIn("window.confirm", text)
         self.assertIn("JUNAS_BROWSER_ADAPTERS", text)

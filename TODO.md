@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/Browser: Add failure behavior for dynamic page changes where selectors fail, including no silent send-blocking unless policy was actually evaluated.
 - [ ] P1/Browser: Add privacy tests proving prompts are not saved in extension storage and are not logged by content scripts or service worker.
 - [ ] P1/Browser: Add enterprise deployment docs for Chrome ExtensionInstallForcelist and Edge ExtensionInstallForcelist with update URL requirements.
 - [ ] P1/Browser: Add manifest permission review that minimizes host permissions and documents why each permission is necessary.
