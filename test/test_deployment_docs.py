@@ -150,6 +150,57 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_docs_state_conditional_mapping_and_journal_guarantees(self):
+        docs = {
+            "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
+            "mapping-store-hardening.md": (ROOT / "docs" / "mapping-store-hardening.md").read_text(
+                encoding="utf-8"
+            ),
+            "threat-model.md": (ROOT / "docs" / "threat-model.md").read_text(encoding="utf-8"),
+            "admin-security.md": (ROOT / "docs" / "admin-security.md").read_text(encoding="utf-8"),
+            "statutory-coverage.md": (ROOT / "docs" / "statutory-coverage.md").read_text(
+                encoding="utf-8"
+            ),
+            "subject-erasure.md": (ROOT / "docs" / "security" / "subject-erasure.md").read_text(
+                encoding="utf-8"
+            ),
+            "journal-replay.md": (ROOT / "docs" / "policy" / "journal-replay.md").read_text(
+                encoding="utf-8"
+            ),
+        }
+        all_doc_paths = [ROOT / "README.md", *sorted((ROOT / "docs").rglob("*.md"))]
+        all_docs = "\n".join(path.read_text(encoding="utf-8") for path in all_doc_paths)
+
+        for path in ("mapping-store-hardening.md", "threat-model.md", "admin-security.md"):
+            text = docs[path]
+            self.assertIn("JUNAS_MAPPING_STORE_KEY", text)
+            self.assertIn("JUNAS_JOURNAL_KEY", text)
+            self.assertIn("JUNAS_JOURNAL_KEYS_FILE", text)
+        for token in (
+            "key-gated mapping encryption",
+            "persisted mapping files are not application-encrypted",
+            "Fernet-encrypted only when `JUNAS_MAPPING_STORE_KEY` is supplied",
+            "tamper-evident only when `JUNAS_JOURNAL_KEY` or",
+            "does not provide OS-level append-only storage",
+            "OS/filesystem layer is not append-only",
+            "Conditional mapping-store encryption",
+            "Conditional HMAC-chained review journal integrity",
+            "With configured journal keys",
+        ):
+            self.assertIn(token, all_docs)
+        for forbidden in (
+            "Encrypted local mapping store (Fernet, key-gated)",
+            "encrypted mappings, HMAC journal chain",
+            "The review journal is append-only",
+            "remain append-only",
+            "Append-only journals",
+            "immutable review-session findings",
+            "immutable journaled review sessions",
+            "immutable journals",
+            "HMAC journal and audit-pack export provide tamper-evident",
+        ):
+            self.assertNotIn(forbidden, all_docs)
+
     def test_data_retention_matrix_covers_required_artifacts(self):
         text = (ROOT / "docs" / "security" / "data-retention.md").read_text(encoding="utf-8")
         docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")

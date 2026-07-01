@@ -12,7 +12,7 @@ Job-to-be-done: before sending email, pasting into GenAI, or uploading a documen
 
 Job-to-be-done: when a user requests approval or challenges a finding, I need enough evidence and context to decide, record rationale, and preserve an audit trail without exposing more raw text than necessary.
 
-- Needs: finding-level rationale, policy reasons, source/destination context, reviewer actions, immutable journal entries, override taxonomy.
+- Needs: finding-level rationale, policy reasons, source/destination context, reviewer actions, tamper-evident journal entries when journal keys are configured, override taxonomy.
 - Risks: receives noisy queues, loses rationale outside the system, approves without policy context, cannot replay decisions.
 - Success signal: approval decisions are timely, reasoned, and replayable from the journal.
 

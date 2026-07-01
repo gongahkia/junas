@@ -1,6 +1,10 @@
 # Review Decision Journal Replay
 
-The review journal is append-only. `review_started` records the initial findings and each `decision_recorded` event records one reviewer action for one finding. Replay uses the latest decision per `finding_id`.
+The review journal is replayed as an event log. `review_started` records the initial findings and each `decision_recorded` event records one reviewer action for one finding. Replay uses the latest decision per `finding_id`.
+
+HMAC chaining provides tamper-evidence only when `JUNAS_JOURNAL_KEY` or
+`JUNAS_JOURNAL_KEYS_FILE` is supplied. Junas does not provide OS-level append-only
+storage.
 
 ## Action Compatibility
 

@@ -154,8 +154,8 @@ Keep these values out of checked-in config and shell history:
 | Secret | Purpose |
 |---|---|
 | `JUNAS_API_KEY` | API access gate for local/server endpoints |
-| `JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE` | HMAC journal sealing |
-| `JUNAS_MAPPING_STORE_KEY` | Fernet encryption for persisted mappings |
+| `JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE` | HMAC journal sealing when supplied |
+| `JUNAS_MAPPING_STORE_KEY` | Fernet encryption for persisted mappings when supplied |
 | `JUNAS_SUBJECT_INDEX_KEY` | HMAC key for subject-erasure reverse-index lookups |
 | `JUNAS_EXA_API_KEY`, `JUNAS_TINYFISH_API_KEY`, `JUNAS_LLM_API_KEY` | External providers |
 
@@ -262,10 +262,12 @@ uv run python scripts/erase_subject.py --tenant tenant-a --value "jane@example.c
 uv run python scripts/verify_journal.py --tenant tenant-a
 ```
 
-This is not universal deletion. Reversible mapping files are deleted, and immutable review
-journal references receive `subject_erasure_recorded` tombstones. Append-only journals,
-application logs, SIEM exports, backups, cold archives, and records created before the
-subject index existed remain governed by the customer's retention and legal-hold policy.
+This is not universal deletion. Reversible mapping files are deleted, and prior review
+journal references receive `subject_erasure_recorded` tombstones. The journal HMAC
+chain is tamper-evident when an external journal key is supplied, but Junas does not
+provide OS-level append-only storage. Application logs, SIEM exports, backups, cold
+archives, and records created before the subject index existed remain governed by the
+customer's retention and legal-hold policy.
 The operator must separately expire or tombstone those systems according to policy.
 
 ## Retention Manifest

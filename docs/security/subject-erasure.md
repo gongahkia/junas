@@ -2,16 +2,16 @@
 
 Subject erasure in Junas is an indexed lookup and disposition workflow. It deletes
 reversible mappings, removes the subject-index bucket, and appends tombstones to
-immutable journaled review sessions. It does not rewrite external logs, SIEM indexes,
-backups, or legal-hold archives.
+journaled review sessions. It does not rewrite external logs, SIEM indexes, backups,
+or legal-hold archives.
 
 ## Prerequisites
 
 Required when `JUNAS_REVIEW_PERSIST=1`:
 
 - `JUNAS_JOURNAL_DIR`: service-account owned persistence root.
-- `JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE`: HMAC journal verification.
-- `JUNAS_MAPPING_STORE_KEY`: encrypted persisted mapping files.
+- `JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE`: HMAC journal verification and tamper-evidence.
+- `JUNAS_MAPPING_STORE_KEY`: application-level encryption for persisted mapping files.
 - `JUNAS_SUBJECT_INDEX_KEY`: HMAC lookup key for subject values.
 
 If data was restored from backup or predates subject-index enforcement, rebuild the
@@ -59,7 +59,7 @@ index, mapping-store deletion event, or review-session tombstone.
 |---|---|---|
 | Persisted mapping files | Deleted | Matching `${JUNAS_JOURNAL_DIR}/mappings/{document_hash}.json` files are removed by `scripts/erase_subject.py` through `purge_mapping`. |
 | Subject index bucket | Deleted | The matching HMAC bucket is removed from `subject_index/index.json` after mapping and review dispositions are recorded. |
-| Review journal entries | Tombstoned | Prior `review_started` and decision events remain append-only. `subject_erasure_recorded` events list affected `finding_ids`, rules, and document hash. |
+| Review journal entries | Tombstoned | Prior `review_started` and decision events remain in the HMAC journal and receive tombstones; Junas does not make the OS/filesystem layer append-only. `subject_erasure_recorded` events list affected `finding_ids`, rules, and document hash. |
 | Review session state | Tombstoned by replay | Session state is rebuilt from journal replay and must treat erased findings as tombstoned rather than active. |
 | Audit packs | Retained or expired by operator policy | Already exported sealed packs are not mutated in place. Expire, supersede, or annotate them according to the retention/legal-hold policy. |
 | SIEM exports | Delegated | Junas cannot erase external SIEM indexes. Use SIEM retention, deletion, or legal-hold controls. |

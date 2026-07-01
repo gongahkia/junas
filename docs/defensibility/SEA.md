@@ -34,7 +34,7 @@ Jurisdiction-local recognizers:
 ## Operational Controls
 
 - Review responses expose per-finding `source_verification` and detector `metadata` where applicable.
-- HMAC journal and audit-pack export provide tamper-evident reviewer decisions and pack manifests.
+- With configured journal keys, the HMAC journal and audit-pack export provide tamper-evidence for reviewer decisions and pack manifests.
 - `/pseudonymize` is reversible and may persist mappings when explicitly enabled; `/anonymize` is irreversible placeholder-only; `/redact` emits opaque markers without reidentification material.
 - Sanitized reviewer action rates are aggregated by rule in audit packs; raw reviewer rationale and raw document text are not added to defensibility manifests.
 

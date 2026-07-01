@@ -65,6 +65,14 @@ uv run python scripts/verify_journal.py
 
 Mapping-store and subject-index keys are customer-held secrets. Rotate them by creating a new key in the secret manager, restarting Junas, and rewriting only retained mappings that still need reidentification.
 
+Journal integrity is conditional on `JUNAS_JOURNAL_KEY` or
+`JUNAS_JOURNAL_KEYS_FILE`. The HMAC chain is tamper-evident evidence verified by
+`scripts/verify_journal.py`; it does not provide OS-level append-only storage.
+
+Mapping-store encryption is conditional on `JUNAS_MAPPING_STORE_KEY`. Without that
+key, persisted mapping files are not application-encrypted and must rely on
+service-account permissions plus host/volume encryption.
+
 ## External KMS
 
 Junas reads secrets from environment variables or mounted files. Use AWS KMS/Secrets Manager, Azure Key Vault, GCP KMS/Secret Manager, HashiCorp Vault, Kubernetes Secrets encrypted at rest, or macOS Keychain to inject:

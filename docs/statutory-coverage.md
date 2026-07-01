@@ -289,9 +289,9 @@ The detector inventory above is one defensibility axis. The operational surfaces
 
 | Surface | Status | Citation |
 |---|---|---|
-| HMAC-chained review journal integrity | shipped | items 14, 16, 18 |
+| Conditional HMAC-chained review journal integrity (`JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE`) | shipped | items 14, 16, 18 |
 | Journal key rotation (per-org keystore) | shipped | item 14 |
-| Encrypted local mapping store (Fernet, key-gated) | shipped | item 41 |
+| Conditional mapping-store encryption (Fernet only when `JUNAS_MAPPING_STORE_KEY` is supplied) | shipped | item 41 |
 | Mapping retention / purge tooling | shipped | item 41 |
 | Multi-tenant request isolation (server SKU) | shipped | item 42 |
 | JWT/API-key tenant auth + RBAC | shipped | item 42 |

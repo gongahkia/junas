@@ -566,7 +566,7 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`docs/admin-security.md`](./docs/admin-security.md): tenancy, API keys, JWT, SIEM, and local pairing controls.
 - [`docs/threat-model.md`](./docs/threat-model.md): data flow, trust boundaries, threats, controls, and residual risk.
 - [`docs/deployment-hardening.md`](./docs/deployment-hardening.md): production filesystem, transport, secrets, Kubernetes, and SIEM guidance.
-- [`docs/mapping-store-hardening.md`](./docs/mapping-store-hardening.md): encryption, retention, erasure, and mapping-store controls.
+- [`docs/mapping-store-hardening.md`](./docs/mapping-store-hardening.md): key-gated mapping encryption, retention, erasure, and mapping-store controls.
 - [`docs/llm-governance.md`](./docs/llm-governance.md): LLM promotion, privacy evaluation, and invariant gates.
 - [`docs/schema.md`](./docs/schema.md): API and artifact contracts.
 - [`docs/api/`](./docs/api/): Postman, cURL, and Python client integration artifacts.

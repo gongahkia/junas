@@ -1,15 +1,15 @@
 # Data Retention Matrix
 
 Retention is operator-owned. Junas provides artifact boundaries, purge helpers for
-reversible mappings, subject-erasure tombstones for immutable journals, and a production
-preflight check for declared retention controls.
+reversible mappings, subject-erasure tombstones for journaled review sessions, and a
+production preflight check for declared retention controls.
 
 ## Matrix
 
 | Artifact | Manifest control | Stored data | Storage boundary | Baseline policy | Erasure/deletion behavior |
 |---|---|---|---|---|---|
 | Review journal | `journal` | HMAC-chained review, policy, approval, export, and erasure events; current review findings are sanitized by default. | `${JUNAS_JOURNAL_DIR}/journal.jsonl` or tenant-scoped equivalent. | Long-lived audit evidence, commonly `2555` days or legal-hold policy. | Do not edit prior entries in place. Append `subject_erasure_recorded` tombstones and verify with `scripts/verify_journal.py`. |
-| Mapping store | `mapping_store` | Encrypted reversible `/pseudonymize` mappings when persistence is enabled. | `${JUNAS_JOURNAL_DIR}/mappings/*.json` or tenant-scoped equivalent. | Short-lived reidentification support, commonly `90` days or shorter. | Delete with `scripts/purge_mappings.py` or `scripts/erase_subject.py`; encrypted data is unrecoverable after key loss. |
+| Mapping store | `mapping_store` | Reversible `/pseudonymize` mappings when persistence is enabled; files are encrypted only when `JUNAS_MAPPING_STORE_KEY` is supplied. | `${JUNAS_JOURNAL_DIR}/mappings/*.json` or tenant-scoped equivalent. | Short-lived reidentification support, commonly `90` days or shorter. | Delete with `scripts/purge_mappings.py` or `scripts/erase_subject.py`; encrypted data is unrecoverable after key loss. |
 | Subject index | `subject_index` | HMAC(subject value) buckets pointing to mapping and review references; no raw subject values. | `${JUNAS_JOURNAL_DIR}/subject_index/index.json` or tenant-scoped equivalent. | Retain only while mapped/journaled references need lookup. | `scripts/erase_subject.py` removes matching HMAC buckets; rebuild with `--backfill` after restores. |
 | Review sessions | `review_sessions` | Replayed review-session state derived from the journal. | Journal replay; no separate durable database in this repo. | Same as `journal` unless a future session store adds its own retention. | Subject erasure is represented by journal tombstones; do not expose erased findings as active state. |
 | Matter terms | `matter_terms` | Lowercased matter-defined terms for cross-session review context. | `${JUNAS_JOURNAL_DIR}/matters/{matter_id}/defined_terms.json`. | Matter lifecycle policy, often matter close plus legal hold. | Operator-managed sidecar deletion; no API erasure endpoint exists in this repo. |
