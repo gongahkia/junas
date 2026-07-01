@@ -1,0 +1,182 @@
+{
+  "decision": {
+    "rationale": "SG, US, and UK have bundled frequency tables and dense recognizer coverage; thin packs should not receive more quasi-ID expansion until these three packs show stable TAB QUASI/coreference behavior and candidate-corpus singling_out_miss reduction.",
+    "status": "deepen_sg_us_uk_before_widening"
+  },
+  "evaluation": {
+    "finding_categories": [
+      "PII"
+    ],
+    "match_mode": "overlap",
+    "never_updates_promotion_lock": true,
+    "packs": [
+      "SG",
+      "US",
+      "UK"
+    ],
+    "review_profile": "strict"
+  },
+  "packs": {
+    "SG": {
+      "prediction_rule_counts": {
+        "age_reference": 10,
+        "consent_withdrawal_marker": 31,
+        "data_minimisation_marker": 2,
+        "date_of_birth": 37,
+        "genetic_data": 6,
+        "medical_treatment": 3,
+        "minor_data_reference": 29,
+        "named_person": 6034,
+        "personal_attribute_inference": 197,
+        "phone_number": 37,
+        "political_opinion": 1,
+        "postal_address": 8475,
+        "quasi_identifier_combination": 76,
+        "religious_belief": 1,
+        "sg_insurance_policy_number": 1,
+        "sg_sla_title_plan_number": 13,
+        "trade_union_membership": 7
+      },
+      "quasi_identifier_type_score": {
+        "f2": 0.21021,
+        "false_negative": 80789,
+        "false_positive": 4749,
+        "precision": 0.78612,
+        "recall": 0.17767,
+        "true_positive": 17455
+      },
+      "singling_out": {
+        "gold_quasi_coreference_groups": 9753,
+        "gold_quasi_coreference_spans": 31871,
+        "gold_quasi_docs": 1268,
+        "gold_quasi_spans": 98244,
+        "quasi_identifier_combination_docs": 69,
+        "quasi_identifier_combination_f2": 0.001704,
+        "quasi_identifier_combination_precision": 1.0,
+        "quasi_identifier_combination_predictions": 76,
+        "quasi_identifier_combination_recall": 0.001364
+      },
+      "summary": {
+        "documents": 1268,
+        "f2": 0.23581,
+        "false_negative": 84131,
+        "false_positive": 1352,
+        "gold_spans": 104983,
+        "precision": 0.93911,
+        "predicted_spans": 14960,
+        "recall": 0.198623,
+        "true_positive": 20852
+      }
+    },
+    "UK": {
+      "prediction_rule_counts": {
+        "age_reference": 10,
+        "consent_withdrawal_marker": 31,
+        "data_minimisation_marker": 2,
+        "date_of_birth": 37,
+        "genetic_data": 6,
+        "medical_treatment": 3,
+        "minor_data_reference": 29,
+        "named_person": 6034,
+        "personal_attribute_inference": 197,
+        "phone_number": 37,
+        "political_opinion": 1,
+        "postal_address": 8475,
+        "quasi_identifier_combination": 69,
+        "religious_belief": 1,
+        "trade_union_membership": 7
+      },
+      "quasi_identifier_type_score": {
+        "f2": 0.210124,
+        "false_negative": 80797,
+        "false_positive": 4736,
+        "precision": 0.786503,
+        "recall": 0.177588,
+        "true_positive": 17447
+      },
+      "singling_out": {
+        "gold_quasi_coreference_groups": 9753,
+        "gold_quasi_coreference_spans": 31871,
+        "gold_quasi_docs": 1268,
+        "gold_quasi_spans": 98244,
+        "quasi_identifier_combination_docs": 65,
+        "quasi_identifier_combination_f2": 0.001615,
+        "quasi_identifier_combination_precision": 1.0,
+        "quasi_identifier_combination_predictions": 69,
+        "quasi_identifier_combination_recall": 0.001293
+      },
+      "summary": {
+        "documents": 1268,
+        "f2": 0.235731,
+        "false_negative": 84139,
+        "false_positive": 1339,
+        "gold_spans": 104983,
+        "precision": 0.939638,
+        "predicted_spans": 14939,
+        "recall": 0.198546,
+        "true_positive": 20844
+      }
+    },
+    "US": {
+      "prediction_rule_counts": {
+        "age_reference": 10,
+        "consent_withdrawal_marker": 31,
+        "data_minimisation_marker": 2,
+        "date_of_birth": 37,
+        "genetic_data": 6,
+        "medical_treatment": 3,
+        "minor_data_reference": 14,
+        "named_person": 6034,
+        "personal_attribute_inference": 197,
+        "phone_number": 37,
+        "political_opinion": 1,
+        "postal_address": 8475,
+        "quasi_identifier_combination": 68,
+        "religious_belief": 1,
+        "trade_union_membership": 7
+      },
+      "quasi_identifier_type_score": {
+        "f2": 0.20985,
+        "false_negative": 80821,
+        "false_positive": 4730,
+        "precision": 0.786485,
+        "recall": 0.177344,
+        "true_positive": 17423
+      },
+      "singling_out": {
+        "gold_quasi_coreference_groups": 9753,
+        "gold_quasi_coreference_spans": 31871,
+        "gold_quasi_docs": 1268,
+        "gold_quasi_spans": 98244,
+        "quasi_identifier_combination_docs": 64,
+        "quasi_identifier_combination_f2": 0.001603,
+        "quasi_identifier_combination_precision": 1.0,
+        "quasi_identifier_combination_predictions": 68,
+        "quasi_identifier_combination_recall": 0.001283
+      },
+      "summary": {
+        "documents": 1268,
+        "f2": 0.235475,
+        "false_negative": 84163,
+        "false_positive": 1333,
+        "gold_spans": 104983,
+        "precision": 0.939828,
+        "predicted_spans": 14923,
+        "recall": 0.198318,
+        "true_positive": 20820
+      }
+    }
+  },
+  "schema_version": "junas.singling_out_pack_eval.v1",
+  "source": {
+    "fixture_commit": "558e09e26d6b36f5f78440074e6a233946d98bd9",
+    "fixture_path": "test/fixtures/external/text-anonymization-benchmark",
+    "gold_label_source": "TAB QUASI annotations and entity_id co-reference groups",
+    "name": "Text Anonymization Benchmark",
+    "splits": [
+      "train",
+      "dev",
+      "test"
+    ]
+  }
+}

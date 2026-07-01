@@ -9,6 +9,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `admin-security.md`: identity, tenant, key, SIEM, and local pairing controls
 - `threat-model.md`: data flow, trust boundaries, threats, controls, and residual risk
 - `known-limitations.md`: explicit unsupported or limited surfaces
+- `singling-out-pack-eval.md`: SG/US/UK singling-out pack validation and widening decision
 - `llm-governance.md`: LLM promotion, privacy eval, and invariant gates
 - `schema.md`: API and artifact contracts
 - `architecture.md`: pipeline architecture overview
