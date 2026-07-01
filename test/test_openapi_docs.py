@@ -6,6 +6,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 import junas.backend.main as main
+from junas.backend.schemas import ReviewRequest
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -151,6 +152,28 @@ class OpenApiDocsTests(unittest.TestCase):
         ):
             self.assertIn(key, examples)
             self.assertIn(key, artifact["examples"])
+
+    def test_adapter_surface_doc_examples_validate_as_review_requests(self):
+        main.app.openapi_schema = None
+        with TestClient(main.app) as client:
+            response = client.get("/openapi.json")
+            self.assertEqual(response.status_code, 200)
+        payload = response.json()
+
+        openapi_examples = payload["paths"]["/review"]["post"]["requestBody"]["content"]["application/json"][
+            "examples"
+        ]
+        artifact = json.loads((ROOT / "docs" / "api" / "adapter_surface_review_examples.json").read_text())
+        doc_examples = artifact["examples"]
+        self.assertEqual({key: example["value"] for key, example in openapi_examples.items()}, {
+            key: example["value"] for key, example in doc_examples.items()
+        })
+
+        for key, example in doc_examples.items():
+            with self.subTest(example=key):
+                request = ReviewRequest.model_validate(example["value"])
+                self.assertEqual(request.surface, example["value"]["surface"])
+                self.assertTrue(request.text or request.document_base64)
 
 
 if __name__ == "__main__":
