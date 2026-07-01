@@ -1531,6 +1531,43 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_integration_compatibility_matrix_defines_adapter_capabilities(self):
+        text = (ROOT / "docs" / "integrations" / "compatibility-matrix.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("compatibility-matrix.md", integrations_index)
+        for token in (
+            "Status: normative for adapter support claims",
+            "## Legend",
+            "`backend-only`",
+            "`conditional`",
+            "## Capability Matrix",
+            "Inline text",
+            "DOCX",
+            "PDF",
+            "Images",
+            "Attachments",
+            "Metadata scrub",
+            "Reidentify",
+            "Approvals",
+            "Direct API",
+            "Outlook Smart Alerts",
+            "Browser GenAI extension",
+            "DMS hook/scanner",
+            "Word taskpane",
+            "Desktop watcher",
+            "`yes` via `text`",
+            "`limited` count only",
+            "`conditional` production hook with payload",
+            "`backend-only` hook must call `/documents/scrub`",
+            "`yes` via `/reidentify`",
+            "`yes` via `/request-approval`",
+            "adapters are not approval authorities",
+            "## Promotion Rule",
+            "privacy storage/log behavior",
+        ):
+            self.assertIn(token, text)
+
     def test_document_context_doc_defines_document_metadata_boundary(self):
         text = (ROOT / "docs" / "integrations" / "document-context.md").read_text(encoding="utf-8")
         integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
