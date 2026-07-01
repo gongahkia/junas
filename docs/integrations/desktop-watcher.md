@@ -12,6 +12,14 @@ Runtime target: macOS local watcher and packaged local daemon.
 maturity is `experimental-local-fallback`; do not present it as production endpoint
 enforcement.
 
+## Intended Use
+
+Use the desktop watcher for offline local fallback, demos, and power users who
+explicitly choose local file, folder, or clipboard review. Do not use it as enterprise
+enforcement, fleet policy, endpoint DLP, or proof that every local workflow was
+reviewed. Enforced production workflows should use direct API integration, Outlook Smart
+Alerts, DMS hooks, or managed browser adapters.
+
 Build:
 
 ```sh
