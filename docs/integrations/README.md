@@ -28,4 +28,4 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 
 Adapters are optional activation surfaces. They collect workflow context, call the backend contract, display policy decisions, and must not become alternate trust boundaries.
 
-Use `maturity-matrix.md` for the definitions of `core`, `supported-target`, `experimental`, `demo-only`, and `archived`.
+Use `maturity-matrix.md` for maturity label definitions and `adapter-maturity.json` for the machine-readable surface registry used by tests.

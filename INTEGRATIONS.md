@@ -13,4 +13,4 @@ Direct API integration is the baseline. UI adapters are optional activation surf
 | Future Slack | `planned` | [`docs/integrations/future-slack-google-workspace.md`](./docs/integrations/future-slack-google-workspace.md) | No adapter source yet. | Research-only; no Slack support claim exists yet. |
 | Future Google Workspace | `planned` | [`docs/integrations/future-slack-google-workspace.md`](./docs/integrations/future-slack-google-workspace.md) | No adapter source yet. | Research-only; no Google Workspace support claim exists yet. |
 
-Maturity definitions live in [`docs/integrations/maturity-matrix.md`](./docs/integrations/maturity-matrix.md). Current source ownership and security-model notes live in [`integrations/README.md`](./integrations/README.md).
+Maturity definitions live in [`docs/integrations/maturity-matrix.md`](./docs/integrations/maturity-matrix.md), and machine-readable surface metadata lives in [`docs/integrations/adapter-maturity.json`](./docs/integrations/adapter-maturity.json). Current source ownership and security-model notes live in [`integrations/README.md`](./integrations/README.md).

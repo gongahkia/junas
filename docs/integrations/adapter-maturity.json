@@ -1,0 +1,100 @@
+{
+  "schema": "junas.adapter_maturity.v1",
+  "labels": {
+    "core": {
+      "supported_marketing": true
+    },
+    "supported-target": {
+      "supported_marketing": true
+    },
+    "experimental": {
+      "supported_marketing": false
+    },
+    "experimental-local-fallback": {
+      "supported_marketing": false
+    },
+    "demo-only": {
+      "supported_marketing": false
+    },
+    "archived": {
+      "supported_marketing": false
+    },
+    "planned": {
+      "supported_marketing": false
+    }
+  },
+  "surfaces": [
+    {
+      "canonical_surface": "Direct API",
+      "readme_surface": "API/client",
+      "source_surface": "Direct API and Python client",
+      "maturity": "core",
+      "readme": true,
+      "integrations_index": true,
+      "source_registry": true
+    },
+    {
+      "canonical_surface": "Outlook Smart Alerts",
+      "readme_surface": "Outlook Smart Alerts",
+      "source_surface": "Outlook Smart Alerts",
+      "maturity": "supported-target",
+      "readme": true,
+      "integrations_index": true,
+      "source_registry": true
+    },
+    {
+      "canonical_surface": "Browser GenAI extension",
+      "readme_surface": "Browser GenAI extension",
+      "source_surface": "Browser GenAI extension",
+      "maturity": "supported-target",
+      "readme": true,
+      "integrations_index": true,
+      "source_registry": true
+    },
+    {
+      "canonical_surface": "Word taskpane",
+      "readme_surface": "Word taskpane",
+      "source_surface": "Word taskpane",
+      "maturity": "experimental",
+      "readme": true,
+      "integrations_index": true,
+      "source_registry": true
+    },
+    {
+      "canonical_surface": "Desktop watcher",
+      "readme_surface": "Desktop watcher",
+      "source_surface": "Desktop watcher",
+      "maturity": "experimental-local-fallback",
+      "readme": true,
+      "integrations_index": true,
+      "source_registry": true
+    },
+    {
+      "canonical_surface": "DMS hooks",
+      "readme_surface": null,
+      "source_surface": "DMS manifest scanner",
+      "maturity": "experimental",
+      "readme": false,
+      "integrations_index": true,
+      "source_registry": true
+    },
+    {
+      "canonical_surface": "Future Slack",
+      "readme_surface": null,
+      "source_surface": null,
+      "maturity": "planned",
+      "readme": false,
+      "integrations_index": true,
+      "source_registry": false
+    },
+    {
+      "canonical_surface": "Future Google Workspace",
+      "readme_surface": null,
+      "source_surface": null,
+      "maturity": "planned",
+      "readme": false,
+      "integrations_index": true,
+      "source_registry": false
+    }
+  ]
+}
