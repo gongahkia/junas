@@ -562,6 +562,29 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_sequence_diagrams_doc_covers_reviewer_approval_retry(self):
+        text = (ROOT / "docs" / "integrations" / "sequence-diagrams.md").read_text(encoding="utf-8")
+        contract = (ROOT / "docs" / "policy" / "decision-contract.md").read_text(encoding="utf-8")
+
+        self.assertIn("sequence-diagrams.md#reviewer-approval-and-adapter-retry", contract)
+        for token in (
+            "## Reviewer Approval And Adapter Retry",
+            "policy_decision.decision=block or approval_required",
+            "POST /request-approval",
+            "approval_status=\"pending\"",
+            "required_reviewer_roles",
+            "POST /review/{review_id}/decision",
+            "action=\"approve\"",
+            "policy_exception",
+            "decision_recorded",
+            "GET /review/{review_id}",
+            "Replayed findings with latest reviewer decision",
+            "Retry workflow completion only when approval satisfies policy",
+            "must start a new `/review`",
+            "raw prompt, email, document, matched text",
+        ):
+            self.assertIn(token, text)
+
     def test_word_doc_marks_taskpane_as_review_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "word.md").read_text(encoding="utf-8")
         for token in (

@@ -118,3 +118,33 @@ sequenceDiagram
 ```
 
 DMS-side audit fields may include `review_id`, `request_id`, `policy_decision.decision`, required and recommended actions, policy id/version, `review_expires_at`, risk scores, finding count, matter id, document id, actor id, DMS version id, and idempotency key hash. They must not include raw document text, matched text, reviewer rationale containing sensitive content, auth headers, or reversible mapping values.
+
+## Reviewer Approval And Adapter Retry
+
+This sequence covers a workflow adapter that receives a blocking policy decision, records a pending approval request, waits for an authorized reviewer decision in the journal, then retries completion without treating the adapter as the approval authority.
+
+```mermaid
+sequenceDiagram
+    participant Adapter
+    participant Review as FastAPI /review
+    participant Approval as FastAPI /request-approval
+    participant Reviewer
+    participant Decision as FastAPI /review/{review_id}/decision
+    participant State as FastAPI /review/{review_id}
+    participant Journal as Review journal
+
+    Adapter->>Review: POST /review with surface, workflow, content, destination context
+    Review-->>Adapter: policy_decision.decision=block or approval_required, review_id, required_actions
+    Adapter->>Approval: POST /request-approval review_id finding_ids reason_code="policy_block"
+    Approval->>Journal: approval_requested with roles, finding ids, requester, seq, hmac
+    Approval-->>Adapter: approval_status="pending", required_reviewer_roles
+    Adapter-->>Adapter: Stop send/share/check-in and show pending approval state
+    Reviewer->>Decision: POST /review/{review_id}/decision action="approve" or "policy_exception"
+    Decision->>Journal: decision_recorded with reviewer identity, action, seq, hmac
+    Decision-->>Reviewer: Recorded decision response
+    Adapter->>State: GET /review/{review_id}
+    State-->>Adapter: Replayed findings with latest reviewer decision
+    Adapter-->>Adapter: Retry workflow completion only when approval satisfies policy
+```
+
+If text, recipients, destination, attachments, matter context, or policy version changed after the original review, the adapter must start a new `/review` instead of relying on the old approval. Approval journal events must use finding ids, role metadata, reviewer identity, reason codes, sequence numbers, and HMACs; they must not include raw prompt, email, document, matched text, or sensitive reviewer rationale.
