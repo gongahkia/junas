@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/Testing: Add adapter smoke tests that can run without external SaaS credentials using local fixture pages and manifest validation.
 - [ ] P0/Testing: Add CI job separation for core backend tests, policy tests, adapter smoke tests, packaging tests, docs link tests, and benchmark gates.
 - [ ] P0/Testing: Add a failing test first for any README claim that references adapter support unless an adapter smoke test backs it.
 - [ ] P0/Observability: Add metrics for review surface, policy decision, required action, adapter timeout, degraded mode, approval requested, approval completed, and safe rewrite applied.

@@ -70,14 +70,16 @@ class BrowserExtensionPlaywrightSmokeTests(unittest.TestCase):
                 browser.close()
 
     def _install_fixture(self, page):
-        page.set_content(
-            """
-            <main>
-              <textarea data-testid="prompt-textarea">warn before submit</textarea>
-              <button data-testid="send-button" onclick="window.__submitted += 1">Send</button>
-            </main>
-            """
+        fixture = ROOT / "test" / "fixtures" / "adapter-smoke" / "browser_genai.html"
+        page.route(
+            "https://chatgpt.com/adapter-smoke",
+            lambda route: route.fulfill(
+                status=200,
+                content_type="text/html",
+                body=fixture.read_text(encoding="utf-8"),
+            ),
         )
+        page.goto("https://chatgpt.com/adapter-smoke")
         page.evaluate(
             """
             window.__submitted = 0;

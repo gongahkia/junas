@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Junas browser adapter smoke fixture</title>
+</head>
+<body>
+  <main>
+    <label for="prompt-textarea">Prompt</label>
+    <textarea id="prompt-textarea" data-testid="prompt-textarea">warn before submit</textarea>
+    <button type="button" data-testid="send-button" onclick="window.__submitted = (window.__submitted || 0) + 1">Send</button>
+  </main>
+</body>
+</html>

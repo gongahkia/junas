@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Junas Word taskpane smoke fixture</title>
+</head>
+<body>
+  <main>
+    <label for="endpoint">Backend URL</label>
+    <input id="endpoint" value="http://127.0.0.1:8765">
+    <label for="token">Token</label>
+    <input id="token" value="">
+    <button id="saveSettings" type="button">Save</button>
+    <button id="reviewSelection" type="button">Review selection</button>
+    <button id="reviewBody" type="button">Review body</button>
+    <pre id="output"></pre>
+  </main>
+  <script>
+    for (const id of ["endpoint", "token", "saveSettings", "reviewSelection", "reviewBody", "output"]) {
+      window[id] = document.getElementById(id);
+    }
+  </script>
+</body>
+</html>
