@@ -10,8 +10,8 @@ on:
     - cron: "17 19 * * *"
 
 jobs:
-  tests:
-    name: Unit tests
+  core-backend-tests:
+    name: Core backend tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,102 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --extra dev
       - run: uv run python -m spacy download en_core_web_sm
-      - run: uv run python -m unittest discover -s test -p "test_*.py"
+      - name: Run core backend tests
+        run: |
+          uv run pytest \
+            test/test_api_auth.py \
+            test/test_backend_log_privacy.py \
+            test/test_document_hardening.py \
+            test/test_document_structure.py \
+            test/test_e2e_review_fixtures.py \
+            test/test_openapi_docs.py \
+            test/test_openapi_snapshot.py \
+            test/test_presend_review.py \
+            test/test_rate_limits.py \
+            test/test_review_endpoints.py \
+            test/test_review_profile_router.py \
+            test/test_siem_export.py
+
+  policy-tests:
+    name: Policy tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - name: Run policy tests
+        run: |
+          uv run pytest \
+            test/test_api_policy_compatibility.py \
+            test/test_policy_config.py \
+            test/test_policy_decision_contract.py \
+            test/test_policy_decision_journal.py \
+            test/test_policy_determinism.py \
+            test/test_policy_endpoint_integration.py \
+            test/test_policy_engine.py \
+            test/test_review_request_workflow_context.py \
+            test/test_safe_rewrite_contract.py \
+            test/test_safe_rewrite_endpoint.py \
+            test/test_source_verification.py
+
+  adapter-smoke-tests:
+    name: Adapter smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - name: Run adapter smoke tests
+        run: |
+          uv run pytest \
+            test/test_adapter_maturity_metadata.py \
+            test/test_adapter_smoke.py \
+            test/test_browser_extension.py \
+            test/test_browser_extension_playwright.py \
+            test/test_desktop_watch.py \
+            test/test_office_addin.py \
+            test/test_outlook_manifest_render.py \
+            test/test_outlook_manifest_validate.py
+
+  packaging-tests:
+    name: Packaging tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - name: Run packaging tests
+        run: |
+          uv run pytest \
+            test/test_backend_only_layout.py \
+            test/test_packaging_scripts.py \
+            test/test_sbom_generation.py
+
+  docs-link-tests:
+    name: Docs link tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - name: Run docs link tests
+        run: |
+          uv run pytest \
+            test/test_contributing_docs.py \
+            test/test_docs_links.py
 
   demo:
     name: One-command demo
@@ -154,8 +249,8 @@ jobs:
           docker logs junas-ci || true
           docker rm -f junas-ci || true
 
-  latency-slo:
-    name: Latency SLO
+  benchmark-gates:
+    name: Benchmark gates
     runs-on: ubuntu-latest
     env:
       JUNAS_RUN_LATENCY_SLO: "1"
@@ -167,12 +262,18 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --extra dev
       - run: uv run python -m spacy download en_core_web_sm
-      - run: uv run python -m unittest test.benchmarks.test_latency_slo
+      - name: Run benchmark regression gates
+        run: |
+          uv run pytest \
+            test/test_benchmark_corpus_regression.py \
+            test/test_benchmark_latency.py \
+            test/test_latency_slo_gate.py \
+            test/benchmarks/test_latency_slo.py
       - run: uv run python scripts/check_latency_slo.py --write-report
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: latency-slo-reports
+          name: benchmark-gate-reports
           path: reports/latency_slo_*.json
           if-no-files-found: warn
 

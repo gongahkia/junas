@@ -5,13 +5,46 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class CiWorkflowTests(unittest.TestCase):
+    def test_ci_splits_core_policy_adapter_packaging_docs_and_benchmark_jobs(self):
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+        for token in (
+            "core-backend-tests:",
+            "name: Core backend tests",
+            "policy-tests:",
+            "name: Policy tests",
+            "adapter-smoke-tests:",
+            "name: Adapter smoke tests",
+            "packaging-tests:",
+            "name: Packaging tests",
+            "docs-link-tests:",
+            "name: Docs link tests",
+            "benchmark-gates:",
+            "name: Benchmark gates",
+        ):
+            self.assertIn(token, text)
+
+        for test_path in (
+            "test/test_review_endpoints.py",
+            "test/test_policy_engine.py",
+            "test/test_adapter_smoke.py",
+            "test/test_packaging_scripts.py",
+            "test/test_docs_links.py",
+            "test/test_latency_slo_gate.py",
+        ):
+            self.assertIn(test_path, text)
+
+        self.assertNotIn("name: Unit tests", text)
+        self.assertNotIn('python -m unittest discover -s test -p "test_*.py"', text)
+
     def test_latency_slo_is_ci_wired_with_artifact_upload(self):
         workflow = ROOT / ".github" / "workflows" / "ci.yml"
         text = workflow.read_text(encoding="utf-8")
 
         self.assertIn("JUNAS_RUN_LATENCY_SLO", text)
-        self.assertIn("test.benchmarks.test_latency_slo", text)
+        self.assertIn("test/benchmarks/test_latency_slo.py", text)
         self.assertIn("scripts/check_latency_slo.py --write-report", text)
+        self.assertIn("benchmark-gate-reports", text)
         self.assertIn("actions/upload-artifact", text)
 
     def test_live_latency_job_uses_http_mode(self):
