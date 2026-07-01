@@ -225,6 +225,8 @@ Every feedback-derived candidate label must preserve:
 - source rule id, category, severity, and jurisdiction
 - synthetic or customer-derived source flag
 - `customer_sample_approved` when customer-derived
+- retention class, legal-hold status, and subject-erasure disposition per
+  `docs/security/feedback-artifact-retention.md`
 - `_human_review_status`
 - `_human_review`
 - `_human_review_history`
@@ -247,6 +249,7 @@ Every feedback-derived candidate label must preserve:
 
 - `docs/admin-console/false-positive-triage.md`
 - `docs/telemetry-feedback-loop.md`
+- `docs/security/feedback-artifact-retention.md`
 - `docs/policy/decision-taxonomy.md`
 - `docs/policy/journal-replay.md`
 - `docs/accuracy.md`

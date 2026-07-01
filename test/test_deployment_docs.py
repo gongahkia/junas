@@ -731,6 +731,40 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_feedback_artifact_retention_policy_covers_hashes_labels_sidecars_erasure(self):
+        text = (ROOT / "docs" / "security" / "feedback-artifact-retention.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        retention = (ROOT / "docs" / "security" / "data-retention.md").read_text(
+            encoding="utf-8"
+        )
+        feedback = (ROOT / "docs" / "feedback-loop.md").read_text(encoding="utf-8")
+
+        self.assertIn("security/feedback-artifact-retention.md", docs_index)
+        self.assertIn("docs/security/feedback-artifact-retention.md", retention)
+        self.assertIn("docs/security/feedback-artifact-retention.md", feedback)
+        for token in (
+            "Feedback Artifact Retention",
+            "hashes such as `document_hash`, `pii_hash`, finding-id hashes",
+            "candidate and reviewed `.labels.json` files",
+            "fixture task `.sidecar.json` files and reviewed `.bucket.json` sidecars",
+            "raw customer samples approved for reproduction work",
+            "Legal hold",
+            "Subject erasure behavior",
+            "Raw Sample Admission",
+            "`customer_sample_approved` evidence exists",
+            "retention class and expiry",
+            "subject-erasure disposition",
+            "scripts/erase_subject.py",
+            "subject_erasure_recorded",
+            "Regenerate fixtures, labels, locks, reports, and dashboards",
+            "source flag: `synthetic`, `scrubbed_customer_sample`, or `hash_only_signal`",
+            "legal-hold status",
+            "scrub/check evidence before commit",
+        ):
+            self.assertIn(token, text)
+
     def test_install_admin_threat_and_limitations_docs_cover_lastbit_controls(self):
         install = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
         admin = (ROOT / "docs" / "admin-security.md").read_text(encoding="utf-8")

@@ -4,6 +4,9 @@ Retention is operator-owned. Junas provides artifact boundaries, purge helpers f
 reversible mappings, subject-erasure tombstones for journaled review sessions, and a
 production preflight check for declared retention controls.
 
+Feedback-specific hashes, labels, sidecars, raw samples, legal hold, and erasure
+behavior are defined in `docs/security/feedback-artifact-retention.md`.
+
 ## Matrix
 
 | Artifact | Manifest control | Stored data | Storage boundary | Baseline policy | Erasure/deletion behavior |
