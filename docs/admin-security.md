@@ -80,6 +80,15 @@ The runtime does not call cloud KMS APIs directly. Keep decrypt permission outsi
 
 Browser and Office clients should use `/local/pairing/start`, desktop approval through `/local/pairing/approve`, then `/local/pairing/claim` to receive a signed expiring local client token. Protected endpoints accept the signed token in `X-Junas-Local-Token`.
 
+## Local Daemon CSRF Boundary
+
+Browser-origin requests to a local Junas daemon must pass both checks:
+
+- `Origin` must match the configured local daemon allowlist.
+- Protected requests must include `X-Junas-Local-Token` with the signed local client token.
+
+This follows the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) guidance to require a custom request header that forces CORS preflight, paired with strict origin validation. Do not rely on cookies, ambient browser credentials, or loopback-only binding as the CSRF boundary. Simple HTML form posts cannot set `X-Junas-Local-Token` and must fail before reaching review, rewrite, reidentify, approval, or metadata-scrub handlers.
+
 ## Logs And SIEM
 
 Backend request logs include request ID, route, status, and latency only. SIEM events hash or drop sensitive values. Do not enable reverse-proxy body logging for Junas routes.

@@ -154,7 +154,6 @@
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
 - [ ] P0/Security: Add request body size tests proving oversized JSON and base64 documents fail before expensive schema or extraction work.
 - [ ] P0/Security: Add local daemon CSRF tests covering missing `Origin`, disallowed `Origin`, missing custom token header, invalid token, expired token, and preflight CORS behavior.
-- [ ] P0/Security: Add docs stating that browser-origin requests to the local daemon require origin allowlist plus `X-Junas-Local-Token`, aligned with OWASP custom-header CSRF guidance.
 - [ ] P0/Security: Add security tests proving protected local daemon endpoints reject simple HTML form posts that cannot set the required custom token header.
 - [ ] P0/Security: Add CORS configuration tests for hosted server mode and local daemon mode, including credentials-disabled behavior where applicable.
 - [ ] P0/Security: Add SSRF-focused tests for public evidence providers and any URL-taking future endpoint, ensuring user-supplied URLs cannot reach localhost, link-local, metadata, private, or reserved ranges.
