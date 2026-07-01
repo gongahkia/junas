@@ -639,6 +639,43 @@ class DeploymentDocsTests(unittest.TestCase):
             "Target DOM mismatch",
             'surface="browser_genai"',
             'workflow="prompt_submit"',
+            "browser-enterprise-deployment.md",
+        ):
+            self.assertIn(token, text)
+
+    def test_browser_enterprise_deployment_doc_covers_chrome_edge_policy(self):
+        text = (ROOT / "docs" / "integrations" / "browser-enterprise-deployment.md").read_text(
+            encoding="utf-8"
+        )
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+        browser = (ROOT / "docs" / "integrations" / "browser-extension.md").read_text(encoding="utf-8")
+
+        self.assertIn("browser-enterprise-deployment.md", integrations_index)
+        self.assertIn("browser-enterprise-deployment.md", browser)
+        for token in (
+            "Checked on 2026-07-01",
+            "ExtensionInstallForcelist",
+            "ExtensionSettings",
+            "https://chromeenterprise.google/policies/extension-install-forcelist/",
+            "https://support.google.com/chrome/a/answer/9867568",
+            "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/extensioninstallforcelist",
+            "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/extensionsettings",
+            "https://clients2.google.com/service/update2/crx",
+            "https://edge.microsoft.com/extensionwebstorebase/v1/crx",
+            "update manifest XML",
+            "override_update_url",
+            "Chrome Web Store",
+            "Edge Add-ons",
+            "Microsoft Entra ID",
+            "MDM",
+            "JUNAS_CHROME_EXTENSION_KEY",
+            "chrome://policy",
+            "edge://policy",
+            "chrome://extensions",
+            "edge://extensions",
+            "not production deployment evidence",
+            "no raw prompt text",
+            "Do not treat a force-installed extension as fail-closed enforcement",
         ):
             self.assertIn(token, text)
 

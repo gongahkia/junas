@@ -22,6 +22,8 @@ Package:
 ./scripts/package_browser_extension.sh
 ```
 
+Enterprise deployment: `docs/integrations/browser-enterprise-deployment.md`.
+
 Current behavior:
 
 - Targets `https://chatgpt.com/*`, `https://claude.ai/*`, and `https://gemini.google.com/*`.

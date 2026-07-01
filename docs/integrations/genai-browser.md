@@ -62,6 +62,8 @@ Start the backend or packaged local daemon separately, then load or package the 
 
 For manual browser testing, load `integrations/browser_extension/` as an unpacked MV3 extension in a managed test profile. The backend launcher does not start Chrome or install the extension.
 
+Managed Chrome/Edge rollout uses `docs/integrations/browser-enterprise-deployment.md`.
+
 ## Failure Behavior
 
 - Backend error or timeout: show a visible Junas error panel; do not silently replace text.
@@ -80,5 +82,6 @@ For manual browser testing, load `integrations/browser_extension/` as an unpacke
 ## References
 
 - [`docs/integrations/browser-extension.md`](./browser-extension.md)
+- [`docs/integrations/browser-enterprise-deployment.md`](./browser-enterprise-deployment.md)
 - [`docs/policy/decision-contract.md`](../policy/decision-contract.md)
 - [`docs/api/idempotency.md`](../api/idempotency.md)

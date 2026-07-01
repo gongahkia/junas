@@ -7,6 +7,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Direct API and Python client | `src/junas/backend/`, `src/junas/client.py`, `docs/api/` | `direct-api.md` |
 | Browser GenAI extension | `integrations/browser_extension/` | `browser-extension.md` |
 | GenAI browser capture assumptions | `integrations/browser_extension/` | `genai-browser.md` |
+| Browser enterprise deployment | `integrations/browser_extension/` | `browser-enterprise-deployment.md` |
 | Outlook Smart Alerts add-in | `integrations/outlook_addin/` | `outlook.md` |
 | Word taskpane | `integrations/word_addin/` | `word.md` |
 | Desktop watcher/local daemon | `integrations/desktop/`, `packaging/` | `desktop-watcher.md` |
