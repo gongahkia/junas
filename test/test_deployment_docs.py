@@ -152,6 +152,39 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_requirements_define_scope(self):
+        text = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("admin-console/requirements.md", docs_index)
+        for token in (
+            "Admin Console Requirements",
+            "requirements only",
+            "review sessions",
+            "decisions",
+            "policy config",
+            "audit exports",
+            "False-positive triage",
+            "tenant health",
+            "backend remains the trust",
+            "tenant-scoped",
+            "no raw body exposure by default",
+            "review_id",
+            "policy_id",
+            "policy_version",
+            "Draft",
+            "validate",
+            "publish",
+            "rollback",
+            "scripts/export_audit_pack.py",
+            "scripts/verify_audit_pack.py",
+            "scripts/verify_journal.py",
+            "adapter telemetry",
+            "retention manifest",
+            "No frontend framework dependency",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
