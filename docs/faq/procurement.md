@@ -2,6 +2,10 @@
 
 This FAQ is for security, legal, and procurement conversations. It keeps accuracy claims tied to committed evidence and separates product scope from unsupported claims.
 
+Use `docs/faq/buyer-objections.md` for objection-specific answers covering accuracy
+proof, legal liability, data residency, admin deployment, user friction, false
+positives, and existing DLP interoperability.
+
 ## Accuracy Claim Rule
 
 Use only promoted corpus locks and committed evaluation reports for accuracy statements:
