@@ -5,6 +5,8 @@ This FAQ is for security, legal, and procurement conversations. It keeps accurac
 Use `docs/faq/buyer-objections.md` for objection-specific answers covering accuracy
 proof, legal liability, data residency, admin deployment, user friction, false
 positives, and existing DLP interoperability.
+Use `docs/product/claim-review-checklist.md` before turning any answer into public
+marketing, security, or procurement copy.
 
 ## Accuracy Claim Rule
 
