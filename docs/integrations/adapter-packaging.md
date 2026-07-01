@@ -135,3 +135,5 @@ PYTHONPATH=src python3 -m pytest test/test_adapter_smoke.py -q
 - Keep adapter rollback separate from backend rollback: extension policy, Microsoft 365
   assignment, sideload location, and hosted static assets each need their own rollback
   path.
+- Use `docs/deployment-rollback.md` for server, local daemon, Outlook, browser, and
+  Word uninstall steps.

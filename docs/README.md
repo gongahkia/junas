@@ -19,6 +19,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `deployment-customer-managed.md`: customer-held secret custody requirements for mappings, journal HMAC, subject index, auth, and retention evidence
 - `deployment-local-only.md`: local daemon deployment boundary and unavailable server-side optional layers
 - `deployment-managed-llm.md`: deterministic default, public-evidence opt-in, and LLM adjudication deployment gates
+- `deployment-rollback.md`: uninstall and rollback runbook for server, local daemon, Outlook, browser, and Word surfaces
 - `mapping-store-hardening.md`: encryption, retention, subject erasure, and deployment controls for persisted mappings
 - `security/local-daemon.md`: local daemon pairing, token, origin, socket, loopback, and uninstall controls
 - `security/adapter-threat-model.md`: threat boundaries for Outlook, browser, Word, desktop, DMS, and direct API adapters

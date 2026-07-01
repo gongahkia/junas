@@ -2,6 +2,8 @@
 
 Junas installs as a backend service, a local offline desktop daemon, and optional workflow adapters. Deploy the server or local daemon first, then deploy only the adapters needed for the pilot.
 
+Uninstall and rollback runbook: `docs/deployment-rollback.md`.
+
 ## Server Install
 
 Use this path for a hosted or customer-managed FastAPI backend.
