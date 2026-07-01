@@ -17,7 +17,12 @@ class BrowserExtensionTests(unittest.TestCase):
             ["https://chatgpt.com/*", "https://claude.ai/*", "https://gemini.google.com/*"],
         )
         self.assertEqual(scripts["js"], ["adapters.js", "content.js"])
+        self.assertEqual(manifest["permissions"], ["storage", "contextMenus"])
+        self.assertEqual(manifest["host_permissions"], ["http://127.0.0.1:8765/*"])
         self.assertIn("http://127.0.0.1:8765/*", manifest["host_permissions"])
+        self.assertNotIn("<all_urls>", manifest["host_permissions"])
+        self.assertNotIn("activeTab", manifest["permissions"])
+        self.assertNotIn("tabs", manifest["permissions"])
         self.assertNotIn("scripting", manifest["permissions"])
 
     def test_options_expose_opt_in_paste_and_irreversible_modes(self):
@@ -136,6 +141,34 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("pre-send review for GenAI prompts", text)
         self.assertIn("not universal browser DLP", text)
         self.assertIn("Do not describe this adapter as universal DLP", text)
+
+    def test_browser_extension_docs_review_manifest_permissions(self):
+        text = (ROOT / "docs" / "integrations" / "browser-extension.md").read_text(encoding="utf-8")
+
+        for token in (
+            "## Manifest Permission Review",
+            "`permissions` | `storage`",
+            "local pairing token",
+            "Prompt text must not be stored",
+            "`permissions` | `contextMenus`",
+            "`host_permissions` | `http://127.0.0.1:8765/*`",
+            "`content_scripts.matches`",
+            "chatgpt.com",
+            "claude.ai",
+            "gemini.google.com",
+            "`activeTab`",
+            "`tabs`",
+            "`scripting`",
+            "`webRequest`",
+            "`cookies`",
+            "`history`",
+            "`downloads`",
+            "`identity`",
+            "`<all_urls>`",
+            "exact HTTPS backend origin",
+            "Do not use `<all_urls>`",
+        ):
+            self.assertIn(token, text)
 
 
 if __name__ == "__main__":

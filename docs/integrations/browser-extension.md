@@ -38,6 +38,24 @@ Current behavior:
 - Paste interception is opt-in through extension settings.
 - Prompt review before submit is opt-in through extension settings. For warn decisions, the content script blocks the submit event and asks the user to confirm before re-clicking the detected submit control.
 
+## Manifest Permission Review
+
+Default MV3 permissions are intentionally narrow:
+
+| Manifest field | Value | Why it is needed |
+|---|---|---|
+| `permissions` | `storage` | Stores endpoint, backend mode, auth mode, local pairing token, operation, and opt-in toggles. Prompt text must not be stored. |
+| `permissions` | `contextMenus` | Adds the explicit "Review selection with Junas" context-menu action. |
+| `host_permissions` | `http://127.0.0.1:8765/*` | Allows the service worker to call the local Junas daemon. |
+| `content_scripts.matches` | `https://chatgpt.com/*`, `https://claude.ai/*`, `https://gemini.google.com/*` | Loads the content script only on documented GenAI pilot targets. |
+
+Permissions deliberately not requested: `activeTab`, `tabs`, `scripting`, `webRequest`,
+`cookies`, `history`, `downloads`, `identity`, and `<all_urls>`.
+
+Hosted-server deployments must build or publish a tenant-specific manifest that adds
+only the exact HTTPS backend origin to `host_permissions`, for example
+`https://junas.example.com/*`. Do not use `<all_urls>` to make hosted mode work.
+
 Security model:
 
 - Production rollout should use Chrome Web Store, Edge Add-ons, or enterprise extension policy.

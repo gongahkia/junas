@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/Browser: Add manifest permission review that minimizes host permissions and documents why each permission is necessary.
 - [ ] P1/Browser: Add MV3 service worker lifecycle tests or manual QA notes to avoid assuming persistent background state.
 - [ ] P1/Browser: Add Playwright-based browser adapter smoke tests against a local fixture page that simulates GenAI prompt composer DOM changes.
 - [ ] P1/Browser: Add telemetry events for prompt review started, decision received, user canceled, user rewrote, user proceeded after warning, selector failure, and backend timeout.

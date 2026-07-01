@@ -16,6 +16,7 @@ It does not make Junas a universal browser DLP control.
 - Update URL for the selected channel.
 - Managed Chrome or Edge profile/device policy scope.
 - Junas backend URL, auth mode, and local pairing or hosted-server token procedure.
+- Manifest permission review from `docs/integrations/browser-extension.md`.
 - QA evidence from `docs/integrations/genai-browser.md` before expanding support claims.
 
 Use `./scripts/package_browser_extension.sh` for a ZIP artifact. Set
@@ -98,6 +99,8 @@ force install requires MDM or MCX/domain management.
   daemon state.
 - The managed profile reaches only the documented target hosts: `chatgpt.com`,
   `claude.ai`, and `gemini.google.com`.
+- The published manifest does not request `activeTab`, `tabs`, `scripting`,
+  `webRequest`, `cookies`, `history`, `downloads`, `identity`, or `<all_urls>`.
 - Privacy checks pass: no raw prompt text in extension storage, console logs, or
   telemetry.
 
