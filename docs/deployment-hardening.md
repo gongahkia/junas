@@ -47,6 +47,10 @@ Do not start with every adapter. Production pilots should run direct API plus on
 
 Use `docker-compose.production.example.yml` as the customer-managed Docker baseline. It is separate from the local/demo compose file because it must fail closed when production controls are missing.
 
+Customer-managed deployments must use customer-held secrets for mapping encryption,
+journal HMAC, subject-index lookup, tenant auth, and retention evidence. See
+`docs/deployment-customer-managed.md` before adapting the Docker or Kubernetes examples.
+
 The example requires:
 
 - tenant auth: `JUNAS_TENANCY_ENABLED=1` plus `JUNAS_TENANT_CREDENTIALS_JSON`

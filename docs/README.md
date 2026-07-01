@@ -16,6 +16,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `observability-alerts.md`: privacy-safe Prometheus alert rules and preflight textfile metrics
 - `observability-metrics.md`: SIEM-safe, local-only, and prohibited metrics boundary
 - `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, and SIEM guidance
+- `deployment-customer-managed.md`: customer-held secret custody requirements for mappings, journal HMAC, subject index, auth, and retention evidence
 - `deployment-managed-llm.md`: deterministic default, public-evidence opt-in, and LLM adjudication deployment gates
 - `mapping-store-hardening.md`: encryption, retention, subject erasure, and deployment controls for persisted mappings
 - `security/local-daemon.md`: local daemon pairing, token, origin, socket, loopback, and uninstall controls
