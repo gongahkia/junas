@@ -115,6 +115,36 @@ class DecisionStateMachineTests(unittest.TestCase):
         with self.assertRaises(self.decisions_mod.ReviewSessionError):
             self.decisions_mod.normalize_decision_taxonomy("detector_error")
 
+    def test_decision_taxonomy_persists_and_replays_from_journal(self):
+        self._seed_session()
+        self.decisions_mod.record_decision(
+            review_id="rev-1",
+            decision=self.decisions_mod.Decision(
+                finding_id="f1",
+                action="reject",
+                decision_taxonomy="false_positive",
+                reviewer_confidence=0.9,
+                detector_feedback={
+                    "detector_issue_category": "defined_term_or_placeholder",
+                    "rule_id": "named_person",
+                    "evidence_hashes": ["9b86d081884c7d659a2feaa0c55ad015"],
+                },
+            ),
+        )
+
+        entries = self.journal_mod.read_journal(review_id="rev-1")
+        payload = entries[-1].payload
+        self.assertEqual(payload["decision_taxonomy"], "false_positive")
+        self.assertEqual(payload["reviewer_confidence"], 0.9)
+        self.assertEqual(payload["detector_feedback"]["rule_id"], "named_person")
+        self.assertNotIn("matched_text", payload["detector_feedback"])
+
+        state = self.decisions_mod.get_session_state(review_id="rev-1")
+        decision = state["decisions"][0]
+        self.assertEqual(decision["decision_taxonomy"], "false_positive")
+        self.assertEqual(decision["reviewer_confidence"], 0.9)
+        self.assertEqual(decision["detector_feedback"]["detector_issue_category"], "defined_term_or_placeholder")
+
     def test_findings_after_decisions_drops_rejected_keeps_undecided(self):
         self._seed_session()
         self.decisions_mod.record_decision(
