@@ -16,8 +16,11 @@ Current files:
 Deploy:
 
 ```sh
+./scripts/launch/run_backend_only.sh
 integrations/word_addin/manifest.xml
 ```
+
+Start the backend or packaged local daemon separately, then sideload or admin-deploy the Word manifest. The backend launcher does not host the taskpane HTML/JS or install the Office add-in.
 
 Current behavior:
 

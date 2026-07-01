@@ -49,6 +49,17 @@ The service worker calls the configured endpoint with `review`, `pseudonymize`, 
 
 For managed GenAI review, callers should use `surface="browser_genai"` and `workflow="prompt_submit"` when the adapter has enough context to submit those fields. The current local extension keeps a minimal strict review payload and should be treated as a pilot surface until target-specific submit interception and selector tests exist.
 
+## Local Launch And Packaging
+
+Start the backend or packaged local daemon separately, then load or package the extension:
+
+```sh
+./scripts/launch/run_backend_only.sh
+./scripts/package_browser_extension.sh
+```
+
+For manual browser testing, load `integrations/browser_extension/` as an unpacked MV3 extension in a managed test profile. The backend launcher does not start Chrome or install the extension.
+
 ## Failure Behavior
 
 - Backend error or timeout: show a visible Junas error panel; do not silently replace text.

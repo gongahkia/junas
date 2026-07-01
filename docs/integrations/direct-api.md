@@ -14,6 +14,12 @@ Direct HTTP/OpenAPI integration is the baseline path for customers that do not w
 
 ## Request Contract
 
+Start the backend:
+
+```sh
+./scripts/launch/run_backend_only.sh
+```
+
 Call `POST /review` first. Provide either `text` or `document_base64`, then include workflow context when known:
 
 ```json

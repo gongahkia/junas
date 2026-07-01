@@ -10,6 +10,12 @@ The shipped code is a read-side neutral JSON manifest scanner for exports from s
 
 ## Upload / Check-In Flow
 
+Start the backend before running service-side upload/check-in hooks:
+
+```sh
+./scripts/launch/run_backend_only.sh
+```
+
 1. User uploads or checks in a document to the DMS.
 2. DMS hook extracts text or sends a supported `document_base64` payload.
 3. Hook calls `POST /review` with `surface="dms"` and `workflow="document_upload"`.

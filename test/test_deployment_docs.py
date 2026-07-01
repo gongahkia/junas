@@ -153,6 +153,36 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, combined)
 
+    def test_running_doc_is_backend_only_and_links_adapter_launch_docs(self):
+        text = (ROOT / "docs" / "running.md").read_text(encoding="utf-8")
+
+        self.assertIn("## Backend Launch", text)
+        self.assertIn("./scripts/launch/run_backend_only.sh", text)
+        self.assertIn("These launchers start the FastAPI backend only", text)
+        self.assertIn("## Adapter Launches", text)
+        for link in (
+            "docs/integrations/direct-api.md",
+            "docs/integrations/outlook.md",
+            "docs/integrations/genai-browser.md",
+            "docs/integrations/word.md",
+            "docs/integrations/desktop-watcher.md",
+            "docs/integrations/dms.md",
+        ):
+            self.assertIn(link, text)
+        launch_section = text[text.index("## Backend Launch") : text.index("## Docker")]
+        self.assertNotIn("junas-watch", launch_section)
+        self.assertNotIn("package_browser_extension.sh", launch_section)
+        self.assertNotIn("manifest.xml", launch_section)
+
+        for path in (
+            ROOT / "docs" / "integrations" / "direct-api.md",
+            ROOT / "docs" / "integrations" / "outlook.md",
+            ROOT / "docs" / "integrations" / "genai-browser.md",
+            ROOT / "docs" / "integrations" / "word.md",
+            ROOT / "docs" / "integrations" / "dms.md",
+        ):
+            self.assertIn("./scripts/launch/run_backend_only.sh", path.read_text(encoding="utf-8"))
+
     def test_distribution_artifacts_exist_for_packaging_surfaces(self):
         expected = [
             ROOT / "scripts" / "package_macos_desktop.sh",

@@ -16,19 +16,41 @@ Document ingest defaults to fail-open: unsupported or partially unreadable paylo
 
 Request bodies are capped by `api.max_request_bytes` / `JUNAS_MAX_REQUEST_BYTES` (default `10485760`) before schema validation.
 
-## Launch
+## Backend Launch
+
+Standard backend-only launch:
 
 ```sh
 ./scripts/launch/run_backend_only.sh
+curl http://127.0.0.1:8000/ready
+```
+
+Development and production-style backend launchers:
+
+```sh
 ./scripts/launch/run_dev.sh
 ./scripts/launch/run_prod.sh
 ```
 
-Manual launch:
+These launchers start the FastAPI backend only. They do not start browser extensions,
+Office add-ins, desktop watchers, DMS hooks, or other adapter runtimes.
+
+Manual backend launch:
 
 ```sh
 uv run uvicorn junas.backend.main:app --host 0.0.0.0 --port 8000
 ```
+
+## Adapter Launches
+
+Adapter-specific launch, packaging, sideload, and QA commands live with each integration:
+
+- `docs/integrations/direct-api.md`
+- `docs/integrations/outlook.md`
+- `docs/integrations/genai-browser.md`
+- `docs/integrations/word.md`
+- `docs/integrations/desktop-watcher.md`
+- `docs/integrations/dms.md`
 
 ## Docker
 

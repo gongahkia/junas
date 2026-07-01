@@ -18,6 +18,7 @@ Current files:
 Deploy:
 
 ```sh
+./scripts/launch/run_backend_only.sh
 uv run python scripts/render_outlook_manifest.py --profile dev
 uv run python scripts/render_outlook_manifest.py --profile staging --origin https://outlook-addin.staging.example.com
 uv run python scripts/render_outlook_manifest.py --profile production --origin https://outlook-addin.example.com
@@ -25,6 +26,7 @@ uv run python scripts/validate_outlook_manifest.py dist/outlook-addin/production
 ```
 
 The source manifest is a template. Rendered manifests are written to `dist/outlook-addin/{profile}/manifest.xml` by default. Dev defaults to `https://localhost:3000`; staging and production require an explicit non-local HTTPS origin.
+The backend launcher starts only FastAPI; host the add-in HTML/JS on the rendered manifest origin separately.
 
 ## Smart Alerts Flow
 
