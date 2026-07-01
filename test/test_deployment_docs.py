@@ -104,6 +104,28 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("scripts/check_retention_manifest.py --manifest", text)
         self.assertIn("--json", text)
 
+    def test_deployment_hardening_has_backend_first_reference_architecture(self):
+        text = (ROOT / "docs" / "deployment-hardening.md").read_text(encoding="utf-8")
+
+        for token in (
+            "## Backend-First Reference Architecture",
+            "FastAPI backend",
+            "Reverse proxy/TLS",
+            "API key / JWT / mTLS auth",
+            "Versioned policy config",
+            "No-body process logs",
+            "SIEM export",
+            "JUNAS_JOURNAL_DIR",
+            "Encrypted backup + retention manifest",
+            "Optional adapters",
+            "Outlook Smart Alerts",
+            "Browser GenAI extension",
+            "Word taskpane",
+            "DMS upload hook",
+            "direct API plus one supported workflow adapter",
+        ):
+            self.assertIn(token, text)
+
     def test_data_retention_matrix_covers_required_artifacts(self):
         text = (ROOT / "docs" / "security" / "data-retention.md").read_text(encoding="utf-8")
         docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")

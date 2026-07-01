@@ -5,6 +5,44 @@ does not replace a formal SOC 2 / ISO 27001 control set; it gives operators conc
 defaults for filesystem protection, transport hardening, secrets handling, and SIEM
 export.
 
+## Backend-First Reference Architecture
+
+Junas production deployments should put the FastAPI backend at the policy, audit, and
+trust boundary. Direct API clients and optional adapters activate workflows, but they do
+not own final policy decisions or audit evidence.
+
+```mermaid
+flowchart LR
+    Direct[Direct API clients] --> Proxy[Reverse proxy / TLS]
+    Outlook[Outlook Smart Alerts] --> Proxy
+    Browser[Browser GenAI extension] --> Proxy
+    Word[Word taskpane] --> Proxy
+    DMS[DMS upload hook] --> Proxy
+    Proxy --> Auth[API key / JWT / mTLS auth]
+    Auth --> API[FastAPI backend]
+    API --> Policy[Versioned policy config]
+    API --> Engine[Deterministic review engine]
+    API --> State[(Journals / mappings / subject index / audit packs)]
+    API --> Logs[No-body process logs]
+    Logs --> SIEM[SIEM export]
+    State --> Backup[Encrypted backup + retention manifest]
+```
+
+Reference layers:
+
+| Layer | Production requirement |
+|---|---|
+| Reverse proxy/TLS | Terminate TLS at Nginx, Envoy, ingress, or equivalent; disable request-body logs on Junas routes. |
+| Auth | Enable `JUNAS_API_KEY` for simple deployments or tenant auth with API-key registry/JWT/mTLS context for multi-tenant deployments. |
+| Policy config | Load a versioned TOML policy profile and tenant overrides before serving traffic; fail startup on invalid production policy. |
+| Logs | Emit request id, route, status, latency, policy id/version, and counts only; never log raw document text, matched spans, mappings, or auth headers. |
+| SIEM | Enable privacy-safe JSON-over-syslog events only after the downstream index retention and access policy are configured. |
+| Persistence | Put `JUNAS_JOURNAL_DIR`, mapping store files, subject index, audit packs, and matter/session sidecars on a service-owned encrypted volume. |
+| Backup | Back up persistent state with customer-held keys, retention manifest coverage, restore testing, and subject-erasure tombstone handling. |
+| Optional adapters | Deploy Outlook, browser, Word, DMS, desktop, or direct API surfaces separately; an adapter outage must follow its documented failure policy. |
+
+Do not start with every adapter. Production pilots should run direct API plus one supported workflow adapter, then add more surfaces only after auth, policy, telemetry, retention, and failure behavior have been verified for the current surface.
+
 ## Filesystem Boundaries
 
 Run Junas as a dedicated service account and keep runtime state out of user-writable
