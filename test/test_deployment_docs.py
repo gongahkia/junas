@@ -1410,6 +1410,74 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_adapter_telemetry_doc_defines_events_fields_and_siem_mapping(self):
+        text = (ROOT / "docs" / "integrations" / "telemetry.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("telemetry.md", integrations_index)
+        for token in (
+            "Status: normative for adapters",
+            "## Schemas",
+            "`junas.outlook.telemetry.v1`",
+            "`junas.browser.telemetry.v1`",
+            "`junas.dms.telemetry.v1`",
+            "`junas.api.telemetry.v1`",
+            "`junas.siem.v1`",
+            "## Event Names",
+            "outlook_review_started",
+            "outlook_policy_decision_received",
+            "outlook_user_proceeded_after_warning",
+            "outlook_user_blocked",
+            "outlook_user_requested_approval",
+            "outlook_backend_failure",
+            "browser_prompt_review_started",
+            "browser_policy_decision_received",
+            "browser_user_canceled",
+            "browser_user_rewrote",
+            "browser_user_proceeded_after_warning",
+            "browser_selector_failure",
+            "browser_backend_timeout",
+            "dms_review_started",
+            "dms_policy_decision_received",
+            "dms_upload_held",
+            "dms_upload_blocked",
+            "dms_backend_failure",
+            "api_review_started",
+            "api_policy_decision_received",
+            "api_backend_failure",
+            "## Allowed Fields",
+            "`schema_version`",
+            "`event_name`",
+            "`failure_class`",
+            "`tenant_hash`",
+            "`idempotency_key_hash`",
+            "`matter_id_hash`",
+            "## Prohibited Fields",
+            "raw prompt, email body, subject, document text",
+            "matched text, rewritten text, replacement text",
+            "auth headers, API keys, JWTs",
+            "## SIEM Mapping",
+            "`event_type=\"adapter_telemetry\"`",
+            "`category=\"audit\"`",
+            "`category=\"security\"`",
+            "`category=\"privacy\"`",
+            "`outcome` such as `started`, `succeeded`, `blocked`",
+            "`src/junas/backend/siem.py` sensitive-key rules",
+            "## Required Event Fields",
+            "`*_review_started`",
+            "`*_policy_decision_received`",
+            "`*_backend_failure`",
+            "## Aggregations",
+            "warning override rate by surface and policy version",
+            "Unsafe aggregations",
+            "top recipient addresses",
+            "## QA",
+            "globalThis.junasTelemetrySink(event)",
+            "DOM `junas:telemetry` events",
+            "sanitize_details",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (

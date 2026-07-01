@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/IntegrationContracts: Add `docs/integrations/telemetry.md` defining adapter event names, allowed fields, prohibited fields, and SIEM mapping.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/recipient-context.md` documenting how email, browser, DMS, and direct API surfaces should pass destination context.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/document-context.md` documenting document filename, MIME type, attachment count, DMS matter id, session id, and matter id behavior.
 - [ ] P0/IntegrationContracts: Add OpenAPI examples for each adapter surface using `surface=outlook`, `surface=browser_genai`, `surface=dms`, `surface=desktop`, and `surface=api`.
