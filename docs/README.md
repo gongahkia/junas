@@ -38,6 +38,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `migration/redactor-to-review.md`: migration guide from redactor/anonymizer-first integrations to review and policy decisions
 - `admin-console/requirements.md`: admin console requirements for review sessions, decisions, policy config, audit exports, false-positive triage, and tenant health
 - `admin-console/review-session-list-endpoint.md`: read-only review-session list endpoint requirements for pagination, tenant isolation, role checks, and no raw body exposure by default
+- `admin-console/policy-config-ui.md`: policy config UI requirements for draft, validate, publish, rollback, and audit journal events
 - `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows

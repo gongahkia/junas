@@ -49,6 +49,7 @@ or a raw document browser.
 
 - Review-session list requirements:
   `docs/admin-console/review-session-list-endpoint.md`.
+- Policy config UI requirements: `docs/admin-console/policy-config-ui.md`.
 - Policy config docs: `docs/policy/schema.md` and `docs/policy/examples.md`.
 - Decision behavior: `docs/policy/decision-contract.md` and
   `docs/policy/journal-replay.md`.

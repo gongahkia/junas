@@ -255,6 +255,52 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_policy_config_ui_requirements(self):
+        text = (ROOT / "docs" / "admin-console" / "policy-config-ui.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/policy-config-ui.md", docs_index)
+        self.assertIn("docs/admin-console/policy-config-ui.md", requirements)
+        for token in (
+            "Policy Config UI Requirements",
+            "versioned Junas policy profiles",
+            "Create drafts",
+            "validate drafts",
+            "publish validated drafts",
+            "rollback to prior versions",
+            "local-dev-only reviewer headers",
+            "caller-supplied tenant ids",
+            "Draft Flow",
+            "`draft_id`",
+            "`candidate_policy_version`",
+            "`etag`",
+            "docs/policy/schema.md",
+            "Validate Flow",
+            "junas.policy.load_policy_profile",
+            "production validation enabled",
+            "`validation_status`",
+            "`policy_version`",
+            "policy_config_validation_failed",
+            "Publish Flow",
+            "expected active `policy_id` plus `policy_version`",
+            "Rollback Flow",
+            "prior published version",
+            "Audit Journal Events",
+            "policy_config_draft_created",
+            "policy_config_validated",
+            "policy_config_published",
+            "policy_config_rolled_back",
+            "changed field names",
+            "No policy engine in frontend code",
+            "No raw reviewed content or matched spans",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
