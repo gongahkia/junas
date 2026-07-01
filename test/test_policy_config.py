@@ -1,6 +1,7 @@
 import sys
 import tempfile
 import textwrap
+import tomllib
 import unittest
 from pathlib import Path
 
@@ -10,6 +11,29 @@ if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
 from junas.policy import PolicyConfigError, load_policy_profile
+
+POLICY_DOCS = (
+    ROOT / "docs" / "policy" / "schema.md",
+    ROOT / "docs" / "policy" / "examples.md",
+)
+
+
+def _toml_blocks(path: Path) -> list[str]:
+    blocks = []
+    lines: list[str] = []
+    in_toml = False
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line == "```toml":
+            in_toml = True
+            lines = []
+            continue
+        if in_toml and line == "```":
+            blocks.append("\n".join(lines) + "\n")
+            in_toml = False
+            continue
+        if in_toml:
+            lines.append(line)
+    return blocks
 
 
 class PolicyConfigTests(unittest.TestCase):
@@ -119,6 +143,26 @@ class PolicyConfigTests(unittest.TestCase):
             load_policy_profile(path, tenant_id="tenant-a", production=True)
 
         self.assertIn("tenants.tenant-a.policy_version", str(ctx.exception))
+
+    def test_docs_policy_config_examples_validate_in_production(self):
+        seen_blocks = 0
+        for doc in POLICY_DOCS:
+            blocks = _toml_blocks(doc)
+            self.assertTrue(blocks, f"missing TOML policy examples in {doc}")
+            for index, block in enumerate(blocks):
+                with self.subTest(doc=doc.name, block=index):
+                    raw = tomllib.loads(block)
+                    self.assertIn("policy", raw)
+                    path = self._write_config(block)
+                    profile = load_policy_profile(path, production=True)
+                    self.assertTrue(profile.policy_id)
+                    self.assertTrue(profile.policy_version)
+                    for tenant_id in raw.get("tenants", {}):
+                        tenant_profile = load_policy_profile(path, tenant_id=tenant_id, production=True)
+                        self.assertTrue(tenant_profile.policy_id)
+                        self.assertTrue(tenant_profile.policy_version)
+                    seen_blocks += 1
+        self.assertGreaterEqual(seen_blocks, 6)
 
 
 if __name__ == "__main__":
