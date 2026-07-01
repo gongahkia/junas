@@ -48,6 +48,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/review-examples.md`: same-contract `/review` examples for GenAI, email, legal memo, DMS, and Slack-style messages
 - `feedback-loop.md`: canonical journal-to-candidate-corpus path from reviewer decision to candidate fixture to promoted recall lock
 - `telemetry-feedback-loop.md`: privacy-safe join model for adapter telemetry, policy outcomes, and reviewer decisions
+- `support-triage-template.md`: support intake templates for detector, false-positive, adapter, auth, policy, and audit issues
 - `faq/procurement.md`: procurement-facing claim discipline and promoted evidence links
 - `faq/buyer-objections.md`: buyer-objection responses for accuracy, liability, data residency, deployment, friction, false positives, and DLP coexistence
 - `faq/operator.md`: operator-facing FAQ for how Junas complements DLP, endpoint, SIEM, and SaaS controls
