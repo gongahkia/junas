@@ -17,5 +17,14 @@
   lower or higher adoption than in-workflow review. Do not make adoption-superiority
   claims until the manual task study is complete and documented in
   `docs/product/value-metrics.md`.
+- No public MNPI text-detection benchmark comparable to TAB or ai4privacy was
+  identified in the 2026-07-01 source review. MNPI recall is measured against
+  internal expert-labelled/project-owner-reviewed fixtures, with provenance in
+  `test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`.
+  Strict `conjunctive_mnpi` span placement includes detector reconciliation and
+  is not an independent public MNPI benchmark.
+- This is the market gap Junas targets: MNPI review is conjunctive over
+  materiality, non-public status, issuer/security context, and possession or
+  disclosure context, while public PII corpora benchmark direct span extraction.
 - Subject erasure deletes reversible mappings and writes journal tombstones; logs, SIEM, backups, legal-hold archives, and any immutable external stores require separate operator controls.
 - Accuracy docs are internal benchmark disclosures unless explicitly promoted with human-reviewed corpus locks.

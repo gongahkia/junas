@@ -161,6 +161,15 @@ def render_accuracy_doc() -> str:
         "scored separately from TAB because Hugging Face also publishes a Presidio-powered PII report. | "
         "Committed report in `reports/current/ai4privacy_pii_masking_200k_en_us_en_gb_eval.json`; "
         "reports recall on documented English US/UK label-proxy slices and never updates promotion locks. |",
+        "",
+        "## MNPI Benchmark Limitation",
+        "",
+        "No public MNPI text-detection benchmark comparable to TAB or ai4privacy was identified in "
+        "the 2026-07-01 source review. MNPI recall is measured against internal "
+        "expert-labelled/project-owner-reviewed fixtures, with provenance in "
+        "`test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`. "
+        "Strict `conjunctive_mnpi` span placement includes detector reconciliation and is not an "
+        "independent public benchmark.",
     ]
     )
 

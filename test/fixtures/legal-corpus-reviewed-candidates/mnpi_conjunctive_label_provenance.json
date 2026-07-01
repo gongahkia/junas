@@ -1,0 +1,44 @@
+{
+  "corpus": "test/fixtures/legal-corpus-reviewed-candidates",
+  "counts": {
+    "detector_label_source_items": 0,
+    "detector_reconciled_label_items": 1356,
+    "label_files": 1356,
+    "label_items": 1358,
+    "non_detector_item_provenance_items": 2,
+    "section_counts": {
+      "ideal_must_detect": 2,
+      "must_detect": 1356
+    }
+  },
+  "independence_disclosure": "Strict conjunctive_mnpi must_detect span placement is detector-reconciled and must not be presented as an independent public MNPI benchmark; use it as internal project-owner-reviewed fixture evidence only.",
+  "non_detector_author_provenance": {
+    "basis": "file-level _human_review/_promotion metadata records project-owner manual review",
+    "review_status_counts": {
+      "approved": 1358
+    },
+    "reviewer_counts": {
+      "gongahkia-project-owner-chat-approval": 121,
+      "gongahkia-project-owner-chat-approval-via-codex": 21,
+      "gongahkia-project-owner-manual-stage-b-review": 1155,
+      "project-owner": 61
+    }
+  },
+  "record_sha256": "d088d99612147b18c9419f343f56c391bdf36f4f506e7a4c7c24d7081820ae62",
+  "rule": "conjunctive_mnpi",
+  "schema_version": 1,
+  "scope": "all reviewed-candidate label items whose rule is conjunctive_mnpi",
+  "source_review": {
+    "contrast_public_pii_benchmarks": [
+      "https://github.com/NorskRegnesentral/text-anonymization-benchmark",
+      "https://arxiv.org/abs/2604.15776"
+    ],
+    "queries": [
+      "public MNPI text detection corpus material nonpublic information benchmark dataset",
+      "material nonpublic information dataset text classification corpus MNPI",
+      "inside information dataset material non-public text detection corpus"
+    ],
+    "result": "No public MNPI text-detection benchmark comparable to TAB or ai4privacy was identified.",
+    "reviewed_on": "2026-07-01"
+  }
+}

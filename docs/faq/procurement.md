@@ -36,9 +36,14 @@ Do not use screenshots, demo flows, unpromoted candidate sidecars, synthetic exa
 
 ## What Independent Benchmarks Exist?
 
-No Junas score on TAB or ai4privacy is claimed until an eval report is committed. Those datasets are future comparison targets only.
+Committed independent PII breadth checks exist for TAB and ai4privacy; use
+`docs/accuracy.md` for their current report paths and metric caveats.
 
-There is no public MNPI benchmark in this repo comparable to TAB or ai4privacy. Current MNPI evidence is in-domain legal fixture evidence plus statutory coverage docs and review examples.
+No public MNPI text-detection benchmark comparable to TAB or ai4privacy was
+identified in the 2026-07-01 source review. Current MNPI evidence is internal
+expert-labelled/project-owner-reviewed legal fixture evidence plus statutory
+coverage docs and review examples; strict `conjunctive_mnpi` span placement is
+detector-reconciled and not an independent public benchmark.
 
 ## Can Junas Replace Legal Advice Or DLP?
 

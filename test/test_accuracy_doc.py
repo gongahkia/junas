@@ -36,6 +36,9 @@ class AccuracyDocTests(unittest.TestCase):
             "precision report or precision lock",
             "`scripts/generate_accuracy_doc.py --check` passes",
             "Candidate-only reports, demo screenshots, unpromoted sidecars",
+            "## MNPI Benchmark Limitation",
+            "No public MNPI text-detection benchmark",
+            "Strict `conjunctive_mnpi` span placement includes detector reconciliation",
         ):
             self.assertIn(token, rendered)
 

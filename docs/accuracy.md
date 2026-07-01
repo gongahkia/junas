@@ -47,6 +47,10 @@ Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes
 | TAB (Text Anonymization Benchmark) | `test/fixtures/external/text-anonymization-benchmark/` via `scripts/fetch_tab_fixture.sh` | `scripts/run_tab_eval.py` | 1,268 manually annotated ECHR cases from an external corpus; scored from TAB `DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | Separate eval target; reports span-level precision/recall/F2 and never updates the candidate-corpus promotion lock. |
 | ai4privacy `pii-masking-200k` | `test/fixtures/external/ai4privacy-pii-masking-200k/english_pii_43k.jsonl` via `scripts/fetch_ai4privacy_fixture.py` | `scripts/run_ai4privacy_eval.py` | Semi-independent external synthetic corpus with ai4privacy human-in-the-loop validation claims; scored separately from TAB because Hugging Face also publishes a Presidio-powered PII report. | Committed report in `reports/current/ai4privacy_pii_masking_200k_en_us_en_gb_eval.json`; reports recall on documented English US/UK label-proxy slices and never updates promotion locks. |
 
+## MNPI Benchmark Limitation
+
+No public MNPI text-detection benchmark comparable to TAB or ai4privacy was identified in the 2026-07-01 source review. MNPI recall is measured against internal expert-labelled/project-owner-reviewed fixtures, with provenance in `test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`. Strict `conjunctive_mnpi` span placement includes detector reconciliation and is not an independent public benchmark.
+
 ## Per-Detector Baselines
 
 | Corpus | Fixtures | Detector | Recall | Precision |
