@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/Deployment: Add a "do not deploy all adapters at once" note recommending one supported adapter plus direct API for first pilot.
 - [ ] P1/MarketValidation: Interview at least five target users across legal, compliance, and security, then update `docs/product/personas.md` with validated workflows and pain points.
 - [ ] P1/MarketValidation: Run a manual task study comparing standalone copy-paste redaction versus Outlook/browser in-workflow review and record adoption friction in `docs/product/value-metrics.md`.
 - [ ] P1/MarketValidation: Create a pilot success rubric requiring measurable avoided sends, accepted rewrites, reviewer decisions, and low false-positive fatigue.

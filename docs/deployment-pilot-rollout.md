@@ -22,6 +22,18 @@ Record these fields before enabling users:
 | Data boundary | Hosted, customer-managed, local-only, or hybrid deployment mode. |
 | Success window | Start/end date, timezone, reporting cadence, and exit review date. |
 
+## First Pilot Adapter Rule
+
+Do not deploy all adapters at once. The first production pilot should use the direct
+API/backend contract plus one supported adapter or one direct service integration. Pick
+the workflow with the clearest owner and measurable denominator: Outlook send, managed
+GenAI browser submit, DMS upload/check-in, or a direct service-side API call.
+
+Add a second adapter only after the first surface has passing auth, policy, telemetry,
+audit export, support, rollback, and success-metric evidence. This keeps failures
+attributable to one workflow instead of mixing browser DOM changes, Office client
+support, DMS metadata, local daemon state, and backend policy changes in the same pilot.
+
 ## Required Gates
 
 | Gate | Evidence before rollout | Failure action |
