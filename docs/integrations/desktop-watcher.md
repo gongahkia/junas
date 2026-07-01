@@ -35,7 +35,12 @@ Run packaged daemon:
 curl http://127.0.0.1:8765/ready
 ```
 
-Install LaunchAgent:
+## Optional LaunchAgent Install
+
+`packaging/macos/install.sh` installs a LaunchAgent with `RunAtLoad` and `KeepAlive`.
+Treat it as optional and admin-controlled, not a default developer quickstart path. For
+developer smoke tests, run `./dist/junas-local/junas-local` directly and install the
+LaunchAgent only when an operator has approved auto-start behavior for that profile.
 
 ```sh
 packaging/macos/install.sh

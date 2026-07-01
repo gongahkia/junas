@@ -48,7 +48,7 @@ JUNAS_NOTARYTOOL_PROFILE=junas-notary \
 ./scripts/package_macos_desktop.sh
 ```
 
-Install, update, and uninstall:
+Optional LaunchAgent lifecycle, admin-controlled and not a developer quickstart:
 
 ```sh
 packaging/macos/install.sh
@@ -56,7 +56,9 @@ packaging/macos/update.sh
 packaging/macos/uninstall.sh
 ```
 
-The LaunchAgent binds `127.0.0.1:8765` and enables local daemon ACLs.
+The LaunchAgent binds `127.0.0.1:8765`, enables local daemon ACLs, and starts at login.
+Run `./dist/junas-local/junas-local` directly for developer smoke tests unless an
+operator has approved LaunchAgent auto-start.
 
 ## Extension and Office surfaces
 

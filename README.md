@@ -640,7 +640,7 @@ JUNAS_NOTARYTOOL_PROFILE=junas-notary \
 ./scripts/package_macos_desktop.sh
 ```
 
-Install, update, uninstall:
+Optional admin-controlled LaunchAgent lifecycle; not a default developer quickstart:
 
 ```bash
 packaging/macos/install.sh

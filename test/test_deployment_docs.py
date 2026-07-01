@@ -525,15 +525,20 @@ class DeploymentDocsTests(unittest.TestCase):
         pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         quick_start = re.search(r"## Quick Start(?P<body>.*?)## What Junas Does", readme, re.S)
         fallback = re.search(r"## Experimental Local Fallback(?P<body>.*?)## API Surface", readme, re.S)
+        packaging = re.search(r"## Packaging & Deployment(?P<body>.*?)## Screenshots", readme, re.S)
 
         self.assertIsNotNone(quick_start)
         self.assertIsNotNone(fallback)
+        self.assertIsNotNone(packaging)
         self.assertNotIn("junas-watch", quick_start.group("body"))
         self.assertNotIn("--clipboard", quick_start.group("body"))
+        self.assertNotIn("packaging/macos/install.sh", quick_start.group("body"))
         self.assertIn("junas-watch", fallback.group("body"))
         self.assertIn("console script remains installed", fallback.group("body"))
         self.assertIn("experimental-local-fallback", fallback.group("body"))
         self.assertIn("desktop-watcher.md", fallback.group("body"))
+        self.assertIn("Optional admin-controlled LaunchAgent lifecycle", packaging.group("body"))
+        self.assertIn("not a default developer quickstart", packaging.group("body"))
         self.assertIn('junas-watch = "junas.desktop.watch:main"', pyproject)
         self.assertIn("experimental-local-fallback console script", pyproject)
 
@@ -945,6 +950,11 @@ class DeploymentDocsTests(unittest.TestCase):
             "Do not use it as enterprise",
             "endpoint DLP",
             "Enforced production workflows",
+            "Optional LaunchAgent Install",
+            "optional and admin-controlled",
+            "not a default developer quickstart path",
+            "RunAtLoad",
+            "KeepAlive",
             "Clipboard polling is never enabled by default",
             "desktop-watcher.config.sample.toml",
             "flag/env based",
@@ -979,6 +989,7 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertEqual(sample["operator_ack"]["dedicated_watch_folder_required"], True)
 
         threat_model = (ROOT / "docs" / "security" / "adapter-threat-model.md").read_text(encoding="utf-8")
+        packaging = (ROOT / "packaging" / "README.md").read_text(encoding="utf-8")
         for token in (
             "notification path exposure",
             "broad recursive folder scans",
@@ -987,6 +998,14 @@ class DeploymentDocsTests(unittest.TestCase):
             "dedicated watched folder",
         ):
             self.assertIn(token, threat_model)
+        for token in (
+            "Optional LaunchAgent lifecycle",
+            "admin-controlled",
+            "not a developer quickstart",
+            "starts at login",
+            "developer smoke tests",
+        ):
+            self.assertIn(token, packaging)
 
 
 if __name__ == "__main__":
