@@ -52,6 +52,31 @@ class DesktopWatchTests(unittest.TestCase):
 
         self.assertEqual(summaries[0].anonymized_path, None)
 
+    def test_anonymized_output_stays_under_configured_output_dir(self):
+        def fake_post(_base_url, path, _payload, _timeout_seconds, _headers):
+            if path == "/review":
+                return {"overall_risk": "HIGH", "document_score": 80.0, "findings": [{"rule": "email_address"}]}
+            return {"anonymized_text": "Email [EMAIL_ADDRESS_1]"}
+
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post),
+        ):
+            root = Path(tmp)
+            source = root / "watched" / "nested" / "client-note.txt"
+            out = root / "approved-output"
+            source.parent.mkdir(parents=True)
+            source.write_text("Email jane@example.com", encoding="utf-8")
+
+            summaries = watch.scan_paths([source], watch.WatchConfig(anonymize_output_dir=out))
+            anonymized_path = Path(summaries[0].anonymized_path or "")
+
+            self.assertEqual(anonymized_path.resolve().parent, out.resolve())
+            self.assertEqual(anonymized_path.name, "client-note.txt.anonymized.txt")
+            self.assertTrue(anonymized_path.exists())
+            self.assertFalse((source.parent / "client-note.txt.anonymized.txt").exists())
+            self.assertFalse((root / "client-note.txt.anonymized.txt").exists())
+
     def test_changed_files_tracks_new_and_modified_text_files_only(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
