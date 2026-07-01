@@ -1108,6 +1108,9 @@ class DeploymentDocsTests(unittest.TestCase):
             "Future Slack",
             "Future Google Workspace",
             "docs/integrations/maturity-matrix.md",
+            "docs/integrations/future-slack-google-workspace.md",
+            "Research-only; no Slack support claim exists yet.",
+            "Research-only; no Google Workspace support claim exists yet.",
         ):
             self.assertIn(token, text)
 
@@ -1664,6 +1667,47 @@ class DeploymentDocsTests(unittest.TestCase):
             "matter names, client names, deal names",
             "## QA Checklist",
             "Two tenants with the same source DMS id do not share matter-defined terms",
+        ):
+            self.assertIn(token, text)
+
+    def test_future_slack_google_workspace_doc_is_research_only(self):
+        text = (
+            ROOT / "docs" / "integrations" / "future-slack-google-workspace.md"
+        ).read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("future-slack-google-workspace.md", integrations_index)
+        for token in (
+            "Status: research-only until implemented",
+            "There is no Slack or Google Workspace adapter source",
+            "Verified against official Slack and Google documentation on 2026-07-01",
+            "Do not claim Slack, Gmail, Google Chat, Google Drive",
+            "## Research Summary",
+            "Slack DLP scans messages, text-based files, and canvases",
+            "Slack Discovery APIs support eDiscovery and DLP apps",
+            "tombstone/delete operations",
+            "Google data protection rules cover selected apps including Chat, Drive, Gmail, Calendar, and Chrome",
+            "Gmail DLP scans sent/received messages and attachments",
+            "actions include block, warn, quarantine, audit, labels",
+            "Chat DLP scans sent messages and uploaded attachments",
+            "Alert Center exposes DLP rule violation data",
+            "Reports API chat activity includes `dlp_scan_status`",
+            "## Future Slack Scope",
+            '"surface": "slack"',
+            '"workflow": "collaboration_message"',
+            "no Slack app manifest",
+            "no Slack Discovery API connector",
+            "## Future Google Workspace Scope",
+            '"surface": "google_workspace"',
+            '"workflow": "email_send"',
+            '"workflow": "collaboration_message"',
+            "no Google Workspace add-on",
+            "no Admin SDK connector",
+            "## Implementation Gate",
+            "smoke tests that run without external SaaS credentials",
+            "## Official References",
+            "https://slack.com/help/articles/12914005852819-Slack-data-loss-prevention",
+            "https://knowledge.workspace.google.com/admin/security/create-data-protection-rules",
         ):
             self.assertIn(token, text)
 
