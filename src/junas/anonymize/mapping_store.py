@@ -162,7 +162,12 @@ def load_mapping(document_hash: str, *, tenant_id: str | None = None) -> list[di
     if not path.exists():
         return None
     with _mapping_lock:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise MappingStoreError("mapping file is corrupt or unreadable") from exc
+    if not isinstance(data, dict):
+        raise MappingStoreError("mapping file is corrupt or unreadable")
     if bool(data.get("encrypted")) or data.get("storage_format") == "fernet-v1":
         fernet = _fernet_from_env(required=True)
         try:

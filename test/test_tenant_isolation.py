@@ -313,8 +313,9 @@ class TenantJWTAuthTests(unittest.TestCase):
         self.assertEqual(response.json()["detail"], "bearer token expired")
 
     def test_jwt_signature_tampering_is_rejected(self):
-        token = self._token()
-        token = token[:-1] + ("A" if token[-1] != "A" else "B")
+        header, payload, signature = self._token().split(".")
+        signature = ("A" if signature[0] != "A" else "B") + signature[1:]
+        token = ".".join((header, payload, signature))
         with TestClient(self.main.app) as client:
             response = client.post(
                 "/review",

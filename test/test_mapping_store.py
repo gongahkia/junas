@@ -202,6 +202,68 @@ class MappingStorePersistTests(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 404)
 
+    def test_reidentify_by_hash_fails_closed_when_persistence_disabled(self):
+        os.environ["JUNAS_REVIEW_PERSIST"] = "0"
+        with TestClient(self.main.app) as client:
+            response = client.post(
+                "/reidentify",
+                json={
+                    "anonymized_text": "[PERSON_1] sent it.",
+                    "document_hash": "0" * 64,
+                },
+            )
+
+        self.assertEqual(response.status_code, 409)
+        self.assertIn("review persistence is disabled", response.json()["detail"])
+
+    def test_reidentify_by_hash_fails_closed_for_corrupt_mapping(self):
+        doc_hash = "d" * 64
+        mapping_dir = self.tmpdir / "mappings"
+        mapping_dir.mkdir(parents=True)
+        (mapping_dir / f"{doc_hash}.json").write_text("{not json\n", encoding="utf-8")
+
+        with TestClient(self.main.app) as client:
+            response = client.post(
+                "/reidentify",
+                json={
+                    "anonymized_text": "[PERSON_1] sent it.",
+                    "document_hash": doc_hash,
+                },
+            )
+
+        self.assertEqual(response.status_code, 409)
+        self.assertIn("mapping file is corrupt or unreadable", response.json()["detail"])
+
+    def test_reidentify_by_hash_fails_closed_for_invalid_mapping_key(self):
+        correct_key = os.environ["JUNAS_MAPPING_STORE_KEY"]
+        text = "Send Dr Jane Tan S1234567D the draft."
+        try:
+            with TestClient(self.main.app) as client:
+                anon = client.post(
+                    "/pseudonymize",
+                    json={
+                        "text": text,
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                    },
+                )
+                self.assertEqual(anon.status_code, 200, anon.text)
+                anon_payload = anon.json()
+                os.environ["JUNAS_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
+
+                response = client.post(
+                    "/reidentify",
+                    json={
+                        "anonymized_text": anon_payload["anonymized_text"],
+                        "document_hash": anon_payload["document_hash"],
+                    },
+                )
+        finally:
+            os.environ["JUNAS_MAPPING_STORE_KEY"] = correct_key
+
+        self.assertEqual(response.status_code, 409)
+        self.assertIn("encrypted mapping could not be decrypted", response.json()["detail"])
+
     def test_anonymize_does_not_persist_when_persistence_disabled(self):
         os.environ["JUNAS_REVIEW_PERSIST"] = "0"
         # rebind the persistence flag without reimporting the whole module

@@ -30,6 +30,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+import junas.anonymize.mapping_store as mapping_store_mod
 from junas.anonymize import (
     DeterministicAnonymizer,
     MappingStoreError,
@@ -2584,7 +2585,7 @@ def _persist_pseudonymization_mapping(
                 ],
             },
         ) from exc
-    except (OSError, MappingStoreError) as exc:
+    except (OSError, MappingStoreError, mapping_store_mod.MappingStoreError) as exc:
         log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
         emit_security_event(
             action="mapping_persist",
@@ -3689,10 +3690,15 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None, tenant:
     if req.mapping:
         mapping_dicts = [entry.model_dump() for entry in req.mapping]
     else:
+        if not _review_persistence_enabled():
+            raise HTTPException(
+                status_code=409,
+                detail="review persistence is disabled; supply inline mapping or set JUNAS_REVIEW_PERSIST=1",
+            )
         # `mapping` is empty and the model validator already guaranteed `document_hash` is present.
         try:
             persisted = _load_persisted_mapping(req.document_hash or "", tenant_id=tenant.storage_tenant_id)
-        except MappingStoreError as exc:
+        except (MappingStoreError, mapping_store_mod.MappingStoreError) as exc:
             emit_security_event(
                 action="mapping_reidentify",
                 outcome="failed",
