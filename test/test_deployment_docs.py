@@ -1571,6 +1571,51 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_adapter_certification_checklist_covers_lifecycle_gates(self):
+        text = (
+            ROOT / "docs" / "integrations" / "adapter-certification-checklist.md"
+        ).read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("adapter-certification-checklist.md", integrations_index)
+        for token in (
+            "Status: normative for promoting adapter support claims",
+            "FastAPI backend remains the policy and audit source of truth",
+            "## Evidence Header",
+            "backend commit",
+            "policy id",
+            "Do not include raw prompts, email bodies, document text",
+            "## Required Checklist",
+            "| Install |",
+            "| Auth |",
+            "| Review |",
+            "| Policy decision |",
+            "| Rewrite |",
+            "| Approval |",
+            "| Telemetry |",
+            "| Privacy |",
+            "| Failure |",
+            "| Uninstall |",
+            "treats `policy_decision` as source of truth",
+            "offers only actions present in `action_catalog`",
+            "Adapter can request approval with `/request-approval`",
+            "silently allows completion when no trustworthy backend policy decision was evaluated",
+            "revokes tokens/secrets",
+            "## Minimum Command Evidence",
+            "manifest validation",
+            "privacy storage/log check",
+            "uninstall or rollback command",
+            "Outlook Smart Alerts",
+            "Browser GenAI extension",
+            "DMS hook/scanner",
+            "Word taskpane",
+            "Desktop watcher",
+            "Direct API",
+            "## Exit Criteria",
+            "## Recertification Triggers",
+        ):
+            self.assertIn(token, text)
+
     def test_document_context_doc_defines_document_metadata_boundary(self):
         text = (ROOT / "docs" / "integrations" / "document-context.md").read_text(encoding="utf-8")
         integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
