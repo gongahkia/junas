@@ -193,12 +193,18 @@ def _check_min_wait(entries: list[JournalEntry]) -> tuple[bool, str | None]:
     return True, None
 
 
-def build_pack(review_id: str, output_path: Path, *, include_defensibility: bool = False) -> dict:
-    entries = read_journal(review_id=review_id)
+def build_pack(
+    review_id: str,
+    output_path: Path,
+    *,
+    include_defensibility: bool = False,
+    tenant_id: str | None = None,
+) -> dict:
+    entries = read_journal(review_id=review_id, tenant_id=tenant_id)
     if not entries or entries[0].event_type != EVENT_REVIEW_STARTED:
         raise SystemExit(f"no review_started event found for {review_id}")
 
-    valid, errors = verify_chain()
+    valid, errors = verify_chain(tenant_id=tenant_id)
     chain_status = "valid" if valid else "tampered"
 
     init_payload = entries[0].payload
@@ -275,6 +281,7 @@ def build_pack(review_id: str, output_path: Path, *, include_defensibility: bool
             "decisions_total": manifest["decisions_total"],
             "defensibility_included": include_defensibility,
         },
+        tenant_id=tenant_id,
     )
     return manifest
 
@@ -293,15 +300,21 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Bundle statutory coverage, defensibility reports, and per-finding manifest.",
     )
+    parser.add_argument("--tenant", "--tenant-id", dest="tenant_id", help="tenant storage id")
     args = parser.parse_args(argv)
 
     if args.output is None:
         # default location lives beside the journal so audit artefacts stay grouped
         from junas.review.journal import journal_dir
 
-        args.output = journal_dir() / f"audit_pack_{args.review_id}.zip"
+        args.output = journal_dir(args.tenant_id) / f"audit_pack_{args.review_id}.zip"
 
-    manifest = build_pack(args.review_id, args.output, include_defensibility=args.include_defensibility)
+    manifest = build_pack(
+        args.review_id,
+        args.output,
+        include_defensibility=args.include_defensibility,
+        tenant_id=args.tenant_id,
+    )
     print(f"wrote {args.output}")
     print(json.dumps(manifest, indent=2, sort_keys=True))
     if manifest["journal_chain_status"] != "valid":

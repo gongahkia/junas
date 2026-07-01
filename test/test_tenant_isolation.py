@@ -212,6 +212,47 @@ class TenantIsolationTests(unittest.TestCase):
             }
             self.assertIn("Mr Purchaser", tenant_b_names)
 
+    def test_tenant_a_cannot_use_guessed_tenant_b_review_or_mapping_ids(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_review(client, "tenant-b-key")
+            state = client.get(f"/review/{review_id}", headers={"X-API-Key": "tenant-b-key"})
+            self.assertEqual(state.status_code, 200, state.text)
+            finding_id = state.json()["findings"][0]["id"]
+
+            guessed_read = client.get(f"/review/{review_id}", headers={"X-API-Key": "tenant-a-key"})
+            self.assertEqual(guessed_read.status_code, 404)
+
+            guessed_approval_request = client.post(
+                "/request-approval",
+                headers={"X-API-Key": "tenant-a-key"},
+                json={"review_id": review_id, "finding_ids": [finding_id]},
+            )
+            self.assertEqual(guessed_approval_request.status_code, 404)
+
+            guessed_approval_decision = client.post(
+                f"/review/{review_id}/decision",
+                headers={"X-API-Key": "tenant-a-key"},
+                json={"finding_id": finding_id, "action": "approve"},
+            )
+            self.assertEqual(guessed_approval_decision.status_code, 404)
+
+            anon = client.post(
+                "/pseudonymize",
+                headers={"X-API-Key": "tenant-b-key"},
+                json={"text": "Send Dr Jane Tan S1234567D to jane@example.com."},
+            )
+            self.assertEqual(anon.status_code, 200, anon.text)
+            anon_payload = anon.json()
+            guessed_mapping = client.post(
+                "/reidentify",
+                headers={"X-API-Key": "tenant-a-key"},
+                json={
+                    "anonymized_text": anon_payload["anonymized_text"],
+                    "document_hash": anon_payload["document_hash"],
+                },
+            )
+            self.assertEqual(guessed_mapping.status_code, 404)
+
     def test_insufficient_role_returns_403(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_review(client, "tenant-a-key")

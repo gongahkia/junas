@@ -21,13 +21,14 @@ def main(argv: list[str] | None = None) -> int:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--document-hash", help="delete one mapping by SHA-256 document hash")
     group.add_argument("--older-than-days", type=int, help="delete mappings older than this many days")
+    parser.add_argument("--tenant", "--tenant-id", dest="tenant_id", help="tenant storage id")
     parser.add_argument("--dry-run", action="store_true", help="show retention matches without deleting")
     parser.add_argument("--json", action="store_true", help="emit machine-readable JSON")
     args = parser.parse_args(argv)
 
     if args.document_hash:
-        matched = mapping_exists(args.document_hash)
-        deleted = False if args.dry_run else purge_mapping(args.document_hash)
+        matched = mapping_exists(args.document_hash, tenant_id=args.tenant_id)
+        deleted = False if args.dry_run else purge_mapping(args.document_hash, tenant_id=args.tenant_id)
         payload = {
             "mode": "document_hash",
             "document_hash": args.document_hash,
@@ -38,7 +39,11 @@ def main(argv: list[str] | None = None) -> int:
     else:
         if args.older_than_days < 0:
             parser.error("--older-than-days must be >= 0")
-        matches = purge_expired_mappings(older_than_days=args.older_than_days, dry_run=args.dry_run)
+        matches = purge_expired_mappings(
+            older_than_days=args.older_than_days,
+            dry_run=args.dry_run,
+            tenant_id=args.tenant_id,
+        )
         payload = {
             "mode": "retention",
             "older_than_days": args.older_than_days,

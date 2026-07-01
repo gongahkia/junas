@@ -84,6 +84,47 @@ class AuditPackTests(unittest.TestCase):
         self.assertEqual(verify.returncode, 0, msg=verify.stderr)
         self.assertIn("valid", verify.stdout)
 
+    def test_tenant_scoped_export_rejects_guessed_other_tenant_review_id(self):
+        self.decisions.start_review_session(
+            review_id="tenant-b-review",
+            text_hash="hash-tenant-b",
+            document_type="SPA",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            findings=[
+                {"id": "f1", "category": "PII", "rule": "named_person", "severity": "high",
+                 "matched_text": "Dr Jane Tan", "start_char": 0, "end_char": 11},
+            ],
+            tenant_id="tenant-b",
+        )
+        tenant_a_output = self.tmpdir / "tenant-a.zip"
+
+        guessed = self._run(
+            "export_audit_pack.py",
+            "tenant-b-review",
+            "--tenant",
+            "tenant-a",
+            "--output",
+            str(tenant_a_output),
+        )
+        self.assertNotEqual(guessed.returncode, 0)
+        self.assertIn("no review_started event found for tenant-b-review", guessed.stderr)
+        self.assertFalse(tenant_a_output.exists())
+
+        tenant_b_output = self.tmpdir / "tenant-b.zip"
+        allowed = self._run(
+            "export_audit_pack.py",
+            "tenant-b-review",
+            "--tenant",
+            "tenant-b",
+            "--output",
+            str(tenant_b_output),
+        )
+        self.assertEqual(allowed.returncode, 0, msg=allowed.stderr)
+        with zipfile.ZipFile(tenant_b_output) as archive:
+            manifest = json.loads(archive.read("manifest.json"))
+        self.assertEqual(manifest["review_id"], "tenant-b-review")
+
     def test_manifest_reviewer_rollup_counts_actions_per_reviewer(self):
         self.decisions.start_review_session(
             review_id="rev-rollup",
