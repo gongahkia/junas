@@ -55,6 +55,7 @@ or a raw document browser.
 - Audit export UI requirements: `docs/admin-console/audit-export-ui.md`.
 - Admin console auth requirements: `docs/admin-console/auth-requirements.md`.
 - Admin console telemetry requirements: `docs/admin-console/telemetry-requirements.md`.
+- No-build prototype: `docs/admin-console/no-build-prototype.md`.
 - Policy config docs: `docs/policy/schema.md` and `docs/policy/examples.md`.
 - Decision behavior: `docs/policy/decision-contract.md` and
   `docs/policy/journal-replay.md`.

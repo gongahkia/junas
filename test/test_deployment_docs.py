@@ -505,6 +505,44 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_no_build_prototype_exists_before_frontend_dependency(self):
+        text = (ROOT / "docs" / "admin-console" / "no-build-prototype.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/no-build-prototype.md", docs_index)
+        self.assertIn("docs/admin-console/no-build-prototype.md", requirements)
+        for token in (
+            "Admin Console No-Build Prototype",
+            "no-build wireframe",
+            "before any admin console frontend framework dependency",
+            "React, Vue, Svelte, HTMX, Jinja templates",
+            "Review Sessions",
+            "Reviewer Queue",
+            "Policy Config",
+            "False-Positive Triage",
+            "Audit Exports",
+            "Tenant Health",
+            "No raw prompt, email body, document text",
+            "tenant-scoped pagination",
+            "record decision",
+            "validate",
+            "publish",
+            "rollback",
+            "create synthetic fixture task",
+            "scripts/export_audit_pack.py",
+            "scripts/verify_audit_pack.py",
+            "scripts/verify_journal.py",
+            "Framework Gate",
+            "at least five target-user interviews",
+            "ADR 0005 is revisited or superseded",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),

@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/AdminUI: Add a no-build prototype or wireframe document before adding any frontend framework dependency.
 - [ ] P1/AdminUI: Add tests for any new admin endpoints proving auditor can read, reviewer cannot read audit-only data, and cross-tenant review ids are denied.
 - [ ] P0/FeedbackLoop: Document the existing journal-to-corpus scripts and define the canonical path from reviewer decision to candidate fixture to promoted recall lock.
 - [ ] P0/FeedbackLoop: Add a decision taxonomy for false_positive, false_negative, acceptable_risk, public_source_confirmed, stale_information, and policy_exception.
