@@ -48,6 +48,15 @@ class CiWorkflowTests(unittest.TestCase):
         self.assertIn("github.event.pull_request.base.sha", text)
         self.assertIn("github.event.before", text)
 
+    def test_false_negative_risk_gate_is_ci_wired(self):
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+        self.assertIn("False-negative risk gate", text)
+        self.assertIn("Check locked-corpus false-negative risk", text)
+        self.assertIn("scripts/check_false_negative_risk.py --base-ref", text)
+        self.assertIn("uv run python -m spacy download en_core_web_sm", text)
+        self.assertIn("fetch-depth: 0", text)
+
 
 if __name__ == "__main__":
     unittest.main()

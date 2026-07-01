@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/FeedbackLoop: Add an eval gate that fails if a policy or rewrite change increases false-negative risk on locked legal corpora.
 - [ ] P0/FeedbackLoop: Add a precision gate that flags noisy detector changes before they reach Outlook/browser adapters.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/adapter-protocol.md` defining request fields, response fields, auth headers, retry semantics, timeouts, idempotency keys, and telemetry events.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/failure-semantics.md` defining adapter behavior for allow-on-failure, soft-block-on-failure, hard-block-on-failure, and admin-configured degradation.

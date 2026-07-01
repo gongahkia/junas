@@ -57,6 +57,7 @@ signals until reviewed.
 | Stage gate | `scripts/check_candidate_stage_gate.py` | Gates jurisdiction stage advancement and promotion readiness. |
 | Promote candidates | `scripts/promote_candidate_fixtures.py` | Copies human-approved, non-runtime-derived candidate fixtures into reviewed corpus. |
 | Check promoted lock freshness | `scripts/check_promoted_lock_freshness.py` | Fails CI when reviewed fixture inputs change without the promoted lock and accuracy doc. |
+| Check false-negative risk | `scripts/check_false_negative_risk.py` | Runs locked legal-corpus recall gates when policy or rewrite paths change. |
 | Attribute misses | `scripts/run_layer_attribution_eval.py` | Writes candidate, miss-bucket, and concentration reports. |
 
 ## Canonical Workflow
@@ -215,6 +216,10 @@ CI runs `scripts/check_promoted_lock_freshness.py` on pull-request and push diff
 change to any reviewed-candidate `.txt` or `.labels.json` fixture input must include
 both `test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json`
 and `docs/accuracy.md` in the same diff.
+
+CI also runs `scripts/check_false_negative_risk.py` on pull-request and push diffs.
+Changes under `src/junas/policy/`, `src/junas/anonymize/`, or `src/junas/backend/`
+must pass `scripts/recall_gate.py` against the locked legal corpora before merge.
 
 ## Required Metadata
 
