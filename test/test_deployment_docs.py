@@ -387,6 +387,45 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_audit_export_ui_requirements(self):
+        text = (ROOT / "docs" / "admin-console" / "audit-export-ui.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/audit-export-ui.md", docs_index)
+        self.assertIn("docs/admin-console/audit-export-ui.md", requirements)
+        for token in (
+            "Audit Export UI Requirements",
+            "scripts/export_audit_pack.py",
+            "scripts/verify_audit_pack.py",
+            "scripts/verify_journal.py",
+            "Export Request",
+            "`reason_code`",
+            "`include_defensibility`",
+            "`retention_class`",
+            "server-chosen output path",
+            "Job States",
+            "`running_pack_verification`",
+            "`verification_failed`",
+            "Verification Flow",
+            "pack_hmac mismatch",
+            "journal chain inconsistent",
+            "Pack Sensitivity",
+            "controlled evidence",
+            "audit_export_requested",
+            "audit_export_completed",
+            "audit_pack_downloaded",
+            "sensitive evidence acknowledgement",
+            "No raw-content preview",
+            "No export path chosen by the browser client",
+            "No download for `reviewer` or `maker` roles",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),

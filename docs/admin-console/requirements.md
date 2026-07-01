@@ -52,6 +52,7 @@ or a raw document browser.
 - Policy config UI requirements: `docs/admin-console/policy-config-ui.md`.
 - Reviewer queue requirements: `docs/admin-console/reviewer-queue.md`.
 - False-positive triage requirements: `docs/admin-console/false-positive-triage.md`.
+- Audit export UI requirements: `docs/admin-console/audit-export-ui.md`.
 - Policy config docs: `docs/policy/schema.md` and `docs/policy/examples.md`.
 - Decision behavior: `docs/policy/decision-contract.md` and
   `docs/policy/journal-replay.md`.
