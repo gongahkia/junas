@@ -465,6 +465,46 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_telemetry_requirements(self):
+        text = (
+            ROOT / "docs" / "admin-console" / "telemetry-requirements.md"
+        ).read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/telemetry-requirements.md", docs_index)
+        self.assertIn("docs/admin-console/telemetry-requirements.md", requirements)
+        for token in (
+            "Admin Console Telemetry Requirements",
+            "policy changes",
+            "approval decisions",
+            "audit export events",
+            "failed access attempts",
+            "`schema_version`",
+            "`junas.siem.v1`",
+            "Common Event Fields",
+            "`event_name`",
+            "`tenant_id`",
+            "Policy Change Events",
+            "policy_config_published",
+            "policy_config_rolled_back",
+            "Approval Decision Events",
+            "approval_decision_recorded",
+            "decision_recorded",
+            "Audit Export Events",
+            "audit_export_completed",
+            "audit_pack_downloaded",
+            "Failed Access Events",
+            "admin_dev_header_rejected",
+            "admin_local_token_rejected",
+            "Aggregations",
+            "test/test_siem_export.py",
+            "Cross-tenant denials hash object ids",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
