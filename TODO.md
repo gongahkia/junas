@@ -149,7 +149,6 @@
 - [ ] P0/IntegrationContracts: Add future Slack/Google Workspace integration notes based on official DLP/admin surfaces, marked research-only until implemented.
 - [ ] P0/IntegrationContracts: Add an adapter certification checklist with install, auth, review, policy decision, rewrite, approval, telemetry, privacy, failure, and uninstall steps.
 - [ ] P0/IntegrationContracts: Add "no single pathway" docs explicitly recommending direct API plus at least one workflow adapter for production pilots.
-- [ ] P0/Security: Add OWASP API Top 10 mapping to `docs/threat-model.md`, covering object-level authorization, authentication, object-property authorization, resource consumption, function authorization, SSRF, security misconfiguration, inventory, and unsafe API consumption.
 - [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
