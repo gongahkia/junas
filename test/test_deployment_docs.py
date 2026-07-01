@@ -185,6 +185,35 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_adr_keeps_ui_docs_only_until_validation(self):
+        text = (
+            ROOT / "docs" / "adr" / "0005-admin-console-docs-only-until-validation.md"
+        ).read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("adr/0005-admin-console-docs-only-until-validation.md", docs_index)
+        for token in (
+            "ADR 0005: Admin Console Docs-Only Until Validation",
+            "Status: Accepted",
+            "docs-only until customer validation",
+            "separate frontend",
+            "server-rendered FastAPI templates",
+            "frontend framework dependency",
+            "no-build prototype",
+            "review sessions",
+            "decisions",
+            "policy config",
+            "audit exports",
+            "false-positive triage",
+            "tenant health",
+            "FastAPI backend remains the trust boundary",
+            "no raw body exposure by default",
+            "tenant isolation",
+            "local-dev-only headers",
+            "Revisit Triggers",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),

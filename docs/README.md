@@ -37,6 +37,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `faq/developer.md`: developer endpoint-choice FAQ for review, rewrite, scrub, reidentify, and classify flows
 - `migration/redactor-to-review.md`: migration guide from redactor/anonymizer-first integrations to review and policy decisions
 - `admin-console/requirements.md`: admin console requirements for review sessions, decisions, policy config, audit exports, false-positive triage, and tenant health
+- `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows
 - `policy/schema.md`: policy TOML fields, decision precedence, thresholds, recipient-domain rules, roles, and failure modes
