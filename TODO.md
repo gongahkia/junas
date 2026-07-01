@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/IntegrationContracts: Add DMS-specific docs for iManage/NetDocuments-style matter ids without hardcoding vendor SDK dependencies.
 - [ ] P0/IntegrationContracts: Add future Slack/Google Workspace integration notes based on official DLP/admin surfaces, marked research-only until implemented.
 - [ ] P0/IntegrationContracts: Add an adapter certification checklist with install, auth, review, policy decision, rewrite, approval, telemetry, privacy, failure, and uninstall steps.
 - [ ] P0/IntegrationContracts: Add "no single pathway" docs explicitly recommending direct API plus at least one workflow adapter for production pilots.

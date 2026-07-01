@@ -6,7 +6,7 @@ Maturity: `experimental`
 
 DMS integration is a service-side upload/check-in review flow. The backend remains the policy and audit boundary; the DMS adapter should collect document text or a supported document payload plus matter metadata, call `/review`, then allow, warn, block, request approval, or store audit fields according to `policy_decision`.
 
-The shipped code is a read-side neutral JSON manifest scanner for exports from systems such as iManage or NetDocuments. It does not write back to a customer repository and does not ship vendor SDK credentials.
+The shipped code is a read-side neutral JSON manifest scanner for exports from systems such as iManage or NetDocuments. It does not write back to a customer repository and does not ship vendor SDK credentials. Matter-id mapping rules live in `docs/integrations/dms-matter-ids.md`.
 
 ## Upload / Check-In Flow
 
@@ -88,6 +88,7 @@ Do not store raw prompts, document bodies, matched text, auth headers, reversibl
 ## References
 
 - [`docs/product/workflows.md#dms-upload`](../product/workflows.md#dms-upload)
+- [`docs/integrations/dms-matter-ids.md`](./dms-matter-ids.md)
 - [`docs/integrations/direct-api.md`](./direct-api.md)
 - [`docs/policy/decision-contract.md`](../policy/decision-contract.md)
 - [`docs/api/idempotency.md`](../api/idempotency.md)

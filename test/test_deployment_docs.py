@@ -1624,6 +1624,46 @@ class DeploymentDocsTests(unittest.TestCase):
             "Idempotency-Key",
             "policy_decision.decision",
             "text_hash",
+            "docs/integrations/dms-matter-ids.md",
+        ):
+            self.assertIn(token, text)
+
+    def test_dms_matter_id_doc_defines_vendor_neutral_mapping(self):
+        text = (ROOT / "docs" / "integrations" / "dms-matter-ids.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+        dms = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
+
+        self.assertIn("dms-matter-ids.md", integrations_index)
+        self.assertIn("docs/integrations/dms-matter-ids.md", dms)
+        for token in (
+            "Status: normative for DMS adapter pilots",
+            "does not depend on iManage, NetDocuments, or any other vendor SDK",
+            "## Contract Boundary",
+            "`matter_id`",
+            "`[A-Za-z0-9_-:]{1,128}`",
+            "Tenant identity comes from validated backend credentials",
+            "## ID Construction",
+            "{dms}:{source_matter_id}",
+            '"matter_id": "imanage:M123"',
+            '"matter_id": "netdocuments:456789"',
+            "Do not encode matter names, client names, deal names",
+            "## iManage-Style Mapping",
+            "not a required iManage format",
+            "Do not require an iManage SDK",
+            "## NetDocuments-Style Mapping",
+            "not a required NetDocuments format",
+            "Do not require a NetDocuments SDK",
+            "## Manifest Scanner Shape",
+            "vendor-neutral",
+            "JSON manifests, not vendor SDK credentials",
+            "## Failure Behavior",
+            "Potential id collision",
+            "do not invent a matter id from names or paths",
+            "## Privacy And Audit",
+            "`matter_id_hash`",
+            "matter names, client names, deal names",
+            "## QA Checklist",
+            "Two tenants with the same source DMS id do not share matter-defined terms",
         ):
             self.assertIn(token, text)
 
