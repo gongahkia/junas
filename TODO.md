@@ -152,7 +152,6 @@
 - [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
-- [ ] P0/Security: Add subject-erasure docs that explain which artifacts are deleted, tombstoned, retained, or delegated to operator backups/legal hold.
 - [ ] P0/Security: Add config docs explaining remote LLM raw-text opt-in, structured-token default, tenant consent, and privacy ledger expectations.
 - [ ] P0/Security: Add tests proving deterministic-high findings cannot be suppressed by public evidence, LLM adjudication, adapter UI, or policy softening (verified present at `engine.py:4317`; keep as regression guard).
 - [ ] P0/Docs: Update `docs/running.md` so standard launch path is backend-only, with adapter launch commands split into integration-specific docs.

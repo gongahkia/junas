@@ -24,12 +24,39 @@ class DeploymentDocsTests(unittest.TestCase):
         text = (ROOT / "docs" / "deployment-hardening.md").read_text(encoding="utf-8")
 
         self.assertIn("Subject Erasure Runbook", text)
+        self.assertIn("docs/security/subject-erasure.md", text)
         self.assertIn("--backfill", text)
         self.assertIn("--dry-run", text)
         self.assertIn("subject_erasure_recorded", text)
         self.assertIn("SIEM exports", text)
         self.assertIn("backups", text)
         self.assertIn("retention", text)
+
+    def test_subject_erasure_doc_covers_deleted_tombstoned_retained_delegated_artifacts(self):
+        text = (ROOT / "docs" / "security" / "subject-erasure.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("security/subject-erasure.md", docs_index)
+        for token in (
+            "Persisted mapping files",
+            "Deleted",
+            "Subject index bucket",
+            "Review journal entries",
+            "Tombstoned",
+            "Audit packs",
+            "Retained or expired by operator policy",
+            "SIEM exports",
+            "Delegated",
+            "Backups and cold archives",
+            "scripts/erase_subject.py",
+            "scripts/verify_journal.py",
+            "scripts/check_fixture_scrub.py",
+            "subject_erasure_recorded",
+            "deleted_mapping_documents",
+            "journaled_review_sessions",
+            "removed_index_entries",
+        ):
+            self.assertIn(token, text)
 
     def test_retention_manifest_doc_example_matches_checker_schema(self):
         text = (ROOT / "docs" / "deployment-hardening.md").read_text(encoding="utf-8")

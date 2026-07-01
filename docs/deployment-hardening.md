@@ -177,6 +177,7 @@ Subject erasure uses the HMAC reverse index under
 `${JUNAS_JOURNAL_DIR}/subject_index/` or the tenant-scoped equivalent. The index stores
 only HMACs and persisted reference metadata; it does not store raw PII. Operators must
 set the same `JUNAS_SUBJECT_INDEX_KEY` used when the data was indexed.
+See `docs/security/subject-erasure.md` for the artifact disposition table.
 
 Before handling a request, rebuild the index if the deployment predates subject-index
 enforcement or if mappings/journals were restored from backup:

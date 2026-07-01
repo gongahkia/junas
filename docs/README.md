@@ -22,6 +22,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `security/sbom.md`: CycloneDX SBOM generation for server and local desktop release artifacts
 - `security/release-checklist.md`: required release gates for OpenAPI, auth, tenant isolation, logs, local daemon CSRF, adapter privacy, dependency scans, and SBOMs
 - `security/data-retention.md`: retention matrix and manifest controls for journals, mappings, subject index, sessions, matter terms, telemetry, SIEM, audit packs, fixtures, reports, logs, and backups
+- `security/subject-erasure.md`: subject-erasure runbook and artifact disposition for deleted, tombstoned, retained, and delegated data
 - `assumption.md`: implementation assumptions and invariants
 - `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
 - `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths

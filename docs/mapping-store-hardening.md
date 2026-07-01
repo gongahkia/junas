@@ -62,6 +62,8 @@ The subject erasure path deletes reversible mapping files, appends
 and removes the matching HMAC index bucket. CLI JSON output includes hashes and
 document/review references, not the raw subject value.
 
+Detailed artifact disposition is documented in `docs/security/subject-erasure.md`.
+
 ## Deployment Controls
 
 - Restrict `${JUNAS_JOURNAL_DIR}` to the service account that runs Junas.
