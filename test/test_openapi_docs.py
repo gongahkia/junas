@@ -1,21 +1,56 @@
+import ast
 import json
+import os
+import subprocess
 import unittest
 from contextlib import asynccontextmanager
 from pathlib import Path
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
 import junas.backend.main as main
+import junas.backend.schemas as schema_models
 from junas.backend.schemas import ReviewRequest
 
 ROOT = Path(__file__).resolve().parent.parent
 POLICY_EXAMPLE_SNAPSHOT = ROOT / "test" / "fixtures" / "openapi_policy_examples_snapshot.json"
+DOCS_API = ROOT / "docs" / "api"
 POLICY_EXAMPLE_NAMES = (
     "POST /review - Outlook Smart Alerts email send",
     "POST /review - Browser GenAI prompt submit",
     "POST /hold-until-public",
     "POST /cite-public-source",
 )
+EXPECTED_POSTMAN_STATUSES = {
+    "POST /anonymize": {200},
+    "POST /cite-public-source": {409},
+    "POST /classify": {200},
+    "POST /classify/batch": {200},
+    "GET /demo": {404},
+    "POST /demo/review": {404},
+    "GET /diagnostics": {200},
+    "POST /documents/scrub": {422},
+    "GET /health": {200},
+    "POST /hold-until-public": {200},
+    "POST /local/pairing/approve": {409},
+    "POST /local/pairing/claim": {409},
+    "POST /local/pairing/start": {409},
+    "GET /local/pairing/status": {200},
+    "GET /metrics": {200, 503},
+    "POST /pseudonymize": {200},
+    "GET /ready": {200},
+    "POST /redact": {200},
+    "POST /redact-pii": {200},
+    "POST /reidentify": {200},
+    "POST /request-approval": {409},
+    "POST /review - Outlook Smart Alerts email send": {200},
+    "POST /review - Browser GenAI prompt submit": {200},
+    "POST /review - DMS document upload": {200},
+    "POST /review - Desktop watcher file review": {200},
+    "POST /review - Direct API review": {200},
+    "POST /safe-rewrite": {200},
+}
 
 
 def _policy_example_subset(payload: dict) -> dict:
@@ -26,6 +61,65 @@ def _policy_example_subset(payload: dict) -> dict:
         "action_catalog": payload.get("action_catalog"),
         "policy_decision": policy_decision,
     }
+
+
+def _schema_ref(operation: dict, direction: str) -> str | None:
+    if direction == "request":
+        schema = operation.get("requestBody", {}).get("content", {}).get("application/json", {}).get("schema", {})
+    else:
+        schema = (
+            operation.get("responses", {})
+            .get("200", {})
+            .get("content", {})
+            .get("application/json", {})
+            .get("schema", {})
+        )
+    ref = schema.get("$ref") if isinstance(schema, dict) else None
+    return ref.rsplit("/", 1)[-1] if isinstance(ref, str) else None
+
+
+def _validate_schema_ref(ref: str, payload: dict) -> None:
+    getattr(schema_models, ref).model_validate(payload)
+
+
+def _postman_path(item: dict) -> str:
+    return item["request"]["url"]["raw"].replace("{{baseUrl}}", "")
+
+
+def _postman_headers(item: dict) -> dict[str, str]:
+    replacements = {
+        "{{junasApiKey}}": "dev-secret",
+        "{{junasLocalToken}}": "dev-local-token",
+    }
+    return {
+        header["key"]: replacements.get(header["value"], header["value"])
+        for header in item["request"].get("header", [])
+    }
+
+
+def _postman_body(item: dict) -> dict | None:
+    raw = item["request"].get("body", {}).get("raw")
+    return json.loads(raw) if raw else None
+
+
+def _markdown_code_blocks(path: Path) -> list[tuple[str, str]]:
+    blocks = []
+    lang = ""
+    lines: list[str] = []
+    in_block = False
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("```"):
+            if in_block:
+                blocks.append((lang, "\n".join(lines) + "\n"))
+                lines = []
+                in_block = False
+                continue
+            lang = line.removeprefix("```").strip()
+            in_block = True
+            continue
+        if in_block:
+            lines.append(line)
+    return blocks
 
 
 @asynccontextmanager
@@ -208,6 +302,76 @@ class OpenApiDocsTests(unittest.TestCase):
         expected = json.loads(POLICY_EXAMPLE_SNAPSHOT.read_text())
         self.assertEqual(set(postman_examples), set(POLICY_EXAMPLE_NAMES))
         self.assertEqual(extracted, expected)
+
+    def test_docs_api_machine_examples_execute_or_validate(self):
+        main.app.openapi_schema = None
+        with patch.dict(os.environ, {"JUNAS_API_KEY": ""}, clear=False):
+            with TestClient(main.app) as client:
+                response = client.get("/openapi.json")
+                self.assertEqual(response.status_code, 200)
+                openapi = response.json()
+
+                collection = json.loads((DOCS_API / "junas.postman_collection.json").read_text())
+                self.assertEqual(
+                    set(EXPECTED_POSTMAN_STATUSES) | {"GET /review/{review_id}", "POST /review/{review_id}/decision"},
+                    {item["name"] for item in collection["item"]},
+                )
+                for item in collection["item"]:
+                    with self.subTest(postman_item=item["name"]):
+                        path = _postman_path(item)
+                        method = item["request"]["method"].lower()
+                        operation = openapi["paths"][path][method]
+                        covered = False
+
+                        request_ref = _schema_ref(operation, "request")
+                        body = _postman_body(item)
+                        if body is not None and request_ref is not None:
+                            _validate_schema_ref(request_ref, body)
+                            covered = True
+
+                        response_ref = _schema_ref(operation, "response")
+                        for example_response in item.get("response", []):
+                            raw_response = example_response.get("body")
+                            if raw_response and response_ref is not None:
+                                _validate_schema_ref(response_ref, json.loads(raw_response))
+                                covered = True
+
+                        if item["name"] in EXPECTED_POSTMAN_STATUSES:
+                            response = client.request(
+                                item["request"]["method"],
+                                path,
+                                headers=_postman_headers(item),
+                                json=body,
+                            )
+                            self.assertIn(response.status_code, EXPECTED_POSTMAN_STATUSES[item["name"]])
+                            covered = True
+
+                        self.assertTrue(covered)
+
+        ReviewRequest.model_validate(json.loads((DOCS_API / "review_hero_request.json").read_text()))
+        schema_models.ReviewResponse.model_validate(json.loads((DOCS_API / "review_hero_response.json").read_text()))
+        adapter_examples = json.loads((DOCS_API / "adapter_surface_review_examples.json").read_text())["examples"]
+        for key, example in adapter_examples.items():
+            with self.subTest(adapter_surface_example=key):
+                ReviewRequest.model_validate(example["value"])
+
+    def test_docs_api_text_examples_are_syntax_checked(self):
+        curl_syntax = subprocess.run(
+            ["bash", "-n", str(DOCS_API / "curl_snippets.sh")],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(curl_syntax.returncode, 0, curl_syntax.stderr)
+
+        for path in DOCS_API.glob("*.md"):
+            for lang, block in _markdown_code_blocks(path):
+                with self.subTest(path=path.name, lang=lang):
+                    if lang == "python":
+                        ast.parse(block)
+                    elif lang in {"sh", "bash"}:
+                        result = subprocess.run(["bash", "-n"], input=block, check=False, capture_output=True, text=True)
+                        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":

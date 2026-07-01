@@ -24,7 +24,7 @@ curl -sS -X POST "${BASE_URL}/classify" \
 curl -sS -X POST "${BASE_URL}/classify/batch" \
   -H "Content-Type: application/json" \
   -H "X-API-Key: ${JUNAS_API_KEY:-dev-secret}" \
-  -d '{"items":[{"include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."},{"debug":false,"text":"Public press release for next week's earnings call."}]}'
+  -d '{"items":[{"include_offending_spans":true,"text":"Acme Corp is acquiring GlobalTech for $2.5 billion next quarter."},{"debug":false,"text":"Public press release for next week'"'"'s earnings call."}]}'
 
 # GET /demo - Serve deterministic public demo playground
 curl -sS -X GET "${BASE_URL}/demo"

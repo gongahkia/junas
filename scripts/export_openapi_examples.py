@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shlex
 import sys
 from contextlib import asynccontextmanager, contextmanager
 from pathlib import Path
@@ -282,7 +283,7 @@ def build_curl_block(
         lines.append('  -H "X-Junas-Local-Token: ${JUNAS_LOCAL_DAEMON_TOKEN}" \\')
     if body_payload is not None:
         compact = json.dumps(body_payload, separators=(",", ":"))
-        lines.append(f"  -d '{compact}'")
+        lines.append(f"  -d {shlex.quote(compact)}")
     else:
         lines[-1] = lines[-1].rstrip(" \\")
 

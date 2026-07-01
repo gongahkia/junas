@@ -2286,6 +2286,13 @@ class AnonymizeResponse(ReviewResponse):
                     "hold_until_public",
                     "proceed_with_warning",
                 ],
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 120,
+                },
                 "findings": [],
                 "suggestions": [],
                 "privacy_operation": "anonymize",
@@ -2330,6 +2337,71 @@ class AnonymizeResponse(ReviewResponse):
 
 
 class RedactResponse(ReviewResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "review_expires_at": "2026-06-14T09:35:00Z",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 88.0,
+                "pii_score": 88.0,
+                "mnpi_score": 0.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SG",
+                "jurisdictions_applied": ["SG"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "strict",
+                "degraded_policy": "warn",
+                "send_allowed": False,
+                "policy_decision": {
+                    "decision": "rewrite_required",
+                    "send_allowed": False,
+                    "required_actions": ["redact_pii", "request_approval", "safe_rewrite"],
+                    "recommended_actions": [],
+                    "blocking_findings": ["pii:sg_nric_fin:17:26:0"],
+                    "policy_id": "default",
+                    "policy_version": "2026-06-14",
+                    "policy_reasons": ["high-risk PII requires safe rewrite or reviewer approval before send"],
+                    "review_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                },
+                "action_catalog": [
+                    "redact_pii",
+                    "pseudonymize",
+                    "safe_rewrite",
+                    "cite_public_source",
+                    "request_approval",
+                    "hold_until_public",
+                    "proceed_with_warning",
+                ],
+                "document": {
+                    "filename": "inline.txt",
+                    "mime_type": "text/plain",
+                    "extraction_method": "inline_text",
+                    "page_count": None,
+                    "char_count": 52,
+                },
+                "findings": [],
+                "suggestions": [],
+                "privacy_operation": "redact",
+                "redaction_style": "opaque_text_marker",
+                "redacted_text": "Send Dr Jane Tan [REDACTED] the confidential draft.",
+                "document_hash": "4f" * 32,
+                "mapping_persisted": False,
+                "redactions": [
+                    {
+                        "finding_id": "pii:sg_nric_fin:17:26:0",
+                        "marker": "[REDACTED]",
+                        "start_char": 17,
+                        "end_char": 26,
+                    }
+                ],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "redact": 0.1, "total": 0.6},
+            }
+        }
+    )
+
     findings: list[RedactedFindingResponse] = Field(
         default_factory=list,
         description="Findings without matched_text; /redact never returns original matched text.",
