@@ -32,6 +32,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
 - `product/glossary.md`: product vocabulary for review, rewrite, audit evidence, adapters, and surfaces
 - `product/review-examples.md`: same-contract `/review` examples for GenAI, email, legal memo, DMS, and Slack-style messages
+- `faq/procurement.md`: procurement-facing claim discipline and promoted evidence links
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows
 - `policy/schema.md`: policy TOML fields, decision precedence, thresholds, recipient-domain rules, roles, and failure modes

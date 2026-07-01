@@ -152,7 +152,6 @@
 - [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
-- [ ] P0/Docs: Add a procurement-facing FAQ that avoids unverified accuracy claims and links only to promoted corpus/eval evidence.
 - [ ] P0/Docs: Add an operator FAQ for why Junas complements DLP rather than replacing Microsoft Purview, Google Workspace DLP, Slack DLP, or endpoint controls.
 - [ ] P0/Docs: Add a developer FAQ for when to use `/review`, `/pseudonymize`, `/anonymize`, `/redact`, `/reidentify`, `/documents/scrub`, and `/classify`.
 - [ ] P0/Docs: Add a migration guide from current "redactor" framing to "review and policy decision" framing for users of existing examples.

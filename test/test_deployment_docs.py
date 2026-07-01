@@ -226,6 +226,42 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_procurement_faq_links_only_promoted_accuracy_evidence(self):
+        text = (ROOT / "docs" / "faq" / "procurement.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("faq/procurement.md", docs_index)
+        for token in (
+            "# Procurement FAQ",
+            "## Accuracy Claim Rule",
+            "docs/accuracy.md",
+            "test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json",
+            "reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json",
+            "docs/candidate_corpus_status.md",
+            "1,428 approved legal/cross-jurisdiction documents",
+            "17,552 strict expected labels",
+            "strict recall `1.0000`",
+            "strict precision `0.9269`",
+            "not an independent market benchmark",
+            "No Junas score on TAB or ai4privacy is claimed",
+            "Do not use screenshots, demo flows, unpromoted candidate sidecars",
+            "Run a customer pilot validation corpus",
+            "false positives",
+            "false negatives",
+            "docs/product/non-goals.md",
+            "docs/known-limitations.md",
+        ):
+            self.assertIn(token, text)
+        for forbidden in (
+            "best-in-class",
+            "industry-leading",
+            "production-ready",
+            "guaranteed accuracy",
+            "zero false negatives",
+            "complete coverage",
+        ):
+            self.assertNotIn(forbidden, text.lower())
+
     def test_install_doc_separates_server_desktop_and_adapter_deployments(self):
         text = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
         headings = (
