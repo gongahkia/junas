@@ -2,7 +2,7 @@
 
 Status: normative for production pilot architecture. A production pilot should deploy the direct API/backend contract plus at least one workflow adapter that covers a real user completion path.
 
-Use with `docs/product/workflows.md`, `docs/integrations/direct-api.md`, `docs/integrations/maturity-matrix.md`, and `docs/integrations/adapter-certification-checklist.md`.
+Use with `docs/product/workflows.md`, `docs/integrations/direct-api.md`, `docs/integrations/maturity-matrix.md`, `docs/integrations/adapter-certification-checklist.md`, and `docs/deployment-pilot-rollout.md`.
 
 ## Recommendation
 
