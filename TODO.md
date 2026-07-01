@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/IntegrationContracts: Add `docs/integrations/failure-semantics.md` defining adapter behavior for allow-on-failure, soft-block-on-failure, hard-block-on-failure, and admin-configured degradation.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/auth.md` documenting API key, JWT, local daemon pairing, tenant context, and why caller-supplied tenant ids are ignored.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/privacy.md` documenting what adapters may collect, what they must not store, and how raw text leaves or stays on device.
 - [ ] P0/IntegrationContracts: Add `docs/integrations/telemetry.md` defining adapter event names, allowed fields, prohibited fields, and SIEM mapping.

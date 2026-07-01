@@ -1242,6 +1242,67 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_failure_semantics_doc_defines_adapter_degradation_modes(self):
+        text = (ROOT / "docs" / "integrations" / "failure-semantics.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("failure-semantics.md", integrations_index)
+        for token in (
+            "Status: normative for adapter behavior",
+            "## Failure Classes",
+            "Transport failure",
+            "Auth failure",
+            "Malformed response",
+            "Backend degraded review",
+            "Adapter context failure",
+            "Platform bypass",
+            "## Completion Modes",
+            "`allow-on-failure`",
+            "`soft-block-on-failure`",
+            "`hard-block-on-failure`",
+            "`admin-configured-degradation`",
+            "Failure mode is separate from policy decision",
+            "## Backend Degradation",
+            "`degraded_policy`",
+            "`allow`",
+            "`warn`",
+            "`block_send`",
+            "`required_actions=[\"retry_review\"]`",
+            "## Surface Defaults",
+            "Outlook Smart Alerts send",
+            "Add-in unavailable before event execution follows Outlook `SoftBlock`",
+            "Browser GenAI submit",
+            "Selector failure means no policy decision was evaluated",
+            "DMS upload/check-in",
+            "Direct API",
+            "Word taskpane",
+            "Desktop watcher",
+            "## Admin Configuration",
+            "`failure_mode`",
+            "`timeout_ms`",
+            "`retry_budget`",
+            "`break_glass_roles`",
+            "`allowed_failure_classes`",
+            "`telemetry_required`",
+            "Admins must not configure user-controlled fields to weaken failure behavior",
+            "## Retry And Break-Glass",
+            "Do not convert malformed response into allow",
+            "adapters are not approval authorities",
+            "## Telemetry",
+            "`failure_class`",
+            "`failure_mode`",
+            "`idempotency_key_hash`",
+            "raw prompt, email body, document text",
+            "auth headers, JWTs, API keys",
+            "## Minimum QA",
+            "backend timeout",
+            "HTTP 401/403 auth failure",
+            "valid response without `policy_decision`",
+            "valid response with `degraded_modes`",
+            "platform unavailable path",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (
