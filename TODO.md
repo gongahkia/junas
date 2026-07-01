@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/IntegrationContracts: Add `docs/integrations/document-context.md` documenting document filename, MIME type, attachment count, DMS matter id, session id, and matter id behavior.
 - [ ] P0/IntegrationContracts: Add OpenAPI examples for each adapter surface using `surface=outlook`, `surface=browser_genai`, `surface=dms`, `surface=desktop`, and `surface=api`.
 - [ ] P0/IntegrationContracts: Add contract tests that every adapter example in docs is accepted by Pydantic schemas.
 - [ ] P0/IntegrationContracts: Add a compatibility matrix stating which adapters support inline text, DOCX, PDF, images, attachments, metadata scrub, reidentify, and approvals.

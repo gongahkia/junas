@@ -1531,6 +1531,48 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_document_context_doc_defines_document_metadata_boundary(self):
+        text = (ROOT / "docs" / "integrations" / "document-context.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("document-context.md", integrations_index)
+        for token in (
+            "Status: normative for adapters",
+            "## Canonical Fields",
+            "`document_base64`",
+            "`document_filename`",
+            "`document_mime_type`",
+            "`attachment_count`",
+            "`session_id`",
+            "`matter_id`",
+            "`[A-Za-z0-9_-]{1,128}`",
+            "`[A-Za-z0-9_-:]{1,128}`",
+            "Provide exactly one content source: `text` or `document_base64`",
+            "attachment_count` changes are material context changes",
+            "## Filename Behavior",
+            "Strip paths",
+            "Do not put filenames in telemetry",
+            "## MIME Type Behavior",
+            "`application/pdf`",
+            "`application/vnd.openxmlformats-officedocument.wordprocessingml.document`",
+            "Backend magic-byte and parser checks remain authoritative",
+            "## Attachment Count",
+            "do not send attachment names or bytes",
+            "## Session ID Behavior",
+            "Session scope is below matter scope",
+            "## Matter ID Behavior",
+            "preferably namespaced as `{dms}:{matter_id}`",
+            "Matter ids are not authorization grants",
+            "## DMS Matter ID",
+            "DMS matter id",
+            "`matter_id_hash`",
+            "## Surface Defaults",
+            "Desktop watcher",
+            "## Privacy QA",
+            "ids/counts/hashes",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (
