@@ -50,6 +50,59 @@ class LocalDaemonAclTests(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
 
+    def test_missing_origin_still_requires_local_token(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            with TestClient(main.app) as client:
+                rejected = client.post("/classify", json={"text": "public update"})
+                accepted = client.post(
+                    "/classify",
+                    json={"text": "public update"},
+                    headers={"X-Junas-Local-Token": "local-test-token"},
+                )
+
+        self.assertEqual(rejected.status_code, 401)
+        self.assertEqual(rejected.json()["detail"], "missing or invalid local daemon token")
+        self.assertEqual(accepted.status_code, 200)
+        self.assertEqual(accepted.json()["classification"], "SAFE")
+
+    def test_rejects_invalid_local_token(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            with TestClient(main.app) as client:
+                response = client.post(
+                    "/classify",
+                    json={"text": "public update"},
+                    headers={
+                        "Origin": "https://chatgpt.com",
+                        "X-Junas-Local-Token": "wrong-token",
+                    },
+                )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
+
+    def test_rejects_expired_signed_local_client_token(self):
+        expired = main.sign_local_client_token(
+            "local-test-token",
+            client_id="client-1",
+            client_name="test extension",
+            origin="https://chatgpt.com",
+            ttl_seconds=1,
+            now=0,
+        )
+        with patch.dict(os.environ, self._env(), clear=False):
+            with TestClient(main.app) as client:
+                response = client.post(
+                    "/classify",
+                    json={"text": "public update"},
+                    headers={
+                        "Origin": "https://chatgpt.com",
+                        "X-Junas-Local-Token": expired,
+                    },
+                )
+
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
+
     def test_rewrite_endpoints_require_local_token(self):
         with patch.dict(os.environ, self._env(), clear=False):
             with TestClient(main.app) as client:
