@@ -32,6 +32,12 @@ Do not claim improved detection until all of this evidence is committed:
 
 Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not improved-detection evidence.
 
+## Independent Benchmark Targets
+
+| Target | Fixture | Runner | Independence | Lock behavior |
+|---|---|---|---|---|
+| TAB (Text Anonymization Benchmark) | `test/fixtures/external/text-anonymization-benchmark/` via `scripts/fetch_tab_fixture.sh` | `scripts/run_tab_eval.py` | 1,268 manually annotated ECHR cases from an external corpus; scored from TAB `DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | Separate eval target; reports span-level precision/recall/F2 and never updates the candidate-corpus promotion lock. |
+
 ## Per-Detector Baselines
 
 | Corpus | Fixtures | Detector | Recall | Precision |

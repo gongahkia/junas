@@ -122,9 +122,21 @@ def render_accuracy_doc() -> str:
             "- A precision report or precision lock is committed, including false-positive or `unexpected` counts.",
             "- `docs/accuracy.md` is regenerated from locks and `scripts/generate_accuracy_doc.py --check` passes.",
             "",
-            "Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not "
-            "improved-detection evidence.",
-        ]
+        "Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not "
+        "improved-detection evidence.",
+        "",
+        "## Independent Benchmark Targets",
+        "",
+        "| Target | Fixture | Runner | Independence | Lock behavior |",
+        "|---|---|---|---|---|",
+        "| TAB (Text Anonymization Benchmark) | "
+        "`test/fixtures/external/text-anonymization-benchmark/` via "
+        "`scripts/fetch_tab_fixture.sh` | `scripts/run_tab_eval.py` | "
+        "1,268 manually annotated ECHR cases from an external corpus; scored from TAB "
+        "`DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | "
+        "Separate eval target; reports span-level precision/recall/F2 and never updates the "
+        "candidate-corpus promotion lock. |",
+    ]
     )
 
     lines.extend(

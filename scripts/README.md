@@ -8,6 +8,7 @@ Runtime and launch:
 
 Evaluation and corpus:
 - `recall_gate.py`, `generate_accuracy_doc.py`, `generate_detector_dashboard.py`, `check_promoted_lock_freshness.py`, `check_false_negative_risk.py`, `check_precision_risk.py`, `benchmark_latency.py`, `benchmark_latency_corpus.sh`, `check_latency_slo.py`
+- `fetch_tab_fixture.sh`, `run_tab_eval.py`: clone the independent TAB fixture locally and report span-level P/R/F2 without touching candidate-corpus locks.
 - candidate corpus, autolabel, bucketing, stage-gate, layer-attribution, defensibility, and frequency-table scripts
 
 Admin and audit:

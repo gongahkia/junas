@@ -8,3 +8,4 @@ This folder contains the automated test suite and test fixtures.
 - backend-only layout and archived-asset pruning tests
 - pre-send review and anonymization tests
 - `fixtures/latency-corpus/` is the canonical home for benchmark input `.txt` files
+- `fixtures/external/text-anonymization-benchmark/` is the ignored, read-only TAB clone populated by `scripts/fetch_tab_fixture.sh`
