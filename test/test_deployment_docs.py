@@ -1355,6 +1355,61 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_adapter_privacy_doc_defines_collection_and_storage_boundary(self):
+        text = (ROOT / "docs" / "integrations" / "privacy.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("privacy.md", integrations_index)
+        for token in (
+            "Status: normative for adapters",
+            "## Collection Boundary",
+            "Raw text",
+            "Memory only until review/rewrite response is handled",
+            "`document_base64`",
+            "Matched text",
+            "Workflow context",
+            "Auth material",
+            "Adapters must not scrape unrelated page content",
+            "## Data Movement",
+            "Hosted backend",
+            "Raw content leaves the user device or SaaS hook",
+            "Local daemon",
+            "stays on the endpoint",
+            "Direct API",
+            "DMS hook",
+            "Audit-grade optional helpers",
+            "must not silently switch raw content from local daemon to hosted server",
+            "## Allowed Storage",
+            "idempotency key hash, not raw key",
+            "Adapters must not persist",
+            "raw prompt, email body, subject, document text",
+            "matched text, rewritten text, replacement text",
+            "recipient addresses, attachment filenames",
+            "## Surface Rules",
+            "Outlook",
+            "Browser GenAI",
+            "DMS",
+            "Direct API",
+            "Word",
+            "Desktop watcher",
+            "## Telemetry Boundary",
+            "Allowed telemetry fields",
+            "Prohibited telemetry fields",
+            "## Training And Feedback",
+            "Customer text is not training data by default",
+            "training, fine-tuning, distillation",
+            "docs/security/feedback-artifact-retention.md",
+            "## Privacy QA",
+            "browser local storage",
+            "extension storage",
+            "Office runtime storage",
+            "console logs",
+            "local daemon mode does not call hosted backend without explicit configuration",
+            "hosted server mode uses HTTPS",
+            "failed review, timeout, malformed response",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (
