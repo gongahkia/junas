@@ -9,6 +9,23 @@ import junas.backend.main as main
 from junas.backend.schemas import ReviewRequest
 
 ROOT = Path(__file__).resolve().parent.parent
+POLICY_EXAMPLE_SNAPSHOT = ROOT / "test" / "fixtures" / "openapi_policy_examples_snapshot.json"
+POLICY_EXAMPLE_NAMES = (
+    "POST /review - Outlook Smart Alerts email send",
+    "POST /review - Browser GenAI prompt submit",
+    "POST /hold-until-public",
+    "POST /cite-public-source",
+)
+
+
+def _policy_example_subset(payload: dict) -> dict:
+    policy_decision = dict(payload["policy_decision"])
+    policy_decision.pop("review_id", None)
+    return {
+        "send_allowed": payload.get("send_allowed"),
+        "action_catalog": payload.get("action_catalog"),
+        "policy_decision": policy_decision,
+    }
 
 
 @asynccontextmanager
@@ -174,6 +191,23 @@ class OpenApiDocsTests(unittest.TestCase):
                 request = ReviewRequest.model_validate(example["value"])
                 self.assertEqual(request.surface, example["value"]["surface"])
                 self.assertTrue(request.text or request.document_base64)
+
+    def test_generated_policy_examples_match_snapshot(self):
+        collection = json.loads((ROOT / "docs" / "api" / "junas.postman_collection.json").read_text())
+        postman_examples = {}
+        for item in collection["item"]:
+            if item["name"] not in POLICY_EXAMPLE_NAMES:
+                continue
+            postman_examples[item["name"]] = _policy_example_subset(json.loads(item["response"][0]["body"]))
+        hero = _policy_example_subset(json.loads((ROOT / "docs" / "api" / "review_hero_response.json").read_text()))
+        extracted = {
+            "postman_examples": postman_examples,
+            "review_hero_response": hero,
+            "schema": "junas.openapi_policy_examples_snapshot.v1",
+        }
+        expected = json.loads(POLICY_EXAMPLE_SNAPSHOT.read_text())
+        self.assertEqual(set(postman_examples), set(POLICY_EXAMPLE_NAMES))
+        self.assertEqual(extracted, expected)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,164 @@
+{
+  "postman_examples": {
+    "POST /cite-public-source": {
+      "action_catalog": [
+        "redact_pii",
+        "pseudonymize",
+        "safe_rewrite",
+        "cite_public_source",
+        "request_approval",
+        "hold_until_public",
+        "proceed_with_warning"
+      ],
+      "policy_decision": {
+        "blocking_findings": [],
+        "decision": "warn",
+        "policy_id": "default",
+        "policy_reasons": [
+          "MNPI finding has public-source support; cite source before proceeding",
+          "cross-border destination context should be shown to the user",
+          "medium-risk finding should be shown to the user"
+        ],
+        "policy_version": "2026-06-14",
+        "recommended_actions": [
+          "cite_public_source",
+          "proceed_with_warning"
+        ],
+        "required_actions": [],
+        "send_allowed": true
+      },
+      "send_allowed": true
+    },
+    "POST /hold-until-public": {
+      "action_catalog": [
+        "redact_pii",
+        "pseudonymize",
+        "safe_rewrite",
+        "cite_public_source",
+        "request_approval",
+        "hold_until_public",
+        "proceed_with_warning"
+      ],
+      "policy_decision": {
+        "blocking_findings": [
+          "mnpi:material_event:0:54:0"
+        ],
+        "decision": "block",
+        "policy_id": "default",
+        "policy_reasons": [
+          "high-risk MNPI requires public evidence or reviewer approval before send"
+        ],
+        "policy_version": "2026-06-14",
+        "recommended_actions": [],
+        "required_actions": [
+          "hold_until_public",
+          "request_approval"
+        ],
+        "send_allowed": false
+      },
+      "send_allowed": false
+    },
+    "POST /review - Browser GenAI prompt submit": {
+      "action_catalog": [
+        "redact_pii",
+        "pseudonymize",
+        "safe_rewrite",
+        "cite_public_source",
+        "request_approval",
+        "hold_until_public",
+        "proceed_with_warning"
+      ],
+      "policy_decision": {
+        "blocking_findings": [
+          "pii:sg_nric_fin:25:34:0"
+        ],
+        "decision": "rewrite_required",
+        "policy_id": "default",
+        "policy_reasons": [
+          "high-risk PII requires safe rewrite or reviewer approval before send"
+        ],
+        "policy_version": "2026-06-14",
+        "recommended_actions": [],
+        "required_actions": [
+          "redact_pii",
+          "request_approval",
+          "safe_rewrite"
+        ],
+        "send_allowed": false
+      },
+      "send_allowed": false
+    },
+    "POST /review - Outlook Smart Alerts email send": {
+      "action_catalog": [
+        "redact_pii",
+        "pseudonymize",
+        "safe_rewrite",
+        "cite_public_source",
+        "request_approval",
+        "hold_until_public",
+        "proceed_with_warning"
+      ],
+      "policy_decision": {
+        "blocking_findings": [
+          "pii:sg_nric_fin:25:34:0"
+        ],
+        "decision": "rewrite_required",
+        "policy_id": "default",
+        "policy_reasons": [
+          "high-risk PII requires safe rewrite or reviewer approval before send"
+        ],
+        "policy_version": "2026-06-14",
+        "recommended_actions": [],
+        "required_actions": [
+          "redact_pii",
+          "request_approval",
+          "safe_rewrite"
+        ],
+        "send_allowed": false
+      },
+      "send_allowed": false
+    }
+  },
+  "review_hero_response": {
+    "action_catalog": [
+      "redact_pii",
+      "pseudonymize",
+      "safe_rewrite",
+      "cite_public_source",
+      "request_approval",
+      "hold_until_public",
+      "proceed_with_warning"
+    ],
+    "policy_decision": {
+      "blocking_findings": [
+        "mnpi:definitive_agreement:97:100:3",
+        "mnpi:transaction_codename:102:115:2",
+        "mnpi:transaction_codename:9:22:1",
+        "pii:sg_nric_fin:77:86:0"
+      ],
+      "decision": "block",
+      "policy_id": "default",
+      "policy_reasons": [
+        "cross-border destination context should be shown to the user",
+        "external recipient domain should be shown to the user",
+        "high-risk MNPI requires public evidence or reviewer approval before send",
+        "high-risk PII requires safe rewrite or reviewer approval before send",
+        "low-risk finding should be shown to the user",
+        "medium-risk finding should be shown to the user"
+      ],
+      "policy_version": "2026-06-14",
+      "recommended_actions": [
+        "proceed_with_warning"
+      ],
+      "required_actions": [
+        "hold_until_public",
+        "redact_pii",
+        "request_approval",
+        "safe_rewrite"
+      ],
+      "send_allowed": false
+    },
+    "send_allowed": false
+  },
+  "schema": "junas.openapi_policy_examples_snapshot.v1"
+}
