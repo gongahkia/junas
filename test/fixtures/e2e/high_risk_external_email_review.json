@@ -1,0 +1,27 @@
+{
+  "name": "high_risk_external_email_requires_approval",
+  "request": {
+    "text": "Subject: Project Raven external send\nTo: outside.counsel@external.example\nProject Raven will acquire Acme Corp for USD 2.5 billion before public announcement. Send Dr Jane Tan S1234567D the draft.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "US",
+    "document_type": "email",
+    "surface": "outlook",
+    "workflow": "email_send",
+    "actor_role": "end_user",
+    "recipient_domains": ["outside-counsel.example"],
+    "recipient_count": 1,
+    "attachment_count": 0,
+    "sensitivity_label": "confidential",
+    "external_destination": true,
+    "requested_action": "send"
+  },
+  "expected": {
+    "decision": "block",
+    "send_allowed": false,
+    "required_actions": ["request_approval"],
+    "finding": {
+      "category": "MNPI",
+      "severity": "high"
+    }
+  }
+}
