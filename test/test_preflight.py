@@ -79,6 +79,7 @@ class PreflightTests(unittest.TestCase):
             "JUNAS_REVIEW_PERSIST": "0",
             "JUNAS_API_KEY": "",
             "JUNAS_MAPPING_STORE_KEY": "",
+            "JUNAS_ALLOW_PLAINTEXT_MAPPINGS": "",
             "JUNAS_SUBJECT_INDEX_KEY": "",
             "JUNAS_JOURNAL_KEYS_FILE": "",
             "JUNAS_DEV_AUTH": "",
@@ -179,6 +180,21 @@ class PreflightTests(unittest.TestCase):
             {"JUNAS_API_KEY": "api-secret"},
             settings=self._production_settings(),
         )
+
+        self.assertEqual(exit_code, 1)
+
+    def test_production_strict_fails_when_plaintext_mapping_escape_hatch_enabled(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            policy_file = self._write_policy_config(tmp_dir)
+            exit_code = self._run_preflight(
+                ["--strict", "--deployment", "production"],
+                {
+                    "JUNAS_API_KEY": "api-secret",
+                    "JUNAS_ALLOW_PLAINTEXT_MAPPINGS": "1",
+                    "JUNAS_POLICY_CONFIG": str(policy_file),
+                },
+                settings=self._production_settings(),
+            )
 
         self.assertEqual(exit_code, 1)
 

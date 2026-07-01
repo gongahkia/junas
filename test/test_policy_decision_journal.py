@@ -21,6 +21,7 @@ class PolicyDecisionJournalTests(unittest.TestCase):
         os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
         os.environ["JUNAS_JOURNAL_KEY"] = "policy-journal-test-key"
         os.environ["JUNAS_REVIEW_PERSIST"] = "1"
+        os.environ["JUNAS_MAPPING_STORE_KEY"] = "q5cVCBcQ0PHsgxBpwoXOrp0tGSgZBz7oBfZmuZBFLJk="
         os.environ["JUNAS_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
         import junas.backend.main as main_mod
@@ -43,6 +44,7 @@ class PolicyDecisionJournalTests(unittest.TestCase):
             "JUNAS_JOURNAL_DIR",
             "JUNAS_JOURNAL_KEY",
             "JUNAS_REVIEW_PERSIST",
+            "JUNAS_MAPPING_STORE_KEY",
             "JUNAS_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)

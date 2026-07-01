@@ -101,6 +101,7 @@ class SurfacingLaneApiTests(unittest.TestCase):
             "JUNAS_JOURNAL_DIR": str(self.tmpdir / "journal"),
             "JUNAS_JOURNAL_KEY": "lane-test-key",
             "JUNAS_REVIEW_PERSIST": "1",
+            "JUNAS_MAPPING_STORE_KEY": "q5cVCBcQ0PHsgxBpwoXOrp0tGSgZBz7oBfZmuZBFLJk=",
             "JUNAS_SUBJECT_INDEX_KEY": "subject-index-test-key",
         }
         self._old_env = {key: os.environ.get(key) for key in self._env}

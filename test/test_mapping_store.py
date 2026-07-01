@@ -33,6 +33,7 @@ class MappingStorePersistTests(unittest.TestCase):
         os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
         os.environ["JUNAS_JOURNAL_KEY"] = "mapping-test-key"
         os.environ["JUNAS_REVIEW_PERSIST"] = "1"
+        os.environ["JUNAS_MAPPING_STORE_KEY"] = Fernet.generate_key().decode("ascii")
         os.environ["JUNAS_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
 
         import junas.anonymize.mapping_store as mapping_mod
@@ -55,6 +56,7 @@ class MappingStorePersistTests(unittest.TestCase):
             "JUNAS_JOURNAL_KEY",
             "JUNAS_REVIEW_PERSIST",
             "JUNAS_MAPPING_STORE_KEY",
+            "JUNAS_ALLOW_PLAINTEXT_MAPPINGS",
             "JUNAS_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
@@ -82,6 +84,11 @@ class MappingStorePersistTests(unittest.TestCase):
             # mapping file should exist on disk
             mapping_path = self.tmpdir / "mappings" / f"{anon_payload['document_hash']}.json"
             self.assertTrue(mapping_path.exists(), f"expected mapping at {mapping_path}")
+            raw_file = mapping_path.read_text(encoding="utf-8")
+            self.assertIn('"storage_format": "fernet-v1"', raw_file)
+            self.assertNotIn("Dr Jane Tan", raw_file)
+            self.assertNotIn("S1234567D", raw_file)
+            self.assertNotIn("original_text", raw_file)
 
             # /reidentify with only the hash (no inline mapping) recovers the original text
             restored = client.post(
@@ -93,6 +100,36 @@ class MappingStorePersistTests(unittest.TestCase):
             )
             self.assertEqual(restored.status_code, 200, restored.text)
             self.assertEqual(restored.json()["text"], text)
+
+    def test_persistence_enabled_without_mapping_key_fails_on_import(self):
+        key = os.environ.pop("JUNAS_MAPPING_STORE_KEY", None)
+        os.environ.pop("JUNAS_ALLOW_PLAINTEXT_MAPPINGS", None)
+        try:
+            with self.assertRaisesRegex(RuntimeError, "JUNAS_MAPPING_STORE_KEY is required"):
+                importlib.reload(self.mapping_mod)
+        finally:
+            if key is not None:
+                os.environ["JUNAS_MAPPING_STORE_KEY"] = key
+            self.mapping_mod = importlib.reload(self.mapping_mod)
+
+    def test_direct_save_mapping_encrypts_without_original_text_on_disk(self):
+        doc_hash = self.mapping_mod.compute_document_hash("secret")
+        path = self.mapping_mod.save_mapping(
+            document_hash=doc_hash,
+            mapping=[
+                {
+                    "placeholder": "[PERSON_1]",
+                    "entity_type": "PERSON",
+                    "original_text": "Dr Jane Tan",
+                    "occurrence_count": 1,
+                }
+            ],
+        )
+
+        raw_file = path.read_text(encoding="utf-8")
+        self.assertIn('"storage_format": "fernet-v1"', raw_file)
+        self.assertNotIn("Dr Jane Tan", raw_file)
+        self.assertNotIn("original_text", raw_file)
 
     def test_safe_rewrite_does_not_persist_mapping_when_persistence_enabled(self):
         text = "Send Dr Jane Tan S1234567D the draft."
@@ -250,7 +287,7 @@ class MappingStorePersistTests(unittest.TestCase):
         with self.assertRaises(mapping_mod.MappingStoreKeyError):
             mapping_mod.load_mapping(doc_hash)
 
-    def test_legacy_plaintext_mapping_still_loads(self):
+    def test_legacy_plaintext_mapping_fails_closed_unless_dev_flag_is_explicit(self):
         import junas.anonymize.mapping_store as mapping_mod
 
         importlib.reload(mapping_mod)
@@ -276,6 +313,11 @@ class MappingStorePersistTests(unittest.TestCase):
             encoding="utf-8",
         )
 
+        with self.assertRaises(mapping_mod.MappingStoreKeyError):
+            mapping_mod.load_mapping(doc_hash)
+
+        os.environ["JUNAS_ALLOW_PLAINTEXT_MAPPINGS"] = "1"
+        mapping_mod = importlib.reload(mapping_mod)
         loaded = mapping_mod.load_mapping(doc_hash)
         self.assertEqual(loaded[0]["original_text"], "Dr Jane Tan")
 

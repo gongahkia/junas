@@ -82,6 +82,12 @@ def _valid_journal_keys_file() -> tuple[bool, str]:
     return True, f"journal key rotation configured: {active}"
 
 
+def _plaintext_mapping_disabled() -> tuple[bool, str]:
+    if _is_truthy_env("JUNAS_ALLOW_PLAINTEXT_MAPPINGS"):
+        return False, "JUNAS_ALLOW_PLAINTEXT_MAPPINGS must be disabled in production"
+    return True, "plaintext mapping store disabled"
+
+
 def _production_auth_configured(settings: Any) -> tuple[bool, str]:
     tenancy = getattr(settings, "tenancy", None)
     if bool(getattr(tenancy, "enabled", False)):
@@ -284,6 +290,7 @@ def main() -> int:
             (checks if auth_ok else warnings).append(auth_msg)
 
             for ok, message in (
+                _plaintext_mapping_disabled(),
                 _policy_configured(settings),
                 _production_cors_configured(settings),
                 _production_body_cap_configured(settings),

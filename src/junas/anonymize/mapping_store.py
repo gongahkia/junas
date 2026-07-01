@@ -1,22 +1,12 @@
 """Persistent per-document mapping store keyed by document text SHA-256.
 
-When `JUNAS_REVIEW_PERSIST=1`, the `/anonymize` endpoint writes its mapping table to
+When `JUNAS_REVIEW_PERSIST=1`, the `/pseudonymize` endpoint writes its mapping table to
 `${JUNAS_JOURNAL_DIR}/mappings/<document_hash>.json` so a later `/reidentify` call can
-recover the mapping with just the hash, without the client retaining it.
+recover the mapping with just the hash, without the client retaining it. Persistence
+requires `JUNAS_MAPPING_STORE_KEY` by default. Plaintext mapping files are allowed only
+for explicit local development with `JUNAS_ALLOW_PLAINTEXT_MAPPINGS=1`.
 
-Plaintext storage shape:
-    {
-        "storage_format": "plaintext-v1",
-        "encrypted": false,
-        "document_hash": "<sha256 hex>",
-        "created_at": "<UTC ISO 8601>",
-        "mapping": [
-            {"placeholder": "[PERSON_1]", "entity_type": "PERSON", "original_text": "Dr Jane Tan",
-             "occurrence_count": 2}
-        ]
-    }
-
-When `JUNAS_MAPPING_STORE_KEY` is set to a Fernet key, the persisted file stores a
+With `JUNAS_MAPPING_STORE_KEY` set to a Fernet key, the persisted file stores a
 `fernet-v1` envelope with metadata plus ciphertext, and decryption fails closed if
 the key is missing or wrong.
 
@@ -28,6 +18,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
 import time
 from datetime import datetime, timedelta, timezone
@@ -39,7 +30,10 @@ from junas.review.journal import journal_dir
 from junas.review.subject_index import SubjectIndexError, index_mapping, require_subject_index_key
 
 _mapping_lock = Lock()
+logger = logging.getLogger("junas.mapping_store")
 MAPPING_STORE_KEY_ENV = "JUNAS_MAPPING_STORE_KEY"
+ALLOW_PLAINTEXT_MAPPINGS_ENV = "JUNAS_ALLOW_PLAINTEXT_MAPPINGS"
+REVIEW_PERSIST_ENV = "JUNAS_REVIEW_PERSIST"
 
 
 class MappingStoreError(RuntimeError):
@@ -48,6 +42,10 @@ class MappingStoreError(RuntimeError):
 
 class MappingStoreKeyError(MappingStoreError):
     """Raised when an encrypted mapping cannot be decrypted with the configured key."""
+
+
+def _is_truthy_env(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
 
 
 def compute_document_hash(text: str) -> str:
@@ -75,9 +73,24 @@ def _parse_iso(value: str) -> datetime | None:
         return None
 
 
-def _fernet_from_env():
+def _plaintext_mappings_allowed() -> bool:
+    return _is_truthy_env(ALLOW_PLAINTEXT_MAPPINGS_ENV)
+
+
+def _warn_plaintext_allowed() -> None:
+    logger.warning(
+        "%s=1 permits plaintext mapping files and is only for local development",
+        ALLOW_PLAINTEXT_MAPPINGS_ENV,
+    )
+
+
+def _fernet_from_env(*, required: bool = False):
     key = os.environ.get(MAPPING_STORE_KEY_ENV, "").strip()
     if not key:
+        if required:
+            raise MappingStoreKeyError(
+                f"{MAPPING_STORE_KEY_ENV} is required when {REVIEW_PERSIST_ENV}=1"
+            )
         return None
     try:
         from cryptography.fernet import Fernet
@@ -87,6 +100,15 @@ def _fernet_from_env():
         raise MappingStoreKeyError(
             f"{MAPPING_STORE_KEY_ENV} must be a valid Fernet key"
         ) from exc
+
+
+def _require_mapping_key_for_persistence() -> None:
+    if not _is_truthy_env(REVIEW_PERSIST_ENV):
+        return
+    if _plaintext_mappings_allowed():
+        _warn_plaintext_allowed()
+        return
+    _fernet_from_env(required=True)
 
 
 def _build_plain_payload(*, document_hash: str, mapping: list[Any]) -> dict[str, Any]:
@@ -103,8 +125,9 @@ def save_mapping(*, document_hash: str, mapping: list[Any], tenant_id: str | Non
     """Persist a mapping table for a document. Overwrite-safe."""
     require_subject_index_key()
     plain_payload = _build_plain_payload(document_hash=document_hash, mapping=mapping)
-    fernet = _fernet_from_env()
+    fernet = _fernet_from_env(required=not _plaintext_mappings_allowed())
     if fernet is None:
+        _warn_plaintext_allowed()
         payload = plain_payload
     else:
         ciphertext = fernet.encrypt(
@@ -141,11 +164,7 @@ def load_mapping(document_hash: str, *, tenant_id: str | None = None) -> list[di
     with _mapping_lock:
         data = json.loads(path.read_text(encoding="utf-8"))
     if bool(data.get("encrypted")) or data.get("storage_format") == "fernet-v1":
-        fernet = _fernet_from_env()
-        if fernet is None:
-            raise MappingStoreKeyError(
-                f"encrypted mapping requires {MAPPING_STORE_KEY_ENV}"
-            )
+        fernet = _fernet_from_env(required=True)
         try:
             plaintext = fernet.decrypt(str(data.get("ciphertext", "")).encode("ascii"))
             data = json.loads(plaintext.decode("utf-8"))
@@ -153,6 +172,12 @@ def load_mapping(document_hash: str, *, tenant_id: str | None = None) -> list[di
             raise MappingStoreKeyError(
                 "encrypted mapping could not be decrypted with the configured key"
             ) from exc
+    elif str(data.get("storage_format", "plaintext-v1") or "") == "plaintext-v1":
+        if not _plaintext_mappings_allowed():
+            raise MappingStoreKeyError(
+                f"plaintext mappings require {ALLOW_PLAINTEXT_MAPPINGS_ENV}=1"
+            )
+        _warn_plaintext_allowed()
     if str(data.get("document_hash", "")) != document_hash:
         raise MappingStoreError("mapping document_hash does not match requested hash")
     return list(data.get("mapping", []))
@@ -234,3 +259,6 @@ def _serialize_entry(entry: Any) -> dict[str, Any]:
         "original_text": str(getattr(entry, "original_text", "") or ""),
         "occurrence_count": int(getattr(entry, "occurrence_count", 0) or 0),
     }
+
+
+_require_mapping_key_for_persistence()
