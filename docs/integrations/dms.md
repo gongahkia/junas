@@ -23,6 +23,8 @@ Start the backend before running service-side upload/check-in hooks:
 5. Hook applies the decision before check-in completes, or records a pending approval/rewrite requirement.
 6. Optional follow-on actions run only when allowed by `action_catalog`.
 
+Sequence diagram: `docs/integrations/sequence-diagrams.md#dms-upload-check-in-review`.
+
 ## Required Metadata
 
 Production DMS hooks should provide:

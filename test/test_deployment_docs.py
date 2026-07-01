@@ -538,6 +538,30 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_sequence_diagrams_doc_covers_dms_upload_review(self):
+        text = (ROOT / "docs" / "integrations" / "sequence-diagrams.md").read_text(encoding="utf-8")
+        dms = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
+
+        self.assertIn("sequence-diagrams.md#dms-upload-check-in-review", dms)
+        for token in (
+            "## DMS Upload Check-In Review",
+            "Upload or check in document",
+            "document_id",
+            "matter_id",
+            "POST /review",
+            'surface="dms"',
+            'workflow="document_upload"',
+            "policy_decision",
+            "Store review id, decision, actions, policy version",
+            "Permit check-in and attach audit metadata",
+            "Hold version pending reviewer approval",
+            "Stop or quarantine check-in",
+            "raw document text",
+            "matched text",
+            "idempotency key hash",
+        ):
+            self.assertIn(token, text)
+
     def test_word_doc_marks_taskpane_as_review_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "word.md").read_text(encoding="utf-8")
         for token in (

@@ -78,3 +78,43 @@ sequenceDiagram
 ```
 
 The browser adapter may hold prompt text in memory long enough to review or rewrite it. It must not save prompt text, rewritten text, matched spans, auth tokens, or endpoint secrets in extension storage or console logs.
+
+## DMS Upload Check-In Review
+
+This sequence is for a service-side DMS hook that reviews a document before upload, check-in, external share, or version promotion completes. The DMS stores audit evidence from the backend response, not raw reviewed content.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant DMS as DMS repository
+    participant Hook as DMS review hook
+    participant API as FastAPI /review
+    participant Policy as Review + policy engine
+    participant Audit as DMS audit fields
+    participant Journal as Junas journal / SIEM
+
+    User->>DMS: Upload or check in document
+    DMS->>Hook: Pre-commit event with document_id, matter_id, actor, version
+    Hook->>Hook: Extract text or prepare supported document_base64 payload
+    Hook->>API: POST /review surface="dms" workflow="document_upload" matter_id document_id
+    API->>Policy: Validate auth, extract, review, evaluate policy
+    Policy-->>API: Findings + policy_decision
+    API->>Journal: Append hashes, counts, policy id/version, decision
+    API-->>Hook: review_id, request_id, review_expires_at, policy_decision
+    Hook->>Audit: Store review id, decision, actions, policy version, scores, counts, idempotency key hash
+    alt allow or warn
+        Hook-->>DMS: Permit check-in and attach audit metadata
+        DMS-->>User: Upload/check-in completes
+    else approval_required
+        Hook-->>DMS: Hold version pending reviewer approval
+        DMS-->>User: Show approval-required state
+    else rewrite_required
+        Hook-->>DMS: Hold original and request safe rewrite or redaction workflow
+        DMS-->>User: Show rewrite-required state
+    else block / degraded / backend failure
+        Hook-->>DMS: Stop or quarantine check-in per tenant failure policy
+        DMS-->>User: Show policy block or review unavailable state
+    end
+```
+
+DMS-side audit fields may include `review_id`, `request_id`, `policy_decision.decision`, required and recommended actions, policy id/version, `review_expires_at`, risk scores, finding count, matter id, document id, actor id, DMS version id, and idempotency key hash. They must not include raw document text, matched text, reviewer rationale containing sensitive content, auth headers, or reversible mapping values.
