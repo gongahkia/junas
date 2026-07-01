@@ -67,6 +67,27 @@ If no file path, `--watch-folder`, or `--clipboard` is provided, the CLI exits w
 - Clipboard review emits a JSON summary; it should not print raw clipboard content.
 - Use clipboard mode only for demos, offline local review, or power-user workflows where the user opted in.
 
+## Threat Model
+
+- Clipboard sensitivity: `--clipboard` reads the whole current macOS clipboard through
+  `pbpaste` when polling runs. Clipboard mode must stay off by default because the
+  clipboard may contain passwords, tokens, personal messages, or copied customer data.
+- Local token use: `--local-token`, `--local-token-file`, and
+  `JUNAS_LOCAL_DAEMON_TOKEN` send `X-Junas-Local-Token` to the local daemon. Treat the
+  token as same-user local secret material; do not paste it into shell history, shared
+  logs, notifications, or bug reports.
+- Notifications: `--notify` uses macOS `osascript` notifications only when findings are
+  present. Notifications should contain counts and source labels only; they can still
+  expose a path or the word `clipboard` to screenshots, screen sharing, or lock-screen
+  previews.
+- Watched-folder scope: `--watch-folder` scans recursively for supported suffixes. Use a
+  dedicated drop directory, not a home directory, synced drive root, mail archive, or
+  source tree with unrelated customer files.
+- Accidental large-file scans: the current CLI has no max-file-size option. A large
+  matching file is read into memory and sent to the backend, so operators should test
+  with `--once`, keep watched folders small, and avoid broad recursive roots until size
+  limits are implemented.
+
 ## Enforcement Boundary
 
 The desktop watcher is not enterprise endpoint enforcement.

@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P2/Desktop: Add a desktop watcher threat-model subsection covering clipboard sensitivity, local token use, notifications, watched-folder scope, and accidental large-file scans.
 - [ ] P2/Desktop: Add a desktop watcher config sample that disables clipboard polling by default and requires explicit user opt-in.
 - [ ] P2/Desktop: Add tests that desktop watcher never writes anonymized output outside the configured output directory.
 - [ ] P2/Desktop: Add tests that desktop watcher handles local daemon auth failure without printing sensitive clipboard content.

@@ -935,14 +935,34 @@ class DeploymentDocsTests(unittest.TestCase):
             "`junas-watch` remains a packaged console script",
             "Maturity: `experimental-local-fallback`",
             "Clipboard polling is never enabled by default",
+            "Threat Model",
+            "Clipboard sensitivity",
+            "pbpaste",
+            "Local token use",
+            "JUNAS_LOCAL_DAEMON_TOKEN",
+            "Notifications",
+            "osascript",
+            "Watched-folder scope",
+            "dedicated drop directory",
+            "Accidental large-file scans",
+            "no max-file-size option",
             "Folder Watch",
             "Clipboard Watch",
             "not enterprise endpoint enforcement",
             "does not block paste",
             "cannot prove that every local file",
-            "JUNAS_LOCAL_DAEMON_TOKEN",
         ):
             self.assertIn(token, text)
+
+        threat_model = (ROOT / "docs" / "security" / "adapter-threat-model.md").read_text(encoding="utf-8")
+        for token in (
+            "notification path exposure",
+            "broad recursive folder scans",
+            "accidental large-file scans",
+            "count/path-only notifications",
+            "dedicated watched folder",
+        ):
+            self.assertIn(token, threat_model)
 
 
 if __name__ == "__main__":
