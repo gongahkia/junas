@@ -1,0 +1,27 @@
+{
+  "name": "internal_low_risk_warns_by_default_policy",
+  "request": {
+    "text": "Internal-only note: Dr Jane Tan will attend the project sync and share the public agenda.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "SG",
+    "document_type": "email",
+    "surface": "outlook",
+    "workflow": "email_send",
+    "actor_role": "end_user",
+    "recipient_domains": ["corp.internal.example"],
+    "recipient_count": 3,
+    "attachment_count": 0,
+    "sensitivity_label": "internal",
+    "external_destination": false,
+    "requested_action": "send"
+  },
+  "expected": {
+    "decision": "warn",
+    "send_allowed": true,
+    "required_actions": [],
+    "finding": {
+      "category": "PII",
+      "severity": "low"
+    }
+  }
+}

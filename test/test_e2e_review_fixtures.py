@@ -25,11 +25,14 @@ class E2EReviewFixtureTests(unittest.TestCase):
         expected = fixture["expected"]
         self.assertEqual(policy["decision"], expected["decision"])
         self.assertEqual(policy["send_allowed"], expected["send_allowed"])
-        self.assertFalse(body["send_allowed"])
+        self.assertEqual(body["send_allowed"], expected["send_allowed"])
         for action in expected["required_actions"]:
             self.assertIn(action, policy["required_actions"])
             self.assertIn(action, body["action_catalog"])
-        self.assertTrue(policy["blocking_findings"])
+        if expected["send_allowed"]:
+            self.assertEqual(policy["blocking_findings"], [])
+        else:
+            self.assertTrue(policy["blocking_findings"])
         self.assertTrue(
             any(
                 finding["category"] == expected["finding"]["category"]
@@ -47,6 +50,9 @@ class E2EReviewFixtureTests(unittest.TestCase):
 
     def test_dms_document_with_mnpi_returns_hold_until_public_action(self):
         self._assert_review_fixture("dms_mnpi_hold_until_public.json")
+
+    def test_internal_low_risk_content_warns_per_default_policy(self):
+        self._assert_review_fixture("internal_low_risk_warn.json")
 
 
 if __name__ == "__main__":
