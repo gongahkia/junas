@@ -136,6 +136,13 @@ def render_accuracy_doc() -> str:
         "`DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | "
         "Separate eval target; reports span-level precision/recall/F2 and never updates the "
         "candidate-corpus promotion lock. |",
+        "| ai4privacy `pii-masking-200k` | "
+        "`test/fixtures/external/ai4privacy-pii-masking-200k/english_pii_43k.jsonl` via "
+        "`scripts/fetch_ai4privacy_fixture.py` | `scripts/run_ai4privacy_eval.py` | "
+        "Semi-independent external synthetic corpus with ai4privacy human-in-the-loop validation claims; "
+        "scored separately from TAB because Hugging Face also publishes a Presidio-powered PII report. | "
+        "Committed report in `reports/current/ai4privacy_pii_masking_200k_en_us_en_gb_eval.json`; "
+        "reports recall on documented English US/UK label-proxy slices and never updates promotion locks. |",
     ]
     )
 
