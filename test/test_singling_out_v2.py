@@ -108,6 +108,11 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertEqual(metadata["re_identification_estimate"], 1.0)
         self.assertEqual(metadata["singling_out_scope"], "paragraph")
         self.assertGreaterEqual(metadata["identifying_weight_total"], metadata["identifying_weight_threshold"])
+        self.assertIn("PNAS 2020 predicate singling out", metadata["threshold_formalization"])
+        self.assertEqual(
+            metadata["threshold_formalization_url"],
+            "https://www.pnas.org/doi/10.1073/pnas.1914598117",
+        )
 
     def test_strict_weighted_scorer_does_not_fire_on_two_weak_quasi_ids(self):
         self.assertEqual(self._quasi("Dr Jane Tan wrote to jane.tan@example.sg."), [])

@@ -343,8 +343,12 @@ _PII_DEFAULT_RATIONALE = {
         "Under PDPA s2 ('identified from that data and other information'), GDPR Recital "
         "26 ('means reasonably likely to be used'), and CCPA §1798.140(v) ('reasonably "
         "capable of being associated'), the combination is personal data even when the "
-        "individual attributes are not. Sweeney 2000: DOB + 5-digit ZIP + gender uniquely "
-        "identifies ~87% of US adults. Generalise or aggregate before disclosure."
+        "individual attributes are not. Cohen and Nissim, PNAS 2020, formalize GDPR "
+        "singling out as predicate singling out: a predicate over released attributes "
+        "isolates one row much better than baseline. "
+        "https://www.pnas.org/doi/10.1073/pnas.1914598117. Sweeney 2000: DOB + "
+        "5-digit ZIP + gender uniquely identifies ~87% of US adults. Generalise or "
+        "aggregate before disclosure."
     ),
     "cross_border_transfer_marker": (
         "Cross-border personal-data transfer marker detected. Under PDPA s26 + PDP "

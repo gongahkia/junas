@@ -126,10 +126,12 @@ class CitationTests(unittest.TestCase):
         self.assertIn("PDPA s2", text)
         self.assertIn("Recital 26", text)
 
-    def test_citation_cites_sweeney_or_ccpa(self):
+    def test_citation_cites_predicate_singling_out_and_sweeney_or_ccpa(self):
         text = pii_rationale(rule="quasi_identifier_combination", jurisdiction="US",
                              matched_text="3 distinct quasi-identifiers")
-        # Either the Sweeney 2000 reference or the CCPA §1798.140(v) is acceptable.
+        self.assertIn("PNAS 2020", text)
+        self.assertIn("predicate singling out", text)
+        self.assertIn("10.1073/pnas.1914598117", text)
         self.assertTrue(
             "Sweeney" in text or "CCPA" in text,
             f"expected Sweeney or CCPA reference in rationale: {text!r}",

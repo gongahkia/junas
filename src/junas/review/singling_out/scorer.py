@@ -166,6 +166,8 @@ _QUASI_RULE_WEIGHTS = {
     "personal_attribute_inference": 0.45,
 }
 _WEIGHT_THRESHOLD = 1.4
+_PREDICATE_SINGLING_OUT_FORMALIZATION = "Cohen and Nissim PNAS 2020 predicate singling out"
+_PREDICATE_SINGLING_OUT_URL = "https://www.pnas.org/doi/10.1073/pnas.1914598117"
 _MIN_DISTINCT = 3
 _K_THRESHOLD = 20
 _DEFAULT_K = 5
@@ -747,6 +749,8 @@ def detect_singling_out(
             "identifying_weights": weights,
             "identifying_weight_total": weight_score,
             "identifying_weight_threshold": _WEIGHT_THRESHOLD,
+            "threshold_formalization": _PREDICATE_SINGLING_OUT_FORMALIZATION,
+            "threshold_formalization_url": _PREDICATE_SINGLING_OUT_URL,
             "components": _component_spans(group),
             "quasi_identifier_component_spans": _component_spans(group),
             "legal_basis": legal_basis,
