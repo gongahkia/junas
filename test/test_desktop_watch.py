@@ -1,6 +1,7 @@
 import json
 import tempfile
 import unittest
+import urllib.error
 from pathlib import Path
 from unittest import mock
 
@@ -107,6 +108,46 @@ class DesktopWatchTests(unittest.TestCase):
 
         self.assertEqual(payload["source"], "clipboard")
         self.assertEqual(payload["finding_count"], 0)
+
+    def test_http_auth_error_omits_response_detail_and_payload_text(self):
+        secret = "clipboard secret S1234567D"
+        error = urllib.error.HTTPError(
+            "http://127.0.0.1:8765/review",
+            401,
+            "unauthorized",
+            {},
+            mock.Mock(read=lambda: f"auth failed for {secret}".encode("utf-8")),
+        )
+        with mock.patch.object(watch.urllib.request, "urlopen", side_effect=error):
+            with self.assertRaisesRegex(RuntimeError, r"/review failed with HTTP 401") as raised:
+                watch._post_json_with_headers(
+                    "http://127.0.0.1:8765",
+                    "/review",
+                    {"text": secret},
+                    10.0,
+                    {"X-Junas-Local-Token": "bad-token"},
+                )
+
+        self.assertNotIn(secret, str(raised.exception))
+        self.assertNotIn("bad-token", str(raised.exception))
+
+    def test_clipboard_auth_failure_does_not_print_clipboard_content(self):
+        secret = "clipboard secret jane@example.com"
+        with (
+            mock.patch.object(watch, "_clipboard_text", return_value=secret),
+            mock.patch.object(
+                watch,
+                "_post_json_with_headers",
+                side_effect=RuntimeError("/review failed with HTTP 401"),
+            ),
+            mock.patch("builtins.print") as printed,
+        ):
+            with self.assertRaisesRegex(RuntimeError, r"HTTP 401") as raised:
+                watch.poll_clipboard_once(watch.WatchConfig(local_token="bad-token"))
+
+        printed.assert_not_called()
+        self.assertNotIn(secret, str(raised.exception))
+        self.assertNotIn("bad-token", str(raised.exception))
 
     def test_config_reads_local_token_file(self):
         with tempfile.TemporaryDirectory() as tmp:

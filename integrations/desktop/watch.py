@@ -61,8 +61,7 @@ def _post_json_with_headers(
         with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
             return json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"{path} failed with HTTP {exc.code}: {detail}") from exc
+        raise RuntimeError(f"{path} failed with HTTP {exc.code}") from exc
 
 
 def _payload(text: str, config: WatchConfig) -> dict[str, Any]:

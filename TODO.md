@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P2/Desktop: Add tests that desktop watcher handles local daemon auth failure without printing sensitive clipboard content.
 - [ ] P2/Desktop: Add docs explaining desktop watcher is for offline local fallback, demos, and power users, not enterprise enforcement.
 - [ ] P2/Desktop: Add a packaging note that macOS LaunchAgent install should be optional and admin-controlled, not a default developer quickstart path.
 - [ ] P1/AdminUI: Add `docs/admin-console/requirements.md` defining admin console scope: review sessions, decisions, policy config, audit exports, false-positive triage, and tenant health.
