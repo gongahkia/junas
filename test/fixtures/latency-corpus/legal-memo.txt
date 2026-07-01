@@ -1,0 +1,23 @@
+Confidential legal memorandum
+To: General Counsel
+From: Product Counsel
+Re: Review of proposed customer analytics export
+Date: 2026-06-18
+
+Issue
+The product team proposes a feature that lets enterprise administrators export workspace analytics for compliance review. The export would include user identifiers, team names, document titles, access timestamps, sharing status, and a short machine-generated explanation for each policy event. The question is whether the proposed export can be released under the current customer agreement and privacy addendum without additional contractual notices.
+
+Facts
+The current enterprise agreement permits customers to access administrative logs, usage statistics, and policy-enforcement records for their own workspaces. The privacy addendum allows processing of customer content and account data to provide, secure, support, and improve the service. The proposed export is initiated by an administrator from the console and is limited to records from that customer's workspace. The export does not include full document bodies, but document titles and generated explanations may reveal confidential business context.
+
+The product team wants the export to support CSV and JSON formats. The first release would include a thirty-day lookback window, role-based access controls, and audit logging when an export is created or downloaded. Administrators can already view most of the same events in the console, but they cannot download the explanation field in bulk. Support has received requests from regulated customers who need evidence for internal control testing and incident response.
+
+Analysis
+The strongest contractual basis is that the export provides administrative records to the customer for its own environment. That position is consistent with existing log-access language and with prior releases that allowed administrators to download authentication events. The risk is higher for generated explanations because those explanations may synthesize document titles, policy labels, and reviewer notes into a new field. Even if the field is derived from customer-controlled data, it may be more sensitive than ordinary usage statistics.
+
+The privacy addendum likely supports the processing required to generate and deliver the export when the customer requests it. However, the launch should avoid any suggestion that the company is creating independent compliance conclusions for the customer. The export should describe policy events and system decisions, not legal judgments. Documentation should state that customers remain responsible for reviewing the records and applying their own retention, privilege, and disclosure rules.
+
+Several controls reduce release risk. Access should be restricted to administrators with an explicit export permission. Each export should be logged with requester, timestamp, filters, format, record count, and download status. The default lookback should remain thirty days unless a longer period is required by contract. The explanation field should be labeled as system-generated and should avoid including unnecessary snippets from customer documents. The export should inherit existing workspace retention settings where practical.
+
+Recommendation
+Release can proceed if the team implements the access control, audit logging, labeling, and documentation controls described above. Product should add an admin-facing notice before export generation stating that the file may contain confidential workspace metadata. Legal should review the documentation before launch and prepare support guidance for customers who ask whether the export satisfies a particular regulatory obligation. No separate amendment appears necessary for the initial release, but customer-specific terms should be checked before enabling the feature for accounts with custom privacy restrictions.

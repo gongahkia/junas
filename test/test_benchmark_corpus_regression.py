@@ -1,3 +1,4 @@
+import argparse
 import importlib.util
 import json
 import socket
@@ -9,6 +10,12 @@ from pathlib import Path
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parent.parent
+WORKFLOW_CORPUS_CASES = {
+    "outlook-short-email.txt": (45, 250),
+    "browser-prompt.txt": (80, 350),
+    "legal-memo.txt": (350, None),
+    "dms-upload-size-document.txt": (500, None),
+}
 
 
 def load_benchmark_module():
@@ -34,6 +41,21 @@ class BenchmarkCorpusRegressionTests(unittest.TestCase):
     def setUpClass(cls):
         cls.mod = load_benchmark_module()
 
+    def test_latency_corpus_includes_workflow_cases(self):
+        corpus_dir = ROOT / "test" / "fixtures" / "latency-corpus"
+        args = argparse.Namespace(inputs=[str(corpus_dir)], glob_pattern=None)
+        resolved_names = {path.name for path in self.mod.resolve_inputs(args)}
+
+        self.assertLessEqual(set(WORKFLOW_CORPUS_CASES), resolved_names)
+
+        for file_name, (min_words, max_words) in WORKFLOW_CORPUS_CASES.items():
+            path = corpus_dir / file_name
+            text = path.read_text(encoding="utf-8")
+            word_count = len(text.split())
+            self.assertGreaterEqual(word_count, min_words, file_name)
+            if max_words is not None:
+                self.assertLessEqual(word_count, max_words, file_name)
+
     def test_benchmark_main_handles_1k_2k_5k_and_10k_word_documents(self):
         port = reserve_port()
         base_url = f"http://127.0.0.1:{port}"
@@ -54,6 +76,7 @@ class BenchmarkCorpusRegressionTests(unittest.TestCase):
         reports_dir = ROOT / "reports"
         existing_json = set(reports_dir.glob("latency_*.json")) if reports_dir.exists() else set()
         existing_csv = set(reports_dir.glob("latency_*.csv")) if reports_dir.exists() else set()
+        existing_txt = set(reports_dir.glob("latency_*.txt")) if reports_dir.exists() else set()
 
         try:
             self.mod.wait_for_ready(base_url, timeout=30)
@@ -85,8 +108,10 @@ class BenchmarkCorpusRegressionTests(unittest.TestCase):
 
             new_json = sorted(set(reports_dir.glob("latency_*.json")) - existing_json)
             new_csv = sorted(set(reports_dir.glob("latency_*.csv")) - existing_csv)
+            new_txt = sorted(set(reports_dir.glob("latency_*.txt")) - existing_txt)
             self.assertEqual(len(new_json), 1)
             self.assertEqual(len(new_csv), 1)
+            self.assertEqual(len(new_txt), 1)
 
             payload = json.loads(new_json[0].read_text(encoding="utf-8"))
             observed_summary_counts = {
@@ -111,6 +136,8 @@ class BenchmarkCorpusRegressionTests(unittest.TestCase):
             for path in sorted(set(reports_dir.glob("latency_*.json")) - existing_json):
                 path.unlink()
             for path in sorted(set(reports_dir.glob("latency_*.csv")) - existing_csv):
+                path.unlink()
+            for path in sorted(set(reports_dir.glob("latency_*.txt")) - existing_txt):
                 path.unlink()
 
 

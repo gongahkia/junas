@@ -9,6 +9,13 @@ Recommended naming:
 - `5000_words.txt`
 - `10000_words.txt`
 
+Required workflow-shape fixtures:
+
+- `outlook-short-email.txt`
+- `browser-prompt.txt`
+- `legal-memo.txt`
+- `dms-upload-size-document.txt`
+
 The benchmark wrapper script targets this folder by default:
 
 ```sh
