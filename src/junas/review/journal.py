@@ -13,6 +13,7 @@ Key resolution priority (per entry):
 1. If the entry's `key_version` field is non-empty, look up that version in the keystore
    pointed at by `JUNAS_JOURNAL_KEYS_FILE` (TOML).
 2. Otherwise (legacy entries written before per-org rotation existed), use `JUNAS_JOURNAL_KEY`.
+   No default key is provided.
 
 Rotation: writing a `journal_key_rolled` event under the new active key transitions the
 chain. The rotation sentinel records `{from_version, to_version, reason}` and is itself
@@ -47,7 +48,6 @@ import tomllib
 
 GENESIS_HASH = "GENESIS"
 DEFAULT_JOURNAL_DIR_NAME = "junas-journal"
-DEFAULT_DEV_KEY = b"junas-default-dev-key"  # production must set JUNAS_JOURNAL_KEY
 LEGACY_KEY_VERSION = ""  # sentinel: entries without a key_version field use the legacy env-var key
 _TENANT_STORAGE_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 
@@ -116,9 +116,15 @@ def journal_path(tenant_id: str | None = None) -> Path:
     return journal_dir(tenant_id) / "journal.jsonl"
 
 
+def _is_truthy_env(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _legacy_journal_key() -> bytes:
     key = os.environ.get("JUNAS_JOURNAL_KEY", "")
-    return key.encode("utf-8") if key else DEFAULT_DEV_KEY
+    if not key:
+        raise KeyResolutionError("JUNAS_JOURNAL_KEY or JUNAS_JOURNAL_KEYS_FILE is required")
+    return key.encode("utf-8")
 
 
 def _journal_key() -> bytes:
@@ -170,6 +176,25 @@ def _active_key_version() -> str:
     if active and active in store.get("keys", {}):
         return active
     return LEGACY_KEY_VERSION
+
+
+def _journal_key_configured() -> bool:
+    store = _load_keystore()
+    if store is not None:
+        active = store.get("active")
+        if active and active in store.get("keys", {}):
+            return True
+    return bool(os.environ.get("JUNAS_JOURNAL_KEY", "").strip())
+
+
+def _require_journal_key_when_needed() -> None:
+    deployment_mode = os.environ.get("JUNAS_DEPLOYMENT_MODE", "").strip().lower()
+    if not (_is_truthy_env("JUNAS_REVIEW_PERSIST") or deployment_mode == "production"):
+        return
+    if not _journal_key_configured():
+        raise KeyResolutionError(
+            "JUNAS_JOURNAL_KEY or JUNAS_JOURNAL_KEYS_FILE is required when journal persistence is enabled"
+        )
 
 
 def _resolve_key_for_version(version: str) -> bytes:
@@ -357,3 +382,6 @@ def rotate_journal_key(
         },
         tenant_id=tenant_id,
     )
+
+
+_require_journal_key_when_needed()

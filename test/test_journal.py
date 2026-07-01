@@ -21,7 +21,7 @@ class JournalChainTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY"):
+        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY", "JUNAS_JOURNAL_KEYS_FILE", "JUNAS_DEPLOYMENT_MODE"):
             os.environ.pop(var, None)
         importlib.reload(self.journal)
 
@@ -50,6 +50,28 @@ class JournalChainTests(unittest.TestCase):
         self.assertTrue(any("hmac mismatch" in err for err in errors), errors)
         # the legitimate first entry's hmac is irrelevant to the failure but pulled into errors
         self.assertEqual(e1.seq, 0)
+
+    def test_chain_sealed_with_key_a_fails_verification_under_key_b(self):
+        self.journal.append_event(event_type="x", review_id="r1", payload={"a": 1})
+        os.environ["JUNAS_JOURNAL_KEY"] = "key-b"
+
+        valid, errors = self.journal.verify_chain()
+
+        self.assertFalse(valid)
+        self.assertTrue(any("hmac mismatch" in err for err in errors), errors)
+
+    def test_production_mode_without_journal_key_fails_on_import(self):
+        key = os.environ.pop("JUNAS_JOURNAL_KEY", None)
+        os.environ.pop("JUNAS_JOURNAL_KEYS_FILE", None)
+        os.environ["JUNAS_DEPLOYMENT_MODE"] = "production"
+        try:
+            with self.assertRaisesRegex(RuntimeError, "JUNAS_JOURNAL_KEY or JUNAS_JOURNAL_KEYS_FILE is required"):
+                importlib.reload(self.journal)
+        finally:
+            if key is not None:
+                os.environ["JUNAS_JOURNAL_KEY"] = key
+            os.environ.pop("JUNAS_DEPLOYMENT_MODE", None)
+            self.journal = importlib.reload(self.journal)
 
     def test_read_journal_filters_by_review_id(self):
         self.journal.append_event(event_type="x", review_id="r1", payload={})
