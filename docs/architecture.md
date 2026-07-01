@@ -21,19 +21,37 @@ Junas is an API-first pre-send safety engine for PII anonymization and MNPI revi
 
 ```mermaid
 flowchart TD
-    Client[Client / Desktop Wrapper / Integration] --> API[FastAPI backend]
-    API --> Extract[Document extraction<br/>inline text / TXT / DOCX / PDF]
+    subgraph OptionalAdapters[Optional workflow activation surfaces]
+        Direct[Direct API clients]
+        Outlook[Outlook Smart Alerts]
+        Browser[Browser GenAI extension]
+        Word[Word taskpane]
+        DMS[DMS upload hook]
+        Desktop[Desktop watcher]
+    end
+
+    OptionalAdapters --> API[FastAPI backend<br/>trust boundary]
+    API --> Auth[Request validation<br/>tenant/auth checks]
+    Auth --> Extract[Document extraction<br/>inline text / TXT / DOCX / PDF]
     Extract --> Review[Deterministic review engine]
     Review --> PII[PII recognizers<br/>jurisdiction packs + universal patterns]
     Review --> MNPI[MNPI evidence rules<br/>material events + non-public markers + scalars]
     PII --> Score[Strictest-wins scoring]
     MNPI --> Score
     Score --> Findings[Findings + suggestions + scores]
+    Findings --> Policy[Policy engine<br/>decision + actions]
     Findings --> Anon{Anonymize?}
     Anon -->|yes| Replace[Deterministic span replacement]
     Anon -->|no| ReviewResponse[Review response]
-    Replace --> AnonResponse[Anonymize response]
+    Policy --> ReviewResponse
+    Replace --> AnonResponse[Rewrite / anonymize response]
 ```
+
+Adapters feed the API; they are not part of the core deterministic engine. Outlook,
+browser, Word, DMS, desktop, and direct HTTP clients collect workflow context and render
+decisions, but they must not call or embed the review engine directly. FastAPI owns
+request validation, tenant/auth checks, extraction, policy evaluation, audit events, and
+privacy-safe observability.
 
 ## Optional Server Layers
 

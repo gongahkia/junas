@@ -5,6 +5,26 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class ArchitectureDocTests(unittest.TestCase):
+    def test_runtime_architecture_diagram_keeps_adapters_outside_core_engine(self):
+        text = (ROOT / "docs" / "architecture.md").read_text(encoding="utf-8")
+
+        for token in (
+            "subgraph OptionalAdapters[Optional workflow activation surfaces]",
+            "Outlook Smart Alerts",
+            "Browser GenAI extension",
+            "Word taskpane",
+            "DMS upload hook",
+            "Desktop watcher",
+            "FastAPI backend<br/>trust boundary",
+            "Request validation<br/>tenant/auth checks",
+            "Deterministic review engine",
+            "Policy engine<br/>decision + actions",
+            "Adapters feed the API",
+            "not part of the core deterministic engine",
+            "must not call or embed the review engine directly",
+        ):
+            self.assertIn(token, text)
+
     def test_top_level_architecture_doc_is_reviewer_entry_point(self):
         path = ROOT / "ARCHITECTURE.md"
         self.assertTrue(path.exists())
