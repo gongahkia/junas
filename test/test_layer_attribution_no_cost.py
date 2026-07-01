@@ -30,6 +30,9 @@ class LayerAttributionNoCostReportTests(unittest.TestCase):
     def test_report_reflects_post_120_conjunctive_findings(self):
         candidate_path = Path(self.manifest["profiles"]["strict"]["candidate_report"])
         payload = json.loads(candidate_path.read_text(encoding="utf-8"))
+        if "candidate_f2" in payload["summary"]:
+            self.assertEqual(payload["summary"]["fbeta_beta"], 2)
+            self.assertIn("ideal_candidate_f2", payload["summary"])
         count = 0
         for doc in payload["documents"]:
             count += sum(1 for finding in doc.get("unexpected", []) if finding.get("rule") == "conjunctive_mnpi")

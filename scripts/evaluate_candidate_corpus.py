@@ -57,6 +57,7 @@ class CandidateDocReport:
     independent_missed: list[dict[str, str]] = field(default_factory=list)
     ideal_matched: list[dict[str, str]] = field(default_factory=list)
     ideal_missed: list[dict[str, str]] = field(default_factory=list)
+    ideal_unexpected: list[dict[str, str]] = field(default_factory=list)
     unexpected: list[dict[str, str]] = field(default_factory=list)
     unexpected_triage: list[dict[str, str]] = field(default_factory=list)
     must_not_detect_violations: list[dict[str, str]] = field(default_factory=list)
@@ -249,6 +250,8 @@ def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDoc
     ]
     ideal_matched = [item for item in ideal if (item["rule"], item["matched_text"]) in finding_keys]
     ideal_missed = [item for item in ideal if (item["rule"], item["matched_text"]) not in finding_keys]
+    ideal_keys = {(item["rule"], item["matched_text"]) for item in ideal}
+    ideal_unexpected = [item for item in findings if (item["rule"], item["matched_text"]) not in ideal_keys]
     unexpected = [item for item in findings if (item["rule"], item["matched_text"]) not in expected_keys]
     must_not_detect = [
         {"matched_text": str(item["matched_text"]), "reason": str(item.get("reason") or "")}
@@ -296,6 +299,7 @@ def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDoc
         independent_missed=independent_missed,
         ideal_matched=ideal_matched,
         ideal_missed=ideal_missed,
+        ideal_unexpected=ideal_unexpected,
         unexpected=unexpected,
         unexpected_triage=unexpected_triage,
         must_not_detect_violations=violations,
@@ -313,6 +317,7 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
     total_ideal = sum(len(report.ideal_matched) + len(report.ideal_missed) for report in reports)
     total_ideal_matched = sum(len(report.ideal_matched) for report in reports)
     total_ideal_missed = sum(len(report.ideal_missed) for report in reports)
+    total_ideal_unexpected = sum(len(getattr(report, "ideal_unexpected", [])) for report in reports)
     total_unexpected = sum(len(report.unexpected) for report in reports)
     total_violations = sum(len(report.must_not_detect_violations) for report in reports)
     by_rule: dict[str, dict[str, int]] = {}
@@ -329,6 +334,19 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
             ideal_by_rule.setdefault(item["rule"], {"matched": 0, "missed": 0})["missed"] += 1
         for item in report.unexpected_triage:
             unexpected_triage[item["bucket"]] += 1
+    candidate_recall = total_matched / total_expected if total_expected else 0.0
+    independent_candidate_recall = total_independent_matched / total_independent if total_independent else 0.0
+    candidate_precision = (
+        total_matched / (total_matched + total_unexpected)
+        if total_matched + total_unexpected
+        else 0.0
+    )
+    ideal_candidate_recall = total_ideal_matched / total_ideal if total_ideal else 0.0
+    ideal_candidate_precision = (
+        total_ideal_matched / (total_ideal_matched + total_ideal_unexpected)
+        if total_ideal_matched + total_ideal_unexpected
+        else 0.0
+    )
     return {
         "doc_count": len(reports),
         "expected_labels": total_expected,
@@ -340,16 +358,21 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
         "ideal_labels": total_ideal,
         "ideal_matched": total_ideal_matched,
         "ideal_missed": total_ideal_missed,
+        "ideal_unexpected": total_ideal_unexpected,
         "unexpected": total_unexpected,
         "must_not_detect_violations": total_violations,
-        "candidate_recall": round(total_matched / total_expected, 4) if total_expected else 0.0,
-        "independent_candidate_recall": round(total_independent_matched / total_independent, 4)
-        if total_independent
-        else 0.0,
-        "candidate_precision": round(total_matched / (total_matched + total_unexpected), 4)
-        if total_matched + total_unexpected
-        else 0.0,
-        "ideal_candidate_recall": round(total_ideal_matched / total_ideal, 4) if total_ideal else 0.0,
+        "fbeta_beta": 2,
+        "candidate_recall": round(candidate_recall, 4),
+        "independent_candidate_recall": round(independent_candidate_recall, 4),
+        "candidate_precision": round(candidate_precision, 4),
+        "candidate_f2": round(_f_beta(candidate_precision, candidate_recall, beta=2), 4),
+        "independent_candidate_f2": round(
+            _f_beta(candidate_precision, independent_candidate_recall, beta=2),
+            4,
+        ),
+        "ideal_candidate_recall": round(ideal_candidate_recall, 4),
+        "ideal_candidate_precision": round(ideal_candidate_precision, 4),
+        "ideal_candidate_f2": round(_f_beta(ideal_candidate_precision, ideal_candidate_recall, beta=2), 4),
         "by_rule": by_rule,
         "ideal_by_rule": ideal_by_rule,
         "unexpected_triage": {
@@ -357,6 +380,13 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
             for bucket in UNEXPECTED_TRIAGE_BUCKETS
         },
     }
+
+
+def _f_beta(precision: float, recall: float, *, beta: float) -> float:
+    if precision == 0.0 and recall == 0.0:
+        return 0.0
+    beta_squared = beta * beta
+    return (1 + beta_squared) * precision * recall / ((beta_squared * precision) + recall)
 
 
 def _lock_path_for(corpus: Path) -> Path:
@@ -410,12 +440,18 @@ def _lock_baseline(summary: dict[str, Any]) -> dict[str, Any]:
         "independent_expected_labels": summary["independent_expected_labels"],
         "independent_matched": summary["independent_matched"],
         "independent_missed": summary["independent_missed"],
+        "ideal_unexpected": summary["ideal_unexpected"],
         "unexpected": summary["unexpected"],
         "must_not_detect_violations": summary["must_not_detect_violations"],
+        "fbeta_beta": summary["fbeta_beta"],
         "candidate_recall": summary["candidate_recall"],
         "independent_candidate_recall": summary["independent_candidate_recall"],
         "candidate_precision": summary["candidate_precision"],
+        "candidate_f2": summary["candidate_f2"],
+        "independent_candidate_f2": summary["independent_candidate_f2"],
         "ideal_candidate_recall": summary["ideal_candidate_recall"],
+        "ideal_candidate_precision": summary["ideal_candidate_precision"],
+        "ideal_candidate_f2": summary["ideal_candidate_f2"],
         "by_rule": summary["by_rule"],
         "ideal_by_rule": summary["ideal_by_rule"],
         "unexpected_triage": summary["unexpected_triage"],
@@ -448,12 +484,18 @@ def _diff_scalar(current: dict[str, Any], baseline: dict[str, Any]) -> dict[str,
         "independent_expected_labels",
         "independent_matched",
         "independent_missed",
+        "ideal_unexpected",
         "unexpected",
         "must_not_detect_violations",
+        "fbeta_beta",
         "candidate_recall",
         "independent_candidate_recall",
         "candidate_precision",
+        "candidate_f2",
+        "independent_candidate_f2",
         "ideal_candidate_recall",
+        "ideal_candidate_precision",
+        "ideal_candidate_f2",
     )
     out: dict[str, dict[str, Any]] = {}
     for key in keys:
@@ -478,7 +520,16 @@ def _append_history(history_path: Path, *, reason: str, baseline: dict[str, Any]
 
 def _compare_to_lock(summary: dict[str, Any], baseline: dict[str, Any]) -> list[str]:
     failures: list[str] = []
-    for key in ("candidate_recall", "independent_candidate_recall", "candidate_precision", "ideal_candidate_recall"):
+    for key in (
+        "candidate_recall",
+        "independent_candidate_recall",
+        "candidate_precision",
+        "candidate_f2",
+        "independent_candidate_f2",
+        "ideal_candidate_recall",
+        "ideal_candidate_precision",
+        "ideal_candidate_f2",
+    ):
         if key not in baseline:
             continue
         old = float(baseline.get(key, 0.0) or 0.0)

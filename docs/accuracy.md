@@ -14,6 +14,10 @@ This file is generated from committed recall and precision locks. Do not edit it
 
 [PIIBench](https://arxiv.org/abs/2604.15776) reports that eight published PII detectors all score below 0.14 span-level F1 on a unified multi-source benchmark, with the best published system, Presidio, at F1=0.1385 and zero recall on most entity types. Treat Junas `1.0000` rows below as fixture-regression locks for known in-domain spans, not as broad out-of-distribution coverage claims. Independent TAB and ai4privacy reports provide separate breadth checks against external corpora.
 
+## Metric Convention
+
+Span-detection reports use precision, recall, and F2 where both true-positive and false-positive counts are available. This follows [Microsoft Presidio evaluation guidance](https://microsoft.github.io/presidio/evaluation/): F-beta combines precision and recall, and beta=2 weights recall more heavily. Junas uses beta=2 for pre-send safety because missed sensitive spans are usually costlier than extra human review.
+
 ## Corpus Locks
 
 | Corpus | Fixtures | Lock file | Description |

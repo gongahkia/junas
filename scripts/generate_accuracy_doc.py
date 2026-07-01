@@ -101,6 +101,15 @@ def render_accuracy_doc() -> str:
         "out-of-distribution coverage claims. Independent TAB and ai4privacy reports provide "
         "separate breadth checks against external corpora.",
         "",
+        "## Metric Convention",
+        "",
+        "Span-detection reports use precision, recall, and F2 where both true-positive and "
+        "false-positive counts are available. This follows "
+        "[Microsoft Presidio evaluation guidance](https://microsoft.github.io/presidio/evaluation/): "
+        "F-beta combines precision and recall, and beta=2 weights recall more heavily. Junas uses "
+        "beta=2 for pre-send safety because missed sensitive spans are usually costlier than extra "
+        "human review.",
+        "",
         "## Corpus Locks",
         "",
         "| Corpus | Fixtures | Lock file | Description |",

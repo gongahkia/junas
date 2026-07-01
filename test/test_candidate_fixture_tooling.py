@@ -137,6 +137,9 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(report.human_review_status, "pending")
         self.assertEqual(summary["candidate_recall"], 0.5)
         self.assertIn("candidate_precision", summary)
+        self.assertEqual(summary["fbeta_beta"], 2)
+        self.assertIn("candidate_f2", summary)
+        self.assertIn("ideal_candidate_f2", summary)
         self.assertIn("unexpected_triage", summary)
         self.assertEqual(summary["ideal_candidate_recall"], 0.6667)
 
@@ -238,7 +241,9 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         ])
 
         self.assertEqual(report["candidate_recall"], 0.5)
+        self.assertEqual(report["candidate_f2"], 0.5556)
         self.assertEqual(report["independent_candidate_recall"], 1.0)
+        self.assertEqual(report["independent_candidate_f2"], 1.0)
         self.assertEqual(report["independent_expected_labels"], 1)
 
     def test_candidate_evaluator_excludes_detector_source_from_independent_recall(self):
