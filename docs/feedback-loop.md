@@ -49,12 +49,12 @@ signals until reviewed.
 | Scrub fixture | `scripts/check_fixture_scrub.py` | Blocks secrets or raw customer data before fixture commit. |
 | Review candidate | `scripts/review_candidate_fixture.py` | Records `_human_review_status` and reviewer metadata. |
 | Check review gate | `scripts/check_candidate_review_status.py` | Fails when candidate labels lack human approval. |
-| Reconcile strict labels | `scripts/reconcile_candidate_strict_labels.py` | Aligns candidate labels with current strict runtime findings after review. |
+| Reconcile strict labels | `scripts/reconcile_candidate_strict_labels.py` | Reports runtime/label deltas without promoting runtime findings into labels. |
 | Promote exact spans | `scripts/promote_candidate_exact_spans.py` | Moves ideal labels into strict labels only when runtime emits exact spans. |
 | Evaluate candidates | `scripts/evaluate_candidate_corpus.py` | Produces candidate recall, precision, and `candidate_recall.lock.json`. |
 | Report stage status | `scripts/candidate_corpus_report.py` | Summarizes candidate stage, review state, and eval posture. |
 | Stage gate | `scripts/check_candidate_stage_gate.py` | Gates jurisdiction stage advancement and promotion readiness. |
-| Promote candidates | `scripts/promote_candidate_fixtures.py` | Copies human-approved candidate fixtures into reviewed corpus. |
+| Promote candidates | `scripts/promote_candidate_fixtures.py` | Copies human-approved, non-runtime-derived candidate fixtures into reviewed corpus. |
 | Attribute misses | `scripts/run_layer_attribution_eval.py` | Writes candidate, miss-bucket, and concentration reports. |
 
 ## Canonical Workflow
@@ -157,8 +157,14 @@ uv run python scripts/evaluate_candidate_corpus.py \
   --reason "reviewer feedback candidate baseline"
 ```
 
+The reconcile step is report-only. Do not copy runtime findings into `must_detect`.
+Create or edit labels from independent human review, fixture instructions, or approved
+synthetic reproduction work.
+
 The candidate lock is `test/fixtures/legal-corpus-candidates/candidate_recall.lock.json`.
 It is a candidate-corpus baseline, not promoted production accuracy evidence.
+Candidate evaluation reports both strict candidate recall and independent-label recall;
+the independent metric excludes labels whose provenance indicates runtime promotion.
 
 ### 6. Promote Reviewed Candidates
 
@@ -209,6 +215,8 @@ Every feedback-derived candidate label must preserve:
 - No automatic training from reviewer decisions.
 - No raw journal text copied into fixtures.
 - No recall lock update from unreviewed candidate labels.
+- No recall lock update from labels whose source or reason indicates strict-runtime promotion.
+- No reviewed-corpus promotion from labels whose source or reason indicates strict-runtime promotion.
 - No promoted accuracy claim from candidate-only `candidate_recall.lock.json`.
 - No customer-derived fixture without sample approval and scrub evidence.
 

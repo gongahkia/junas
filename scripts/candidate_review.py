@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -10,6 +11,11 @@ from typing import Any
 VALID_DECISIONS = frozenset({"approve", "reject", "needs_edit"})
 APPROVED_STATUS = "approved"
 STAGE_B_READY_STATUS = "stage_b_ready"
+DETECTOR_DERIVED_PROVENANCE_RE = re.compile(
+    r"promoted from strict runtime|strict runtime baseline reconciliation|"
+    r"strict runtime finding|runtime promotion|runtime-derived|detector-derived",
+    re.IGNORECASE,
+)
 
 
 def utc_now() -> str:
@@ -128,6 +134,48 @@ def collect_review_status_violations(corpus_dir: Path, *, stage_a_only: bool = F
         violation = review_status_violation(labels_path, labels)
         if violation:
             violations.append(violation)
+    return violations
+
+
+def is_detector_derived_provenance(text: str) -> bool:
+    return bool(DETECTOR_DERIVED_PROVENANCE_RE.search(text or ""))
+
+
+def label_item_has_detector_provenance(item: dict[str, Any]) -> bool:
+    return is_detector_derived_provenance(str(item.get("reason") or ""))
+
+
+def labels_have_detector_source(labels: dict[str, Any]) -> bool:
+    return is_detector_derived_provenance(str(labels.get("_label_source") or ""))
+
+
+def detector_provenance_violations(labels_path: Path, labels: dict[str, Any]) -> list[str]:
+    violations: list[str] = []
+    source = str(labels.get("_label_source") or "")
+    if labels_have_detector_source(labels):
+        violations.append(f"{labels_path}: _label_source indicates runtime promotion: {source}")
+    for section in ("must_detect", "ideal_must_detect", "must_not_detect", "uncertain"):
+        items = labels.get(section, [])
+        if not isinstance(items, list):
+            continue
+        for idx, item in enumerate(items):
+            if not isinstance(item, dict):
+                continue
+            reason = str(item.get("reason") or "")
+            if is_detector_derived_provenance(reason):
+                violations.append(f"{labels_path}: {section}[{idx}].reason indicates runtime promotion: {reason}")
+    return violations
+
+
+def collect_detector_provenance_violations(corpus_dir: Path) -> list[str]:
+    violations: list[str] = []
+    for labels_path in sorted(corpus_dir.glob("**/*.labels.json")):
+        try:
+            labels = load_labels(labels_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            violations.append(f"{labels_path}: labels unreadable: {exc}")
+            continue
+        violations.extend(detector_provenance_violations(labels_path, labels))
     return violations
 
 

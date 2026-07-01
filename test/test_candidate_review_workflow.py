@@ -168,6 +168,70 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
             self.assertEqual(len(collision_result["errors"]), 1)
             self.assertIn("refusing to overwrite", collision_result["errors"][0])
 
+    def test_promotion_blocks_detector_derived_label_provenance(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            candidate_dir = root / "candidates"
+            target_dir = root / "reviewed"
+            candidate_dir.mkdir()
+            fixture = _write_fixture(candidate_dir)
+            labels = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            labels["must_detect"][0]["reason"] = "promoted from strict runtime finding during Stage B baseline"
+            record_human_review(labels, decision="approve", reviewer="counsel@example.com")
+            write_labels(labels_path_for(fixture), labels)
+
+            result = promote_candidates(candidate_dir=candidate_dir, target_dir=target_dir)
+
+            self.assertEqual(result["promoted"], [])
+            self.assertEqual(len(result["errors"]), 1)
+            self.assertIn("detector-derived label provenance", result["errors"][0])
+            self.assertFalse(target_dir.exists())
+
+    def test_recall_gate_reports_independent_label_recall(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = Path(tmp)
+            fixture = _write_fixture(corpus)
+            labels = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            record_human_review(labels, decision="approve", reviewer="counsel@example.com")
+            write_labels(labels_path_for(fixture), labels)
+
+            stdout = io.StringIO()
+            with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(io.StringIO()):
+                result = recall_gate_main([
+                    "--corpus",
+                    str(corpus),
+                    "--update",
+                    "--reason",
+                    "candidate human reviewed baseline",
+                    "--require-human-reviewed",
+                ])
+
+            self.assertEqual(result, 0)
+            self.assertIn("per-rule independent-label recall:", stdout.getvalue())
+
+    def test_recall_gate_rejects_runtime_promoted_label_provenance(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = Path(tmp)
+            fixture = _write_fixture(corpus)
+            labels = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            labels["must_detect"][0]["reason"] = "promoted from strict runtime finding during Stage B baseline"
+            record_human_review(labels, decision="approve", reviewer="counsel@example.com")
+            write_labels(labels_path_for(fixture), labels)
+
+            stderr = io.StringIO()
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(stderr):
+                result = recall_gate_main([
+                    "--corpus",
+                    str(corpus),
+                    "--update",
+                    "--reason",
+                    "candidate human reviewed baseline",
+                    "--require-human-reviewed",
+                ])
+
+            self.assertEqual(result, 2)
+            self.assertIn("provenance violation:", stderr.getvalue())
+
     def test_exact_span_promotion_only_moves_runtime_exact_ideal_labels(self):
         with tempfile.TemporaryDirectory() as tmp:
             corpus = Path(tmp)

@@ -73,6 +73,7 @@ def _empty_eval_summary() -> dict[str, Any]:
         "unexpected": 0,
         "must_not_detect_violations": 0,
         "candidate_recall": None,
+        "independent_candidate_recall": None,
         "candidate_precision": None,
         "ideal_labels": 0,
         "ideal_matched": 0,
@@ -95,6 +96,9 @@ def _eval_by_jurisdiction(eval_reports: list[Path]) -> dict[str, dict[str, Any]]
             "strict_labels": 0,
             "matched": 0,
             "missed": 0,
+            "independent_labels": 0,
+            "independent_matched": 0,
+            "independent_missed": 0,
             "unexpected": 0,
             "must_not_detect_violations": 0,
             "ideal_labels": 0,
@@ -106,11 +110,16 @@ def _eval_by_jurisdiction(eval_reports: list[Path]) -> dict[str, dict[str, Any]]
             bucket = per_jurisdiction[jurisdiction]
             matched = len(doc.get("matched", []))
             missed = len(doc.get("missed", []))
+            independent_matched = len(doc.get("independent_matched", doc.get("matched", [])))
+            independent_missed = len(doc.get("independent_missed", doc.get("missed", [])))
             ideal_matched = len(doc.get("ideal_matched", []))
             ideal_missed = len(doc.get("ideal_missed", []))
             bucket["matched"] += matched
             bucket["missed"] += missed
             bucket["strict_labels"] += matched + missed
+            bucket["independent_matched"] += independent_matched
+            bucket["independent_missed"] += independent_missed
+            bucket["independent_labels"] += independent_matched + independent_missed
             bucket["unexpected"] += len(doc.get("unexpected", []))
             bucket["must_not_detect_violations"] += len(doc.get("must_not_detect_violations", []))
             bucket["ideal_matched"] += ideal_matched
@@ -126,6 +135,10 @@ def _eval_by_jurisdiction(eval_reports: list[Path]) -> dict[str, dict[str, Any]]
                 "eval_report": _relative(report_path),
                 **values,
                 "candidate_recall": _ratio(matched, strict_labels),
+                "independent_candidate_recall": _ratio(
+                    values["independent_matched"],
+                    values["independent_labels"],
+                ),
                 "candidate_precision": _ratio(matched, denominator),
                 "ideal_candidate_recall": _ratio(ideal_matched, ideal_labels),
             }
@@ -266,25 +279,30 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## Jurisdictions",
         "",
-        "| Jurisdiction | Docs | Stage | Review | Strict recall | Strict precision | Ideal recall | Eval report |",
-        "|---|---:|---|---|---:|---:|---:|---|",
+        (
+            "| Jurisdiction | Docs | Stage | Review | Strict recall | Independent recall | "
+            "Strict precision | Ideal recall | Eval report |"
+        ),
+        "|---|---:|---|---|---:|---:|---:|---:|---|",
     ]
     for item in report["jurisdictions"]:
         review = ", ".join(f"{key}:{value}" for key, value in item["review_status"].items()) or "none"
         evaluation = item["evaluation"]
         recall = evaluation.get("candidate_recall")
+        independent = evaluation.get("independent_candidate_recall")
         precision = evaluation.get("candidate_precision")
         ideal = evaluation.get("ideal_candidate_recall")
         lines.append(
             (
                 "| {jurisdiction} | {docs} | {stage} | {review} | {recall} | "
-                "{precision} | {ideal} | {eval_report} |"
+                "{independent} | {precision} | {ideal} | {eval_report} |"
             ).format(
                 jurisdiction=item["jurisdiction"],
                 docs=item["doc_count"],
                 stage=item["stage_by_doc_count"],
                 review=review,
                 recall="" if recall is None else f"{recall:.4f}",
+                independent="" if independent is None else f"{independent:.4f}",
                 precision="" if precision is None else f"{precision:.4f}",
                 ideal="" if ideal is None else f"{ideal:.4f}",
                 eval_report=evaluation.get("eval_report") or "",

@@ -70,7 +70,7 @@ ALL_RULES = PII_RULES + MNPI_RULES
 SYSTEM = (
     "You are an independent precision labeler for synthetic legal/finance PII and MNPI "
     "fixtures. Label the document against the supplied jurisdiction taxonomy using two tiers: "
-    "strict detector-aligned labels for benchmark truth, and broader ideal statutory labels for "
+    "independent strict benchmark labels, and broader ideal statutory labels for "
     "gap discovery. Be exhaustive in the ideal tier and conservative in the strict tier. Never "
     "invent text that is not in the source verbatim."
 )
@@ -153,9 +153,10 @@ def _build_user_prompt(
         f"Rules:\n"
         f"1. matched_text MUST appear verbatim in the document (exact case, "
         f"exact characters, no surrounding whitespace).\n"
-        f"2. must_detect is the strict benchmark tier: include only spans that a deterministic strict-mode "
-        f"regex/rule engine should reasonably catch today from the exact words present. Do not put broad "
-        f"legal judgments, implied context, paraphrases, public-status conclusions, or unsupported synonyms here.\n"
+        f"2. must_detect is the independent strict benchmark tier: include only spans that are explicit, "
+        f"verbatim, and unambiguous under the supplied taxonomy. Do not align this tier to current Junas "
+        f"runtime output. Do not put broad legal judgments, implied context, paraphrases, public-status "
+        f"conclusions, or unsupported synonyms here.\n"
         f"3. ideal_must_detect is the legal-coverage tier: include every legally relevant PII/MNPI span that "
         f"would be useful for roadmap gap discovery, even when it is too semantic, contextual, or broad for "
         f"current strict-mode detection. Repeat strict-tier entries here too.\n"

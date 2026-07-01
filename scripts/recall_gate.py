@@ -45,7 +45,12 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from junas.review.engine import PreSendReviewEngine  # noqa: E402
-from scripts.candidate_review import collect_review_status_violations  # noqa: E402
+from scripts.candidate_review import (  # noqa: E402
+    collect_detector_provenance_violations,
+    collect_review_status_violations,
+    label_item_has_detector_provenance,
+    labels_have_detector_source,
+)
 
 DEFAULT_CORPUS_DIR = REPO_ROOT / "test" / "fixtures" / "legal-corpus"
 REGRESSION_TOLERANCE = 1e-6
@@ -79,6 +84,8 @@ class DocResult:
     doc_id: str
     per_rule_total: dict[str, int] = field(default_factory=dict)
     per_rule_hits: dict[str, int] = field(default_factory=dict)
+    independent_per_rule_total: dict[str, int] = field(default_factory=dict)
+    independent_per_rule_hits: dict[str, int] = field(default_factory=dict)
     per_rule_false_positives: dict[str, int] = field(default_factory=dict)
     violations: list[str] = field(default_factory=list)
 
@@ -111,6 +118,7 @@ def _run_review(text: str, labels: dict[str, Any]) -> list[dict[str, Any]]:
 def _evaluate_doc(text: str, labels: dict[str, Any]) -> DocResult:
     findings = _run_review(text, labels)
     doc = DocResult(doc_id=labels["doc_id"])
+    source_has_detector_provenance = labels_have_detector_source(labels)
 
     for label in labels.get("must_detect", []):
         rule = label["rule"]
@@ -118,6 +126,10 @@ def _evaluate_doc(text: str, labels: dict[str, Any]) -> DocResult:
         doc.per_rule_total[rule] = doc.per_rule_total.get(rule, 0) + 1
         if any(f["rule"] == rule and f["matched_text"] == expected for f in findings):
             doc.per_rule_hits[rule] = doc.per_rule_hits.get(rule, 0) + 1
+        if not source_has_detector_provenance and not label_item_has_detector_provenance(label):
+            doc.independent_per_rule_total[rule] = doc.independent_per_rule_total.get(rule, 0) + 1
+            if any(f["rule"] == rule and f["matched_text"] == expected for f in findings):
+                doc.independent_per_rule_hits[rule] = doc.independent_per_rule_hits.get(rule, 0) + 1
 
     forbidden_texts = {label["matched_text"]: label.get("reason", "") for label in labels.get("must_not_detect", [])}
     for finding in findings:
@@ -138,6 +150,17 @@ def _aggregate_recall(docs: list[DocResult]) -> dict[str, float]:
         for rule, count in doc.per_rule_total.items():
             totals[rule] = totals.get(rule, 0) + count
         for rule, count in doc.per_rule_hits.items():
+            hits[rule] = hits.get(rule, 0) + count
+    return {rule: round(hits.get(rule, 0) / totals[rule], 4) for rule in totals}
+
+
+def _aggregate_independent_recall(docs: list[DocResult]) -> dict[str, float]:
+    totals: dict[str, int] = {}
+    hits: dict[str, int] = {}
+    for doc in docs:
+        for rule, count in doc.independent_per_rule_total.items():
+            totals[rule] = totals.get(rule, 0) + count
+        for rule, count in doc.independent_per_rule_hits.items():
             hits[rule] = hits.get(rule, 0) + count
     return {rule: round(hits.get(rule, 0) / totals[rule], 4) for rule in totals}
 
@@ -302,6 +325,12 @@ def main(argv: list[str] | None = None) -> int:
             for violation in review_violations:
                 print(f"human-review violation: {violation}", file=sys.stderr)
             return 2
+        provenance_violations = collect_detector_provenance_violations(corpus_dir)
+        if provenance_violations:
+            print("generated/candidate labels must not derive promoted labels from runtime output:", file=sys.stderr)
+            for violation in provenance_violations:
+                print(f"provenance violation: {violation}", file=sys.stderr)
+            return 2
 
     docs: list[DocResult] = []
     all_violations: list[str] = []
@@ -318,11 +347,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {doc.doc_id}: {per_rule_summary}")
 
     current_recall = _aggregate_recall(docs)
+    independent_recall = _aggregate_independent_recall(docs)
     current_precision = _aggregate_precision(docs)
 
     print("per-rule recall:")
     for rule in sorted(current_recall):
         print(f"  {rule}: {current_recall[rule]:.4f}")
+    print("per-rule independent-label recall:")
+    for rule in sorted(independent_recall):
+        print(f"  {rule}: {independent_recall[rule]:.4f}")
     if current_precision:
         print("per-rule precision:")
         for rule in sorted(current_precision):

@@ -132,6 +132,7 @@ def _eval_summary(eval_report: Path | None) -> dict[str, Any]:
         "eval_report": _relative(eval_report),
         "doc_count": summary.get("doc_count"),
         "candidate_recall": summary.get("candidate_recall"),
+        "independent_candidate_recall": summary.get("independent_candidate_recall"),
         "candidate_precision": summary.get("candidate_precision"),
         "ideal_candidate_recall": summary.get("ideal_candidate_recall"),
         "missed": summary.get("missed"),
@@ -201,7 +202,9 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             f"- Eval report: {evaluation.get('eval_report', '')}",
             (
-                f"- Strict recall / precision: {evaluation.get('candidate_recall')} / "
+                f"- Strict recall / independent recall / precision: "
+                f"{evaluation.get('candidate_recall')} / "
+                f"{evaluation.get('independent_candidate_recall')} / "
                 f"{evaluation.get('candidate_precision')}"
             ),
             (

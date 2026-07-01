@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reconcile candidate strict labels against current strict runtime findings."""
+"""Report candidate strict-label deltas against current strict runtime findings."""
 
 from __future__ import annotations
 
@@ -18,13 +18,7 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from junas.review.engine import PreSendReviewEngine  # noqa: E402
-from scripts.candidate_review import (  # noqa: E402
-    collect_review_status_violations,
-    labels_path_for,
-    load_labels,
-    utc_now,
-    write_labels,
-)
+from scripts.candidate_review import collect_review_status_violations, labels_path_for, load_labels  # noqa: E402
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 
@@ -99,14 +93,13 @@ def reconcile_strict_labels(
                 "blocked": True,
                 "human_review_violations": violations,
             }
-    ts = utc_now()
     actor = actor or _resolve_actor()
     changed: list[dict[str, Any]] = []
     totals = {
         "scanned": 0,
-        "changed": 0,
-        "promoted_runtime_findings": 0,
-        "moved_stale_must_detect": 0,
+        "fixtures_with_runtime_delta": 0,
+        "runtime_findings_not_in_must_detect": 0,
+        "stale_must_detect_not_emitted": 0,
     }
     for txt_path in sorted(corpus.glob("**/*.txt")):
         labels_path = labels_path_for(txt_path)
@@ -117,74 +110,36 @@ def reconcile_strict_labels(
         runtime = _run_findings(txt_path.read_text(encoding="utf-8"), labels)
         runtime_keys = {(item["rule"], item["matched_text"]) for item in runtime}
         must = list(labels.get("must_detect") or [])
-        ideal = list(labels.get("ideal_must_detect") or [])
         existing_keys = {_ideal_key(item) for item in must}
-        ideal_keys = {_ideal_key(item) for item in ideal}
 
-        additions: list[dict[str, str]] = []
-        for finding in runtime:
-            key = (finding["rule"], finding["matched_text"])
-            if key in existing_keys:
-                continue
-            addition = {
-                "category": finding["category"],
-                "rule": finding["rule"],
-                "matched_text": finding["matched_text"],
-                "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
-            }
-            additions.append(addition)
-            must.append(addition)
-            existing_keys.add(key)
+        runtime_not_labeled = [
+            finding
+            for finding in runtime
+            if (finding["rule"], finding["matched_text"]) not in existing_keys
+        ]
+        stale_must = [
+            item
+            for item in must
+            if _ideal_key(item) not in runtime_keys
+        ]
 
-        retained: list[dict[str, Any]] = []
-        moved: list[dict[str, Any]] = []
-        for item in must:
-            key = _ideal_key(item)
-            if key in runtime_keys:
-                retained.append(item)
-                continue
-            moved_item = dict(item)
-            moved_item["reason"] = (
-                "moved from must_detect after strict runtime no longer emitted exact span "
-                "during Stage B baseline reconciliation"
-            )
-            moved.append(moved_item)
-            if key not in ideal_keys:
-                ideal.append(moved_item)
-                ideal_keys.add(key)
-
-        if not additions and not moved:
+        if not runtime_not_labeled and not stale_must:
             continue
-        entry = {
-            "reconciled_at_utc": ts,
-            "actor": actor,
-            "reason": reason,
-            "source": "scripts/reconcile_candidate_strict_labels.py",
-            "promoted_runtime_findings": len(additions),
-            "moved_stale_must_detect": len(moved),
-        }
         changed.append({
             "fixture": _display_path(txt_path),
             "labels": _display_path(labels_path),
-            "promoted_runtime_findings": len(additions),
-            "moved_stale_must_detect": len(moved),
+            "runtime_findings_not_in_must_detect": runtime_not_labeled,
+            "stale_must_detect_not_emitted": stale_must,
         })
-        totals["changed"] += 1
-        totals["promoted_runtime_findings"] += len(additions)
-        totals["moved_stale_must_detect"] += len(moved)
-        if dry_run:
-            continue
-        labels["must_detect"] = retained
-        labels["ideal_must_detect"] = ideal
-        history = labels.get("_strict_runtime_reconciliation_history")
-        if not isinstance(history, list):
-            history = []
-        history.append(entry)
-        labels["_strict_runtime_reconciliation"] = entry
-        write_labels(labels_path, labels)
+        totals["fixtures_with_runtime_delta"] += 1
+        totals["runtime_findings_not_in_must_detect"] += len(runtime_not_labeled)
+        totals["stale_must_detect_not_emitted"] += len(stale_must)
     return {
         "corpus": str(corpus),
         "dry_run": dry_run,
+        "actor": actor,
+        "reason": reason,
+        "labels_mutated": False,
         "blocked": False,
         **totals,
         "changed_fixtures": changed,
@@ -192,15 +147,15 @@ def reconcile_strict_labels(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Reconcile candidate must_detect labels to strict runtime findings")
+    parser = argparse.ArgumentParser(description="Report candidate strict-label deltas against runtime findings")
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--actor", default="", help="Attribution recorded in label metadata")
-    parser.add_argument("--reason", default="", help="Required unless --dry-run")
+    parser.add_argument("--reason", default="", help="Required audit note for this delta report")
     parser.add_argument("--require-human-reviewed", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
-    if not args.dry_run and not args.reason.strip():
-        print("--reason is required unless --dry-run", file=sys.stderr)
+    if not args.reason.strip():
+        print("--reason is required", file=sys.stderr)
         return 2
     corpus = args.corpus if args.corpus.is_absolute() else REPO_ROOT / args.corpus
     if not corpus.exists():

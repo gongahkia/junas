@@ -17,6 +17,7 @@ if str(REPO_ROOT) not in sys.path:
 from scripts.candidate_review import (  # noqa: E402
     approved_reviewed_at,
     approved_reviewer,
+    detector_provenance_violations,
     is_human_approved,
     labels_path_for,
     load_labels,
@@ -82,6 +83,13 @@ def promote_candidates(
                 "fixture": _relative(source_txt),
                 "reason": f"not_approved:{labels.get('_human_review_status', 'missing')}",
             })
+            continue
+        provenance_violations = detector_provenance_violations(labels_path, labels)
+        if provenance_violations:
+            errors.extend(
+                f"detector-derived label provenance blocks promotion: {item}"
+                for item in provenance_violations
+            )
             continue
         target_txt = target_dir / source_txt.name
         target_labels = target_dir / labels_path.name

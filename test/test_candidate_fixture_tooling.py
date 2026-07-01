@@ -36,7 +36,7 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         )
         self.assertIn("PIPL", prompt)
         self.assertIn("not generally known", prompt)
-        self.assertIn("strict detector-aligned labels", autolabel_fixture.SYSTEM)
+        self.assertIn("independent strict benchmark labels", autolabel_fixture.SYSTEM)
         self.assertIn("ideal_must_detect", prompt)
         self.assertIn("uncertain", prompt)
 
@@ -181,7 +181,7 @@ class CandidateFixtureToolingTests(unittest.TestCase):
             self.assertEqual(updated, 0)
             self.assertTrue((root / "candidate_recall.lock.json").exists())
 
-    def test_candidate_strict_label_reconciliation_promotes_runtime_and_moves_stale(self):
+    def test_candidate_strict_label_reconciliation_reports_without_mutating_labels(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             fixture = root / "sg_candidate_001.txt"
@@ -211,11 +211,133 @@ class CandidateFixtureToolingTests(unittest.TestCase):
             strict_keys = {(item["rule"], item["matched_text"]) for item in labels["must_detect"]}
             ideal_keys = {(item["rule"], item["matched_text"]) for item in labels["ideal_must_detect"]}
 
-            self.assertGreater(report["promoted_runtime_findings"], 0)
-            self.assertEqual(report["moved_stale_must_detect"], 1)
-            self.assertIn(("sg_nric_fin", "S1234567D"), strict_keys)
-            self.assertNotIn(("transaction_codename", "Project Missing"), strict_keys)
-            self.assertIn(("transaction_codename", "Project Missing"), ideal_keys)
+            self.assertFalse(report["labels_mutated"])
+            self.assertGreater(report["runtime_findings_not_in_must_detect"], 0)
+            self.assertEqual(report["stale_must_detect_not_emitted"], 1)
+            self.assertNotIn(("sg_nric_fin", "S1234567D"), strict_keys)
+            self.assertIn(("transaction_codename", "Project Missing"), strict_keys)
+            self.assertEqual(ideal_keys, set())
+
+    def test_candidate_summary_reports_independent_label_recall(self):
+        report = _summary([
+            type(
+                "Report",
+                (),
+                {
+                    "matched": [{"rule": "a"}],
+                    "missed": [{"rule": "b"}],
+                    "independent_matched": [{"rule": "a"}],
+                    "independent_missed": [],
+                    "ideal_matched": [],
+                    "ideal_missed": [],
+                    "unexpected": [],
+                    "must_not_detect_violations": [],
+                    "unexpected_triage": [],
+                },
+            )()
+        ])
+
+        self.assertEqual(report["candidate_recall"], 0.5)
+        self.assertEqual(report["independent_candidate_recall"], 1.0)
+        self.assertEqual(report["independent_expected_labels"], 1)
+
+    def test_candidate_evaluator_excludes_detector_source_from_independent_recall(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fixture = root / "sg_candidate_001.txt"
+            fixture.write_text("Send S1234567D.\n", encoding="utf-8")
+            fixture.with_suffix(".labels.json").write_text(
+                json.dumps(
+                    {
+                        "doc_id": "sg_candidate_001",
+                        "document_type": "memo",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                        "must_detect": [{"category": "PII", "rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                        "ideal_must_detect": [],
+                        "must_not_detect": [],
+                        "_label_source": "detector-derived:test-auto",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            summary = _summary([_evaluate_one(fixture)])
+
+        self.assertEqual(summary["candidate_recall"], 1.0)
+        self.assertEqual(summary["independent_expected_labels"], 0)
+        self.assertEqual(summary["independent_candidate_recall"], 0.0)
+
+    def test_candidate_eval_gate_rejects_runtime_promoted_label_provenance(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fixture = root / "sg_candidate_001.txt"
+            fixture.write_text("Send S1234567D.\n", encoding="utf-8")
+            fixture.with_suffix(".labels.json").write_text(
+                json.dumps(
+                    {
+                        "doc_id": "sg_candidate_001",
+                        "document_type": "memo",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                        "must_detect": [
+                            {
+                                "category": "PII",
+                                "rule": "sg_nric_fin",
+                                "matched_text": "S1234567D",
+                                "reason": "promoted from strict runtime finding during Stage B baseline reconciliation",
+                            }
+                        ],
+                        "ideal_must_detect": [],
+                        "must_not_detect": [],
+                        "_label_source": "openai:test-auto",
+                        "_human_review_status": "approved",
+                        "_human_review": {"reviewer": "owner", "decision": "approve"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                result = evaluate_candidate_main([
+                    "--corpus", str(root),
+                    "--require-human-reviewed",
+                    "--reason", "candidate human reviewed baseline",
+                ])
+
+            self.assertEqual(result, 2)
+
+    def test_candidate_eval_gate_rejects_detector_label_source_provenance(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            fixture = root / "sg_candidate_001.txt"
+            fixture.write_text("Send S1234567D.\n", encoding="utf-8")
+            fixture.with_suffix(".labels.json").write_text(
+                json.dumps(
+                    {
+                        "doc_id": "sg_candidate_001",
+                        "document_type": "memo",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                        "must_detect": [{"category": "PII", "rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                        "ideal_must_detect": [],
+                        "must_not_detect": [],
+                        "_label_source": "detector-derived:test-auto",
+                        "_human_review_status": "approved",
+                        "_human_review": {"reviewer": "owner", "decision": "approve"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                result = evaluate_candidate_main([
+                    "--corpus", str(root),
+                    "--require-human-reviewed",
+                    "--reason", "candidate human reviewed baseline",
+                ])
+
+            self.assertEqual(result, 2)
 
     def test_candidate_corpus_report_groups_stage_review_and_eval_by_jurisdiction(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -253,6 +375,8 @@ class CandidateFixtureToolingTests(unittest.TestCase):
                                 "source_jurisdiction": "SG",
                                 "matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
                                 "missed": [],
+                                "independent_matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                                "independent_missed": [],
                                 "unexpected": [],
                                 "must_not_detect_violations": [],
                                 "ideal_matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
@@ -271,6 +395,7 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(sg_row["review_status"]["approved"], 1)
         self.assertEqual(sg_row["review_status"]["pending"], STAGE_A_DOCS - 1)
         self.assertEqual(sg_row["evaluation"]["candidate_recall"], 1.0)
+        self.assertEqual(sg_row["evaluation"]["independent_candidate_recall"], 1.0)
         self.assertEqual(sg_row["evaluation"]["ideal_candidate_recall"], 0.5)
         self.assertIn("| SG |", render_markdown(report))
         self.assertIn(f"- Docs: {STAGE_A_DOCS}", render_markdown(report))
@@ -311,6 +436,7 @@ class CandidateFixtureToolingTests(unittest.TestCase):
                         "summary": {
                             "doc_count": 1,
                             "candidate_recall": 1.0,
+                            "independent_candidate_recall": 0.75,
                             "candidate_precision": 0.5,
                             "ideal_candidate_recall": 0.25,
                             "missed": 0,
@@ -348,6 +474,7 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(report["labels"]["warning_buckets"]["category_normalized"], 1)
         self.assertEqual(report["labels"]["warning_buckets"]["must_not_conflicts_with_valid_sg_identifier"], 1)
         self.assertEqual(report["evaluation"]["unexpected"], 1)
+        self.assertEqual(report["evaluation"]["independent_candidate_recall"], 0.75)
         self.assertEqual(report["ideal_miss_buckets"]["by_bucket"]["coverage_gap"], 2)
         self.assertIn("Auto-label QA Report", autolabel_qa_report.render_markdown(report))
 

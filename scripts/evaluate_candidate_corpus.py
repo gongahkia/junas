@@ -22,7 +22,12 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from junas.review.engine import PreSendReviewEngine  # noqa: E402
-from scripts.candidate_review import collect_review_status_violations  # noqa: E402
+from scripts.candidate_review import (  # noqa: E402
+    collect_detector_provenance_violations,
+    collect_review_status_violations,
+    label_item_has_detector_provenance,
+    labels_have_detector_source,
+)
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 LOCK_NAME = "candidate_recall.lock.json"
@@ -48,6 +53,8 @@ class CandidateDocReport:
     label_source: str
     matched: list[dict[str, str]] = field(default_factory=list)
     missed: list[dict[str, str]] = field(default_factory=list)
+    independent_matched: list[dict[str, str]] = field(default_factory=list)
+    independent_missed: list[dict[str, str]] = field(default_factory=list)
     ideal_matched: list[dict[str, str]] = field(default_factory=list)
     ideal_missed: list[dict[str, str]] = field(default_factory=list)
     unexpected: list[dict[str, str]] = field(default_factory=list)
@@ -218,6 +225,18 @@ def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDoc
     expected_keys = {(item["rule"], item["matched_text"]) for item in expected}
     matched = [item for item in expected if (item["rule"], item["matched_text"]) in finding_keys]
     missed = [item for item in expected if (item["rule"], item["matched_text"]) not in finding_keys]
+    source_has_detector_provenance = labels_have_detector_source(labels)
+    independent_expected = [
+        item
+        for item in expected
+        if not source_has_detector_provenance and not label_item_has_detector_provenance(item)
+    ]
+    independent_matched = [
+        item for item in independent_expected if (item["rule"], item["matched_text"]) in finding_keys
+    ]
+    independent_missed = [
+        item for item in independent_expected if (item["rule"], item["matched_text"]) not in finding_keys
+    ]
     ideal = [
         {
             "category": str(item.get("category") or ""),
@@ -273,6 +292,8 @@ def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDoc
         label_source=str(labels.get("_label_source") or "unknown"),
         matched=matched,
         missed=missed,
+        independent_matched=independent_matched,
+        independent_missed=independent_missed,
         ideal_matched=ideal_matched,
         ideal_missed=ideal_missed,
         unexpected=unexpected,
@@ -286,6 +307,9 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
     total_expected = sum(len(report.matched) + len(report.missed) for report in reports)
     total_matched = sum(len(report.matched) for report in reports)
     total_missed = sum(len(report.missed) for report in reports)
+    total_independent = sum(len(report.independent_matched) + len(report.independent_missed) for report in reports)
+    total_independent_matched = sum(len(report.independent_matched) for report in reports)
+    total_independent_missed = sum(len(report.independent_missed) for report in reports)
     total_ideal = sum(len(report.ideal_matched) + len(report.ideal_missed) for report in reports)
     total_ideal_matched = sum(len(report.ideal_matched) for report in reports)
     total_ideal_missed = sum(len(report.ideal_missed) for report in reports)
@@ -310,12 +334,18 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
         "expected_labels": total_expected,
         "matched": total_matched,
         "missed": total_missed,
+        "independent_expected_labels": total_independent,
+        "independent_matched": total_independent_matched,
+        "independent_missed": total_independent_missed,
         "ideal_labels": total_ideal,
         "ideal_matched": total_ideal_matched,
         "ideal_missed": total_ideal_missed,
         "unexpected": total_unexpected,
         "must_not_detect_violations": total_violations,
         "candidate_recall": round(total_matched / total_expected, 4) if total_expected else 0.0,
+        "independent_candidate_recall": round(total_independent_matched / total_independent, 4)
+        if total_independent
+        else 0.0,
         "candidate_precision": round(total_matched / (total_matched + total_unexpected), 4)
         if total_matched + total_unexpected
         else 0.0,
@@ -377,9 +407,13 @@ def _lock_baseline(summary: dict[str, Any]) -> dict[str, Any]:
         "expected_labels": summary["expected_labels"],
         "matched": summary["matched"],
         "missed": summary["missed"],
+        "independent_expected_labels": summary["independent_expected_labels"],
+        "independent_matched": summary["independent_matched"],
+        "independent_missed": summary["independent_missed"],
         "unexpected": summary["unexpected"],
         "must_not_detect_violations": summary["must_not_detect_violations"],
         "candidate_recall": summary["candidate_recall"],
+        "independent_candidate_recall": summary["independent_candidate_recall"],
         "candidate_precision": summary["candidate_precision"],
         "ideal_candidate_recall": summary["ideal_candidate_recall"],
         "by_rule": summary["by_rule"],
@@ -411,9 +445,13 @@ def _diff_scalar(current: dict[str, Any], baseline: dict[str, Any]) -> dict[str,
         "expected_labels",
         "matched",
         "missed",
+        "independent_expected_labels",
+        "independent_matched",
+        "independent_missed",
         "unexpected",
         "must_not_detect_violations",
         "candidate_recall",
+        "independent_candidate_recall",
         "candidate_precision",
         "ideal_candidate_recall",
     )
@@ -440,7 +478,9 @@ def _append_history(history_path: Path, *, reason: str, baseline: dict[str, Any]
 
 def _compare_to_lock(summary: dict[str, Any], baseline: dict[str, Any]) -> list[str]:
     failures: list[str] = []
-    for key in ("candidate_recall", "candidate_precision", "ideal_candidate_recall"):
+    for key in ("candidate_recall", "independent_candidate_recall", "candidate_precision", "ideal_candidate_recall"):
+        if key not in baseline:
+            continue
         old = float(baseline.get(key, 0.0) or 0.0)
         new = float(summary.get(key, 0.0) or 0.0)
         if new + REGRESSION_TOLERANCE < old:
@@ -480,6 +520,12 @@ def main(argv: list[str] | None = None) -> int:
             print("generated/candidate labels require human approval:", file=sys.stderr)
             for violation in review_violations:
                 print(f"human-review violation: {violation}", file=sys.stderr)
+            return 2
+        provenance_violations = collect_detector_provenance_violations(corpus)
+        if provenance_violations:
+            print("generated/candidate labels must not derive promoted labels from runtime output:", file=sys.stderr)
+            for violation in provenance_violations:
+                print(f"provenance violation: {violation}", file=sys.stderr)
             return 2
 
     reports = [_evaluate_one(path, review_profile=args.profile) for path in paths]
