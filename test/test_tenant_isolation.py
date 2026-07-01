@@ -173,6 +173,45 @@ class TenantIsolationTests(unittest.TestCase):
             self.assertEqual(right_tenant.status_code, 200)
             self.assertIn("Dr Jane Tan", right_tenant.json()["text"])
 
+    def test_session_and_matter_ids_are_tenant_scoped(self):
+        with TestClient(self.main.app) as client:
+            seed = {
+                "text": 'Globex Pte. Ltd. (the "Purchaser") signs the SPA.',
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SG",
+                "document_type": "SPA",
+                "session_id": "shared-session",
+                "matter_id": "imanage:M-100",
+            }
+            response = client.post("/review", headers={"X-API-Key": "tenant-a-key"}, json=seed)
+            self.assertEqual(response.status_code, 200, response.text)
+
+            probe = {
+                "text": "Mr Purchaser shall execute the disclosure schedule with Dr Jane Tan.",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SG",
+                "document_type": "generic",
+                "session_id": "shared-session",
+                "matter_id": "imanage:M-100",
+            }
+            tenant_a = client.post("/review", headers={"X-API-Key": "tenant-a-key"}, json=probe)
+            self.assertEqual(tenant_a.status_code, 200, tenant_a.text)
+            tenant_a_names = {
+                finding["matched_text"]
+                for finding in tenant_a.json()["findings"]
+                if finding["rule"] == "named_person"
+            }
+            self.assertNotIn("Mr Purchaser", tenant_a_names)
+
+            tenant_b = client.post("/review", headers={"X-API-Key": "tenant-b-key"}, json=probe)
+            self.assertEqual(tenant_b.status_code, 200, tenant_b.text)
+            tenant_b_names = {
+                finding["matched_text"]
+                for finding in tenant_b.json()["findings"]
+                if finding["rule"] == "named_person"
+            }
+            self.assertIn("Mr Purchaser", tenant_b_names)
+
     def test_insufficient_role_returns_403(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_review(client, "tenant-a-key")

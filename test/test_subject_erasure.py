@@ -192,6 +192,52 @@ class SubjectErasureIndexTests(unittest.TestCase):
         self.assertEqual(erasure_events[0].payload["finding_ids"], ["f1"])
         self.assertEqual(self.subject_index.lookup_subject("Dr Jane Tan")["entries"], [])
 
+    def test_erase_subject_target_is_tenant_scoped(self):
+        tenant_a_hash = self.mapping.compute_document_hash("tenant-a-secret")
+        tenant_b_hash = self.mapping.compute_document_hash("tenant-b-secret")
+        mapping = [
+            {
+                "placeholder": "[PERSON_1]",
+                "entity_type": "PERSON",
+                "original_text": "Dr Jane Tan",
+                "occurrence_count": 1,
+            }
+        ]
+        self.mapping.save_mapping(document_hash=tenant_a_hash, mapping=mapping, tenant_id="tenant-a")
+        self.mapping.save_mapping(document_hash=tenant_b_hash, mapping=mapping, tenant_id="tenant-b")
+
+        stdout = io.StringIO()
+        with redirect_stdout(stdout):
+            exit_code = self.erase_subject.main(
+                [
+                    "--tenant",
+                    "tenant-b",
+                    "--value",
+                    "Dr Jane Tan",
+                    "--citation",
+                    "DSR-2026-tenant-b",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(exit_code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertEqual(payload["deleted_mapping_documents"], [tenant_b_hash])
+        self.assertTrue(self.mapping.mapping_exists(tenant_a_hash, tenant_id="tenant-a"))
+        self.assertFalse(self.mapping.mapping_exists(tenant_b_hash, tenant_id="tenant-b"))
+        self.assertEqual(
+            self.subject_index.lookup_subject("Dr Jane Tan", tenant_id="tenant-b")["entries"],
+            [],
+        )
+        self.assertEqual(
+            self.subject_index.lookup_subject("Dr Jane Tan", tenant_id="tenant-a")["entries"][0]["document_hash"],
+            tenant_a_hash,
+        )
+        self.assertEqual(self.journal.read_journal(tenant_id="tenant-a"), [])
+        erasure_events = self.journal.read_journal(review_id="subject_erasure", tenant_id="tenant-b")
+        self.assertEqual(len(erasure_events), 1)
+        self.assertEqual(erasure_events[0].payload["citation"], "DSR-2026-tenant-b")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
 - [ ] P0/Testing: Add an end-to-end test fixture that reviews a high-risk external email and returns block plus required approval.
