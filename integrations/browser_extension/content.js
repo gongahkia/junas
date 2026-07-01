@@ -3,6 +3,8 @@ const DEFAULTS = {
   operation: "review",
   interceptPaste: false,
   reviewBeforeSubmit: false,
+  allowedInspectionHosts: "chatgpt.com,claude.ai,gemini.google.com",
+  blockedInspectionHosts: "",
   token: ""
 };
 const JUNAS_TELEMETRY_SCHEMA = "junas.browser.telemetry.v1";
@@ -59,6 +61,35 @@ function showPanel(text) {
   panel.textContent = text;
   document.documentElement.appendChild(panel);
   setTimeout(() => panel.remove(), 9000);
+}
+
+function hostRules(value) {
+  if (Array.isArray(value)) return value.map((item) => String(item).trim().toLowerCase()).filter(Boolean);
+  return String(value || "").split(/[\s,]+/).map((item) => item.trim().toLowerCase()).filter(Boolean);
+}
+
+function normalizedHost(hostname) {
+  return String(hostname || "").toLowerCase();
+}
+
+function hostMatchesRule(host, rule) {
+  const cleanRule = rule.replace(/^[a-z*][a-z0-9+.-]*:\/\//, "").replace(/\/.*$/, "");
+  if (!cleanRule) return false;
+  if (cleanRule.startsWith("*.")) {
+    const suffix = cleanRule.slice(2);
+    return host === suffix || host.endsWith(`.${suffix}`);
+  }
+  return host === cleanRule;
+}
+
+function canInspectHost(cfg, locationLike) {
+  const host = normalizedHost(locationLike?.hostname);
+  if (!host) return false;
+  const blocked = hostRules(cfg?.blockedInspectionHosts);
+  if (blocked.some((rule) => hostMatchesRule(host, rule))) return false;
+  const allowed = hostRules(cfg?.allowedInspectionHosts);
+  if (allowed.length === 0) return true;
+  return allowed.some((rule) => hostMatchesRule(host, rule));
 }
 
 function telemetryDetails(details) {
@@ -275,10 +306,11 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 document.addEventListener("paste", async (event) => {
-  const target = promptTarget(event.target);
-  if (!target) return;
   const cfg = currentSettings;
   if (!cfg.interceptPaste) return;
+  if (!canInspectHost(cfg, window.location)) return;
+  const target = promptTarget(event.target);
+  if (!target) return;
   const text = event.clipboardData?.getData("text/plain") || "";
   if (!text.trim()) return;
   if (cfg.operation === "review") {
@@ -303,6 +335,7 @@ document.addEventListener("paste", async (event) => {
 });
 
 document.addEventListener("click", (event) => {
+  if (!canInspectHost(currentSettings, window.location)) return;
   const submitButton = submitTarget(event.target);
   if (!submitButton) return;
   return guardPromptSubmit(event, findPromptTarget(), submitButton);
@@ -310,6 +343,7 @@ document.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Enter" || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) return;
+  if (!canInspectHost(currentSettings, window.location)) return;
   const target = promptTarget(event.target);
   const submitButton = findSubmitButton();
   return guardPromptSubmit(event, target, submitButton);

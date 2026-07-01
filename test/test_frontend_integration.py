@@ -32,6 +32,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const requests = [];
             const messages = [];
             const context = {
+              URL,
               fetch: async (url, options) => {
                 requests.push({url, options, body: JSON.parse(options.body)});
                 return {ok: true, json: async () => ({
@@ -64,7 +65,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               const response = await new Promise((resolve) => {
                 const keepAlive = context.__messageListener(
                   {type: "junas-process-text", text: "alice@example.com"},
-                  {tab: {id: 7}},
+                  {url: "https://chatgpt.com/", tab: {id: 7, url: "https://chatgpt.com/"}},
                   resolve
                 );
                 assert.strictEqual(keepAlive, true);
@@ -91,6 +92,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
             const requests = [];
             const context = {
+              URL,
               fetch: async (url, options) => {
                 requests.push({url, options, body: JSON.parse(options.body)});
                 return {ok: true, json: async () => ({
@@ -125,7 +127,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               await new Promise((resolve) => {
                 context.__messageListener(
                   {type: "junas-process-text", text: "safe", operation: "review"},
-                  {},
+                  {url: "https://chatgpt.com/"},
                   resolve
                 );
               });
@@ -151,6 +153,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             const storageWrites = [];
             const consoleCalls = [];
             const context = {
+              URL,
               fetch: async (url, options) => {
                 requests.push({url, body: JSON.parse(options.body)});
                 return {ok: true, json: async () => ({findings: [], degraded_modes: [], send_allowed: true})};
@@ -190,7 +193,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               const response = await new Promise((resolve) => {
                 const keepAlive = context.__messageListener(
                   {type: "junas-process-text", text: secret, operation: "review"},
-                  {tab: {id: 1}},
+                  {url: "https://chatgpt.com/", tab: {id: 1, url: "https://chatgpt.com/"}},
                   resolve
                 );
                 assert.strictEqual(keepAlive, true);
@@ -217,6 +220,7 @@ class FrontendIntegrationTests(unittest.TestCase):
             let settingsReadCount = 0;
             let endpoint = "http://junas-one.local";
             const context = {
+              URL,
               fetch: async (url, options) => {
                 requests.push({url, body: JSON.parse(options.body)});
                 return {ok: true, json: async () => ({findings: [], degraded_modes: [], send_allowed: true})};
@@ -248,7 +252,7 @@ class FrontendIntegrationTests(unittest.TestCase):
               return new Promise((resolve) => {
                 const keepAlive = context.__messageListener(
                   {type: "junas-process-text", text, operation: "review"},
-                  {tab: {id: 1}},
+                  {url: "https://chatgpt.com/", tab: {id: 1, url: "https://chatgpt.com/"}},
                   resolve
                 );
                 assert.strictEqual(keepAlive, true);
@@ -264,6 +268,110 @@ class FrontendIntegrationTests(unittest.TestCase):
               assert.strictEqual(requests[1].url, "http://junas-two.local/review");
               assert.strictEqual(requests[0].body.text, "first prompt");
               assert.strictEqual(requests[1].body.text, "second prompt");
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_browser_worker_skips_context_menu_on_blocked_inspection_host(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
+            const requests = [];
+            const messages = [];
+            const context = {
+              URL,
+              fetch: async (url, options) => {
+                requests.push({url, options});
+                return {ok: true, json: async () => ({findings: [], degraded_modes: [], send_allowed: true})};
+              },
+              chrome: {
+                storage: {sync: {get: async (defaults) => ({
+                  ...defaults,
+                  allowedInspectionHosts: "*.example.com",
+                  blockedInspectionHosts: "private.example.com"
+                })}},
+                runtime: {
+                  onInstalled: {addListener() {}},
+                  onMessage: {addListener() {}}
+                },
+                contextMenus: {
+                  create() {},
+                  onClicked: {addListener(fn) { context.__clickListener = fn; }}
+                },
+                tabs: {sendMessage: async (tabId, payload) => messages.push({tabId, payload})}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "service_worker.js"});
+
+            (async () => {
+              await context.__clickListener(
+                {menuItemId: "junas-review-selection", selectionText: "private prompt", pageUrl: "https://private.example.com/chat"},
+                {id: 4, url: "https://private.example.com/chat"}
+              );
+              assert.deepStrictEqual(requests, []);
+              assert.deepStrictEqual(messages, []);
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_browser_worker_rejects_content_message_from_disallowed_host(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
+            const requests = [];
+            const messages = [];
+            const context = {
+              URL,
+              fetch: async (url, options) => {
+                requests.push({url, options});
+                return {ok: true, json: async () => ({findings: [], degraded_modes: [], send_allowed: true})};
+              },
+              chrome: {
+                storage: {sync: {get: async (defaults) => ({
+                  ...defaults,
+                  allowedInspectionHosts: "chatgpt.com",
+                  blockedInspectionHosts: ""
+                })}},
+                runtime: {
+                  onInstalled: {addListener() {}},
+                  onMessage: {addListener(fn) { context.__messageListener = fn; }}
+                },
+                contextMenus: {
+                  create() {},
+                  onClicked: {addListener() {}}
+                },
+                tabs: {sendMessage: async (tabId, payload) => messages.push({tabId, payload})}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "service_worker.js"});
+
+            (async () => {
+              const response = await new Promise((resolve) => {
+                const keepAlive = context.__messageListener(
+                  {type: "junas-process-text", text: "private prompt", operation: "review"},
+                  {url: "https://example.com/", tab: {id: 5, url: "https://example.com/"}},
+                  resolve
+                );
+                assert.strictEqual(keepAlive, true);
+              });
+              assert.deepStrictEqual(requests, []);
+              assert.deepStrictEqual(messages, []);
+              assert.strictEqual(response.ok, false);
+              assert.strictEqual(response.error, "inspection_host_blocked");
             })().catch((error) => {
               console.error(error);
               process.exit(1);
@@ -287,6 +395,8 @@ class FrontendIntegrationTests(unittest.TestCase):
               operation: {value: "review"},
               interceptPaste: {checked: false},
               reviewBeforeSubmit: {checked: false},
+              allowedInspectionHosts: {value: "chatgpt.com,claude.ai,gemini.google.com"},
+              blockedInspectionHosts: {value: ""},
               save: {addEventListener: (name, fn) => { listeners.save = fn; }},
               checkConnection: {addEventListener: (name, fn) => { listeners.checkConnection = fn; }},
               startPairing: {addEventListener: () => {}},
@@ -330,6 +440,187 @@ class FrontendIntegrationTests(unittest.TestCase):
               };
               await listeners.checkConnection();
               assert.strictEqual(context.healthStatus.textContent, "server healthy");
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_browser_content_paste_skips_clipboard_read_on_blocked_host(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
+            const listeners = {};
+            const messages = [];
+            let clipboardReads = 0;
+            const prompt = {
+              tagName: "TEXTAREA",
+              value: "",
+              type: "",
+              isContentEditable: false
+            };
+            const context = {
+              setTimeout: () => 0,
+              window: {
+                location: {hostname: "private.example.com"},
+                getSelection: () => null
+              },
+              document: {
+                addEventListener(name, fn) {
+                  listeners[name] = fn;
+                },
+                getElementById() {
+                  return null;
+                },
+                createElement() {
+                  return {style: {}, remove() {}};
+                },
+                documentElement: {appendChild() {}},
+                execCommand() {}
+              },
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({
+                      ...defaults,
+                      interceptPaste: true,
+                      allowedInspectionHosts: "*.example.com",
+                      blockedInspectionHosts: "private.example.com"
+                    })
+                  },
+                  onChanged: {addListener() {}}
+                },
+                runtime: {
+                  onMessage: {addListener() {}},
+                  sendMessage: async (message) => {
+                    messages.push(message);
+                    return {ok: true, result: {findings: [], degraded_modes: [], send_allowed: true}};
+                  }
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "content.js"});
+
+            (async () => {
+              await Promise.resolve();
+              await listeners.paste({
+                target: prompt,
+                clipboardData: {getData: () => {
+                  clipboardReads += 1;
+                  return "private prompt";
+                }},
+                preventDefault() {
+                  this.prevented = true;
+                }
+              });
+              assert.strictEqual(clipboardReads, 0);
+              assert.deepStrictEqual(messages, []);
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_browser_content_submit_skips_review_on_disallowed_host(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const adaptersSource = fs.readFileSync("integrations/browser_extension/adapters.js", "utf8");
+            const contentSource = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
+            const listeners = {};
+            const messages = [];
+            const prompt = {
+              tagName: "TEXTAREA",
+              value: "submit prompt",
+              matches(selector) {
+                return selector === "textarea";
+              },
+              closest() {
+                return null;
+              }
+            };
+            const submitButton = {
+              matches(selector) {
+                return selector === "button[type='submit']";
+              },
+              closest() {
+                return null;
+              },
+              click() {}
+            };
+            const context = {
+              setTimeout: () => 0,
+              window: {
+                location: {hostname: "example.com"},
+                confirm() {
+                  throw new Error("confirm should not run");
+                }
+              },
+              document: {
+                addEventListener(name, fn) {
+                  listeners[name] = fn;
+                },
+                getElementById() {
+                  return null;
+                },
+                createElement() {
+                  return {style: {}, remove() {}};
+                },
+                documentElement: {appendChild() {}},
+                querySelector(selector) {
+                  if (selector === "textarea") return prompt;
+                  if (selector === "button[type='submit']") return submitButton;
+                  return null;
+                }
+              },
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({
+                      ...defaults,
+                      reviewBeforeSubmit: true,
+                      allowedInspectionHosts: "chatgpt.com",
+                      blockedInspectionHosts: ""
+                    })
+                  },
+                  onChanged: {addListener() {}}
+                },
+                runtime: {
+                  onMessage: {addListener() {}},
+                  sendMessage: async (message) => {
+                    messages.push(message);
+                    return {ok: true, result: {findings: [], degraded_modes: [], send_allowed: true}};
+                  }
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(adaptersSource, context, {filename: "adapters.js"});
+            vm.runInContext(contentSource, context, {filename: "content.js"});
+
+            (async () => {
+              await Promise.resolve();
+              const event = {
+                target: submitButton,
+                preventDefault() {
+                  this.prevented = true;
+                },
+                stopImmediatePropagation() {
+                  this.stopped = true;
+                }
+              };
+              await listeners.click(event);
+              assert.strictEqual(event.prevented, undefined);
+              assert.strictEqual(event.stopped, undefined);
+              assert.deepStrictEqual(messages, []);
             })().catch((error) => {
               console.error(error);
               process.exit(1);

@@ -5,7 +5,9 @@ const DEFAULTS = {
   token: "",
   operation: "review",
   interceptPaste: false,
-  reviewBeforeSubmit: false
+  reviewBeforeSubmit: false,
+  allowedInspectionHosts: "chatgpt.com,claude.ai,gemini.google.com",
+  blockedInspectionHosts: ""
 };
 let pendingPairing = null;
 
@@ -18,6 +20,8 @@ async function load() {
   operation.value = cfg.operation;
   interceptPaste.checked = Boolean(cfg.interceptPaste);
   reviewBeforeSubmit.checked = Boolean(cfg.reviewBeforeSubmit);
+  allowedInspectionHosts.value = cfg.allowedInspectionHosts || "";
+  blockedInspectionHosts.value = cfg.blockedInspectionHosts || "";
 }
 
 save.addEventListener("click", async () => {
@@ -28,7 +32,9 @@ save.addEventListener("click", async () => {
     token: token.value.trim(),
     operation: operation.value,
     interceptPaste: interceptPaste.checked,
-    reviewBeforeSubmit: reviewBeforeSubmit.checked
+    reviewBeforeSubmit: reviewBeforeSubmit.checked,
+    allowedInspectionHosts: allowedInspectionHosts.value.trim(),
+    blockedInspectionHosts: blockedInspectionHosts.value.trim()
   });
 });
 

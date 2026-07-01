@@ -24,6 +24,22 @@ These host matches only mean the script is present on those origins. They do not
 
 The adapter does not capture keystrokes continuously, does not scrape full pages, and does not persist prompt text in extension storage.
 
+## Adapter Domain Policy
+
+Tenant/browser admins can narrow where the extension may inspect prompt text with:
+
+- `allowedInspectionHosts`: comma- or whitespace-separated exact hosts, with optional
+  wildcard subdomains such as `*.example.com` or `*://*.example.com`.
+- `blockedInspectionHosts`: comma- or whitespace-separated hosts that are never
+  inspected. Blocked hosts win over allowed hosts.
+
+The default allowlist is `chatgpt.com,claude.ai,gemini.google.com`. An empty allowlist
+means any host covered by the manifest may be inspected, but production pilots should
+prefer explicit hosts. This policy only narrows runtime behavior; it cannot expand
+coverage beyond `manifest.json` `content_scripts.matches`, extension
+`host_permissions`, browser-granted site access, or enterprise
+`runtime_allowed_hosts` / `runtime_blocked_hosts`.
+
 ## Visual Capture
 
 These screenshots were captured against a synthetic `chatgpt.com` fixture routed through Playwright while loading the real MV3 extension from `integrations/browser_extension/` and a deterministic local backend. They are illustrative; coverage still depends on third-party DOM stability, target editor behavior, CSP, extension permissions, and submit flow.
@@ -109,3 +125,6 @@ endpoint URLs, policy reasons, or page text.
 - [`docs/integrations/browser-enterprise-deployment.md`](./browser-enterprise-deployment.md)
 - [`docs/policy/decision-contract.md`](../policy/decision-contract.md)
 - [`docs/api/idempotency.md`](../api/idempotency.md)
+- [Chrome extension match patterns](https://developer.chrome.com/docs/extensions/develop/concepts/match-patterns)
+- [Chrome ExtensionSettings runtime hosts](https://support.google.com/chrome/a/answer/9867568)
+- [Microsoft Edge extension match patterns](https://learn.microsoft.com/en-us/microsoft-edge/extensions/developer-guide/match-patterns)

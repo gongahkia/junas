@@ -63,6 +63,11 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("interceptPaste.checked", js)
         self.assertIn("reviewBeforeSubmit: false", js)
         self.assertIn("reviewBeforeSubmit.checked", js)
+        self.assertIn('allowedInspectionHosts: "chatgpt.com,claude.ai,gemini.google.com"', js)
+        self.assertIn("allowedInspectionHosts.value", js)
+        self.assertIn("blockedInspectionHosts.value", js)
+        self.assertIn('id="allowedInspectionHosts"', html)
+        self.assertIn('id="blockedInspectionHosts"', html)
 
     def test_content_script_intercepts_paste_only_when_enabled(self):
         text = (EXT / "content.js").read_text(encoding="utf-8")
@@ -93,6 +98,9 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("browser_user_proceeded_after_warning", text)
         self.assertIn("browser_selector_failure", text)
         self.assertIn("browser_backend_timeout", text)
+        self.assertIn("canInspectHost", text)
+        self.assertIn("allowedInspectionHosts", text)
+        self.assertIn("blockedInspectionHosts", text)
 
     def test_worker_routes_all_privacy_operations(self):
         text = (EXT / "service_worker.js").read_text(encoding="utf-8")
@@ -100,7 +108,7 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn('backendMode: "local_daemon"', text)
         self.assertIn('authMode: "local_token"', text)
         self.assertIn("headers.Authorization", text)
-        self.assertIn("callJunas(text, requestedOperation)", text)
+        self.assertIn("callJunas(text, requestedOperation, cfgOverride)", text)
         self.assertIn("message.operation", text)
         self.assertIn('degraded_policy: "warn"', text)
         self.assertIn("result.pseudonymized_text", text)
@@ -109,6 +117,10 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn('"junas-process-text"', text)
         self.assertIn("JUNAS_BACKEND_TIMEOUT_MS", text)
         self.assertIn('"backend_timeout"', text)
+        self.assertIn("canInspectUrl", text)
+        self.assertIn("allowedInspectionHosts", text)
+        self.assertIn("blockedInspectionHosts", text)
+        self.assertIn("inspection_host_blocked", text)
 
     def test_browser_scripts_do_not_store_or_log_prompt_text(self):
         content = (EXT / "content.js").read_text(encoding="utf-8")

@@ -37,6 +37,7 @@ Current behavior:
 - Supports `review` plus replacement flows selected in options.
 - Paste interception is opt-in through extension settings.
 - Prompt review before submit is opt-in through extension settings. For warn decisions, the content script blocks the submit event and asks the user to confirm before re-clicking the detected submit control.
+- Adapter domain policy supports `allowedInspectionHosts` and `blockedInspectionHosts`; blocked hosts win and runtime policy cannot expand beyond manifest host coverage, browser site access, or managed runtime host policy.
 
 ## Manifest Permission Review
 
