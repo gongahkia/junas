@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/Browser: Add docs explaining that browser extensions are an activation layer and cannot guarantee coverage for mobile apps, native apps, or unrecognized web UIs.
 - [ ] P1/Browser: Add a manual QA matrix for Chrome, Edge, managed profile, unmanaged profile, local daemon mode, hosted server mode, and offline mode.
 - [ ] P2/Desktop: Mark `junas-watch` as experimental in `pyproject.toml` docs and README without removing the console script.
 - [ ] P2/Desktop: Add a desktop watcher threat-model subsection covering clipboard sensitivity, local token use, notifications, watched-folder scope, and accidental large-file scans.

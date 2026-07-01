@@ -24,6 +24,28 @@ These host matches only mean the script is present on those origins. They do not
 
 The adapter does not capture keystrokes continuously, does not scrape full pages, and does not persist prompt text in extension storage.
 
+## Activation Layer Boundaries
+
+This extension is an activation layer: it calls the Junas backend when a supported,
+managed Chromium web workflow exposes prompt text through selected text, paste events,
+or a detected submit path. It is not a coverage guarantee.
+
+Unsupported surfaces must be treated as no capture, not as a clean verdict:
+
+- Mobile apps and native desktop apps, including native ChatGPT, Claude, Gemini,
+  email, chat, or document clients.
+- Mobile browser sessions unless a separately validated mobile extension deployment
+  exists for that browser, version, store channel, and tenant policy.
+- Browser profiles where the extension is not installed, disabled, blocked by policy,
+  denied site access, or outside the configured adapter domain policy.
+- Unrecognized web UIs, changed DOM structures, shadow-DOM/canvas editors, isolated
+  frames, custom upload widgets, multimodal prompts, or submit flows with no detected
+  prompt and submit controls.
+
+Production pilots should pair backend policy enforcement or direct API integration with
+one supported workflow adapter. Do not use this browser extension as the sole enterprise
+control for GenAI, mobile, native-app, or arbitrary web traffic.
+
 ## Adapter Domain Policy
 
 Tenant/browser admins can narrow where the extension may inspect prompt text with:
@@ -125,6 +147,7 @@ endpoint URLs, policy reasons, or page text.
 - [`docs/integrations/browser-enterprise-deployment.md`](./browser-enterprise-deployment.md)
 - [`docs/policy/decision-contract.md`](../policy/decision-contract.md)
 - [`docs/api/idempotency.md`](../api/idempotency.md)
+- [Chrome content scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts)
 - [Chrome extension match patterns](https://developer.chrome.com/docs/extensions/develop/concepts/match-patterns)
 - [Chrome ExtensionSettings runtime hosts](https://support.google.com/chrome/a/answer/9867568)
 - [Microsoft Edge extension match patterns](https://learn.microsoft.com/en-us/microsoft-edge/extensions/developer-guide/match-patterns)

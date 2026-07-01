@@ -79,4 +79,7 @@ Security model:
 - Local daemon calls require the configured endpoint plus local token when ACLs are enabled.
 - Prompt text must not be persisted in extension storage or console logs.
 - DOM capture is best-effort and target-specific; this adapter is not universal browser DLP.
+- Browser extension coverage is activation-layer coverage only: mobile apps, native apps,
+  browser profiles without the extension, denied site access, and unrecognized web UIs
+  are out of scope and must be handled by direct API integration or another adapter.
 - Do not describe this adapter as universal DLP, full-browser DLP, or coverage for arbitrary web apps.

@@ -164,6 +164,10 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("pre-send review for GenAI prompts", text)
         self.assertIn("not universal browser DLP", text)
         self.assertIn("Do not describe this adapter as universal DLP", text)
+        self.assertIn("activation-layer coverage only", text)
+        self.assertIn("mobile apps", text)
+        self.assertIn("native apps", text)
+        self.assertIn("unrecognized web UIs", text)
 
     def test_browser_extension_docs_review_manifest_permissions(self):
         text = (ROOT / "docs" / "integrations" / "browser-extension.md").read_text(encoding="utf-8")
