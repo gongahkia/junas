@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: junas
+  namespace: junas
+spec:
+  type: ClusterIP
+  selector:
+    app: junas
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http

@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: junas
+  namespace: junas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: junas
+  template:
+    metadata:
+      labels:
+        app: junas
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+      containers:
+        - name: junas
+          image: ghcr.io/your-org/junas:replace-me
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - >-
+              python scripts/preflight.py --deployment production --strict &&
+              uvicorn junas.backend.main:app --host 0.0.0.0 --port 8000 --no-access-log
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: JUNAS_DEPLOYMENT_MODE
+              value: production
+            - name: JUNAS_HOST
+              value: 0.0.0.0
+            - name: JUNAS_PORT
+              value: "8000"
+            - name: JUNAS_TENANCY_ENABLED
+              value: "1"
+            - name: JUNAS_TENANCY_AUTH_MODES
+              value: api_key
+            - name: JUNAS_TENANT_CREDENTIALS_JSON
+              valueFrom:
+                secretKeyRef:
+                  name: junas-secrets
+                  key: tenant-credentials-json
+            - name: JUNAS_POLICY_CONFIG
+              value: /etc/junas/config/policy.toml
+            - name: JUNAS_REVIEW_PERSIST
+              value: "1"
+            - name: JUNAS_JOURNAL_DIR
+              value: /var/lib/junas/journal
+            - name: JUNAS_JOURNAL_KEYS_FILE
+              value: /etc/junas/secrets/journal-keys.toml
+            - name: JUNAS_MAPPING_STORE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: junas-secrets
+                  key: mapping-store-key
+            - name: JUNAS_SUBJECT_INDEX_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: junas-secrets
+                  key: subject-index-key
+            - name: JUNAS_RETENTION_MANIFEST
+              value: /etc/junas/config/retention_manifest.json
+            - name: JUNAS_ALLOW_PLAINTEXT_MAPPINGS
+              value: "0"
+            - name: JUNAS_DEV_AUTH
+              value: "0"
+            - name: JUNAS_PUBLIC_DEMO_ENABLED
+              value: "0"
+            - name: JUNAS_PUBLIC_EVIDENCE_ENABLED
+              value: "0"
+            - name: JUNAS_LLM_ENABLED
+              value: "0"
+            - name: JUNAS_RATE_LIMIT_ENABLED
+              value: "1"
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - >-
+                  curl -fsS http://127.0.0.1:8000/ready |
+                  python -c 'import json,sys; raise SystemExit(0 if json.load(sys.stdin).get("ready") is True else 1)'
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 4
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: config
+              mountPath: /etc/junas/config
+              readOnly: true
+            - name: secrets
+              mountPath: /etc/junas/secrets
+              readOnly: true
+            - name: journal
+              mountPath: /var/lib/junas/journal
+            - name: tmp
+              mountPath: /tmp
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+      volumes:
+        - name: config
+          configMap:
+            name: junas-config
+        - name: secrets
+          secret:
+            secretName: junas-secrets
+        - name: journal
+          persistentVolumeClaim:
+            claimName: junas-journal
+        - name: tmp
+          emptyDir: {}

@@ -188,6 +188,8 @@ Recommended sources:
 
 ## Kubernetes Baseline
 
+Kubernetes reference manifests live in `deploy/kubernetes/`. They are production-oriented examples for tenant auth, policy config, journal-key Secret mounts, a journal PVC, strict preflight, no Uvicorn access log, and readiness checks that parse `/ready`.
+
 Use read-only images and writable volumes only where Junas must persist state.
 
 ```yaml

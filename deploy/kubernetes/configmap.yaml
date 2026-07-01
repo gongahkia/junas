@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: junas-config
+  namespace: junas
+data:
+  policy.toml: |
+    [policy]
+    policy_id = "kubernetes-production-example"
+    policy_version = "2026-07-01-kubernetes-example"
+    internal_domains = ["example.com"]
+    warn_on_low_risk_findings = true
+    degraded_block_action = "retry_review"
+    high_pii_required_actions = ["redact_pii", "request_approval", "safe_rewrite"]
+    high_mnpi_external_actions = ["hold_until_public", "request_approval"]
+    public_mnpi_recommended_actions = ["cite_public_source", "request_approval"]
+    reviewer_override_roles = ["legal_reviewer", "compliance_admin"]
+    medium_risk_recommended_actions = ["proceed_with_warning", "request_approval"]
+    low_risk_recommended_actions = ["proceed_with_warning"]
+  retention_manifest.json: |
+    {
+      "schema_version": "junas.retention_manifest.v1",
+      "controls": {
+        "journal": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "mapping_store": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "subject_index": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "review_sessions": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "matter_terms": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "adapter_telemetry": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "siem": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "audit_packs": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "fixtures": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "reports": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "logs": {"external_policy_ref": "replace-with-customer-retention-policy"},
+        "backups": {"external_policy_ref": "replace-with-customer-retention-policy"}
+      }
+    }
