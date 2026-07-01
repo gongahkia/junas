@@ -489,6 +489,31 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_sequence_diagrams_doc_covers_outlook_smart_alerts_review(self):
+        text = (ROOT / "docs" / "integrations" / "sequence-diagrams.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+        outlook = (ROOT / "docs" / "integrations" / "outlook.md").read_text(encoding="utf-8")
+
+        self.assertIn("integrations/sequence-diagrams.md", docs_index)
+        self.assertIn("sequence-diagrams.md", integrations_index)
+        self.assertIn("sequence-diagrams.md#outlook-smart-alerts-send-review", outlook)
+        for token in (
+            "## Outlook Smart Alerts Send Review",
+            "OnMessageSend event",
+            "POST /review",
+            'surface="outlook"',
+            'workflow="email_send"',
+            "policy_decision",
+            "event.completed({allowEvent: true})",
+            "sendModeOverride: promptUser",
+            "approval_required",
+            "Smart Alert blocks current send attempt",
+            "no message body",
+            "matched text",
+        ):
+            self.assertIn(token, text)
+
     def test_word_doc_marks_taskpane_as_review_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "word.md").read_text(encoding="utf-8")
         for token in (

@@ -152,7 +152,6 @@
 - [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
-- [ ] P0/Docs: Add a sequence diagram for Outlook Smart Alerts calling `/review`, receiving policy decision, and completing send behavior.
 - [ ] P0/Docs: Add a sequence diagram for browser GenAI extension calling `/review`, prompting the user, and applying safe rewrite.
 - [ ] P0/Docs: Add a sequence diagram for DMS upload/check-in calling `/review` and storing audit evidence.
 - [ ] P0/Docs: Add a sequence diagram for reviewer approval from policy block to journal decision to adapter retry.

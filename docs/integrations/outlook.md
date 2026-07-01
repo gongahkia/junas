@@ -39,6 +39,8 @@ The backend launcher starts only FastAPI; host the add-in HTML/JS on the rendere
 
 The reviewed text prepends `Subject: ...` to the body so subject text is scanned. Recipient metadata is reduced to domain list and count. Attachment metadata is reduced to count; filenames are not sent.
 
+Sequence diagram: `docs/integrations/sequence-diagrams.md#outlook-smart-alerts-send-review`.
+
 ## SendMode Behavior
 
 The current manifest declares:
