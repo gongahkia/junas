@@ -298,6 +298,41 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_developer_faq_explains_endpoint_choice(self):
+        text = (ROOT / "docs" / "faq" / "developer.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("faq/developer.md", docs_index)
+        for token in (
+            "# Developer FAQ",
+            "Call `POST /review` first",
+            "`policy_decision`",
+            "`action_catalog`",
+            "`review_id`",
+            "`review_expires_at`",
+            "Use `POST /pseudonymize`",
+            "restore the original text later through `POST /reidentify`",
+            "Use `POST /anonymize`",
+            "not proof of statistical anonymization",
+            "Use `POST /redact`",
+            "no original matched text",
+            "Use `POST /redact-pii`",
+            "Use `POST /safe-rewrite`",
+            "Use `POST /reidentify` only after `/pseudonymize`",
+            "Use `POST /documents/scrub`",
+            "not a replacement for `/review`",
+            "Use `POST /classify` or `POST /classify/batch` only for legacy clients",
+            "Endpoint Choice Table",
+            "`POST /hold-until-public`",
+            "`POST /cite-public-source`",
+            "`POST /request-approval` then `POST /review/{review_id}/decision`",
+            "docs/schema.md",
+            "docs/api/versioning.md",
+            "docs/policy/decision-contract.md",
+            "docs/api/python_client.md",
+        ):
+            self.assertIn(token, text)
+
     def test_install_doc_separates_server_desktop_and_adapter_deployments(self):
         text = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
         headings = (
