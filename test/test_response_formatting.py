@@ -48,12 +48,39 @@ class ResponseFormattingTests(unittest.TestCase):
 
     def test_request_body_limit_returns_pretty_413_before_validation(self):
         with patch.dict(os.environ, {"JUNAS_MAX_REQUEST_BYTES": "1024"}, clear=False):
-            with TestClient(test_app.app) as client:
-                response = client.post("/classify", json={"text": "x" * 2000})
+            with patch.object(
+                test_app.main,
+                "_run_classify_sync",
+                side_effect=AssertionError("classify should not run for oversized bodies"),
+            ) as classify:
+                with TestClient(test_app.app) as client:
+                    response = client.post("/classify", json={"text": "x" * 2000})
 
         self.assertEqual(response.status_code, 413)
         self.assertTrue(response.text.startswith("{\n"))
         self.assertIn("request body exceeds configured limit", response.json()["detail"])
+        self.assertFalse(classify.called)
+
+    def test_oversized_base64_document_fails_before_scrub_extraction(self):
+        with patch.dict(os.environ, {"JUNAS_MAX_REQUEST_BYTES": "1024"}, clear=False):
+            with patch.object(
+                test_app.main,
+                "scrub_document",
+                side_effect=AssertionError("scrub should not run for oversized bodies"),
+            ) as scrub:
+                with TestClient(test_app.app) as client:
+                    response = client.post(
+                        "/documents/scrub",
+                        json={
+                            "document_base64": "A" * 2000,
+                            "document_filename": "large.txt",
+                            "document_mime_type": "text/plain",
+                        },
+                    )
+
+        self.assertEqual(response.status_code, 413)
+        self.assertIn("request body exceeds configured limit", response.json()["detail"])
+        self.assertFalse(scrub.called)
 
     def test_invalid_content_length_returns_pretty_400_before_validation(self):
         with TestClient(test_app.app) as client:

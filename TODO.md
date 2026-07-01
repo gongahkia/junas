@@ -152,7 +152,6 @@
 - [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
-- [ ] P0/Security: Add request body size tests proving oversized JSON and base64 documents fail before expensive schema or extraction work.
 - [ ] P0/Security: Add local daemon CSRF tests covering missing `Origin`, disallowed `Origin`, missing custom token header, invalid token, expired token, and preflight CORS behavior.
 - [ ] P0/Security: Add security tests proving protected local daemon endpoints reject simple HTML form posts that cannot set the required custom token header.
 - [ ] P0/Security: Add CORS configuration tests for hosted server mode and local daemon mode, including credentials-disabled behavior where applicable.
