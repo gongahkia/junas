@@ -12,6 +12,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Word taskpane | `integrations/word_addin/` | `word.md` |
 | Desktop watcher/local daemon | `integrations/desktop/`, `packaging/` | `desktop-watcher.md` |
 | DMS manifest scanner | `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
+| Shared adapter protocol | backend contract boundary | `adapter-protocol.md` |
 | Shared adapter sequence diagrams | backend contract boundary | `sequence-diagrams.md` |
 
 Adapters are optional activation surfaces. They collect workflow context, call the backend contract, display policy decisions, and must not become alternate trust boundaries.

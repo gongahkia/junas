@@ -1174,6 +1174,74 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_adapter_protocol_doc_defines_shared_contract(self):
+        text = (ROOT / "docs" / "integrations" / "adapter-protocol.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("adapter-protocol.md", integrations_index)
+        for token in (
+            "Status: normative for adapters",
+            "## Request Contract",
+            "`text` or `document_base64`",
+            "`document_filename` and `document_mime_type`",
+            "`source_jurisdiction`",
+            "`destination_jurisdiction`",
+            "`document_type`",
+            "`review_profile`",
+            "`degraded_policy`",
+            "`surface`",
+            "`workflow`",
+            "`actor_role`",
+            "`recipient_domains`",
+            "`recipient_count`",
+            "`attachment_count`",
+            "`sensitivity_label`",
+            "`external_destination`",
+            "`requested_action`",
+            "`session_id`",
+            'surface="outlook"',
+            'workflow="email_send"',
+            'surface="browser_genai"',
+            'workflow="prompt_submit"',
+            "## Response Contract",
+            "`policy_decision.decision`",
+            "`policy_decision.required_actions`",
+            "`policy_decision.recommended_actions`",
+            "`policy_decision.blocking_findings`",
+            "`review_expires_at`",
+            "`action_catalog`",
+            "## Auth Headers",
+            "`Authorization: Bearer <jwt-or-api-token>`",
+            "`X-API-Key: <key>`",
+            "`X-Junas-Local-Token: <token>`",
+            "`Idempotency-Key: <opaque-key>`",
+            "Tenant identity comes from validated credentials",
+            "## Retry Semantics",
+            "Transport timeout or network error",
+            "HTTP 429 or 503",
+            "HTTP 400 or Pydantic validation error",
+            "HTTP 401 or 403",
+            "Malformed JSON or missing `policy_decision`",
+            "## Timeouts",
+            "Outlook Smart Alerts",
+            "Browser GenAI submit",
+            "DMS upload/check-in",
+            "## Idempotency Keys",
+            "content_hmac",
+            "adapter_attempt_epoch",
+            "## Telemetry Events",
+            "Allowed fields",
+            "Prohibited fields",
+            "`idempotency_key_hash`",
+            "outlook_review_started",
+            "browser_policy_decision_received",
+            "dms_review_started",
+            "api_review_started",
+            "raw prompt, email body, document text",
+            "matched text, rewritten text",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (
