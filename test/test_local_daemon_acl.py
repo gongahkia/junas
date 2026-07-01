@@ -117,6 +117,21 @@ class LocalDaemonAclTests(unittest.TestCase):
                         self.assertEqual(response.status_code, 401)
                         self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
 
+    def test_protected_endpoints_reject_simple_form_posts_without_custom_token(self):
+        endpoints = sorted(main.LOCAL_DAEMON_PROTECTED_PATHS | {"/review/form-test/decision"})
+        with patch.dict(os.environ, self._env(), clear=False):
+            with TestClient(main.app) as client:
+                for endpoint in endpoints:
+                    with self.subTest(endpoint=endpoint):
+                        response = client.post(
+                            endpoint,
+                            data={"text": "public update"},
+                            headers={"Origin": "https://chatgpt.com"},
+                        )
+
+                        self.assertEqual(response.status_code, 401)
+                        self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
+
     def test_accepts_allowed_origin_with_local_token(self):
         with patch.dict(os.environ, self._env(), clear=False):
             with TestClient(main.app) as client:
