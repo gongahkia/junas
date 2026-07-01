@@ -118,6 +118,8 @@ commands.
 Terminate public TLS at a reverse proxy and keep the app bound to loopback or a private
 pod/service network.
 
+Use `deploy/reverse-proxy/nginx-junas.conf` as the hardened Nginx starting point. It includes TLS placeholders, `client_max_body_size 25m`, route allowlists, upstream timeouts, monitoring-only `/metrics` and `/diagnostics`, and a no-body log format.
+
 Minimal Nginx shape:
 
 ```nginx
