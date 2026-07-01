@@ -243,6 +243,7 @@ Every feedback-derived candidate label must preserve:
 ## Related Documents
 
 - `docs/admin-console/false-positive-triage.md`
+- `docs/telemetry-feedback-loop.md`
 - `docs/policy/decision-taxonomy.md`
 - `docs/policy/journal-replay.md`
 - `docs/accuracy.md`

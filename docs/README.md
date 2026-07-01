@@ -33,6 +33,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/glossary.md`: product vocabulary for review, rewrite, audit evidence, adapters, and surfaces
 - `product/review-examples.md`: same-contract `/review` examples for GenAI, email, legal memo, DMS, and Slack-style messages
 - `feedback-loop.md`: canonical journal-to-candidate-corpus path from reviewer decision to candidate fixture to promoted recall lock
+- `telemetry-feedback-loop.md`: privacy-safe join model for adapter telemetry, policy outcomes, and reviewer decisions
 - `faq/procurement.md`: procurement-facing claim discipline and promoted evidence links
 - `faq/operator.md`: operator-facing FAQ for how Junas complements DLP, endpoint, SIEM, and SaaS controls
 - `faq/developer.md`: developer endpoint-choice FAQ for review, rewrite, scrub, reidentify, and classify flows

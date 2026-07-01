@@ -589,6 +589,41 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_telemetry_feedback_loop_connects_events_without_raw_content(self):
+        text = (ROOT / "docs" / "telemetry-feedback-loop.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        feedback_loop = (ROOT / "docs" / "feedback-loop.md").read_text(encoding="utf-8")
+
+        self.assertIn("telemetry-feedback-loop.md", docs_index)
+        self.assertIn("docs/telemetry-feedback-loop.md", feedback_loop)
+        for token in (
+            "Telemetry Feedback Loop",
+            "without storing raw prompts, email bodies, document",
+            "`request_id`",
+            "`review_id`",
+            "`policy_id` / `policy_version`",
+            "`surface` / `workflow`",
+            "`finding_id` or finding-id hash",
+            "`document_hash`",
+            "`idempotency_key_hash`",
+            "`adapter_review_started`",
+            "`review_started`",
+            "`adapter_policy_outcome_received`",
+            "`approval_requested`",
+            "`decision_recorded`",
+            "`adapter_completion_recorded`",
+            "warning override rate by surface and policy version",
+            "raw prompts",
+            "email subject or body text",
+            "matched spans or `matched_text`",
+            "recipient addresses",
+            "auth header values",
+            "docs/policy/decision-contract.md",
+            "docs/admin-console/telemetry-requirements.md",
+            "test/test_siem_export.py",
+        ):
+            self.assertIn(token, text)
+
     def test_decision_taxonomy_doc_defines_allowed_feedback_labels(self):
         text = (ROOT / "docs" / "policy" / "decision-taxonomy.md").read_text(
             encoding="utf-8"
