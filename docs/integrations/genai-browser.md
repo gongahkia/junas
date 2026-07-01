@@ -102,6 +102,27 @@ For manual browser testing, load `integrations/browser_extension/` as an unpacke
 
 Managed Chrome/Edge rollout uses `docs/integrations/browser-enterprise-deployment.md`.
 
+## Manual QA Matrix
+
+Record browser version, extension id/version, profile type, backend mode, target host,
+flow tested, policy decision, visible UI result, and privacy check result for every row.
+Unmanaged rows are developer smoke evidence only; they do not prove enterprise rollout.
+
+| Browser/profile | Backend mode | Setup | Required checks | Expected evidence |
+|---|---|---|---|---|
+| Chrome managed | `local_daemon` | Force-install through Chrome policy, verify `chrome://policy`, run local Junas daemon with local token. | Options health, context-menu review, paste review, prompt-submit review, warn confirmation, domain policy block, MV3 worker restart. | `chrome://extensions` shows managed install; health is `server healthy`; supported-host reviews call backend; blocked hosts do not read clipboard or call backend. |
+| Chrome managed | `hosted_server` | Force-install production/staging manifest with exact hosted `host_permissions` and bearer-token auth. | Options health, hosted auth header, prompt-submit warn/block behavior, telemetry fields, privacy storage/log check. | Hosted `/ready` and `/review` succeed; no raw prompt text in extension storage, console logs, or telemetry. |
+| Chrome managed | offline mode | Keep extension installed, then stop local daemon or block hosted endpoint. | Options health, paste review, prompt-submit review, rewrite failure recovery. | Health shows `local daemon unavailable` or auth/network failure; submit is not silently allowed after failed review; pasted text is restored when rewrite fails. |
+| Chrome unmanaged | `local_daemon` | Load `integrations/browser_extension/` unpacked in a clean dev profile. | Same flow checks as managed local, plus manifest permission review. | Dev-only smoke evidence; extension id may change; no production support claim. |
+| Chrome unmanaged | `hosted_server` | Load an unpacked hosted-server manifest in a clean dev profile. | Hosted health, auth mode, prompt-submit review, privacy storage/log check. | Dev-only hosted smoke evidence; hosted origin is exact, not `<all_urls>`. |
+| Chrome unmanaged | offline mode | Use unpacked extension, then stop backend or disconnect test network. | Health, paste review, submit review, context-menu review. | Visible Junas error; no silent replacement; no raw prompt persistence. |
+| Edge managed | `local_daemon` | Force-install through Edge policy, verify `edge://policy`, run local Junas daemon with local token. | Options health, context-menu review, paste review, prompt-submit review, warn confirmation, domain policy block, MV3 worker restart. | `edge://extensions` shows managed install; health is `server healthy`; supported-host reviews call backend; blocked hosts do not read clipboard or call backend. |
+| Edge managed | `hosted_server` | Force-install Edge Add-ons or self-hosted signed CRX with exact hosted `host_permissions` and bearer-token auth. | Options health, hosted auth header, prompt-submit warn/block behavior, telemetry fields, privacy storage/log check. | Hosted `/ready` and `/review` succeed; no raw prompt text in extension storage, console logs, or telemetry. |
+| Edge managed | offline mode | Keep extension installed, then stop local daemon or block hosted endpoint. | Options health, paste review, prompt-submit review, rewrite failure recovery. | Health shows `local daemon unavailable` or auth/network failure; submit is not silently allowed after failed review; pasted text is restored when rewrite fails. |
+| Edge unmanaged | `local_daemon` | Load `integrations/browser_extension/` unpacked in a clean dev profile. | Same flow checks as managed local, plus manifest permission review. | Dev-only smoke evidence; extension id may change; no production support claim. |
+| Edge unmanaged | `hosted_server` | Load an unpacked hosted-server manifest in a clean dev profile. | Hosted health, auth mode, prompt-submit review, privacy storage/log check. | Dev-only hosted smoke evidence; hosted origin is exact, not `<all_urls>`. |
+| Edge unmanaged | offline mode | Use unpacked extension, then stop backend or disconnect test network. | Health, paste review, submit review, context-menu review. | Visible Junas error; no silent replacement; no raw prompt persistence. |
+
 ## Failure Behavior
 
 - Backend error or timeout: show a visible Junas error panel; do not silently replace text.
