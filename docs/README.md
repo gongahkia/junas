@@ -42,6 +42,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `admin-console/reviewer-queue.md`: reviewer queue requirements for approval assignment, rationale, SLA, and audit trail evidence
 - `admin-console/false-positive-triage.md`: false-positive triage requirements linking reviewer rejects to fixture generation and detector issue categories
 - `admin-console/audit-export-ui.md`: audit export UI requirements using export, audit-pack verification, and journal verification scripts
+- `admin-console/auth-requirements.md`: admin console auth requirements using existing tenant roles and rejecting local-dev-only headers in production
 - `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows

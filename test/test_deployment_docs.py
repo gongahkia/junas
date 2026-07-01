@@ -426,6 +426,45 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_auth_requirements(self):
+        text = (ROOT / "docs" / "admin-console" / "auth-requirements.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/auth-requirements.md", docs_index)
+        self.assertIn("docs/admin-console/auth-requirements.md", requirements)
+        for token in (
+            "Admin Console Auth Requirements",
+            "existing Junas tenant identity and roles",
+            "API-key registry credentials",
+            "JWT credentials",
+            "`JUNAS_TENANCY_ENABLED=1`",
+            "`JUNAS_TENANCY_AUTH_MODES=api_key`",
+            "`X-Tenant-ID`",
+            "`X-Actor-Role`",
+            "`X-Reviewer-ID`",
+            "Local-Dev Header Rule",
+            "reject local-dev-only reviewer headers",
+            "must never grant admin console access",
+            "Role Matrix",
+            "Review-session list",
+            "Policy config publish/rollback",
+            "Audit export request/download",
+            "Tenant Isolation",
+            "credential-derived tenant",
+            "Browser Session Requirements",
+            "Auth-Denied Audit Events",
+            "admin_dev_header_rejected",
+            "admin_local_token_rejected",
+            "Missing auth returns 401",
+            "Local daemon `X-Junas-Local-Token` cannot authenticate",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
