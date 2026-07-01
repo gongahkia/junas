@@ -2,6 +2,10 @@
 
 This roadmap follows the product docs in `docs/product/`. A phase is not promoted by implementation alone; it needs exit evidence.
 
+User-requested integration intake is tracked in `docs/product/integration-backlog.md`.
+Backlog rows must be categorized as `direct API`, `Outlook`, `browser`, `DMS`, `Slack`,
+`Google Workspace`, or `unsupported`.
+
 ## Kill Criteria
 
 Adapter promotion requires measurable workflow value, not just technical feasibility. A candidate adapter should stay experimental, be paused, or be archived when it cannot show a useful activation rate, reviewed-send or reviewed-submit rate, accepted-finding rate, safe-rewrite usage, blocked-risk outcome, or audit-pack export path for its target workflow.
