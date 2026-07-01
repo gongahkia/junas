@@ -221,8 +221,9 @@ The operator must separately expire or tombstone those systems according to poli
 ## Retention Manifest
 
 Production strict preflight checks for an operator-maintained retention manifest. The
-manifest records whether journal, mapping-store, application-log, SIEM, and backup
-retention controls are configured; it does not perform deletion by itself.
+manifest records whether artifact-specific retention controls are configured; it does
+not perform deletion by itself. See `docs/security/data-retention.md` for the full
+matrix.
 
 Point Junas at the manifest with `JUNAS_RETENTION_MANIFEST`, or keep
 `retention_manifest.json` at the repository/deployment root:
@@ -233,14 +234,21 @@ Point Junas at the manifest with `JUNAS_RETENTION_MANIFEST`, or keep
   "controls": {
     "journal": { "retention_days": 2555 },
     "mapping_store": { "delete_after_days": 90 },
-    "logs": { "policy": "log-platform-policy-123" },
+    "subject_index": { "delete_after_days": 90 },
+    "review_sessions": { "retention_days": 2555 },
+    "matter_terms": { "policy": "matter-lifecycle-retention" },
+    "adapter_telemetry": { "retention_days": 90 },
     "siem": { "external_policy_ref": "splunk-index-retention" },
+    "audit_packs": { "retention_days": 2555 },
+    "fixtures": { "policy": "synthetic-fixtures-only" },
+    "reports": { "retention_days": 90 },
+    "logs": { "policy": "log-platform-policy-123" },
     "backups": { "retain_for_days": 365 }
   }
 }
 ```
 
-Required controls are `journal`, `mapping_store`, `logs`, `siem`, and `backups`.
+Required controls are listed in `docs/security/data-retention.md`.
 Each control is configured when it has one of:
 
 | Evidence key | Use |

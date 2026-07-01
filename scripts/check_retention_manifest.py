@@ -11,7 +11,20 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "retention_manifest.json"
-REQUIRED_CONTROLS = ("journal", "mapping_store", "logs", "siem", "backups")
+REQUIRED_CONTROLS = (
+    "journal",
+    "mapping_store",
+    "subject_index",
+    "review_sessions",
+    "matter_terms",
+    "adapter_telemetry",
+    "siem",
+    "audit_packs",
+    "fixtures",
+    "reports",
+    "logs",
+    "backups",
+)
 
 
 def _manifest_path(raw: str | None = None) -> Path:

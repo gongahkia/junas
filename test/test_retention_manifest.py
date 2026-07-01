@@ -30,7 +30,7 @@ class RetentionManifestTests(unittest.TestCase):
         self.assertFalse(payload["ok"])
         self.assertEqual(
             [item["control"] for item in payload["controls"]],
-            ["journal", "mapping_store", "logs", "siem", "backups"],
+            list(self.mod.REQUIRED_CONTROLS),
         )
         self.assertTrue(all(item["status"] == "missing" for item in payload["controls"]))
 
@@ -43,6 +43,13 @@ class RetentionManifestTests(unittest.TestCase):
   "controls": {
     "journal": {"retention_days": 2555},
     "mapping_store": {"delete_after_days": 90},
+    "subject_index": {"delete_after_days": 90},
+    "review_sessions": {"retention_days": 2555},
+    "matter_terms": {"policy": "matter-lifecycle-retention"},
+    "adapter_telemetry": {"retention_days": 90},
+    "audit_packs": {"retention_days": 2555},
+    "fixtures": {"policy": "synthetic-fixtures-only"},
+    "reports": {"retention_days": 90},
     "logs": {"policy": "log-platform-policy-123"},
     "siem": {"external_policy_ref": "splunk-index-retention"},
     "backups": {"retain_for_days": "365"}

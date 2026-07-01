@@ -57,6 +57,13 @@ class LaunchScriptSmokeTests(unittest.TestCase):
 {
   "journal": {"retention_days": 2555},
   "mapping_store": {"retention_days": 90},
+  "subject_index": {"retention_days": 90},
+  "review_sessions": {"retention_days": 2555},
+  "matter_terms": {"policy": "launch-test-matter-retention"},
+  "adapter_telemetry": {"retention_days": 90},
+  "audit_packs": {"retention_days": 2555},
+  "fixtures": {"policy": "launch-test-fixture-retention"},
+  "reports": {"retention_days": 90},
   "logs": {"policy": "launch-test-log-retention"},
   "siem": {"external_policy_ref": "launch-test-siem-retention"},
   "backups": {"retention_days": 365}

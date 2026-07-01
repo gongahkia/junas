@@ -46,8 +46,31 @@ class DeploymentDocsTests(unittest.TestCase):
             self.assertEqual(result["status"], "configured", msg=f"{control}: {result}")
         for token in ("retention_days", "delete_after_days", "retain_for_days", "policy", "external_policy_ref"):
             self.assertIn(token, text)
+        self.assertIn("docs/security/data-retention.md", text)
         self.assertIn("scripts/check_retention_manifest.py --manifest", text)
         self.assertIn("--json", text)
+
+    def test_data_retention_matrix_covers_required_artifacts(self):
+        text = (ROOT / "docs" / "security" / "data-retention.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("security/data-retention.md", docs_index)
+        for token in (
+            "`journal`",
+            "`mapping_store`",
+            "`subject_index`",
+            "`review_sessions`",
+            "`matter_terms`",
+            "`adapter_telemetry`",
+            "`siem`",
+            "`audit_packs`",
+            "`fixtures`",
+            "`reports`",
+            "scripts/check_retention_manifest.py",
+            "scripts/erase_subject.py",
+            "scripts/check_fixture_scrub.py",
+        ):
+            self.assertIn(token, text)
 
     def test_install_admin_threat_and_limitations_docs_cover_lastbit_controls(self):
         install = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
