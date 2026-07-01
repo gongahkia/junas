@@ -16,6 +16,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Shared adapter auth | backend auth boundary | `auth.md` |
 | Shared adapter privacy | backend privacy boundary | `privacy.md` |
 | Shared adapter telemetry | backend observability boundary | `telemetry.md` |
+| Shared recipient context | backend policy boundary | `recipient-context.md` |
 | Shared failure semantics | backend contract boundary | `failure-semantics.md` |
 | Shared adapter sequence diagrams | backend contract boundary | `sequence-diagrams.md` |
 

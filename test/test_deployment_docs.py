@@ -1478,6 +1478,59 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_recipient_context_doc_defines_surface_destination_mapping(self):
+        text = (ROOT / "docs" / "integrations" / "recipient-context.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("recipient-context.md", integrations_index)
+        for token in (
+            "Status: normative for adapters",
+            "## Canonical Fields",
+            "`destination_jurisdiction`",
+            "`external_destination`",
+            "`recipient_domains`",
+            "`recipient_count`",
+            "`sensitivity_label`",
+            "`requested_action`",
+            "Empty `recipient_domains=[]` is allowed",
+            "Unknown context should be omitted/null",
+            "## Email / Outlook",
+            '"surface": "outlook"',
+            '"workflow": "email_send"',
+            "Include To, Cc, and Bcc",
+            "Convert addresses to domains locally",
+            "distribution list",
+            "## Browser GenAI",
+            '"surface": "browser_genai"',
+            '"workflow": "prompt_submit"',
+            '"recipient_domains": ["chatgpt.com"]',
+            "Use the target host domain, not the full URL",
+            "default `external_destination=true`",
+            "## DMS",
+            '"surface": "dms"',
+            '"workflow": "document_upload"',
+            '"recipient_domains": []',
+            '"recipient_count": 0',
+            "external share, client portal, cross-tenant workspace",
+            "## Direct API",
+            '"surface": "api"',
+            '"workflow": "api_review"',
+            "Pass destination context from the service workflow",
+            "## Normalization",
+            "strip local parts from email addresses",
+            "sort and deduplicate `recipient_domains`",
+            "recipient_count` as the total visible recipient",
+            "rotate the idempotency key when recipients",
+            "## Unknown Or Conflicting Context",
+            "Domains conflict with explicit `external_destination`",
+            "User edits recipients after review",
+            "## Privacy QA",
+            "not full addresses or display names",
+            "not URL, page title, conversation id",
+            "recipient_domain_count",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (
