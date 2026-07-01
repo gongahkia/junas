@@ -543,6 +543,40 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_feedback_loop_doc_defines_journal_to_promoted_recall_path(self):
+        text = (ROOT / "docs" / "feedback-loop.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("feedback-loop.md", docs_index)
+        for token in (
+            "Feedback Loop: Journal To Candidate Corpus",
+            "There is no automatic journal-to-fixture exporter",
+            "Reviewer records a decision in the journal",
+            "candidate fixture",
+            "promoted recall-lock evidence",
+            "scripts/verify_journal.py",
+            "scripts/export_audit_pack.py",
+            "scripts/verify_audit_pack.py",
+            "scripts/generate_legal_fixture.py",
+            "scripts/generate_candidate_corpus.py",
+            "scripts/check_fixture_scrub.py",
+            "scripts/review_candidate_fixture.py",
+            "scripts/check_candidate_review_status.py",
+            "scripts/reconcile_candidate_strict_labels.py",
+            "scripts/promote_candidate_exact_spans.py",
+            "scripts/evaluate_candidate_corpus.py",
+            "scripts/candidate_corpus_report.py",
+            "scripts/check_candidate_stage_gate.py",
+            "scripts/promote_candidate_fixtures.py",
+            "scripts/run_layer_attribution_eval.py",
+            "candidate_recall.lock.json",
+            "legal-corpus-reviewed-candidates.lock.json",
+            "customer_sample_approved",
+            "No raw journal text copied into fixtures",
+            "No promoted accuracy claim from candidate-only",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
