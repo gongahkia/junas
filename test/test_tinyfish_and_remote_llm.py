@@ -12,7 +12,7 @@ import httpx
 from junas.advisory.llm_adjudicator.helpers import RuntimeLLMCoverageAuditor
 from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
 from junas.external.privacy_guard import PrivacyGuard
-from junas.external.public_evidence.inference import PublicEvidenceRetriever
+from junas.external.public_evidence.inference import PublicEvidenceEndpointError, PublicEvidenceRetriever
 
 
 def _tinyfish_settings(
@@ -129,6 +129,30 @@ class TinyfishAdapterTests(unittest.TestCase):
         payload = retriever.retrieve(text="Acme Corp acquisition.", entity_id="Acme Corp")
         self.assertEqual(payload["status"], "error")
         self.assertIn("unsupported public evidence provider", payload["detail"])
+
+    def test_public_evidence_rejects_ssrf_endpoints(self):
+        blocked = [
+            "http://api.search.tinyfish.ai/",
+            "https://localhost/search",
+            "https://127.0.0.1/search",
+            "https://[::1]/search",
+            "https://169.254.169.254/latest/meta-data",
+            "https://metadata.google.internal/computeMetadata/v1/",
+            "https://10.0.0.1/search",
+            "https://172.16.0.5/search",
+            "https://192.168.1.5/search",
+            "https://0.0.0.0/search",
+            "https://224.0.0.1/search",
+            "https://240.0.0.1/search",
+        ]
+        for endpoint in blocked:
+            with self.subTest(endpoint=endpoint):
+                with self.assertRaises(PublicEvidenceEndpointError):
+                    PublicEvidenceRetriever(_tinyfish_settings(endpoint=endpoint), PrivacyGuard())
+
+    def test_public_evidence_allows_default_https_provider_endpoint(self):
+        retriever = PublicEvidenceRetriever(_tinyfish_settings(), PrivacyGuard())
+        self.assertEqual(retriever.endpoint, "https://api.search.tinyfish.ai/")
 
     def test_serper_search_translates_organic_results(self):
         captured: dict = {}

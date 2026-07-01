@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import ipaddress
 import json
 import re
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 
@@ -20,6 +22,7 @@ _DEFAULT_ENDPOINTS = {
 
 # providers we ship a real adapter for. anything else returns status=error.
 _SUPPORTED_PROVIDERS = frozenset({"exa", "tinyfish", "serper", "serpapi"})
+_BLOCKED_HOSTNAMES = frozenset({"localhost", "metadata.google.internal"})
 
 EVENT_KEYWORDS: dict[str, tuple[str, ...]] = {
     "acquisition merger takeover": ("acquisition", "acquire", "merger", "takeover", "buyout"),
@@ -55,6 +58,38 @@ def _dedupe(items: list[str]) -> list[str]:
     return out
 
 
+class PublicEvidenceEndpointError(ValueError):
+    """Raised when a configured public-evidence endpoint is unsafe."""
+
+
+def _validate_public_evidence_endpoint(endpoint: str) -> str:
+    cleaned = endpoint.strip()
+    if not cleaned:
+        return ""
+    parsed = urlparse(cleaned)
+    if parsed.scheme.lower() != "https":
+        raise PublicEvidenceEndpointError("public evidence endpoint must use https")
+    host = (parsed.hostname or "").strip().lower()
+    if not host:
+        raise PublicEvidenceEndpointError("public evidence endpoint must include a host")
+    if host in _BLOCKED_HOSTNAMES or host.endswith(".localhost"):
+        raise PublicEvidenceEndpointError(f"public evidence endpoint host is blocked: {host}")
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        return cleaned
+    if (
+        address.is_loopback
+        or address.is_link_local
+        or address.is_private
+        or address.is_reserved
+        or address.is_multicast
+        or address.is_unspecified
+    ):
+        raise PublicEvidenceEndpointError(f"public evidence endpoint address is blocked: {address}")
+    return cleaned
+
+
 class PublicEvidenceRetriever:
     def __init__(self, settings: Any, guard: PrivacyGuard | None = None):
         self.enabled = bool(getattr(settings, "enabled", False))
@@ -62,7 +97,9 @@ class PublicEvidenceRetriever:
         self.api_key = str(getattr(settings, "api_key", "") or "")
         self.backup_api_key = str(getattr(settings, "backup_api_key", "") or "")
         configured_endpoint = str(getattr(settings, "endpoint", "") or "")
-        self.endpoint = configured_endpoint or _DEFAULT_ENDPOINTS.get(self.provider, "")
+        self.endpoint = _validate_public_evidence_endpoint(
+            configured_endpoint or _DEFAULT_ENDPOINTS.get(self.provider, "")
+        )
         self.max_results = max(1, int(getattr(settings, "max_results", 5) or 5))
         self.timeout_seconds = max(0.1, float(getattr(settings, "timeout_seconds", 8.0) or 8.0))
         self.guard = guard or PrivacyGuard.load()
