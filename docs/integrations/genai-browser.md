@@ -49,6 +49,8 @@ The service worker calls the configured endpoint with `review`, `pseudonymize`, 
 
 For managed GenAI review, callers should use `surface="browser_genai"` and `workflow="prompt_submit"` when the adapter has enough context to submit those fields. The current local extension keeps a minimal strict review payload and should be treated as a pilot surface until target-specific submit interception and selector tests exist.
 
+Sequence diagram: `docs/integrations/sequence-diagrams.md#browser-genai-prompt-review-and-safe-rewrite`.
+
 ## Local Launch And Packaging
 
 Start the backend or packaged local daemon separately, then load or package the extension:

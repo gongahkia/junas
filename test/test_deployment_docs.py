@@ -514,6 +514,30 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_sequence_diagrams_doc_covers_browser_prompt_safe_rewrite(self):
+        text = (ROOT / "docs" / "integrations" / "sequence-diagrams.md").read_text(encoding="utf-8")
+        browser = (ROOT / "docs" / "integrations" / "genai-browser.md").read_text(encoding="utf-8")
+
+        self.assertIn("sequence-diagrams.md#browser-genai-prompt-review-and-safe-rewrite", browser)
+        for token in (
+            "## Browser GenAI Prompt Review And Safe Rewrite",
+            "Resolve prompt composer and submit control",
+            "POST /review",
+            'surface="browser_genai"',
+            'workflow="prompt_submit"',
+            "policy_decision",
+            "Prompt user to proceed or cancel",
+            "rewrite_required and safe_rewrite offered",
+            "POST /safe-rewrite",
+            "rewritten_text",
+            "Replace composer text with rewritten_text",
+            "must not silently block submit",
+            "must not save prompt text",
+            "extension storage",
+            "console logs",
+        ):
+            self.assertIn(token, text)
+
     def test_word_doc_marks_taskpane_as_review_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "word.md").read_text(encoding="utf-8")
         for token in (
