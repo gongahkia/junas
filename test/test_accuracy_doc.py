@@ -22,6 +22,10 @@ class AccuracyDocTests(unittest.TestCase):
         self.assertIn("`jp_my_number`", rendered)
         self.assertIn("not locked", rendered)
         for token in (
+            "## Comparative Baseline Context",
+            "PIIBench",
+            "F1=0.1385",
+            "not as broad out-of-distribution coverage claims",
             "## Promotion Claim Gate",
             "Fixture text and matching `.labels.json` sidecars",
             "`_human_review_status=approved`",

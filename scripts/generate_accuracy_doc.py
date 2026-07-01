@@ -92,6 +92,15 @@ def render_accuracy_doc() -> str:
         "Detector baselines describe what was found for redaction; residual risk "
         "depends on unredacted context and container metadata handling. |",
         "",
+        "## Comparative Baseline Context",
+        "",
+        "[PIIBench](https://arxiv.org/abs/2604.15776) reports that eight published PII detectors "
+        "all score below 0.14 span-level F1 on a unified multi-source benchmark, with the best "
+        "published system, Presidio, at F1=0.1385 and zero recall on most entity types. Treat Junas "
+        "`1.0000` rows below as fixture-regression locks for known in-domain spans, not as broad "
+        "out-of-distribution coverage claims. Independent TAB and ai4privacy reports provide "
+        "separate breadth checks against external corpora.",
+        "",
         "## Corpus Locks",
         "",
         "| Corpus | Fixtures | Lock file | Description |",
@@ -171,6 +180,8 @@ def render_accuracy_doc() -> str:
             "",
             "- These are locked regression baselines over small, hand-labelled fixture corpora; "
             "they are not population-level accuracy claims.",
+            "- A detector row at `1.0000` means current fixtures for that detector are passing; it "
+            "does not claim complete field coverage outside the locked corpus.",
             "- `not locked` means that corpus currently gates recall only for that detector.",
             "- Public-evidence matching and LLM adjudication accuracy are not included in these "
             "deterministic detector locks.",
