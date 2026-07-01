@@ -58,6 +58,33 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_remote_llm_config_doc_covers_raw_text_opt_in_and_privacy_ledger(self):
+        text = (ROOT / "docs" / "security" / "remote-llm-config.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        install = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
+        governance = (ROOT / "docs" / "llm-governance.md").read_text(encoding="utf-8")
+
+        self.assertIn("security/remote-llm-config.md", docs_index)
+        self.assertIn("docs/security/remote-llm-config.md", install)
+        self.assertIn("docs/security/remote-llm-config.md", governance)
+        for token in (
+            "allow_remote_base_url = true",
+            "allow_remote_raw_text = false",
+            "llm_input_mode = \"structured_tokens\"",
+            "llm_input_mode = \"raw_text\"",
+            "allow_remote_raw_text = true",
+            "tenant_opt_in_openai = true",
+            "tenant_opt_in_azure_openai = true",
+            "JUNAS_LLM_ALLOW_REMOTE_RAW_TEXT",
+            "JUNAS_LLM_TENANT_OPT_IN_OPENAI",
+            "JUNAS_LLM_TENANT_OPT_IN_AZURE_OPENAI",
+            "JUNAS_LLM_AZURE_API_VERSION",
+            "privacy_ledger",
+            "test/test_structured_tokens_llm.py",
+            "test/test_siem_export.py",
+        ):
+            self.assertIn(token, text)
+
     def test_retention_manifest_doc_example_matches_checker_schema(self):
         text = (ROOT / "docs" / "deployment-hardening.md").read_text(encoding="utf-8")
         match = re.search(r"## Retention Manifest.*?```json\n(?P<body>.*?)\n```", text, re.S)

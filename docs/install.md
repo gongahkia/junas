@@ -78,7 +78,11 @@ Managed LLM deployment requires explicit tenant/deployer opt-in:
 
 ```sh
 JUNAS_LLM_API_KEY=... \
+JUNAS_LLM_ALLOW_REMOTE_BASE_URL=1 \
 JUNAS_LLM_TENANT_OPT_IN_OPENAI=1 \
+JUNAS_LLM_INPUT_MODE=structured_tokens \
 SERPER_API_KEY=... \
 docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --build
 ```
+
+See `docs/security/remote-llm-config.md` before enabling remote raw-text mode.

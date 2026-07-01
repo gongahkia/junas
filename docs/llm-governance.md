@@ -4,6 +4,9 @@ Junas treats LLM paths as optional advisory layers. The default runtime remains
 deterministic-only. Remote LLM use requires tenant opt-in, provider opt-in, and
 privacy-ledger evidence.
 
+Operator config gates for remote providers, structured-token default, raw-text opt-in,
+and privacy-ledger expectations are documented in `docs/security/remote-llm-config.md`.
+
 ## Current Promotion State
 
 No `local_distilled` adapter is promoted in this repository state. The canonical
