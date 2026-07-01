@@ -568,6 +568,7 @@ class DeploymentDocsTests(unittest.TestCase):
             "scripts/candidate_corpus_report.py",
             "scripts/check_candidate_stage_gate.py",
             "scripts/promote_candidate_fixtures.py",
+            "scripts/check_promoted_lock_freshness.py",
             "scripts/run_layer_attribution_eval.py",
             "candidate_recall.lock.json",
             "legal-corpus-reviewed-candidates.lock.json",
@@ -576,6 +577,9 @@ class DeploymentDocsTests(unittest.TestCase):
             "fixture text plus",
             ".labels.json",
             "precision report or precision lock",
+            "CI runs `scripts/check_promoted_lock_freshness.py`",
+            "change to any reviewed-candidate `.txt` or `.labels.json`",
+            "both `test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json`",
             "No raw journal text copied into fixtures",
             "No promoted accuracy claim from candidate-only",
         ):

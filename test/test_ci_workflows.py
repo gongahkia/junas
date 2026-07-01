@@ -39,6 +39,15 @@ class CiWorkflowTests(unittest.TestCase):
         self.assertIn("JUNAS_LATENCY_SLO_BEARER_TOKEN", text)
         self.assertIn("staging-latency-reports", text)
 
+    def test_promoted_lock_freshness_check_is_ci_wired(self):
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+        self.assertIn("Promoted lock freshness", text)
+        self.assertIn("fetch-depth: 0", text)
+        self.assertIn("scripts/check_promoted_lock_freshness.py --base-ref", text)
+        self.assertIn("github.event.pull_request.base.sha", text)
+        self.assertIn("github.event.before", text)
+
 
 if __name__ == "__main__":
     unittest.main()

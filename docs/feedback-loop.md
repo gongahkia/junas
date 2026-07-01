@@ -55,6 +55,7 @@ signals until reviewed.
 | Report stage status | `scripts/candidate_corpus_report.py` | Summarizes candidate stage, review state, and eval posture. |
 | Stage gate | `scripts/check_candidate_stage_gate.py` | Gates jurisdiction stage advancement and promotion readiness. |
 | Promote candidates | `scripts/promote_candidate_fixtures.py` | Copies human-approved, non-runtime-derived candidate fixtures into reviewed corpus. |
+| Check promoted lock freshness | `scripts/check_promoted_lock_freshness.py` | Fails CI when reviewed fixture inputs change without the promoted lock and accuracy doc. |
 | Attribute misses | `scripts/run_layer_attribution_eval.py` | Writes candidate, miss-bucket, and concentration reports. |
 
 ## Canonical Workflow
@@ -202,6 +203,11 @@ promoted lock with `--require-human-reviewed`, a precision report or precision l
 committed, and `docs/accuracy.md` is regenerated from those locks. Candidate-only
 reports, demo screenshots, unpromoted sidecars, and roadmap notes are not
 improved-detection evidence.
+
+CI runs `scripts/check_promoted_lock_freshness.py` on pull-request and push diffs. A
+change to any reviewed-candidate `.txt` or `.labels.json` fixture input must include
+both `test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json`
+and `docs/accuracy.md` in the same diff.
 
 ## Required Metadata
 
