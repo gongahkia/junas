@@ -36,6 +36,7 @@ class LatencyCase:
     profile: str
     budget_ms: float
     fixture_path: Path
+    policy_decision_budget_ms: float
 
     @property
     def key(self) -> str:
@@ -60,6 +61,9 @@ def load_budget_config(path: Path) -> dict[str, Any]:
     budgets = raw.get("budgets_ms")
     if not isinstance(budgets, dict) or not budgets:
         raise ValueError(f"{path} must define non-empty budgets_ms")
+    policy_budget = raw.get("policy_decision_p95_budget_ms")
+    if not isinstance(policy_budget, (int, float)) or float(policy_budget) <= 0:
+        raise ValueError(f"{path} must define positive policy_decision_p95_budget_ms")
     return raw
 
 
@@ -99,6 +103,7 @@ def build_cases(
                     profile=profile,
                     budget_ms=float(budgets[key]),
                     fixture_path=fixture_path,
+                    policy_decision_budget_ms=float(config["policy_decision_p95_budget_ms"]),
                 )
             )
     return out
@@ -144,10 +149,13 @@ def _case_result(
     repetitions: int,
     latencies_ms: list[float],
     server_totals_ms: list[float],
+    policy_decision_ms: list[float],
     base_url: str = "",
 ) -> dict[str, Any]:
     p95_ms = percentile(latencies_ms, 0.95)
-    passed = p95_ms <= case.budget_ms
+    policy_p95_ms = percentile(policy_decision_ms, 0.95)
+    policy_passed = bool(policy_decision_ms) and policy_p95_ms <= case.policy_decision_budget_ms
+    passed = p95_ms <= case.budget_ms and policy_passed
     result = {
         "case": case.key,
         "mode": mode,
@@ -164,8 +172,13 @@ def _case_result(
         "p95_ms": p95_ms,
         "max_ms": round(max(latencies_ms), 3),
         "mean_server_total_ms": round(mean(server_totals_ms), 3) if server_totals_ms else None,
+        "policy_decision_budget_ms": case.policy_decision_budget_ms,
+        "mean_policy_decision_ms": round(mean(policy_decision_ms), 3) if policy_decision_ms else None,
+        "policy_decision_p95_ms": policy_p95_ms if policy_decision_ms else None,
+        "policy_decision_passed": policy_passed,
         "passed": passed,
         "latencies_ms": latencies_ms,
+        "policy_decision_ms": policy_decision_ms,
     }
     if base_url:
         result["base_url"] = base_url
@@ -184,6 +197,7 @@ def run_case(client: Any, case: LatencyCase, *, warmups: int, repetitions: int) 
 
     latencies_ms: list[float] = []
     server_totals_ms: list[float] = []
+    policy_decision_ms: list[float] = []
     for _ in range(repetitions):
         started = time.perf_counter()
         response = client.post(endpoint, json=payload)
@@ -195,6 +209,9 @@ def run_case(client: Any, case: LatencyCase, *, warmups: int, repetitions: int) 
         total = (body.get("timings_ms") or {}).get("total")
         if total is not None:
             server_totals_ms.append(float(total))
+        policy_decision = (body.get("timings_ms") or {}).get("policy_decision_ms")
+        if policy_decision is not None:
+            policy_decision_ms.append(float(policy_decision))
 
     return _case_result(
         case=case,
@@ -203,6 +220,7 @@ def run_case(client: Any, case: LatencyCase, *, warmups: int, repetitions: int) 
         repetitions=repetitions,
         latencies_ms=latencies_ms,
         server_totals_ms=server_totals_ms,
+        policy_decision_ms=policy_decision_ms,
     )
 
 
@@ -285,6 +303,7 @@ def run_live_http_case(
 
     latencies_ms: list[float] = []
     server_totals_ms: list[float] = []
+    policy_decision_ms: list[float] = []
     for _ in range(repetitions):
         started = time.perf_counter()
         try:
@@ -302,6 +321,9 @@ def run_live_http_case(
         total = (body.get("timings_ms") or {}).get("total")
         if total is not None:
             server_totals_ms.append(float(total))
+        policy_decision = (body.get("timings_ms") or {}).get("policy_decision_ms")
+        if policy_decision is not None:
+            policy_decision_ms.append(float(policy_decision))
 
     return _case_result(
         case=case,
@@ -310,6 +332,7 @@ def run_live_http_case(
         repetitions=repetitions,
         latencies_ms=latencies_ms,
         server_totals_ms=server_totals_ms,
+        policy_decision_ms=policy_decision_ms,
         base_url=base_url.rstrip("/"),
     )
 
@@ -338,17 +361,20 @@ def run_live_http_gate(
 
 def render_summary(results: list[dict[str, Any]]) -> str:
     lines = [
-        f"{'case':<24} {'fixture_kb':>10} {'p50':>10} {'p95':>10} {'budget':>10} {'status':>8}",
-        "-" * 78,
+        f"{'case':<24} {'fixture_kb':>10} {'p50':>10} {'p95':>10} {'budget':>10} {'policy_p95':>12} {'policy_budget':>14} {'status':>8}",
+        "-" * 108,
     ]
     for item in results:
         status = "PASS" if item["passed"] else "FAIL"
+        policy_p95 = item["policy_decision_p95_ms"]
         lines.append(
             f"{item['case']:<24} "
             f"{item['fixture_bytes'] / 1024:>10.1f} "
             f"{item['p50_ms']:>10.3f} "
             f"{item['p95_ms']:>10.3f} "
             f"{item['budget_ms']:>10.3f} "
+            f"{policy_p95 if policy_p95 is not None else 0.0:>12.3f} "
+            f"{item['policy_decision_budget_ms']:>14.3f} "
             f"{status:>8}"
         )
     return "\n".join(lines)

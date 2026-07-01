@@ -44,13 +44,14 @@ class LatencySloGateTests(unittest.TestCase):
         )
 
         self.assertLessEqual(fixture.stat().st_size, 10_000)
+        self.assertEqual(config["policy_decision_p95_budget_ms"], 25.0)
         self.assertEqual(
-            [(case.key, case.budget_ms) for case in cases],
+            [(case.key, case.budget_ms, case.policy_decision_budget_ms) for case in cases],
             [
-                ("review.strict", 500.0),
-                ("review.audit_grade", 3000.0),
-                ("anonymize.strict", 800.0),
-                ("anonymize.audit_grade", 4000.0),
+                ("review.strict", 500.0, 25.0),
+                ("review.audit_grade", 3000.0, 25.0),
+                ("anonymize.strict", 800.0, 25.0),
+                ("anonymize.audit_grade", 4000.0, 25.0),
             ],
         )
 
@@ -60,6 +61,7 @@ class LatencySloGateTests(unittest.TestCase):
             profile="audit_grade",
             budget_ms=3000.0,
             fixture_path=ROOT / "test" / "fixtures" / "latency-corpus" / "1k.txt",
+            policy_decision_budget_ms=25.0,
         )
         payload = self.mod._payload_for_case(case, "Memo text")
         self.assertEqual(payload["review_profile"], "audit_grade")
@@ -72,6 +74,7 @@ class LatencySloGateTests(unittest.TestCase):
             profile="strict",
             budget_ms=800.0,
             fixture_path=case.fixture_path,
+            policy_decision_budget_ms=25.0,
         )
         anonymize_payload = self.mod._payload_for_case(anonymize_case, "Memo text")
         self.assertTrue(anonymize_payload["include_mnpi_scalars"])
@@ -85,6 +88,8 @@ class LatencySloGateTests(unittest.TestCase):
                     "p50_ms": 10.0,
                     "p95_ms": 20.0,
                     "budget_ms": 500.0,
+                    "policy_decision_p95_ms": 2.0,
+                    "policy_decision_budget_ms": 25.0,
                     "passed": True,
                 },
                 {
@@ -93,11 +98,15 @@ class LatencySloGateTests(unittest.TestCase):
                     "p50_ms": 900.0,
                     "p95_ms": 901.0,
                     "budget_ms": 800.0,
+                    "policy_decision_p95_ms": 26.0,
+                    "policy_decision_budget_ms": 25.0,
                     "passed": False,
                 },
             ]
         )
         self.assertIn("review.strict", summary)
+        self.assertIn("policy_p95", summary)
+        self.assertIn("policy_budget", summary)
         self.assertIn("PASS", summary)
         self.assertIn("anonymize.strict", summary)
         self.assertIn("FAIL", summary)
@@ -106,7 +115,11 @@ class LatencySloGateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp_dir:
             fixture = Path(tmp_dir) / "sample.txt"
             fixture.write_text("sample text", encoding="utf-8")
-            config = {"default_fixture": "does/not/matter.txt", "budgets_ms": {"review.strict": 500.0}}
+            config = {
+                "default_fixture": "does/not/matter.txt",
+                "policy_decision_p95_budget_ms": 25.0,
+                "budgets_ms": {"review.strict": 500.0},
+            }
 
             self.assertEqual(self.mod.resolve_fixture(config, str(fixture)), fixture.resolve())
 
@@ -125,7 +138,7 @@ class LatencySloGateTests(unittest.TestCase):
                 body = json.dumps(
                     {
                         "received_profile": payload.get("review_profile"),
-                        "timings_ms": {"total": 12.5},
+                        "timings_ms": {"total": 12.5, "policy_decision_ms": 1.25},
                     }
                 ).encode("utf-8")
                 self.send_response(200)
@@ -150,6 +163,7 @@ class LatencySloGateTests(unittest.TestCase):
                     profile="strict",
                     budget_ms=500.0,
                     fixture_path=fixture,
+                    policy_decision_budget_ms=25.0,
                 )
                 results = self.mod.run_live_http_gate(
                     cases=[case],
@@ -167,9 +181,30 @@ class LatencySloGateTests(unittest.TestCase):
         self.assertEqual(results[0]["mode"], "live_http")
         self.assertEqual(results[0]["base_url"], base_url)
         self.assertEqual(results[0]["mean_server_total_ms"], 12.5)
+        self.assertEqual(results[0]["mean_policy_decision_ms"], 1.25)
+        self.assertEqual(results[0]["policy_decision_p95_ms"], 1.25)
+        self.assertTrue(results[0]["policy_decision_passed"])
         self.assertEqual(Handler.paths, ["/review", "/review"])
         self.assertEqual(Handler.api_keys, ["test-key", "test-key"])
         self.assertEqual(Handler.authorizations, ["Bearer bearer-test", "Bearer bearer-test"])
+
+    def test_in_process_gate_records_policy_decision_overhead(self):
+        fixture = ROOT / "test" / "fixtures" / "latency-corpus" / "1k.txt"
+        case = self.mod.LatencyCase(
+            surface="review",
+            profile="strict",
+            budget_ms=500.0,
+            fixture_path=fixture,
+            policy_decision_budget_ms=25.0,
+        )
+
+        results = self.mod.run_gate(cases=[case], warmups=0, repetitions=1)
+
+        self.assertEqual(results[0]["mode"], "in_process")
+        self.assertIsNotNone(results[0]["mean_policy_decision_ms"])
+        self.assertIsNotNone(results[0]["policy_decision_p95_ms"])
+        self.assertLessEqual(results[0]["policy_decision_p95_ms"], 25.0)
+        self.assertTrue(results[0]["policy_decision_passed"])
 
     def test_live_base_url_can_come_from_environment(self):
         with mock.patch.dict(os.environ, {"JUNAS_LATENCY_SLO_BASE_URL": "https://staging.example"}, clear=False):
