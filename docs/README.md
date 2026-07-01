@@ -19,6 +19,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `security/adapter-threat-model.md`: threat boundaries for Outlook, browser, Word, desktop, DMS, and direct API adapters
 - `security/api-inventory.md`: route inventory with auth, roles, tenant scope, rate limits, and payload caps
 - `security/dependency-scanning.md`: dependency and artifact scanning gates for Python, adapters, Office assets, and PyInstaller
+- `security/sbom.md`: CycloneDX SBOM generation for server and local desktop release artifacts
 - `assumption.md`: implementation assumptions and invariants
 - `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
 - `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths

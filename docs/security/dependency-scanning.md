@@ -103,7 +103,8 @@ If Office assets later gain npm dependencies, require `package-lock.json`, `npm 
 
 The desktop bundle is a second security surface because PyInstaller freezes Python
 packages into `dist/junas-local/`. Audit the packaging dependency set before building,
-then inventory the exact output.
+then inventory the exact output. Generate the release SBOM with
+`docs/security/sbom.md`.
 
 ```sh
 uv export --locked --extra packaging --format requirements-txt --output-file reports/security/requirements-packaging.txt
