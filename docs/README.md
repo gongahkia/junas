@@ -15,6 +15,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `accuracy.md`: generated per-detector recall/precision disclosure
 - `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, and SIEM guidance
 - `mapping-store-hardening.md`: encryption, retention, subject erasure, and deployment controls for persisted mappings
+- `security/local-daemon.md`: local daemon pairing, token, origin, socket, loopback, and uninstall controls
 - `assumption.md`: implementation assumptions and invariants
 - `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
 - `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths
