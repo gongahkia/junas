@@ -12,7 +12,7 @@ Evaluation and corpus:
 
 Admin and audit:
 - `export_audit_pack.py`, `verify_audit_pack.py`, `verify_journal.py`, `erase_subject.py`, `purge_mappings.py`
-- `generate_tenant_credentials.py`, `scan_dms_manifest.py`, `check_retention_manifest.py`, `promote_journal_to_corpus.py`, `export_false_positive_queue.py`
+- `generate_tenant_credentials.py`, `scan_dms_manifest.py`, `check_retention_manifest.py`, `promote_journal_to_corpus.py`, `export_false_positive_queue.py`, `export_false_negative_queue.py`
 
 Packaging and clients:
 - `package_macos_desktop.sh`, `package_browser_extension.sh`, `render_outlook_manifest.py`, `validate_outlook_manifest.py`, `check_python_clients.sh`, `export_openapi_examples.py`

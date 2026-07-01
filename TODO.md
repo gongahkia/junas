@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/FeedbackLoop: Add a script that exports reviewer-added or approval-required unresolved items into a false-negative candidate queue.
 - [ ] P0/FeedbackLoop: Break the circular recall gate so promoted labels are not derived from detector runtime output, since `scripts/reconcile_candidate_strict_labels.py:117` promotes runtime findings into ground truth and `scripts/autolabel_fixture.py:70` requests detector-aligned labels, making strict recall 1.0 partly tautological (done when: no label in the promoted lock carries provenance traceable to the detector's own run; a CI check fails if any label's `_label_source` or `reason` indicates runtime promotion; strict recall is reported alongside an independent-label recall computed only over labels with non-detector provenance).
 - [ ] P0/FeedbackLoop: Add corpus promotion docs requiring human review, fixture labels, recall gate, precision report, and docs/accuracy update before claiming improved detection.
 - [ ] P0/FeedbackLoop: Add CI checks that promoted fixture locks are updated when reviewed corpus labels change.

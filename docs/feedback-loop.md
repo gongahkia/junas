@@ -43,6 +43,7 @@ signals until reviewed.
 | Export session evidence | `scripts/export_audit_pack.py` | Produces a controlled audit ZIP for a review session. |
 | Verify audit pack | `scripts/verify_audit_pack.py` | Checks pack layout, pack HMAC, journal slice, and counts. |
 | Export false-positive queue | `scripts/export_false_positive_queue.py` | Emits authorized reviewer rejects with hashed document ids and fixture sidecar templates. |
+| Export false-negative queue | `scripts/export_false_negative_queue.py` | Emits reviewer-added and unresolved approval-required items as false-negative candidate work. |
 | Generate fixture | `scripts/generate_legal_fixture.py` | Creates a single synthetic legal/privacy fixture. |
 | Generate candidate batch | `scripts/generate_candidate_corpus.py` | Creates batched synthetic candidate fixtures. |
 | Scrub fixture | `scripts/check_fixture_scrub.py` | Blocks secrets or raw customer data before fixture commit. |
