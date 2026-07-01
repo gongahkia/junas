@@ -5,6 +5,8 @@ import sys
 import unittest
 from pathlib import Path
 
+import tomllib
+
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -928,6 +930,8 @@ class DeploymentDocsTests(unittest.TestCase):
 
     def test_desktop_watcher_doc_marks_opt_in_local_fallback_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "desktop-watcher.md").read_text(encoding="utf-8")
+        sample_path = ROOT / "docs" / "integrations" / "desktop-watcher.config.sample.toml"
+        sample = tomllib.loads(sample_path.read_text(encoding="utf-8"))
         for token in (
             "Opt-In Local Fallback Flow",
             "junas-watch --watch-folder",
@@ -935,6 +939,10 @@ class DeploymentDocsTests(unittest.TestCase):
             "`junas-watch` remains a packaged console script",
             "Maturity: `experimental-local-fallback`",
             "Clipboard polling is never enabled by default",
+            "desktop-watcher.config.sample.toml",
+            "flag/env based",
+            "clipboard = false",
+            "requires explicit user opt-in",
             "Threat Model",
             "Clipboard sensitivity",
             "pbpaste",
@@ -953,6 +961,15 @@ class DeploymentDocsTests(unittest.TestCase):
             "cannot prove that every local file",
         ):
             self.assertIn(token, text)
+
+        self.assertEqual(sample["schema"], "junas.desktop_watcher.config.sample.v1")
+        self.assertEqual(sample["maturity"], "experimental-local-fallback")
+        self.assertEqual(sample["backend"]["base_url"], "http://127.0.0.1:8765")
+        self.assertEqual(sample["sources"]["watch_folder"], "./drop")
+        self.assertEqual(sample["sources"]["clipboard"], False)
+        self.assertEqual(sample["output"]["notify"], False)
+        self.assertEqual(sample["operator_ack"]["clipboard_requires_explicit_opt_in"], True)
+        self.assertEqual(sample["operator_ack"]["dedicated_watch_folder_required"], True)
 
         threat_model = (ROOT / "docs" / "security" / "adapter-threat-model.md").read_text(encoding="utf-8")
         for token in (

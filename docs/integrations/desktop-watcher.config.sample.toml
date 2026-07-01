@@ -1,0 +1,32 @@
+# Reference operator sample for translating policy into junas-watch flags/env.
+# The current CLI is flag/env based; do not pass this file directly.
+
+schema = "junas.desktop_watcher.config.sample.v1"
+maturity = "experimental-local-fallback"
+
+[backend]
+base_url = "http://127.0.0.1:8765"
+local_token_file = "~/.config/junas/local-token"
+
+[review]
+source_jurisdiction = "SG"
+destination_jurisdiction = "SG"
+document_type = "generic"
+review_profile = "strict"
+timeout_seconds = 10.0
+
+[sources]
+paths = []
+watch_folder = "./drop"
+supported_suffixes = [".txt", ".md", ".csv", ".json", ".eml"]
+poll_seconds = 2.0
+clipboard = false
+
+[output]
+notify = false
+anonymize_output_dir = ""
+
+[operator_ack]
+clipboard_requires_explicit_opt_in = true
+dedicated_watch_folder_required = true
+do_not_watch_home_or_cloud_drive_root = true

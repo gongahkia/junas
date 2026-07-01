@@ -52,6 +52,11 @@ uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 
 If no file path, `--watch-folder`, or `--clipboard` is provided, the CLI exits with an argument error. Clipboard polling is never enabled by default.
 
+Reference config sample: `docs/integrations/desktop-watcher.config.sample.toml`.
+The current CLI is flag/env based and does not parse that file directly; use it as an
+operator checklist when building shell wrappers, MDM profiles, or runbooks. The sample
+keeps `clipboard = false` and requires explicit user opt-in through `--clipboard`.
+
 ## Folder Watch
 
 - `--watch-folder` recursively scans supported text-like suffixes.
