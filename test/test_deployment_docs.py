@@ -333,6 +333,36 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_redactor_to_review_migration_guide_covers_policy_pivot(self):
+        text = (ROOT / "docs" / "migration" / "redactor-to-review.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("migration/redactor-to-review.md", docs_index)
+        for token in (
+            "# Redactor-To-Review Migration Guide",
+            "pre-send review boundary",
+            "call `/review`",
+            "`policy_decision`",
+            "`action_catalog`",
+            "`review_id`",
+            "`review_expires_at`",
+            "top-level `send_allowed` is compatibility",
+            "`/pseudonymize` is for reversible placeholder workflows",
+            "`/anonymize` is irreversible placeholder output",
+            "`/redact-pii`",
+            "`/safe-rewrite`",
+            "`/request-approval`",
+            "Inventory clients that call `/classify`, `/pseudonymize`, `/anonymize`, or `/redact`",
+            "Require a fresh `/review`",
+            "`/classify` and `/classify/batch` remain compatibility shims",
+            "`/v1` aliases are not exposed yet",
+            "Review before send/share/submit",
+            "A transformation endpoint is the policy decision",
+            "docs/faq/developer.md",
+            "docs/policy/decision-contract.md",
+        ):
+            self.assertIn(token, text)
+
     def test_install_doc_separates_server_desktop_and_adapter_deployments(self):
         text = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
         headings = (
