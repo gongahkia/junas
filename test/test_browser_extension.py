@@ -170,6 +170,24 @@ class BrowserExtensionTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_browser_extension_docs_cover_mv3_worker_lifecycle(self):
+        text = (ROOT / "docs" / "integrations" / "browser-extension.md").read_text(encoding="utf-8")
+
+        for token in (
+            "## MV3 Service Worker Lifecycle",
+            "ephemeral",
+            "store pending review state",
+            "service-worker globals",
+            "chrome.storage.sync.get",
+            "junas-process-text",
+            "one backend request",
+            "chrome://extensions",
+            "edge://extensions",
+            "Stop or let the service worker go inactive",
+            "rereads endpoint/auth settings",
+        ):
+            self.assertIn(token, text)
+
 
 if __name__ == "__main__":
     unittest.main()

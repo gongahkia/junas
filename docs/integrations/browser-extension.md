@@ -56,6 +56,22 @@ Hosted-server deployments must build or publish a tenant-specific manifest that 
 only the exact HTTPS backend origin to `host_permissions`, for example
 `https://junas.example.com/*`. Do not use `<all_urls>` to make hosted mode work.
 
+## MV3 Service Worker Lifecycle
+
+The background script is an MV3 service worker and must be treated as ephemeral. Do not
+store pending review state, raw prompts, policy decisions, auth headers, or endpoint
+configuration in service-worker globals. Each `junas-process-text` message loads current
+settings with `chrome.storage.sync.get`, performs one backend request, returns the
+result, and lets the content script hold any UI state needed for the current page.
+
+Manual QA before release:
+
+- Open the extension details page in `chrome://extensions` or `edge://extensions`.
+- Run one context-menu review and one prompt-submit review.
+- Stop or let the service worker go inactive, then repeat both reviews.
+- Confirm the worker rereads endpoint/auth settings and no in-memory pending review is
+  required for retry.
+
 Security model:
 
 - Production rollout should use Chrome Web Store, Edge Add-ons, or enterprise extension policy.

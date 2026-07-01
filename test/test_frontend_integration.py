@@ -206,6 +206,71 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_browser_worker_reads_settings_per_message_for_mv3_lifecycle(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
+            const requests = [];
+            let settingsReadCount = 0;
+            let endpoint = "http://junas-one.local";
+            const context = {
+              fetch: async (url, options) => {
+                requests.push({url, body: JSON.parse(options.body)});
+                return {ok: true, json: async () => ({findings: [], degraded_modes: [], send_allowed: true})};
+              },
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => {
+                      settingsReadCount += 1;
+                      return {...defaults, endpoint};
+                    }
+                  }
+                },
+                runtime: {
+                  onInstalled: {addListener() {}},
+                  onMessage: {addListener(fn) { context.__messageListener = fn; }}
+                },
+                contextMenus: {
+                  create() {},
+                  onClicked: {addListener() {}}
+                },
+                tabs: {sendMessage: async () => {}}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "service_worker.js"});
+
+            function send(text) {
+              return new Promise((resolve) => {
+                const keepAlive = context.__messageListener(
+                  {type: "junas-process-text", text, operation: "review"},
+                  {tab: {id: 1}},
+                  resolve
+                );
+                assert.strictEqual(keepAlive, true);
+              });
+            }
+
+            (async () => {
+              await send("first prompt");
+              endpoint = "http://junas-two.local";
+              await send("second prompt");
+              assert.strictEqual(settingsReadCount, 2);
+              assert.strictEqual(requests[0].url, "http://junas-one.local/review");
+              assert.strictEqual(requests[1].url, "http://junas-two.local/review");
+              assert.strictEqual(requests[0].body.text, "first prompt");
+              assert.strictEqual(requests[1].body.text, "second prompt");
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
     def test_browser_options_connection_health_classifies_states(self):
         self.run_node(
             r"""
