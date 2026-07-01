@@ -55,6 +55,17 @@ SIEM_FACILITIES = frozenset(
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
     "api": frozenset({"allowed_origins", "max_request_bytes"}),
     "local_daemon": frozenset({"acl_enabled", "allowed_origins", "token", "token_file", "socket_path"}),
+    "rate_limit": frozenset(
+        {
+            "enabled",
+            "window_seconds",
+            "review_per_window",
+            "batch_classify_per_window",
+            "reidentify_per_window",
+            "local_pairing_per_window",
+            "decision_per_window",
+        }
+    ),
     "document_ingest": frozenset(
         {
             "fail_closed",
@@ -171,6 +182,17 @@ class LocalDaemonSettings:
     token: str
     token_file: str
     socket_path: str
+
+
+@dataclass(frozen=True)
+class RateLimitSettings:
+    enabled: bool
+    window_seconds: int
+    review_per_window: int
+    batch_classify_per_window: int
+    reidentify_per_window: int
+    local_pairing_per_window: int
+    decision_per_window: int
 
 
 @dataclass(frozen=True)
@@ -315,6 +337,7 @@ class RuntimeSettings:
     pipeline: PipelineSettings
     api: ApiSettings
     local_daemon: LocalDaemonSettings
+    rate_limit: RateLimitSettings
     document_ingest: DocumentIngestSettings
     tenancy: TenancySettings
     public_evidence: PublicEvidenceSettings
@@ -697,6 +720,93 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
                 default="",
             ),
             label="local_daemon.socket_path",
+        ),
+    )
+
+    rate_limit = RateLimitSettings(
+        enabled=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="enabled",
+                env_vars=("JUNAS_RATE_LIMIT_ENABLED",),
+                default=False,
+            ),
+            label="rate_limit.enabled",
+        ),
+        window_seconds=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="window_seconds",
+                env_vars=("JUNAS_RATE_LIMIT_WINDOW_SECONDS",),
+                default=60,
+            ),
+            label="rate_limit.window_seconds",
+            minimum=1,
+            maximum=3600,
+        ),
+        review_per_window=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="review_per_window",
+                env_vars=("JUNAS_RATE_LIMIT_REVIEW",),
+                default=120,
+            ),
+            label="rate_limit.review_per_window",
+            minimum=0,
+        ),
+        batch_classify_per_window=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="batch_classify_per_window",
+                env_vars=("JUNAS_RATE_LIMIT_BATCH_CLASSIFY",),
+                default=30,
+            ),
+            label="rate_limit.batch_classify_per_window",
+            minimum=0,
+        ),
+        reidentify_per_window=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="reidentify_per_window",
+                env_vars=("JUNAS_RATE_LIMIT_REIDENTIFY",),
+                default=60,
+            ),
+            label="rate_limit.reidentify_per_window",
+            minimum=0,
+        ),
+        local_pairing_per_window=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="local_pairing_per_window",
+                env_vars=("JUNAS_RATE_LIMIT_LOCAL_PAIRING",),
+                default=20,
+            ),
+            label="rate_limit.local_pairing_per_window",
+            minimum=0,
+        ),
+        decision_per_window=_parse_int(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="rate_limit",
+                key="decision_per_window",
+                env_vars=("JUNAS_RATE_LIMIT_DECISION",),
+                default=60,
+            ),
+            label="rate_limit.decision_per_window",
+            minimum=0,
         ),
     )
 
@@ -1626,6 +1736,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             max_request_bytes=max_request_bytes,
         ),
         local_daemon=local_daemon,
+        rate_limit=rate_limit,
         document_ingest=document_ingest,
         tenancy=tenancy,
         public_evidence=public_evidence,

@@ -88,6 +88,12 @@ The runtime does not call cloud KMS APIs directly. Keep decrypt permission outsi
 
 Browser and Office clients should use `/local/pairing/start`, desktop approval through `/local/pairing/approve`, then `/local/pairing/claim` to receive a signed expiring local client token. Protected endpoints accept the signed token in `X-Junas-Local-Token`.
 
+## Rate Limits
+
+General backend rate limits are disabled by default and enabled with `JUNAS_RATE_LIMIT_ENABLED=1`. Configure per-window limits for `/review`, `/classify/batch`, `/reidentify`, local pairing, and approval/decision routes with the `JUNAS_RATE_LIMIT_*` variables documented in [`security/rate-limits.md`](./security/rate-limits.md).
+
+The built-in limiter is process-local. Production deployments with multiple workers or pods must enforce equivalent limits at the reverse proxy, API gateway, WAF, or service mesh.
+
 ## Local Daemon CSRF Boundary
 
 Browser-origin requests to a local Junas daemon must pass both checks:

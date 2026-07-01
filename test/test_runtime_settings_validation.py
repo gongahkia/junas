@@ -80,6 +80,34 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
 
         self.assertEqual(settings.api.max_request_bytes, 4096)
 
+    def test_rate_limit_settings_load_from_config_and_env(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [rate_limit]
+            enabled = true
+            window_seconds = 120
+            review_per_window = 7
+            batch_classify_per_window = 3
+            reidentify_per_window = 5
+            local_pairing_per_window = 2
+            decision_per_window = 4
+            """
+        )
+
+        with patch.dict(os.environ, {"JUNAS_RATE_LIMIT_REIDENTIFY": "9"}, clear=False):
+            settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertTrue(settings.rate_limit.enabled)
+        self.assertEqual(settings.rate_limit.window_seconds, 120)
+        self.assertEqual(settings.rate_limit.review_per_window, 7)
+        self.assertEqual(settings.rate_limit.batch_classify_per_window, 3)
+        self.assertEqual(settings.rate_limit.reidentify_per_window, 9)
+        self.assertEqual(settings.rate_limit.local_pairing_per_window, 2)
+        self.assertEqual(settings.rate_limit.decision_per_window, 4)
+
     def test_llm_helper_layers_are_valid_and_enable_matching_helpers(self):
         config_path = self._write_config(
             """

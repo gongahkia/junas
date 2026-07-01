@@ -165,6 +165,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 _state: dict[str, Any] = {}
 _demo_rate_limit_lock = Lock()
+_rate_limit_lock = Lock()
 
 RISK_ORDER = {
     Classification.SAFE: 0,
@@ -587,6 +588,70 @@ def _public_demo_client_key(request: Request) -> str:
     if forwarded:
         return forwarded.split(",", 1)[0].strip() or "unknown"
     return request.client.host if request.client else "unknown"
+
+
+def _hashed_rate_limit_identity(prefix: str, value: str) -> str:
+    return f"{prefix}:{hashlib.sha256(value.encode('utf-8')).hexdigest()}"
+
+
+def _rate_limit_identity(request: Request) -> str:
+    tenant = tenant_context_from_request(request)
+    if tenant.enabled and tenant.tenant_id:
+        principal = f"{tenant.storage_tenant_id or tenant.tenant_id}:{tenant.subject or tenant.tenant_id}"
+        return _hashed_rate_limit_identity("tenant", principal)
+    api_key = request.headers.get("x-api-key", "").strip()
+    if api_key:
+        return _hashed_rate_limit_identity("api_key", api_key)
+    authorization = request.headers.get("authorization", "").strip()
+    if authorization:
+        return _hashed_rate_limit_identity("auth", authorization)
+    local_token = request.headers.get(LOCAL_TOKEN_HEADER, "").strip()
+    if local_token:
+        return _hashed_rate_limit_identity("local", local_token)
+    return _hashed_rate_limit_identity("ip", _public_demo_client_key(request))
+
+
+def _rate_limit_for_category(category: str) -> int:
+    limits = current_runtime_settings().rate_limit
+    return {
+        "review": limits.review_per_window,
+        "batch_classify": limits.batch_classify_per_window,
+        "reidentify": limits.reidentify_per_window,
+        "local_pairing": limits.local_pairing_per_window,
+        "decision": limits.decision_per_window,
+    }[category]
+
+
+def _enforce_endpoint_rate_limit(request: Request, category: str) -> None:
+    limits = current_runtime_settings().rate_limit
+    limit = _rate_limit_for_category(category)
+    if not limits.enabled or limit <= 0:
+        return
+    now = time.monotonic()
+    window = float(limits.window_seconds)
+    cutoff = now - window
+    identity = _rate_limit_identity(request)
+    key = f"{category}:{identity}"
+    with _rate_limit_lock:
+        buckets = _state.setdefault("rate_limit", {})
+        if not isinstance(buckets, dict):
+            buckets = {}
+            _state["rate_limit"] = buckets
+        history = [stamp for stamp in buckets.get(key, []) if float(stamp) >= cutoff]
+        if len(history) >= limit:
+            retry_after = max(1, int((float(history[0]) + window) - now) + 1)
+            raise HTTPException(
+                status_code=429,
+                detail=f"{category} rate limit exceeded",
+                headers={
+                    "Retry-After": str(retry_after),
+                    "X-RateLimit-Limit": str(limit),
+                    "X-RateLimit-Remaining": "0",
+                    "X-RateLimit-Reset": str(int(time.time()) + retry_after),
+                },
+            )
+        history.append(now)
+        buckets[key] = history
 
 
 def _enforce_public_demo_rate_limit(request: Request) -> None:
@@ -3131,6 +3196,7 @@ async def local_pairing_status():
     description="Create a short-lived first-connect pairing request for browser and Office clients.",
 )
 async def local_pairing_start(req: LocalPairingStartRequest, request: Request):
+    _enforce_endpoint_rate_limit(request, "local_pairing")
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
         return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
@@ -3168,8 +3234,10 @@ async def local_pairing_start(req: LocalPairingStartRequest, request: Request):
 )
 async def local_pairing_approve(
     req: LocalPairingCodeRequest,
+    request: Request,
     x_junas_local_token: str | None = Header(default=None, alias=LOCAL_TOKEN_HEADER),
 ):
+    _enforce_endpoint_rate_limit(request, "local_pairing")
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
         return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
@@ -3215,7 +3283,8 @@ async def local_pairing_approve(
     summary="Claim approved local daemon pairing",
     description="Return the signed local client token after the desktop/tray approval step completes.",
 )
-async def local_pairing_claim(req: LocalPairingCodeRequest):
+async def local_pairing_claim(req: LocalPairingCodeRequest, request: Request):
+    _enforce_endpoint_rate_limit(request, "local_pairing")
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
         return PrettyJSONResponse(status_code=409, content={"detail": "local daemon ACL is disabled"})
@@ -3409,6 +3478,7 @@ async def classify(request: Request, req: ClassifyRequest):
     ),
 )
 async def classify_batch(request: Request, req: BatchClassifyRequest):
+    _enforce_endpoint_rate_limit(request, "batch_classify")
     return await run_in_threadpool(_run_batch_classify_sync, req, getattr(request.state, "request_id", None))
 
 
@@ -3428,6 +3498,7 @@ async def review_document(
     request: Request,
     req: Annotated[ReviewRequest, Body(openapi_examples=ADAPTER_SURFACE_REVIEW_EXAMPLES)],
 ):
+    _enforce_endpoint_rate_limit(request, "review")
     return await run_in_threadpool(
         _run_review_sync,
         req,
@@ -3496,6 +3567,7 @@ async def request_review_approval(
     req: RequestApprovalRequest,
     x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
 ):
+    _enforce_endpoint_rate_limit(request, "decision")
     tenant = tenant_context_from_request(request)
     requester_id, requester_identity_source = _resolve_reviewer_identity(
         tenant=tenant,
@@ -3745,6 +3817,7 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None, tenant:
     ),
 )
 async def reidentify_document(request: Request, req: ReidentifyRequest):
+    _enforce_endpoint_rate_limit(request, "reidentify")
     return await run_in_threadpool(
         _run_reidentify_sync,
         req,
@@ -3887,6 +3960,7 @@ async def post_review_decision(
     req: ReviewDecisionRequest,
     x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
 ):
+    _enforce_endpoint_rate_limit(request, "decision")
     _ensure_persistence_enabled()
     tenant = tenant_context_from_request(request)
     resolved_reviewer_id, reviewer_identity_source = _resolve_reviewer_identity(

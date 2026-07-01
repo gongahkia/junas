@@ -801,6 +801,34 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, combined)
 
+    def test_rate_limit_docs_cover_backend_route_groups(self):
+        rate_limits = (ROOT / "docs" / "security" / "rate-limits.md").read_text(encoding="utf-8")
+        admin = (ROOT / "docs" / "admin-security.md").read_text(encoding="utf-8")
+        inventory = (ROOT / "docs" / "security" / "api-inventory.md").read_text(encoding="utf-8")
+        index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        combined = "\n".join([rate_limits, admin, inventory, index])
+
+        for token in (
+            "security/rate-limits.md",
+            "JUNAS_RATE_LIMIT_ENABLED=1",
+            "JUNAS_RATE_LIMIT_WINDOW_SECONDS",
+            "JUNAS_RATE_LIMIT_REVIEW",
+            "JUNAS_RATE_LIMIT_BATCH_CLASSIFY",
+            "JUNAS_RATE_LIMIT_REIDENTIFY",
+            "JUNAS_RATE_LIMIT_LOCAL_PAIRING",
+            "JUNAS_RATE_LIMIT_DECISION",
+            "POST /review",
+            "POST /classify/batch",
+            "POST /reidentify",
+            "POST /local/pairing/start",
+            "POST /request-approval",
+            "POST /review/{review_id}/decision",
+            "process-local",
+            "reverse proxy",
+            "X-RateLimit-Limit",
+        ):
+            self.assertIn(token, combined)
+
     def test_known_limitations_cover_office_browser_vendor_platform_limits(self):
         text = (ROOT / "docs" / "known-limitations.md").read_text(encoding="utf-8")
 
