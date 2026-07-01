@@ -43,6 +43,25 @@ Reference layers:
 
 Do not start with every adapter. Production pilots should run direct API plus one supported workflow adapter, then add more surfaces only after auth, policy, telemetry, retention, and failure behavior have been verified for the current surface.
 
+## Docker Production Example
+
+Use `docker-compose.production.example.yml` as the customer-managed Docker baseline. It is separate from the local/demo compose file because it must fail closed when production controls are missing.
+
+The example requires:
+
+- tenant auth: `JUNAS_TENANCY_ENABLED=1` plus `JUNAS_TENANT_CREDENTIALS_JSON`
+- versioned policy config mounted at `/etc/junas/policy.toml`
+- HMAC journal keys via `JUNAS_JOURNAL_KEYS_FILE`
+- persisted review state under `/var/lib/junas/journal`
+- `JUNAS_MAPPING_STORE_KEY` and `JUNAS_SUBJECT_INDEX_KEY`
+- `JUNAS_RETENTION_MANIFEST`
+- `JUNAS_ALLOW_PLAINTEXT_MAPPINGS=0` and `JUNAS_DEV_AUTH=0`
+- preflight before boot: `scripts/preflight.py --deployment production --strict`
+- no Uvicorn access log and no reverse-proxy request-body logging
+- readiness healthcheck that parses `/ready` and requires `ready=true`
+
+Sample mounted files live in `deploy/docker/`. Replace every sample domain, API key, HMAC secret, Fernet key, subject-index key, retention reference, and policy id/version before production use.
+
 ## Deployment Mode Comparison
 
 | Mode | Primary use | Backend boundary | Persistence and secrets | Adapter posture | Main cautions |

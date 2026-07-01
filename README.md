@@ -544,6 +544,15 @@ docker compose up --build
 curl http://localhost:8000/ready
 ```
 
+Production Docker baseline:
+
+```bash
+docker compose -f docker-compose.production.example.yml up --build
+curl -fsS http://localhost:8000/ready
+```
+
+This example turns on tenant auth, policy config, journal keys, no body logs, and readiness checks. Replace the sample files under `deploy/docker/` before use.
+
 Managed LLM deployment:
 
 ```bash

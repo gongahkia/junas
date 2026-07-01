@@ -1,0 +1,12 @@
+[policy]
+policy_id = "docker-production-example"
+policy_version = "2026-07-01-docker-example"
+internal_domains = ["example.com"]
+warn_on_low_risk_findings = true
+degraded_block_action = "retry_review"
+high_pii_required_actions = ["redact_pii", "request_approval", "safe_rewrite"]
+high_mnpi_external_actions = ["hold_until_public", "request_approval"]
+public_mnpi_recommended_actions = ["cite_public_source", "request_approval"]
+reviewer_override_roles = ["legal_reviewer", "compliance_admin"]
+medium_risk_recommended_actions = ["proceed_with_warning", "request_approval"]
+low_risk_recommended_actions = ["proceed_with_warning"]

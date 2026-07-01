@@ -1,0 +1,57 @@
+services:
+  junas:
+    build:
+      context: .
+    image: junas:production-example
+    ports:
+      - "${JUNAS_PORT:-8000}:8000"
+    command: >
+      sh -c "python scripts/preflight.py --deployment production --strict &&
+             uvicorn junas.backend.main:app --host 0.0.0.0 --port 8000 --no-access-log"
+    environment:
+      JUNAS_DEPLOYMENT_MODE: production
+      JUNAS_HOST: 0.0.0.0
+      JUNAS_PORT: 8000
+      JUNAS_TENANCY_ENABLED: "1"
+      JUNAS_TENANCY_AUTH_MODES: "${JUNAS_TENANCY_AUTH_MODES:-api_key}"
+      JUNAS_TENANT_CREDENTIALS_JSON: "${JUNAS_TENANT_CREDENTIALS_JSON:?set tenant credential JSON}"
+      JUNAS_POLICY_CONFIG: /etc/junas/policy.toml
+      JUNAS_REVIEW_PERSIST: "1"
+      JUNAS_JOURNAL_DIR: /var/lib/junas/journal
+      JUNAS_JOURNAL_KEYS_FILE: /etc/junas/journal-keys.toml
+      JUNAS_MAPPING_STORE_KEY: "${JUNAS_MAPPING_STORE_KEY:?set Fernet mapping-store key}"
+      JUNAS_SUBJECT_INDEX_KEY: "${JUNAS_SUBJECT_INDEX_KEY:?set subject-index HMAC key}"
+      JUNAS_RETENTION_MANIFEST: /etc/junas/retention_manifest.json
+      JUNAS_ALLOW_PLAINTEXT_MAPPINGS: "0"
+      JUNAS_DEV_AUTH: "0"
+      JUNAS_PUBLIC_DEMO_ENABLED: "0"
+      JUNAS_PUBLIC_EVIDENCE_ENABLED: "0"
+      JUNAS_PUBLIC_EVIDENCE_PROVIDER: none
+      JUNAS_LLM_ENABLED: "0"
+      JUNAS_LLM_PROVIDER: none
+      JUNAS_LLM_ALLOW_REMOTE_BASE_URL: "0"
+      JUNAS_LLM_ALLOW_REMOTE_RAW_TEXT: "0"
+      JUNAS_RATE_LIMIT_ENABLED: "1"
+      JUNAS_SIEM_ENABLED: "${JUNAS_SIEM_ENABLED:-0}"
+      JUNAS_SIEM_SINK: "${JUNAS_SIEM_SINK:-syslog}"
+      JUNAS_SIEM_SYSLOG_ADDRESS: "${JUNAS_SIEM_SYSLOG_ADDRESS:-/var/run/syslog}"
+      JUNAS_SIEM_FACILITY: "${JUNAS_SIEM_FACILITY:-local4}"
+      JUNAS_SIEM_APP_NAME: "${JUNAS_SIEM_APP_NAME:-junas}"
+    volumes:
+      - junas-journal:/var/lib/junas/journal
+      - ./deploy/docker/policy.production.example.toml:/etc/junas/policy.toml:ro
+      - ./deploy/docker/journal-keys.example.toml:/etc/junas/journal-keys.toml:ro
+      - ./deploy/docker/retention_manifest.example.json:/etc/junas/retention_manifest.json:ro
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS http://127.0.0.1:8000/ready | python -c 'import json,sys; raise SystemExit(0 if json.load(sys.stdin).get(\"ready\") is True else 1)'",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  junas-journal:

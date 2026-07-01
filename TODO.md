@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/Deployment: Add Docker production example that enables tenant auth, policy config, journal keys, no body logs, and readiness checks.
 - [ ] P1/Deployment: Add Kubernetes reference manifests or documented non-goal for Kubernetes if not ready.
 - [ ] P1/Deployment: Add reverse proxy examples for TLS, request size limits, route allowlist, timeouts, and body logging disabled.
 - [ ] P1/Deployment: Add managed-LLM deployment docs that clearly separate deterministic-only default from opt-in public evidence and LLM adjudication.
