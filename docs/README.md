@@ -57,6 +57,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `admin-console/no-build-prototype.md`: no-build admin console wireframe required before frontend framework dependencies or admin UI routes
 - `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
+- `integrations/adapter-packaging.md`: browser extension and Office add-in packaging artifacts separate from backend deployment
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows
 - `policy/schema.md`: policy TOML fields, decision precedence, thresholds, recipient-domain rules, roles, and failure modes
 - `policy/examples.md`: sample tenant policy profiles for strict, soft-warning, offline, audit-grade, and GenAI review modes

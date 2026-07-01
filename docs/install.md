@@ -90,6 +90,7 @@ packaging/macos/uninstall.sh
 ## Outlook Add-In Deployment
 
 Source: `integrations/outlook_addin/manifest.xml`.
+Packaging guide: `docs/integrations/adapter-packaging.md`.
 
 Start the backend or local daemon first, then render and validate the add-in manifest for the hosted add-in origin:
 
@@ -106,6 +107,7 @@ See `docs/integrations/outlook.md` for admin roles, CORS, well-known URI, client
 ## Browser Extension Deployment
 
 Source: `integrations/browser_extension/`.
+Packaging guide: `docs/integrations/adapter-packaging.md`.
 
 Start the backend or local daemon first, then package the MV3 extension:
 
@@ -123,6 +125,7 @@ See `docs/integrations/genai-browser.md` and `docs/integrations/browser-extensio
 ## Word Taskpane Deployment
 
 Source: `integrations/word_addin/manifest.xml`.
+Packaging guide: `docs/integrations/adapter-packaging.md`.
 
 Start the backend or local daemon first, replace manifest URLs with a deployer-controlled HTTPS origin, then deploy with Microsoft 365 admin-managed deployment or a controlled sideload path:
 

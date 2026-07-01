@@ -14,6 +14,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | DMS manifest scanner | `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
 | DMS matter id mapping | backend contract boundary | `dms-matter-ids.md` |
 | Adapter compatibility matrix | backend contract boundary | `compatibility-matrix.md` |
+| Adapter packaging | browser and Office artifact boundary | `adapter-packaging.md` |
 | Adapter certification checklist | promotion evidence boundary | `adapter-certification-checklist.md` |
 | No single pathway pilot guidance | production pilot boundary | `no-single-pathway.md` |
 | Future Slack / Google Workspace notes | research-only | `future-slack-google-workspace.md` |
