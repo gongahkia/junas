@@ -301,6 +301,50 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_admin_console_reviewer_queue_requirements(self):
+        text = (ROOT / "docs" / "admin-console" / "reviewer-queue.md").read_text(
+            encoding="utf-8"
+        )
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        requirements = (ROOT / "docs" / "admin-console" / "requirements.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("admin-console/reviewer-queue.md", docs_index)
+        self.assertIn("docs/admin-console/reviewer-queue.md", requirements)
+        for token in (
+            "Reviewer Queue Requirements",
+            "`approval_required` decisions",
+            "`request_approval` actions",
+            "assignment",
+            "rationale",
+            "SLA",
+            "immutable audit trail requirement",
+            "HMAC-chained tamper-evidence only",
+            "`approval_id`",
+            "`sla_due_at`",
+            "`assigned_to`",
+            "`required_reviewer_roles`",
+            "Assignment",
+            "assign",
+            "claim",
+            "release",
+            "reassign",
+            "caller-supplied tenant ids",
+            "approval_assigned",
+            "approval_reassigned",
+            "Rationale",
+            "reason_code",
+            "docs/policy/journal-replay.md",
+            "approval_decision_recorded",
+            "SLA timers start at `requested_at`",
+            "approval_sla_breached",
+            "scripts/verify_journal.py",
+            "No broad raw document viewer",
+            "No claim that Junas alone provides storage-level immutability",
+        ):
+            self.assertIn(token, text)
+
     def test_docs_state_conditional_mapping_and_journal_guarantees(self):
         docs = {
             "README.md": (ROOT / "README.md").read_text(encoding="utf-8"),
