@@ -262,6 +262,42 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, text.lower())
 
+    def test_operator_faq_explains_junas_complements_dlp(self):
+        text = (ROOT / "docs" / "faq" / "operator.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("faq/operator.md", docs_index)
+        for token in (
+            "# Operator FAQ",
+            "Checked on 2026-07-01",
+            "pre-send review",
+            "safe rewrite",
+            "audit-evidence layer",
+            "enterprise control plane",
+            "Microsoft Purview DLP",
+            "https://learn.microsoft.com/en-us/purview/dlp-learn-about-dlp",
+            "Enterprise applications and devices",
+            "Inline web traffic",
+            "Google Workspace DLP",
+            "https://knowledge.workspace.google.com/admin/security/about-dlp",
+            "My Drive and Shared drives",
+            "Chat DLP",
+            "Slack DLP",
+            "https://slack.com/help/articles/12914005852819-Slack-data-loss-prevention",
+            "messages, text-based files, and canvases",
+            "unsupported content types",
+            "Endpoint Controls",
+            "MDM",
+            "EDR",
+            "SIEM export",
+            "Do not disable existing DLP",
+            "sole exfiltration control",
+            "docs/product/non-goals.md",
+            "docs/known-limitations.md",
+            "docs/security/adapter-threat-model.md",
+        ):
+            self.assertIn(token, text)
+
     def test_install_doc_separates_server_desktop_and_adapter_deployments(self):
         text = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
         headings = (
