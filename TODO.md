@@ -94,7 +94,6 @@
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
 - [ ] P1/MarketValidation: Interview at least five target users across legal, compliance, and security, then update `docs/product/personas.md` with validated workflows and pain points.
 - [ ] P1/MarketValidation: Run a manual task study comparing standalone copy-paste redaction versus Outlook/browser in-workflow review and record adoption friction in `docs/product/value-metrics.md`.
-- [ ] P1/MarketValidation: Add procurement demo scripts for backend API only, Outlook pre-send, browser GenAI prompt, DMS upload, and audit export.
 - [ ] P1/MarketValidation: Add a "manual redactor is not enough" evidence note after validation, or remove the claim if validation does not support it.
 - [ ] P1/MarketValidation: Add a support triage template for detector miss, false positive, adapter failure, auth failure, policy dispute, and audit export issue.
 - [ ] P1/MarketValidation: Add a customer-facing changelog format that separates detector accuracy changes, policy behavior changes, adapter behavior changes, and security fixes.

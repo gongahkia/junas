@@ -7,6 +7,8 @@ proof, legal liability, data residency, admin deployment, user friction, false
 positives, and existing DLP interoperability.
 Use `docs/product/claim-review-checklist.md` before turning any answer into public
 marketing, security, or procurement copy.
+Use `docs/product/procurement-demo-scripts.md` for backend API, Outlook, browser GenAI,
+DMS, and audit export demos with synthetic data only.
 
 ## Accuracy Claim Rule
 
