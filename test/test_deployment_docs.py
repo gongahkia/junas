@@ -571,6 +571,7 @@ class DeploymentDocsTests(unittest.TestCase):
             "scripts/promote_candidate_fixtures.py",
             "scripts/check_promoted_lock_freshness.py",
             "scripts/check_false_negative_risk.py",
+            "scripts/check_precision_risk.py",
             "scripts/run_layer_attribution_eval.py",
             "candidate_recall.lock.json",
             "legal-corpus-reviewed-candidates.lock.json",
@@ -588,6 +589,10 @@ class DeploymentDocsTests(unittest.TestCase):
             "CI also runs `scripts/check_false_negative_risk.py`",
             "Changes under `src/junas/policy/`, `src/junas/anonymize/`, or `src/junas/backend/`",
             "must pass `scripts/recall_gate.py` against the locked legal corpora",
+            "CI also runs `scripts/check_precision_risk.py`",
+            "Changes under `src/junas/review/`, `src/junas/backend/`, `src/junas/policy/`",
+            "`integrations/outlook_addin/`, or `integrations/browser_extension/`",
+            "must pass `scripts/recall_gate.py` against precision-backed locked corpora",
             "No raw journal text copied into fixtures",
             "No promoted accuracy claim from candidate-only",
         ):

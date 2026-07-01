@@ -95,6 +95,33 @@ jobs:
           fi
           uv run python scripts/check_false_negative_risk.py --base-ref "$BASE_SHA" --head-ref HEAD
 
+  precision-risk:
+    name: Precision risk gate
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - run: uv run python -m spacy download en_core_web_sm
+      - name: Check detector precision risk
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+          fi
+          if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            echo "No usable base SHA; skipping precision risk gate"
+            exit 0
+          fi
+          uv run python scripts/check_precision_risk.py --base-ref "$BASE_SHA" --head-ref HEAD
+
   docker-smoke:
     name: Docker smoke
     runs-on: ubuntu-latest

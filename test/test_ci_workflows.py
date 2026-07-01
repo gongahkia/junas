@@ -57,6 +57,15 @@ class CiWorkflowTests(unittest.TestCase):
         self.assertIn("uv run python -m spacy download en_core_web_sm", text)
         self.assertIn("fetch-depth: 0", text)
 
+    def test_precision_risk_gate_is_ci_wired(self):
+        text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+
+        self.assertIn("Precision risk gate", text)
+        self.assertIn("Check detector precision risk", text)
+        self.assertIn("scripts/check_precision_risk.py --base-ref", text)
+        self.assertIn("uv run python -m spacy download en_core_web_sm", text)
+        self.assertIn("fetch-depth: 0", text)
+
 
 if __name__ == "__main__":
     unittest.main()

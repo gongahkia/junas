@@ -7,7 +7,7 @@ Runtime and launch:
 - `demo.sh`, `demo.py`, `preflight.py`, `preflight_production.py`, `verify_runtime.sh`, `watch_backend_status.py`, `trace_request_logs.sh`, `smoke_local_daemon_acl.py`
 
 Evaluation and corpus:
-- `recall_gate.py`, `generate_accuracy_doc.py`, `generate_detector_dashboard.py`, `check_promoted_lock_freshness.py`, `check_false_negative_risk.py`, `benchmark_latency.py`, `benchmark_latency_corpus.sh`, `check_latency_slo.py`
+- `recall_gate.py`, `generate_accuracy_doc.py`, `generate_detector_dashboard.py`, `check_promoted_lock_freshness.py`, `check_false_negative_risk.py`, `check_precision_risk.py`, `benchmark_latency.py`, `benchmark_latency_corpus.sh`, `check_latency_slo.py`
 - candidate corpus, autolabel, bucketing, stage-gate, layer-attribution, defensibility, and frequency-table scripts
 
 Admin and audit:

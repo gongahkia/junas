@@ -58,6 +58,7 @@ signals until reviewed.
 | Promote candidates | `scripts/promote_candidate_fixtures.py` | Copies human-approved, non-runtime-derived candidate fixtures into reviewed corpus. |
 | Check promoted lock freshness | `scripts/check_promoted_lock_freshness.py` | Fails CI when reviewed fixture inputs change without the promoted lock and accuracy doc. |
 | Check false-negative risk | `scripts/check_false_negative_risk.py` | Runs locked legal-corpus recall gates when policy or rewrite paths change. |
+| Check precision risk | `scripts/check_precision_risk.py` | Runs precision-backed locked corpus gates when detector or Outlook/browser adapter paths change. |
 | Attribute misses | `scripts/run_layer_attribution_eval.py` | Writes candidate, miss-bucket, and concentration reports. |
 
 ## Canonical Workflow
@@ -220,6 +221,10 @@ and `docs/accuracy.md` in the same diff.
 CI also runs `scripts/check_false_negative_risk.py` on pull-request and push diffs.
 Changes under `src/junas/policy/`, `src/junas/anonymize/`, or `src/junas/backend/`
 must pass `scripts/recall_gate.py` against the locked legal corpora before merge.
+
+CI also runs `scripts/check_precision_risk.py` on pull-request and push diffs.
+Changes under `src/junas/review/`, `src/junas/backend/`, `src/junas/policy/`,
+`integrations/outlook_addin/`, or `integrations/browser_extension/` must pass `scripts/recall_gate.py` against precision-backed locked corpora before Outlook or browser adapter changes merge.
 
 ## Required Metadata
 
