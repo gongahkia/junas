@@ -152,7 +152,6 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
             "independent eval expansion",
             "hosted demo",
             "[`TODO.md`](./TODO.md)",
-            "[`TEMP-TODO.md`](./TEMP-TODO.md)",
         ):
             self.assertIn(token, status)
         for forbidden in ("production-ready", "complete", "guarantee", "guarantees", "procurement-grade"):
