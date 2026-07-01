@@ -199,6 +199,33 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, combined)
 
+    def test_known_limitations_cover_office_browser_vendor_platform_limits(self):
+        text = (ROOT / "docs" / "known-limitations.md").read_text(encoding="utf-8")
+
+        for token in (
+            "Microsoft 365/Office.js platform support",
+            "tenant admin assignment",
+            "client version",
+            "requirement sets",
+            "Outlook Smart Alerts `SoftBlock` is not fail-closed",
+            "Word taskpane is user-triggered review",
+            "Chrome/Edge MV3 behavior",
+            "managed profile policy",
+            "DOM selectors",
+            "CSP",
+            "frames",
+            "shadow DOM",
+            "mobile apps",
+            "native apps",
+            "unmanaged browsers",
+            "universal capture",
+            "universal DLP",
+            "full-browser DLP",
+            "guaranteed tenant-wide enforcement",
+            "workflow activation layers",
+        ):
+            self.assertIn(token, text)
+
     def test_install_doc_separates_server_desktop_and_adapter_deployments(self):
         text = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
         headings = (
