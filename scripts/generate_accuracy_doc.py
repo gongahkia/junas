@@ -152,8 +152,9 @@ def render_accuracy_doc() -> str:
         "`scripts/fetch_tab_fixture.sh` | `scripts/run_tab_eval.py` | "
         "1,268 manually annotated ECHR cases from an external corpus; scored from TAB "
         "`DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | "
-        "Separate eval target; reports span-level precision/recall/F2 and never updates the "
-        "candidate-corpus promotion lock. |",
+        "Separate eval target; reports span-level precision/recall/F2, includes TAB QUASI/coreference "
+        "singling-out validation, and never updates the candidate-corpus promotion lock. Current "
+        "singling-out report: `reports/current/tab_singling_out_validation_20260701.json`. |",
         "| ai4privacy `pii-masking-200k` | "
         "`test/fixtures/external/ai4privacy-pii-masking-200k/english_pii_43k.jsonl` via "
         "`scripts/fetch_ai4privacy_fixture.py` | `scripts/run_ai4privacy_eval.py` | "

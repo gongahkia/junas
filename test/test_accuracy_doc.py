@@ -29,6 +29,8 @@ class AccuracyDocTests(unittest.TestCase):
             "## Metric Convention",
             "Microsoft Presidio evaluation guidance",
             "beta=2 for pre-send safety",
+            "TAB QUASI/coreference singling-out validation",
+            "reports/current/tab_singling_out_validation_20260701.json",
             "## Promotion Claim Gate",
             "Fixture text and matching `.labels.json` sidecars",
             "`_human_review_status=approved`",

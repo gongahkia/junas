@@ -1,0 +1,164 @@
+{
+  "by_entity_type": {
+    "CODE": {
+      "f2": 0.237427,
+      "false_negative": 3841,
+      "false_positive": 19982,
+      "precision": 0.09922,
+      "recall": 0.364283,
+      "true_positive": 2201
+    },
+    "DATETIME": {
+      "f2": 0.280823,
+      "false_negative": 36055,
+      "false_positive": 10129,
+      "precision": 0.543389,
+      "recall": 0.250556,
+      "true_positive": 12054
+    },
+    "DEM": {
+      "f2": 0.175414,
+      "false_negative": 2804,
+      "false_positive": 20820,
+      "precision": 0.061443,
+      "recall": 0.327094,
+      "true_positive": 1363
+    },
+    "LOC": {
+      "f2": 0.120235,
+      "false_negative": 5711,
+      "false_positive": 20985,
+      "precision": 0.054005,
+      "recall": 0.173397,
+      "true_positive": 1198
+    },
+    "MISC": {
+      "f2": 0.093361,
+      "false_negative": 2792,
+      "false_positive": 21510,
+      "precision": 0.030339,
+      "recall": 0.194228,
+      "true_positive": 673
+    },
+    "ORG": {
+      "f2": 0.264153,
+      "false_negative": 9002,
+      "false_positive": 18285,
+      "precision": 0.17572,
+      "recall": 0.302171,
+      "true_positive": 3898
+    },
+    "PERSON": {
+      "f2": 0.494539,
+      "false_negative": 9906,
+      "false_positive": 12068,
+      "precision": 0.45598,
+      "recall": 0.50522,
+      "true_positive": 10115
+    },
+    "QUANTITY": {
+      "f2": 0.135434,
+      "false_negative": 2404,
+      "false_positive": 21217,
+      "precision": 0.043547,
+      "recall": 0.286647,
+      "true_positive": 966
+    }
+  },
+  "by_identifier_type": {
+    "DIRECT": {
+      "f2": 0.562079,
+      "false_negative": 1215,
+      "false_positive": 16659,
+      "precision": 0.24902,
+      "recall": 0.819706,
+      "true_positive": 5524
+    },
+    "QUASI": {
+      "f2": 0.210124,
+      "false_negative": 80797,
+      "false_positive": 4736,
+      "precision": 0.786503,
+      "recall": 0.177588,
+      "true_positive": 17447
+    }
+  },
+  "evaluation": {
+    "beta": 2,
+    "destination_jurisdiction": "UK",
+    "finding_categories": [
+      "PII"
+    ],
+    "match_mode": "overlap",
+    "multi_annotator_policy": "predictions are expanded per TAB annotator before span-level scoring",
+    "never_updates_promotion_lock": true,
+    "review_profile": "strict",
+    "separate_from_candidate_corpus": true,
+    "source_jurisdiction": "UK"
+  },
+  "prediction_rule_counts": {
+    "age_reference": 10,
+    "consent_withdrawal_marker": 31,
+    "data_minimisation_marker": 2,
+    "date_of_birth": 37,
+    "genetic_data": 6,
+    "medical_treatment": 3,
+    "minor_data_reference": 29,
+    "named_person": 6034,
+    "personal_attribute_inference": 197,
+    "phone_number": 37,
+    "political_opinion": 1,
+    "postal_address": 8475,
+    "quasi_identifier_combination": 69,
+    "religious_belief": 1,
+    "trade_union_membership": 7
+  },
+  "schema_version": "junas.tab_eval.v2",
+  "singling_out_validation": {
+    "external_gold_source": "TAB QUASI annotations and entity_id co-reference groups",
+    "gold_quasi_coreference_groups": 9753,
+    "gold_quasi_coreference_spans": 31871,
+    "gold_quasi_docs": 1268,
+    "gold_quasi_spans": 98244,
+    "quasi_identifier_combination_docs": 65,
+    "quasi_identifier_combination_overlap_score": {
+      "f2": 0.001615,
+      "false_negative": 98117,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 0.001293,
+      "true_positive": 127
+    },
+    "quasi_identifier_combination_predictions": 69,
+    "validation_note": "Uses external TAB quasi-identifier/coreference annotations; no Junas-authored singling-out labels are used."
+  },
+  "source": {
+    "document_count": 1268,
+    "fixture_commit": "558e09e26d6b36f5f78440074e6a233946d98bd9",
+    "fixture_path": "test/fixtures/external/text-anonymization-benchmark",
+    "gold_label_source": "TAB annotations only; no Junas-authored labels",
+    "masked_identifier_types": [
+      "DIRECT",
+      "QUASI"
+    ],
+    "name": "Text Anonymization Benchmark",
+    "repo": "https://github.com/NorskRegnesentral/text-anonymization-benchmark",
+    "splits": [
+      "train",
+      "dev",
+      "test"
+    ]
+  },
+  "summary": {
+    "documents": 1268,
+    "f2": 0.235731,
+    "false_negative": 84139,
+    "false_positive": 1339,
+    "gold_spans": 104983,
+    "precision": 0.939638,
+    "predicted_spans": 14939,
+    "recall": 0.198546,
+    "true_positive": 20844
+  },
+  "warnings": []
+}

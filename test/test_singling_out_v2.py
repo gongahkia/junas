@@ -7,6 +7,8 @@ from unittest import mock
 
 from junas.review.engine import PreSendReviewEngine
 from junas.review.singling_out.scorer import (
+    _QUASI_RULE_WEIGHTS,
+    _QUASI_RULES,
     _load_generated_tables,
     _load_sg_tables,
     _tables_for,
@@ -105,6 +107,13 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertEqual(metadata["k_anonymity_equivalence"], 1)
         self.assertEqual(metadata["re_identification_estimate"], 1.0)
         self.assertEqual(metadata["singling_out_scope"], "paragraph")
+        self.assertGreaterEqual(metadata["identifying_weight_total"], metadata["identifying_weight_threshold"])
+
+    def test_strict_weighted_scorer_does_not_fire_on_two_weak_quasi_ids(self):
+        self.assertEqual(self._quasi("Dr Jane Tan wrote to jane.tan@example.sg."), [])
+
+    def test_each_quasi_identifier_rule_has_identifying_weight(self):
+        self.assertFalse(sorted(_QUASI_RULES - set(_QUASI_RULE_WEIGHTS)))
 
     def test_identifiers_in_separate_paragraphs_do_not_aggregate(self):
         text = "Dr Jane Tan leads the team.\n\nPhone: +65 9123 4567.\n\nEmail: jane.tan@example.sg."
@@ -356,6 +365,19 @@ class SinglingOutV2Tests(unittest.TestCase):
                 )
         self.assertEqual(len(findings), 1)
         self.assertEqual(findings[0].metadata["k_anonymity_equivalence"], 1)
+
+    def test_weighted_fallback_emits_without_frequency_tables(self):
+        clear_table_cache_for_tests()
+        findings = self._quasi_for(
+            "Example subject: Mr Omar Al Qassim, Emirates ID 784-1989-1234567-9, "
+            "mobile +971 55 987 3210, work email omar@example.ae.",
+            "AE",
+        )
+        self.assertEqual(len(findings), 1)
+        metadata = findings[0].metadata
+        self.assertEqual(metadata["layer"], "singling_out_v2")
+        self.assertIn("jurisdiction_frequency_tables", metadata["frequency_tables_missing"])
+        self.assertGreaterEqual(metadata["identifying_weight_total"], metadata["identifying_weight_threshold"])
 
 
 if __name__ == "__main__":

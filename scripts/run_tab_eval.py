@@ -7,7 +7,7 @@ import argparse
 import json
 import subprocess
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Callable, Iterable
@@ -28,7 +28,7 @@ TAB_SPLIT_FILES = {
     "test": "echr_test.json",
 }
 MASKED_IDENTIFIER_TYPES = {"DIRECT", "QUASI"}
-SCHEMA_VERSION = "junas.tab_eval.v1"
+SCHEMA_VERSION = "junas.tab_eval.v2"
 
 
 @dataclass(frozen=True)
@@ -49,6 +49,7 @@ class GoldSpan:
     text: str
     entity_type: str
     identifier_type: str
+    entity_id: str
     entity_mention_id: str
 
 
@@ -166,6 +167,7 @@ def extract_gold_spans(docs: Iterable[TabDocument]) -> tuple[list[GoldSpan], lis
                         text=text,
                         entity_type=str(mention.get("entity_type") or ""),
                         identifier_type=identifier_type,
+                        entity_id=str(mention.get("entity_id") or ""),
                         entity_mention_id=str(mention.get("entity_mention_id") or ""),
                     )
                 )
@@ -280,6 +282,40 @@ def _score_by_key(
     return output
 
 
+def _singling_out_validation(
+    docs: Iterable[TabDocument],
+    gold_spans: Iterable[GoldSpan],
+    predictions: Iterable[PredictedSpan],
+    *,
+    match_mode: str,
+) -> dict[str, Any]:
+    docs_list = list(docs)
+    gold = list(gold_spans)
+    predicted = list(predictions)
+    quasi_gold = [span for span in gold if span.identifier_type == "QUASI"]
+    qic_predictions = [span for span in predicted if span.rule == "quasi_identifier_combination"]
+    coref: dict[tuple[str, str, str], list[GoldSpan]] = defaultdict(list)
+    for span in quasi_gold:
+        if span.entity_id:
+            coref[(span.doc_id, span.annotator, span.entity_id)].append(span)
+    coref_groups = [spans for spans in coref.values() if len(spans) > 1]
+    qic_score = score_spans(docs_list, quasi_gold, qic_predictions, match_mode=match_mode)
+    return {
+        "external_gold_source": "TAB QUASI annotations and entity_id co-reference groups",
+        "gold_quasi_spans": len(quasi_gold),
+        "gold_quasi_docs": len({span.doc_id for span in quasi_gold}),
+        "gold_quasi_coreference_groups": len(coref_groups),
+        "gold_quasi_coreference_spans": sum(len(spans) for spans in coref_groups),
+        "quasi_identifier_combination_predictions": len(qic_predictions),
+        "quasi_identifier_combination_docs": len({span.doc_id for span in qic_predictions}),
+        "quasi_identifier_combination_overlap_score": asdict(qic_score),
+        "validation_note": (
+            "Uses external TAB quasi-identifier/coreference annotations; no Junas-authored "
+            "singling-out labels are used."
+        ),
+    }
+
+
 def _git_commit(path: Path) -> str:
     try:
         result = subprocess.run(
@@ -351,6 +387,13 @@ def build_report(
             gold_spans,
             predictions,
             key_name="entity_type",
+            match_mode=match_mode,
+        ),
+        "prediction_rule_counts": dict(sorted(Counter(prediction.rule for prediction in predictions).items())),
+        "singling_out_validation": _singling_out_validation(
+            docs,
+            gold_spans,
+            predictions,
             match_mode=match_mode,
         ),
         "warnings": warnings,

@@ -55,6 +55,48 @@ _DIRECT_UNIQUE_RULES = frozenset({
     "crypto_wallet_address",
     "uk_company_number",
     "eu_company_id",
+    "my_mykad",
+    "id_nik",
+    "th_national_id",
+    "ph_philsys",
+    "ph_tin",
+    "vn_cccd",
+    "hk_hkid",
+    "hk_cr_no",
+    "au_tfn",
+    "au_abn",
+    "au_acn",
+    "jp_my_number",
+    "jp_corporate_number",
+    "kr_rrn",
+    "kr_business_registration",
+    "us_ssn",
+    "us_ein",
+    "us_itin",
+    "us_driver_license",
+    "uk_nin",
+    "in_aadhaar",
+    "in_pan",
+    "in_gstin",
+    "in_voter_id",
+    "cn_resident_id",
+    "cn_uscc",
+    "cn_phone",
+    "cn_passport",
+    "ae_emirates_id",
+    "ae_trade_licence",
+    "ae_passport",
+    "sa_national_id",
+    "sa_iqama",
+    "sa_commercial_registration",
+    "sg_court_citation",
+    "sg_paynow",
+    "sg_mas_licence",
+    "sg_acra_transaction_number",
+    "sg_hdb_reference",
+    "sg_sla_lot_number",
+    "sg_sla_title_plan_number",
+    "sg_ura_planning_reference",
 })
 _QUASI_RULES = frozenset({
     "named_person",
@@ -69,7 +111,61 @@ _QUASI_RULES = frozenset({
     "eu_postal_address",
     "postal_address",
     "personal_attribute_inference",
+    "ip_address",
+    "mac_address",
+    "imei",
+    "cookie_id",
+    "advertising_id",
+    "device_serial_number",
+    "minor_data_reference",
+    "religious_belief",
+    "trade_union_membership",
+    "political_opinion",
+    "racial_ethnic_origin",
+    "health_condition",
+    "medical_treatment",
+    "biometric_identifier",
+    "genetic_data",
+    "sexual_orientation",
+    "sex_life_reference",
 }) | _DIRECT_UNIQUE_RULES
+_POSTAL_RULES = frozenset({
+    "sg_postal_address",
+    "uk_postal_address",
+    "au_postal_address",
+    "jp_postal_address",
+    "kr_postal_address",
+    "us_postal_address",
+    "eu_postal_address",
+    "postal_address",
+})
+_CONTACT_RULES = frozenset({"email_address", "phone_number"})
+_DEVICE_RULES = frozenset({"ip_address", "mac_address", "imei", "cookie_id", "advertising_id", "device_serial_number"})
+_SPECIAL_CATEGORY_RULES = frozenset({
+    "religious_belief",
+    "trade_union_membership",
+    "political_opinion",
+    "racial_ethnic_origin",
+    "health_condition",
+    "medical_treatment",
+    "biometric_identifier",
+    "genetic_data",
+    "sexual_orientation",
+    "sex_life_reference",
+})
+_QUASI_RULE_WEIGHTS = {
+    **{rule: 1.1 for rule in _DIRECT_UNIQUE_RULES},
+    **{rule: 0.6 for rule in _CONTACT_RULES},
+    **{rule: 0.55 for rule in _POSTAL_RULES},
+    **{rule: 0.55 for rule in _DEVICE_RULES},
+    **{rule: 0.7 for rule in _SPECIAL_CATEGORY_RULES},
+    "named_person": 0.45,
+    "date_of_birth": 0.75,
+    "age_reference": 0.35,
+    "minor_data_reference": 0.65,
+    "personal_attribute_inference": 0.45,
+}
+_WEIGHT_THRESHOLD = 1.4
 _MIN_DISTINCT = 3
 _K_THRESHOLD = 20
 _DEFAULT_K = 5
@@ -82,17 +178,29 @@ _NAME_PREFIX_RE = re.compile(r"^(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+", re.IGNORECASE)
 _SURNAME_TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z'\-]*")
 _FREQUENCY_KEY_RE = re.compile(r"[A-Za-z0-9]+")
 _ROLE_PREFIX_RE = re.compile(r"^(?:JUNIOR|SENIOR|PRINCIPAL|LEAD|HEAD\s+OF|ASSOCIATE)\s+", re.IGNORECASE)
-_POSTAL_RULES = frozenset({
-    "sg_postal_address",
-    "uk_postal_address",
-    "au_postal_address",
-    "jp_postal_address",
-    "kr_postal_address",
-    "us_postal_address",
-    "eu_postal_address",
-    "postal_address",
-})
 _LOCALITY_RULES = _POSTAL_RULES | frozenset({"personal_attribute_inference"})
+
+
+def _identifying_weight(rule: str) -> float:
+    return _QUASI_RULE_WEIGHTS.get(rule, 0.25)
+
+
+def _weighted_score(findings: list[Any]) -> tuple[float, dict[str, float]]:
+    by_rule: dict[str, float] = {}
+    for finding in findings:
+        rule = str(getattr(finding, "rule", ""))
+        if rule not in _QUASI_RULES:
+            continue
+        by_rule[rule] = max(by_rule.get(rule, 0.0), _identifying_weight(rule))
+    return round(sum(by_rule.values()), 3), dict(sorted(by_rule.items()))
+
+
+def _weighted_k(score: float) -> int:
+    if score >= 2.2:
+        return 1
+    if score >= 1.8:
+        return 3
+    return 10
 
 
 def _resource_text(package: str, name: str) -> str:
@@ -591,8 +699,6 @@ def detect_singling_out(
     document_structure: Any,
 ) -> list[SinglingOutSpec]:
     tables = _tables_for(jurisdiction)
-    if tables is None:
-        return []
     quasi = [finding for finding in findings if str(getattr(finding, "rule", "")) in _QUASI_RULES]
     grouped: dict[tuple[str, int, int], list[Any]] = {}
     for finding in quasi:
@@ -606,13 +712,26 @@ def detect_singling_out(
     out: list[SinglingOutSpec] = []
     for (unit_kind, unit_start, unit_end), group in sorted(grouped.items(), key=lambda item: item[0][1]):
         rules = {str(f.rule) for f in group}
-        if len(rules) < _MIN_DISTINCT:
+        weight_score, weights = _weighted_score(group)
+        weight_crosses = weight_score >= _WEIGHT_THRESHOLD
+        if len(rules) < _MIN_DISTINCT and not weight_crosses:
             continue
         unit_text = ""
         if document_structure is not None:
             unit_text = str(getattr(document_structure, "text", "")[unit_start:unit_end])
-        k, used, missing = _estimate_k(unit_text, group, tables)
-        if k >= _K_THRESHOLD:
+        if tables is None:
+            if not weight_crosses:
+                continue
+            k = _weighted_k(weight_score)
+            used: list[str] = []
+            missing = ["jurisdiction_frequency_tables"]
+            table_jurisdiction = jurisdiction.upper()
+        else:
+            k, used, missing = _estimate_k(unit_text, group, tables)
+            if k >= _K_THRESHOLD and weight_crosses:
+                k = min(k, _weighted_k(weight_score))
+            table_jurisdiction = tables.jurisdiction
+        if k >= _K_THRESHOLD and not weight_crosses:
             continue
         start = min(int(f.start_char) for f in group)
         end = max(int(f.end_char) for f in group)
@@ -625,14 +744,22 @@ def detect_singling_out(
             "frequency_tables_used": used,
             "frequency_tables_missing": missing,
             "distinct_quasi_identifier_rules": sorted(rules),
+            "identifying_weights": weights,
+            "identifying_weight_total": weight_score,
+            "identifying_weight_threshold": _WEIGHT_THRESHOLD,
             "components": _component_spans(group),
             "quasi_identifier_component_spans": _component_spans(group),
             "legal_basis": legal_basis,
         }
-        if rules & _LOCALITY_RULES:
+        if tables is not None and rules & _LOCALITY_RULES:
             locality = _locality_evidence(unit_text, group, tables)
             if locality:
                 metadata["locality_evidence"] = locality
+        basis = (
+            f"{table_jurisdiction} population-prior estimate k={k}"
+            if tables is not None and used
+            else f"identifying_weight={weight_score:.2f} crosses threshold {_WEIGHT_THRESHOLD:.2f}"
+        )
         out.append(
             SinglingOutSpec(
                 severity=_severity_for_k(k),
@@ -640,8 +767,7 @@ def detect_singling_out(
                 start_char=start,
                 end_char=end,
                 reason=(
-                    f"{len(rules)} quasi-identifier rules co-occur in one {unit_kind}; "
-                    f"{tables.jurisdiction} population-prior estimate k={k}"
+                    f"{len(rules)} quasi-identifier rules co-occur in one {unit_kind}; {basis}"
                 ),
                 metadata=metadata,
             )

@@ -117,6 +117,7 @@ class TabEvalTests(unittest.TestCase):
                                     {
                                         "entity_type": "EMAIL",
                                         "entity_mention_id": "m1",
+                                        "entity_id": "e1",
                                         "start_offset": start,
                                         "end_offset": end,
                                         "span_text": "jane@example.com",
@@ -130,7 +131,7 @@ class TabEvalTests(unittest.TestCase):
             )
             finding = SimpleNamespace(
                 category="PII",
-                rule="email_address",
+                rule="quasi_identifier_combination",
                 severity="medium",
                 matched_text="jane@example.com",
                 start_char=start,
@@ -149,6 +150,69 @@ class TabEvalTests(unittest.TestCase):
         self.assertEqual(report["summary"]["precision"], 1.0)
         self.assertEqual(report["summary"]["recall"], 1.0)
         self.assertEqual(report["summary"]["f2"], 1.0)
+        self.assertEqual(report["prediction_rule_counts"]["quasi_identifier_combination"], 1)
+        self.assertEqual(
+            report["singling_out_validation"]["external_gold_source"],
+            "TAB QUASI annotations and entity_id co-reference groups",
+        )
+
+    def test_evaluate_tab_reports_external_quasi_coreference_validation(self):
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            text = "Alice Example lives in London. Alice can be reached at alice@example.test."
+            spans = [
+                ("m1", 0, 13, "Alice Example"),
+                ("m2", 31, 36, "Alice"),
+                ("m3", 55, 73, "alice@example.test"),
+            ]
+            _write_tab_split(
+                root,
+                "test",
+                [
+                    {
+                        "doc_id": "doc-1",
+                        "dataset_type": "test",
+                        "text": text,
+                        "annotations": {
+                            "ann-1": {
+                                "entity_mentions": [
+                                    {
+                                        "entity_type": "PERSON",
+                                        "entity_mention_id": mention_id,
+                                        "entity_id": "person-1",
+                                        "start_offset": start,
+                                        "end_offset": end,
+                                        "span_text": span_text,
+                                        "identifier_type": "QUASI",
+                                    }
+                                    for mention_id, start, end, span_text in spans
+                                ]
+                            }
+                        },
+                    }
+                ],
+            )
+            finding = SimpleNamespace(
+                category="PII",
+                rule="quasi_identifier_combination",
+                severity="medium",
+                matched_text=text,
+                start_char=0,
+                end_char=len(text),
+            )
+            report = evaluate_tab(
+                tab_dir=root,
+                splits=["test"],
+                engine_factory=lambda: _FakeEngine([finding]),
+                match_mode="overlap",
+            )
+
+        validation = report["singling_out_validation"]
+        self.assertEqual(validation["gold_quasi_spans"], 3)
+        self.assertEqual(validation["gold_quasi_coreference_groups"], 1)
+        self.assertEqual(validation["gold_quasi_coreference_spans"], 3)
+        self.assertEqual(validation["quasi_identifier_combination_predictions"], 1)
+        self.assertEqual(validation["quasi_identifier_combination_overlap_score"]["recall"], 0.333333)
 
 
 if __name__ == "__main__":
