@@ -14,6 +14,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `architecture.md`: pipeline architecture overview
 - `accuracy.md`: generated per-detector recall/precision disclosure
 - `observability-alerts.md`: privacy-safe Prometheus alert rules and preflight textfile metrics
+- `observability-metrics.md`: SIEM-safe, local-only, and prohibited metrics boundary
 - `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, and SIEM guidance
 - `mapping-store-hardening.md`: encryption, retention, subject erasure, and deployment controls for persisted mappings
 - `security/local-daemon.md`: local daemon pairing, token, origin, socket, loopback, and uninstall controls
