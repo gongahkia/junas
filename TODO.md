@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/Testing: Add an end-to-end test fixture that reviews a DMS document with MNPI and returns hold_until_public.
 - [ ] P0/Testing: Add an end-to-end test fixture that reviews internal-only low-risk content and returns warn or allow per default policy.
 - [ ] P0/Testing: Add snapshot tests for OpenAPI examples after policy decision fields are introduced.
 - [ ] P0/Testing: Add contract tests that all docs examples under `docs/api/` execute against the test app or schema parser.

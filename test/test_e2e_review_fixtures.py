@@ -45,6 +45,9 @@ class E2EReviewFixtureTests(unittest.TestCase):
     def test_genai_prompt_with_pii_returns_safe_rewrite_action(self):
         self._assert_review_fixture("genai_prompt_pii_safe_rewrite.json")
 
+    def test_dms_document_with_mnpi_returns_hold_until_public_action(self):
+        self._assert_review_fixture("dms_mnpi_hold_until_public.json")
+
 
 if __name__ == "__main__":
     unittest.main()

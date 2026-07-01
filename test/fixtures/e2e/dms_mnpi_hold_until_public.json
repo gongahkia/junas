@@ -1,0 +1,28 @@
+{
+  "name": "dms_mnpi_returns_hold_until_public",
+  "request": {
+    "text": "DMS upload memo: Project Atlas will acquire Target Pte Ltd for USD 2.5 billion before public announcement. The board approval package remains confidential and not generally known.",
+    "source_jurisdiction": "SG",
+    "destination_jurisdiction": "SG",
+    "document_type": "memo",
+    "surface": "dms",
+    "workflow": "document_upload",
+    "actor_role": "end_user",
+    "recipient_domains": ["dms.internal.example"],
+    "recipient_count": 0,
+    "attachment_count": 1,
+    "sensitivity_label": "confidential",
+    "external_destination": false,
+    "requested_action": "upload",
+    "matter_id": "imanage:M123"
+  },
+  "expected": {
+    "decision": "block",
+    "send_allowed": false,
+    "required_actions": ["hold_until_public"],
+    "finding": {
+      "category": "MNPI",
+      "severity": "high"
+    }
+  }
+}
