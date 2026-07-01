@@ -112,6 +112,24 @@ def render_accuracy_doc() -> str:
     lines.extend(
         [
             "",
+            "## Promotion Claim Gate",
+            "",
+            "Do not claim improved detection until all of this evidence is committed:",
+            "",
+            "- Fixture text and matching `.labels.json` sidecars exist for the promoted corpus.",
+            "- Labels carry `_human_review_status=approved`, `_human_review`, and no detector-derived provenance.",
+            "- `scripts/recall_gate.py --update --require-human-reviewed` has refreshed the promoted corpus lock.",
+            "- A precision report or precision lock is committed, including false-positive or `unexpected` counts.",
+            "- `docs/accuracy.md` is regenerated from locks and `scripts/generate_accuracy_doc.py --check` passes.",
+            "",
+            "Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not "
+            "improved-detection evidence.",
+        ]
+    )
+
+    lines.extend(
+        [
+            "",
             "## Per-Detector Baselines",
             "",
             "| Corpus | Fixtures | Detector | Recall | Precision |",

@@ -11,6 +11,11 @@ Use only promoted corpus locks and committed evaluation reports for accuracy sta
 - Promoted strict candidate report: [`reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json`](../../reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json)
 - Candidate status page: [`docs/candidate_corpus_status.md`](../candidate_corpus_status.md)
 
+Before claiming improved detection, verify that fixture text plus `.labels.json`
+sidecars are committed, labels are human-approved, the promoted recall lock was
+refreshed with `--require-human-reviewed`, precision evidence is committed, and
+`docs/accuracy.md` was regenerated from those locks.
+
 Current promoted strict evidence: 1,428 approved legal/cross-jurisdiction documents, 17,552 strict expected labels, strict recall `1.0000`, and strict precision `0.9269` in `20260608-strict-item70v2_strict_candidate_eval.json`.
 
 Treat this as an in-repo legal fixture benchmark and regression gate, not an independent market benchmark.

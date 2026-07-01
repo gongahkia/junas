@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/FeedbackLoop: Add corpus promotion docs requiring human review, fixture labels, recall gate, precision report, and docs/accuracy update before claiming improved detection.
 - [ ] P0/FeedbackLoop: Add CI checks that promoted fixture locks are updated when reviewed corpus labels change.
 - [ ] P0/FeedbackLoop: Add detector-level dashboard JSON generation from eval reports so admins can see which rules cause most overrides.
 - [ ] P0/FeedbackLoop: Add docs showing how adapter telemetry, policy outcomes, and reviewer decisions connect without storing raw prompts or emails.

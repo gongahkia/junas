@@ -20,6 +20,18 @@ This file is generated from committed recall and precision locks. Do not edit it
 | HK/AU/JP/KR jurisdiction corpus | 4 | `test/fixtures/legal-corpus-hk-au-jp-kr/legal-corpus-hk-au-jp-kr.lock.json` | Seed local-ID fixtures for HK, AU, JP, and KR. |
 | reviewed candidate corpus | 1428 | `test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json` | Human-approved candidate fixtures promoted into recall-lock form. |
 
+## Promotion Claim Gate
+
+Do not claim improved detection until all of this evidence is committed:
+
+- Fixture text and matching `.labels.json` sidecars exist for the promoted corpus.
+- Labels carry `_human_review_status=approved`, `_human_review`, and no detector-derived provenance.
+- `scripts/recall_gate.py --update --require-human-reviewed` has refreshed the promoted corpus lock.
+- A precision report or precision lock is committed, including false-positive or `unexpected` counts.
+- `docs/accuracy.md` is regenerated from locks and `scripts/generate_accuracy_doc.py --check` passes.
+
+Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not improved-detection evidence.
+
 ## Per-Detector Baselines
 
 | Corpus | Fixtures | Detector | Recall | Precision |

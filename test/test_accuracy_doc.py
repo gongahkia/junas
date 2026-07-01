@@ -21,6 +21,16 @@ class AccuracyDocTests(unittest.TestCase):
         self.assertIn("`au_tfn`", rendered)
         self.assertIn("`jp_my_number`", rendered)
         self.assertIn("not locked", rendered)
+        for token in (
+            "## Promotion Claim Gate",
+            "Fixture text and matching `.labels.json` sidecars",
+            "`_human_review_status=approved`",
+            "`scripts/recall_gate.py --update --require-human-reviewed`",
+            "precision report or precision lock",
+            "`scripts/generate_accuracy_doc.py --check` passes",
+            "Candidate-only reports, demo screenshots, unpromoted sidecars",
+        ):
+            self.assertIn(token, rendered)
 
 
 if __name__ == "__main__":

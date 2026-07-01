@@ -196,6 +196,13 @@ Promoted evidence lives at:
 - `test/fixtures/legal-corpus-reviewed-candidates/legal-corpus-reviewed-candidates.lock.json`
 - `docs/accuracy.md`
 
+Do not claim improved detection until the promoted corpus has fixture text plus
+`.labels.json` sidecars, all labels are human-approved, the recall gate refreshed the
+promoted lock with `--require-human-reviewed`, a precision report or precision lock is
+committed, and `docs/accuracy.md` is regenerated from those locks. Candidate-only
+reports, demo screenshots, unpromoted sidecars, and roadmap notes are not
+improved-detection evidence.
+
 ## Required Metadata
 
 Every feedback-derived candidate label must preserve:
