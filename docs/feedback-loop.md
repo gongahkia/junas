@@ -52,6 +52,7 @@ signals until reviewed.
 | Reconcile strict labels | `scripts/reconcile_candidate_strict_labels.py` | Reports runtime/label deltas without promoting runtime findings into labels. |
 | Promote exact spans | `scripts/promote_candidate_exact_spans.py` | Moves ideal labels into strict labels only when runtime emits exact spans. |
 | Evaluate candidates | `scripts/evaluate_candidate_corpus.py` | Produces candidate recall, precision, and `candidate_recall.lock.json`. |
+| Generate detector dashboard | `scripts/generate_detector_dashboard.py` | Aggregates eval reports into per-rule override-signal JSON without raw spans. |
 | Report stage status | `scripts/candidate_corpus_report.py` | Summarizes candidate stage, review state, and eval posture. |
 | Stage gate | `scripts/check_candidate_stage_gate.py` | Gates jurisdiction stage advancement and promotion readiness. |
 | Promote candidates | `scripts/promote_candidate_fixtures.py` | Copies human-approved, non-runtime-derived candidate fixtures into reviewed corpus. |
@@ -156,6 +157,10 @@ uv run python scripts/evaluate_candidate_corpus.py \
   --update-lock \
   --require-human-reviewed \
   --reason "reviewer feedback candidate baseline"
+
+uv run python scripts/generate_detector_dashboard.py \
+  --eval-report reports/layer-attribution/20260608-strict-item70v2_strict_candidate_eval.json \
+  --output reports/detector-dashboard.json
 ```
 
 The reconcile step is report-only. Do not copy runtime findings into `must_detect`.
@@ -166,6 +171,8 @@ The candidate lock is `test/fixtures/legal-corpus-candidates/candidate_recall.lo
 It is a candidate-corpus baseline, not promoted production accuracy evidence.
 Candidate evaluation reports both strict candidate recall and independent-label recall;
 the independent metric excludes labels whose provenance indicates runtime promotion.
+The detector dashboard lets admins rank rules by override signals from `unexpected`
+and `must_not_detect_violations` counts. It intentionally omits raw matched text.
 
 ### 6. Promote Reviewed Candidates
 
