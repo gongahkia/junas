@@ -1303,6 +1303,58 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_adapter_auth_doc_defines_tenant_credential_boundary(self):
+        text = (ROOT / "docs" / "integrations" / "auth.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("auth.md", integrations_index)
+        for token in (
+            "Status: normative for adapters",
+            "## Supported Modes",
+            "API key registry",
+            "`X-API-Key: <key>`",
+            "JWT",
+            "`Authorization: Bearer <jwt>`",
+            "Local daemon pairing",
+            "`X-Junas-Local-Token: <signed-token>`",
+            "## API Key Registry",
+            "JUNAS_TENANCY_ENABLED=1",
+            "JUNAS_TENANCY_AUTH_MODES=api_key",
+            "JUNAS_TENANT_CREDENTIALS_JSON",
+            "Resolves `tenant_id`, `subject`, and `roles`",
+            "## JWT",
+            "JUNAS_JWT_ISSUER",
+            "JUNAS_JWT_AUDIENCE",
+            "JUNAS_JWT_JWKS_URL",
+            "JUNAS_JWT_TENANT_CLAIM",
+            "Validates signature, issuer, audience, expiry",
+            "SAML deployments should terminate SAML",
+            "## Local Daemon Pairing",
+            "POST /local/pairing/start",
+            "POST /local/pairing/approve",
+            "POST /local/pairing/claim",
+            "Pairing request TTL: 300 seconds",
+            "Signed local client token TTL: 90 days",
+            "Origin` matches `JUNAS_LOCAL_DAEMON_ALLOWED_ORIGINS`",
+            "## Tenant Context",
+            "Tenant context is derived only from validated credentials",
+            "Caller-supplied tenant ids are ignored",
+            "`X-Tenant-ID`",
+            "`tenant_id`",
+            "Tenant A reading Tenant B review sessions",
+            "Reidentify calls crossing tenant mapping stores",
+            "Approval or decision writes against another tenant's journal",
+            "## Route Auth Expectations",
+            "`/review/{review_id}/decision`",
+            "`/reidentify`",
+            "Do not retry 401 or 403 automatically",
+            "## Telemetry Boundary",
+            "`auth_mode`",
+            "`tenant_hash`",
+            "API keys, JWTs, local tokens",
+        ):
+            self.assertIn(token, text)
+
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
         for token in (
