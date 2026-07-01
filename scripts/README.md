@@ -4,7 +4,7 @@ This folder contains stable CLI entrypoints. Keep paths stable because docs, fix
 
 Runtime and launch:
 - `launch/`: UV-first backend launchers.
-- `demo.sh`, `demo.py`, `preflight.py`, `preflight_production.py`, `verify_runtime.sh`, `watch_backend_status.py`, `trace_request_logs.sh`, `smoke_local_daemon_acl.py`
+- `demo.sh`, `demo.py`, `preflight.py`, `preflight_production.py`, `verify_runtime.sh`, `watch_backend_status.py`, `trace_request_logs.sh`, `trace_policy_decision.sh`, `smoke_local_daemon_acl.py`
 
 Evaluation and corpus:
 - `recall_gate.py`, `generate_accuracy_doc.py`, `generate_detector_dashboard.py`, `check_promoted_lock_freshness.py`, `check_false_negative_risk.py`, `check_precision_risk.py`, `benchmark_latency.py`, `benchmark_latency_corpus.sh`, `check_latency_slo.py`
