@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/Testing: Add a failing test first for any README claim that references adapter support unless an adapter smoke test backs it.
 - [ ] P0/Observability: Add metrics for review surface, policy decision, required action, adapter timeout, degraded mode, approval requested, approval completed, and safe rewrite applied.
 - [ ] P0/Observability: Add privacy-safe aggregation docs showing how to measure product value without storing raw content.
 - [ ] P0/Observability: Add dashboards or JSON report generation for reviewed documents by surface, block rate, warn rate, rewrite rate, approval rate, and override rate.

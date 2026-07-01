@@ -216,13 +216,13 @@ Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI cap
 
 ## Adapter Maturity
 
-| Surface | Maturity | Role |
-|---|---|---|
-| API/client | `core` | Baseline HTTP/OpenAPI integration path. |
-| Outlook Smart Alerts | `supported-target` | First-class pre-send email review target. |
-| Browser GenAI extension | `supported-target` | First-class prompt review target for managed browser pilots. |
-| Word taskpane | `experimental` | Document review surface, not send-time enforcement. |
-| Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. |
+| Surface | Maturity | Role | Evidence |
+|---|---|---|---|
+| API/client | `core` | Baseline HTTP/OpenAPI integration path. | OpenAPI and backend contract tests. |
+| Outlook Smart Alerts | `supported-target` | First-class pre-send email review target. | [`test/test_adapter_smoke.py`](./test/test_adapter_smoke.py), [`test/test_outlook_manifest_validate.py`](./test/test_outlook_manifest_validate.py). |
+| Browser GenAI extension | `supported-target` | First-class prompt review target for managed browser pilots. | [`test/test_adapter_smoke.py`](./test/test_adapter_smoke.py), [`test/test_browser_extension.py`](./test/test_browser_extension.py). |
+| Word taskpane | `experimental` | Document review surface, not send-time enforcement. | Fixture smoke in [`test/test_adapter_smoke.py`](./test/test_adapter_smoke.py). |
+| Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. | Local watcher tests in [`test/test_desktop_watch.py`](./test/test_desktop_watch.py). |
 
 Browser GenAI screenshots: [`warn confirm`](./docs/assets/browser-extension/browser-extension-warn-confirm.png) and [`policy block`](./docs/assets/browser-extension/browser-extension-policy-block.png). They use a synthetic `chatgpt.com` fixture with the real MV3 extension and local backend; see [`docs/integrations/genai-browser.md`](./docs/integrations/genai-browser.md) for the DOM-stability caveat.
 

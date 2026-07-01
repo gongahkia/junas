@@ -44,7 +44,10 @@ def _metadata() -> dict:
 class AdapterMaturityMetadataTests(unittest.TestCase):
     def test_maturity_metadata_labels_are_defined(self):
         metadata = _metadata()
-        matrix = _rows_by(_table_after_heading(ROOT / "docs" / "integrations" / "maturity-matrix.md", "| Label |"), "Label")
+        matrix = _rows_by(
+            _table_after_heading(ROOT / "docs" / "integrations" / "maturity-matrix.md", "| Label |"),
+            "Label",
+        )
         self.assertEqual(set(metadata["labels"]), {label.strip("`") for label in matrix})
         for label, details in metadata["labels"].items():
             self.assertIsInstance(details["supported_marketing"], bool)
@@ -77,6 +80,20 @@ class AdapterMaturityMetadataTests(unittest.TestCase):
             with self.subTest(surface=surface["canonical_surface"]):
                 for term in UNSUPPORTED_MARKETING_TERMS:
                     self.assertNotIn(term, row_text)
+
+    def test_readme_supported_adapter_claims_have_smoke_test_evidence(self):
+        metadata = _metadata()
+        rows = _rows_by(_table_after_heading(ROOT / "README.md", "## Adapter Maturity"), "Surface")
+        labels = metadata["labels"]
+        for surface in metadata["surfaces"]:
+            if not surface["readme"] or surface["maturity"] == "core":
+                continue
+            if not labels[surface["maturity"]]["supported_marketing"]:
+                continue
+            row_text = " ".join(rows[surface["readme_surface"]].values())
+            with self.subTest(surface=surface["canonical_surface"]):
+                self.assertIn("test/test_adapter_smoke.py", row_text)
+                self.assertIn("smoke", row_text.lower())
 
     def test_integration_indexes_match_maturity_metadata(self):
         metadata = _metadata()
