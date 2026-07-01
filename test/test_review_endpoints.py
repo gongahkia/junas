@@ -113,6 +113,85 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             self.assertEqual(updated_finding["decision"], "reject")
             self.assertEqual(updated["decisions_recorded"], 1)
 
+    def test_review_decision_accepts_privacy_safe_feedback_metadata(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+
+            response = client.post(
+                f"/review/{review_id}/decision",
+                json={
+                    "finding_id": target["id"],
+                    "action": "reject",
+                    "decision_taxonomy": " false_positive ",
+                    "reviewer_confidence": 0.82,
+                    "detector_feedback": {
+                        "detector_issue_category": "defined_term_or_placeholder",
+                        "rule_id": target["rule"],
+                        "category": target["category"],
+                        "severity": target["severity"],
+                        "jurisdiction": "SG",
+                        "fixture_task_intent": "create_synthetic_fixture",
+                        "evidence_hashes": ["9b86d081884c7d659a2feaa0c55ad015"],
+                        "notes": "Defined term only",
+                    },
+                    "rationale": "sanitized note",
+                },
+            )
+            self.assertEqual(response.status_code, 200, response.text)
+            payload = response.json()
+            self.assertEqual(payload["decision_taxonomy"], "false_positive")
+            self.assertEqual(payload["reviewer_confidence"], 0.82)
+            self.assertEqual(
+                payload["detector_feedback"]["detector_issue_category"],
+                "defined_term_or_placeholder",
+            )
+            self.assertNotIn("matched_text", json.dumps(payload, sort_keys=True))
+
+            updated = client.get(f"/review/{review_id}").json()
+            updated_finding = next(f for f in updated["findings"] if f["id"] == target["id"])
+            self.assertEqual(updated_finding["decision_taxonomy"], "false_positive")
+            self.assertEqual(updated_finding["decision_reviewer_confidence"], 0.82)
+            self.assertEqual(
+                updated_finding["decision_detector_feedback"]["fixture_task_intent"],
+                "create_synthetic_fixture",
+            )
+
+    def test_review_decision_rejects_invalid_feedback_metadata(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+            target = client.get(f"/review/{review_id}").json()["findings"][0]
+
+            bad_taxonomy = client.post(
+                f"/review/{review_id}/decision",
+                json={
+                    "finding_id": target["id"],
+                    "action": "reject",
+                    "decision_taxonomy": "detector_error",
+                },
+            )
+            self.assertEqual(bad_taxonomy.status_code, 422)
+
+            bad_confidence = client.post(
+                f"/review/{review_id}/decision",
+                json={
+                    "finding_id": target["id"],
+                    "action": "reject",
+                    "reviewer_confidence": 1.2,
+                },
+            )
+            self.assertEqual(bad_confidence.status_code, 422)
+
+            raw_text_feedback = client.post(
+                f"/review/{review_id}/decision",
+                json={
+                    "finding_id": target["id"],
+                    "action": "reject",
+                    "detector_feedback": {"raw_text": "Dr Jane Tan"},
+                },
+            )
+            self.assertEqual(raw_text_feedback.status_code, 422)
+
     def test_reviewer_id_header_is_ignored_without_dev_auth(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)

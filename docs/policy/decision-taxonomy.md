@@ -26,6 +26,8 @@ Taxonomy capture must be privacy-safe by default:
 
 - store the taxonomy label, reviewer role, finding id, rule, category, severity, and
   hashes for text-bearing fields
+- accept optional `reviewer_confidence` and structured `detector_feedback` metadata
+  without requiring raw text
 - do not require raw prompt, email body, document text, matched text, recipient address,
   filename, or source excerpt
 - use rationale fields only for scrubbed operational notes

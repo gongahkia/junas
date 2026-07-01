@@ -3,7 +3,7 @@ from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from junas.review.decisions import DECISION_ACTIONS
+from junas.review.decisions import DECISION_ACTIONS, DECISION_TAXONOMY, normalize_decision_taxonomy
 
 MAX_CLASSIFY_TEXT_LENGTH = 100000
 SafeRewriteAction = Literal["safe_rewrite", "redact_pii", "hold_until_public"]
@@ -1229,12 +1229,73 @@ class DocumentScrubResponse(BaseModel):
     )
 
 
+DetectorIssueCategory = Literal[
+    "context_false_positive",
+    "defined_term_or_placeholder",
+    "public_information",
+    "entity_type_confusion",
+    "jurisdiction_mismatch",
+    "span_boundary_error",
+    "severity_or_policy_mismatch",
+    "duplicate_or_dedup_error",
+    "reviewer_error_or_dispute",
+    "needs_detector_issue",
+]
+
+
+class ReviewDecisionDetectorFeedback(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    detector_issue_category: Optional[DetectorIssueCategory] = Field(
+        None,
+        description="Privacy-safe detector issue category for feedback triage.",
+    )
+    rule_id: Optional[str] = Field(None, max_length=128, description="Detector rule id.")
+    category: Optional[str] = Field(None, max_length=64, description="Finding category.")
+    severity: Optional[str] = Field(None, max_length=32, description="Finding severity.")
+    jurisdiction: Optional[str] = Field(None, max_length=64, description="Jurisdiction or pack context.")
+    source_verification: Optional[str] = Field(None, max_length=64, description="Source verification status.")
+    fixture_task_intent: Optional[
+        Literal[
+            "none",
+            "needs_more_review",
+            "create_synthetic_fixture",
+            "file_detector_issue",
+            "known_limitation",
+            "discard_reviewer_error",
+        ]
+    ] = Field(None, description="Optional downstream detector-quality workflow intent.")
+    evidence_hashes: list[str] = Field(
+        default_factory=list,
+        max_length=32,
+        description="Hashes for text-bearing evidence; no raw text required.",
+    )
+    notes: str = Field("", max_length=1024, description="Scrubbed operational notes; no raw text required.")
+
+    @field_validator("notes")
+    @classmethod
+    def sanitize_notes(cls, value: str) -> str:
+        cleaned = value.replace("\x00", "")
+        cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
+        return cleaned.strip()
+
+
 class ReviewDecisionRequest(BaseModel):
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
                 "finding_id": "pii:named_person:5:16:0",
                 "action": "reject",
+                "decision_taxonomy": "false_positive",
+                "reviewer_confidence": 0.85,
+                "detector_feedback": {
+                    "detector_issue_category": "defined_term_or_placeholder",
+                    "rule_id": "named_person",
+                    "category": "PII",
+                    "severity": "low",
+                    "evidence_hashes": ["9b86d081884c7d659a2feaa0c55ad015"],
+                    "notes": "Defined term in contract preamble",
+                },
                 "replacement_text": "",
                 "rationale": "Defined term in contract preamble, not a real party",
             }
@@ -1248,6 +1309,17 @@ class ReviewDecisionRequest(BaseModel):
         description="Finding identifier from a prior /review response.",
     )
     action: str = Field(..., description=f"One of: {', '.join(DECISION_ACTIONS)}.")
+    decision_taxonomy: Optional[str] = Field(None, description=f"One of: {', '.join(DECISION_TAXONOMY)}.")
+    reviewer_confidence: Optional[float] = Field(
+        None,
+        ge=0.0,
+        le=1.0,
+        description="Reviewer confidence in the decision, from 0.0 to 1.0.",
+    )
+    detector_feedback: Optional[ReviewDecisionDetectorFeedback] = Field(
+        None,
+        description="Privacy-safe detector feedback metadata; raw text is not required.",
+    )
     replacement_text: str = Field("", max_length=4096, description="Rewrite text when action=rewrite.")
     rationale: str = Field("", max_length=2048, description="Reviewer note recorded in the journal.")
     reviewer_id: str = Field(
@@ -1268,11 +1340,27 @@ class ReviewDecisionRequest(BaseModel):
             raise ValueError(f"action must be one of: {', '.join(DECISION_ACTIONS)}")
         return normalized
 
+    @field_validator("decision_taxonomy")
+    @classmethod
+    def normalize_taxonomy(cls, value: Optional[str]) -> Optional[str]:
+        if value is None:
+            return None
+        normalized = value.strip()
+        if not normalized:
+            return None
+        return normalize_decision_taxonomy(normalized)
+
 
 class ReviewDecisionResponse(BaseModel):
     review_id: str = Field(description="Review session identifier.")
     finding_id: str = Field(description="Finding identifier whose decision was recorded.")
     action: str = Field(description=f"Recorded action: {', '.join(DECISION_ACTIONS)}.")
+    decision_taxonomy: Optional[str] = Field(None, description=f"Feedback taxonomy: {', '.join(DECISION_TAXONOMY)}.")
+    reviewer_confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="Reviewer confidence score.")
+    detector_feedback: Optional[ReviewDecisionDetectorFeedback] = Field(
+        None,
+        description="Privacy-safe detector feedback metadata.",
+    )
     reviewer_id: str = Field("", description="Reviewer identifier persisted alongside the decision.")
     reviewer_identity_source: str = Field(
         "none",
@@ -1329,6 +1417,17 @@ class ReviewSessionFindingState(BaseModel):
     decision_reviewer_identity_source: Optional[str] = Field(
         None,
         description="Source for decision_reviewer_id on the latest decision.",
+    )
+    decision_taxonomy: Optional[str] = Field(None, description="Feedback taxonomy on the latest decision.")
+    decision_reviewer_confidence: Optional[float] = Field(
+        None,
+        ge=0.0,
+        le=1.0,
+        description="Reviewer confidence on the latest decision.",
+    )
+    decision_detector_feedback: Optional[ReviewDecisionDetectorFeedback] = Field(
+        None,
+        description="Privacy-safe detector feedback metadata on the latest decision.",
     )
 
 

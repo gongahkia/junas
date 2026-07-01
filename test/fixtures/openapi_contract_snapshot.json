@@ -796,6 +796,9 @@
       "properties": [
         "finding_id",
         "action",
+        "decision_taxonomy",
+        "reviewer_confidence",
+        "detector_feedback",
         "replacement_text",
         "rationale",
         "reviewer_id"
@@ -810,6 +813,9 @@
         "review_id",
         "finding_id",
         "action",
+        "decision_taxonomy",
+        "reviewer_confidence",
+        "detector_feedback",
         "reviewer_id",
         "reviewer_identity_source",
         "seq",
@@ -856,6 +862,8 @@
         "rule",
         "severity",
         "matched_text",
+        "matched_text_sha256",
+        "matched_text_char_count",
         "start_char",
         "end_char",
         "source",
@@ -867,14 +875,16 @@
         "decision_seq",
         "decision_ts",
         "decision_reviewer_id",
-        "decision_reviewer_identity_source"
+        "decision_reviewer_identity_source",
+        "decision_taxonomy",
+        "decision_reviewer_confidence",
+        "decision_detector_feedback"
       ],
       "required": [
         "id",
         "category",
         "rule",
         "severity",
-        "matched_text",
         "start_char",
         "end_char"
       ]

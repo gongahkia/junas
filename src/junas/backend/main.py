@@ -3804,6 +3804,9 @@ def _session_finding_state(finding: dict[str, Any], decision: dict[str, Any] | N
         decision_reviewer_identity_source=(
             decision.get("reviewer_identity_source") if decision else None
         ),
+        decision_taxonomy=decision.get("decision_taxonomy") if decision else None,
+        decision_reviewer_confidence=decision.get("reviewer_confidence") if decision else None,
+        decision_detector_feedback=decision.get("detector_feedback") if decision else None,
     )
 
 
@@ -3896,6 +3899,13 @@ async def post_review_decision(
                 rationale=req.rationale,
                 reviewer_id=resolved_reviewer_id,
                 reviewer_identity_source=reviewer_identity_source,
+                decision_taxonomy=req.decision_taxonomy or "",
+                reviewer_confidence=req.reviewer_confidence,
+                detector_feedback=(
+                    req.detector_feedback.model_dump(exclude_none=True)
+                    if req.detector_feedback
+                    else {}
+                ),
             ),
             tenant_id=tenant.storage_tenant_id,
         )

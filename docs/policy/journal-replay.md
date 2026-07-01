@@ -30,6 +30,8 @@ Extended actions are additive:
 
 - Old journal entries replay unchanged; missing extended actions need no migration.
 - New actions are stored in the same `decision_recorded.payload.action` string field.
+- New privacy-safe feedback metadata may be stored on the same event as optional
+  `decision_taxonomy`, `reviewer_confidence`, and `detector_feedback` fields.
 - `reject` is the only action that can remove a finding from downstream anonymization input.
 - Reject removal requires `reviewer_identity_source` of `api_key`, `jwt`, or `dev_header` plus a non-empty `reviewer_id`.
 - `none`, empty, or legacy reviewer identity sources preserve the finding for downstream anonymization.
@@ -40,4 +42,7 @@ Extended actions are additive:
 
 ## API Compatibility
 
-`POST /review/{review_id}/decision` keeps the same request and response shape. The only contract change is that `action` accepts the extended action strings above. Existing clients that send `accept`, `reject`, or `rewrite` continue to work without request changes.
+`POST /review/{review_id}/decision` keeps `finding_id` and `action` as the only
+required request fields. Optional `decision_taxonomy`, `reviewer_confidence`, and
+`detector_feedback` fields can be sent without raw text. Existing clients that send
+only `accept`, `reject`, or `rewrite` continue to work without request changes.

@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from junas.review.journal import JournalEntry, append_event, read_journal
@@ -36,6 +36,21 @@ ALLOWED_ACTIONS = frozenset(DECISION_ACTIONS)
 ALLOWED_DECISION_TAXONOMY = frozenset(DECISION_TAXONOMY)
 REJECT_ACTIONS = frozenset({"reject"})
 AUTHORIZED_REVIEWER_IDENTITY_SOURCES = frozenset({"api_key", "jwt", "dev_header"})
+TEXT_BEARING_DETECTOR_FEEDBACK_KEYS = frozenset(
+    {
+        "raw_text",
+        "matched_text",
+        "document_text",
+        "email_body",
+        "prompt",
+        "source_excerpt",
+        "recipient_address",
+        "filename",
+        "mapping_value",
+        "auth_header",
+        "local_pairing_token",
+    }
+)
 POSITIVE_CORPUS_ACTIONS = frozenset(
     {
         "accept",
@@ -70,6 +85,23 @@ def normalize_decision_taxonomy(value: str) -> str:
     return taxonomy
 
 
+def _normalize_reviewer_confidence(value: float | None) -> float | None:
+    if value is None:
+        return None
+    if value < 0.0 or value > 1.0:
+        raise ReviewSessionError("reviewer_confidence must be between 0.0 and 1.0")
+    return float(value)
+
+
+def _normalize_detector_feedback(value: dict[str, Any] | None) -> dict[str, Any]:
+    if not value:
+        return {}
+    blocked = sorted(TEXT_BEARING_DETECTOR_FEEDBACK_KEYS.intersection(str(key).strip().lower() for key in value))
+    if blocked:
+        raise ReviewSessionError(f"detector_feedback must not include raw text fields: {', '.join(blocked)}")
+    return dict(value)
+
+
 @dataclass(frozen=True)
 class Decision:
     finding_id: str
@@ -78,6 +110,9 @@ class Decision:
     rationale: str = ""
     reviewer_id: str = ""  # who recorded this decision; auth principal for new production entries
     reviewer_identity_source: str = "none"  # jwt | api_key | dev_header | none | legacy
+    decision_taxonomy: str = ""
+    reviewer_confidence: float | None = None
+    detector_feedback: dict[str, Any] = field(default_factory=dict)
 
 
 def _dedupe_preserve_order(values: list[str] | tuple[str, ...]) -> list[str]:
@@ -143,6 +178,9 @@ def start_review_session(
 def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None = None) -> dict[str, Any]:
     if decision.action not in ALLOWED_ACTIONS:
         raise ReviewSessionError(f"action must be one of {sorted(ALLOWED_ACTIONS)}; got '{decision.action}'")
+    decision_taxonomy = normalize_decision_taxonomy(decision.decision_taxonomy) if decision.decision_taxonomy else ""
+    reviewer_confidence = _normalize_reviewer_confidence(decision.reviewer_confidence)
+    detector_feedback = _normalize_detector_feedback(decision.detector_feedback)
 
     session = read_journal(review_id=review_id, tenant_id=tenant_id)
     if not session or session[0].event_type != EVENT_REVIEW_STARTED:
@@ -152,23 +190,34 @@ def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None
     if not any(f.get("id") == decision.finding_id for f in findings):
         raise ReviewSessionError(f"unknown finding_id: {decision.finding_id}")
 
+    payload = {
+        "finding_id": decision.finding_id,
+        "action": decision.action,
+        "replacement_text": decision.replacement_text,
+        "rationale": decision.rationale,
+        "reviewer_id": decision.reviewer_id,
+        "reviewer_identity_source": decision.reviewer_identity_source,
+    }
+    if decision_taxonomy:
+        payload["decision_taxonomy"] = decision_taxonomy
+    if reviewer_confidence is not None:
+        payload["reviewer_confidence"] = reviewer_confidence
+    if detector_feedback:
+        payload["detector_feedback"] = detector_feedback
+
     entry = append_event(
         event_type=EVENT_DECISION_RECORDED,
         review_id=review_id,
-        payload={
-            "finding_id": decision.finding_id,
-            "action": decision.action,
-            "replacement_text": decision.replacement_text,
-            "rationale": decision.rationale,
-            "reviewer_id": decision.reviewer_id,
-            "reviewer_identity_source": decision.reviewer_identity_source,
-        },
+        payload=payload,
         tenant_id=tenant_id,
     )
     return {
         "review_id": review_id,
         "finding_id": decision.finding_id,
         "action": decision.action,
+        "decision_taxonomy": decision_taxonomy or None,
+        "reviewer_confidence": reviewer_confidence,
+        "detector_feedback": detector_feedback or None,
         "reviewer_id": decision.reviewer_id,
         "reviewer_identity_source": decision.reviewer_identity_source,
         "seq": entry.seq,
