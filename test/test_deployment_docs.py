@@ -153,6 +153,40 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, combined)
 
+    def test_install_doc_separates_server_desktop_and_adapter_deployments(self):
+        text = (ROOT / "docs" / "install.md").read_text(encoding="utf-8")
+        headings = (
+            "## Server Install",
+            "## Local Offline Desktop Install",
+            "## Outlook Add-In Deployment",
+            "## Browser Extension Deployment",
+            "## Word Taskpane Deployment",
+        )
+
+        for heading in headings:
+            self.assertIn(heading, text)
+        heading_offsets = [text.index(heading) for heading in headings]
+        self.assertEqual(heading_offsets, sorted(heading_offsets))
+        for token in (
+            "uv sync --extra dev",
+            "./scripts/launch/run_prod.sh",
+            "docker compose up --build",
+            "uv sync --extra local --extra packaging",
+            "./scripts/package_macos_desktop.sh",
+            "packaging/macos/install.sh",
+            "junas-local",
+            "integrations/outlook_addin/manifest.xml",
+            "scripts/render_outlook_manifest.py",
+            "scripts/validate_outlook_manifest.py",
+            "docs/integrations/outlook.md",
+            "integrations/browser_extension/",
+            "./scripts/package_browser_extension.sh",
+            "docs/integrations/genai-browser.md",
+            "integrations/word_addin/manifest.xml",
+            "docs/integrations/word.md",
+        ):
+            self.assertIn(token, text)
+
     def test_running_doc_is_backend_only_and_links_adapter_launch_docs(self):
         text = (ROOT / "docs" / "running.md").read_text(encoding="utf-8")
 
