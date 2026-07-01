@@ -1111,6 +1111,8 @@ class DeploymentDocsTests(unittest.TestCase):
             "docs/integrations/future-slack-google-workspace.md",
             "Research-only; no Slack support claim exists yet.",
             "Research-only; no Google Workspace support claim exists yet.",
+            "docs/integrations/no-single-pathway.md",
+            "Production pilots should pair direct API/backend validation with at least one certified workflow adapter",
         ):
             self.assertIn(token, text)
 
@@ -1613,6 +1615,43 @@ class DeploymentDocsTests(unittest.TestCase):
             "Direct API",
             "## Exit Criteria",
             "## Recertification Triggers",
+        ):
+            self.assertIn(token, text)
+
+    def test_no_single_pathway_doc_recommends_api_plus_adapter_pilots(self):
+        text = (ROOT / "docs" / "integrations" / "no-single-pathway.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+        root_index = (ROOT / "INTEGRATIONS.md").read_text(encoding="utf-8")
+        direct_api = (ROOT / "docs" / "integrations" / "direct-api.md").read_text(encoding="utf-8")
+
+        self.assertIn("no-single-pathway.md", integrations_index)
+        self.assertIn("docs/integrations/no-single-pathway.md", root_index)
+        self.assertIn("docs/integrations/no-single-pathway.md", direct_api)
+        for token in (
+            "Status: normative for production pilot architecture",
+            "direct API/backend contract plus at least one workflow adapter",
+            "## Recommendation",
+            "Direct API",
+            "At least one workflow adapter",
+            "## Why Direct API Alone Is Not Enough For Workflow Pilots",
+            "Direct API-only is acceptable when",
+            "Direct API-only must not claim",
+            "Outlook send-time enforcement",
+            "GenAI prompt pre-submit review",
+            "## Why Adapter Alone Is Not Enough",
+            "Adapters are activation surfaces",
+            "not alternate policy engines",
+            "## Recommended Pilot Combinations",
+            "Email pre-send review",
+            "GenAI prompt review",
+            "DMS upload/check-in",
+            "Future collaboration surfaces",
+            "## Production Pilot Exit Criteria",
+            "at least one workflow adapter passes `adapter-certification-checklist.md`",
+            "## Wording Rules",
+            "Direct API-only pilot proves user workflow activation",
+            "## Exceptions",
+            "Backend-only service integration",
         ):
             self.assertIn(token, text)
 

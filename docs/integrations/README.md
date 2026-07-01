@@ -15,6 +15,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | DMS matter id mapping | backend contract boundary | `dms-matter-ids.md` |
 | Adapter compatibility matrix | backend contract boundary | `compatibility-matrix.md` |
 | Adapter certification checklist | promotion evidence boundary | `adapter-certification-checklist.md` |
+| No single pathway pilot guidance | production pilot boundary | `no-single-pathway.md` |
 | Future Slack / Google Workspace notes | research-only | `future-slack-google-workspace.md` |
 | Shared adapter protocol | backend contract boundary | `adapter-protocol.md` |
 | Shared adapter auth | backend auth boundary | `auth.md` |

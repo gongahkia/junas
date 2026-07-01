@@ -6,6 +6,8 @@ Maturity: `core`
 
 Direct HTTP/OpenAPI integration is the baseline path for customers that do not want a UI adapter. The caller owns its workflow UI or service logic; Junas owns review validation, policy decisions, deterministic findings, rewrite actions, approval journaling, and audit-safe response metadata.
 
+For production pilots that evaluate daily user workflow value, pair direct API/backend validation with at least one certified workflow adapter. See [`docs/integrations/no-single-pathway.md`](./no-single-pathway.md).
+
 ## When To Use
 
 - API gateway, proxy, or service-side pre-send checks.

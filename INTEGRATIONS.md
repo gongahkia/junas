@@ -1,6 +1,6 @@
 # Junas Integrations
 
-Direct API integration is the baseline. UI adapters are optional activation surfaces that collect workflow context, call the backend review contract, display policy decisions, and avoid retaining raw content outside documented runtime boundaries.
+Direct API integration is the baseline. UI adapters are optional activation surfaces that collect workflow context, call the backend review contract, display policy decisions, and avoid retaining raw content outside documented runtime boundaries. Production pilots should pair direct API/backend validation with at least one certified workflow adapter; see [`docs/integrations/no-single-pathway.md`](./docs/integrations/no-single-pathway.md).
 
 | Surface | Maturity | Start here | Source / contract | Notes |
 |---|---|---|---|---|
