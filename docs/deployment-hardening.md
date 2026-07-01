@@ -75,7 +75,9 @@ Sample mounted files live in `deploy/docker/`. Replace every sample domain, API 
 | Offline local daemon | Single-user or small-team local review without a hosted backend. | `junas-local` listens on loopback with local pairing token; no shared tenant control plane. | FileVault/BitLocker/LUKS plus local mapping/journal keys; LaunchAgent is optional and admin-controlled. | Browser, Word, Outlook taskpane, and desktop watcher may point at `http://127.0.0.1:8765`; enterprise enforcement claims do not apply. | No central SIEM, fleet policy, cross-device audit, or guaranteed adapter coverage; use for offline fallback, demos, and power users. |
 | Hybrid local-plus-server | Managed pilots needing server audit/policy plus offline local fallback for selected workflows. | Server remains the policy/audit source for managed workflows; local daemon handles explicitly scoped offline review. | Server state follows hosted/customer-managed controls; local state has separate local keys, retention, and uninstall path. | Adapters must declare whether each request uses hosted server or local daemon and must not mix approval state across them. | Define conflict rules, retry behavior, and audit export boundaries before rollout; changed content or context requires a fresh `/review`. |
 
-Use `docs/install.md` for install commands. Use this table for deployment selection and control ownership.
+Use `docs/install.md` for install commands. Use `docs/deployment-local-only.md` for the
+offline local-daemon boundary and unavailable server-side optional layers. Use this table
+for deployment selection and control ownership.
 
 ## Filesystem Boundaries
 

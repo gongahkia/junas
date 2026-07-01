@@ -46,6 +46,9 @@ See `docs/security/remote-llm-config.md` before enabling remote raw-text mode.
 ## Local Offline Desktop Install
 
 Use this path for the packaged macOS `junas-local` daemon and optional LaunchAgent.
+See `docs/deployment-local-only.md` before relying on this mode for pilots; public
+evidence, remote LLM adjudication, tenant-wide auth, central SIEM, shared reviewer
+queues, and DMS/server-side hooks are not part of local-only deployment.
 
 Build:
 

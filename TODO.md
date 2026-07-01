@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/Deployment: Add local-only deployment docs that explain what functionality is unavailable without server-side optional layers.
 - [ ] P1/Deployment: Add packaging docs for browser and Office adapters that are separate from backend deployment docs.
 - [ ] P1/Deployment: Add uninstall/rollback docs for server, local daemon, Outlook add-in, browser extension, and Word add-in.
 - [ ] P1/Deployment: Add pilot rollout checklist covering tenant auth, policy profile, one adapter, audit exports, telemetry, support path, rollback, and success metrics.
