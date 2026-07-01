@@ -139,6 +139,73 @@ class FrontendIntegrationTests(unittest.TestCase):
             """
         )
 
+    def test_browser_worker_does_not_store_or_log_prompt_text(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/service_worker.js", "utf8");
+            const secret = "privileged board prompt alice@example.com";
+            const requests = [];
+            const storageWrites = [];
+            const consoleCalls = [];
+            const context = {
+              fetch: async (url, options) => {
+                requests.push({url, body: JSON.parse(options.body)});
+                return {ok: true, json: async () => ({findings: [], degraded_modes: [], send_allowed: true})};
+              },
+              console: {
+                log: (...args) => consoleCalls.push(["log", args]),
+                warn: (...args) => consoleCalls.push(["warn", args]),
+                error: (...args) => consoleCalls.push(["error", args])
+              },
+              localStorage: {setItem: (key, value) => storageWrites.push(["localStorage", key, value])},
+              sessionStorage: {setItem: (key, value) => storageWrites.push(["sessionStorage", key, value])},
+              indexedDB: {open: (name) => storageWrites.push(["indexedDB", name])},
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({...defaults, endpoint: "http://junas.local"}),
+                    set: (value) => storageWrites.push(["sync", value])
+                  },
+                  local: {
+                    set: (value) => storageWrites.push(["local", value])
+                  }
+                },
+                runtime: {
+                  onInstalled: {addListener() {}},
+                  onMessage: {addListener(fn) { context.__messageListener = fn; }}
+                },
+                contextMenus: {
+                  create() {},
+                  onClicked: {addListener() {}}
+                },
+                tabs: {sendMessage: async () => {}}
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "service_worker.js"});
+            (async () => {
+              const response = await new Promise((resolve) => {
+                const keepAlive = context.__messageListener(
+                  {type: "junas-process-text", text: secret, operation: "review"},
+                  {tab: {id: 1}},
+                  resolve
+                );
+                assert.strictEqual(keepAlive, true);
+              });
+              assert.strictEqual(response.ok, true);
+              assert.strictEqual(requests[0].body.text, secret);
+              assert.deepStrictEqual(storageWrites, []);
+              assert.deepStrictEqual(consoleCalls, []);
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
     def test_browser_options_connection_health_classifies_states(self):
         self.run_node(
             r"""
@@ -198,6 +265,96 @@ class FrontendIntegrationTests(unittest.TestCase):
               };
               await listeners.checkConnection();
               assert.strictEqual(context.healthStatus.textContent, "server healthy");
+            })().catch((error) => {
+              console.error(error);
+              process.exit(1);
+            });
+            """
+        )
+
+    def test_browser_content_does_not_store_or_log_prompt_text(self):
+        self.run_node(
+            r"""
+            const assert = require("assert");
+            const fs = require("fs");
+            const vm = require("vm");
+            const source = fs.readFileSync("integrations/browser_extension/content.js", "utf8");
+            const secret = "paste prompt with client secret alice@example.com";
+            const listeners = {};
+            const messages = [];
+            const storageWrites = [];
+            const consoleCalls = [];
+            const prompt = {
+              tagName: "TEXTAREA",
+              value: "",
+              type: "",
+              isContentEditable: false
+            };
+            const context = {
+              setTimeout: () => 0,
+              InputEvent: function InputEvent() {},
+              window: {
+                location: {hostname: "chatgpt.com"},
+                getSelection: () => null
+              },
+              document: {
+                addEventListener(name, fn) {
+                  listeners[name] = fn;
+                },
+                getElementById() {
+                  return null;
+                },
+                createElement() {
+                  return {style: {}, remove() {}};
+                },
+                documentElement: {appendChild() {}},
+                execCommand() {}
+              },
+              console: {
+                log: (...args) => consoleCalls.push(["log", args]),
+                warn: (...args) => consoleCalls.push(["warn", args]),
+                error: (...args) => consoleCalls.push(["error", args])
+              },
+              localStorage: {setItem: (key, value) => storageWrites.push(["localStorage", key, value])},
+              sessionStorage: {setItem: (key, value) => storageWrites.push(["sessionStorage", key, value])},
+              indexedDB: {open: (name) => storageWrites.push(["indexedDB", name])},
+              chrome: {
+                storage: {
+                  sync: {
+                    get: async (defaults) => ({...defaults, interceptPaste: true, operation: "review"}),
+                    set: (value) => storageWrites.push(["sync", value])
+                  },
+                  local: {
+                    set: (value) => storageWrites.push(["local", value])
+                  },
+                  onChanged: {addListener() {}}
+                },
+                runtime: {
+                  onMessage: {addListener() {}},
+                  sendMessage: async (message) => {
+                    messages.push(message);
+                    return {ok: true, result: {findings: [], degraded_modes: [], send_allowed: true}};
+                  }
+                }
+              }
+            };
+            vm.createContext(context);
+            vm.runInContext(source, context, {filename: "content.js"});
+
+            (async () => {
+              await Promise.resolve();
+              await listeners.paste({
+                target: prompt,
+                clipboardData: {getData: () => secret},
+                preventDefault() {
+                  this.prevented = true;
+                }
+              });
+              assert.strictEqual(messages[0].text, secret);
+              assert.strictEqual(messages[0].type, "junas-process-text");
+              assert.strictEqual(messages[0].operation, undefined);
+              assert.deepStrictEqual(storageWrites, []);
+              assert.deepStrictEqual(consoleCalls, []);
             })().catch((error) => {
               console.error(error);
               process.exit(1);

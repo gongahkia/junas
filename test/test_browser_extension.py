@@ -94,6 +94,21 @@ class BrowserExtensionTests(unittest.TestCase):
         self.assertIn("result.redacted_text", text)
         self.assertIn('"junas-process-text"', text)
 
+    def test_browser_scripts_do_not_store_or_log_prompt_text(self):
+        content = (EXT / "content.js").read_text(encoding="utf-8")
+        worker = (EXT / "service_worker.js").read_text(encoding="utf-8")
+        combined = "\n".join([content, worker])
+
+        self.assertNotIn("console.", combined)
+        self.assertNotIn("localStorage", combined)
+        self.assertNotIn("sessionStorage", combined)
+        self.assertNotIn("indexedDB", combined)
+        self.assertNotIn("chrome.storage.local", combined)
+        self.assertNotIn("chrome.storage.sync.set", combined)
+        self.assertIn("chrome.storage.sync.get", combined)
+        self.assertIn("chrome.runtime.sendMessage", content)
+        self.assertIn("fetch(`${cfg.endpoint}/${op}`", worker)
+
     def test_target_adapter_selectors_are_declared(self):
         text = (EXT / "adapters.js").read_text(encoding="utf-8")
         for token in (
