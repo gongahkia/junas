@@ -140,6 +140,8 @@ def load_lane_config(tenant_id: str | None) -> LaneConfig | None:
 def _lane_decision(finding: Any, config: LaneConfig) -> tuple[bool, LaneRule, str]:
     severity = str(getattr(finding, "severity", "") or "").strip().lower()
     rule = config.rules.get(severity, LaneRule(severity=severity or "unknown"))
+    if severity == "high":
+        return False, rule, "deterministic_high_visible"
     if rule.route == "default":
         return False, rule, "default_route"
     if rule.route == "threshold_gated":

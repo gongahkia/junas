@@ -71,6 +71,22 @@ class SurfacingLaneModuleTests(unittest.TestCase):
         self.assertEqual([f.id for f in result.visible_findings], ["at-threshold"])
         self.assertEqual([f.id for f in result.suppressed_findings], ["low-score"])
 
+    def test_high_findings_cannot_be_suppressed_by_lane_config(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            os.environ["JUNAS_TENANT_CONFIG_DIR"] = tmp
+            try:
+                Path(tmp, "tenant-a.toml").write_text(
+                    "[lane.high]\nroute = \"batched\"\ndigest_cadence = \"daily\"\n",
+                    encoding="utf-8",
+                )
+                result = apply_surfacing_lanes([_finding("high-1", "high", 91.0)], tenant_id="tenant-a")
+            finally:
+                os.environ.pop("JUNAS_TENANT_CONFIG_DIR", None)
+
+        self.assertEqual([f.id for f in result.visible_findings], ["high-1"])
+        self.assertEqual(result.suppressed_findings, [])
+        self.assertEqual(result.visible_findings[0].metadata["lane_routing"]["reason"], "deterministic_high_visible")
+
 
 class SurfacingLaneApiTests(unittest.TestCase):
     def setUp(self):
