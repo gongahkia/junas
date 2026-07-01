@@ -17,6 +17,7 @@ class ObservabilityMetricsTests(unittest.TestCase):
         )
         observability.observe_approval_requested("pending", "rewrite_required")
         observability.observe_approval_completed("approve")
+        observability.observe_reviewer_decision("reject", "false_positive")
         observability.observe_safe_rewrite_applied(
             "/safe-rewrite",
             "browser_genai",
@@ -41,6 +42,10 @@ class ObservabilityMetricsTests(unittest.TestCase):
             metrics,
         )
         self.assertIn('junas_approval_completed_total{action="approve"} 1.0', metrics)
+        self.assertIn(
+            'junas_reviewer_decisions_total{action="reject",decision_taxonomy="false_positive"} 1.0',
+            metrics,
+        )
         self.assertIn(
             'junas_safe_rewrite_applied_total{action="safe_rewrite",endpoint="/safe-rewrite",'
             'surface="browser_genai",workflow="prompt_submit"} 2.0',

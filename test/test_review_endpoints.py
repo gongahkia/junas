@@ -375,6 +375,7 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
             'junas_approval_requests_total{reason_code="rewrite_required",status="pending"} 1.0',
             metrics.text,
         )
+        self.assertIn('junas_reviewer_decisions_total{action="approve",decision_taxonomy="none"} 1.0', metrics.text)
         self.assertIn('junas_approval_completed_total{action="approve"} 1.0', metrics.text)
 
 

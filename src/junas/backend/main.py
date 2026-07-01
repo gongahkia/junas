@@ -4056,8 +4056,10 @@ async def post_review_decision(
     except ReviewSessionError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     observability = get_observability()
-    if observability is not None and req.action in APPROVAL_COMPLETION_ACTIONS:
-        observability.observe_approval_completed(req.action)
+    if observability is not None:
+        observability.observe_reviewer_decision(req.action, req.decision_taxonomy or "none")
+        if req.action in APPROVAL_COMPLETION_ACTIONS:
+            observability.observe_approval_completed(req.action)
     return ReviewDecisionResponse(**result)
 
 

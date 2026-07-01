@@ -110,6 +110,12 @@ class ObservabilityManager:
             labelnames=("action",),
             registry=self.registry,
         )
+        self.reviewer_decisions_total = Counter(
+            "junas_reviewer_decisions_total",
+            "Reviewer decisions grouped by action and privacy-safe taxonomy.",
+            labelnames=("action", "decision_taxonomy"),
+            registry=self.registry,
+        )
         self.safe_rewrite_applied_total = Counter(
             "junas_safe_rewrite_applied_total",
             "Safe rewrite replacements applied by endpoint, workflow context, and replacement action.",
@@ -269,6 +275,12 @@ class ObservabilityManager:
 
     def observe_approval_completed(self, action: str) -> None:
         self.approval_completed_total.labels(action=_label(action)).inc()
+
+    def observe_reviewer_decision(self, action: str, decision_taxonomy: str) -> None:
+        self.reviewer_decisions_total.labels(
+            action=_label(action),
+            decision_taxonomy=_label(decision_taxonomy, "none"),
+        ).inc()
 
     def observe_safe_rewrite_applied(
         self,

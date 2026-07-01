@@ -63,3 +63,7 @@ Every aggregate report must include:
 - denominator confidence: `complete`, `partial`, or `unknown`
 - whether values are tenant-local, backend-local, SIEM-exported, or dashboard-derived
 - retention policy for the aggregate and the underlying event stream
+
+`scripts/generate_product_value_report.py` reads Prometheus text metrics and writes `reports/product-value-report.json`
+with reviewed documents by surface, block rate, warn rate, rewrite rate, approval rate, and override rate. It ignores
+unknown metrics and emits only bounded labels and counts.
