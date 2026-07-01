@@ -230,7 +230,7 @@ Outlook Smart Alert renderings: [`allow`](./docs/assets/outlook/outlook-smart-al
 
 ## Experimental Local Fallback
 
-The desktop watcher is intentionally outside the primary Quick Start. Use it only for opt-in local fallback workflows where a user explicitly chooses file or clipboard review against a local daemon.
+The desktop watcher is intentionally outside the primary Quick Start. The `junas-watch` console script remains installed for explicit opt-in file, folder, or clipboard review against a local daemon, but it is `experimental-local-fallback`, not production enforcement.
 
 ```bash
 uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765

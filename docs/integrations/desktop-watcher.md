@@ -8,6 +8,10 @@ Maturity: `experimental-local-fallback`
 
 Runtime target: macOS local watcher and packaged local daemon.
 
+`junas-watch` remains a packaged console script for explicit opt-in local review. Its
+maturity is `experimental-local-fallback`; do not present it as production endpoint
+enforcement.
+
 Build:
 
 ```sh

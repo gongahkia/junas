@@ -520,6 +520,7 @@ class DeploymentDocsTests(unittest.TestCase):
 
     def test_desktop_watcher_is_not_in_readme_quick_start(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         quick_start = re.search(r"## Quick Start(?P<body>.*?)## What Junas Does", readme, re.S)
         fallback = re.search(r"## Experimental Local Fallback(?P<body>.*?)## API Surface", readme, re.S)
 
@@ -528,7 +529,11 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertNotIn("junas-watch", quick_start.group("body"))
         self.assertNotIn("--clipboard", quick_start.group("body"))
         self.assertIn("junas-watch", fallback.group("body"))
+        self.assertIn("console script remains installed", fallback.group("body"))
+        self.assertIn("experimental-local-fallback", fallback.group("body"))
         self.assertIn("desktop-watcher.md", fallback.group("body"))
+        self.assertIn('junas-watch = "junas.desktop.watch:main"', pyproject)
+        self.assertIn("experimental-local-fallback console script", pyproject)
 
     def test_root_integrations_index_names_supported_and_future_surfaces(self):
         text = (ROOT / "INTEGRATIONS.md").read_text(encoding="utf-8")
@@ -927,6 +932,8 @@ class DeploymentDocsTests(unittest.TestCase):
             "Opt-In Local Fallback Flow",
             "junas-watch --watch-folder",
             "junas-watch --clipboard",
+            "`junas-watch` remains a packaged console script",
+            "Maturity: `experimental-local-fallback`",
             "Clipboard polling is never enabled by default",
             "Folder Watch",
             "Clipboard Watch",
