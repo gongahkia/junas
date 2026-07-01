@@ -31,11 +31,41 @@ class PreflightTests(unittest.TestCase):
         return SimpleNamespace(
             config_path=ROOT / "config.toml",
             pipeline=SimpleNamespace(layers=()),
-            api=SimpleNamespace(api_key=""),
-            tenancy=SimpleNamespace(enabled=False),
+            api=SimpleNamespace(
+                api_key="",
+                allowed_origins=("https://junas.example.com",),
+                max_request_bytes=10 * 1024 * 1024,
+            ),
+            tenancy=SimpleNamespace(enabled=False, tenant_credentials=()),
             public_evidence=SimpleNamespace(enabled=False, provider="none"),
             llm=SimpleNamespace(enabled=False, provider="none"),
+            privacy=SimpleNamespace(external_query_policy="sanitized_only"),
+            image_scan=SimpleNamespace(provider="none"),
         )
+
+    def _production_settings(self, *, api_key: str = "api-secret", origins=None, max_request_bytes=None):
+        return SimpleNamespace(
+            config_path=ROOT / "config.toml",
+            pipeline=SimpleNamespace(layers=()),
+            api=SimpleNamespace(
+                api_key=api_key,
+                allowed_origins=origins or ("https://junas.example.com",),
+                max_request_bytes=max_request_bytes or 10 * 1024 * 1024,
+            ),
+            tenancy=SimpleNamespace(enabled=False, tenant_credentials=()),
+            public_evidence=SimpleNamespace(enabled=False, provider="none"),
+            llm=SimpleNamespace(enabled=False, provider="none"),
+            privacy=SimpleNamespace(external_query_policy="sanitized_only"),
+            image_scan=SimpleNamespace(provider="none"),
+        )
+
+    def _write_policy_config(self, tmp_dir: str) -> Path:
+        policy_file = Path(tmp_dir) / "policy.toml"
+        policy_file.write_text(
+            '[policy]\npolicy_id = "production-test"\npolicy_version = "2026-07-01"\n',
+            encoding="utf-8",
+        )
+        return policy_file
 
     def _run_preflight(
         self,
@@ -52,6 +82,8 @@ class PreflightTests(unittest.TestCase):
             "JUNAS_SUBJECT_INDEX_KEY": "",
             "JUNAS_JOURNAL_KEYS_FILE": "",
             "JUNAS_DEV_AUTH": "",
+            "JUNAS_POLICY_CONFIG": "",
+            "JUNAS_POLICY_CONFIG_PATH": "",
         }
         if env:
             base_env.update(env)
@@ -110,6 +142,7 @@ class PreflightTests(unittest.TestCase):
                 'active = "v2"\n\n[keys.v2]\nsecret = "journal-secret-v2"\n',
                 encoding="utf-8",
             )
+            policy_file = self._write_policy_config(tmp_dir)
             exit_code = self._run_preflight(
                 ["--strict", "--deployment", "production"],
                 {
@@ -118,15 +151,9 @@ class PreflightTests(unittest.TestCase):
                     "JUNAS_MAPPING_STORE_KEY": Fernet.generate_key().decode("ascii"),
                     "JUNAS_SUBJECT_INDEX_KEY": "subject-index-secret",
                     "JUNAS_JOURNAL_KEYS_FILE": str(key_file),
+                    "JUNAS_POLICY_CONFIG": str(policy_file),
                 },
-                settings=SimpleNamespace(
-                    config_path=ROOT / "config.toml",
-                    pipeline=SimpleNamespace(layers=()),
-                    api=SimpleNamespace(api_key="api-secret"),
-                    tenancy=SimpleNamespace(enabled=False),
-                    public_evidence=SimpleNamespace(enabled=False, provider="none"),
-                    llm=SimpleNamespace(enabled=False, provider="none"),
-                ),
+                settings=self._production_settings(),
             )
 
         self.assertEqual(exit_code, 0)
@@ -140,16 +167,46 @@ class PreflightTests(unittest.TestCase):
         exit_code = self._run_preflight(
             ["--strict", "--deployment", "production"],
             {"JUNAS_API_KEY": "api-secret"},
-            settings=SimpleNamespace(
-                config_path=ROOT / "config.toml",
-                pipeline=SimpleNamespace(layers=()),
-                api=SimpleNamespace(api_key="api-secret"),
-                tenancy=SimpleNamespace(enabled=False),
-                public_evidence=SimpleNamespace(enabled=False, provider="none"),
-                llm=SimpleNamespace(enabled=False, provider="none"),
-            ),
+            settings=self._production_settings(),
             retention=(False, "retention manifest incomplete (logs)"),
         )
+
+        self.assertEqual(exit_code, 1)
+
+    def test_production_strict_fails_without_policy_config(self):
+        exit_code = self._run_preflight(
+            ["--strict", "--deployment", "production"],
+            {"JUNAS_API_KEY": "api-secret"},
+            settings=self._production_settings(),
+        )
+
+        self.assertEqual(exit_code, 1)
+
+    def test_production_strict_fails_with_unsafe_cors_origin(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            policy_file = self._write_policy_config(tmp_dir)
+            exit_code = self._run_preflight(
+                ["--strict", "--deployment", "production"],
+                {
+                    "JUNAS_API_KEY": "api-secret",
+                    "JUNAS_POLICY_CONFIG": str(policy_file),
+                },
+                settings=self._production_settings(origins=("http://localhost",)),
+            )
+
+        self.assertEqual(exit_code, 1)
+
+    def test_production_strict_fails_with_oversized_body_cap(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            policy_file = self._write_policy_config(tmp_dir)
+            exit_code = self._run_preflight(
+                ["--strict", "--deployment", "production"],
+                {
+                    "JUNAS_API_KEY": "api-secret",
+                    "JUNAS_POLICY_CONFIG": str(policy_file),
+                },
+                settings=self._production_settings(max_request_bytes=50 * 1024 * 1024),
+            )
 
         self.assertEqual(exit_code, 1)
 

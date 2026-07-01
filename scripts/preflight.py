@@ -26,6 +26,10 @@ if str(SRC_ROOT) not in sys.path:
 import check_retention_manifest  # noqa: E402
 
 from junas.configs.runtime import ConfigError, load_runtime_settings  # noqa: E402
+from junas.policy import PolicyConfigError, load_policy_profile  # noqa: E402
+
+MAX_PRODUCTION_REQUEST_BYTES = 25 * 1024 * 1024
+POLICY_CONFIG_ENV_VARS = ("JUNAS_POLICY_CONFIG", "JUNAS_POLICY_CONFIG_PATH")
 
 
 def _has_env(name: str) -> bool:
@@ -97,6 +101,112 @@ def _retention_manifest_configured() -> tuple[bool, str]:
         item["control"] for item in payload["controls"] if item["status"] != "configured"
     )
     return False, f"retention manifest incomplete ({missing}) at {path}"
+
+
+def _policy_configured(settings: Any) -> tuple[bool, str]:
+    raw = ""
+    for name in POLICY_CONFIG_ENV_VARS:
+        raw = os.environ.get(name, "").strip()
+        if raw:
+            break
+    if not raw:
+        return False, "JUNAS_POLICY_CONFIG is required for production policy version pinning"
+
+    path = Path(raw).expanduser()
+    tenancy = getattr(settings, "tenancy", None)
+    tenant_ids = sorted(
+        {
+            str(getattr(credential, "tenant_id", "") or "").strip()
+            for credential in getattr(tenancy, "tenant_credentials", ()) or ()
+            if str(getattr(credential, "tenant_id", "") or "").strip()
+        }
+    )
+    try:
+        load_policy_profile(path, production=True)
+        for tenant_id in tenant_ids:
+            load_policy_profile(path, tenant_id=tenant_id, production=True)
+    except (PolicyConfigError, OSError) as exc:
+        return False, f"production policy config invalid: {exc}"
+
+    tenant_msg = f"; tenant overrides checked: {', '.join(tenant_ids)}" if tenant_ids else ""
+    return True, f"production policy config validated: {path}{tenant_msg}"
+
+
+def _origin_is_production_safe(origin: str) -> bool:
+    cleaned = origin.strip()
+    lower = cleaned.lower()
+    if not cleaned or "*" in cleaned:
+        return False
+    if lower == "null" or lower.startswith("file:"):
+        return False
+    if "localhost" in lower or "127.0.0.1" in lower or "[::1]" in lower:
+        return False
+    if lower.startswith("https://"):
+        return True
+    if lower.startswith("chrome-extension://") and len(cleaned.removeprefix("chrome-extension://")) >= 16:
+        return True
+    return False
+
+
+def _production_cors_configured(settings: Any) -> tuple[bool, str]:
+    api = getattr(settings, "api", None)
+    origins = tuple(str(origin).strip() for origin in getattr(api, "allowed_origins", ()) or ())
+    if not origins:
+        return False, "api.allowed_origins must be explicit in production"
+    unsafe = [origin for origin in origins if not _origin_is_production_safe(origin)]
+    if unsafe:
+        return False, "production CORS origins must be exact HTTPS or extension origins; unsafe: " + ", ".join(unsafe)
+    return True, "production CORS origins configured: " + ", ".join(origins)
+
+
+def _production_body_cap_configured(settings: Any) -> tuple[bool, str]:
+    api = getattr(settings, "api", None)
+    try:
+        max_request_bytes = int(getattr(api, "max_request_bytes", 0))
+    except (TypeError, ValueError):
+        return False, "api.max_request_bytes must be an integer"
+    if max_request_bytes < 1024:
+        return False, "api.max_request_bytes must be at least 1024 bytes"
+    if max_request_bytes > MAX_PRODUCTION_REQUEST_BYTES:
+        return False, (
+            f"api.max_request_bytes exceeds production cap "
+            f"{MAX_PRODUCTION_REQUEST_BYTES}: {max_request_bytes}"
+        )
+    return True, f"request body cap configured: {max_request_bytes} bytes"
+
+
+def _image_scan_provider_configured(settings: Any) -> tuple[bool, str]:
+    image_scan = getattr(settings, "image_scan", None)
+    provider = str(getattr(image_scan, "provider", "none") or "none")
+    if provider == "none":
+        return True, "image scan provider disabled"
+    if provider == "openai_vision":
+        if str(getattr(image_scan, "openai_api_key", "") or "").strip() or _has_env("OPENAI_API_KEY"):
+            return True, "image scan provider configured: openai_vision"
+        return False, "image_scan.provider=openai_vision but OPENAI_API_KEY is empty"
+    if provider == "google_vision":
+        has_credentials = str(getattr(image_scan, "google_credentials_path", "") or "").strip() or _has_env(
+            "GOOGLE_APPLICATION_CREDENTIALS"
+        )
+        if has_credentials:
+            return True, "image scan provider configured: google_vision"
+        return False, "image_scan.provider=google_vision but GOOGLE_APPLICATION_CREDENTIALS is empty"
+    if provider == "aws_rekognition":
+        has_region = (
+            str(getattr(image_scan, "aws_region", "") or "").strip()
+            or _has_env("AWS_REGION")
+            or _has_env("AWS_DEFAULT_REGION")
+        )
+        if has_region:
+            return True, "image scan provider configured: aws_rekognition"
+        return False, "image_scan.provider=aws_rekognition but AWS region is empty"
+    if provider == "azure_vision":
+        has_key = str(getattr(image_scan, "azure_key", "") or "").strip() or _has_env("AZURE_VISION_KEY")
+        has_endpoint = str(getattr(image_scan, "azure_endpoint", "") or "").strip() or _has_env("AZURE_VISION_ENDPOINT")
+        if has_key and has_endpoint:
+            return True, "image scan provider configured: azure_vision"
+        return False, "image_scan.provider=azure_vision requires AZURE_VISION_KEY and AZURE_VISION_ENDPOINT"
+    return False, f"unknown image scan provider: {provider}"
 
 
 def _check_spacy_model() -> tuple[bool, str]:
@@ -173,6 +283,13 @@ def main() -> int:
             auth_ok, auth_msg = _production_auth_configured(settings)
             (checks if auth_ok else warnings).append(auth_msg)
 
+            for ok, message in (
+                _policy_configured(settings),
+                _production_cors_configured(settings),
+                _production_body_cap_configured(settings),
+            ):
+                (checks if ok else warnings).append(message)
+
             retention_ok, retention_msg = _retention_manifest_configured()
             (checks if retention_ok else warnings).append(retention_msg)
 
@@ -204,6 +321,14 @@ def main() -> int:
                     "public evidence is enabled but no key is set for "
                     f"{settings.public_evidence.provider}: {', '.join(accepted)}"
                 )
+            privacy = getattr(settings, "privacy", None)
+            if str(getattr(privacy, "external_query_policy", "") or "").strip() == "disabled":
+                warnings.append("public evidence is enabled but privacy.external_query_policy=disabled")
+            elif privacy is not None:
+                checks.append(
+                    "public evidence privacy policy: "
+                    + str(getattr(privacy, "external_query_policy", ""))
+                )
         else:
             checks.append("public evidence disabled")
 
@@ -229,6 +354,9 @@ def main() -> int:
                 )
         else:
             checks.append("LLM helpers disabled")
+
+        image_ok, image_msg = _image_scan_provider_configured(settings)
+        (checks if image_ok else warnings).append(image_msg)
 
     print("=== Junas Preflight ===")
     config_path = settings.config_path if settings is not None else (
