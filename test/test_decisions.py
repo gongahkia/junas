@@ -24,7 +24,7 @@ class DecisionStateMachineTests(unittest.TestCase):
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY"):
+        for var in ("JUNAS_JOURNAL_DIR", "JUNAS_JOURNAL_KEY", "JUNAS_REVIEW_PERSIST_SPANS"):
             os.environ.pop(var, None)
         importlib.reload(self.journal_mod)
         importlib.reload(self.decisions_mod)
@@ -54,6 +54,24 @@ class DecisionStateMachineTests(unittest.TestCase):
         self.assertEqual(result["reviewer_identity_source"], "none")
         self.assertEqual(result["seq"], 1)
         self.assertTrue(result["hmac"])
+
+    def test_review_started_hashes_matched_text_by_default(self):
+        self._seed_session()
+        state = self.decisions_mod.get_session_state(review_id="rev-1")
+        finding = state["findings"][0]
+
+        self.assertNotIn("matched_text", finding)
+        self.assertIn("matched_text_sha256", finding)
+        self.assertEqual(finding["matched_text_char_count"], len("Dr Jane Tan"))
+
+    def test_review_started_persists_matched_text_only_with_explicit_flag(self):
+        os.environ["JUNAS_REVIEW_PERSIST_SPANS"] = "1"
+        self._seed_session()
+        state = self.decisions_mod.get_session_state(review_id="rev-1")
+        finding = state["findings"][0]
+
+        self.assertEqual(finding["matched_text"], "Dr Jane Tan")
+        self.assertIn("matched_text_sha256", finding)
 
     def test_record_decision_rejects_unknown_finding(self):
         self._seed_session()

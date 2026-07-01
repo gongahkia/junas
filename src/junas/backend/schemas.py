@@ -1300,7 +1300,15 @@ class ReviewSessionFindingState(BaseModel):
     category: str = Field(description="PII or MNPI.")
     rule: str = Field(description="Rule that produced the finding.")
     severity: str = Field(description="low | medium | high.")
-    matched_text: str = Field(description="Exact matched text from the original document.")
+    matched_text: str = Field(
+        "",
+        description="Exact matched text only when raw span persistence is explicitly enabled.",
+    )
+    matched_text_sha256: Optional[str] = Field(
+        None,
+        description="SHA-256 of the matched text when raw text is omitted.",
+    )
+    matched_text_char_count: Optional[int] = Field(None, description="Matched text character count when available.")
     start_char: int = Field(description="Zero-based inclusive start offset.")
     end_char: int = Field(description="Zero-based exclusive end offset.")
     source: str = Field("text", description="Finding source: text or image_ocr.")

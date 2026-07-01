@@ -7,6 +7,8 @@ reconstructs the current state of any review session.
 
 from __future__ import annotations
 
+import hashlib
+import os
 from dataclasses import dataclass
 from typing import Any
 
@@ -45,6 +47,7 @@ EVENT_COVERAGE_WARNING = "coverage_warning"  # advisory output from the LLM inve
 EVENT_POLICY_DECISION_RECORDED = "policy_decision_recorded"
 EVENT_SUBJECT_ERASURE_RECORDED = "subject_erasure_recorded"
 EVENT_APPROVAL_REQUESTED = "approval_requested"
+REVIEW_PERSIST_SPANS_ENV = "JUNAS_REVIEW_PERSIST_SPANS"
 
 
 class ReviewSessionError(ValueError):
@@ -81,6 +84,21 @@ def _is_authorized_reject(decision: dict[str, Any]) -> bool:
     return str(decision.get("action") or "") in REJECT_ACTIONS and _is_authorized_reviewer_decision(decision)
 
 
+def _is_truthy_env(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _sanitize_journal_finding(finding: dict[str, Any]) -> dict[str, Any]:
+    sanitized = dict(finding)
+    matched_text = str(sanitized.get("matched_text", "") or "")
+    if matched_text:
+        sanitized["matched_text_sha256"] = hashlib.sha256(matched_text.encode("utf-8")).hexdigest()
+        sanitized["matched_text_char_count"] = len(matched_text)
+    if not _is_truthy_env(REVIEW_PERSIST_SPANS_ENV):
+        sanitized.pop("matched_text", None)
+    return sanitized
+
+
 def start_review_session(
     *,
     review_id: str,
@@ -91,6 +109,7 @@ def start_review_session(
     findings: list[dict[str, Any]],
     tenant_id: str | None = None,
 ) -> JournalEntry:
+    journal_findings = [_sanitize_journal_finding(finding) for finding in findings]
     return append_event(
         event_type=EVENT_REVIEW_STARTED,
         review_id=review_id,
@@ -99,7 +118,7 @@ def start_review_session(
             "document_type": document_type,
             "source_jurisdiction": source_jurisdiction,
             "destination_jurisdiction": destination_jurisdiction,
-            "findings": findings,
+            "findings": journal_findings,
         },
         tenant_id=tenant_id,
     )

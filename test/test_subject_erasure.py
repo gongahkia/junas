@@ -55,6 +55,7 @@ class SubjectErasureIndexTests(unittest.TestCase):
             "JUNAS_JOURNAL_KEY",
             "JUNAS_REVIEW_PERSIST",
             "JUNAS_MAPPING_STORE_KEY",
+            "JUNAS_REVIEW_PERSIST_SPANS",
             "JUNAS_SUBJECT_INDEX_KEY",
         ):
             os.environ.pop(var, None)
@@ -140,6 +141,7 @@ class SubjectErasureIndexTests(unittest.TestCase):
                 }
             ],
         )
+        os.environ["JUNAS_REVIEW_PERSIST_SPANS"] = "1"
         self.decisions.start_review_session(
             review_id="rev-1",
             text_hash="review-doc-hash",

@@ -67,6 +67,29 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
         self.assertTrue(payload["findings"])
         return payload["request_id"]
 
+    def test_review_started_journal_omits_raw_matched_text_by_default(self):
+        with TestClient(self.main.app) as client:
+            review_id = self._start_session(client)
+
+        import junas.review.decisions as decisions_mod
+        import junas.review.journal as journal_mod
+
+        review_events = [
+            entry
+            for entry in journal_mod.read_journal(review_id=review_id)
+            if entry.event_type == decisions_mod.EVENT_REVIEW_STARTED
+        ]
+        self.assertEqual(len(review_events), 1)
+        serialized = json.dumps(review_events[0].payload, sort_keys=True)
+        findings = review_events[0].payload["findings"]
+        self.assertTrue(findings)
+        self.assertTrue(all("matched_text" not in finding for finding in findings))
+        self.assertTrue(any("matched_text_sha256" in finding for finding in findings))
+        self.assertTrue(all("start_char" in finding and "end_char" in finding for finding in findings))
+        self.assertTrue(all("rule" in finding for finding in findings))
+        self.assertNotIn("Dr Jane Tan", serialized)
+        self.assertNotIn("jane@example.com", serialized)
+
     def test_round_trip_review_decision_and_state(self):
         with TestClient(self.main.app) as client:
             review_id = self._start_session(client)
@@ -235,7 +258,8 @@ class ReviewSessionEndpointsTests(unittest.TestCase):
         ]
         self.assertEqual(len(approval_events), 1)
         serialized = json.dumps(approval_events[0].payload, sort_keys=True)
-        self.assertNotIn(target["matched_text"], serialized)
+        self.assertNotIn("Dr Jane Tan", serialized)
+        self.assertNotIn("jane@example.com", serialized)
 
     def test_request_approval_rejects_unknown_finding(self):
         with TestClient(self.main.app) as client:
