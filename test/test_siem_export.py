@@ -197,6 +197,103 @@ class SIEMExportTests(unittest.TestCase):
         self.assertNotIn("S1234567D", serialized)
         self.assertNotIn("matched_text", serialized)
 
+    def test_emitted_journal_event_has_hash_count_and_rule_ids_without_raw_text_or_mapping(self):
+        raw_document = "Prompt text asks to email Dr Jane Tan S1234567D about Project Atlas."
+        mapping_secret = "Jane Mapping Secret S7654321A"
+        entry = SimpleNamespace(
+            seq=9,
+            ts="2026-05-25T00:00:00Z",
+            event_type="review_started",
+            review_id="review-raw-1",
+            key_version="v2",
+            payload={
+                "text": raw_document,
+                "findings": [
+                    {
+                        "id": "f1",
+                        "rule": "sg_nric_fin",
+                        "matched_text": "S1234567D",
+                    },
+                    {
+                        "id": "f2",
+                        "rule_id": "transaction_codename",
+                        "matched_text": "Project Atlas",
+                    },
+                ],
+                "mapping": [{"placeholder": "[PERSON_1]", "original_text": mapping_secret}],
+            },
+        )
+        messages: list[str] = []
+        settings = SimpleNamespace(
+            enabled=True,
+            sink="stdout",
+            syslog_address="/var/run/syslog",
+            facility="local4",
+            app_name="junas-test",
+        )
+
+        emitted = siem.emit_journal_event(entry, settings=settings, emit=messages.append)
+
+        self.assertTrue(emitted)
+        payload = json.loads(messages[0])
+        serialized = json.dumps(payload, sort_keys=True)
+        details = payload["details"]
+        self.assertEqual(details["finding_count"], 2)
+        self.assertEqual(details["finding_rule_ids"], ["sg_nric_fin", "transaction_codename"])
+        self.assertIn("payload_sha256", details)
+        self.assertNotIn("text", details["payload_keys"])
+        self.assertNotIn("mapping", details["payload_keys"])
+        for forbidden in (
+            raw_document,
+            "Prompt text",
+            "Dr Jane Tan",
+            "S1234567D",
+            "Project Atlas",
+            mapping_secret,
+            "matched_text",
+            "original_text",
+            "mapping",
+        ):
+            self.assertNotIn(forbidden, serialized)
+
+    def test_emitted_privacy_event_hashes_query_without_raw_text(self):
+        raw_query = "Public evidence query for Dr Jane Tan S1234567D Project Atlas"
+        messages: list[str] = []
+        settings = SimpleNamespace(
+            enabled=True,
+            sink="stdout",
+            syslog_address="/var/run/syslog",
+            facility="local4",
+            app_name="junas-test",
+        )
+
+        count = siem.emit_privacy_ledger_events(
+            [
+                {
+                    "destination": "public_evidence",
+                    "operation": "external_query",
+                    "allowed": False,
+                    "query": raw_query,
+                    "reason": "query still contains restricted span S1234567D",
+                    "redactions": ["sg_nric_fin", "transaction_codename"],
+                }
+            ],
+            request_id="req-privacy-1",
+            endpoint="/review",
+            settings=settings,
+            emit=messages.append,
+        )
+
+        self.assertEqual(count, 1)
+        payload = json.loads(messages[0])
+        serialized = json.dumps(payload, sort_keys=True)
+        details = payload["details"]
+        self.assertEqual(details["query"]["char_count"], len(raw_query))
+        self.assertIn("query_sha256", details["query"])
+        self.assertEqual(details["redactions"], ["sg_nric_fin", "transaction_codename"])
+        for forbidden in ("Dr Jane Tan", "S1234567D", "Project Atlas", raw_query):
+            self.assertNotIn(forbidden, serialized)
+
 
 if __name__ == "__main__":
     unittest.main()

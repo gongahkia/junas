@@ -185,6 +185,15 @@ def build_journal_siem_event(entry: Any) -> dict[str, Any]:
     findings = payload.get("findings")
     if isinstance(findings, list):
         details["finding_count"] = len(findings)
+        rule_ids = sorted(
+            {
+                _truncate(str(finding.get("rule_id") or finding.get("rule") or "").strip())
+                for finding in findings
+                if isinstance(finding, Mapping) and str(finding.get("rule_id") or finding.get("rule") or "").strip()
+            }
+        )
+        if rule_ids:
+            details["finding_rule_ids"] = rule_ids[:100]
     if str(getattr(entry, "event_type", "") or "") == "policy_decision_recorded":
         details.update(
             {
