@@ -165,6 +165,32 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_release_checklist_covers_required_security_gates(self):
+        text = (ROOT / "docs" / "security" / "release-checklist.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("security/release-checklist.md", docs_index)
+        for token in (
+            "test/test_openapi_snapshot.py",
+            "scripts/export_openapi_examples.py",
+            "test/test_api_auth.py",
+            "test/test_tenant_isolation.py",
+            "test/test_backend_log_privacy.py",
+            "test/test_siem_export.py",
+            "scripts/check_fixture_scrub.py",
+            "test/test_local_daemon_acl.py",
+            "scripts/smoke_local_daemon_acl.py",
+            "X-Junas-Local-Token",
+            "test/test_frontend_integration.py",
+            "test/test_browser_extension.py",
+            "Office Runtime storage",
+            "scripts/generate_sbom.py --target all",
+            "docs/security/dependency-scanning.md",
+            "docs/security/sbom.md",
+            "--require-desktop-artifact",
+        ):
+            self.assertIn(token, text)
+
     def test_direct_api_integration_doc_covers_baseline_contract(self):
         text = (ROOT / "docs" / "integrations" / "direct-api.md").read_text(encoding="utf-8")
         for token in (

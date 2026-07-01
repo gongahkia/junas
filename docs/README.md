@@ -20,6 +20,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `security/api-inventory.md`: route inventory with auth, roles, tenant scope, rate limits, and payload caps
 - `security/dependency-scanning.md`: dependency and artifact scanning gates for Python, adapters, Office assets, and PyInstaller
 - `security/sbom.md`: CycloneDX SBOM generation for server and local desktop release artifacts
+- `security/release-checklist.md`: required release gates for OpenAPI, auth, tenant isolation, logs, local daemon CSRF, adapter privacy, dependency scans, and SBOMs
 - `assumption.md`: implementation assumptions and invariants
 - `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
 - `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths
