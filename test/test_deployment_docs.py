@@ -126,6 +126,30 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_deployment_hardening_compares_deployment_modes(self):
+        text = (ROOT / "docs" / "deployment-hardening.md").read_text(encoding="utf-8")
+
+        for token in (
+            "## Deployment Mode Comparison",
+            "| Hosted server |",
+            "| Customer-managed Docker |",
+            "| Offline local daemon |",
+            "| Hybrid local-plus-server |",
+            "reverse proxy/TLS",
+            "tenant auth",
+            "versioned policy config",
+            "SIEM export",
+            "customer-held `JUNAS_JOURNAL_KEY`",
+            "`JUNAS_MAPPING_STORE_KEY`",
+            "`JUNAS_SUBJECT_INDEX_KEY`",
+            "retention manifest",
+            "backup/restore",
+            "http://127.0.0.1:8765",
+            "Server remains the policy/audit source",
+            "docs/install.md",
+        ):
+            self.assertIn(token, text)
+
     def test_data_retention_matrix_covers_required_artifacts(self):
         text = (ROOT / "docs" / "security" / "data-retention.md").read_text(encoding="utf-8")
         docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")

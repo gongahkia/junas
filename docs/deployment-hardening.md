@@ -43,6 +43,17 @@ Reference layers:
 
 Do not start with every adapter. Production pilots should run direct API plus one supported workflow adapter, then add more surfaces only after auth, policy, telemetry, retention, and failure behavior have been verified for the current surface.
 
+## Deployment Mode Comparison
+
+| Mode | Primary use | Backend boundary | Persistence and secrets | Adapter posture | Main cautions |
+|---|---|---|---|---|---|
+| Hosted server | Central Junas service for multiple teams or tenants. | FastAPI behind reverse proxy/TLS, tenant auth, versioned policy config, no-body logs, SIEM export. | Service-owned encrypted volume; customer-held `JUNAS_JOURNAL_KEY`, `JUNAS_MAPPING_STORE_KEY`, and `JUNAS_SUBJECT_INDEX_KEY` where customer policy requires it; retention manifest covers journals, mappings, SIEM, and backups. | Direct API plus one supported workflow adapter first; Outlook, browser, DMS, and Word point at the hosted endpoint. | Requires tenant isolation, external auth, SIEM retention, backup/restore, and raw-text egress review before production. |
+| Customer-managed Docker | Customer runs the backend in its own VM, container host, or orchestrator. | Docker or Kubernetes service behind customer reverse proxy/TLS; customer auth and network controls wrap the API. | Customer-managed volumes, secrets manager, KMS, retention manifest, backup, and restore test. | Adapters route to the customer endpoint; local daemon is optional only for offline fallback. | Operator owns patching, image provenance, volume encryption, body-log suppression, and policy rollout. |
+| Offline local daemon | Single-user or small-team local review without a hosted backend. | `junas-local` listens on loopback with local pairing token; no shared tenant control plane. | FileVault/BitLocker/LUKS plus local mapping/journal keys; LaunchAgent is optional and admin-controlled. | Browser, Word, Outlook taskpane, and desktop watcher may point at `http://127.0.0.1:8765`; enterprise enforcement claims do not apply. | No central SIEM, fleet policy, cross-device audit, or guaranteed adapter coverage; use for offline fallback, demos, and power users. |
+| Hybrid local-plus-server | Managed pilots needing server audit/policy plus offline local fallback for selected workflows. | Server remains the policy/audit source for managed workflows; local daemon handles explicitly scoped offline review. | Server state follows hosted/customer-managed controls; local state has separate local keys, retention, and uninstall path. | Adapters must declare whether each request uses hosted server or local daemon and must not mix approval state across them. | Define conflict rules, retry behavior, and audit export boundaries before rollout; changed content or context requires a fresh `/review`. |
+
+Use `docs/install.md` for install commands. Use this table for deployment selection and control ownership.
+
 ## Filesystem Boundaries
 
 Run Junas as a dedicated service account and keep runtime state out of user-writable
