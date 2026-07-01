@@ -152,7 +152,6 @@
 - [ ] P0/Security: Add object-level authorization tests for every endpoint taking `review_id`, `document_hash`, mapping id, tenant-scoped session id, matter id, or subject erasure target.
 - [ ] P0/Security: Add tests that tenant A cannot read, reidentify, approve, export, erase, or list tenant B artifacts even with guessed ids.
 - [ ] P0/Security: Add rate-limit design docs and implementation for review, batch classify, reidentify, local pairing, and admin decision endpoints.
-- [ ] P0/Security: Add dependency/security scanning documentation for Python packages, extension JS, Office assets, and PyInstaller output.
 - [ ] P0/Security: Add software bill of materials generation for server and local desktop package artifacts.
 - [ ] P0/Security: Add a release checklist requiring OpenAPI snapshot, auth tests, tenant isolation tests, no-body-logs tests, local daemon CSRF tests, and adapter privacy tests.
 - [ ] P0/Security: Add a data retention matrix for journals, mappings, subject index, sessions, matter terms, adapter telemetry, SIEM, audit packs, fixtures, and reports.

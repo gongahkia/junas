@@ -143,6 +143,28 @@ class DeploymentDocsTests(unittest.TestCase):
         ):
             self.assertIn(token, text)
 
+    def test_dependency_scanning_doc_covers_release_surfaces(self):
+        text = (ROOT / "docs" / "security" / "dependency-scanning.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("security/dependency-scanning.md", docs_index)
+        for token in (
+            "uv export --locked --all-extras",
+            "uvx pip-audit -r reports/security/requirements-all.txt",
+            "integrations/browser_extension/manifest.json",
+            "npm audit --audit-level=high",
+            "scripts/render_outlook_manifest.py",
+            "scripts/validate_outlook_manifest.py",
+            "integrations/word_addin/",
+            "uv export --locked --extra packaging",
+            "uv run pyinstaller packaging/junas-local.spec",
+            "reports/security/junas-local.sha256",
+            "GitHub Dependency Review",
+            "https://pypa.github.io/pip-audit/",
+            "https://docs.npmjs.com/cli/v11/commands/npm-audit",
+        ):
+            self.assertIn(token, text)
+
     def test_direct_api_integration_doc_covers_baseline_contract(self):
         text = (ROOT / "docs" / "integrations" / "direct-api.md").read_text(encoding="utf-8")
         for token in (
