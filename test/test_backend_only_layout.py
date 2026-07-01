@@ -24,6 +24,15 @@ class BackendOnlyLayoutTests(unittest.TestCase):
                 response = client.get(path)
                 self.assertEqual(response.status_code, 404)
 
+    def test_admin_console_routes_are_not_mounted_without_endpoint_auth_tests(self):
+        admin_paths = sorted(
+            route.path for route in main.app.routes if getattr(route, "path", "").startswith("/admin")
+        )
+        self.assertEqual(admin_paths, [])
+        with TestClient(main.app) as client:
+            response = client.get("/admin/review-sessions")
+        self.assertEqual(response.status_code, 404)
+
     def test_archived_demo_assets_are_pruned(self):
         self.assertFalse((ROOT / "archive" / "frontend-demos").exists())
 
