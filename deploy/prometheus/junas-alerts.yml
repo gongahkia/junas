@@ -1,0 +1,70 @@
+groups:
+  - name: junas-observability
+    rules:
+      - alert: JunasBackendHighErrorRate
+        expr: |
+          (
+            sum(rate(junas_http_requests_total{status_code=~"5.."}[5m]))
+            /
+            clamp_min(sum(rate(junas_http_requests_total[5m])), 1)
+          ) > 0.05
+        for: 10m
+        labels:
+          severity: page
+          component: backend
+        annotations:
+          summary: Junas backend 5xx error rate is above 5%.
+          runbook: Check app logs, dependency health, readiness, and recent deploys. Do not copy request bodies into alerts.
+
+      - alert: JunasPolicyConfigValidationFailure
+        expr: |
+          absent(junas_preflight_check_status{check="policy_config"})
+          or max_over_time(junas_preflight_check_status{check="policy_config"}[15m]) == 0
+        for: 15m
+        labels:
+          severity: page
+          component: policy
+        annotations:
+          summary: Junas production policy config preflight is failing or missing.
+          runbook: Run scripts/preflight.py with --deployment production --strict and publish its textfile metrics.
+
+      - alert: JunasExternalHelperFailure
+        expr: |
+          junas_dependency_configured == 1
+          and on(dependency)
+          junas_dependency_healthy == 0
+        for: 10m
+        labels:
+          severity: ticket
+          component: external-helper
+        annotations:
+          summary: A configured Junas external helper is unhealthy.
+          runbook: Inspect /diagnostics dependency_status and helper config. Do not include helper prompts or excerpts.
+
+      - alert: JunasAdapterAuthFailureSpike
+        expr: |
+          sum(rate(junas_http_requests_total{
+            endpoint=~"/review|/safe-rewrite|/request-approval|/documents/.*",
+            status_code=~"401|403"
+          }[5m])) > 0.05
+        for: 10m
+        labels:
+          severity: ticket
+          component: adapter-auth
+        annotations:
+          summary: Adapter-facing auth failures are elevated.
+          runbook: Check tenant credentials, JWT audience, API key rollout, and adapter backend URL settings.
+
+      - alert: JunasLocalDaemonPairingAnomalies
+        expr: |
+          sum(rate(junas_http_requests_total{
+            endpoint=~"/local/pairing/.*",
+            status_code=~"400|401|403|404|409|429"
+          }[10m])) > 0.02
+        for: 10m
+        labels:
+          severity: ticket
+          component: local-daemon
+        annotations:
+          summary: Local daemon pairing failures are elevated.
+          runbook: Check pairing expiry, CSRF/origin settings, local token rollout, and client clock drift.

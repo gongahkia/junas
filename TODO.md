@@ -92,7 +92,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P0/Observability: Add alerts for high backend error rate, policy config validation failure, external helper failure, adapter auth failure, and local daemon pairing anomalies.
 - [ ] P0/Observability: Add a `scripts/trace_policy_decision.sh` helper that shows request id, policy id, decision, timings, and SIEM event status without content.
 - [ ] P0/Observability: Add docs explaining which metrics are safe for SIEM and which must remain local-only or disabled.
 - [ ] P1/Deployment: Add Docker production example that enables tenant auth, policy config, journal keys, no body logs, and readiness checks.

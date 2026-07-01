@@ -32,6 +32,21 @@ MAX_PRODUCTION_REQUEST_BYTES = 25 * 1024 * 1024
 POLICY_CONFIG_ENV_VARS = ("JUNAS_POLICY_CONFIG", "JUNAS_POLICY_CONFIG_PATH")
 
 
+def _prometheus_label(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("\n", "\\n").replace('"', '\\"')
+
+
+def _write_preflight_metrics(path: Path, statuses: dict[str, bool]) -> None:
+    lines = [
+        "# HELP junas_preflight_check_status Junas preflight check status, 1 for pass and 0 for fail.",
+        "# TYPE junas_preflight_check_status gauge",
+    ]
+    for check, ok in sorted(statuses.items()):
+        lines.append(f'junas_preflight_check_status{{check="{_prometheus_label(check)}"}} {1 if ok else 0}')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def _has_env(name: str) -> bool:
     return bool(os.environ.get(name, "").strip())
 
@@ -244,6 +259,11 @@ def main() -> int:
         default=os.environ.get("JUNAS_DEPLOYMENT_MODE", "local").strip().lower() or "local",
         help="deployment posture to validate; production fails strict preflight when dev-only auth is enabled",
     )
+    parser.add_argument(
+        "--prometheus-output",
+        type=str,
+        help="write preflight check status metrics for a Prometheus textfile collector",
+    )
     args = parser.parse_args()
     if args.deployment not in {"local", "production"}:
         parser.error("--deployment must be one of: local, production")
@@ -256,13 +276,16 @@ def main() -> int:
 
     checks: list[str] = []
     warnings: list[str] = []
+    preflight_status: dict[str, bool] = {}
 
     try:
         settings = load_runtime_settings(cli_overrides=cli_overrides)
     except ConfigError as exc:
         settings = None
+        preflight_status["runtime_settings"] = False
         warnings.append(str(exc))
     else:
+        preflight_status["runtime_settings"] = True
         checks.append(f"settings validated: {settings.config_path}")
         checks.append(f"pipeline layers valid: {list(settings.pipeline.layers)}")
 
@@ -276,38 +299,47 @@ def main() -> int:
     (checks if ok_pillow else warnings).append(msg_pillow)
 
     if args.deployment == "production" and _is_truthy_env("JUNAS_DEV_AUTH"):
+        preflight_status["dev_auth_disabled"] = False
         warnings.append(
             "JUNAS_DEV_AUTH=1 enables dev-only X-Reviewer-ID attribution; disable it for production"
         )
     elif _is_truthy_env("JUNAS_DEV_AUTH"):
         checks.append("dev reviewer header accepted for local deployment only")
     else:
+        preflight_status["dev_auth_disabled"] = True
         checks.append("dev reviewer header disabled")
 
     if settings is not None:
         if args.deployment == "production":
             auth_ok, auth_msg = _production_auth_configured(settings)
+            preflight_status["production_auth"] = auth_ok
             (checks if auth_ok else warnings).append(auth_msg)
 
-            for ok, message in (
-                _plaintext_mapping_disabled(),
-                _policy_configured(settings),
-                _production_cors_configured(settings),
-                _production_body_cap_configured(settings),
-            ):
+            production_checks = (
+                ("plaintext_mapping_disabled", _plaintext_mapping_disabled()),
+                ("policy_config", _policy_configured(settings)),
+                ("production_cors", _production_cors_configured(settings)),
+                ("production_body_cap", _production_body_cap_configured(settings)),
+            )
+            for check_name, (ok, message) in production_checks:
+                preflight_status[check_name] = ok
                 (checks if ok else warnings).append(message)
 
             retention_ok, retention_msg = _retention_manifest_configured()
+            preflight_status["retention_manifest"] = retention_ok
             (checks if retention_ok else warnings).append(retention_msg)
 
             if _is_truthy_env("JUNAS_REVIEW_PERSIST"):
-                for ok, message in (
-                    _valid_mapping_store_key(),
-                    _valid_subject_index_key(),
-                    _valid_journal_keys_file(),
-                ):
+                persistence_checks = (
+                    ("mapping_store_key", _valid_mapping_store_key()),
+                    ("subject_index_key", _valid_subject_index_key()),
+                    ("journal_keys_file", _valid_journal_keys_file()),
+                )
+                for check_name, (ok, message) in persistence_checks:
+                    preflight_status[check_name] = ok
                     (checks if ok else warnings).append(message)
             else:
+                preflight_status["review_persistence_keys"] = True
                 checks.append("review persistence disabled")
 
         provider_keys = {
@@ -364,6 +396,8 @@ def main() -> int:
 
         image_ok, image_msg = _image_scan_provider_configured(settings)
         (checks if image_ok else warnings).append(image_msg)
+    elif args.deployment == "production":
+        preflight_status["policy_config"] = False
 
     print("=== Junas Preflight ===")
     config_path = settings.config_path if settings is not None else (
@@ -383,6 +417,9 @@ def main() -> int:
 
     print("summary_json:")
     print(json.dumps({"checks": checks, "warnings": warnings}, indent=2))
+
+    if args.prometheus_output:
+        _write_preflight_metrics(Path(args.prometheus_output).expanduser(), preflight_status)
 
     if args.strict and warnings:
         return 1
