@@ -135,6 +135,10 @@ JUNAS_PUBLIC_EVIDENCE_ENABLED=0
 JUNAS_LLM_ENABLED=0
 ```
 
+`render.yaml` provides a checked-in Render Blueprint for this fallback path. It
+uses the free Docker web-service runtime, `Dockerfile.public-demo`, `/ready` as
+the health check, and the same deterministic-only environment gates.
+
 README cold-start copy must mention the 15-minute idle spin-down if Render is
 chosen.
 

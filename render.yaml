@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: junas-deterministic-demo
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.public-demo
+    dockerContext: .
+    healthCheckPath: /ready
+    autoDeployTrigger: commit
+    envVars:
+      - key: JUNAS_PUBLIC_DEMO_ENABLED
+        value: "1"
+      - key: JUNAS_REVIEW_PERSIST
+        value: "0"
+      - key: PIPELINE_LAYERS
+        value: ""
+      - key: JUNAS_PUBLIC_EVIDENCE_ENABLED
+        value: "0"
+      - key: JUNAS_PUBLIC_EVIDENCE_PROVIDER
+        value: none
+      - key: JUNAS_LLM_ENABLED
+        value: "0"
+      - key: JUNAS_LLM_PROVIDER
+        value: none
+      - key: JUNAS_LLM_HELPERS_ENABLED
+        value: "0"
+      - key: JUNAS_LLM_DEFINED_TERMS_ENABLED
+        value: "0"
+      - key: JUNAS_LLM_COVERAGE_AUDIT_ENABLED
+        value: "0"
+      - key: JUNAS_IMAGE_SCAN_PROVIDER
+        value: none
+      - key: JUNAS_TENANCY_ENABLED
+        value: "0"

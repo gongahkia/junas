@@ -90,6 +90,7 @@ class PublicDemoTests(unittest.TestCase):
     def test_public_demo_hosted_artifacts_use_local_sku_and_auth_gate(self):
         dockerfile = (main.PROJECT_ROOT / "Dockerfile.public-demo").read_text(encoding="utf-8")
         deploy_script = (main.PROJECT_ROOT / "scripts" / "deploy_hf_space.sh").read_text(encoding="utf-8")
+        render_blueprint = (main.PROJECT_ROOT / "render.yaml").read_text(encoding="utf-8")
         space_readme = (main.PROJECT_ROOT / "deploy" / "huggingface-space" / "README.md").read_text(
             encoding="utf-8"
         )
@@ -114,6 +115,16 @@ class PublicDemoTests(unittest.TestCase):
             "HF_TOKEN",
         ):
             self.assertIn(token, deploy_script)
+        for token in (
+            "runtime: docker",
+            "plan: free",
+            "dockerfilePath: ./Dockerfile.public-demo",
+            "healthCheckPath: /ready",
+            "JUNAS_PUBLIC_DEMO_ENABLED",
+            "JUNAS_LLM_ENABLED",
+            "JUNAS_PUBLIC_EVIDENCE_ENABLED",
+        ):
+            self.assertIn(token, render_blueprint)
         for token in ("sdk: docker", "app_port: 8000", "suggested_hardware: cpu-basic", "no review persistence"):
             self.assertIn(token, space_readme)
         for token in (
@@ -122,6 +133,7 @@ class PublicDemoTests(unittest.TestCase):
             "Web check performed 2026-07-02",
             "Render Free web services are viable for FastAPI",
             "spin down after 15 minutes without inbound traffic",
+            "`render.yaml` provides a checked-in Render Blueprint",
             "Railway Serverless can sleep a service after more than 10 minutes",
             "return `502 Bad Gateway`",
             "does not include a live hosted URL",
