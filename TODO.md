@@ -94,7 +94,6 @@
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
 - [ ] P1/MarketValidation: Interview at least five target users across legal, compliance, and security, then update `docs/product/personas.md` with validated workflows and pain points.
 - [ ] P1/MarketValidation: Run a manual task study comparing standalone copy-paste redaction versus Outlook/browser in-workflow review and record adoption friction in `docs/product/value-metrics.md`.
-- [ ] P0/Eval: Re-run the full layer-attribution eval after the Detection work and report the honest ideal-recall delta from the 0.4256 baseline, with the per-bucket reduction in `singling_out_miss` and `conjunction_miss` (done when: a committed report shows before/after ideal recall and per-bucket counts; `docs/accuracy.md` presents the deterministic-only gain with no LLM in the strict path).
 - [ ] P1/Detection: Scope the residual true-inference and needs-review buckets (~360 misses) explicitly as the capped-severity, human-adjudicated, server-only LLM tier (Item 54 plumbing already present), and document this slice as the honest boundary of deterministic detection rather than a hole (done when: docs state the ~1.5% LLM-tier residual, the cap preserves the deterministic-high invariant, and no claim implies the deterministic layer should reach it).
 
 ## Surface, Demonstrability, and Credibility

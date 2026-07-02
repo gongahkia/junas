@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "bucket_counts": {
+      "conjunction_miss": 5026,
+      "coverage_gap": 17225,
+      "needs_review": 336,
+      "singling_out_miss": 559,
+      "true_inference_miss": 24
+    },
+    "candidate_f2": 0.9999,
+    "candidate_precision": 0.9997,
+    "candidate_recall": 1.0,
+    "ideal_candidate_f2": 0.4733,
+    "ideal_candidate_precision": 0.8583,
+    "ideal_candidate_recall": 0.4256,
+    "report": "reports/current/layer_attribution_f2_summary_20260701.json"
+  },
+  "delta": {
+    "bucket_reduction": {
+      "conjunction_miss": 0,
+      "coverage_gap": 0,
+      "needs_review": 0,
+      "singling_out_miss": 0,
+      "true_inference_miss": 0
+    },
+    "conjunction_miss_reduction": 0,
+    "ideal_candidate_f2": -0.0013,
+    "ideal_candidate_recall": 0.0,
+    "singling_out_miss_reduction": 0
+  },
+  "deterministic_only": true,
+  "external_layers": {
+    "llm_adjudicator": false,
+    "public_evidence": false
+  },
+  "interpretation": "Strict deterministic Detection changes did not improve ideal recall on the current candidate-corpus layer-attribution labels; the honest post-detection delta is zero for ideal recall, singling_out_miss, and conjunction_miss.",
+  "post_detection": {
+    "bucket_counts": {
+      "conjunction_miss": 5026,
+      "coverage_gap": 17225,
+      "needs_review": 336,
+      "singling_out_miss": 559,
+      "true_inference_miss": 24
+    },
+    "candidate_f2": 0.9913,
+    "candidate_precision": 0.9711,
+    "candidate_recall": 0.9965,
+    "ideal_candidate_f2": 0.472,
+    "ideal_candidate_precision": 0.8362,
+    "ideal_candidate_recall": 0.4256,
+    "source_manifest": "/tmp/junas-layer-attribution-20260701-post/20260701-strict-post-detection_manifest.json"
+  },
+  "review_profile": "strict",
+  "run_id": "20260701-strict-post-detection",
+  "schema_version": "junas.layer_attribution_delta.v1"
+}

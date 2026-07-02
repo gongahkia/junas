@@ -12,6 +12,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT = ROOT / "docs" / "accuracy.md"
+LAYER_ATTRIBUTION_DELTA = ROOT / "reports" / "current" / "layer_attribution_post_detection_delta_20260701.json"
 
 
 @dataclass(frozen=True)
@@ -173,6 +174,29 @@ def render_accuracy_doc() -> str:
         "independent public benchmark.",
     ]
     )
+    if LAYER_ATTRIBUTION_DELTA.is_file():
+        delta_payload = _load_json(LAYER_ATTRIBUTION_DELTA)
+        delta = delta_payload["delta"]
+        post = delta_payload["post_detection"]
+        rel_delta = LAYER_ATTRIBUTION_DELTA.relative_to(ROOT)
+        lines.extend(
+            [
+                "",
+                "## Layer Attribution Delta",
+                "",
+                f"Committed strict post-detection report: `{rel_delta}`.",
+                "",
+                "This run is deterministic-only: no public-evidence retrieval and no LLM adjudicator.",
+                "",
+                f"- Ideal recall after Detection work: {_fmt_score(post['ideal_candidate_recall'])}.",
+                f"- Ideal recall delta from the 0.4256 baseline: {_fmt_score(delta['ideal_candidate_recall'])}.",
+                f"- `singling_out_miss` reduction: {delta['singling_out_miss_reduction']}.",
+                f"- `conjunction_miss` reduction: {delta['conjunction_miss_reduction']}.",
+                "",
+                "The current deterministic changes produced no measured ideal-recall gain on the "
+                "candidate-corpus layer-attribution labels.",
+            ]
+        )
 
     lines.extend(
         [

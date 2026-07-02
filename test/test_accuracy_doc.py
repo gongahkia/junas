@@ -41,6 +41,12 @@ class AccuracyDocTests(unittest.TestCase):
             "## MNPI Benchmark Limitation",
             "No public MNPI text-detection benchmark",
             "Strict `conjunctive_mnpi` span placement includes detector reconciliation",
+            "## Layer Attribution Delta",
+            "reports/current/layer_attribution_post_detection_delta_20260701.json",
+            "deterministic-only",
+            "Ideal recall delta from the 0.4256 baseline: 0.0000",
+            "`singling_out_miss` reduction: 0",
+            "`conjunction_miss` reduction: 0",
         ):
             self.assertIn(token, rendered)
 

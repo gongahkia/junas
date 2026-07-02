@@ -51,6 +51,19 @@ Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes
 
 No public MNPI text-detection benchmark comparable to TAB or ai4privacy was identified in the 2026-07-01 source review. MNPI recall is measured against internal expert-labelled/project-owner-reviewed fixtures, with provenance in `test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`. Strict `conjunctive_mnpi` span placement includes detector reconciliation and is not an independent public benchmark.
 
+## Layer Attribution Delta
+
+Committed strict post-detection report: `reports/current/layer_attribution_post_detection_delta_20260701.json`.
+
+This run is deterministic-only: no public-evidence retrieval and no LLM adjudicator.
+
+- Ideal recall after Detection work: 0.4256.
+- Ideal recall delta from the 0.4256 baseline: 0.0000.
+- `singling_out_miss` reduction: 0.
+- `conjunction_miss` reduction: 0.
+
+The current deterministic changes produced no measured ideal-recall gain on the candidate-corpus layer-attribution labels.
+
 ## Per-Detector Baselines
 
 | Corpus | Fixtures | Detector | Recall | Precision |
