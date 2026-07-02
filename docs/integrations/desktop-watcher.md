@@ -1,6 +1,6 @@
 # Desktop Watcher
 
-Source: `integrations/desktop/`, `packaging/junas-local.spec`, `packaging/macos/`
+Source: [`integrations/desktop/`](../../integrations/desktop/), [`packaging/junas-local.spec`](../../packaging/junas-local.spec), [`packaging/macos/`](../../packaging/macos/)
 
 Compatibility path: `src/junas/desktop/`
 
