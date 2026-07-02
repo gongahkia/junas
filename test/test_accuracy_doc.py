@@ -47,6 +47,13 @@ class AccuracyDocTests(unittest.TestCase):
             "Ideal recall delta from the 0.4256 baseline: 0.0000",
             "`singling_out_miss` reduction: 0",
             "`conjunction_miss` reduction: 0",
+            "## Residual LLM Tier Boundary",
+            "360 labels in `needs_review` and `true_inference_miss`",
+            "336 `needs_review` labels and 24 `true_inference_miss` labels",
+            "1.55% of the 23,170 ideal misses",
+            "capped-severity, human-adjudicated, server-only LLM tier",
+            "[Inference] The medium-severity LLM-raised-finding cap",
+            "Do not describe these residual buckets as work the deterministic layer should reach",
         ):
             self.assertIn(token, rendered)
 

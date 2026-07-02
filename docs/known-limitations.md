@@ -23,6 +23,10 @@
   `test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`.
   Strict `conjunctive_mnpi` span placement includes detector reconciliation and
   is not an independent public MNPI benchmark.
+- The current strict layer-attribution report leaves 360 labels in the residual
+  LLM-tier slice: 336 `needs_review` and 24 `true_inference_miss`, 1.55% of
+  the 23,170 ideal misses. This is the capped-severity, human-adjudicated,
+  server-only boundary for `audit_grade`, not a deterministic-layer target.
 - This is the market gap Junas targets: MNPI review is conjunctive over
   materiality, non-public status, issuer/security context, and possession or
   disclosure context, while public PII corpora benchmark direct span extraction.

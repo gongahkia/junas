@@ -64,6 +64,16 @@ This run is deterministic-only: no public-evidence retrieval and no LLM adjudica
 
 The current deterministic changes produced no measured ideal-recall gain on the candidate-corpus layer-attribution labels.
 
+## Residual LLM Tier Boundary
+
+The post-detection layer-attribution report leaves 360 labels in `needs_review` and `true_inference_miss`: 336 `needs_review` labels and 24 `true_inference_miss` labels, 1.55% of the 23,170 ideal misses.
+
+This slice is the capped-severity, human-adjudicated, server-only LLM tier. It covers cases where deterministic span evidence is insufficient because the missing decision depends on inference or reviewer judgment.
+
+[Inference] The medium-severity LLM-raised-finding cap and `audit_grade` score-band router preserve the deterministic-high invariant: strict mode does not call LLM helpers, and already-high deterministic MNPI findings stay controlling instead of being cleared by helper output.
+
+Do not describe these residual buckets as work the deterministic layer should reach. Treat them as the documented boundary where server-side audit-grade review may add advisory warnings for a human reviewer.
+
 ## Per-Detector Baselines
 
 | Corpus | Fixtures | Detector | Recall | Precision |

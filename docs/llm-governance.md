@@ -75,6 +75,26 @@ label, cannot create high-severity findings directly, and must keep structured
 mode public-source lists empty. The promotion gate consumes the eval report and
 fails if `overall.invariant_violations` exceeds the manifest threshold.
 
+## Residual Audit Tier Boundary
+
+The current strict layer-attribution report leaves 360 residual labels in the
+human-adjudicated LLM-tier slice: 336 `needs_review` labels and 24
+`true_inference_miss` labels. That is 1.55% of the 23,170 ideal misses in
+`reports/current/layer_attribution_post_detection_delta_20260701.json`.
+
+This slice is server-only and `audit_grade` only. It is for reviewer-facing
+warnings where the missing decision depends on inference, public-status
+reasoning, or judgment that is not encoded as deterministic span evidence.
+
+[Inference] The medium-severity cap on LLM-raised findings and the
+`audit_grade` ambiguous-band router preserve the deterministic-high invariant:
+strict review does not call LLM helpers, and deterministic-high MNPI findings
+remain controlling instead of being cleared by helper output.
+
+Do not present `needs_review` or `true_inference_miss` as buckets the
+deterministic layer should reach. They are the documented boundary where
+server-side audit-grade review may add advisory signals for human adjudication.
+
 ## EU AI Act GPAI Timeline
 
 The European Commission states that GPAI provider obligations entered into

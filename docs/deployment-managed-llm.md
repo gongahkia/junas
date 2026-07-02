@@ -49,6 +49,17 @@ Required controls:
 
 LLM adjudication is advisory. It cannot suppress deterministic-high findings and must keep the deterministic policy decision path intact.
 
+The documented residual LLM-tier slice is 360 labels in the current strict
+layer-attribution report: 336 `needs_review` and 24 `true_inference_miss`,
+or 1.55% of 23,170 ideal misses. Treat this as a server-only,
+human-adjudicated `audit_grade` tier. It is not part of the deterministic
+local SKU and must not be enabled for public deterministic demos.
+
+[Inference] The LLM raised-finding severity cap preserves the
+deterministic-high invariant when combined with the router: helper output can
+add capped advisory warnings for ambiguous audit-grade cases, but it cannot
+clear already-high deterministic MNPI findings.
+
 Remote structured-token mode:
 
 ```sh

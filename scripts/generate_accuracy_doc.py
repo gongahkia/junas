@@ -178,6 +178,12 @@ def render_accuracy_doc() -> str:
         delta_payload = _load_json(LAYER_ATTRIBUTION_DELTA)
         delta = delta_payload["delta"]
         post = delta_payload["post_detection"]
+        bucket_counts = dict(post["bucket_counts"])
+        residual_needs_review = int(bucket_counts["needs_review"])
+        residual_true_inference = int(bucket_counts["true_inference_miss"])
+        residual_total = residual_needs_review + residual_true_inference
+        ideal_misses = sum(int(value) for value in bucket_counts.values())
+        residual_share = (residual_total / ideal_misses) * 100 if ideal_misses else 0.0
         rel_delta = LAYER_ATTRIBUTION_DELTA.relative_to(ROOT)
         lines.extend(
             [
@@ -195,6 +201,26 @@ def render_accuracy_doc() -> str:
                 "",
                 "The current deterministic changes produced no measured ideal-recall gain on the "
                 "candidate-corpus layer-attribution labels.",
+                "",
+                "## Residual LLM Tier Boundary",
+                "",
+                f"The post-detection layer-attribution report leaves {residual_total} labels in "
+                f"`needs_review` and `true_inference_miss`: {residual_needs_review} "
+                f"`needs_review` labels and {residual_true_inference} `true_inference_miss` "
+                f"labels, {residual_share:.2f}% of the {ideal_misses:,} ideal misses.",
+                "",
+                "This slice is the capped-severity, human-adjudicated, server-only LLM tier. "
+                "It covers cases where deterministic span evidence is insufficient because "
+                "the missing decision depends on inference or reviewer judgment.",
+                "",
+                "[Inference] The medium-severity LLM-raised-finding cap and `audit_grade` "
+                "score-band router preserve the deterministic-high invariant: strict mode "
+                "does not call LLM helpers, and already-high deterministic MNPI findings "
+                "stay controlling instead of being cleared by helper output.",
+                "",
+                "Do not describe these residual buckets as work the deterministic layer should "
+                "reach. Treat them as the documented boundary where server-side audit-grade "
+                "review may add advisory warnings for a human reviewer.",
             ]
         )
 
