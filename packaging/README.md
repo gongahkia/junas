@@ -60,6 +60,13 @@ The LaunchAgent binds `127.0.0.1:8765`, enables local daemon ACLs, and starts at
 Run `./dist/junas-local/junas-local` directly for developer smoke tests unless an
 operator has approved LaunchAgent auto-start.
 
+Use `packaging/macos/install.sh` only after the packaged artifact has been built and an
+operator has approved login-time auto-start for the local profile. Use
+`packaging/macos/update.sh` after rebuilding `dist/junas-local/` when the existing
+LaunchAgent-managed install should move to the new artifact. Use
+`packaging/macos/uninstall.sh` to remove the LaunchAgent-managed bundle during rollback,
+device handoff, pilot exit, or when the profile should return to direct manual launch.
+
 ## Extension and Office surfaces
 
 ```sh
