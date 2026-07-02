@@ -6,6 +6,9 @@ User-requested integration intake is tracked in `docs/product/integration-backlo
 Backlog rows must be categorized as `direct API`, `Outlook`, `browser`, `DMS`, `Slack`,
 `Google Workspace`, or `unsupported`.
 
+Scope anti-goals and deferred stretch ideas live in
+`docs/product/scope-governance.md`; cite that page when rejecting scope creep.
+
 ## Kill Criteria
 
 Adapter promotion requires measurable workflow value, not just technical feasibility. A candidate adapter should stay experimental, be paused, or be archived when it cannot show a useful activation rate, reviewed-send or reviewed-submit rate, accepted-finding rate, safe-rewrite usage, blocked-risk outcome, or audit-pack export path for its target workflow.
