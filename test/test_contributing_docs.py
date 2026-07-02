@@ -56,7 +56,7 @@ class ContributingDocTests(unittest.TestCase):
         ):
             self.assertIn(issue, contributing)
         self.assertEqual(contributing.count("https://github.com/gongahkia/junas/issues/"), 5)
-        self.assertIn("documentation-only entry points drawn from `TODO.md`", contributing)
+        self.assertIn("documentation-only entry points drawn from the GitHub issue backlog", contributing)
 
 
 if __name__ == "__main__":

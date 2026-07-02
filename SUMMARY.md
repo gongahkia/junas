@@ -29,7 +29,7 @@ Top-level runtime/config/docs:
 - `config.toml`: default deterministic/no-cloud config.
 - `.env.example`: documented env vars and provider examples.
 - `Dockerfile`, `docker-compose.yml`, `docker-compose.managed-llm.yml`: container launch paths.
-- `README.md`, `TODO.md`, `INTEGRATIONS.md`: main product/status docs.
+- `README.md`, `INTEGRATIONS.md`, `docs/roadmap.md`: main product/status docs.
 - `docs/`: architecture, install/run, schema, security, governance, roadmap, accuracy, limitations.
 - `scripts/`: preflight, runtime verification, benchmark/eval, audit, retention, packaging, OpenAPI/example tooling.
 - `src/junas/`: backend, review engine, policy, anonymization, config, external provider guardrails, client SDK.
@@ -467,7 +467,7 @@ Security caveats:
 
 - Do not claim OS-level append-only semantics are implemented by the app.
 - Do not claim default journal key is production-safe.
-- `TODO.md` flags removing default journal HMAC fallback and reducing persisted matched-span exposure as open security hardening work.
+- GitHub issues track open security hardening work; verify the current issue list before citing unfinished status.
 
 ## Auth, Tenancy, Local ACL
 
@@ -809,7 +809,7 @@ Known residual risks:
 
 ## Known Limitations
 
-From `docs/known-limitations.md` and TODO/code:
+From `docs/known-limitations.md` and code:
 
 - Not legal advice or procurement-grade legal evaluation.
 - `.msg` and `.7z` degrade fail-open unless fail-closed is enabled.
@@ -825,11 +825,11 @@ From `docs/known-limitations.md` and TODO/code:
 - Accuracy/eval docs are internal unless promoted.
 - Mapping encryption is conditional.
 - Default dev journal key fallback exists.
-- TODO flags additional object auth/rate limiting/body size/local daemon CSRF-CORS/SSRF/log regression/security docs as open hardening work.
+- GitHub issues track additional hardening work; verify the current issue list before citing unfinished status.
 
 ## Roadmap And Future Direction
 
-Source: `docs/roadmap.md`, `TODO.md`, `INTEGRATIONS.md`.
+Source: `docs/roadmap.md`, `INTEGRATIONS.md`, and GitHub issues.
 
 Current strategic direction:
 
@@ -844,16 +844,12 @@ Current strategic direction:
 - Build admin/reviewer workflows: read-only review session list, policy config UI, reviewer queue, false-positive triage, audit export UI, auth/telemetry/tests.
 - Document adapter protocol, failure handling, auth, privacy, telemetry, recipient/document context, OpenAPI examples, compatibility matrix, DMS vendor docs, Slack/Google Workspace notes, certification checklist.
 
-Open TODO themes:
+Open work tracking:
 
-- Browser extension hardening: selector failure behavior, privacy tests, enterprise deployment docs, permission review, MV3 lifecycle tests, Playwright smoke, telemetry, tenant adapter policy, QA matrix.
-- Desktop watcher: mark experimental, threat model, config sample with clipboard disabled, output/auth tests, docs as fallback not enforcement, LaunchAgent admin controls.
-- Feedback loop: journal-to-corpus promotion path, taxonomy, payload extension, review queue scripts, break recall-gate circularity, privacy-safe telemetry, no-train invariant, retention/eval/precision gates.
-- Security: mapping-store encryption mandatory, reidentify fail-closed tests, remove default journal HMAC key, avoid persisting matched spans by default, fixture secret scrub CI, dependency scanning, SBOM, release checklist.
-- Docs: update install/running/deployment, architecture diagrams, sequence diagrams, deployment comparison, limitations, FAQs, migration guide, correct unconditional encryption/append-only claims.
-- Eval: TAB benchmark, ai4privacy PII masking, PIIBench notes, Presidio conventions, independent MNPI labels, deterministic singling-out scorer, conjunctive MNPI element scorer, LLM-tier residual boundary.
+- GitHub issues are the source of truth for unfinished work.
+- Migrated demo tasks: #84 for hosted deterministic demo deployment/README linking, #85 for hosted playground launch verification.
 
-Do not tell a chatbot these are already complete unless it verifies current TODO/code.
+Do not tell a chatbot these are already complete unless it verifies current GitHub issues and code.
 
 ## Chatbot Usage Guidance
 
@@ -864,7 +860,7 @@ For repo Q&A, prefer this hierarchy:
 3. `src/junas/policy/engine.py` and `src/junas/policy/config.py` for policy decisions.
 4. `config.toml`, `src/junas/configs/runtime.py`, `.env.example` for runtime settings.
 5. `docs/schema.md`, `docs/architecture.md`, `docs/running.md`, `docs/install.md` for supported public contract.
-6. `TODO.md` for unfinished work and caveats.
+6. GitHub issues for unfinished work and caveats.
 7. `test/` for expected behavior and regression constraints.
 
 Claims to avoid unless re-verified:

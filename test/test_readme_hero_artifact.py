@@ -151,7 +151,9 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
             "production hardening",
             "independent eval expansion",
             "hosted demo",
-            "[`TODO.md`](./TODO.md)",
+            "GitHub issues",
+            "https://github.com/gongahkia/junas/issues/84",
+            "https://github.com/gongahkia/junas/issues/85",
         ):
             self.assertIn(token, status)
         for forbidden in ("production-ready", "complete", "guarantee", "guarantees", "procurement-grade"):

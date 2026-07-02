@@ -15,7 +15,7 @@ Pre-send review, safe rewrite, and audit evidence for GenAI, email, and document
 
 Junas reviews text and documents before users paste prompts, send email, upload matter files, or share drafts externally. The deterministic review engine is the runtime source of truth: it detects personal data and material non-public information, returns statute-cited findings, records audit-ready evidence, and routes users toward safe rewrite, redaction, pseudonymization, approval, or hold actions.
 
-Project status: pre-production / portfolio-stage. The deterministic core, policy contract, demo artifacts, and supported-target adapter evidence are present; production hardening, independent eval expansion, hosted demo, and rollout tasks remain tracked in [`TODO.md`](./TODO.md).
+Project status: pre-production / portfolio-stage. The deterministic core, policy contract, demo artifacts, and supported-target adapter evidence are present; production hardening, independent eval expansion, hosted demo, and rollout tasks remain tracked in GitHub issues, including [#84](https://github.com/gongahkia/junas/issues/84) and [#85](https://github.com/gongahkia/junas/issues/85).
 
 <!-- JUNAS_REVIEW_HERO_START -->
 ## 60-second verdict

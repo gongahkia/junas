@@ -80,7 +80,7 @@ runtime code. Current scoped issues:
 - [#80: Add operator FAQ for DLP coexistence](https://github.com/gongahkia/junas/issues/80)
 - [#81: Mark LaunchAgent install optional and admin-controlled](https://github.com/gongahkia/junas/issues/81)
 
-These are intentionally documentation-only entry points drawn from `TODO.md`.
+These are intentionally documentation-only entry points drawn from the GitHub issue backlog.
 
 ## Pull Request Notes
 
@@ -89,4 +89,3 @@ These are intentionally documentation-only entry points drawn from `TODO.md`.
 - Do not broaden maturity, security, or accuracy claims without adding evidence in
   the same change.
 - Include the commands you ran in the PR description.
-
