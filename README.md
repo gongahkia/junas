@@ -579,6 +579,7 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`docs/llm-governance.md`](./docs/llm-governance.md): LLM promotion, privacy evaluation, and invariant gates.
 - [`docs/schema.md`](./docs/schema.md): API and artifact contracts.
 - [`docs/api/`](./docs/api/): Postman, cURL, and Python client integration artifacts.
+- [`docs/faq/developer.md`](./docs/faq/developer.md): endpoint-choice FAQ for review, rewrite, scrub, reidentify, and classify flows.
 
 ## Development & Evaluation
 
