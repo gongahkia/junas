@@ -39,6 +39,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths
 - `product/non-goals.md`: explicit control planes Junas does not replace
 - `product/scope-governance.md`: launch anti-goals, deferred stretch backlog, and scope-creep rejection rule
+- `product/polish-backlog.md`: non-blocking polish estimates and hidden-UI discoverability rule
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
 - `product/value-metrics.md`: privacy-safe product value metrics and aggregation rules
 - `product/pilot-success-rubric.md`: measurable avoided-send, rewrite, reviewer-decision, and false-positive fatigue rubric for pilots

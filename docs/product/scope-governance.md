@@ -21,6 +21,8 @@ These ideas are out of v1/v2 scope unless a later issue replaces this governance
 - Headless server mode.
 - Windows port.
 
+Low-cost polish estimates live in [`polish-backlog.md`](polish-backlog.md).
+
 ## Future Issue Rule
 
 When a new issue proposes one of the anti-goals or deferred items, link this page and mark the issue `rejected`, `researching`, or `deferred` until there is concrete workflow evidence and a bounded implementation plan. Future monetization, novelty, or brand polish is not enough to promote the work.
