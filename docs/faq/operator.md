@@ -1,6 +1,6 @@
 # Operator FAQ
 
-Checked on 2026-07-01 against official Microsoft, Google, and Slack DLP docs.
+Checked on 2026-07-02 against official Microsoft, Google, and Slack DLP docs.
 
 ## Why Does Junas Complement DLP?
 
@@ -18,7 +18,7 @@ How Junas fits: keep Purview as the Microsoft 365 and endpoint enforcement layer
 
 ## Google Workspace DLP
 
-Google Workspace DLP lets admins define DLP rules that scan content, apply to My Drive and Shared drives, trigger incidents, and take actions such as alerts, warnings, and sharing blocks. Google also documents Drive DLP and Chat DLP surfaces.
+Google Workspace DLP lets admins define DLP rules that scan content, apply to My Drive and Shared drives, trigger incidents, and take actions such as alerts, warnings, and sharing blocks. Google also documents Gmail, Drive, and Chat DLP surfaces.
 
 Source: [Google Workspace DLP](https://knowledge.workspace.google.com/admin/security/about-dlp).
 
@@ -37,6 +37,12 @@ How Junas fits: keep Slack DLP as the Slack-native content control. Junas has no
 Endpoint controls such as MDM, EDR, USB policy, clipboard governance, browser management, screen capture control, and file-system policy remain outside Junas. The local daemon and desktop watcher are local fallback surfaces, not endpoint enforcement.
 
 Use [`docs/product/non-goals.md`](../product/non-goals.md), [`docs/known-limitations.md`](../known-limitations.md), and [`docs/security/adapter-threat-model.md`](../security/adapter-threat-model.md) when documenting this boundary.
+
+## CASB And SaaS Session Controls
+
+CASB, cloud-app discovery, app sanctioning, SaaS session control, and cross-application policy remain separate control planes. Junas does not discover unmanaged SaaS use, broker sessions, classify stored SaaS repositories, or replace tenant-wide cloud-app governance.
+
+How Junas fits: keep CASB and SaaS security controls active for discovery, sanctioning, access policy, and session enforcement. Add Junas only where a supported workflow can call `/review` before content is sent, pasted, uploaded, or approved, then feed privacy-safe metadata into existing DLP/SIEM programs.
 
 ## Operating Pattern
 
