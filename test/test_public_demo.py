@@ -90,6 +90,9 @@ class PublicDemoTests(unittest.TestCase):
     def test_public_demo_hosted_artifacts_use_local_sku_and_auth_gate(self):
         dockerfile = (main.PROJECT_ROOT / "Dockerfile.public-demo").read_text(encoding="utf-8")
         deploy_script = (main.PROJECT_ROOT / "scripts" / "deploy_hf_space.sh").read_text(encoding="utf-8")
+        deploy_workflow = (
+            main.PROJECT_ROOT / ".github" / "workflows" / "deploy-public-demo.yml"
+        ).read_text(encoding="utf-8")
         render_blueprint = (main.PROJECT_ROOT / "render.yaml").read_text(encoding="utf-8")
         space_readme = (main.PROJECT_ROOT / "deploy" / "huggingface-space" / "README.md").read_text(
             encoding="utf-8"
@@ -116,6 +119,15 @@ class PublicDemoTests(unittest.TestCase):
         ):
             self.assertIn(token, deploy_script)
         for token in (
+            "workflow_dispatch:",
+            "space_id:",
+            "secrets.HF_TOKEN",
+            "scripts/deploy_hf_space.sh",
+            "Public demo URL:",
+            "GITHUB_STEP_SUMMARY",
+        ):
+            self.assertIn(token, deploy_workflow)
+        for token in (
             "runtime: docker",
             "plan: free",
             "dockerfilePath: ./Dockerfile.public-demo",
@@ -131,6 +143,8 @@ class PublicDemoTests(unittest.TestCase):
             "CPU Basic is listed as free",
             "sleep after 48 hours of inactivity",
             "Web check performed 2026-07-02",
+            ".github/workflows/deploy-public-demo.yml",
+            "`HF_TOKEN` repository secret",
             "Render Free web services are viable for FastAPI",
             "spin down after 15 minutes without inbound traffic",
             "`render.yaml` provides a checked-in Render Blueprint",

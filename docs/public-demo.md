@@ -111,6 +111,12 @@ or reuses a Docker Space, uploads `Dockerfile.public-demo` as `Dockerfile`, adds
 `deploy/huggingface-space/README.md` as the Space metadata file, and copies only
 the package files needed to run the deterministic public demo.
 
+GitHub Actions can also publish the Space through
+`.github/workflows/deploy-public-demo.yml`. Run the manual workflow with a
+`space_id` input after adding an `HF_TOKEN` repository secret. The workflow
+prints the Space URL to the step summary; verify `/demo` before linking it from
+the README hero.
+
 Cold-start copy for the README link:
 
 > Hosted on free Hugging Face CPU Basic. The first visit after 48 hours of

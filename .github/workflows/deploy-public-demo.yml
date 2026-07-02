@@ -1,0 +1,39 @@
+name: Deploy Public Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      space_id:
+        description: "Hugging Face Space id, e.g. namespace/junas-demo"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-huggingface-space:
+    name: Deploy Hugging Face Space
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Hugging Face CLI
+        run: python -m pip install --upgrade huggingface_hub
+      - name: Verify deployment secret
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "${HF_TOKEN:-}" ]; then
+            echo "HF_TOKEN repository secret is required" >&2
+            exit 69
+          fi
+      - name: Deploy deterministic public demo
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          URL="$(./scripts/deploy_hf_space.sh "${{ inputs.space_id }}")"
+          echo "public_demo_url=${URL}" >> "$GITHUB_OUTPUT"
+          printf 'Public demo URL: %s\n' "$URL" >> "$GITHUB_STEP_SUMMARY"
