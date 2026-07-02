@@ -9,7 +9,7 @@ Use with `docs/product/workflows.md`, `docs/integrations/direct-api.md`, `docs/i
 Do not deploy all adapters at once. For the first production pilot, use both:
 
 - Direct API: baseline integration with the FastAPI backend, policy config, auth, audit journal, SIEM export, and generated OpenAPI/client examples.
-- One supported workflow adapter: Outlook Smart Alerts, Browser GenAI extension, DMS hook, or another certified adapter that intercepts a real send, submit, upload, share, or review workflow.
+- At least one workflow adapter: Outlook Smart Alerts, Browser GenAI extension, DMS hook, or another certified adapter that intercepts a real send, submit, upload, share, or review workflow.
 
 This is not a requirement for every demo or backend-only customer integration. It is the recommended production pilot shape when Junas is being evaluated for daily user workflow value.
 

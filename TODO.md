@@ -4,7 +4,6 @@
 - [x] P0/Product: Add a README "Adapter Maturity" table listing API/client as `core`, Outlook Smart Alerts as `supported-target`, browser GenAI extension as `supported-target`, Word taskpane as `experimental`, and desktop watcher as `experimental-local-fallback`.
 - [x] P0/Product: Add `docs/product/positioning.md` with the canonical one-paragraph product description, non-goals, target users, and why Junas is not a general DLP suite.
 - [x] P0/Product: Add `docs/product/workflows.md` mapping daily user workflows for Outlook send, GenAI browser paste, DMS upload, API gateway review, legal reviewer override, and auditor export.
-- [x] P0/Product: Add `docs/product/personas.md` describing end user, legal reviewer, compliance admin, security engineer, and platform integrator jobs-to-be-done.
 - [x] P0/Product: Add `docs/product/non-goals.md` stating Junas does not replace DLP, legal advice, eDiscovery, endpoint control, CASB, or IdP policy enforcement.
 - [x] P0/Product: Add `docs/product/research-basis.md` summarizing external deployment research for Microsoft 365 add-in deployment, Outlook Smart Alerts, Chrome/Edge enterprise extensions, OWASP API risks, OWASP CSRF controls, Microsoft Purview DLP, Google Workspace DLP, and Slack DLP.
 - [x] P0/Product: Update `docs/README.md` to include the new `docs/product/` documents and clarify that product docs are normative for roadmap decisions.
@@ -16,7 +15,6 @@
 - [x] P0/Product: Add a "Kill Criteria" subsection to `docs/roadmap.md` requiring adapter promotion to show measurable workflow value, not just technical feasibility.
 - [x] P0/Product: Add `docs/product/value-metrics.md` defining activation rate, reviewed-send rate, accepted-finding rate, false-positive override rate, safe-rewrite usage, blocked-send rate, and audit-pack export rate.
 - [x] P0/Product: Add a product glossary covering PII, personal data, MNPI, pre-send review, safe rewrite, redaction, pseudonymization, anonymization, audit evidence, adapter, and surface.
-- [x] P0/Product: Update `docs/known-limitations.md` to state that standalone manual redaction has lower expected adoption than in-workflow pre-send capture.
 - [x] P0/Product: Add examples that show Junas reviewing a GenAI prompt, an external email, a legal memo, a DMS upload, and a Slack-style message using the same backend contract.
 - [x] P0/API: Design a `PolicyDecisionResponse` schema with `decision`, `send_allowed`, `required_actions`, `recommended_actions`, `blocking_findings`, `policy_id`, `policy_version`, `policy_reasons`, and `review_id`.
 - [x] P0/API: Extend `ReviewRequest` with optional `surface`, `workflow`, `actor_role`, `recipient_domains`, `recipient_count`, `attachment_count`, `sensitivity_label`, `external_destination`, and `requested_action` fields.
@@ -92,8 +90,6 @@
 - [x] P1/Browser: Add a browser extension option for backend URL, tenant auth mode, local daemon token pairing, and hosted server mode.
 - [x] P1/Browser: Add a browser extension connection-health indicator that distinguishes local daemon unavailable, auth failed, server healthy, and policy blocked.
 - [x] P1/Browser: Implement prompt review before submit for known GenAI surfaces with an explicit user confirmation flow for warn decisions.
-- [ ] P1/MarketValidation: Interview at least five target users across legal, compliance, and security, then update `docs/product/personas.md` with validated workflows and pain points.
-- [ ] P1/MarketValidation: Run a manual task study comparing standalone copy-paste redaction versus Outlook/browser in-workflow review and record adoption friction in `docs/product/value-metrics.md`.
 
 ## Surface, Demonstrability, and Credibility
 

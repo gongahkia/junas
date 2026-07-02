@@ -2,11 +2,6 @@
 
 Metrics must be computed from privacy-safe events, hashes, counts, policy ids, surface names, and timestamps. Do not store raw prompts, email bodies, document text, matched spans, reversible mappings, or authorization headers to calculate these metrics.
 
-Manual task-study status: not yet run. There is no validated comparison in this
-repo between standalone copy-paste redaction and Outlook/browser in-workflow
-review. Use `docs/product/market-validation-protocol.md` to run the qualitative
-task study, then update this document only from redacted participant evidence.
-
 | Metric | Definition | Numerator | Denominator |
 |---|---|---|---|
 | Activation rate | Share of eligible users or tenants that trigger at least one Junas review in the measurement window. | Unique active users or tenants with one or more review events. | Eligible assigned users or onboarded tenants. |

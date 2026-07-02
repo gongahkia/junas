@@ -13,10 +13,6 @@
 - Office adapters depend on Microsoft 365/Office.js platform support, tenant admin assignment, client version, add-in runtime availability, requirement sets, CORS, and well-known URI handling. Outlook Smart Alerts `SoftBlock` is not fail-closed when Outlook cannot run the add-in, and the Word taskpane is user-triggered review rather than send/share enforcement.
 - Browser adapters depend on Chrome/Edge MV3 behavior, managed profile policy, host permissions, DOM selectors, target editor structure, CSP, frames, shadow DOM, and submit flow. They do not cover mobile apps, native apps, unmanaged browsers, unsupported sites, custom editors that hide text from content scripts, or UI changes that break selector discovery.
 - Office and browser adapters must not be described as universal capture, universal DLP, full-browser DLP, or guaranteed tenant-wide enforcement. They are workflow activation layers that call the backend when the vendor platform exposes the relevant event or editable surface.
-- No validated task-study evidence in this repo proves standalone manual redaction has
-  lower or higher adoption than in-workflow review. Do not make adoption-superiority
-  claims until the manual task study is complete and documented in
-  `docs/product/value-metrics.md`.
 - No public MNPI text-detection benchmark comparable to TAB or ai4privacy was
   identified in the 2026-07-01 source review. MNPI recall is measured against
   internal expert-labelled/project-owner-reviewed fixtures, with provenance in

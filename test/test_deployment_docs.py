@@ -538,7 +538,7 @@ class DeploymentDocsTests(unittest.TestCase):
             "scripts/verify_audit_pack.py",
             "scripts/verify_journal.py",
             "Framework Gate",
-            "at least five target-user interviews",
+            "pilot workflow sessions or production telemetry identify the need for an admin UI",
             "ADR 0005 is revisited or superseded",
         ):
             self.assertIn(token, text)
@@ -878,7 +878,7 @@ class DeploymentDocsTests(unittest.TestCase):
             "strict recall `1.0000`",
             "strict precision `0.9269`",
             "not an independent market benchmark",
-            "No Junas score on TAB or ai4privacy is claimed",
+            "Committed independent PII breadth checks exist for TAB and ai4privacy",
             "Do not use screenshots, demo flows, unpromoted candidate sidecars",
             "Run a customer pilot validation corpus",
             "false positives",

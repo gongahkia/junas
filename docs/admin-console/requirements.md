@@ -63,7 +63,7 @@ or a raw document browser.
   `scripts/verify_journal.py`.
 - Retention and erasure: `docs/security/data-retention.md` and
   `docs/security/subject-erasure.md`.
-- Product users: `docs/product/personas.md` and `docs/product/workflows.md`.
+- Product workflows: `docs/product/workflows.md`.
 
 ## Non-Goals Before Validation
 

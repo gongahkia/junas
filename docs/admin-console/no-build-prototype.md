@@ -159,8 +159,8 @@ Health cards link to the underlying requirements docs, not raw logs.
 Do not add a frontend framework dependency, `package.json` frontend workspace, bundled
 asset pipeline, server-rendered templates, or admin routes until:
 
-- this no-build prototype is reviewed with target users
-- at least five target-user interviews or pilot workflow sessions are recorded
+- this no-build prototype is reviewed against deployed workflow requirements
+- pilot workflow sessions or production telemetry identify the need for an admin UI
 - endpoint requirements for the touched surface are approved
 - auth, telemetry, no-raw-content, and tenant-isolation tests are planned
 - ADR 0005 is revisited or superseded

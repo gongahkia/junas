@@ -53,8 +53,8 @@ and no raw body exposure by default requirements.
 
 Revisit this decision after all of the following exist:
 
-- evidence from at least five target-user interviews or pilot workflow sessions across
-  legal, compliance, and security roles
+- evidence from pilot workflow sessions or production telemetry across legal,
+  compliance, and security operations
 - a reviewed no-build prototype or wireframe covering review sessions, decisions,
   policy config, audit exports, false-positive triage, and tenant health
 - endpoint requirements for pagination, tenant isolation, role checks, audit events,
@@ -66,7 +66,6 @@ Revisit this decision after all of the following exist:
 ## Related Documents
 
 - `docs/admin-console/requirements.md`
-- `docs/product/personas.md`
 - `docs/product/workflows.md`
 - `docs/policy/decision-contract.md`
 - `docs/security/api-inventory.md`

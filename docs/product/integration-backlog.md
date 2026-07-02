@@ -1,7 +1,6 @@
 # User-Requested Integration Backlog
 
-This backlog is for integrations requested by target users during interviews, pilots,
-support intake, or procurement demos. No validated user-requested integration rows are
+This backlog is for integrations requested during pilots, support intake, or procurement demos. No validated user-requested integration rows are
 recorded in this repo yet. Do not add a request unless it has a source, date, user
 segment, workflow, and evidence link that can be checked without exposing raw customer
 content.
