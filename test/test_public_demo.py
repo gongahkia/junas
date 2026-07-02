@@ -119,6 +119,11 @@ class PublicDemoTests(unittest.TestCase):
         for token in (
             "CPU Basic is listed as free",
             "sleep after 48 hours of inactivity",
+            "Web check performed 2026-07-02",
+            "Render Free web services are viable for FastAPI",
+            "spin down after 15 minutes without inbound traffic",
+            "Railway Serverless can sleep a service after more than 10 minutes",
+            "return `502 Bad Gateway`",
             "does not include a live hosted URL",
         ):
             self.assertIn(token, doc)

@@ -63,9 +63,14 @@ not supplied. That keeps normal protected endpoints such as `/review`,
 `/pseudonymize`, and `/redact` closed to unauthenticated visitors while leaving
 only `/demo` and `/demo/review` public.
 
-## Hugging Face Spaces Notes
+## Free Hosting Notes
 
-Web check performed 2026-06-30 against official Hugging Face docs:
+Web check performed 2026-07-02 against official provider docs. Hugging Face
+Spaces remains the prepared target for this repo state because the checked-in
+deploy script can publish the Docker/FastAPI image without provider secrets or
+persistence.
+
+### Hugging Face Spaces
 
 - Docker Spaces are configured by setting `sdk: docker` in the Space
   `README.md` YAML block and can expose a non-default port with `app_port`.
@@ -111,6 +116,38 @@ Cold-start copy for the README link:
 > Hosted on free Hugging Face CPU Basic. The first visit after 48 hours of
 > inactivity may take longer while the Space wakes. The demo runs strict
 > deterministic review only and does not persist submitted text.
+
+### Render
+
+Render Free web services are viable for FastAPI, but official docs say they
+spin down after 15 minutes without inbound traffic and spin back up on the next
+request, taking about one minute. Render also documents ephemeral local files
+for Free web services and monthly usage limits. Source:
+<https://render.com/docs/free>.
+
+Use the same `Dockerfile.public-demo` runtime gates if deploying there:
+
+```sh
+JUNAS_PUBLIC_DEMO_ENABLED=1
+JUNAS_REVIEW_PERSIST=0
+PIPELINE_LAYERS=""
+JUNAS_PUBLIC_EVIDENCE_ENABLED=0
+JUNAS_LLM_ENABLED=0
+```
+
+README cold-start copy must mention the 15-minute idle spin-down if Render is
+chosen.
+
+### Railway
+
+Railway Serverless can sleep a service after more than 10 minutes with no
+outbound packets, wakes on traffic, and docs warn that the first request may
+return `502 Bad Gateway`. Source:
+<https://docs.railway.com/deployments/serverless>.
+
+Do not use Railway as the default public-demo target unless the deployment
+account, billing/free-trial posture, and first-request `502` behavior are
+documented for the exact live URL.
 
 This repo state does not include a live hosted URL. The remaining hosted-demo
 work is to deploy this deterministic profile to a free/public runtime, document
