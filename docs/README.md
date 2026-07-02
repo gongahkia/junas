@@ -40,6 +40,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/personas.md`: jobs-to-be-done for end users, legal reviewers, compliance admins, security engineers, and platform integrators
 - `product/non-goals.md`: explicit control planes Junas does not replace
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
+- `product/market-validation-protocol.md`: target-user interview and manual task-study protocol; protocol only, not validation evidence
 - `product/value-metrics.md`: privacy-safe product value metrics and aggregation rules
 - `product/pilot-success-rubric.md`: measurable avoided-send, rewrite, reviewer-decision, and false-positive fatigue rubric for pilots
 - `product/integration-backlog.md`: validated user-requested integration ledger and category labels

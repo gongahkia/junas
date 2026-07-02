@@ -1,5 +1,9 @@
 # Product Personas
 
+Status: hypothesis personas. No five-participant target-user interview evidence
+is present in this repository. Use `docs/product/market-validation-protocol.md`
+before replacing these with validated workflows and pain points.
+
 ## End User
 
 Job-to-be-done: before sending email, pasting into GenAI, or uploading a document, I need quick guidance on whether the content is safe to share and what action will make it safe without leaving my workflow.
