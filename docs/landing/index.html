@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Junas - deterministic pre-send review</title>
+    <meta name="description" content="Junas reviews risky text before GenAI prompts, email, and document sharing leave the trusted boundary.">
+    <meta property="og:title" content="Junas - deterministic pre-send review">
+    <meta property="og:description" content="Policy decisions, safe rewrite actions, and audit evidence before risky text leaves the workflow.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/gongahkia/junas">
+    <meta property="og:image" content="https://raw.githubusercontent.com/gongahkia/junas/main/asset/logo/junas-logo.png">
+    <link rel="icon" href="../../asset/logo/junas-logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Junas - deterministic pre-send review">
+    <meta name="twitter:description" content="Deterministic PII/MNPI review for GenAI, email, and document workflows.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/gongahkia/junas/main/asset/logo/junas-logo.png">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17201b;
+        --muted: #52645c;
+        --paper: #f7f7f2;
+        --line: #d7ded8;
+        --teal: #0f766e;
+        --red: #a43f3f;
+        --gold: #b8872d;
+        --white: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        letter-spacing: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .hero {
+        min-height: 88vh;
+        display: flex;
+        align-items: flex-end;
+        background:
+          linear-gradient(90deg, rgba(23, 32, 27, 0.88), rgba(23, 32, 27, 0.58), rgba(23, 32, 27, 0.18)),
+          url("https://github.com/gongahkia/junas/releases/download/readme-demo-assets-2026-06-30/junas-demo.gif") center / cover no-repeat;
+        color: var(--white);
+      }
+
+      .hero-inner {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 112px 0 72px;
+      }
+
+      .mark {
+        width: 96px;
+        height: 64px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        margin-bottom: 28px;
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: #d9efe9;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin: 0;
+        font-size: 4rem;
+        line-height: 1;
+        font-weight: 760;
+      }
+
+      .hero-copy {
+        max-width: 700px;
+        margin: 24px 0 0;
+        color: #eef7f3;
+        font-size: 1.25rem;
+        line-height: 1.55;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 18px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .button.primary {
+        background: var(--white);
+        color: var(--ink);
+      }
+
+      .button.secondary {
+        border-color: rgba(255, 255, 255, 0.68);
+        color: var(--white);
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .section-title {
+        margin: 0 0 28px;
+        font-size: 2rem;
+        line-height: 1.15;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 32px;
+        align-items: start;
+      }
+
+      .demo-image {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--white);
+      }
+
+      .verdict {
+        display: grid;
+        gap: 12px;
+      }
+
+      .fact {
+        border-top: 1px solid var(--line);
+        padding: 14px 0 0;
+      }
+
+      .fact strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        border-radius: 999px;
+        padding: 7px 10px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        background: #e9f3ef;
+        color: var(--teal);
+      }
+
+      .pill.red {
+        background: #f6e7e7;
+        color: var(--red);
+      }
+
+      .band {
+        background: var(--white);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .capabilities {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .capability {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+        background: var(--paper);
+      }
+
+      .capability h3 {
+        margin: 0 0 8px;
+        font-size: 1.05rem;
+      }
+
+      .capability p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .install {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 36px;
+        align-items: start;
+      }
+
+      pre {
+        margin: 0;
+        overflow-x: auto;
+        border-radius: 8px;
+        padding: 18px;
+        background: #17201b;
+        color: #f1f6f3;
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+
+      .note {
+        margin-top: 16px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      footer {
+        padding: 32px 0;
+        color: var(--muted);
+      }
+
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid var(--line);
+        padding-top: 24px;
+      }
+
+      @media (max-width: 820px) {
+        .hero {
+          min-height: 84vh;
+        }
+
+        .hero-inner {
+          width: min(100% - 28px, 680px);
+          padding: 96px 0 56px;
+        }
+
+        h1 {
+          font-size: 2.8rem;
+        }
+
+        .hero-copy {
+          font-size: 1.08rem;
+        }
+
+        .wrap {
+          width: min(100% - 28px, 680px);
+        }
+
+        .demo-grid,
+        .install {
+          grid-template-columns: 1fr;
+        }
+
+        .capabilities {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 520px) {
+        h1 {
+          font-size: 2.25rem;
+        }
+
+        section {
+          padding: 52px 0;
+        }
+
+        .actions,
+        footer .wrap {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .capabilities {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <div class="hero-inner">
+          <img class="mark" src="../../asset/logo/junas-logo.png" alt="Junas logo">
+          <p class="eyebrow">Deterministic pre-send review</p>
+          <h1>Junas reviews risky text before it leaves the workflow.</h1>
+          <p class="hero-copy">PII and MNPI findings, policy decisions, required actions, and audit-ready evidence for GenAI prompts, email, and document sharing.</p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/gongahkia/junas">View repo</a>
+            <a class="button secondary" href="#install">Install locally</a>
+          </div>
+        </div>
+      </header>
+
+      <section>
+        <div class="wrap demo-grid">
+          <img class="demo-image" src="https://github.com/gongahkia/junas/releases/download/readme-demo-assets-2026-06-30/junas-demo.gif" alt="Terminal demo showing Junas review verdicts">
+          <div class="verdict">
+            <h2 class="section-title">The lead demo blocks a confidential draft.</h2>
+            <div class="fact">
+              <strong>Verdict</strong>
+              <div class="pill-row">
+                <span class="pill red">send_allowed: false</span>
+                <span class="pill red">policy_decision: block</span>
+                <span class="pill red">HIGH_RISK</span>
+              </div>
+            </div>
+            <div class="fact">
+              <strong>Required actions</strong>
+              <div class="pill-row">
+                <span class="pill">hold_until_public</span>
+                <span class="pill">redact_pii</span>
+                <span class="pill">request_approval</span>
+                <span class="pill">safe_rewrite</span>
+              </div>
+            </div>
+            <div class="fact">
+              <strong>Evidence</strong>
+              Legal-basis codes, citation text, request ids, hashes, policy ids, and review expiry stay visible for reviewers.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="wrap">
+          <h2 class="section-title">Built for inspection, not magic.</h2>
+          <div class="capabilities">
+            <div class="capability">
+              <h3>Deterministic first</h3>
+              <p>Strict review runs without LLM calls or public-evidence lookup.</p>
+            </div>
+            <div class="capability">
+              <h3>Backend boundary</h3>
+              <p>Adapters call the FastAPI contract; the backend owns policy and audit evidence.</p>
+            </div>
+            <div class="capability">
+              <h3>Rewrite paths</h3>
+              <p>Redact, pseudonymize, hold, cite, request approval, or safe rewrite.</p>
+            </div>
+            <div class="capability">
+              <h3>Explicit limits</h3>
+              <p>Not legal advice, not a DLP replacement, not endpoint enforcement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="install">
+        <div class="wrap install">
+          <div>
+            <h2 class="section-title">Run the local demo.</h2>
+            <p class="note">The one-command demo runs the deterministic profile and prints three review verdicts with fake inputs. It does not require provider keys.</p>
+          </div>
+          <pre><code>git clone https://github.com/gongahkia/junas
+cd junas
+uv sync --extra dev
+uv run python -m spacy download en_core_web_sm
+./scripts/demo.sh</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Junas is pre-production / portfolio-stage.</span>
+        <a href="https://github.com/gongahkia/junas">github.com/gongahkia/junas</a>
+      </div>
+    </footer>
+  </body>
+</html>

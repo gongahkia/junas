@@ -5,6 +5,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `running.md`: launch and operational commands
 - `public-demo.md`: gated deterministic playground route and public-demo safety controls
 - `launch-notes.md`: gated launch copy, lead verdict, and candidate venues for public distribution
+- `landing/index.html`: static one-page landing page with demo hero and social preview metadata
 - `install.md`: local, extension, Office, and server install flow
 - `admin-security.md`: identity, tenant, key, SIEM, and local pairing controls
 - `threat-model.md`: data flow, trust boundaries, threats, controls, and residual risk
