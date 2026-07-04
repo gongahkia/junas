@@ -9,12 +9,16 @@ class CiWorkflowTests(unittest.TestCase):
         text = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
 
         for token in (
+            "changed-python-quality:",
+            "name: Changed Python format and lint",
             "core-backend-tests:",
             "name: Core backend tests",
             "policy-tests:",
             "name: Policy tests",
             "adapter-smoke-tests:",
             "name: Adapter smoke tests",
+            "redaction-smoke-tests:",
+            "name: Redaction smoke tests",
             "packaging-tests:",
             "name: Packaging tests",
             "docs-link-tests:",
@@ -28,6 +32,8 @@ class CiWorkflowTests(unittest.TestCase):
             "test/test_review_endpoints.py",
             "test/test_policy_engine.py",
             "test/test_adapter_smoke.py",
+            "test/test_image_scan.py",
+            "test/test_anonymize.py",
             "test/test_packaging_scripts.py",
             "test/test_docs_links.py",
             "test/test_latency_slo_gate.py",
@@ -36,6 +42,17 @@ class CiWorkflowTests(unittest.TestCase):
 
         self.assertNotIn("name: Unit tests", text)
         self.assertNotIn('python -m unittest discover -s test -p "test_*.py"', text)
+
+    def test_ci_badge_targets_real_workflow_and_quality_gates(self):
+        workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+        self.assertIn("actions/workflows/ci.yml", readme)
+        self.assertIn("github/actions/workflow/status/gongahkia/junas/ci.yml", readme)
+        self.assertIn("git diff --check", workflow)
+        self.assertIn("ruff format --check", workflow)
+        self.assertIn("ruff check", workflow)
+        self.assertIn("Changed Python files:", workflow)
 
     def test_latency_slo_is_ci_wired_with_artifact_upload(self):
         workflow = ROOT / ".github" / "workflows" / "ci.yml"

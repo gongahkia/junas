@@ -10,6 +10,53 @@ on:
     - cron: "17 19 * * *"
 
 jobs:
+  changed-python-quality:
+    name: Changed Python format and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - name: Resolve changed Python files
+        id: changed-python
+        run: |
+          set -euo pipefail
+          BASE_SHA=""
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            BASE_SHA="${{ github.event.before }}"
+          elif git rev-parse HEAD~1 >/dev/null 2>&1; then
+            BASE_SHA="$(git rev-parse HEAD~1)"
+          fi
+          if [ -n "$BASE_SHA" ] && [ "$BASE_SHA" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+            git diff --check "$BASE_SHA" HEAD
+            git diff --name-only --diff-filter=ACMR "$BASE_SHA" HEAD -- '*.py' > changed-python-files.txt
+          else
+            echo "No usable diff base; skipping diff-scoped Python quality gates"
+            : > changed-python-files.txt
+          fi
+          if [ -s changed-python-files.txt ]; then
+            tr '\n' '\0' < changed-python-files.txt > changed-python-files.null
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Changed Python files:"
+            cat changed-python-files.txt
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No Python files changed; skipping Ruff format/lint"
+          fi
+      - name: Check changed Python formatting
+        if: steps.changed-python.outputs.has_changes == 'true'
+        run: xargs -0 uv run ruff format --check < changed-python-files.null
+      - name: Lint changed Python
+        if: steps.changed-python.outputs.has_changes == 'true'
+        run: xargs -0 uv run ruff check < changed-python-files.null
+
   core-backend-tests:
     name: Core backend tests
     runs-on: ubuntu-latest
@@ -84,6 +131,25 @@ jobs:
             test/test_office_addin.py \
             test/test_outlook_manifest_render.py \
             test/test_outlook_manifest_validate.py
+
+  redaction-smoke-tests:
+    name: Redaction smoke tests
+    runs-on: ubuntu-latest
+    env:
+      JUNAS_JOURNAL_KEY: test-journal-key
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --extra dev
+      - name: Run redaction smoke tests
+        run: |
+          uv run pytest \
+            test/test_image_scan.py \
+            test/test_anonymize.py
 
   packaging-tests:
     name: Packaging tests

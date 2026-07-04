@@ -43,6 +43,9 @@ For runtime changes, run the standard gate:
 uv run pytest
 ```
 
+CI runs changed-file whitespace, Ruff format/lint, grouped pytest suites, the
+one-command demo, redaction smoke tests, Docker smoke, and benchmark gates.
+
 For accuracy, corpus, or detector work, also run the relevant generated-doc and
 recall gates:
 
@@ -75,14 +78,10 @@ Prefer docs and small tests before changing detector, auth, persistence, or adap
 runtime code. Current scoped issues:
 
 - [#1: Fix README install block and launch-facing top section](https://github.com/gongahkia/junas/issues/1)
-- [#2: Align version numbers and release badges](https://github.com/gongahkia/junas/issues/2)
-- [#11: Add explicit zero-telemetry privacy statement](https://github.com/gongahkia/junas/issues/11)
 - [#16: Add built-in fake-secret demo](https://github.com/gongahkia/junas/issues/16)
-- [#31: Add SECURITY.md reporting path](https://github.com/gongahkia/junas/issues/31)
 - [#32: Tag releases with changelogs](https://github.com/gongahkia/junas/issues/32)
-- [#33: Draft companion engineering blog post](https://github.com/gongahkia/junas/issues/33)
 
-These are intentionally documentation-only entry points drawn from the GitHub issue backlog.
+These are intentionally small scoped entry points drawn from the GitHub issue backlog.
 
 ## Pull Request Notes
 

@@ -48,15 +48,13 @@ class ContributingDocTests(unittest.TestCase):
     def test_contributing_doc_links_scoped_good_first_issues(self):
         contributing = (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
         for issue in (
-            "#77: Add desktop watcher threat model",
-            "#78: Add developer FAQ for review and rewrite endpoints",
-            "#79: Add deployment comparison table",
-            "#80: Add operator FAQ for DLP coexistence",
-            "#81: Mark LaunchAgent install optional and admin-controlled",
+            "#1: Fix README install block and launch-facing top section",
+            "#16: Add built-in fake-secret demo",
+            "#32: Tag releases with changelogs",
         ):
             self.assertIn(issue, contributing)
-        self.assertEqual(contributing.count("https://github.com/gongahkia/junas/issues/"), 5)
-        self.assertIn("documentation-only entry points drawn from the GitHub issue backlog", contributing)
+        self.assertEqual(contributing.count("https://github.com/gongahkia/junas/issues/"), 3)
+        self.assertIn("small scoped entry points drawn from the GitHub issue backlog", contributing)
 
 
 if __name__ == "__main__":
