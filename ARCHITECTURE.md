@@ -15,6 +15,25 @@ browser, Word, desktop, DMS, and direct API callers collect workflow context and
 the backend contract; they should not fork detection, policy, or audit behavior into
 parallel enforcement engines.
 
+## Pipeline Diagram
+
+```mermaid
+flowchart LR
+    Capture[Capture workflow input<br/>adapter / DMS / direct API] --> Validate[Validate request<br/>auth / tenant / body caps]
+    Validate --> Extract[Extract text<br/>inline / document parser / degraded mode]
+    Extract --> Detect[Detect evidence<br/>PII + MNPI + citations]
+    Detect --> Decide[Policy decision<br/>allow / warn / rewrite / approval / block]
+    Decide --> Transform[Optional transform<br/>redact / pseudonymize / anonymize / hold]
+    Decide --> Evidence[Audit evidence<br/>ids / hashes / counts / SIEM-safe events]
+    Transform --> Output[Caller output<br/>send, block, approval, rewrite, or review UI]
+    Evidence --> Output
+```
+
+Current Junas is a pre-send text/document review pipeline, not the legacy Aki
+screen-redaction pipeline. It does not implement FrameDiff grids, frame
+backpressure, transform crossfades, OBS sources, virtual cameras, or live video
+output in this repo.
+
 ## Request Lifecycle
 
 1. A caller sends text or a supported document payload to `/review` or a rewrite
@@ -69,6 +88,21 @@ Current helper classes and gates live around
 [`PreSendReviewEngine._llm_tier_engaged`](./src/junas/review/engine.py) and the
 optional helper calls in [`PreSendReviewEngine.review`](./src/junas/review/engine.py).
 
+## Latency And Backpressure
+
+The low-latency path is deterministic and local: `review_profile=strict` avoids
+public evidence and LLM calls, so adapters can use it for pre-send decisions without
+network-bound helper latency. Backpressure is request-level rather than frame-level:
+the backend enforces request body caps, parser/degraded-mode boundaries, rate-limit
+configuration, auth failures, and adapter timeouts. When coverage is degraded, the
+response carries degraded metadata and policy can fail open, warn, or block according
+to deployment config.
+
+Adapters should hold completion only for the workflow they captured, then release,
+warn, block, request approval, or apply a transform based on the backend response.
+They should not queue unbounded user content, retry validation failures blindly, or
+store raw prompts/documents while waiting for reviewer or network state.
+
 ## Non-Suppression Invariant
 
 Deterministic-high findings stay in the review and policy path. LLM, public
@@ -105,4 +139,3 @@ Evidence in the current repo:
   residual risk.
 - [`docs/llm-governance.md`](./docs/llm-governance.md): optional LLM promotion and
   privacy-evidence gates.
-
