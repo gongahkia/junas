@@ -11,6 +11,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Outlook Smart Alerts add-in | `integrations/outlook_addin/` | `outlook.md` |
 | Word taskpane | `integrations/word_addin/` | `word.md` |
 | Desktop watcher/local daemon | `integrations/desktop/`, `packaging/` | `desktop-watcher.md` |
+| macOS automation wrappers | `integrations/macos_automation/` | `macos-automation.md` |
 | DMS manifest scanner | `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
 | DMS matter id mapping | backend contract boundary | `dms-matter-ids.md` |
 | Adapter compatibility matrix | backend contract boundary | `compatibility-matrix.md` |

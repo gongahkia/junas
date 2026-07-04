@@ -58,6 +58,7 @@ class ReviewSummary:
     finding_count: int
     document_score: float
     anonymized_path: str | None = None
+    copied_to_clipboard: bool = False
     detector_profile: str = ""
     foreground_app: str = ""
 
@@ -200,9 +201,7 @@ def review_text(text: str, *, source: str, config: WatchConfig) -> ReviewSummary
     )
 
 
-def anonymize_text(text: str, *, source: str, config: WatchConfig) -> str | None:
-    if config.anonymize_output_dir is None:
-        return None
+def _anonymized_text_value(text: str, config: WatchConfig) -> str:
     response = _post_json_with_headers(
         config.base_url,
         "/anonymize",
@@ -210,7 +209,13 @@ def anonymize_text(text: str, *, source: str, config: WatchConfig) -> str | None
         config.timeout_seconds,
         _local_headers(config),
     )
-    anonymized = str(response.get("anonymized_text") or "")
+    return str(response.get("anonymized_text") or "")
+
+
+def anonymize_text(text: str, *, source: str, config: WatchConfig) -> str | None:
+    if config.anonymize_output_dir is None:
+        return None
+    anonymized = _anonymized_text_value(text, config)
     config.anonymize_output_dir.mkdir(parents=True, exist_ok=True)
     target = config.anonymize_output_dir / f"{Path(source).name}.anonymized.txt"
     target.write_text(anonymized, encoding="utf-8")
@@ -262,6 +267,23 @@ def _clipboard_text() -> str:
         return ""
     result = subprocess.run(["pbpaste"], capture_output=True, text=True, check=False)
     return result.stdout if result.returncode == 0 else ""
+
+
+def _copy_text_to_clipboard(text: str) -> bool:
+    if platform.system() != "Darwin":
+        return False
+    try:
+        result = subprocess.run(
+            ["pbcopy"],
+            input=text,
+            text=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+    except OSError:
+        return False
+    return result.returncode == 0
 
 
 def _read_token_file(path: Path | None) -> str:
@@ -348,6 +370,29 @@ def poll_clipboard_once(config: WatchConfig, *, previous: str = "") -> tuple[str
     return text, summary
 
 
+def copy_anonymized_clipboard_once(config: WatchConfig, *, previous: str = "") -> tuple[str, ReviewSummary | None]:
+    text = _clipboard_text()
+    if not text or text == previous:
+        return text, None
+    summary = review_text(text, source="clipboard", config=config)
+    copied = False
+    if summary.finding_count:
+        anonymized = _anonymized_text_value(text, config)
+        copied = bool(anonymized) and _copy_text_to_clipboard(anonymized)
+    copied_summary = ReviewSummary(
+        source=summary.source,
+        overall_risk=summary.overall_risk,
+        finding_count=summary.finding_count,
+        document_score=summary.document_score,
+        anonymized_path=summary.anonymized_path,
+        copied_to_clipboard=copied,
+        detector_profile=summary.detector_profile,
+        foreground_app=summary.foreground_app,
+    )
+    _emit_summary(copied_summary, config)
+    return text, copied_summary
+
+
 def _notify(summary: ReviewSummary) -> None:
     title = "Junas review findings"
     message = f"{summary.finding_count} findings in {summary.source}"
@@ -415,12 +460,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--watch-folder", type=Path)
     parser.add_argument("--poll-seconds", type=float, default=2.0)
     parser.add_argument("--clipboard", action="store_true")
+    parser.add_argument("--copy-anonymized-clipboard", action="store_true")
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--notify", action="store_true")
     parser.add_argument("--anonymize-output-dir", type=Path)
     parser.add_argument("--local-token", default="")
     parser.add_argument("--local-token-file", type=Path)
     args = parser.parse_args(argv)
+    if args.copy_anonymized_clipboard and not args.clipboard:
+        parser.error("--copy-anonymized-clipboard requires --clipboard")
     config = _config_from_args(args)
     if args.paths:
         scan_paths(args.paths, config)
@@ -433,12 +481,13 @@ def main(argv: list[str] | None = None) -> int:
             time.sleep(max(0.25, args.poll_seconds))
             scan_paths(changed_files(args.watch_folder, seen), config)
     if args.clipboard:
-        previous, _ = poll_clipboard_once(config)
+        clipboard_runner = copy_anonymized_clipboard_once if args.copy_anonymized_clipboard else poll_clipboard_once
+        previous, _ = clipboard_runner(config)
         if args.once:
             return 0
         while True:
             time.sleep(max(0.25, args.poll_seconds))
-            previous, _ = poll_clipboard_once(config, previous=previous)
+            previous, _ = clipboard_runner(config, previous=previous)
     if not args.paths and not args.watch_folder and not args.clipboard:
         parser.error("provide file paths, --watch-folder, or --clipboard")
     return 0

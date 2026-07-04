@@ -61,6 +61,7 @@ The watcher runs only when a user or operator starts it with an explicit source:
 uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765
 uv run junas-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
+uv run junas-watch --clipboard --once --copy-anonymized-clipboard --base-url http://127.0.0.1:8765
 ```
 
 If no file path, `--watch-folder`, or `--clipboard` is provided, the CLI exits with an argument error. Clipboard polling is never enabled by default.
@@ -104,7 +105,10 @@ keeps `clipboard = false` and requires explicit user opt-in through `--clipboard
 - `--clipboard` reads macOS clipboard text through `pbpaste`.
 - Empty or unchanged clipboard text is skipped.
 - Clipboard review emits a JSON summary; it should not print raw clipboard content.
+- `--copy-anonymized-clipboard` calls `/anonymize` only after findings exist and writes the anonymized text back with `pbcopy`.
 - Use clipboard mode only for demos, offline local review, or power-user workflows where the user opted in.
+
+AppleScript and Shortcuts wrappers live in [`macos-automation.md`](./macos-automation.md).
 
 ## Threat Model
 

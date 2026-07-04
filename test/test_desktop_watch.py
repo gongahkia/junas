@@ -151,6 +151,37 @@ class DesktopWatchTests(unittest.TestCase):
         self.assertNotIn(secret, str(raised.exception))
         self.assertNotIn("bad-token", str(raised.exception))
 
+    def test_copy_anonymized_clipboard_once_reviews_and_copies_redacted_text(self):
+        secret = "clipboard secret jane@example.com"
+        calls = []
+
+        def fake_post(_base_url, path, payload, _timeout_seconds, _headers):
+            calls.append((path, payload))
+            if path == "/review":
+                return {"overall_risk": "HIGH", "document_score": 90.0, "findings": [{"rule": "email_address"}]}
+            return {"anonymized_text": "clipboard secret [EMAIL_ADDRESS_1]"}
+
+        with (
+            mock.patch.object(watch, "_clipboard_text", return_value=secret),
+            mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post),
+            mock.patch.object(watch, "_copy_text_to_clipboard", return_value=True) as copied,
+            mock.patch("builtins.print") as printed,
+        ):
+            previous, summary = watch.copy_anonymized_clipboard_once(watch.WatchConfig())
+
+        self.assertEqual(previous, secret)
+        self.assertIsNotNone(summary)
+        self.assertTrue(summary.copied_to_clipboard)
+        copied.assert_called_once_with("clipboard secret [EMAIL_ADDRESS_1]")
+        payload = json.loads(printed.call_args.args[0])
+        self.assertTrue(payload["copied_to_clipboard"])
+        self.assertNotIn(secret, printed.call_args.args[0])
+        self.assertEqual([call[0] for call in calls], ["/review", "/anonymize"])
+
+    def test_copy_anonymized_clipboard_flag_requires_clipboard(self):
+        with self.assertRaises(SystemExit):
+            watch.main(["--copy-anonymized-clipboard"])
+
     def test_config_reads_local_token_file(self):
         with tempfile.TemporaryDirectory() as tmp:
             token_file = Path(tmp) / "token"
@@ -266,6 +297,34 @@ class DesktopWatchTests(unittest.TestCase):
         self.assertEqual(config.detector_profile, "")
         self.assertEqual(config.document_type, "generic")
         self.assertEqual(config.review_profile, "strict")
+
+    def test_macos_automation_docs_and_script_cover_entitlements(self):
+        root = Path(__file__).resolve().parents[1]
+        doc = (root / "docs" / "integrations" / "macos-automation.md").read_text(encoding="utf-8")
+        script = (root / "integrations" / "macos_automation" / "review-and-redact-clipboard.applescript").read_text(
+            encoding="utf-8"
+        )
+        readme = (root / "README.md").read_text(encoding="utf-8")
+
+        for token in (
+            "AppleScript Action",
+            "Shortcuts",
+            "Entitlements",
+            "menu-bar app remains the primary UI",
+            "NSAppleEventsUsageDescription",
+            "com.apple.security.automation.apple-events",
+            "does not print raw clipboard text",
+        ):
+            self.assertIn(token, doc)
+        for token in (
+            "--copy-anonymized-clipboard",
+            "AKI_WATCH_COMMAND",
+            "JUNAS_LOCAL_BASE_URL",
+            "JUNAS_LOCAL_TOKEN_FILE",
+        ):
+            self.assertIn(token, script)
+        self.assertNotIn("System Events", script)
+        self.assertIn("docs/integrations/macos-automation.md", readme)
 
 
 if __name__ == "__main__":

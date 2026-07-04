@@ -266,9 +266,10 @@ The desktop watcher is intentionally outside the primary Quick Start. The `junas
 uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765
 uv run junas-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
+uv run junas-watch --clipboard --once --copy-anonymized-clipboard --base-url http://127.0.0.1:8765
 ```
 
-See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations.
+See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations. The AppleScript/Shortcuts wrapper for explicit clipboard redaction is documented in [`docs/integrations/macos-automation.md`](./docs/integrations/macos-automation.md).
 
 ## API Surface
 
