@@ -36,6 +36,7 @@ class MacosMenuBarShellTests(unittest.TestCase):
         for token in ("source.select", "transform.select", "output.select", "capture.start", "capture.pause"):
             self.assertIn(token, client)
         self.assertIn("JUNAS_SIDECAR_COMMAND", client)
+        self.assertIn("aki-sidecar/aki-sidecar", client)
         self.assertIn("aki --tui", store)
 
     def test_run_script_and_codex_environment_build_menu_bar_app(self):
@@ -47,6 +48,7 @@ class MacosMenuBarShellTests(unittest.TestCase):
             'PACKAGE_DIR="$ROOT_DIR/apps/macos-menu-bar"',
             "swift build --package-path",
             "CFBundlePackageType",
+            "--bundle-only|bundle",
             "--verify|verify",
         ):
             self.assertIn(token, script)

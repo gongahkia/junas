@@ -24,6 +24,11 @@ final class SidecarClient {
     if let first = configured.first {
       executable = first
       arguments = Array(configured.dropFirst())
+    } else if let bundled = Bundle.main.resourceURL?.appending(path: "aki-sidecar/aki-sidecar"),
+      FileManager.default.isExecutableFile(atPath: bundled.path)
+    {
+      executable = bundled.path
+      arguments = []
     } else {
       executable = "/usr/bin/env"
       arguments = ["aki", "sidecar", "stdio"]

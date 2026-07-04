@@ -761,6 +761,7 @@ JUNAS_RELEASE_SIGNING_REQUIRED=1 \
 ```
 
 Release signing uses the project-level Developer ID policy in [`docs/macos-signing-credentials.md`](./docs/macos-signing-credentials.md).
+Signed DMG packaging and stock-Mac verification gates are documented in [`docs/macos-dmg-release.md`](./docs/macos-dmg-release.md).
 
 Optional admin-controlled LaunchAgent lifecycle; not a default developer quickstart:
 

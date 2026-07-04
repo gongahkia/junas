@@ -51,6 +51,8 @@ open_app() {
 }
 
 case "$MODE" in
+  --bundle-only|bundle)
+    ;;
   run)
     open_app
     ;;
@@ -72,7 +74,7 @@ case "$MODE" in
     pkill -x "$APP_NAME" >/dev/null 2>&1 || true
     ;;
   *)
-    echo "usage: $0 [run|--debug|--logs|--telemetry|--verify]" >&2
+    echo "usage: $0 [run|--bundle-only|--debug|--logs|--telemetry|--verify]" >&2
     exit 2
     ;;
 esac

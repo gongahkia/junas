@@ -51,6 +51,8 @@ JUNAS_RELEASE_SIGNING_REQUIRED=1 \
 
 Release signing uses the project-level Developer ID policy in `docs/macos-signing-credentials.md`. Local contributors can omit these variables for unsigned developer artifacts.
 
+The menu-bar app DMG pipeline is `scripts/package_macos_dmg.sh`; release gates and stock-Mac verification live in `docs/macos-dmg-release.md`.
+
 Optional LaunchAgent lifecycle, admin-controlled and not a developer quickstart:
 
 ```sh
