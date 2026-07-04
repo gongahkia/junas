@@ -31,6 +31,16 @@ def _load_verify_public_demo_module():
     return module
 
 
+def _load_link_public_demo_module():
+    path = main.PROJECT_ROOT / "scripts" / "link_public_demo.py"
+    spec = importlib.util.spec_from_file_location("link_public_demo", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 class PublicDemoTests(unittest.TestCase):
     def setUp(self):
         self._env = {key: os.environ.get(key) for key in DEMO_ENV}
@@ -159,6 +169,7 @@ class PublicDemoTests(unittest.TestCase):
             ".github/workflows/deploy-public-demo.yml",
             "`HF_TOKEN` repository secret",
             "python scripts/verify_public_demo.py --base-url",
+            "uv run python scripts/link_public_demo.py --base-url",
             "public_demo_verified: true",
             "Render Free web services are viable for FastAPI",
             "spin down after 15 minutes without inbound traffic",
@@ -282,6 +293,38 @@ class PublicDemoTests(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             verifier.assert_demo_payload(verifier.CASES[0], payload)
+
+    def test_public_demo_readme_linker_requires_verified_url_and_updates_marked_block(self):
+        linker = _load_link_public_demo_module()
+        original = "# Junas\n\nProject status.\n\n## Install Locally\n\nBody.\n"
+        updated = linker.update_readme_text(
+            original,
+            base_url="https://gongahkia-junas-demo.hf.space",
+            cold_start_copy="Cold start copy.",
+        )
+
+        self.assertIn(linker.START, updated)
+        self.assertIn("[Open Junas public demo](https://gongahkia-junas-demo.hf.space/demo)", updated)
+        self.assertIn("Cold start copy.", updated)
+        self.assertLess(updated.index(linker.START), updated.index("## Install Locally"))
+
+        replaced = linker.update_readme_text(
+            updated,
+            base_url="https://example-demo.hf.space",
+            cold_start_copy="New copy.",
+        )
+        self.assertIn("[Open Junas public demo](https://example-demo.hf.space/demo)", replaced)
+        self.assertNotIn("gongahkia-junas-demo", replaced)
+
+    def test_public_demo_readme_linker_rejects_non_https_public_url(self):
+        linker = _load_link_public_demo_module()
+
+        with self.assertRaises(ValueError):
+            linker.update_readme_text(
+                "# Junas\n\n## Install Locally\n",
+                base_url="http://example.com",
+                cold_start_copy="copy",
+            )
 
     def test_public_demo_review_is_unauthenticated_strict_and_non_persistent(self):
         self._enable_demo()

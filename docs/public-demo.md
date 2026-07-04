@@ -132,6 +132,16 @@ The verifier checks `GET /demo`, PII/MNPI/clean examples through
 public-evidence/LLM/persistence surfaces. Do not link the README hero until it
 prints `public_demo_verified: true` for the hosted URL.
 
+After hosted verification passes, link the README with the same direct app URL:
+
+```sh
+uv run python scripts/link_public_demo.py --base-url "$PUBLIC_DEMO_URL"
+```
+
+`scripts/link_public_demo.py` re-runs `scripts/verify_public_demo.py` before it
+writes README markers, so a stale or unreachable hosted URL cannot be linked by
+the release process.
+
 Cold-start copy for the README link:
 
 > Hosted on free Hugging Face CPU Basic. The first visit after 48 hours of
