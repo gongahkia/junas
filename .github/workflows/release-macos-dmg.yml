@@ -91,17 +91,10 @@ jobs:
         run: |
           set -euo pipefail
           DMG="dist/JunasMenuBar-${{ inputs.version }}.dmg"
-          MOUNT="$RUNNER_TEMP/junas-dmg"
-          APP_COPY="$RUNNER_TEMP/JunasMenuBar.app"
           shasum -a 256 "$DMG" | tee "${DMG}.sha256"
-          spctl -a -t open --context context:primary-signature -v "$DMG"
-          mkdir -p "$MOUNT"
-          hdiutil attach "$DMG" -nobrowse -mountpoint "$MOUNT"
-          trap 'hdiutil detach "$MOUNT" || true' EXIT
-          test -d "$MOUNT/JunasMenuBar.app"
-          rm -rf "$APP_COPY"
-          cp -R "$MOUNT/JunasMenuBar.app" "$APP_COPY"
-          spctl -a -t exec -vv "$APP_COPY"
+          JUNAS_VERIFY_INSTALL_DIR="$RUNNER_TEMP" \
+            JUNAS_VERIFY_OVERWRITE=1 \
+            ./scripts/verify_macos_dmg_release.sh "$DMG"
       - uses: actions/upload-artifact@v4
         with:
           name: JunasMenuBar-${{ inputs.version }}-signed-notarized-macos

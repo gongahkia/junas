@@ -75,14 +75,17 @@ The manual workflow:
 Before release notes or Homebrew cask publication:
 
 ```sh
-spctl -a -t open --context context:primary-signature -v dist/JunasMenuBar-0.1.0.dmg
-hdiutil attach dist/JunasMenuBar-0.1.0.dmg
-cp -R /Volumes/Junas/JunasMenuBar.app /Applications/
-spctl -a -t exec -vv /Applications/JunasMenuBar.app
-open /Applications/JunasMenuBar.app
+JUNAS_VERIFY_OPEN=1 ./scripts/verify_macos_dmg_release.sh dist/JunasMenuBar-0.1.0.dmg
 ```
 
 Verify the menu-bar app opens, start/pause/stop controls work, `Open TUI` launches `aki --tui`, and no Gatekeeper dialog blocks launch.
+
+The verifier prints the SHA-256 hash, checks the DMG assessment with
+`spctl -a -t open --context context:primary-signature`, mounts the DMG, copies
+`JunasMenuBar.app` to `${JUNAS_VERIFY_INSTALL_DIR:-/Applications}`, checks the
+bundled sidecar is executable, and assesses the installed app with
+`spctl -a -t exec -vv`. It refuses to overwrite an existing app unless
+`JUNAS_VERIFY_OVERWRITE=1` is set.
 
 ## Release Notes Gate
 

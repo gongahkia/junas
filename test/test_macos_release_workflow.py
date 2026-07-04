@@ -27,8 +27,8 @@ class MacosReleaseWorkflowTests(unittest.TestCase):
             "xcrun notarytool store-credentials junas-notary",
             'JUNAS_RELEASE_SIGNING_REQUIRED: "1"',
             "scripts/package_macos_dmg.sh",
-            "spctl -a -t open --context context:primary-signature",
-            "spctl -a -t exec -vv",
+            "scripts/verify_macos_dmg_release.sh",
+            "JUNAS_VERIFY_INSTALL_DIR",
             "actions/upload-artifact",
             "gh release upload",
             "security delete-keychain",
@@ -61,6 +61,25 @@ class MacosReleaseWorkflowTests(unittest.TestCase):
             self.assertIn(token, dmg)
         self.assertIn(".github/workflows/release-macos-dmg.yml", release_process)
         self.assertIn(".github/workflows/release-macos-dmg.yml", docs_index)
+
+    def test_stock_mac_verifier_mounts_installs_assesses_and_guards_overwrite(self):
+        script = (ROOT / "scripts" / "verify_macos_dmg_release.sh").read_text(encoding="utf-8")
+        doc = (ROOT / "docs" / "macos-dmg-release.md").read_text(encoding="utf-8")
+
+        for token in (
+            "spctl -a -t open --context context:primary-signature",
+            "hdiutil attach",
+            "JunasMenuBar.app",
+            "Contents/Resources/aki-sidecar/aki-sidecar",
+            "spctl -a -t exec -vv",
+            "JUNAS_VERIFY_OVERWRITE",
+            "JUNAS_VERIFY_OPEN",
+            "JUNAS_VERIFY_CLEANUP",
+            "macos_dmg_release_verified: true",
+        ):
+            self.assertIn(token, script)
+        self.assertIn("scripts/verify_macos_dmg_release.sh", doc)
+        self.assertIn("JUNAS_VERIFY_OPEN=1", doc)
 
 
 if __name__ == "__main__":
