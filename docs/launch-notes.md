@@ -10,6 +10,11 @@ Junas is a deterministic pre-send reviewer for GenAI prompts, email, and
 document sharing that returns statute-cited findings, policy actions, and audit
 evidence before content leaves the trusted boundary.
 
+Copy rule: use "reduces review risk", "flags detected findings", and "routes to
+redaction, hold, approval, or safe rewrite". Do not say Junas prevents leaks,
+guarantees privacy, provides universal capture, or replaces DLP, endpoint
+controls, eDiscovery, or legal review.
+
 ## Lead Screenshot / Verdict
 
 Lead with the README `60-second verdict` artifact and the same generated
