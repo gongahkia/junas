@@ -536,6 +536,24 @@ def run_redact_video(args: argparse.Namespace, *, stdout: TextIO | None = None) 
     return 0
 
 
+def run_sidecar_stdio(args: argparse.Namespace, *, stdout: TextIO | None = None, stdin: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    if stdin is None:
+        stdin = sys.stdin
+    from junas.desktop import sidecar_protocol
+
+    session = sidecar_protocol.SidecarSession()
+    for line in stdin:
+        if not line.strip():
+            continue
+        stdout.write(sidecar_protocol.encode_messages(session.handle(line)))
+        stdout.flush()
+        if session.should_exit:
+            break
+    return 0
+
+
 def run_mp4_from_redacted_frames(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
     if stdout is None:
         stdout = sys.stdout
@@ -783,6 +801,18 @@ def build_parser() -> argparse.ArgumentParser:
     redact.add_argument("--dry-run", action="store_true", help="validate paths and print plan without writing MP4")
     redact.add_argument("--json", action="store_true", help="emit machine-readable redaction output")
     redact.set_defaults(func=run_redact_video)
+    sidecar = subparsers.add_parser(
+        "sidecar",
+        help="run menu-bar sidecar protocol helpers",
+        description="Run JSON-RPC helpers used by the future macOS menu-bar shell.",
+    )
+    sidecar_subparsers = sidecar.add_subparsers(dest="sidecar_command")
+    sidecar_stdio = sidecar_subparsers.add_parser(
+        "stdio",
+        help="serve the v1 sidecar JSON-RPC protocol over newline-delimited stdio",
+        description="Read JSON-RPC requests from stdin and write JSON-RPC responses plus stats notifications.",
+    )
+    sidecar_stdio.set_defaults(func=run_sidecar_stdio)
     mp4 = subparsers.add_parser(
         "mp4",
         help="write redacted frame sequences to local MP4 files",

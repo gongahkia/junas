@@ -83,6 +83,7 @@ class AkiCliTests(unittest.TestCase):
         self.assertIn("ocr", help_text)
         self.assertIn("displays", help_text)
         self.assertIn("redact", help_text)
+        self.assertIn("sidecar", help_text)
         self.assertIn("mp4", help_text)
         self.assertIn("buffer", help_text)
         self.assertIn("obs", help_text)

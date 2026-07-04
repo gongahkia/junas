@@ -269,6 +269,7 @@ uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --copy-anonymized-clipboard --base-url http://127.0.0.1:8765
 uv run aki displays list
 uv run aki displays capture --display 1 --output-dir ./captures --dry-run
+printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}\n' | uv run aki sidecar stdio
 uv run aki redact ./recording.mov --output ./captures/recording-redacted.mp4 --box 0,0,240,120
 uv run aki buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --dry-run --json
 uv run aki obs prototype-source --frames-dir ./obs-input-frames --output-dir ./obs-prototype --dry-run --json
@@ -276,6 +277,7 @@ uv run aki mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./ca
 ```
 
 See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations. The AppleScript/Shortcuts wrapper for explicit clipboard redaction is documented in [`docs/integrations/macos-automation.md`](./docs/integrations/macos-automation.md).
+The menu-bar sidecar protocol is documented in [`docs/integrations/menu-bar-sidecar-protocol.md`](./docs/integrations/menu-bar-sidecar-protocol.md).
 Multi-display capture selection is documented in [`docs/integrations/multi-display-capture.md`](./docs/integrations/multi-display-capture.md).
 Offline video redaction is documented in [`docs/integrations/offline-video-redaction.md`](./docs/integrations/offline-video-redaction.md).
 The recording-only time-buffer prototype is documented in [`docs/integrations/time-machine-buffer.md`](./docs/integrations/time-machine-buffer.md).
