@@ -121,6 +121,15 @@ Run the deterministic demo:
 
 It starts a local backend, disables public-evidence and LLM paths, and prints three statute-cited verdicts: SG NRIC PII, M&A MNPI, and clean internal text. It does not require provider keys or a spaCy model download. CI runs this script from checkout under a 120-second timeout after Python and `uv` setup.
 
+Render fake-only reproduction text without starting the backend:
+
+```bash
+uv run aki demo
+uv run aki demo --case browser-prompt --frames 1
+```
+
+`aki demo` prints deterministic FAKE/DEMO secret and PII-shaped examples for screenshots, tweets, and bug reports. The values are synthetic and intentionally avoid real credential shapes.
+
 Docker equivalent:
 
 ```bash
