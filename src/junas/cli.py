@@ -387,6 +387,46 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
     return 0
 
 
+def run_ocr_classify_region(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.advisory.local_ocr_llm import (
+        LocalOcrLLMSettings,
+        LocalOcrRegionClassifier,
+        settings_from_env,
+    )
+
+    env_settings = settings_from_env()
+    settings = LocalOcrLLMSettings(
+        enabled=bool(args.enable_local_llm or env_settings.enabled),
+        provider=args.provider or env_settings.provider,
+        base_url=args.base_url or env_settings.base_url,
+        model=args.model or env_settings.model,
+        timeout_seconds=args.timeout_seconds or env_settings.timeout_seconds,
+        confidence_threshold=args.confidence_threshold or env_settings.confidence_threshold,
+        max_chars=args.max_chars or env_settings.max_chars,
+    )
+    result = LocalOcrRegionClassifier(settings).classify_text(args.text, confidence=args.confidence)
+    payload = result.__dict__
+    if args.json:
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    else:
+        stdout.write(
+            "\n".join(
+                [
+                    "Aki OCR local-LLM classifier",
+                    f"status: {result.status}",
+                    f"label: {result.label}",
+                    f"confidence: {result.confidence:.3f}",
+                    f"reason: {result.reason}",
+                    f"text_sha256: {result.text_sha256}",
+                ]
+            )
+            + "\n"
+        )
+    return 2 if result.status == "error" else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -426,6 +466,28 @@ def build_parser() -> argparse.ArgumentParser:
     rules_test.add_argument("--max-matches", type=int, default=64, help="maximum findings to emit")
     rules_test.add_argument("--json", action="store_true", help="emit machine-readable findings")
     rules_test.set_defaults(func=run_rules_test)
+    ocr = subparsers.add_parser(
+        "ocr",
+        help="run opt-in OCR helper prototypes",
+        description="Run opt-in OCR helper prototypes that are disabled by default.",
+    )
+    ocr_subparsers = ocr.add_subparsers(dest="ocr_command")
+    classify_region = ocr_subparsers.add_parser(
+        "classify-region",
+        help="classify one low-confidence OCR fragment with a local model",
+        description="Classify one low-confidence OCR fragment with an opt-in local Ollama model.",
+    )
+    classify_region.add_argument("--text", required=True, help="OCR fragment text to classify")
+    classify_region.add_argument("--confidence", type=float, required=True, help="OCR confidence from 0.0 to 1.0")
+    classify_region.add_argument("--enable-local-llm", action="store_true", help="explicitly enable local model call")
+    classify_region.add_argument("--provider", choices=("ollama",), help="local model provider")
+    classify_region.add_argument("--base-url", help="loopback Ollama base URL")
+    classify_region.add_argument("--model", help="local Ollama model name")
+    classify_region.add_argument("--timeout-seconds", type=float, help="local model timeout")
+    classify_region.add_argument("--confidence-threshold", type=float, help="maximum OCR confidence to classify")
+    classify_region.add_argument("--max-chars", type=int, help="maximum OCR fragment chars sent to local model")
+    classify_region.add_argument("--json", action="store_true", help="emit machine-readable classification")
+    classify_region.set_defaults(func=run_ocr_classify_region)
     return parser
 
 

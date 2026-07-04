@@ -8,7 +8,19 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+import httpx
+
+from junas.advisory.local_ocr_llm import (
+    LocalOcrLLMSettings,
+    LocalOcrRegionClassifier,
+    low_confidence_region_candidates,
+)
 from junas.cli import DoctorResult, build_parser, main, render_demo, render_doctor
+
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -59,6 +71,7 @@ class AkiCliTests(unittest.TestCase):
         self.assertIn("demo", help_text)
         self.assertIn("doctor", help_text)
         self.assertIn("rules", help_text)
+        self.assertIn("ocr", help_text)
         self.assertIn("Junas local helper CLI", help_text)
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
@@ -154,6 +167,94 @@ class AkiCliTests(unittest.TestCase):
         payload = json.loads(stdout.getvalue())
         self.assertEqual(payload["findings"][0]["rule"], "external_secret_acme-api-token")
         self.assertEqual(payload["findings"][0]["matched_text"], "a1b2c3d4e5f6g7h8i9j0")
+
+    def test_ocr_classify_region_is_disabled_by_default(self):
+        stdout = io.StringIO()
+
+        with contextlib.redirect_stdout(stdout):
+            code = main(["ocr", "classify-region", "--text", "AK1A0CRNO1SE", "--confidence", "0.41", "--json"])
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertEqual(payload["status"], "disabled")
+        self.assertEqual(payload["label"], "ambiguous")
+        self.assertNotIn("AK1A0CRNO1SE", stdout.getvalue())
+
+    def test_local_ocr_classifier_refuses_non_loopback_base_url(self):
+        classifier = LocalOcrRegionClassifier(
+            LocalOcrLLMSettings(
+                enabled=True,
+                model="local-test",
+                base_url="https://llm.example.com",
+            )
+        )
+
+        result = classifier.classify_text("AK1A0CRNO1SE", confidence=0.4)
+
+        self.assertEqual(result.status, "error")
+        self.assertEqual(result.reason, "non_loopback_base_url")
+
+    def test_local_ocr_classifier_calls_ollama_loopback_and_clamps_output(self):
+        captured = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["url"] = str(request.url)
+            captured["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(
+                200,
+                json={
+                    "response": json.dumps(
+                        {
+                            "label": "secret_shaped",
+                            "confidence": 1.7,
+                            "reason": "token_syntax",
+                        }
+                    )
+                },
+            )
+
+        classifier = LocalOcrRegionClassifier(
+            LocalOcrLLMSettings(enabled=True, model="local-test", base_url="http://127.0.0.1:11434"),
+            transport=httpx.MockTransport(handler),
+        )
+
+        result = classifier.classify_text("ghp_0crN0ise", confidence=0.38)
+
+        self.assertEqual(result.status, "classified")
+        self.assertEqual(result.label, "secret_shaped")
+        self.assertEqual(result.confidence, 1.0)
+        self.assertEqual(result.reason, "token_syntax")
+        self.assertIn("/api/generate", captured["url"])
+        self.assertEqual(captured["body"]["model"], "local-test")
+
+    def test_low_confidence_region_candidate_filter(self):
+        low = mock.Mock(text="sk-ocrnoise", confidence=0.42, start_char=3, end_char=14)
+        high = mock.Mock(text="ordinary text", confidence=0.95, start_char=20, end_char=33)
+
+        candidates = low_confidence_region_candidates([low, high], threshold=0.72)
+
+        self.assertEqual(len(candidates), 1)
+        self.assertEqual(candidates[0].text, "sk-ocrnoise")
+        self.assertEqual(candidates[0].confidence, 0.42)
+
+    def test_local_ocr_llm_docs_preserve_default_footprint_and_positioning(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        doc = (ROOT / "docs" / "local-ocr-llm.md").read_text(encoding="utf-8")
+        pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        deps = "\n".join(pyproject["project"]["dependencies"])
+
+        self.assertNotIn("AI-powered", readme)
+        self.assertIn("docs/local-ocr-llm.md", readme)
+        for token in (
+            "disabled by default",
+            "loopback-only",
+            "no added default dependencies",
+            "Accuracy And Latency Tradeoffs",
+            "JUNAS_LOCAL_OCR_LLM_ENABLED",
+        ):
+            self.assertIn(token, doc)
+        for package in ("ollama", "llama-cpp-python", "torch", "transformers"):
+            self.assertNotIn(package, deps)
 
 
 if __name__ == "__main__":

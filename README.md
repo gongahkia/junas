@@ -601,6 +601,18 @@ JUNAS_LLM_ALLOW_REMOTE_RAW_TEXT=1
 
 `review_profile=strict` never invokes LLM helper layers.
 
+Local OCR-region LLM prototype:
+
+```bash
+JUNAS_LOCAL_OCR_LLM_ENABLED=1 \
+JUNAS_LOCAL_OCR_LLM_MODEL=<local-ollama-model> \
+uv run aki ocr classify-region --text "AK1A0CRNO1SE" --confidence 0.41 --json
+```
+
+This prototype is local-only, loopback-gated, advisory, and off by default. It
+does not add default dependencies or change strict review. See
+[`docs/local-ocr-llm.md`](./docs/local-ocr-llm.md).
+
 ### Docker
 
 ```bash
