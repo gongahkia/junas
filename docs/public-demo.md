@@ -75,6 +75,9 @@ persistence.
 - Docker Spaces are configured by setting `sdk: docker` in the Space
   `README.md` YAML block and can expose a non-default port with `app_port`.
   Source: <https://huggingface.co/docs/hub/spaces-sdks-docker>
+- The running app uses a direct Space URL of the form
+  `https://<space-subdomain>.hf.space`, served from the root of that subdomain.
+  Source: <https://huggingface.co/docs/hub/spaces-embed>
 - Spaces config is read from the YAML block at the top of the Space
   `README.md`; `cpu-basic` is a valid suggested hardware value.
   Source: <https://huggingface.co/docs/hub/spaces-config-reference>
@@ -109,13 +112,25 @@ hf auth login
 CI can pass `HF_TOKEN` instead of using an interactive login. The script creates
 or reuses a Docker Space, uploads `Dockerfile.public-demo` as `Dockerfile`, adds
 `deploy/huggingface-space/README.md` as the Space metadata file, and copies only
-the package files needed to run the deterministic public demo.
+the package files needed to run the deterministic public demo. It prints the
+direct app URL, for example `https://gongahkia-junas-demo.hf.space`. Set
+`JUNAS_PUBLIC_DEMO_URL` only when Hugging Face reports a different direct URL or
+a custom domain is configured.
 
 GitHub Actions can also publish the Space through
 `.github/workflows/deploy-public-demo.yml`. Run the manual workflow with a
 `space_id` input after adding an `HF_TOKEN` repository secret. The workflow
-prints the Space URL to the step summary; verify `/demo` before linking it from
-the README hero.
+prints the direct Space URL to the step summary and runs:
+
+```sh
+python scripts/verify_public_demo.py --base-url "$PUBLIC_DEMO_URL"
+```
+
+The verifier checks `GET /demo`, PII/MNPI/clean examples through
+`POST /demo/review`, strict profile forcing, legal-basis citations,
+`policy_decision.required_actions`, `send_allowed`, and disabled
+public-evidence/LLM/persistence surfaces. Do not link the README hero until it
+prints `public_demo_verified: true` for the hosted URL.
 
 Cold-start copy for the README link:
 

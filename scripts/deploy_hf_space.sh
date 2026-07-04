@@ -8,6 +8,8 @@ fi
 
 SPACE_ID="$1"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SPACE_SUBDOMAIN="${SPACE_ID/\//-}"
+PUBLIC_DEMO_URL="${JUNAS_PUBLIC_DEMO_URL:-https://${SPACE_SUBDOMAIN}.hf.space}"
 
 command -v hf >/dev/null
 
@@ -36,4 +38,4 @@ else
   hf upload "$SPACE_ID" "$TMP" . --repo-type space --commit-message "Deploy Junas deterministic demo"
 fi
 
-printf 'https://huggingface.co/spaces/%s\n' "$SPACE_ID"
+printf '%s\n' "$PUBLIC_DEMO_URL"

@@ -31,9 +31,16 @@ jobs:
             exit 69
           fi
       - name: Deploy deterministic public demo
+        id: deploy
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           URL="$(./scripts/deploy_hf_space.sh "${{ inputs.space_id }}")"
           echo "public_demo_url=${URL}" >> "$GITHUB_OUTPUT"
           printf 'Public demo URL: %s\n' "$URL" >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify public demo
+        run: |
+          python scripts/verify_public_demo.py \
+            --base-url "${{ steps.deploy.outputs.public_demo_url }}" \
+            --ready-timeout 600 \
+            --request-timeout 30

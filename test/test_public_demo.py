@@ -1,5 +1,7 @@
+import importlib.util
 import os
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -17,6 +19,16 @@ DEMO_ENV = (
     "JUNAS_PUBLIC_DEMO_RATE_LIMIT_WINDOW_SECONDS",
     "JUNAS_REVIEW_PERSIST",
 )
+
+
+def _load_verify_public_demo_module():
+    path = main.PROJECT_ROOT / "scripts" / "verify_public_demo.py"
+    spec = importlib.util.spec_from_file_location("verify_public_demo", path)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
 
 
 class PublicDemoTests(unittest.TestCase):
@@ -72,10 +84,10 @@ class PublicDemoTests(unittest.TestCase):
             "disabled by default",
             "JUNAS_PUBLIC_DEMO_ENABLED=1",
             "JUNAS_REVIEW_PERSIST=0",
-            "PIPELINE_LAYERS=\"\"",
+            'PIPELINE_LAYERS=""',
             "GET /demo",
             "POST /demo/review",
-            "forces `review_profile=\"strict\"`",
+            'forces `review_profile="strict"`',
             "fresh `PreSendReviewEngine()`",
             "bypasses review-session persistence",
             "JUNAS_PUBLIC_DEMO_BODY_MAX_BYTES",
@@ -90,13 +102,11 @@ class PublicDemoTests(unittest.TestCase):
     def test_public_demo_hosted_artifacts_use_local_sku_and_auth_gate(self):
         dockerfile = (main.PROJECT_ROOT / "Dockerfile.public-demo").read_text(encoding="utf-8")
         deploy_script = (main.PROJECT_ROOT / "scripts" / "deploy_hf_space.sh").read_text(encoding="utf-8")
-        deploy_workflow = (
-            main.PROJECT_ROOT / ".github" / "workflows" / "deploy-public-demo.yml"
-        ).read_text(encoding="utf-8")
-        render_blueprint = (main.PROJECT_ROOT / "render.yaml").read_text(encoding="utf-8")
-        space_readme = (main.PROJECT_ROOT / "deploy" / "huggingface-space" / "README.md").read_text(
+        deploy_workflow = (main.PROJECT_ROOT / ".github" / "workflows" / "deploy-public-demo.yml").read_text(
             encoding="utf-8"
         )
+        render_blueprint = (main.PROJECT_ROOT / "render.yaml").read_text(encoding="utf-8")
+        space_readme = (main.PROJECT_ROOT / "deploy" / "huggingface-space" / "README.md").read_text(encoding="utf-8")
         doc = (main.PROJECT_ROOT / "docs" / "public-demo.md").read_text(encoding="utf-8")
 
         for token in (
@@ -123,6 +133,8 @@ class PublicDemoTests(unittest.TestCase):
             "space_id:",
             "secrets.HF_TOKEN",
             "scripts/deploy_hf_space.sh",
+            "scripts/verify_public_demo.py",
+            "steps.deploy.outputs.public_demo_url",
             "Public demo URL:",
             "GITHUB_STEP_SUMMARY",
         ):
@@ -141,10 +153,13 @@ class PublicDemoTests(unittest.TestCase):
             self.assertIn(token, space_readme)
         for token in (
             "CPU Basic is listed as free",
+            "https://<space-subdomain>.hf.space",
             "sleep after 48 hours of inactivity",
             "Web check performed 2026-07-02",
             ".github/workflows/deploy-public-demo.yml",
             "`HF_TOKEN` repository secret",
+            "python scripts/verify_public_demo.py --base-url",
+            "public_demo_verified: true",
             "Render Free web services are viable for FastAPI",
             "spin down after 15 minutes without inbound traffic",
             "`render.yaml` provides a checked-in Render Blueprint",
@@ -159,8 +174,8 @@ class PublicDemoTests(unittest.TestCase):
             fake_hf = Path(tmp) / "hf"
             fake_hf.write_text(
                 "#!/bin/sh\n"
-                "if [ \"$1\" = auth ] && [ \"$2\" = whoami ]; then echo 'Not logged in'; exit 0; fi\n"
-                "echo unexpected hf call \"$@\" >&2\n"
+                'if [ "$1" = auth ] && [ "$2" = whoami ]; then echo \'Not logged in\'; exit 0; fi\n'
+                'echo unexpected hf call "$@" >&2\n'
                 "exit 99\n",
                 encoding="utf-8",
             )
@@ -188,15 +203,15 @@ class PublicDemoTests(unittest.TestCase):
             fake_hf = Path(tmp) / "hf"
             fake_hf.write_text(
                 "#!/bin/sh\n"
-                "echo \"$@\" >> \"$HF_FAKE_LOG\"\n"
-                "if [ \"$1\" = repo ] && [ \"$2\" = create ]; then exit 0; fi\n"
-                "if [ \"$1\" = upload ]; then\n"
-                "  test -f \"$3/Dockerfile\" || exit 11\n"
-                "  test -f \"$3/README.md\" || exit 12\n"
-                "  test -f \"$3/pyproject.toml\" || exit 13\n"
-                "  test -f \"$3/uv.lock\" || exit 14\n"
-                "  test -f \"$3/config.toml\" || exit 15\n"
-                "  test -d \"$3/src/junas\" || exit 16\n"
+                'echo "$@" >> "$HF_FAKE_LOG"\n'
+                'if [ "$1" = repo ] && [ "$2" = create ]; then exit 0; fi\n'
+                'if [ "$1" = upload ]; then\n'
+                '  test -f "$3/Dockerfile" || exit 11\n'
+                '  test -f "$3/README.md" || exit 12\n'
+                '  test -f "$3/pyproject.toml" || exit 13\n'
+                '  test -f "$3/uv.lock" || exit 14\n'
+                '  test -f "$3/config.toml" || exit 15\n'
+                '  test -d "$3/src/junas" || exit 16\n'
                 "  grep -q 'JUNAS_PUBLIC_DEMO_ENABLED=1' \"$3/Dockerfile\" || exit 17\n"
                 "  grep -q 'sdk: docker' \"$3/README.md\" || exit 18\n"
                 "  exit 0\n"
@@ -222,9 +237,51 @@ class PublicDemoTests(unittest.TestCase):
             log = log_path.read_text(encoding="utf-8")
 
         self.assertEqual(result.returncode, 0, result)
-        self.assertIn("https://huggingface.co/spaces/gongahkia/junas-demo", result.stdout)
+        self.assertIn("https://gongahkia-junas-demo.hf.space", result.stdout)
         self.assertIn("repo create gongahkia/junas-demo --repo-type space --space-sdk docker --exist-ok", log)
         self.assertIn("upload gongahkia/junas-demo", log)
+
+    def test_public_demo_verifier_checks_page_and_response_contract(self):
+        verifier = _load_verify_public_demo_module()
+        html = "\n".join(verifier.PAGE_TOKENS)
+        verifier.assert_demo_page(html)
+
+        pii_payload = {
+            "review_profile": "strict",
+            "send_allowed": False,
+            "policy_decision": {"decision": "block", "send_allowed": False, "required_actions": ["redact_pii"]},
+            "public_evidence": None,
+            "llm_adjudication": None,
+            "privacy_ledger": [],
+            "findings": [{"category": "PII", "rule": "sg_nric_fin", "legal_basis": "SG_PDPA_PERSONAL_DATA"}],
+        }
+        clean_payload = {
+            "review_profile": "strict",
+            "send_allowed": True,
+            "policy_decision": {"decision": "allow", "send_allowed": True, "required_actions": []},
+            "public_evidence": None,
+            "llm_adjudication": None,
+            "privacy_ledger": [],
+            "findings": [],
+        }
+
+        verifier.assert_demo_payload(verifier.CASES[0], pii_payload)
+        verifier.assert_demo_payload(verifier.CASES[2], clean_payload)
+
+    def test_public_demo_verifier_requires_legal_basis_for_findings(self):
+        verifier = _load_verify_public_demo_module()
+        payload = {
+            "review_profile": "strict",
+            "send_allowed": False,
+            "policy_decision": {"decision": "block", "send_allowed": False, "required_actions": ["redact_pii"]},
+            "public_evidence": None,
+            "llm_adjudication": None,
+            "privacy_ledger": [],
+            "findings": [{"category": "PII", "rule": "sg_nric_fin", "legal_basis": ""}],
+        }
+
+        with self.assertRaises(AssertionError):
+            verifier.assert_demo_payload(verifier.CASES[0], payload)
 
     def test_public_demo_review_is_unauthenticated_strict_and_non_persistent(self):
         self._enable_demo()
