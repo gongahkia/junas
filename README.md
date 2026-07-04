@@ -590,6 +590,7 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md): development setup, verification commands, invariants, and good first issues.
 - [`SECURITY.md`](./SECURITY.md): private reporting path and security-scope expectations.
 - [`docs/roadmap.md`](./docs/roadmap.md): Now/Next/Later issue triage and promotion gates.
+- [`docs/blog/engineering-pre-send-review.md`](./docs/blog/engineering-pre-send-review.md): draft technical companion post backed by benchmark artifacts.
 - [`docs/architecture.md`](./docs/architecture.md): runtime architecture and core flow.
 - [`docs/statutory-coverage.md`](./docs/statutory-coverage.md): detector-to-statute coverage map.
 - [`docs/known-limitations.md`](./docs/known-limitations.md): unsupported ingest, deployment, and legal/accuracy caveats.

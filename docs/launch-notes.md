@@ -217,7 +217,7 @@ I wrote up the API and policy-contract side of Junas, a pre-production
 deterministic reviewer for text that may contain personal data or MNPI before it
 is pasted into GenAI, sent by email, or shared as a document.
 
-Writeup: [technical writeup URL]
+Writeup: [`docs/blog/engineering-pre-send-review.md`](blog/engineering-pre-send-review.md)
 Demo: [hosted demo URL]
 
 The interesting implementation piece is the contract boundary: `/review`
