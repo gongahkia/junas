@@ -1,10 +1,18 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
+import platform
+import shutil
+import socket
+import subprocess
 import sys
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import TextIO
+from urllib.parse import urlparse
 
 
 @dataclass(frozen=True)
@@ -14,6 +22,14 @@ class DemoFrame:
     fake_secret: str
     sample_text: str
     expected_signal: str
+
+
+@dataclass(frozen=True)
+class DoctorResult:
+    status: str
+    name: str
+    detail: str
+    remediation: str
 
 
 DEMO_FRAMES: tuple[DemoFrame, ...] = (
@@ -45,6 +61,11 @@ DEMO_FRAMES: tuple[DemoFrame, ...] = (
         sample_text=("Post only the redacted demo note; DOB 1900-01-01 and employee id DEMO-EMP-0001 are synthetic."),
         expected_signal="fake bot token + special-category-shaped text",
     ),
+)
+
+DAL_PATHS = (
+    Path("/Library/CoreMediaIO/Plug-Ins/DAL"),
+    Path.home() / "Library/CoreMediaIO/Plug-Ins/DAL",
 )
 
 
@@ -103,6 +124,224 @@ def run_demo(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
     return 0
 
 
+def _plugin_paths() -> tuple[Path, ...]:
+    plugins: list[Path] = []
+    for path in DAL_PATHS:
+        if path.is_dir():
+            plugins.extend(sorted(path.glob("*.plugin")))
+    return tuple(plugins)
+
+
+def _check_screen_capture() -> DoctorResult:
+    if platform.system() != "Darwin":
+        return DoctorResult(
+            status="warn",
+            name="ScreenCaptureKit permission",
+            detail="macOS ScreenCaptureKit is not available on this platform.",
+            remediation="Run this command on the Mac that will perform capture.",
+        )
+    if not shutil.which("screencapture"):
+        return DoctorResult(
+            status="fail",
+            name="ScreenCaptureKit permission",
+            detail="macOS screencapture helper was not found.",
+            remediation=(
+                "Check the macOS install; ScreenCaptureKit diagnostics require the standard screencapture tool."
+            ),
+        )
+    return DoctorResult(
+        status="warn",
+        name="ScreenCaptureKit permission",
+        detail="Permission cannot be verified without a capture attempt or macOS TCC prompt.",
+        remediation=(
+            "Open System Settings > Privacy & Security > Screen & System Audio Recording, "
+            "enable the terminal/app that runs Aki, then rerun this command."
+        ),
+    )
+
+
+def _check_coremediaio() -> DoctorResult:
+    existing = [path for path in DAL_PATHS if path.is_dir()]
+    if existing:
+        paths = ", ".join(str(path) for path in existing)
+        return DoctorResult(
+            status="pass",
+            name="CoreMediaIO DAL state",
+            detail=f"DAL plugin directory exists: {paths}.",
+            remediation="No action needed unless the virtual camera check below is warn/fail.",
+        )
+    return DoctorResult(
+        status="warn",
+        name="CoreMediaIO DAL state",
+        detail="No CoreMediaIO DAL plugin directory was found.",
+        remediation="Install OBS virtual camera or another DAL plugin if video capture/output is required.",
+    )
+
+
+def _check_virtual_camera() -> DoctorResult:
+    plugins = _plugin_paths()
+    if plugins:
+        names = ", ".join(plugin.name for plugin in plugins)
+        return DoctorResult(
+            status="pass",
+            name="Virtual-camera installation",
+            detail=f"Found DAL plugin(s): {names}.",
+            remediation="No action needed.",
+        )
+    return DoctorResult(
+        status="warn",
+        name="Virtual-camera installation",
+        detail="No DAL virtual-camera plugin was found.",
+        remediation=(
+            "Install OBS and enable its virtual camera if `aki redact` or capture workflows need camera output."
+        ),
+    )
+
+
+def _parse_obs_target(obs_url: str) -> tuple[str, int]:
+    parsed = urlparse(obs_url)
+    if not parsed.scheme:
+        parsed = urlparse(f"ws://{obs_url}")
+    host = parsed.hostname or "127.0.0.1"
+    if parsed.port:
+        return host, parsed.port
+    if parsed.scheme == "wss":
+        return host, 443
+    return host, 4455
+
+
+def _check_obs(obs_url: str) -> DoctorResult:
+    if not obs_url:
+        return DoctorResult(
+            status="warn",
+            name="OBS reachability",
+            detail="OBS websocket URL is not configured; reachability check skipped.",
+            remediation="Set AKI_OBS_WEBSOCKET_URL=ws://127.0.0.1:4455 when OBS integration is relevant.",
+        )
+    try:
+        host, port = _parse_obs_target(obs_url)
+        with socket.create_connection((host, port), timeout=1.5):
+            pass
+    except OSError as exc:
+        return DoctorResult(
+            status="fail",
+            name="OBS reachability",
+            detail=f"Could not connect to {obs_url}: {exc}.",
+            remediation="Start OBS, enable websocket server, confirm host/port, then rerun `aki doctor`.",
+        )
+    return DoctorResult(
+        status="pass",
+        name="OBS reachability",
+        detail=f"TCP connection to {obs_url} succeeded.",
+        remediation="No action needed.",
+    )
+
+
+def _check_tesseract(env: dict[str, str]) -> DoctorResult:
+    prefix = env.get("TESSDATA_PREFIX", "").strip()
+    if prefix and not Path(prefix).expanduser().exists():
+        return DoctorResult(
+            status="fail",
+            name="Tesseract data path",
+            detail=f"TESSDATA_PREFIX does not exist: {prefix}.",
+            remediation="Set TESSDATA_PREFIX to the tessdata directory or unset it to use the system default.",
+        )
+    binary = shutil.which("tesseract")
+    if not binary:
+        return DoctorResult(
+            status="warn",
+            name="Tesseract data path",
+            detail="tesseract binary was not found; OCR paths will be unavailable.",
+            remediation="Install Tesseract, for example `brew install tesseract`, when OCR is needed.",
+        )
+    try:
+        result = subprocess.run(
+            [binary, "--list-langs"],
+            capture_output=True,
+            text=True,
+            timeout=5,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        return DoctorResult(
+            status="fail",
+            name="Tesseract data path",
+            detail=f"Could not list Tesseract languages: {exc}.",
+            remediation="Reinstall Tesseract or fix TESSDATA_PREFIX.",
+        )
+    if result.returncode != 0:
+        return DoctorResult(
+            status="fail",
+            name="Tesseract data path",
+            detail=(result.stderr or result.stdout or "tesseract --list-langs failed").strip(),
+            remediation="Reinstall language data or set TESSDATA_PREFIX to a valid tessdata directory.",
+        )
+    languages = [line.strip() for line in result.stdout.splitlines() if line.strip() and "List of" not in line]
+    if not languages:
+        return DoctorResult(
+            status="fail",
+            name="Tesseract data path",
+            detail="Tesseract returned no installed languages.",
+            remediation="Install tessdata language files, including eng for default OCR smoke tests.",
+        )
+    return DoctorResult(
+        status="pass",
+        name="Tesseract data path",
+        detail=f"tesseract is installed with languages: {', '.join(languages[:8])}.",
+        remediation="No action needed.",
+    )
+
+
+def run_doctor_checks(*, obs_url: str = "", env: dict[str, str] | None = None) -> tuple[DoctorResult, ...]:
+    resolved_env = dict(os.environ if env is None else env)
+    resolved_obs_url = (
+        obs_url or resolved_env.get("AKI_OBS_WEBSOCKET_URL", "") or resolved_env.get("OBS_WEBSOCKET_URL", "")
+    )
+    return (
+        _check_screen_capture(),
+        _check_coremediaio(),
+        _check_virtual_camera(),
+        _check_obs(resolved_obs_url),
+        _check_tesseract(resolved_env),
+    )
+
+
+def render_doctor(results: tuple[DoctorResult, ...]) -> str:
+    lines = [
+        "Aki doctor",
+        "telemetry: disabled; diagnostics stay local and are not transmitted",
+        "",
+    ]
+    counts = {"pass": 0, "warn": 0, "fail": 0}
+    for result in results:
+        counts[result.status] = counts.get(result.status, 0) + 1
+        lines.extend(
+            [
+                f"{result.status}: {result.name}",
+                f"  detail: {result.detail}",
+                f"  fix: {result.remediation}",
+                "",
+            ]
+        )
+    lines.append(f"summary: pass={counts.get('pass', 0)} warn={counts.get('warn', 0)} fail={counts.get('fail', 0)}")
+    return "\n".join(lines) + "\n"
+
+
+def run_doctor(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    results = run_doctor_checks(obs_url=args.obs_url)
+    if args.json:
+        payload = {
+            "telemetry": "disabled",
+            "results": [result.__dict__ for result in results],
+        }
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    else:
+        stdout.write(render_doctor(results))
+    return 1 if any(result.status == "fail" for result in results) else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -115,6 +354,14 @@ def build_parser() -> argparse.ArgumentParser:
     demo.add_argument("--frames", type=int, default=len(DEMO_FRAMES))
     demo.add_argument("--delay", type=float, default=0.0, help="sleep seconds between rendered frames")
     demo.set_defaults(func=run_demo)
+    doctor = subparsers.add_parser(
+        "doctor",
+        help="run local diagnostics without telemetry",
+        description="Run local diagnostics for capture, virtual camera, OBS, and OCR setup without telemetry.",
+    )
+    doctor.add_argument("--obs-url", default="", help="OBS websocket URL, e.g. ws://127.0.0.1:4455")
+    doctor.add_argument("--json", action="store_true", help="emit machine-readable local diagnostics")
+    doctor.set_defaults(func=run_doctor)
     return parser
 
 
