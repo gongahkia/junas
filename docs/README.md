@@ -80,6 +80,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
 - `adr/0006-local-redaction-log.md`: decision to use the keyed review journal instead of a separate local redaction-event log for v1
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
+- `integrations/macos-menu-bar-shell.md`: SwiftPM macOS menu-bar shell for source/transform/output control and TUI launch
 - `integrations/menu-bar-sidecar-protocol.md`: stdio JSON-RPC control plane for the v1 macOS menu-bar shell and local sidecar
 - `integrations/macos-automation.md`: AppleScript and Shortcuts wrapper for explicit clipboard review/redaction
 - `integrations/multi-display-capture.md`: explicit multi-display source selection and capture planning

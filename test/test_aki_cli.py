@@ -77,6 +77,7 @@ class AkiCliTests(unittest.TestCase):
     def test_help_lists_demo_command(self):
         help_text = build_parser().format_help()
 
+        self.assertIn("--tui", help_text)
         self.assertIn("demo", help_text)
         self.assertIn("doctor", help_text)
         self.assertIn("rules", help_text)
@@ -88,6 +89,16 @@ class AkiCliTests(unittest.TestCase):
         self.assertIn("buffer", help_text)
         self.assertIn("obs", help_text)
         self.assertIn("Junas local helper CLI", help_text)
+
+    def test_tui_entrypoint_lists_power_user_commands(self):
+        stdout = io.StringIO()
+
+        with contextlib.redirect_stdout(stdout):
+            code = main(["--tui"])
+
+        self.assertEqual(code, 0)
+        self.assertIn("Aki TUI", stdout.getvalue())
+        self.assertIn("aki sidecar stdio", stdout.getvalue())
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
         output = render_doctor(

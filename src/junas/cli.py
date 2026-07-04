@@ -124,6 +124,26 @@ def run_demo(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
     return 0
 
 
+def run_tui(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    stdout.write(
+        "\n".join(
+            [
+                "Aki TUI",
+                "power_user_surface: terminal",
+                "menu_bar_entrypoint: Open TUI",
+                "commands:",
+                "- aki sidecar stdio",
+                "- aki redact <video.mov> --output <redacted.mp4>",
+                "- junas-watch --clipboard --once",
+            ]
+        )
+        + "\n"
+    )
+    return 0
+
+
 def _plugin_paths() -> tuple[Path, ...]:
     plugins: list[Path] = []
     for path in DAL_PATHS:
@@ -703,6 +723,7 @@ def run_obs_prototype_source(args: argparse.Namespace, *, stdout: TextIO | None 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
+    parser.add_argument("--tui", action="store_true", help="show the power-user terminal UI entrypoint")
     subparsers = parser.add_subparsers(dest="command")
     demo = subparsers.add_parser(
         "demo",
@@ -893,6 +914,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.tui:
+        return run_tui(args)
     if not hasattr(args, "func"):
         parser.print_help()
         return 0

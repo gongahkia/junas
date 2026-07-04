@@ -11,6 +11,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Outlook Smart Alerts add-in | `integrations/outlook_addin/` | `outlook.md` |
 | Word taskpane | `integrations/word_addin/` | `word.md` |
 | Desktop watcher/local daemon | `integrations/desktop/`, `packaging/` | `desktop-watcher.md` |
+| macOS menu-bar shell | `apps/macos-menu-bar/` | `macos-menu-bar-shell.md` |
 | Menu-bar sidecar protocol | `integrations/desktop/sidecar_protocol.py` | `menu-bar-sidecar-protocol.md` |
 | macOS automation wrappers | `integrations/macos_automation/` | `macos-automation.md` |
 | Multi-display capture helper | `integrations/desktop/displays.py` | `multi-display-capture.md` |
