@@ -8,6 +8,8 @@ Junas is a pre-send review, safe rewrite, approval, and audit-evidence layer for
 
 Use Junas where a user, adapter, DMS hook, or API client can ask for a policy decision before an email, GenAI prompt, document upload, or workflow completion proceeds. Use DLP for organization-wide discovery, classification, blocking, alerting, endpoint controls, and cross-application policy.
 
+Related Junas docs: [`docs/product/non-goals.md`](../product/non-goals.md), [`INTEGRATIONS.md`](../../INTEGRATIONS.md), [`docs/integrations/outlook.md`](../integrations/outlook.md), [`docs/integrations/genai-browser.md`](../integrations/genai-browser.md), [`docs/integrations/dms.md`](../integrations/dms.md), and [`docs/integrations/desktop-watcher.md`](../integrations/desktop-watcher.md).
+
 ## Microsoft Purview DLP
 
 Microsoft Purview DLP covers broad Microsoft and endpoint locations through DLP policies, including Enterprise applications and devices, Microsoft 365 services, Office apps, supported Windows/macOS devices, non-Microsoft cloud apps, on-premises repositories, and Inline web traffic.

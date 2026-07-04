@@ -574,12 +574,13 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`docs/install.md`](./docs/install.md): desktop, browser extension, Office add-in, and server install flow.
 - [`docs/admin-security.md`](./docs/admin-security.md): tenancy, API keys, JWT, SIEM, and local pairing controls.
 - [`docs/threat-model.md`](./docs/threat-model.md): data flow, trust boundaries, threats, controls, and residual risk.
-- [`docs/deployment-hardening.md`](./docs/deployment-hardening.md): production filesystem, transport, secrets, Kubernetes, and SIEM guidance.
+- [`docs/deployment-hardening.md`](./docs/deployment-hardening.md): production filesystem, transport, secrets, Kubernetes, SIEM guidance, and deployment-mode comparison.
 - [`docs/mapping-store-hardening.md`](./docs/mapping-store-hardening.md): key-gated mapping encryption, retention, erasure, and mapping-store controls.
 - [`docs/llm-governance.md`](./docs/llm-governance.md): LLM promotion, privacy evaluation, and invariant gates.
 - [`docs/schema.md`](./docs/schema.md): API and artifact contracts.
 - [`docs/api/`](./docs/api/): Postman, cURL, and Python client integration artifacts.
 - [`docs/faq/developer.md`](./docs/faq/developer.md): endpoint-choice FAQ for review, rewrite, scrub, reidentify, and classify flows.
+- [`docs/faq/operator.md`](./docs/faq/operator.md): DLP/CASB/endpoint-control coexistence FAQ for operators.
 
 ## Development & Evaluation
 
