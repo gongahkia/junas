@@ -1,0 +1,160 @@
+Junas Latency Benchmark Report
+
+Generated: 2026-07-04_09-23-21
+Target URL: http://127.0.0.1:8131
+Warmups per file: 0
+Measured repetitions per file: 1
+
+Inputs:
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/10k.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/1k.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/2k.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/5k.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/browser-prompt.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/dms-upload-size-document.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/legal-memo.txt
+- /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/outlook-short-email.txt
+
+file                            words    chars        min       mean        p50        p95        max
+----------------------------------------------------------------------------------------------------
+10k.txt                         10368    76943    329.086    329.086    329.086    329.086    329.086
+1k.txt                           1334     8728     36.406     36.406     36.406     36.406     36.406
+2k.txt                           2481    16099     66.269     66.269     66.269     66.269     66.269
+5k.txt                           5445    40721    155.619    155.619    155.619    155.619    155.619
+browser-prompt.txt                124      818      5.478      5.478      5.478      5.478      5.478
+dms-upload-size-document.txt      601     4308     17.307     17.307     17.307     17.307     17.307
+legal-memo.txt                    536     3855     15.993     15.993     15.993     15.993     15.993
+outlook-short-email.txt            69      493      3.963      3.963      3.963      3.963      3.963
+
+Detailed results:
+
+File: 10k.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/10k.txt
+Words: 10368
+Chars: 76943
+Measured runs: 1
+Summary: min=329.086 ms, mean=329.086 ms, p50=329.086 ms, p95=329.086 ms, max=329.086 ms
+Mean backend total: 318.816 ms
+Average backend timings per step (ms):
+- total: mean=318.816 min=318.816 max=318.816
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=True
+  client_latency_ms=329.086
+  server_total_ms=318.816
+  timings_ms:
+    total: 318.816
+
+File: 1k.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/1k.txt
+Words: 1334
+Chars: 8728
+Measured runs: 1
+Summary: min=36.406 ms, mean=36.406 ms, p50=36.406 ms, p95=36.406 ms, max=36.406 ms
+Mean backend total: 34.330 ms
+Average backend timings per step (ms):
+- total: mean=34.330 min=34.330 max=34.330
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=36.406
+  server_total_ms=34.330
+  timings_ms:
+    total: 34.330
+
+File: 2k.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/2k.txt
+Words: 2481
+Chars: 16099
+Measured runs: 1
+Summary: min=66.269 ms, mean=66.269 ms, p50=66.269 ms, p95=66.269 ms, max=66.269 ms
+Mean backend total: 63.751 ms
+Average backend timings per step (ms):
+- total: mean=63.751 min=63.751 max=63.751
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=66.269
+  server_total_ms=63.751
+  timings_ms:
+    total: 63.751
+
+File: 5k.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/5k.txt
+Words: 5445
+Chars: 40721
+Measured runs: 1
+Summary: min=155.619 ms, mean=155.619 ms, p50=155.619 ms, p95=155.619 ms, max=155.619 ms
+Mean backend total: 151.980 ms
+Average backend timings per step (ms):
+- total: mean=151.980 min=151.980 max=151.980
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=155.619
+  server_total_ms=151.980
+  timings_ms:
+    total: 151.980
+
+File: browser-prompt.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/browser-prompt.txt
+Words: 124
+Chars: 818
+Measured runs: 1
+Summary: min=5.478 ms, mean=5.478 ms, p50=5.478 ms, p95=5.478 ms, max=5.478 ms
+Mean backend total: 3.098 ms
+Average backend timings per step (ms):
+- total: mean=3.098 min=3.098 max=3.098
+Per-run details:
+- Run 1: classification=SAFE cache_status=disabled degraded=False
+  client_latency_ms=5.478
+  server_total_ms=3.098
+  timings_ms:
+    total: 3.098
+
+File: dms-upload-size-document.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/dms-upload-size-document.txt
+Words: 601
+Chars: 4308
+Measured runs: 1
+Summary: min=17.307 ms, mean=17.307 ms, p50=17.307 ms, p95=17.307 ms, max=17.307 ms
+Mean backend total: 15.251 ms
+Average backend timings per step (ms):
+- total: mean=15.251 min=15.251 max=15.251
+Per-run details:
+- Run 1: classification=LOW_RISK cache_status=disabled degraded=False
+  client_latency_ms=17.307
+  server_total_ms=15.251
+  timings_ms:
+    total: 15.251
+
+File: legal-memo.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/legal-memo.txt
+Words: 536
+Chars: 3855
+Measured runs: 1
+Summary: min=15.993 ms, mean=15.993 ms, p50=15.993 ms, p95=15.993 ms, max=15.993 ms
+Mean backend total: 13.871 ms
+Average backend timings per step (ms):
+- total: mean=13.871 min=13.871 max=13.871
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=15.993
+  server_total_ms=13.871
+  timings_ms:
+    total: 13.871
+
+File: outlook-short-email.txt
+Path: /Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/outlook-short-email.txt
+Words: 69
+Chars: 493
+Measured runs: 1
+Summary: min=3.963 ms, mean=3.963 ms, p50=3.963 ms, p95=3.963 ms, max=3.963 ms
+Mean backend total: 2.199 ms
+Average backend timings per step (ms):
+- total: mean=2.199 min=2.199 max=2.199
+Per-run details:
+- Run 1: classification=HIGH_RISK cache_status=disabled degraded=False
+  client_latency_ms=3.963
+  server_total_ms=2.199
+  timings_ms:
+    total: 2.199
+
+JSON report: /Users/gongahkia/Desktop/coding/projects/junas/reports/latency_2026-07-04_09-23-21.json
+CSV report : /Users/gongahkia/Desktop/coding/projects/junas/reports/latency_2026-07-04_09-23-21.csv

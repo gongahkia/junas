@@ -1,0 +1,150 @@
+{
+  "schema_version": "junas.latency_slo.v1",
+  "generated_at": "2026-07-04_09-24-09",
+  "results": [
+    {
+      "case": "review.strict",
+      "mode": "in_process",
+      "surface": "review",
+      "profile": "strict",
+      "fixture": "/Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/1k.txt",
+      "fixture_bytes": 8742,
+      "warmups": 1,
+      "repetitions": 5,
+      "budget_ms": 500.0,
+      "min_ms": 32.799,
+      "mean_ms": 33.251,
+      "p50_ms": 32.884,
+      "p95_ms": 33.981,
+      "max_ms": 34.063,
+      "mean_server_total_ms": 31.24,
+      "policy_decision_budget_ms": 25.0,
+      "mean_policy_decision_ms": 0.034,
+      "policy_decision_p95_ms": 0.042,
+      "policy_decision_passed": true,
+      "passed": true,
+      "latencies_ms": [
+        34.063,
+        33.654,
+        32.799,
+        32.854,
+        32.884
+      ],
+      "policy_decision_ms": [
+        0.043,
+        0.037,
+        0.031,
+        0.03,
+        0.03
+      ]
+    },
+    {
+      "case": "review.audit_grade",
+      "mode": "in_process",
+      "surface": "review",
+      "profile": "audit_grade",
+      "fixture": "/Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/1k.txt",
+      "fixture_bytes": 8742,
+      "warmups": 1,
+      "repetitions": 5,
+      "budget_ms": 3000.0,
+      "min_ms": 32.082,
+      "mean_ms": 32.36,
+      "p50_ms": 32.426,
+      "p95_ms": 32.53,
+      "max_ms": 32.531,
+      "mean_server_total_ms": 30.575,
+      "policy_decision_budget_ms": 25.0,
+      "mean_policy_decision_ms": 0.026,
+      "policy_decision_p95_ms": 0.03,
+      "policy_decision_passed": true,
+      "passed": true,
+      "latencies_ms": [
+        32.526,
+        32.235,
+        32.531,
+        32.426,
+        32.082
+      ],
+      "policy_decision_ms": [
+        0.03,
+        0.029,
+        0.025,
+        0.027,
+        0.018
+      ]
+    },
+    {
+      "case": "anonymize.strict",
+      "mode": "in_process",
+      "surface": "anonymize",
+      "profile": "strict",
+      "fixture": "/Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/1k.txt",
+      "fixture_bytes": 8742,
+      "warmups": 1,
+      "repetitions": 5,
+      "budget_ms": 800.0,
+      "min_ms": 32.168,
+      "mean_ms": 32.297,
+      "p50_ms": 32.318,
+      "p95_ms": 32.404,
+      "max_ms": 32.416,
+      "mean_server_total_ms": 30.574,
+      "policy_decision_budget_ms": 25.0,
+      "mean_policy_decision_ms": 0.023,
+      "policy_decision_p95_ms": 0.027,
+      "policy_decision_passed": true,
+      "passed": true,
+      "latencies_ms": [
+        32.318,
+        32.168,
+        32.416,
+        32.358,
+        32.224
+      ],
+      "policy_decision_ms": [
+        0.025,
+        0.018,
+        0.026,
+        0.027,
+        0.021
+      ]
+    },
+    {
+      "case": "anonymize.audit_grade",
+      "mode": "in_process",
+      "surface": "anonymize",
+      "profile": "audit_grade",
+      "fixture": "/Users/gongahkia/Desktop/coding/projects/junas/test/fixtures/latency-corpus/1k.txt",
+      "fixture_bytes": 8742,
+      "warmups": 1,
+      "repetitions": 5,
+      "budget_ms": 4000.0,
+      "min_ms": 32.507,
+      "mean_ms": 32.769,
+      "p50_ms": 32.785,
+      "p95_ms": 32.947,
+      "max_ms": 32.98,
+      "mean_server_total_ms": 30.887,
+      "policy_decision_budget_ms": 25.0,
+      "mean_policy_decision_ms": 0.029,
+      "policy_decision_p95_ms": 0.033,
+      "policy_decision_passed": true,
+      "passed": true,
+      "latencies_ms": [
+        32.98,
+        32.759,
+        32.816,
+        32.785,
+        32.507
+      ],
+      "policy_decision_ms": [
+        0.031,
+        0.027,
+        0.028,
+        0.033,
+        0.026
+      ]
+    }
+  ]
+}
