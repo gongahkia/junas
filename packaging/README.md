@@ -53,7 +53,7 @@ Release signing uses the project-level Developer ID policy in `docs/macos-signin
 
 The menu-bar app DMG pipeline is `scripts/package_macos_dmg.sh`; release gates and stock-Mac verification live in `docs/macos-dmg-release.md`.
 
-The staged Homebrew cask draft is `packaging/homebrew/Casks/aki.rb`; tap naming and publication gates live in `docs/homebrew-cask.md`. After a signed DMG exists, run `uv run python scripts/update_homebrew_cask.py --version <version> --dmg dist/JunasMenuBar-<version>.dmg` before copying the cask into the tap.
+The staged Homebrew cask draft is `packaging/homebrew/Casks/aki.rb`; tap naming and publication gates live in `docs/homebrew-cask.md`. After a signed DMG exists, run `uv run python scripts/update_homebrew_cask.py --version <version> --dmg dist/JunasMenuBar-<version>.dmg`, then `./scripts/verify_homebrew_cask.sh`, before copying the cask into the tap.
 
 Optional LaunchAgent lifecycle, admin-controlled and not a developer quickstart:
 

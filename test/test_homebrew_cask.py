@@ -17,6 +17,7 @@ class HomebrewCaskTests(unittest.TestCase):
             'url "https://github.com/gongahkia/junas/releases/download/v#{version}/JunasMenuBar-#{version}.dmg"',
             'name "Aki"',
             'name "Junas Menu Bar"',
+            "depends_on macos: :sonoma",
             'app "JunasMenuBar.app"',
         ):
             self.assertIn(token, text)
@@ -36,6 +37,7 @@ class HomebrewCaskTests(unittest.TestCase):
             "brew upgrade --cask aki",
             "brew uninstall --cask aki",
             "uv run python scripts/update_homebrew_cask.py",
+            "./scripts/verify_homebrew_cask.sh",
             "`shasum -a 256 dist/JunasMenuBar-<version>.dmg`",
             "signed DMG release asset",
             "brew style --cask Casks/aki.rb",
@@ -82,6 +84,19 @@ class HomebrewCaskTests(unittest.TestCase):
         self.assertIn('version "1.2.3"', updated)
         self.assertIn("65279f1de64bfa36ffe413f95f49ffe58249192a3536ee76bdc56f49edd36beb", updated)
         self.assertIn("version=1.2.3", result.stdout)
+
+    def test_homebrew_cask_verifier_creates_temp_tap_and_runs_style(self):
+        text = (ROOT / "scripts" / "verify_homebrew_cask.sh").read_text(encoding="utf-8")
+
+        for token in (
+            "brew tap-new --no-git",
+            "junas/cask-verify",
+            "Casks/aki.rb",
+            "brew style",
+            "brew untap",
+            "homebrew_cask_style_verified: true",
+        ):
+            self.assertIn(token, text)
 
 
 if __name__ == "__main__":

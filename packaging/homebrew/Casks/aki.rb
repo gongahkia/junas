@@ -8,5 +8,7 @@ cask "aki" do
   desc "Local privacy redaction menu bar app"
   homepage "https://github.com/gongahkia/junas"
 
+  depends_on macos: :sonoma
+
   app "JunasMenuBar.app"
 end

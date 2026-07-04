@@ -41,10 +41,16 @@ brew uninstall --cask aki
 4. Confirm the generated `sha256` matches
    `shasum -a 256 dist/JunasMenuBar-<version>.dmg`.
 5. Confirm the cask URL points at the signed DMG release asset.
-6. In the tap checkout, run `brew style --cask Casks/aki.rb`.
-7. In the tap checkout, run `brew audit --cask --strict --online aki`.
-8. On a clean Mac, run the public tap/install/upgrade/uninstall commands above.
-9. Link the signed DMG and Homebrew install path from release notes and README.
+6. Before copying to the real tap, run the local tap style verifier:
+
+   ```sh
+   ./scripts/verify_homebrew_cask.sh
+   ```
+
+7. In the real tap checkout, run `brew style --cask Casks/aki.rb`.
+8. In the real tap checkout, run `brew audit --cask --strict --online aki`.
+9. On a clean Mac, run the public tap/install/upgrade/uninstall commands above.
+10. Link the signed DMG and Homebrew install path from release notes and README.
 
 Until those checks pass, README and release notes must keep Homebrew marked as a
 planned install path.
