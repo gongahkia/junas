@@ -130,7 +130,7 @@ def write_time_buffer_output(plan: TimeBufferPlan) -> dict[str, Any]:
         with Image.open(frame) as image:
             output = image.convert("RGBA")
             if index >= plan.redaction_start_index:
-                _draw_redaction(output, plan.redaction_box)
+                output = apply_redaction_box(output, plan.redaction_box)
             output.save(final_path)
         final_bytes += final_path.stat().st_size
         if plan.write_buffer_copy:
@@ -139,6 +139,12 @@ def write_time_buffer_output(plan: TimeBufferPlan) -> dict[str, Any]:
     payload["final_disk_bytes"] = final_bytes
     plan.manifest_path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return payload
+
+
+def apply_redaction_box(image: Image.Image, box: RedactionBox) -> Image.Image:
+    output = image.convert("RGBA")
+    _draw_redaction(output, box)
+    return output
 
 
 def plan_to_payload(plan: TimeBufferPlan, *, dry_run: bool) -> dict[str, Any]:

@@ -14,6 +14,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | macOS automation wrappers | `integrations/macos_automation/` | `macos-automation.md` |
 | Multi-display capture helper | `integrations/desktop/displays.py` | `multi-display-capture.md` |
 | Time-machine buffer prototype | `integrations/desktop/time_buffer.py` | `time-machine-buffer.md` |
+| OBS source-plugin prototype | `src/junas/integrations/obs_source.py` | `obs-source-plugin.md` |
 | Direct MP4 sink | `integrations/desktop/mp4_sink.py` | `direct-mp4-sink.md` |
 | DMS manifest scanner | `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
 | DMS matter id mapping | backend contract boundary | `dms-matter-ids.md` |

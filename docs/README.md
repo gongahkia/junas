@@ -82,6 +82,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `integrations/macos-automation.md`: AppleScript and Shortcuts wrapper for explicit clipboard review/redaction
 - `integrations/multi-display-capture.md`: explicit multi-display source selection and capture planning
 - `integrations/time-machine-buffer.md`: recording-only ring-buffer prototype for retroactive local redaction before final output
+- `integrations/obs-source-plugin.md`: OBS source-plugin technical design, prototype boundary, and distribution requirements
 - `integrations/direct-mp4-sink.md`: direct MP4 file output from already-redacted frame directories
 - `integrations/adapter-packaging.md`: browser extension and Office add-in packaging artifacts separate from backend deployment
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows

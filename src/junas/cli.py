@@ -600,6 +600,46 @@ def run_buffer_prototype(args: argparse.Namespace, *, stdout: TextIO | None = No
     return 0
 
 
+def run_obs_prototype_source(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.desktop.time_buffer import parse_redaction_box
+    from junas.integrations import obs_source
+
+    try:
+        plan = obs_source.build_obs_source_prototype_plan(
+            frames_dir=args.frames_dir,
+            output_dir=args.output_dir,
+            frame_pattern=args.pattern,
+            redaction_box=parse_redaction_box(args.box),
+            overwrite=args.overwrite,
+            create_parent=args.create_parent,
+        )
+        payload = obs_source.plan_to_payload(plan, dry_run=args.dry_run)
+        if not args.dry_run:
+            payload = obs_source.run_obs_source_prototype(plan)
+    except (obs_source.ObsSourcePrototypeError, ValueError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if args.json:
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        return 0
+    stdout.write(
+        "\n".join(
+            [
+                "Aki OBS source prototype",
+                f"frames: {payload['frame_count']}",
+                f"transform: {payload['transform']}",
+                f"processed_frames_dir: {payload['processed_frames_dir']}",
+                f"native_plugin_shipped: {payload['native_plugin_shipped']}",
+                f"virtual_camera_unchanged: {payload['virtual_camera_unchanged']}",
+            ]
+        )
+        + "\n"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -737,6 +777,26 @@ def build_parser() -> argparse.ArgumentParser:
     buffer_prototype.add_argument("--dry-run", action="store_true", help="measure and plan without writing output")
     buffer_prototype.add_argument("--json", action="store_true", help="emit machine-readable prototype metrics")
     buffer_prototype.set_defaults(func=run_buffer_prototype)
+    obs = subparsers.add_parser(
+        "obs",
+        help="prototype OBS integration boundaries",
+        description="Prototype OBS source-plugin frame handoff boundaries without shipping a native plugin.",
+    )
+    obs_subparsers = obs.add_subparsers(dest="obs_command")
+    obs_source_prototype = obs_subparsers.add_parser(
+        "prototype-source",
+        help="apply an existing transform to frames as an OBS source stand-in",
+        description="Process frame PNGs with the same transform a future OBS source plugin would call.",
+    )
+    obs_source_prototype.add_argument("--frames-dir", type=Path, required=True, help="directory of source frame PNGs")
+    obs_source_prototype.add_argument("--output-dir", type=Path, required=True, help="directory for processed frames")
+    obs_source_prototype.add_argument("--pattern", default="*.png", help="frame filename glob inside --frames-dir")
+    obs_source_prototype.add_argument("--box", default="0,0,120,80", help="redaction box as left,top,right,bottom")
+    obs_source_prototype.add_argument("--overwrite", action="store_true", help="replace prior managed prototype output")
+    obs_source_prototype.add_argument("--create-parent", action="store_true", help="create the output parent directory")
+    obs_source_prototype.add_argument("--dry-run", action="store_true", help="plan without writing processed frames")
+    obs_source_prototype.add_argument("--json", action="store_true", help="emit machine-readable prototype output")
+    obs_source_prototype.set_defaults(func=run_obs_prototype_source)
     return parser
 
 

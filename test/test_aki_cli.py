@@ -84,6 +84,7 @@ class AkiCliTests(unittest.TestCase):
         self.assertIn("displays", help_text)
         self.assertIn("mp4", help_text)
         self.assertIn("buffer", help_text)
+        self.assertIn("obs", help_text)
         self.assertIn("Junas local helper CLI", help_text)
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
