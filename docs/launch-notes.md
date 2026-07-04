@@ -18,6 +18,11 @@ Do not submit the Show HN draft until every item below has dated evidence:
 - [ ] README Known Limitations and version/release notes are current.
 - [ ] Launch draft still says pre-production and does not imply hosted-demo, install, signing, or production-hardening gates are complete before they are.
 
+Latest local product usability evidence: `docs/product/usability-pass-2026-07-04.md`.
+That pass supports local evaluator walkthroughs, but keeps public launch on hold
+until hosted demo verification, external tester evidence, and pilot workflow
+metrics exist.
+
 ## One-line Value Proposition
 
 Junas is a deterministic pre-send reviewer for GenAI prompts, email, and

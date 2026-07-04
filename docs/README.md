@@ -48,6 +48,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
 - `product/value-metrics.md`: privacy-safe product value metrics and aggregation rules
 - `product/pilot-success-rubric.md`: measurable avoided-send, rewrite, reviewer-decision, and false-positive fatigue rubric for pilots
+- `product/usability-pass-2026-07-04.md`: local product usability pass with demo/runtime evidence and launch blockers
 - `product/integration-backlog.md`: validated user-requested integration ledger and category labels
 - `product/claim-review-checklist.md`: evidence checklist for marketing, security, accuracy, deployment, and adapter claims
 - `product/procurement-demo-scripts.md`: backend API, Outlook, browser GenAI, DMS, and audit export demo scripts for buyer walkthroughs
