@@ -4,6 +4,7 @@ import contextlib
 import io
 import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -23,6 +24,7 @@ from junas.desktop.displays import (
     raw_frame_bandwidth_mbps,
     select_displays,
 )
+from junas.desktop.mp4_sink import Mp4SinkError, build_mp4_sink_plan, render_ffconcat_manifest
 
 try:
     import tomllib
@@ -80,6 +82,7 @@ class AkiCliTests(unittest.TestCase):
         self.assertIn("rules", help_text)
         self.assertIn("ocr", help_text)
         self.assertIn("displays", help_text)
+        self.assertIn("mp4", help_text)
         self.assertIn("Junas local helper CLI", help_text)
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
@@ -369,6 +372,103 @@ class AkiCliTests(unittest.TestCase):
             self.assertIn(token, doc)
         self.assertEqual(raw_frame_bandwidth_mbps(3840, 2160), 995.3)
         self.assertIn("docs/integrations/multi-display-capture.md", readme)
+
+    def test_mp4_sink_plan_requires_safe_explicit_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            frames = root / "frames"
+            frames.mkdir()
+            (frames / "frame-0001.png").write_bytes(b"not a real png")
+
+            with self.assertRaisesRegex(Mp4SinkError, r"\.mp4"):
+                build_mp4_sink_plan(frames_dir=frames, output_path=root / "session.mov")
+
+            existing = root / "session.mp4"
+            existing.write_bytes(b"existing")
+            with self.assertRaisesRegex(Mp4SinkError, "already exists"):
+                build_mp4_sink_plan(frames_dir=frames, output_path=existing)
+
+            symlink = root / "linked.mp4"
+            symlink.symlink_to(existing)
+            with self.assertRaisesRegex(Mp4SinkError, "symlink"):
+                build_mp4_sink_plan(frames_dir=frames, output_path=symlink, overwrite=True)
+
+            with self.assertRaisesRegex(Mp4SinkError, "parent does not exist"):
+                build_mp4_sink_plan(frames_dir=frames, output_path=root / "missing" / "session.mp4")
+
+    def test_mp4_sink_plan_sorts_frames_and_builds_manifest(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            frames = root / "redacted"
+            frames.mkdir()
+            (frames / "frame-0002.png").write_bytes(b"2")
+            (frames / "frame-0001.png").write_bytes(b"1")
+
+            plan = build_mp4_sink_plan(
+                frames_dir=frames,
+                output_path=root / "session.mp4",
+                fps=12,
+                ffmpeg_path="/usr/bin/ffmpeg",
+            )
+            manifest = render_ffconcat_manifest(plan.frames, fps=plan.fps)
+
+            self.assertEqual([path.name for path in plan.frames], ["frame-0001.png", "frame-0002.png"])
+            self.assertEqual(plan.duration_seconds, 0.166667)
+            self.assertIn("duration 0.083333333", manifest)
+            self.assertLess(manifest.index("frame-0001.png"), manifest.index("frame-0002.png"))
+            self.assertIn("<ffconcat>", plan.argv_template)
+            self.assertIn("libx264", plan.argv_template)
+
+    def test_mp4_cli_dry_run_emits_plan_without_writing(self):
+        stdout = io.StringIO()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            frames = root / "redacted"
+            captures = root / "captures"
+            frames.mkdir()
+            captures.mkdir()
+            (frames / "frame-0001.png").write_bytes(b"1")
+
+            with contextlib.redirect_stdout(stdout):
+                code = main(
+                    [
+                        "mp4",
+                        "from-redacted-frames",
+                        "--frames-dir",
+                        str(frames),
+                        "--output",
+                        str(captures / "session.mp4"),
+                        "--dry-run",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(code, 0)
+            payload = json.loads(stdout.getvalue())
+            self.assertTrue(payload["dry_run"])
+            self.assertEqual(payload["frame_count"], 1)
+            self.assertTrue(payload["output_path"].endswith("session.mp4"))
+            self.assertFalse((captures / "session.mp4").exists())
+
+    def test_direct_mp4_sink_docs_cover_output_safety_and_obs_choice(self):
+        doc = (ROOT / "docs" / "integrations" / "direct-mp4-sink.md").read_text(encoding="utf-8")
+        docs_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+        root_docs = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+        for token in (
+            "already-redacted PNG frames",
+            "Start And Stop Behavior",
+            "Output Path Safety",
+            "OBS or a virtual camera",
+            "--overwrite",
+            "--create-parent",
+            "brew install ffmpeg",
+        ):
+            self.assertIn(token, doc)
+        self.assertIn("docs/integrations/direct-mp4-sink.md", readme)
+        self.assertIn("direct-mp4-sink.md", docs_index)
+        self.assertIn("direct-mp4-sink.md", root_docs)
 
 
 if __name__ == "__main__":

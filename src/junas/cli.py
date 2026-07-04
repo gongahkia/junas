@@ -493,6 +493,69 @@ def run_displays_capture(args: argparse.Namespace, *, stdout: TextIO | None = No
     return 0
 
 
+def run_mp4_from_redacted_frames(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.desktop import mp4_sink
+
+    try:
+        plan = mp4_sink.build_mp4_sink_plan(
+            frames_dir=args.frames_dir,
+            output_path=args.output,
+            frame_pattern=args.pattern,
+            fps=args.fps,
+            overwrite=args.overwrite,
+            create_parent=args.create_parent,
+            ffmpeg_path=args.ffmpeg,
+            require_ffmpeg=not args.dry_run,
+        )
+    except mp4_sink.Mp4SinkError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    payload = {
+        "frames_dir": str(plan.frames_dir),
+        "frame_pattern": plan.frame_pattern,
+        "frame_count": len(plan.frames),
+        "fps": plan.fps,
+        "duration_seconds": plan.duration_seconds,
+        "output_path": str(plan.output_path),
+        "overwrite": plan.overwrite,
+        "create_parent": plan.create_parent,
+        "ffmpeg_path": plan.ffmpeg_path,
+        "argv": list(plan.argv_template),
+        "dry_run": args.dry_run,
+    }
+    if args.json and args.dry_run:
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    elif not args.json:
+        stdout.write(
+            "\n".join(
+                [
+                    "Aki MP4 sink",
+                    f"frames: {len(plan.frames)}",
+                    f"fps: {plan.fps}",
+                    f"duration_seconds: {plan.duration_seconds}",
+                    f"output_path: {plan.output_path}",
+                    f"command: {' '.join(plan.argv_template)}",
+                ]
+            )
+            + "\n"
+        )
+    if args.dry_run:
+        return 0
+    try:
+        mp4_sink.encode_mp4(plan)
+    except mp4_sink.Mp4SinkError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if args.json:
+        payload["status"] = "written"
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    else:
+        stdout.write(f"wrote: {plan.output_path}\n")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -576,6 +639,27 @@ def build_parser() -> argparse.ArgumentParser:
     displays_capture.add_argument("--dry-run", action="store_true", help="print commands without capture")
     displays_capture.add_argument("--json", action="store_true", help="emit machine-readable capture plan")
     displays_capture.set_defaults(func=run_displays_capture)
+    mp4 = subparsers.add_parser(
+        "mp4",
+        help="write redacted frame sequences to local MP4 files",
+        description="Write already-redacted frame PNGs to an explicit local MP4 file.",
+    )
+    mp4_subparsers = mp4.add_subparsers(dest="mp4_command")
+    mp4_from_frames = mp4_subparsers.add_parser(
+        "from-redacted-frames",
+        help="encode a directory of redacted PNG frames to MP4",
+        description="Encode already-redacted PNG frames to MP4 with ffmpeg; this does not capture the screen.",
+    )
+    mp4_from_frames.add_argument("--frames-dir", type=Path, required=True, help="directory of redacted frame PNGs")
+    mp4_from_frames.add_argument("--output", type=Path, required=True, help="explicit .mp4 output path")
+    mp4_from_frames.add_argument("--pattern", default="*.png", help="frame filename glob inside --frames-dir")
+    mp4_from_frames.add_argument("--fps", type=int, default=30, help="output frame rate from 1 to 240")
+    mp4_from_frames.add_argument("--ffmpeg", default="ffmpeg", help="ffmpeg executable path")
+    mp4_from_frames.add_argument("--overwrite", action="store_true", help="replace an existing output file")
+    mp4_from_frames.add_argument("--create-parent", action="store_true", help="create the output parent directory")
+    mp4_from_frames.add_argument("--dry-run", action="store_true", help="print encoder plan without writing MP4")
+    mp4_from_frames.add_argument("--json", action="store_true", help="emit machine-readable encoder plan")
+    mp4_from_frames.set_defaults(func=run_mp4_from_redacted_frames)
     return parser
 
 
