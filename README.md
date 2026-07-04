@@ -587,6 +587,7 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`INTEGRATIONS.md`](./INTEGRATIONS.md): root index for direct API, Outlook, browser, Word, desktop, DMS, and future surfaces.
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): reviewer-facing request lifecycle, trust boundary, and invariants.
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md): development setup, verification commands, invariants, and good first issues.
+- [`SECURITY.md`](./SECURITY.md): private reporting path and security-scope expectations.
 - [`docs/architecture.md`](./docs/architecture.md): runtime architecture and core flow.
 - [`docs/statutory-coverage.md`](./docs/statutory-coverage.md): detector-to-statute coverage map.
 - [`docs/known-limitations.md`](./docs/known-limitations.md): unsupported ingest, deployment, and legal/accuracy caveats.
