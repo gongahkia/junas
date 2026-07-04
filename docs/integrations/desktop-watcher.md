@@ -65,6 +65,27 @@ uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 
 If no file path, `--watch-folder`, or `--clipboard` is provided, the CLI exits with an argument error. Clipboard polling is never enabled by default.
 
+Foreground app profile selection is macOS-first and enabled by default through
+`--foreground-profile auto`. The watcher uses the foreground app name/bundle id to set
+the `/review` `document_type`, `surface`, `workflow`, and `review_profile` metadata:
+
+| Foreground apps | Profile | Review metadata |
+|---|---|---|
+| Terminal, iTerm2, Warp, WezTerm, Kitty, Alacritty, Ghostty, Hyper | `terminal` | secrets-heavy terminal text; `document_type=terminal_buffer`, `surface=desktop`, `workflow=desktop_watch`, `review_profile=strict` |
+| Slack, Discord, Microsoft Teams | `chat` | email/PII-heavy chat text; `document_type=chat_message`, `surface=other`, `workflow=collaboration_message`, `review_profile=strict` |
+| VS Code, Cursor, VSCodium | `editor` | broad source/editor text; `document_type=source_buffer`, `surface=desktop`, `workflow=desktop_watch`, `review_profile=audit_grade` |
+| Safari, Chrome, Edge, Firefox, Brave, Arc | `browser` | browser GenAI prompt text; `document_type=genai_prompt`, `surface=browser_genai`, `workflow=prompt_submit`, `review_profile=strict` |
+
+Override or disable the selection explicitly:
+
+```sh
+uv run junas-watch --clipboard --once --foreground-profile terminal
+uv run junas-watch --clipboard --once --foreground-profile off --review-profile strict
+```
+
+The local watcher does not inspect browser DOM. DOM-aware prompt handling remains owned
+by the managed browser adapter.
+
 Reference config sample: `docs/integrations/desktop-watcher.config.sample.toml`.
 The current CLI is flag/env based and does not parse that file directly; use it as an
 operator checklist when building shell wrappers, MDM profiles, or runbooks. The sample

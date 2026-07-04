@@ -36,6 +36,8 @@ class DesktopWatchTests(unittest.TestCase):
         self.assertEqual(calls[0][1], "/review")
         self.assertEqual(calls[1][1], "/anonymize")
         self.assertEqual(calls[0][2]["text"], "Send S1234567D")
+        self.assertEqual(calls[0][2]["surface"], "desktop")
+        self.assertEqual(calls[0][2]["workflow"], "desktop_watch")
         self.assertEqual(calls[0][4]["X-Junas-Local-Token"], "signed-token")
 
     def test_scan_paths_does_not_call_anonymize_without_explicit_output_dir(self):
@@ -159,6 +161,7 @@ class DesktopWatchTests(unittest.TestCase):
                 destination_jurisdiction="SG",
                 document_type="generic",
                 review_profile="strict",
+                foreground_profile="off",
                 timeout_seconds=10.0,
                 anonymize_output_dir=None,
                 local_token="",
@@ -168,6 +171,101 @@ class DesktopWatchTests(unittest.TestCase):
             config = watch._config_from_args(args)
 
         self.assertEqual(config.local_token, "signed-token")
+
+    def test_auto_foreground_profile_selects_terminal_profile(self):
+        args = mock.Mock(
+            base_url="http://127.0.0.1:8765",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            document_type="generic",
+            review_profile="strict",
+            foreground_profile="auto",
+            timeout_seconds=10.0,
+            anonymize_output_dir=None,
+            local_token="",
+            local_token_file=None,
+            notify=False,
+        )
+        app = watch.ForegroundApp(name="Terminal", bundle_id="com.apple.Terminal")
+
+        with mock.patch.object(watch, "_detect_foreground_app", return_value=app):
+            config = watch._config_from_args(args)
+
+        self.assertEqual(config.detector_profile, "terminal")
+        self.assertEqual(config.document_type, "terminal_buffer")
+        self.assertEqual(config.review_profile, "strict")
+        self.assertEqual(config.surface, "desktop")
+        self.assertEqual(config.workflow, "desktop_watch")
+        self.assertEqual(config.foreground_app, "Terminal")
+
+    def test_foreground_profile_override_does_not_detect_app(self):
+        args = mock.Mock(
+            base_url="http://127.0.0.1:8765",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            document_type="generic",
+            review_profile="strict",
+            foreground_profile="editor",
+            timeout_seconds=10.0,
+            anonymize_output_dir=None,
+            local_token="",
+            local_token_file=None,
+            notify=False,
+        )
+
+        with mock.patch.object(watch, "_detect_foreground_app") as detect:
+            config = watch._config_from_args(args)
+
+        detect.assert_not_called()
+        self.assertEqual(config.detector_profile, "editor")
+        self.assertEqual(config.document_type, "source_buffer")
+        self.assertEqual(config.review_profile, "audit_grade")
+
+    def test_foreground_profile_off_preserves_user_review_profile(self):
+        args = mock.Mock(
+            base_url="http://127.0.0.1:8765",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            document_type="memo",
+            review_profile="audit_grade",
+            foreground_profile="off",
+            timeout_seconds=10.0,
+            anonymize_output_dir=None,
+            local_token="",
+            local_token_file=None,
+            notify=False,
+        )
+
+        with mock.patch.object(watch, "_detect_foreground_app") as detect:
+            config = watch._config_from_args(args)
+
+        detect.assert_not_called()
+        self.assertEqual(config.detector_profile, "")
+        self.assertEqual(config.document_type, "memo")
+        self.assertEqual(config.review_profile, "audit_grade")
+
+    def test_auto_foreground_profile_leaves_unknown_app_unchanged(self):
+        args = mock.Mock(
+            base_url="http://127.0.0.1:8765",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            document_type="generic",
+            review_profile="strict",
+            foreground_profile="auto",
+            timeout_seconds=10.0,
+            anonymize_output_dir=None,
+            local_token="",
+            local_token_file=None,
+            notify=False,
+        )
+        app = watch.ForegroundApp(name="Preview", bundle_id="com.apple.Preview")
+
+        with mock.patch.object(watch, "_detect_foreground_app", return_value=app):
+            config = watch._config_from_args(args)
+
+        self.assertEqual(config.detector_profile, "")
+        self.assertEqual(config.document_type, "generic")
+        self.assertEqual(config.review_profile, "strict")
 
 
 if __name__ == "__main__":
