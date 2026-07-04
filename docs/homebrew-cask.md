@@ -30,8 +30,16 @@ brew uninstall --cask aki
 1. Build the signed release DMG with `docs/macos-dmg-release.md`.
 2. Verify notarization, stapling, `spctl`, DMG attach, app copy, launch, and
    uninstall on a stock Mac.
-3. Compute the artifact hash with `shasum -a 256 dist/JunasMenuBar-<version>.dmg`.
-4. Replace the staged cask `sha256` placeholder with the signed DMG hash.
+3. Update the staged cask from the signed DMG:
+
+   ```sh
+   uv run python scripts/update_homebrew_cask.py \
+     --version 0.1.0 \
+     --dmg dist/JunasMenuBar-0.1.0.dmg
+   ```
+
+4. Confirm the generated `sha256` matches
+   `shasum -a 256 dist/JunasMenuBar-<version>.dmg`.
 5. Confirm the cask URL points at the signed DMG release asset.
 6. In the tap checkout, run `brew style --cask Casks/aki.rb`.
 7. In the tap checkout, run `brew audit --cask --strict --online aki`.

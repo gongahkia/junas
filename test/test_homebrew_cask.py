@@ -1,3 +1,6 @@
+import subprocess
+import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -32,8 +35,8 @@ class HomebrewCaskTests(unittest.TestCase):
             "brew install --cask aki",
             "brew upgrade --cask aki",
             "brew uninstall --cask aki",
+            "uv run python scripts/update_homebrew_cask.py",
             "`shasum -a 256 dist/JunasMenuBar-<version>.dmg`",
-            "Replace the staged cask `sha256` placeholder",
             "signed DMG release asset",
             "brew style --cask Casks/aki.rb",
             "brew audit --cask --strict --online aki",
@@ -48,6 +51,37 @@ class HomebrewCaskTests(unittest.TestCase):
             "Packaged DMG, Homebrew, Nix, and signed desktop install paths are not the default README path yet", text
         )
         self.assertIn("Homebrew tap naming and cask publication gates", text)
+
+    def test_update_homebrew_cask_script_sets_version_and_sha_from_dmg(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            cask_path = tmp_path / "aki.rb"
+            dmg_path = tmp_path / "JunasMenuBar-1.2.3.dmg"
+            cask_path.write_text((ROOT / "packaging" / "homebrew" / "Casks" / "aki.rb").read_text(), encoding="utf-8")
+            dmg_path.write_bytes(b"synthetic signed dmg bytes")
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts" / "update_homebrew_cask.py"),
+                    "--version",
+                    "1.2.3",
+                    "--dmg",
+                    str(dmg_path),
+                    "--cask",
+                    str(cask_path),
+                ],
+                cwd=ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+
+            updated = cask_path.read_text(encoding="utf-8")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('version "1.2.3"', updated)
+        self.assertIn("65279f1de64bfa36ffe413f95f49ffe58249192a3536ee76bdc56f49edd36beb", updated)
+        self.assertIn("version=1.2.3", result.stdout)
 
 
 if __name__ == "__main__":
