@@ -69,9 +69,7 @@ class ArchitectureDocTests(unittest.TestCase):
         lifecycle_lines = [line for line in text.splitlines() if line[:3] in {f"{idx}. " for idx in range(1, 7)}]
         self.assertEqual(len(lifecycle_lines), 6)
         self.assertIn("[`ARCHITECTURE.md`](./ARCHITECTURE.md)", readme)
-        design_section = readme[
-            readme.index("## Design Principles") : readme.index("## What This Is / What This Is NOT")
-        ]
+        design_section = readme[readme.index("## Design Principles") : readme.index("## Adapter Maturity")]
         self.assertIn("[`ARCHITECTURE.md`](./ARCHITECTURE.md)", design_section)
 
     def test_top_level_architecture_doc_avoids_overclaim_language(self):

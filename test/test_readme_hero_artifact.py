@@ -69,7 +69,7 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
 
     def test_demo_capture_is_embedded_near_hero_and_regenerable(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        capture_doc = (ROOT / "docs" / "assets" / "demo" / "README.md")
+        capture_doc = ROOT / "docs" / "assets" / "demo" / "README.md"
         tape = ROOT / "docs" / "assets" / "demo" / "junas-demo.tape"
         self.assertTrue(capture_doc.exists())
         self.assertTrue(tape.exists())
@@ -110,11 +110,10 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
     def test_why_junas_story_is_near_top_and_scoped(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         why_start = readme.index("## Why Junas")
-        design_start = readme.index("## Design Principles")
+        scope_start = readme.index("## What This Is / What This Is NOT")
         demo_start = readme.index("## Demo")
         quick_start = readme.index("## Quick Start")
-        self.assertLess(why_start, design_start)
-        self.assertLess(design_start, demo_start)
+        self.assertLess(why_start, scope_start)
         self.assertLess(why_start, demo_start)
         self.assertLess(demo_start, quick_start)
 
@@ -131,6 +130,36 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
             self.assertIn(token, why_section)
         for forbidden in ("accuracy", "recall", "precision", "procurement-grade"):
             self.assertNotIn(forbidden, why_section.lower())
+
+    def test_install_locally_is_top_level_and_dev_commands_are_separate(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        install_start = readme.index("## Install Locally")
+        hero_start = readme.index(export_openapi_examples.HERO_MARKER_START)
+        quick_start = readme.index("## Quick Start")
+        what_start = readme.index("## What Junas Does")
+        dev_start = readme.index("## Development & Evaluation")
+        packaging_start = readme.index("## Packaging & Deployment")
+        install_section = readme[install_start:hero_start]
+        quick_start_section = readme[quick_start:what_start]
+        dev_section = readme[dev_start:packaging_start]
+
+        self.assertLess(install_start, hero_start)
+        for token in (
+            "uv sync --extra dev",
+            "uv run python -m spacy download en_core_web_sm",
+            "uv run python scripts/preflight.py --strict",
+            "./scripts/demo.sh",
+            "./scripts/launch/run_backend_only.sh",
+            "curl http://127.0.0.1:8000/ready",
+            "Packaged DMG, Homebrew, Nix, and signed desktop install paths are not the default README path yet",
+        ):
+            self.assertIn(token, install_section)
+        for forbidden in ("cargo run", "--tui"):
+            self.assertNotIn(forbidden, readme)
+        self.assertNotRegex(readme, r"(?m)^[$>]\\s*$")
+        self.assertNotIn("./scripts/verify_runtime.sh", quick_start_section)
+        self.assertIn("./scripts/verify_runtime.sh", dev_section)
+        self.assertIn("- [Install Locally](#install-locally)", readme)
 
     def test_project_status_banner_is_near_top_and_honest(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -159,19 +188,17 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         for forbidden in ("production-ready", "complete", "guarantee", "guarantees", "procurement-grade"):
             self.assertNotIn(forbidden, status.lower())
 
-    def test_design_principles_are_near_top_and_proven(self):
+    def test_design_principles_are_below_quick_start_and_proven(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        why_start = readme.index("## Why Junas")
+        primary_start = readme.index("## Primary Product Spine")
         design_start = readme.index("## Design Principles")
-        scope_start = readme.index("## What This Is / What This Is NOT")
-        demo_start = readme.index("## Demo")
+        adapter_start = readme.index("## Adapter Maturity")
         quick_start = readme.index("## Quick Start")
-        self.assertLess(why_start, design_start)
-        self.assertLess(design_start, scope_start)
-        self.assertLess(scope_start, demo_start)
-        self.assertLess(demo_start, quick_start)
+        self.assertLess(quick_start, primary_start)
+        self.assertLess(primary_start, design_start)
+        self.assertLess(design_start, adapter_start)
 
-        design_section = readme[design_start:scope_start]
+        design_section = readme[design_start:adapter_start]
         principles = [line for line in design_section.splitlines() if line.startswith("- **")]
         self.assertEqual(len(principles), 7)
         for token in (
@@ -212,8 +239,8 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
     def test_design_section_has_compact_architecture_diagram(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         design_start = readme.index("## Design Principles")
-        scope_start = readme.index("## What This Is / What This Is NOT")
-        design_section = readme[design_start:scope_start]
+        adapter_start = readme.index("## Adapter Maturity")
+        design_section = readme[design_start:adapter_start]
 
         for token in (
             "Compact runtime spine",
@@ -237,10 +264,10 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
     def test_what_this_is_not_block_matches_non_goals_doc(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         non_goals = (ROOT / "docs" / "product" / "non-goals.md").read_text(encoding="utf-8")
-        design_start = readme.index("## Design Principles")
+        why_start = readme.index("## Why Junas")
         scope_start = readme.index("## What This Is / What This Is NOT")
         demo_start = readme.index("## Demo")
-        self.assertLess(design_start, scope_start)
+        self.assertLess(why_start, scope_start)
         self.assertLess(scope_start, demo_start)
 
         scope_section = readme[scope_start:demo_start]
