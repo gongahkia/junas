@@ -656,6 +656,8 @@ Use [`CONTRIBUTING.md`](./CONTRIBUTING.md) for setup, verification commands, det
 
 ## Packaging & Deployment
 
+Version source: Python package metadata in [`pyproject.toml`](./pyproject.toml) is currently `0.1.0`. The top CI badge points at `.github/workflows/ci.yml`. Release links near the hero point only at the existing `readme-demo-assets-2026-06-30` demo-asset release; they are not install-version badges.
+
 Build the macOS desktop bundle:
 
 ```bash
