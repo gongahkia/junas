@@ -267,9 +267,12 @@ uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765
 uv run junas-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --copy-anonymized-clipboard --base-url http://127.0.0.1:8765
+uv run aki displays list
+uv run aki displays capture --display 1 --output-dir ./captures --dry-run
 ```
 
 See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations. The AppleScript/Shortcuts wrapper for explicit clipboard redaction is documented in [`docs/integrations/macos-automation.md`](./docs/integrations/macos-automation.md).
+Multi-display capture selection is documented in [`docs/integrations/multi-display-capture.md`](./docs/integrations/multi-display-capture.md).
 
 ## API Surface
 

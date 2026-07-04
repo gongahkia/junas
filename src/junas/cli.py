@@ -427,6 +427,72 @@ def run_ocr_classify_region(args: argparse.Namespace, *, stdout: TextIO | None =
     return 2 if result.status == "error" else 0
 
 
+def run_displays_list(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.desktop import displays as display_tools
+
+    sources = display_tools.list_displays()
+    if args.json:
+        stdout.write(json.dumps({"displays": [source.__dict__ for source in sources]}, indent=2, sort_keys=True) + "\n")
+        return 0
+    stdout.write("Aki displays\n")
+    for source in sources:
+        pixels = "unknown"
+        if source.pixels:
+            pixels = f"{source.pixels[0]}x{source.pixels[1]}"
+        main = " main" if source.is_main else ""
+        online = " online" if source.is_online else " offline"
+        stdout.write(f"- {source.capture_index}: {source.name} {pixels}{main}{online}\n")
+    if not sources:
+        stdout.write("no displays detected\n")
+    return 0
+
+
+def run_displays_capture(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.desktop import displays as display_tools
+
+    try:
+        plan = display_tools.build_capture_plan(
+            display_tools.list_displays(),
+            selected_indexes=args.display or (),
+            output_dir=args.output_dir,
+            video_seconds=args.video_seconds,
+            ignore_missing=args.ignore_missing,
+            timestamp=args.timestamp,
+        )
+    except display_tools.DisplaySelectionError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if args.json:
+        payload = {
+            "commands": [
+                {
+                    "display": command.display.__dict__,
+                    "output_path": str(command.output_path),
+                    "argv": list(command.argv),
+                }
+                for command in plan
+            ],
+            "dry_run": args.dry_run,
+        }
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    else:
+        stdout.write("Aki display capture plan\n")
+        for command in plan:
+            stdout.write(f"- display {command.display.capture_index}: {' '.join(command.argv)}\n")
+    if args.dry_run:
+        return 0
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    for command in plan:
+        completed = subprocess.run(command.argv, check=False)
+        if completed.returncode != 0:
+            return completed.returncode
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -488,6 +554,28 @@ def build_parser() -> argparse.ArgumentParser:
     classify_region.add_argument("--max-chars", type=int, help="maximum OCR fragment chars sent to local model")
     classify_region.add_argument("--json", action="store_true", help="emit machine-readable classification")
     classify_region.set_defaults(func=run_ocr_classify_region)
+    displays = subparsers.add_parser(
+        "displays",
+        help="list and select local displays for capture",
+        description="List and select macOS displays for explicit local capture workflows.",
+    )
+    displays_subparsers = displays.add_subparsers(dest="displays_command")
+    displays_list = displays_subparsers.add_parser("list", help="list currently connected displays")
+    displays_list.add_argument("--json", action="store_true", help="emit machine-readable display inventory")
+    displays_list.set_defaults(func=run_displays_list)
+    displays_capture = displays_subparsers.add_parser(
+        "capture",
+        help="build or run a screencapture command for selected displays",
+        description="Build or run screencapture commands for one or more selected display indexes.",
+    )
+    displays_capture.add_argument("--display", action="append", type=int, help="display index to capture")
+    displays_capture.add_argument("--output-dir", type=Path, required=True, help="directory for capture files")
+    displays_capture.add_argument("--video-seconds", type=int, help="record video for this many seconds")
+    displays_capture.add_argument("--timestamp", default="", help="stable suffix for output filenames")
+    displays_capture.add_argument("--ignore-missing", action="store_true", help="skip displays no longer connected")
+    displays_capture.add_argument("--dry-run", action="store_true", help="print commands without capture")
+    displays_capture.add_argument("--json", action="store_true", help="emit machine-readable capture plan")
+    displays_capture.set_defaults(func=run_displays_capture)
     return parser
 
 

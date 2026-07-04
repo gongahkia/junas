@@ -16,6 +16,13 @@ from junas.advisory.local_ocr_llm import (
     low_confidence_region_candidates,
 )
 from junas.cli import DoctorResult, build_parser, main, render_demo, render_doctor
+from junas.desktop.displays import (
+    DisplaySelectionError,
+    build_capture_plan,
+    parse_system_profiler_displays,
+    raw_frame_bandwidth_mbps,
+    select_displays,
+)
 
 try:
     import tomllib
@@ -72,6 +79,7 @@ class AkiCliTests(unittest.TestCase):
         self.assertIn("doctor", help_text)
         self.assertIn("rules", help_text)
         self.assertIn("ocr", help_text)
+        self.assertIn("displays", help_text)
         self.assertIn("Junas local helper CLI", help_text)
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
@@ -255,6 +263,112 @@ class AkiCliTests(unittest.TestCase):
             self.assertIn(token, doc)
         for package in ("ollama", "llama-cpp-python", "torch", "transformers"):
             self.assertNotIn(package, deps)
+
+    def test_display_inventory_parses_main_display_first(self):
+        payload = {
+            "SPDisplaysDataType": [
+                {
+                    "spdisplays_ndrvs": [
+                        {
+                            "_name": "Studio Display",
+                            "_spdisplays_displayID": "2",
+                            "_spdisplays_pixels": "5120 x 2880",
+                            "_spdisplays_resolution": "2560 x 1440 @ 60.00Hz",
+                            "spdisplays_online": "spdisplays_yes",
+                        },
+                        {
+                            "_name": "Color LCD",
+                            "_spdisplays_displayID": "1",
+                            "_spdisplays_pixels": "2940 x 1912",
+                            "_spdisplays_resolution": "1470 x 956 @ 60.00Hz",
+                            "spdisplays_main": "spdisplays_yes",
+                            "spdisplays_online": "spdisplays_yes",
+                        },
+                    ]
+                }
+            ]
+        }
+
+        displays = parse_system_profiler_displays(payload)
+
+        self.assertEqual([display.name for display in displays], ["Color LCD", "Studio Display"])
+        self.assertEqual([display.capture_index for display in displays], [1, 2])
+        self.assertEqual(displays[0].pixels, (2940, 1912))
+
+    def test_display_capture_plan_validates_missing_displays(self):
+        displays = parse_system_profiler_displays(
+            {
+                "SPDisplaysDataType": [
+                    {"spdisplays_ndrvs": [{"_name": "Color LCD", "spdisplays_main": "spdisplays_yes"}]}
+                ]
+            }
+        )
+
+        with self.assertRaises(DisplaySelectionError):
+            select_displays(displays, [2])
+
+        self.assertEqual(select_displays(displays, [2], ignore_missing=True), ())
+
+    def test_display_capture_plan_builds_multi_display_commands(self):
+        payload = {
+            "SPDisplaysDataType": [
+                {
+                    "spdisplays_ndrvs": [
+                        {"_name": "Color LCD", "spdisplays_main": "spdisplays_yes"},
+                        {"_name": "Projector"},
+                    ]
+                }
+            ]
+        }
+        displays = parse_system_profiler_displays(payload)
+
+        plan = build_capture_plan(
+            displays,
+            selected_indexes=[1, 2],
+            output_dir=Path("/tmp/captures"),
+            video_seconds=30,
+            timestamp="20260704T000000",
+        )
+
+        self.assertEqual(len(plan), 2)
+        self.assertEqual(plan[0].argv[:5], ("screencapture", "-x", "-v", "-V", "30"))
+        self.assertIn("-D", plan[0].argv)
+        self.assertTrue(str(plan[0].output_path).endswith("display-1-20260704T000000.mov"))
+        self.assertTrue(str(plan[1].output_path).endswith("display-2-20260704T000000.mov"))
+
+    def test_displays_cli_lists_mocked_inventory_without_capture(self):
+        stdout = io.StringIO()
+        displays = parse_system_profiler_displays(
+            {
+                "SPDisplaysDataType": [
+                    {"spdisplays_ndrvs": [{"_name": "Color LCD", "spdisplays_main": "spdisplays_yes"}]}
+                ]
+            }
+        )
+
+        with mock.patch("junas.desktop.displays.list_displays", return_value=displays):
+            with contextlib.redirect_stdout(stdout):
+                code = main(["displays", "list", "--json"])
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertEqual(payload["displays"][0]["name"], "Color LCD")
+
+    def test_multi_display_docs_cover_removal_and_performance(self):
+        doc = (ROOT / "docs" / "integrations" / "multi-display-capture.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+
+        for token in (
+            "Select Displays",
+            "Connected Or Removed Displays",
+            "Performance Impact",
+            "display index not available",
+            "--ignore-missing",
+            "3840 x 2160",
+        ):
+            self.assertIn(token, doc)
+        self.assertEqual(raw_frame_bandwidth_mbps(3840, 2160), 995.3)
+        self.assertIn("docs/integrations/multi-display-capture.md", readme)
 
 
 if __name__ == "__main__":

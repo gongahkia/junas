@@ -80,6 +80,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `adr/0006-local-redaction-log.md`: decision to use the keyed review journal instead of a separate local redaction-event log for v1
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/macos-automation.md`: AppleScript and Shortcuts wrapper for explicit clipboard review/redaction
+- `integrations/multi-display-capture.md`: explicit multi-display source selection and capture planning
 - `integrations/adapter-packaging.md`: browser extension and Office add-in packaging artifacts separate from backend deployment
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows
 - `policy/schema.md`: policy TOML fields, decision precedence, thresholds, recipient-domain rules, roles, and failure modes
