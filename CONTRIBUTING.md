@@ -74,11 +74,13 @@ uv run python scripts/generate_accuracy_doc.py --check
 Prefer docs and small tests before changing detector, auth, persistence, or adapter
 runtime code. Current scoped issues:
 
-- [#77: Add desktop watcher threat model](https://github.com/gongahkia/junas/issues/77)
-- [#78: Add developer FAQ for review and rewrite endpoints](https://github.com/gongahkia/junas/issues/78)
-- [#79: Add deployment comparison table](https://github.com/gongahkia/junas/issues/79)
-- [#80: Add operator FAQ for DLP coexistence](https://github.com/gongahkia/junas/issues/80)
-- [#81: Mark LaunchAgent install optional and admin-controlled](https://github.com/gongahkia/junas/issues/81)
+- [#1: Fix README install block and launch-facing top section](https://github.com/gongahkia/junas/issues/1)
+- [#2: Align version numbers and release badges](https://github.com/gongahkia/junas/issues/2)
+- [#11: Add explicit zero-telemetry privacy statement](https://github.com/gongahkia/junas/issues/11)
+- [#16: Add built-in fake-secret demo](https://github.com/gongahkia/junas/issues/16)
+- [#31: Add SECURITY.md reporting path](https://github.com/gongahkia/junas/issues/31)
+- [#32: Tag releases with changelogs](https://github.com/gongahkia/junas/issues/32)
+- [#33: Draft companion engineering blog post](https://github.com/gongahkia/junas/issues/33)
 
 These are intentionally documentation-only entry points drawn from the GitHub issue backlog.
 
