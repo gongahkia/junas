@@ -13,6 +13,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Desktop watcher/local daemon | `integrations/desktop/`, `packaging/` | `desktop-watcher.md` |
 | macOS automation wrappers | `integrations/macos_automation/` | `macos-automation.md` |
 | Multi-display capture helper | `integrations/desktop/displays.py` | `multi-display-capture.md` |
+| Offline video redaction | `integrations/desktop/offline_video.py` | `offline-video-redaction.md` |
 | Time-machine buffer prototype | `integrations/desktop/time_buffer.py` | `time-machine-buffer.md` |
 | OBS source-plugin prototype | `src/junas/integrations/obs_source.py` | `obs-source-plugin.md` |
 | Direct MP4 sink | `integrations/desktop/mp4_sink.py` | `direct-mp4-sink.md` |

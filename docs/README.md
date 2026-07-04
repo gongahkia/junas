@@ -81,6 +81,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/macos-automation.md`: AppleScript and Shortcuts wrapper for explicit clipboard review/redaction
 - `integrations/multi-display-capture.md`: explicit multi-display source selection and capture planning
+- `integrations/offline-video-redaction.md`: `aki redact` path for existing `.mov`/`.mp4` files using local frame transforms
 - `integrations/time-machine-buffer.md`: recording-only ring-buffer prototype for retroactive local redaction before final output
 - `integrations/obs-source-plugin.md`: OBS source-plugin technical design, prototype boundary, and distribution requirements
 - `integrations/direct-mp4-sink.md`: direct MP4 file output from already-redacted frame directories

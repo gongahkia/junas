@@ -493,6 +493,49 @@ def run_displays_capture(args: argparse.Namespace, *, stdout: TextIO | None = No
     return 0
 
 
+def run_redact_video(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.desktop import offline_video, time_buffer
+
+    try:
+        plan = offline_video.build_offline_video_redaction_plan(
+            input_path=args.input_video,
+            output_path=args.output,
+            fps=args.fps,
+            redaction_box=time_buffer.parse_redaction_box(args.box),
+            detections_json=args.detections_json,
+            gitleaks_path=args.gitleaks,
+            overwrite=args.overwrite,
+            create_parent=args.create_parent,
+            ffmpeg_path=args.ffmpeg,
+            require_ffmpeg=not args.dry_run,
+        )
+        payload = offline_video.plan_to_payload(plan, dry_run=args.dry_run)
+        if not args.dry_run:
+            payload = offline_video.redact_video(plan)
+    except (offline_video.OfflineVideoRedactionError, time_buffer.TimeBufferError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if args.json:
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        return 0
+    stdout.write(
+        "\n".join(
+            [
+                "Aki offline video redaction",
+                f"input_path: {payload['input_path']}",
+                f"output_path: {payload['output_path']}",
+                f"detection_mode: {payload['detection_mode']}",
+                f"transform: {payload['transform']}",
+                f"audio_preserved: {payload['audio_preserved']}",
+            ]
+        )
+        + "\n"
+    )
+    return 0
+
+
 def run_mp4_from_redacted_frames(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
     if stdout is None:
         stdout = sys.stdout
@@ -723,6 +766,23 @@ def build_parser() -> argparse.ArgumentParser:
     displays_capture.add_argument("--dry-run", action="store_true", help="print commands without capture")
     displays_capture.add_argument("--json", action="store_true", help="emit machine-readable capture plan")
     displays_capture.set_defaults(func=run_displays_capture)
+    redact = subparsers.add_parser(
+        "redact",
+        help="redact an existing local video file",
+        description="Extract frames from an existing local video, apply the local redaction transform, and write MP4.",
+    )
+    redact.add_argument("input_video", type=Path, help="input .mov, .mp4, or .m4v file")
+    redact.add_argument("--output", type=Path, required=True, help="explicit .mp4 output path")
+    redact.add_argument("--box", default="0,0,120,80", help="manual redaction box as left,top,right,bottom")
+    redact.add_argument("--detections-json", type=Path, help="frame text/box detection manifest")
+    redact.add_argument("--gitleaks", type=Path, help="local Gitleaks TOML pack for detections manifest text")
+    redact.add_argument("--fps", type=int, default=30, help="output frame rate from 1 to 240")
+    redact.add_argument("--ffmpeg", default="ffmpeg", help="ffmpeg executable path")
+    redact.add_argument("--overwrite", action="store_true", help="replace an existing output file")
+    redact.add_argument("--create-parent", action="store_true", help="create the output parent directory")
+    redact.add_argument("--dry-run", action="store_true", help="validate paths and print plan without writing MP4")
+    redact.add_argument("--json", action="store_true", help="emit machine-readable redaction output")
+    redact.set_defaults(func=run_redact_video)
     mp4 = subparsers.add_parser(
         "mp4",
         help="write redacted frame sequences to local MP4 files",
