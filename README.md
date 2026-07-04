@@ -589,9 +589,11 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`INTEGRATIONS.md`](./INTEGRATIONS.md): root index for direct API, Outlook, browser, Word, desktop, DMS, and future surfaces.
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): reviewer-facing request lifecycle, trust boundary, and invariants.
 - [`BENCHMARKS.md`](./BENCHMARKS.md): reproducible latency, SLO, and corpus benchmark evidence.
+- [`CHANGELOG.md`](./CHANGELOG.md): tagged install-release notes and artifact links.
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md): development setup, verification commands, invariants, and good first issues.
 - [`SECURITY.md`](./SECURITY.md): private reporting path and security-scope expectations.
 - [`docs/roadmap.md`](./docs/roadmap.md): Now/Next/Later issue triage and promotion gates.
+- [`docs/release-process.md`](./docs/release-process.md): release tag convention and artifact checklist.
 - [`docs/blog/engineering-pre-send-review.md`](./docs/blog/engineering-pre-send-review.md): draft technical companion post backed by benchmark artifacts.
 - [`docs/architecture.md`](./docs/architecture.md): runtime architecture and core flow.
 - [`docs/statutory-coverage.md`](./docs/statutory-coverage.md): detector-to-statute coverage map.
@@ -661,7 +663,7 @@ Use [`CONTRIBUTING.md`](./CONTRIBUTING.md) for setup, verification commands, det
 
 ## Packaging & Deployment
 
-Version source: Python package metadata in [`pyproject.toml`](./pyproject.toml) is currently `0.1.0`. The top CI badge points at `.github/workflows/ci.yml`. Release links near the hero point only at the existing `readme-demo-assets-2026-06-30` demo-asset release; they are not install-version badges.
+Version source: Python package metadata in [`pyproject.toml`](./pyproject.toml) is currently `0.1.0`. Current install release: [`v0.1.0`](https://github.com/gongahkia/junas/releases/tag/v0.1.0), with [`junas-0.1.0-py3-none-any.whl`](https://github.com/gongahkia/junas/releases/download/v0.1.0/junas-0.1.0-py3-none-any.whl) and [`junas-0.1.0.tar.gz`](https://github.com/gongahkia/junas/releases/download/v0.1.0/junas-0.1.0.tar.gz). The top CI badge points at `.github/workflows/ci.yml`. The `readme-demo-assets-2026-06-30` release is media-only and not an install-version badge.
 
 Build the macOS desktop bundle:
 

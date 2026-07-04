@@ -78,7 +78,6 @@ Prefer docs and small tests before changing detector, auth, persistence, or adap
 runtime code. Current scoped issues:
 
 - [#16: Add built-in fake-secret demo](https://github.com/gongahkia/junas/issues/16)
-- [#32: Tag releases with changelogs](https://github.com/gongahkia/junas/issues/32)
 
 These are intentionally small scoped entry points drawn from the GitHub issue backlog.
 

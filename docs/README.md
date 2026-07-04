@@ -6,6 +6,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `public-demo.md`: gated deterministic playground route and public-demo safety controls
 - `launch-notes.md`: gated launch copy, lead verdict, and candidate venues for public distribution
 - `roadmap.md`: Now/Next/Later issue triage and promotion gates
+- `release-process.md`: install-release tag convention and artifact checklist
 - `landing/index.html`: static one-page landing page with demo hero and social preview metadata
 - `blog/engineering-pre-send-review.md`: draft technical companion post backed by benchmark artifacts
 - `install.md`: local, extension, Office, and server install flow
@@ -55,6 +56,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `telemetry-feedback-loop.md`: privacy-safe join model for adapter telemetry, policy outcomes, and reviewer decisions
 - `support-triage-template.md`: support intake templates for detector, false-positive, adapter, auth, policy, and audit issues
 - `customer-changelog-format.md`: customer-facing changelog format separating detector, policy, adapter, and security changes
+- `releases/v0.1.0.md`: release notes for the first install package release
 - `faq/procurement.md`: procurement-facing claim discipline and promoted evidence links
 - `faq/buyer-objections.md`: buyer-objection responses for accuracy, liability, data residency, deployment, friction, false positives, and DLP coexistence
 - `faq/operator.md`: operator-facing FAQ for how Junas complements DLP, endpoint, SIEM, and SaaS controls

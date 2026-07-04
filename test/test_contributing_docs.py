@@ -47,12 +47,9 @@ class ContributingDocTests(unittest.TestCase):
 
     def test_contributing_doc_links_scoped_good_first_issues(self):
         contributing = (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
-        for issue in (
-            "#16: Add built-in fake-secret demo",
-            "#32: Tag releases with changelogs",
-        ):
+        for issue in ("#16: Add built-in fake-secret demo",):
             self.assertIn(issue, contributing)
-        self.assertEqual(contributing.count("https://github.com/gongahkia/junas/issues/"), 2)
+        self.assertEqual(contributing.count("https://github.com/gongahkia/junas/issues/"), 1)
         self.assertIn("small scoped entry points drawn from the GitHub issue backlog", contributing)
 
 
