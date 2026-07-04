@@ -4,6 +4,20 @@ Launch gate: do not post this externally until the hosted demo URL is live, the
 README hero links to it, and the demo cold-start/sleep note is visible near the
 link.
 
+## Show HN Readiness Gate
+
+Do not submit the Show HN draft until every item below has dated evidence:
+
+- [ ] Hosted `/demo` URL loads the playground without auth and the README hero links to it.
+- [ ] Hosted `/demo/review` returns deterministic-only results for PII, MNPI, and clean examples.
+- [ ] Demo copy visibly states no LLM calls, no public-evidence lookup, no provider keys, no persistence, and fake/sample inputs only.
+- [ ] Local install path has been run from a clean checkout with the current README Quick Start commands.
+- [ ] Packaged local desktop artifacts, if mentioned, have a signed/notarized release artifact and install notes; otherwise launch copy must not imply a stock-Mac app install is ready.
+- [ ] Homebrew or other package-manager install is tested end to end if it appears in launch copy; otherwise omit package-manager install claims.
+- [ ] At least one external tester has run the demo or install path and reported the result.
+- [ ] README Known Limitations and version/release notes are current.
+- [ ] Launch draft still says pre-production and does not imply hosted-demo, install, signing, or production-hardening gates are complete before they are.
+
 ## One-line Value Proposition
 
 Junas is a deterministic pre-send reviewer for GenAI prompts, email, and
