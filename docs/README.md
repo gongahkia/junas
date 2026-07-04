@@ -69,6 +69,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `admin-console/telemetry-requirements.md`: admin console telemetry requirements for policy changes, approval decisions, export events, and failed access attempts
 - `admin-console/no-build-prototype.md`: no-build admin console wireframe required before frontend framework dependencies or admin UI routes
 - `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
+- `adr/0006-local-redaction-log.md`: decision to use the keyed review journal instead of a separate local redaction-event log for v1
 - `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
 - `integrations/adapter-packaging.md`: browser extension and Office add-in packaging artifacts separate from backend deployment
 - `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows
