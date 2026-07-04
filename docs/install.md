@@ -4,6 +4,11 @@ Junas installs as a backend service, a local offline desktop daemon, and optiona
 
 Uninstall and rollback runbook: `docs/deployment-rollback.md`.
 
+Package-manager status: `docs/distribution.md` is the source of truth for
+Cargo, Nix, Homebrew, signed DMG, wheel, and source-distribution availability.
+As of Junas v0.1.0, only the GitHub release wheel/source distribution and
+checkout-first local path are current install paths.
+
 ## Server Install
 
 Use this path for a hosted or customer-managed FastAPI backend.

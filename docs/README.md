@@ -7,6 +7,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `launch-notes.md`: gated launch copy, lead verdict, and candidate venues for public distribution
 - `roadmap.md`: Now/Next/Later issue triage and promotion gates
 - `release-process.md`: install-release tag convention and artifact checklist
+- `distribution.md`: current wheel/sdist path plus Cargo, Nix, Homebrew, and DMG status
 - `landing/index.html`: static one-page landing page with demo hero and social preview metadata
 - `blog/engineering-pre-send-review.md`: draft technical companion post backed by benchmark artifacts
 - `install.md`: local, extension, Office, and server install flow

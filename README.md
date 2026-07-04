@@ -594,6 +594,7 @@ docker compose -f docker-compose.yml -f docker-compose.managed-llm.yml up --buil
 - [`SECURITY.md`](./SECURITY.md): private reporting path and security-scope expectations.
 - [`docs/roadmap.md`](./docs/roadmap.md): Now/Next/Later issue triage and promotion gates.
 - [`docs/release-process.md`](./docs/release-process.md): release tag convention and artifact checklist.
+- [`docs/distribution.md`](./docs/distribution.md): current wheel/sdist path plus Cargo, Nix, Homebrew, and DMG status.
 - [`docs/blog/engineering-pre-send-review.md`](./docs/blog/engineering-pre-send-review.md): draft technical companion post backed by benchmark artifacts.
 - [`docs/architecture.md`](./docs/architecture.md): runtime architecture and core flow.
 - [`docs/statutory-coverage.md`](./docs/statutory-coverage.md): detector-to-statute coverage map.
@@ -663,7 +664,7 @@ Use [`CONTRIBUTING.md`](./CONTRIBUTING.md) for setup, verification commands, det
 
 ## Packaging & Deployment
 
-Version source: Python package metadata in [`pyproject.toml`](./pyproject.toml) is currently `0.1.0`. Current install release: [`v0.1.0`](https://github.com/gongahkia/junas/releases/tag/v0.1.0), with [`junas-0.1.0-py3-none-any.whl`](https://github.com/gongahkia/junas/releases/download/v0.1.0/junas-0.1.0-py3-none-any.whl) and [`junas-0.1.0.tar.gz`](https://github.com/gongahkia/junas/releases/download/v0.1.0/junas-0.1.0.tar.gz). The top CI badge points at `.github/workflows/ci.yml`. The `readme-demo-assets-2026-06-30` release is media-only and not an install-version badge.
+Version source: Python package metadata in [`pyproject.toml`](./pyproject.toml) is currently `0.1.0`. Current install release: [`v0.1.0`](https://github.com/gongahkia/junas/releases/tag/v0.1.0), with [`junas-0.1.0-py3-none-any.whl`](https://github.com/gongahkia/junas/releases/download/v0.1.0/junas-0.1.0-py3-none-any.whl) and [`junas-0.1.0.tar.gz`](https://github.com/gongahkia/junas/releases/download/v0.1.0/junas-0.1.0.tar.gz). The top CI badge points at `.github/workflows/ci.yml`. The `readme-demo-assets-2026-06-30` release is media-only and not an install-version badge. Cargo, Nix, Homebrew, and signed-DMG status lives in [`docs/distribution.md`](./docs/distribution.md).
 
 Build the macOS desktop bundle:
 
