@@ -556,6 +556,50 @@ def run_mp4_from_redacted_frames(args: argparse.Namespace, *, stdout: TextIO | N
     return 0
 
 
+def run_buffer_prototype(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    from junas.desktop import time_buffer
+
+    try:
+        plan = time_buffer.build_time_buffer_plan(
+            frames_dir=args.frames_dir,
+            output_dir=args.output_dir,
+            frame_pattern=args.pattern,
+            fps=args.fps,
+            seconds=args.seconds,
+            redact_last_seconds=args.redact_last_seconds,
+            redaction_box=time_buffer.parse_redaction_box(args.box),
+            overwrite=args.overwrite,
+            create_parent=args.create_parent,
+            write_buffer_copy=args.write_buffer_copy,
+        )
+        payload = time_buffer.plan_to_payload(plan, dry_run=args.dry_run)
+        if not args.dry_run:
+            payload = time_buffer.write_time_buffer_output(plan)
+    except time_buffer.TimeBufferError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if args.json:
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        return 0
+    stdout.write(
+        "\n".join(
+            [
+                "Aki time-buffer prototype",
+                f"retained_frames: {payload['retained_frame_count']}",
+                f"evicted_frames: {payload['evicted_frame_count']}",
+                f"memory_bytes_estimate: {payload['memory_bytes_estimate']}",
+                f"disk_bytes_estimate: {payload['disk_bytes_estimate']}",
+                f"final_frames_dir: {payload['final_frames_dir']}",
+                f"live_stream_undo_supported: {payload['live_stream_undo_supported']}",
+            ]
+        )
+        + "\n"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -660,6 +704,39 @@ def build_parser() -> argparse.ArgumentParser:
     mp4_from_frames.add_argument("--dry-run", action="store_true", help="print encoder plan without writing MP4")
     mp4_from_frames.add_argument("--json", action="store_true", help="emit machine-readable encoder plan")
     mp4_from_frames.set_defaults(func=run_mp4_from_redacted_frames)
+    buffer = subparsers.add_parser(
+        "buffer",
+        help="prototype local recording frame buffers",
+        description="Prototype a recording-only frame ring buffer for retroactive redaction.",
+    )
+    buffer_subparsers = buffer.add_subparsers(dest="buffer_command")
+    buffer_prototype = buffer_subparsers.add_parser(
+        "prototype",
+        help="retain recent frames and apply a retroactive box redaction",
+        description="Retain a local recording frame window and apply a retroactive transform before final output.",
+    )
+    buffer_prototype.add_argument("--frames-dir", type=Path, required=True, help="directory of captured frame PNGs")
+    buffer_prototype.add_argument("--output-dir", type=Path, required=True, help="directory for prototype output")
+    buffer_prototype.add_argument("--pattern", default="*.png", help="frame filename glob inside --frames-dir")
+    buffer_prototype.add_argument("--fps", type=int, default=30, help="recording frame rate from 1 to 240")
+    buffer_prototype.add_argument("--seconds", type=float, default=30.0, help="ring-buffer retention window")
+    buffer_prototype.add_argument(
+        "--redact-last-seconds",
+        type=float,
+        default=5.0,
+        help="trailing retained seconds to transform before finalizing",
+    )
+    buffer_prototype.add_argument("--box", default="0,0,120,80", help="redaction box as left,top,right,bottom")
+    buffer_prototype.add_argument(
+        "--write-buffer-copy",
+        action="store_true",
+        help="also persist the raw retained buffer",
+    )
+    buffer_prototype.add_argument("--overwrite", action="store_true", help="replace prior managed prototype output")
+    buffer_prototype.add_argument("--create-parent", action="store_true", help="create the output parent directory")
+    buffer_prototype.add_argument("--dry-run", action="store_true", help="measure and plan without writing output")
+    buffer_prototype.add_argument("--json", action="store_true", help="emit machine-readable prototype metrics")
+    buffer_prototype.set_defaults(func=run_buffer_prototype)
     return parser
 
 
