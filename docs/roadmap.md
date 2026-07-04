@@ -9,6 +9,16 @@ Backlog rows must be categorized as `direct API`, `Outlook`, `browser`, `DMS`, `
 Scope anti-goals and deferred stretch ideas live in
 `docs/product/scope-governance.md`; cite that page when rejecting scope creep.
 
+## Current Issue Triage
+
+Status: 2026-07-04, based on open GitHub issues. This is an equivalent public roadmap, not a delivery promise.
+
+| Lane | Issues | Gate before promotion |
+|---|---|---|
+| Now | [#84](https://github.com/gongahkia/junas/issues/84) hosted deterministic demo, [#85](https://github.com/gongahkia/junas/issues/85) hosted playground verification, [#76](https://github.com/gongahkia/junas/issues/76) product usability pass, [#30](https://github.com/gongahkia/junas/issues/30) CI/validation workflow, [#1](https://github.com/gongahkia/junas/issues/1) README first-run cleanup. | Must improve current Junas launch evidence without widening product scope. |
+| Next | [#26](https://github.com/gongahkia/junas/issues/26) benchmarks/corpus, [#27](https://github.com/gongahkia/junas/issues/27) architecture doc, [#32](https://github.com/gongahkia/junas/issues/32) release tags/changelogs, [#33](https://github.com/gongahkia/junas/issues/33) engineering writeup, [#34](https://github.com/gongahkia/junas/issues/34) distribution paths, [#12](https://github.com/gongahkia/junas/issues/12) optional rule-pack import, [#13](https://github.com/gongahkia/junas/issues/13) local redaction log decision. | Needs reproducible evidence, bounded claims, or an explicit decision note before implementation is promoted. |
+| Later / research | [#5](https://github.com/gongahkia/junas/issues/5)-[#9](https://github.com/gongahkia/junas/issues/9), [#15](https://github.com/gongahkia/junas/issues/15)-[#25](https://github.com/gongahkia/junas/issues/25), and [#4](https://github.com/gongahkia/junas/issues/4). | Legacy Aki/macOS/video-redaction ideas require fresh product-scope validation against current Junas positioning before work starts. |
+
 ## Kill Criteria
 
 Adapter promotion requires measurable workflow value, not just technical feasibility. A candidate adapter should stay experimental, be paused, or be archived when it cannot show a useful activation rate, reviewed-send or reviewed-submit rate, accepted-finding rate, safe-rewrite usage, blocked-risk outcome, or audit-pack export path for its target workflow.
