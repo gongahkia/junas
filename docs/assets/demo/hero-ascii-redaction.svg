@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Junas ASCII redaction demo</title>
+  <desc id="desc">An 8 second looping SVG demo with an iTerm-style terminal on the left and a redacted virtual-camera preview on the right. It uses fake credentials only.</desc>
+  <style>
+    .bg { fill: #0f1218; }
+    .panel { fill: #151a23; stroke: #30394a; stroke-width: 2; }
+    .bar { fill: #202737; }
+    .dot-red { fill: #ff5f57; }
+    .dot-yellow { fill: #ffbd2e; }
+    .dot-green { fill: #28c840; }
+    .title { fill: #c8d1e1; font: 600 15px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .term { fill: #d9e2f2; font: 16px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .muted { fill: #8591a6; font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .good { fill: #70e1a1; font: 16px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .warn { fill: #ffd166; font: 16px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .block { fill: #05070a; stroke: #70e1a1; stroke-width: 1; }
+    .scan { fill: #70e1a1; opacity: 0.18; }
+    .blink { animation: blink 1s step-end infinite; }
+    .scanline { animation: scan 8s ease-in-out infinite; }
+    .pulse { animation: pulse 8s ease-in-out infinite; transform-origin: center; }
+    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes scan { 0%, 20% { transform: translateY(0); } 55%, 100% { transform: translateY(158px); } }
+    @keyframes pulse { 0%, 35% { opacity: 0.35; } 55%, 100% { opacity: 1; } }
+  </style>
+  <rect class="bg" width="960" height="420" rx="18"/>
+  <text x="40" y="42" class="title">fake terminal input</text>
+  <text x="530" y="42" class="title">virtual-camera ASCII preview</text>
+  <rect x="34" y="64" width="426" height="304" rx="12" class="panel"/>
+  <rect x="34" y="64" width="426" height="34" rx="12" class="bar"/>
+  <circle cx="56" cy="81" r="6" class="dot-red"/>
+  <circle cx="76" cy="81" r="6" class="dot-yellow"/>
+  <circle cx="96" cy="81" r="6" class="dot-green"/>
+  <text x="120" y="86" class="muted">iTerm2 - demo only</text>
+  <text x="58" y="132" class="term">$ export AWS_SECRET_ACCESS_KEY=\</text>
+  <text x="82" y="158" class="term">AKIA-FAKE-DEMO-0000</text>
+  <text x="58" y="196" class="term">$ aki sidecar stdio</text>
+  <text x="58" y="234" class="warn">detected: fake aws-style secret</text>
+  <text x="58" y="272" class="good">transform: ascii_redaction_box</text>
+  <text x="58" y="310" class="term">$ preview frame_0007</text>
+  <rect x="260" y="296" width="10" height="20" class="good blink"/>
+  <rect x="500" y="64" width="426" height="304" rx="12" class="panel"/>
+  <rect x="500" y="64" width="426" height="34" rx="12" class="bar"/>
+  <circle cx="522" cy="81" r="6" class="dot-red"/>
+  <circle cx="542" cy="81" r="6" class="dot-yellow"/>
+  <circle cx="562" cy="81" r="6" class="dot-green"/>
+  <text x="586" y="86" class="muted">Junas Preview - 8s loop</text>
+  <rect x="528" y="120" width="370" height="206" rx="8" fill="#10141d" stroke="#30394a"/>
+  <text x="552" y="154" class="term">AWS_SECRET_ACCESS_KEY=</text>
+  <g class="pulse">
+    <rect x="552" y="170" width="286" height="24" rx="3" class="block"/>
+    <text x="562" y="188" class="good">########################</text>
+  </g>
+  <text x="552" y="232" class="muted">finding: fake_aws_secret</text>
+  <text x="552" y="260" class="muted">redactions: 1   fps: 30.0</text>
+  <text x="552" y="288" class="muted">cpu: 4%         output: preview</text>
+  <rect x="528" y="120" width="370" height="18" class="scan scanline"/>
+  <text x="40" y="392" class="muted">synthetic fixture: no real credentials, no screen capture, no cloud call</text>
+</svg>

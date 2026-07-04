@@ -1,5 +1,10 @@
 # README Demo Capture
 
+`hero-ascii-redaction.svg` is the committed README-friendly hero loop for issue #4.
+It is an 8-second SVG animation showing an iTerm-style fake AWS secret beside an
+ASCII-redacted virtual-camera preview. It uses fake credentials only:
+`AWS_SECRET_ACCESS_KEY=AKIA-FAKE-DEMO-0000`.
+
 The README demo GIF and fallback PNG are generated from the real one-command demo:
 
 ```sh

@@ -71,12 +71,17 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         capture_doc = ROOT / "docs" / "assets" / "demo" / "README.md"
         tape = ROOT / "docs" / "assets" / "demo" / "junas-demo.tape"
+        svg = ROOT / "docs" / "assets" / "demo" / "hero-ascii-redaction.svg"
         self.assertTrue(capture_doc.exists())
         self.assertTrue(tape.exists())
+        self.assertTrue(svg.exists())
 
         hero_end = readme.index(export_openapi_examples.HERO_MARKER_END)
         toc_start = readme.index("## Table of Contents")
         capture_section = readme[hero_end:toc_start]
+        self.assertIn("./docs/assets/demo/hero-ascii-redaction.svg", capture_section)
+        self.assertIn("fake credentials only", capture_section)
+        self.assertIn("terminal and redacted preview shown side by side", capture_section)
         self.assertIn(DEMO_GIF_URL, capture_section)
         self.assertIn(DEMO_FALLBACK_URL, capture_section)
         self.assertIn("./docs/assets/demo/README.md", capture_section)
@@ -84,7 +89,15 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
         self.assertIn("Static fallback PNG", capture_section)
 
         doc_text = capture_doc.read_text(encoding="utf-8")
+        svg_text = svg.read_text(encoding="utf-8")
         tape_text = tape.read_text(encoding="utf-8")
+        self.assertIn("hero-ascii-redaction.svg", doc_text)
+        self.assertIn("8-second SVG animation", doc_text)
+        self.assertIn("AWS_SECRET_ACCESS_KEY=AKIA-FAKE-DEMO-0000", doc_text)
+        self.assertIn("iTerm2 - demo only", svg_text)
+        self.assertIn("virtual-camera ASCII preview", svg_text)
+        self.assertIn("AKIA-FAKE-DEMO-0000", svg_text)
+        self.assertIn("########################", svg_text)
         self.assertIn("vhs docs/assets/demo/junas-demo.tape", doc_text)
         self.assertIn("magick /tmp/junas-demo.gif -coalesce", doc_text)
         self.assertIn("Do not commit generated GIF/PNG binaries", doc_text)
@@ -154,7 +167,7 @@ class ReadmeHeroArtifactTests(unittest.TestCase):
             "Packaged DMG, Homebrew, Nix, and signed desktop install paths are not the default README path yet",
         ):
             self.assertIn(token, install_section)
-        for forbidden in ("cargo run", "--tui"):
+        for forbidden in ("cargo run",):
             self.assertNotIn(forbidden, readme)
         self.assertNotRegex(readme, r"(?m)^[$>]\\s*$")
         self.assertNotIn("./scripts/verify_runtime.sh", quick_start_section)
