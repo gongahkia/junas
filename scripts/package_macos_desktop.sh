@@ -7,8 +7,38 @@ cd "$ROOT"
 : "${JUNAS_CODESIGN_IDENTITY:=}"
 : "${JUNAS_NOTARYTOOL_PROFILE:=}"
 : "${JUNAS_PACKAGE_OUTPUT:=dist/junas-local-macos.zip}"
+: "${JUNAS_RELEASE_SIGNING_REQUIRED:=0}"
 SPEC="$ROOT/packaging/junas-local.spec"
 DESKTOP_SRC="${JUNAS_DESKTOP_SRC:-$ROOT/integrations/desktop}"
+
+fail_release_config() {
+  echo "$1" >&2
+  exit 78
+}
+
+case "$JUNAS_RELEASE_SIGNING_REQUIRED" in
+  0|1) ;;
+  *) fail_release_config "JUNAS_RELEASE_SIGNING_REQUIRED must be 0 or 1" ;;
+esac
+
+if [[ "$JUNAS_RELEASE_SIGNING_REQUIRED" == "1" ]]; then
+  if [[ -z "$JUNAS_CODESIGN_IDENTITY" ]]; then
+    fail_release_config "JUNAS_CODESIGN_IDENTITY is required when JUNAS_RELEASE_SIGNING_REQUIRED=1"
+  fi
+  if [[ -z "$JUNAS_NOTARYTOOL_PROFILE" ]]; then
+    fail_release_config "JUNAS_NOTARYTOOL_PROFILE is required when JUNAS_RELEASE_SIGNING_REQUIRED=1"
+  fi
+fi
+
+if [[ -n "$JUNAS_NOTARYTOOL_PROFILE" && -z "$JUNAS_CODESIGN_IDENTITY" ]]; then
+  fail_release_config "JUNAS_CODESIGN_IDENTITY is required when JUNAS_NOTARYTOOL_PROFILE is set"
+fi
+
+if [[ -n "$JUNAS_CODESIGN_IDENTITY" ]]; then
+  if ! /usr/bin/security find-identity -v -p codesigning | /usr/bin/grep -F "$JUNAS_CODESIGN_IDENTITY" >/dev/null; then
+    fail_release_config "configured codesign identity was not found in the keychain"
+  fi
+fi
 
 if [[ ! -f "$DESKTOP_SRC/watch.py" ]]; then
   echo "missing desktop adapter source: $DESKTOP_SRC/watch.py" >&2

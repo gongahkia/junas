@@ -744,8 +744,11 @@ Optional release signing:
 ```bash
 JUNAS_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)" \
 JUNAS_NOTARYTOOL_PROFILE=junas-notary \
+JUNAS_RELEASE_SIGNING_REQUIRED=1 \
 ./scripts/package_macos_desktop.sh
 ```
+
+Release signing uses the project-level Developer ID policy in [`docs/macos-signing-credentials.md`](./docs/macos-signing-credentials.md).
 
 Optional admin-controlled LaunchAgent lifecycle; not a default developer quickstart:
 

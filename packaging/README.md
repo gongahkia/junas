@@ -45,8 +45,11 @@ The local spec excludes the public-evidence and LLM-adjudicator modules. Use the
 ```sh
 JUNAS_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)" \
 JUNAS_NOTARYTOOL_PROFILE=junas-notary \
+JUNAS_RELEASE_SIGNING_REQUIRED=1 \
 ./scripts/package_macos_desktop.sh
 ```
+
+Release signing uses the project-level Developer ID policy in `docs/macos-signing-credentials.md`. Local contributors can omit these variables for unsigned developer artifacts.
 
 Optional LaunchAgent lifecycle, admin-controlled and not a developer quickstart:
 

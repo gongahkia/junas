@@ -70,9 +70,10 @@ Optional release env:
 ```sh
 export JUNAS_CODESIGN_IDENTITY="Developer ID Application: Example Pte Ltd (TEAMID)"
 export JUNAS_NOTARYTOOL_PROFILE=junas-notary
+export JUNAS_RELEASE_SIGNING_REQUIRED=1
 ```
 
-`scripts/package_macos_desktop.sh` runs `codesign`, `notarytool`, and `stapler` when those release env vars are set.
+`scripts/package_macos_desktop.sh` runs `codesign`, `notarytool`, and `stapler` when those release env vars are set. Signing identity and credential custody are defined in `docs/macos-signing-credentials.md`.
 
 Install and auto-start:
 

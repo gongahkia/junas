@@ -51,6 +51,8 @@ This is a plan, not a current install path.
 No Homebrew formula/cask or signed macOS DMG is published for Junas v0.1.0.
 README and release notes must not present either as a current install path until
 the packaging, signing, notarization, rollback, and install QA evidence exists.
+Signing credential custody and the project-level Developer ID decision are
+defined in `docs/macos-signing-credentials.md`.
 
 The local macOS daemon can still be built from source with
 `./scripts/package_macos_desktop.sh`; see `docs/install.md` and
