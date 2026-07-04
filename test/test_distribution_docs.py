@@ -17,7 +17,10 @@ class DistributionDocsTests(unittest.TestCase):
             "There is no `Cargo.toml`",
             "No Nix flake or package expression is committed yet",
             "This is a plan, not a current install path",
-            "No Homebrew formula/cask or signed macOS DMG is published",
+            "No public Homebrew formula/cask or signed macOS DMG is published",
+            "The chosen public Homebrew tap is `gongahkia/tap`",
+            "`packaging/homebrew/Casks/aki.rb`",
+            "`docs/homebrew-cask.md`",
         ):
             self.assertIn(token, text)
 

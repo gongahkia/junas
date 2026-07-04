@@ -48,12 +48,18 @@ This is a plan, not a current install path.
 
 ## Homebrew And DMG
 
-No Homebrew formula/cask or signed macOS DMG is published for Junas v0.1.0.
-README and release notes must not present either as a current install path until
-the packaging, signing, notarization, rollback, and install QA evidence exists.
-Signing credential custody and the project-level Developer ID decision are
-defined in `docs/macos-signing-credentials.md`. The DMG packaging pipeline and
-stock-Mac verification gate are defined in `docs/macos-dmg-release.md`.
+No public Homebrew formula/cask or signed macOS DMG is published for Junas
+v0.1.0. README and release notes must not present either as a current install
+path until the packaging, signing, notarization, rollback, and install QA
+evidence exists. Signing credential custody and the project-level Developer ID
+decision are defined in `docs/macos-signing-credentials.md`. The DMG packaging
+pipeline and stock-Mac verification gate are defined in
+`docs/macos-dmg-release.md`.
+
+The chosen public Homebrew tap is `gongahkia/tap`; its GitHub repository is
+`gongahkia/homebrew-tap`. A staged, non-release cask draft lives at
+`packaging/homebrew/Casks/aki.rb`. Homebrew release gates and install commands
+are defined in `docs/homebrew-cask.md`.
 
 The local macOS daemon can still be built from source with
 `./scripts/package_macos_desktop.sh`; see `docs/install.md` and
