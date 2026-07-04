@@ -216,7 +216,7 @@ Do not describe these residual buckets as work the deterministic layer should re
 | reviewed candidate corpus | 1428 | `cn_phone` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `cn_resident_id` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `cn_uscc` | 1.0000 | 1.0000 |
-| reviewed candidate corpus | 1428 | `conjunctive_mnpi` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `conjunctive_mnpi` | 0.9572 | 1.0000 |
 | reviewed candidate corpus | 1428 | `consent_withdrawal_marker` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `contingent_mnpi_language` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `contract_discount_rate` | 1.0000 | 1.0000 |
@@ -273,7 +273,7 @@ Do not describe these residual buckets as work the deterministic layer should re
 | reviewed candidate corpus | 1428 | `ph_tin` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `phone_number` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `postal_address` | 1.0000 | 1.0000 |
-| reviewed candidate corpus | 1428 | `quasi_identifier_combination` | 1.0000 | 1.0000 |
+| reviewed candidate corpus | 1428 | `quasi_identifier_combination` | 0.9456 | 1.0000 |
 | reviewed candidate corpus | 1428 | `religious_belief` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `sa_iqama` | 1.0000 | 1.0000 |
 | reviewed candidate corpus | 1428 | `sa_national_id` | 1.0000 | 1.0000 |
