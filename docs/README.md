@@ -10,6 +10,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `distribution.md`: current wheel/sdist path plus Cargo, Nix, Homebrew, and DMG status
 - `macos-dmg-release.md`: DMG packaging, bundled sidecar, signing, notarization, stapling, and stock-Mac verification gates
 - `macos-signing-credentials.md`: Developer ID ownership, notary credential custody, and fail-safe release signing mode
+- `.github/workflows/release-macos-dmg.yml`: protected signed/notarized DMG release workflow
 - `homebrew-cask.md`: Homebrew tap naming, staged cask source, and release gates
 - `landing/index.html`: static one-page landing page with demo hero and social preview metadata
 - `blog/engineering-pre-send-review.md`: draft technical companion post backed by benchmark artifacts

@@ -14,6 +14,11 @@ Before tagging an install release:
    `junas-<version>-py3-none-any.whl` artifacts to the GitHub release.
 5. Link the release artifacts from the changelog or release notes.
 
+Signed macOS DMGs must be built with `.github/workflows/release-macos-dmg.yml`
+or an equivalent protected release job. Do not upload the DMG to a GitHub
+release unless notarization, stapling, `spctl`, and the stock-Mac verification
+gate in `docs/macos-dmg-release.md` have passed for that exact artifact.
+
 Do not attach signed macOS DMGs, Homebrew formulae, Nix packages, or adapter
 bundles unless the matching packaging, signing, install, and rollback evidence is
 also committed.

@@ -32,16 +32,26 @@ Do not commit certificates, `.p12` files, app-specific passwords, Apple account 
 
 ## CI Secret Storage
 
-CI release signing must use a protected release environment. The expected secret boundary is:
+CI release signing must use the protected `macos-release` environment. The
+expected secret boundary is:
 
 | Secret | Storage | Runtime handling |
 |---|---|---|
-| Developer ID certificate export | GitHub Actions environment secret or external secret manager | Import into a temporary keychain only for the release job |
-| Certificate password | GitHub Actions environment secret or external secret manager | Pass only to the keychain import command |
-| Notarization credential | GitHub Actions environment secret or keychain profile setup step | Store in the temporary keychain profile before `notarytool submit` |
-| Team/account metadata | Protected release variable or secret | Use only in the release job |
+| `MACOS_DEVELOPER_ID_CERTIFICATE_BASE64` | GitHub Actions environment secret or external secret manager | Decode to a temporary `.p12` and import into a temporary keychain only for the release job |
+| `MACOS_DEVELOPER_ID_CERTIFICATE_PASSWORD` | GitHub Actions environment secret or external secret manager | Pass only to the keychain import command |
+| `MACOS_CODESIGN_IDENTITY` | GitHub Actions environment secret or protected variable | Set `JUNAS_CODESIGN_IDENTITY` for the release job |
+| `APPLE_ID` | GitHub Actions environment secret | Passed only to `xcrun notarytool store-credentials` |
+| `APPLE_TEAM_ID` | GitHub Actions environment secret | Passed only to `xcrun notarytool store-credentials` |
+| `APPLE_APP_SPECIFIC_PASSWORD` | GitHub Actions environment secret | Passed only to `xcrun notarytool store-credentials` |
 
 The repo does not store these values. Logs must not echo secret values. Release jobs should delete the temporary keychain before exit.
+
+`.github/workflows/release-macos-dmg.yml` is the protected CI path for signed
+DMGs. It imports the Developer ID certificate into a temporary keychain, creates
+the `junas-notary` keychain profile, runs `scripts/package_macos_dmg.sh` with
+`JUNAS_RELEASE_SIGNING_REQUIRED=1`, verifies the stapled DMG with `spctl`,
+uploads the DMG plus `.sha256` artifact, and can upload those files to an
+existing GitHub release when `upload_to_release=true`.
 
 ## Fail-Safe Release Mode
 

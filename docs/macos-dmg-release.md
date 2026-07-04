@@ -52,6 +52,24 @@ The script:
 
 `JUNAS_RELEASE_SIGNING_REQUIRED=1` fails before building if signing identity or notary profile configuration is missing.
 
+## Protected CI Release
+
+Use `.github/workflows/release-macos-dmg.yml` for public release artifacts after
+the `macos-release` environment has the secrets listed in
+`docs/macos-signing-credentials.md`.
+
+The manual workflow:
+
+1. imports the project Developer ID certificate into a temporary keychain
+2. stores the `junas-notary` notarytool profile
+3. runs `scripts/package_macos_dmg.sh` with `JUNAS_RELEASE_SIGNING_REQUIRED=1`
+4. verifies the stapled DMG with `spctl`
+5. mounts the DMG and checks `JunasMenuBar.app`
+6. copies the app to a runner-local path and checks executable assessment
+7. uploads the signed DMG and `.sha256` file as GitHub Actions artifacts
+8. optionally uploads both files to an existing GitHub release when
+   `upload_to_release=true`
+
 ## Stock-Mac Verification
 
 Before release notes or Homebrew cask publication:
@@ -71,6 +89,8 @@ Verify the menu-bar app opens, start/pause/stop controls work, `Open TUI` launch
 Do not link a DMG from release notes until:
 
 - `JUNAS_RELEASE_SIGNING_REQUIRED=1 ./scripts/package_macos_dmg.sh` completes
+- `.github/workflows/release-macos-dmg.yml` completes for the same version or an
+  equivalent protected release job captures the same evidence
 - notarization and stapling complete without error
 - the stock-Mac verification above passes
 - the SHA-256 hash is recorded for the Homebrew cask
