@@ -50,6 +50,8 @@ class MacosReleaseWorkflowTests(unittest.TestCase):
             "APPLE_TEAM_ID",
             "APPLE_APP_SPECIFIC_PASSWORD",
             ".github/workflows/release-macos-dmg.yml",
+            "JUNAS_DMG_OUTPUT=dist/JunasMenuBar-0.1.0.dmg",
+            "./scripts/package_macos_dmg.sh",
         ):
             self.assertIn(token, signing)
         for token in (

@@ -25,7 +25,8 @@ xcrun notarytool store-credentials junas-notary
 JUNAS_CODESIGN_IDENTITY="Developer ID Application: <release owner> (<TEAMID>)" \
 JUNAS_NOTARYTOOL_PROFILE=junas-notary \
 JUNAS_RELEASE_SIGNING_REQUIRED=1 \
-./scripts/package_macos_desktop.sh
+JUNAS_DMG_OUTPUT=dist/JunasMenuBar-0.1.0.dmg \
+./scripts/package_macos_dmg.sh
 ```
 
 Do not commit certificates, `.p12` files, app-specific passwords, Apple account emails, team ids, keychain exports, or notarytool profile material.
@@ -55,7 +56,7 @@ existing GitHub release when `upload_to_release=true`.
 
 ## Fail-Safe Release Mode
 
-`scripts/package_macos_desktop.sh` stays unsigned by default for local contributors. Release automation must set:
+`scripts/package_macos_desktop.sh` stays unsigned by default for local contributors. Public DMG release automation must use `scripts/package_macos_dmg.sh` and set:
 
 ```sh
 JUNAS_RELEASE_SIGNING_REQUIRED=1
