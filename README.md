@@ -472,8 +472,20 @@ Each pack lives under [`src/junas/review/jurisdictions_data/`](./src/junas/revie
 | Universal MNPI | All jurisdiction modes | Deal events, non-public markers, financial scalars, contingent language, tipping/selective disclosure, insider-list markers, information barriers, blackout windows, conjunctive MNPI |
 | Sector/event MNPI | Evidence rules across supported packs | Cybersecurity incidents, ESG/climate events, digital-asset listing or protocol events, pharma events, financial-services events, energy/mining events, legal proceedings |
 | Optional advisory enrichment | Server/audit-grade opt-in paths | Public evidence, LLM adjudication, defined-term extraction, coverage audit; advisory only, deterministic-high findings remain controlling |
+| Optional secret rule packs | Local opt-in Gitleaks TOML import | Credential/API-token regexes from a local rule-pack file; no cloud dependency or provider calls |
 
 The README keeps the jurisdiction table readable. The exhaustive detector-level tables live in [`docs/statutory-coverage.md`](./docs/statutory-coverage.md), including universal PII rules and jurisdiction-specific recognizers.
+
+### Optional Secret Rule Packs
+
+Junas can import local Gitleaks TOML rule packs when `JUNAS_GITLEAKS_RULE_PACKS`
+points to one or more files. The import is disabled by default, runs locally,
+does not call Gitleaks, TruffleHog, or any cloud service, and bounds file size,
+rule count, regex length, and findings per review. Secret matches surface as
+high-severity redaction findings under `EXTERNAL_SECRET_RULE_PACK`.
+
+See [`docs/secret-rule-packs.md`](./docs/secret-rule-packs.md) for supported
+fields, TruffleHog evaluation notes, and performance bounds.
 
 Accuracy and corpus notes:
 

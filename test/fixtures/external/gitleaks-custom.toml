@@ -1,0 +1,21 @@
+title = "Junas test Gitleaks pack"
+
+[[allowlists]]
+description = "allow documented demo fixtures"
+regexTarget = "line"
+targetRules = ["acme-api-token"]
+regexes = ['''allowlisted demo key''']
+
+[[rules]]
+id = "acme-api-token"
+description = "ACME API token"
+regex = '''(?i)acme[_-]?api[_-]?key\s*[:=]\s*([a-z0-9]{20,})'''
+secretGroup = 1
+entropy = 3.0
+keywords = ["acme", "api"]
+tags = ["secret", "test"]
+
+[[rules.allowlists]]
+description = "allow sample literals"
+regexTarget = "secret"
+regexes = ['''^clientexampletokenx7y8z9$''']
