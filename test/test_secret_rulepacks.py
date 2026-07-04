@@ -118,6 +118,7 @@ class SecretRulePackTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         readme = (root / "README.md").read_text(encoding="utf-8")
         doc = (root / "docs" / "secret-rule-packs.md").read_text(encoding="utf-8")
+        community_doc = (root / "docs" / "community-rule-packs.md").read_text(encoding="utf-8")
         docs_index = (root / "docs" / "README.md").read_text(encoding="utf-8")
 
         for token in (
@@ -126,6 +127,8 @@ class SecretRulePackTests(unittest.TestCase):
             "no cloud dependency",
             "EXTERNAL_SECRET_RULE_PACK",
             "docs/secret-rule-packs.md",
+            "docs/community-rule-packs.md",
+            "aki rules test",
         ):
             self.assertIn(token, readme)
         for token in (
@@ -137,7 +140,17 @@ class SecretRulePackTests(unittest.TestCase):
             "not a cloud dependency",
         ):
             self.assertIn(token, doc)
+        for token in (
+            "Rule Format",
+            "Required Tests",
+            "Versioning",
+            "gongahkia/aki-rules",
+            "one regex or detector-equivalent rule",
+            "one matching fixture",
+        ):
+            self.assertIn(token, community_doc)
         self.assertIn("secret-rule-packs.md", docs_index)
+        self.assertIn("community-rule-packs.md", docs_index)
 
     def _review(self, engine: PreSendReviewEngine, text: str):
         return engine.review(

@@ -2,11 +2,15 @@ from __future__ import annotations
 
 import contextlib
 import io
+import json
 import re
 import unittest
+from pathlib import Path
 from unittest import mock
 
 from junas.cli import DoctorResult, build_parser, main, render_demo, render_doctor
+
+ROOT = Path(__file__).resolve().parent.parent
 
 
 class AkiCliTests(unittest.TestCase):
@@ -54,6 +58,7 @@ class AkiCliTests(unittest.TestCase):
 
         self.assertIn("demo", help_text)
         self.assertIn("doctor", help_text)
+        self.assertIn("rules", help_text)
         self.assertIn("Junas local helper CLI", help_text)
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
@@ -113,6 +118,42 @@ class AkiCliTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertIn('"telemetry": "disabled"', stdout.getvalue())
         self.assertIn('"name": "Tesseract data path"', stdout.getvalue())
+
+    def test_rules_test_consumes_local_gitleaks_pack(self):
+        stdout = io.StringIO()
+        pack = ROOT / "rules" / "community" / "gitleaks-acme-demo.toml"
+        fixture = ROOT / "rules" / "community" / "fixtures" / "acme-api-token.txt"
+
+        with contextlib.redirect_stdout(stdout):
+            code = main(["rules", "test", "--gitleaks", str(pack), "--text-file", str(fixture)])
+
+        self.assertEqual(code, 0)
+        output = stdout.getvalue()
+        self.assertIn("Aki rules test", output)
+        self.assertIn("external_secret_acme-api-token", output)
+        self.assertIn("a1b2c3d4e5f6g7h8i9j0", output)
+
+    def test_rules_test_json_emits_findings(self):
+        stdout = io.StringIO()
+        pack = ROOT / "rules" / "community" / "gitleaks-acme-demo.toml"
+
+        with contextlib.redirect_stdout(stdout):
+            code = main(
+                [
+                    "rules",
+                    "test",
+                    "--gitleaks",
+                    str(pack),
+                    "--text",
+                    "ACME_API_KEY = a1b2c3d4e5f6g7h8i9j0",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertEqual(payload["findings"][0]["rule"], "external_secret_acme-api-token")
+        self.assertEqual(payload["findings"][0]["matched_text"], "a1b2c3d4e5f6g7h8i9j0")
 
 
 if __name__ == "__main__":

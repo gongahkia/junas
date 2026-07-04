@@ -342,6 +342,51 @@ def run_doctor(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int
     return 1 if any(result.status == "fail" for result in results) else 0
 
 
+def _dict_finding(**kwargs):
+    return kwargs
+
+
+def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
+    if stdout is None:
+        stdout = sys.stdout
+    try:
+        from junas.review.secret_rulepacks import (
+            SecretRulePackError,
+            detect_secret_findings,
+            load_gitleaks_rule_pack,
+        )
+
+        pack_path = Path(args.gitleaks).expanduser()
+        text = args.text if args.text_file is None else Path(args.text_file).expanduser().read_text(encoding="utf-8")
+        pack = load_gitleaks_rule_pack(pack_path)
+        findings = detect_secret_findings(
+            text=text,
+            rule_packs=(pack,),
+            jurisdiction=args.jurisdiction,
+            idx_start=0,
+            new_finding=_dict_finding,
+            max_matches=args.max_matches,
+        )
+    except (OSError, SecretRulePackError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+    if args.json:
+        payload = {"pack": str(pack_path), "findings": findings}
+        stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        return 0
+    lines = [
+        "Aki rules test",
+        f"pack: {pack_path}",
+        f"findings: {len(findings)}",
+    ]
+    for finding in findings:
+        lines.append(
+            f"- {finding['rule']} {finding['severity']} {finding['matched_text']} ({finding['start']}:{finding['end']})"
+        )
+    stdout.write("\n".join(lines) + "\n")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
     subparsers = parser.add_subparsers(dest="command")
@@ -362,6 +407,25 @@ def build_parser() -> argparse.ArgumentParser:
     doctor.add_argument("--obs-url", default="", help="OBS websocket URL, e.g. ws://127.0.0.1:4455")
     doctor.add_argument("--json", action="store_true", help="emit machine-readable local diagnostics")
     doctor.set_defaults(func=run_doctor)
+    rules = subparsers.add_parser(
+        "rules",
+        help="test local secret rule packs",
+        description="Test local community secret rule packs before opting them into Junas review.",
+    )
+    rules_subparsers = rules.add_subparsers(dest="rules_command")
+    rules_test = rules_subparsers.add_parser(
+        "test",
+        help="run a local Gitleaks TOML rule pack against text",
+        description="Run a local Gitleaks TOML rule pack through the same bounded importer used by Junas review.",
+    )
+    rules_test.add_argument("--gitleaks", required=True, help="path to a local Gitleaks TOML rule pack")
+    input_group = rules_test.add_mutually_exclusive_group(required=True)
+    input_group.add_argument("--text", help="text to scan")
+    input_group.add_argument("--text-file", help="UTF-8 text fixture to scan")
+    rules_test.add_argument("--jurisdiction", default="US", help="jurisdiction label for emitted findings")
+    rules_test.add_argument("--max-matches", type=int, default=64, help="maximum findings to emit")
+    rules_test.add_argument("--json", action="store_true", help="emit machine-readable findings")
+    rules_test.set_defaults(func=run_rules_test)
     return parser
 
 

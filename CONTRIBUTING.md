@@ -72,6 +72,13 @@ uv run python scripts/generate_accuracy_doc.py --check
 - README/product claims need local evidence: docs, tests, eval reports, screenshots,
   generated artifacts, or vendor docs where platform behavior is involved.
 
+## Rule Packs
+
+Community secret rule-pack changes must follow `docs/community-rule-packs.md`.
+Each contribution needs one regex or detector-equivalent rule plus one synthetic
+matching fixture. Add a non-matching or allowlisted fixture when false positives
+are likely, and run `uv run aki rules test` against the touched pack before review.
+
 ## Good First Issues
 
 Prefer docs and small tests before changing detector, auth, persistence, or adapter

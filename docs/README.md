@@ -23,6 +23,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `observability-metrics.md`: SIEM-safe, local-only, and prohibited metrics boundary
 - `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, SIEM guidance, and deployment-mode comparison
 - `secret-rule-packs.md`: optional local Gitleaks TOML import for bounded secret-detector coverage
+- `community-rule-packs.md`: community rule-pack format, versioning, fixtures, and `aki rules test` smoke path
 - `deployment-customer-managed.md`: customer-held secret custody requirements for mappings, journal HMAC, subject index, auth, and retention evidence
 - `deployment-local-only.md`: local daemon deployment boundary and unavailable server-side optional layers
 - `deployment-managed-llm.md`: deterministic default, public-evidence opt-in, and LLM adjudication deployment gates

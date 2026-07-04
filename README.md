@@ -506,6 +506,15 @@ high-severity redaction findings under `EXTERNAL_SECRET_RULE_PACK`.
 
 See [`docs/secret-rule-packs.md`](./docs/secret-rule-packs.md) for supported
 fields, TruffleHog evaluation notes, and performance bounds.
+Community rule-pack format, fixtures, and local smoke testing are documented in
+[`docs/community-rule-packs.md`](./docs/community-rule-packs.md). A seed pack
+exists under [`rules/community/`](./rules/community/):
+
+```bash
+uv run aki rules test \
+  --gitleaks rules/community/gitleaks-acme-demo.toml \
+  --text-file rules/community/fixtures/acme-api-token.txt
+```
 
 Accuracy and corpus notes:
 
