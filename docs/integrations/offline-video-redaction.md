@@ -1,9 +1,9 @@
 # Offline Video Redaction
 
-`aki redact` processes an existing local recording into a redacted MP4 without screen capture, OBS, or a virtual camera.
+`junas redact` processes an existing local recording into a redacted MP4 without screen capture, OBS, or a virtual camera.
 
 ```bash
-uv run aki redact ./recording.mov \
+uv run junas redact ./recording.mov \
   --output ./captures/recording-redacted.mp4 \
   --box 0,0,240,120
 ```
@@ -15,7 +15,7 @@ The command extracts video frames with `ffmpeg`, applies the same `time_buffer.r
 Manual box mode redacts every extracted frame with `--box`. For detector-driven fixtures or OCR handoff, pass a local detection manifest and a local Gitleaks-compatible rule pack:
 
 ```bash
-uv run aki redact ./recording.mov \
+uv run junas redact ./recording.mov \
   --output ./captures/recording-redacted.mp4 \
   --detections-json ./detections.json \
   --gitleaks rules/community/gitleaks-acme-demo.toml \

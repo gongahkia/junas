@@ -68,7 +68,7 @@ final class PipelineStore: ObservableObject {
 
   func openTUI() {
     do {
-      try TerminalLauncher.open(command: "aki --tui")
+      try TerminalLauncher.open(command: "junas --tui")
     } catch {
       fail(error)
     }

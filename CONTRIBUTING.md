@@ -77,7 +77,7 @@ uv run python scripts/generate_accuracy_doc.py --check
 Community secret rule-pack changes must follow `docs/community-rule-packs.md`.
 Each contribution needs one regex or detector-equivalent rule plus one synthetic
 matching fixture. Add a non-matching or allowlisted fixture when false positives
-are likely, and run `uv run aki rules test` against the touched pack before review.
+are likely, and run `uv run junas rules test` against the touched pack before review.
 
 ## Good First Issues
 

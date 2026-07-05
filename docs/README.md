@@ -28,7 +28,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `observability-metrics.md`: SIEM-safe, local-only, and prohibited metrics boundary
 - `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, SIEM guidance, and deployment-mode comparison
 - `secret-rule-packs.md`: optional local Gitleaks TOML import for bounded secret-detector coverage
-- `community-rule-packs.md`: community rule-pack format, versioning, fixtures, and `aki rules test` smoke path
+- `community-rule-packs.md`: community rule-pack format, versioning, fixtures, and `junas rules test` smoke path
 - `deployment-customer-managed.md`: customer-held secret custody requirements for mappings, journal HMAC, subject index, auth, and retention evidence
 - `deployment-local-only.md`: local daemon deployment boundary and unavailable server-side optional layers
 - `deployment-managed-llm.md`: deterministic default, public-evidence opt-in, and LLM adjudication deployment gates
@@ -87,7 +87,7 @@ This folder contains operator, developer, and product documentation. Product doc
 - `integrations/menu-bar-sidecar-protocol.md`: stdio JSON-RPC control plane for the v1 macOS menu-bar shell and local sidecar
 - `integrations/macos-automation.md`: AppleScript and Shortcuts wrapper for explicit clipboard review/redaction
 - `integrations/multi-display-capture.md`: explicit multi-display source selection and capture planning
-- `integrations/offline-video-redaction.md`: `aki redact` path for existing `.mov`/`.mp4` files using local frame transforms
+- `integrations/offline-video-redaction.md`: `junas redact` path for existing `.mov`/`.mp4` files using local frame transforms
 - `integrations/time-machine-buffer.md`: recording-only ring-buffer prototype for retroactive local redaction before final output
 - `integrations/obs-source-plugin.md`: OBS source-plugin technical design, prototype boundary, and distribution requirements
 - `integrations/direct-mp4-sink.md`: direct MP4 file output from already-redacted frame directories

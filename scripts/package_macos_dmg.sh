@@ -48,20 +48,20 @@ if [[ "$CHECK_CONFIG_ONLY" == "1" ]]; then
 fi
 
 APP_BUNDLE="$ROOT/dist/JunasMenuBar.app"
-SIDECAR_BUILD="$ROOT/dist/aki-sidecar"
-SIDECAR_DEST="$APP_BUNDLE/Contents/Resources/aki-sidecar"
+SIDECAR_BUILD="$ROOT/dist/junas-sidecar"
+SIDECAR_DEST="$APP_BUNDLE/Contents/Resources/junas-sidecar"
 DMG_OUTPUT="$ROOT/$JUNAS_DMG_OUTPUT"
 DMG_PARENT="$(dirname "$DMG_OUTPUT")"
 
 ./script/build_and_run.sh --bundle-only
-uv run pyinstaller packaging/aki-sidecar.spec
+uv run pyinstaller packaging/junas-sidecar.spec
 
 rm -rf "$SIDECAR_DEST"
 mkdir -p "$(dirname "$SIDECAR_DEST")"
 cp -R "$SIDECAR_BUILD" "$SIDECAR_DEST"
 
 if [[ -n "$JUNAS_CODESIGN_IDENTITY" ]]; then
-  /usr/bin/codesign --force --timestamp --options runtime --sign "$JUNAS_CODESIGN_IDENTITY" "$SIDECAR_DEST/aki-sidecar"
+  /usr/bin/codesign --force --timestamp --options runtime --sign "$JUNAS_CODESIGN_IDENTITY" "$SIDECAR_DEST/junas-sidecar"
   /usr/bin/codesign --force --timestamp --options runtime --deep --sign "$JUNAS_CODESIGN_IDENTITY" "$APP_BUNDLE"
   /usr/bin/codesign --verify --strict --deep "$APP_BUNDLE"
 fi

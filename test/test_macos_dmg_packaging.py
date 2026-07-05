@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parent.parent
 class MacosDmgPackagingTests(unittest.TestCase):
     def test_dmg_release_script_builds_app_sidecar_signs_notarizes_and_hashes(self):
         script = (ROOT / "scripts" / "package_macos_dmg.sh").read_text(encoding="utf-8")
-        spec = (ROOT / "packaging" / "aki-sidecar.spec").read_text(encoding="utf-8")
-        entrypoint = (ROOT / "packaging" / "aki_sidecar_entrypoint.py").read_text(encoding="utf-8")
+        spec = (ROOT / "packaging" / "junas-sidecar.spec").read_text(encoding="utf-8")
+        entrypoint = (ROOT / "packaging" / "junas_sidecar_entrypoint.py").read_text(encoding="utf-8")
         client = (
             ROOT / "apps" / "macos-menu-bar" / "Sources" / "JunasMenuBar" / "Services" / "SidecarClient.swift"
         ).read_text(encoding="utf-8")
@@ -21,8 +21,8 @@ class MacosDmgPackagingTests(unittest.TestCase):
         for token in (
             "JUNAS_RELEASE_SIGNING_REQUIRED",
             "./script/build_and_run.sh --bundle-only",
-            "uv run pyinstaller packaging/aki-sidecar.spec",
-            "Contents/Resources/aki-sidecar",
+            "uv run pyinstaller packaging/junas-sidecar.spec",
+            "Contents/Resources/junas-sidecar",
             "codesign --force --timestamp --options runtime",
             "hdiutil create",
             "notarytool submit",
@@ -32,9 +32,9 @@ class MacosDmgPackagingTests(unittest.TestCase):
         ):
             self.assertIn(token, script)
         self.assertIn('main(["sidecar", "stdio"])', entrypoint)
-        self.assertIn('name="aki-sidecar"', spec)
+        self.assertIn('name="junas-sidecar"', spec)
         self.assertIn("junas.desktop.sidecar_protocol", spec)
-        self.assertIn('appending(path: "aki-sidecar/aki-sidecar")', client)
+        self.assertIn('appending(path: "junas-sidecar/junas-sidecar")', client)
         self.assertIn("--bundle-only|bundle", run_script)
 
     def test_release_signing_required_fails_before_dmg_build_without_credentials(self):
@@ -68,7 +68,7 @@ class MacosDmgPackagingTests(unittest.TestCase):
 
         for token in (
             "JunasMenuBar.app",
-            "Contents/Resources/aki-sidecar/aki-sidecar",
+            "Contents/Resources/junas-sidecar/junas-sidecar",
             "Local Unsigned DMG",
             "Signed Release DMG",
             "notarization",

@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_CASK = ROOT / "packaging" / "homebrew" / "Casks" / "aki.rb"
+DEFAULT_CASK = ROOT / "packaging" / "homebrew" / "Casks" / "junas.rb"
 
 VERSION_RE = re.compile(r'(?m)^  version "[^"]+"$')
 SHA_RE = re.compile(r'(?m)^  sha256 "[a-f0-9]{64}"$')

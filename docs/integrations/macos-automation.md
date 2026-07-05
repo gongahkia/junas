@@ -17,17 +17,17 @@ anonymized text back to the clipboard.
 Prerequisites:
 
 - local daemon running on `http://127.0.0.1:8765`
-- `junas-watch` installed or `AKI_WATCH_COMMAND` pointing to the console script
+- `junas-watch` installed or `JUNAS_WATCH_COMMAND` pointing to the console script
 - optional `JUNAS_LOCAL_TOKEN_FILE` when the local daemon requires a token
 
 Run from a checkout:
 
 ```sh
-AKI_WATCH_COMMAND="$PWD/.venv/bin/junas-watch" \
+JUNAS_WATCH_COMMAND="$PWD/.venv/bin/junas-watch" \
 osascript integrations/macos_automation/review-and-redact-clipboard.applescript
 ```
 
-For packaged installs, set `AKI_WATCH_COMMAND` to the installed `junas-watch`
+For packaged installs, set `JUNAS_WATCH_COMMAND` to the installed `junas-watch`
 path for that package.
 
 The script returns the `junas-watch` JSON summary and displays a local

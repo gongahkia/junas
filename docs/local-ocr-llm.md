@@ -14,7 +14,7 @@ Install and run a local model in Ollama, then call one OCR fragment:
 ```sh
 JUNAS_LOCAL_OCR_LLM_ENABLED=1 \
 JUNAS_LOCAL_OCR_LLM_MODEL=<local-ollama-model> \
-uv run aki ocr classify-region \
+uv run junas ocr classify-region \
   --text "AK1A0CRNO1SE" \
   --confidence 0.41 \
   --json
@@ -23,7 +23,7 @@ uv run aki ocr classify-region \
 Equivalent explicit flags:
 
 ```sh
-uv run aki ocr classify-region \
+uv run junas ocr classify-region \
   --enable-local-llm \
   --provider ollama \
   --base-url http://127.0.0.1:11434 \

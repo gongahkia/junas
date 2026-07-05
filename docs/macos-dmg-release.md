@@ -7,13 +7,13 @@ Status: release pipeline scaffold; public signed artifact is still blocked on pr
 The release DMG contains:
 
 - `JunasMenuBar.app`, built from `apps/macos-menu-bar/`
-- bundled stdio sidecar at `JunasMenuBar.app/Contents/Resources/aki-sidecar/aki-sidecar`
+- bundled stdio sidecar at `JunasMenuBar.app/Contents/Resources/junas-sidecar/junas-sidecar`
 - `/Applications` symlink for drag install
 
 The menu-bar app uses the bundled sidecar first. Development can still override it:
 
 ```sh
-JUNAS_SIDECAR_COMMAND="uv run aki sidecar stdio" ./script/build_and_run.sh
+JUNAS_SIDECAR_COMMAND="uv run junas sidecar stdio" ./script/build_and_run.sh
 ```
 
 ## Local Unsigned DMG
@@ -43,7 +43,7 @@ JUNAS_DMG_OUTPUT=dist/JunasMenuBar-0.1.0.dmg \
 The script:
 
 1. builds `JunasMenuBar.app` through `script/build_and_run.sh --bundle-only`
-2. builds the bundled `aki-sidecar` through `packaging/aki-sidecar.spec`
+2. builds the bundled `junas-sidecar` through `packaging/junas-sidecar.spec`
 3. signs the sidecar and app bundle when `JUNAS_CODESIGN_IDENTITY` is set
 4. creates a compressed DMG with `hdiutil`
 5. signs the DMG when `JUNAS_CODESIGN_IDENTITY` is set
@@ -78,7 +78,7 @@ Before release notes or Homebrew cask publication:
 JUNAS_VERIFY_OPEN=1 ./scripts/verify_macos_dmg_release.sh dist/JunasMenuBar-0.1.0.dmg
 ```
 
-Verify the menu-bar app opens, start/pause/stop controls work, `Open TUI` launches `aki --tui`, and no Gatekeeper dialog blocks launch.
+Verify the menu-bar app opens, start/pause/stop controls work, `Open TUI` launches `junas --tui`, and no Gatekeeper dialog blocks launch.
 
 The verifier prints the SHA-256 hash, checks the DMG assessment with
 `spctl -a -t open --context context:primary-signature`, mounts the DMG, copies

@@ -143,7 +143,7 @@ class OfflineVideoRedactionTests(unittest.TestCase):
         integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
 
         for token in (
-            "aki redact",
+            "junas redact",
             "--output",
             "--detections-json",
             "manifest_secret_rules",

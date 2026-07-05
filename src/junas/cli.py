@@ -85,7 +85,7 @@ def render_demo(*, case: str = "all", frames: int | None = None) -> str:
     frame_count = frames if frames is not None else len(DEMO_FRAMES)
     selected = selected_demo_frames(case, frame_count)
     lines = [
-        "Aki fake-secret demo",
+        "Junas fake-secret demo",
         "All values below are synthetic FAKE/DEMO fixtures for screenshots and bug reports.",
         "",
     ]
@@ -96,7 +96,7 @@ def render_demo(*, case: str = "all", frames: int | None = None) -> str:
                 f"  fake_secret: {frame.fake_secret}",
                 f"  sample_text: {frame.sample_text}",
                 f"  expected_signal: {frame.expected_signal}",
-                f"  repro: aki demo --case {frame.key} --frames 1",
+                f"  repro: junas demo --case {frame.key} --frames 1",
                 "",
             ]
         )
@@ -130,12 +130,12 @@ def run_tui(args: argparse.Namespace, *, stdout: TextIO | None = None) -> int:
     stdout.write(
         "\n".join(
             [
-                "Aki TUI",
+                "Junas TUI",
                 "power_user_surface: terminal",
                 "menu_bar_entrypoint: Open TUI",
                 "commands:",
-                "- aki sidecar stdio",
-                "- aki redact <video.mov> --output <redacted.mp4>",
+                "- junas sidecar stdio",
+                "- junas redact <video.mov> --output <redacted.mp4>",
                 "- junas-watch --clipboard --once",
             ]
         )
@@ -175,7 +175,7 @@ def _check_screen_capture() -> DoctorResult:
         detail="Permission cannot be verified without a capture attempt or macOS TCC prompt.",
         remediation=(
             "Open System Settings > Privacy & Security > Screen & System Audio Recording, "
-            "enable the terminal/app that runs Aki, then rerun this command."
+            "enable the terminal/app that runs Junas, then rerun this command."
         ),
     )
 
@@ -213,7 +213,7 @@ def _check_virtual_camera() -> DoctorResult:
         name="Virtual-camera installation",
         detail="No DAL virtual-camera plugin was found.",
         remediation=(
-            "Install OBS and enable its virtual camera if `aki redact` or capture workflows need camera output."
+            "Install OBS and enable its virtual camera if `junas redact` or capture workflows need camera output."
         ),
     )
 
@@ -236,7 +236,7 @@ def _check_obs(obs_url: str) -> DoctorResult:
             status="warn",
             name="OBS reachability",
             detail="OBS websocket URL is not configured; reachability check skipped.",
-            remediation="Set AKI_OBS_WEBSOCKET_URL=ws://127.0.0.1:4455 when OBS integration is relevant.",
+            remediation="Set JUNAS_OBS_WEBSOCKET_URL=ws://127.0.0.1:4455 when OBS integration is relevant.",
         )
     try:
         host, port = _parse_obs_target(obs_url)
@@ -247,7 +247,7 @@ def _check_obs(obs_url: str) -> DoctorResult:
             status="fail",
             name="OBS reachability",
             detail=f"Could not connect to {obs_url}: {exc}.",
-            remediation="Start OBS, enable websocket server, confirm host/port, then rerun `aki doctor`.",
+            remediation="Start OBS, enable websocket server, confirm host/port, then rerun `junas doctor`.",
         )
     return DoctorResult(
         status="pass",
@@ -315,7 +315,7 @@ def _check_tesseract(env: dict[str, str]) -> DoctorResult:
 def run_doctor_checks(*, obs_url: str = "", env: dict[str, str] | None = None) -> tuple[DoctorResult, ...]:
     resolved_env = dict(os.environ if env is None else env)
     resolved_obs_url = (
-        obs_url or resolved_env.get("AKI_OBS_WEBSOCKET_URL", "") or resolved_env.get("OBS_WEBSOCKET_URL", "")
+        obs_url or resolved_env.get("JUNAS_OBS_WEBSOCKET_URL", "") or resolved_env.get("OBS_WEBSOCKET_URL", "")
     )
     return (
         _check_screen_capture(),
@@ -328,7 +328,7 @@ def run_doctor_checks(*, obs_url: str = "", env: dict[str, str] | None = None) -
 
 def render_doctor(results: tuple[DoctorResult, ...]) -> str:
     lines = [
-        "Aki doctor",
+        "Junas doctor",
         "telemetry: disabled; diagnostics stay local and are not transmitted",
         "",
     ]
@@ -395,7 +395,7 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
         stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
         return 0
     lines = [
-        "Aki rules test",
+        "Junas rules test",
         f"pack: {pack_path}",
         f"findings: {len(findings)}",
     ]
@@ -434,7 +434,7 @@ def run_ocr_classify_region(args: argparse.Namespace, *, stdout: TextIO | None =
         stdout.write(
             "\n".join(
                 [
-                    "Aki OCR local-LLM classifier",
+                    "Junas OCR local-LLM classifier",
                     f"status: {result.status}",
                     f"label: {result.label}",
                     f"confidence: {result.confidence:.3f}",
@@ -456,7 +456,7 @@ def run_displays_list(args: argparse.Namespace, *, stdout: TextIO | None = None)
     if args.json:
         stdout.write(json.dumps({"displays": [source.__dict__ for source in sources]}, indent=2, sort_keys=True) + "\n")
         return 0
-    stdout.write("Aki displays\n")
+    stdout.write("Junas displays\n")
     for source in sources:
         pixels = "unknown"
         if source.pixels:
@@ -500,7 +500,7 @@ def run_displays_capture(args: argparse.Namespace, *, stdout: TextIO | None = No
         }
         stdout.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     else:
-        stdout.write("Aki display capture plan\n")
+        stdout.write("Junas display capture plan\n")
         for command in plan:
             stdout.write(f"- display {command.display.capture_index}: {' '.join(command.argv)}\n")
     if args.dry_run:
@@ -543,7 +543,7 @@ def run_redact_video(args: argparse.Namespace, *, stdout: TextIO | None = None) 
     stdout.write(
         "\n".join(
             [
-                "Aki offline video redaction",
+                "Junas offline video redaction",
                 f"input_path: {payload['input_path']}",
                 f"output_path: {payload['output_path']}",
                 f"detection_mode: {payload['detection_mode']}",
@@ -612,7 +612,7 @@ def run_mp4_from_redacted_frames(args: argparse.Namespace, *, stdout: TextIO | N
         stdout.write(
             "\n".join(
                 [
-                    "Aki MP4 sink",
+                    "Junas MP4 sink",
                     f"frames: {len(plan.frames)}",
                     f"fps: {plan.fps}",
                     f"duration_seconds: {plan.duration_seconds}",
@@ -667,7 +667,7 @@ def run_buffer_prototype(args: argparse.Namespace, *, stdout: TextIO | None = No
     stdout.write(
         "\n".join(
             [
-                "Aki time-buffer prototype",
+                "Junas time-buffer prototype",
                 f"retained_frames: {payload['retained_frame_count']}",
                 f"evicted_frames: {payload['evicted_frame_count']}",
                 f"memory_bytes_estimate: {payload['memory_bytes_estimate']}",
@@ -708,7 +708,7 @@ def run_obs_prototype_source(args: argparse.Namespace, *, stdout: TextIO | None 
     stdout.write(
         "\n".join(
             [
-                "Aki OBS source prototype",
+                "Junas OBS source prototype",
                 f"frames: {payload['frame_count']}",
                 f"transform: {payload['transform']}",
                 f"processed_frames_dir: {payload['processed_frames_dir']}",
@@ -722,7 +722,7 @@ def run_obs_prototype_source(args: argparse.Namespace, *, stdout: TextIO | None 
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="aki", description="Junas local helper CLI.")
+    parser = argparse.ArgumentParser(prog="junas", description="Junas local helper CLI.")
     parser.add_argument("--tui", action="store_true", help="show the power-user terminal UI entrypoint")
     subparsers = parser.add_subparsers(dest="command")
     demo = subparsers.add_parser(

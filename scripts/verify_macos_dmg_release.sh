@@ -58,7 +58,7 @@ fi
 
 mkdir -p "$INSTALL_DIR"
 cp -R "$MOUNT_DIR/JunasMenuBar.app" "$APP_DEST"
-test -x "$APP_DEST/Contents/Resources/aki-sidecar/aki-sidecar"
+test -x "$APP_DEST/Contents/Resources/junas-sidecar/junas-sidecar"
 spctl -a -t exec -vv "$APP_DEST"
 
 if [[ "${JUNAS_VERIFY_OPEN:-0}" == "1" ]]; then

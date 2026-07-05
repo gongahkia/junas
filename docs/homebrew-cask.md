@@ -9,8 +9,8 @@ Use `gongahkia/tap` for public installs. The GitHub repository for that tap is
 repository name. This keeps the public command stable if Junas later adds more
 formulae or casks.
 
-The staged cask source in this repo is `packaging/homebrew/Casks/aki.rb`. Copy it
-to `Casks/aki.rb` in `gongahkia/homebrew-tap` only after the signed DMG release
+The staged cask source in this repo is `packaging/homebrew/Casks/junas.rb`. Copy it
+to `Casks/junas.rb` in `gongahkia/homebrew-tap` only after the signed DMG release
 gate passes.
 
 ## Public Commands
@@ -20,9 +20,9 @@ below passes end to end:
 
 ```sh
 brew tap gongahkia/tap
-brew install --cask aki
-brew upgrade --cask aki
-brew uninstall --cask aki
+brew install --cask junas
+brew upgrade --cask junas
+brew uninstall --cask junas
 ```
 
 ## Release Gate
@@ -47,8 +47,8 @@ brew uninstall --cask aki
    ./scripts/verify_homebrew_cask.sh
    ```
 
-7. In the real tap checkout, run `brew style --cask Casks/aki.rb`.
-8. In the real tap checkout, run `brew audit --cask --strict --online aki`.
+7. In the real tap checkout, run `brew style --cask Casks/junas.rb`.
+8. In the real tap checkout, run `brew audit --cask --strict --online junas`.
 9. On a clean Mac, run the public tap/install/upgrade/uninstall commands above.
 10. Link the signed DMG and Homebrew install path from release notes and README.
 

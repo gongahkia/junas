@@ -4,7 +4,7 @@ Source: [`integrations/desktop/time_buffer.py`](../../integrations/desktop/time_
 
 Maturity: `experimental-local-fallback`
 
-The `aki buffer prototype` helper demonstrates a recording-only ring-buffer
+The `junas buffer prototype` helper demonstrates a recording-only ring-buffer
 workflow for local frame directories. It keeps the most recent `fps * seconds`
 frames, applies a retroactive transform to the trailing window, and writes
 finalized frames for later MP4 encoding.
@@ -18,19 +18,19 @@ a recording finalization workflow.
 Dry-run the buffer plan and metrics:
 
 ```sh
-uv run aki buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --fps 30 --seconds 30 --redact-last-seconds 5 --dry-run --json
+uv run junas buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --fps 30 --seconds 30 --redact-last-seconds 5 --dry-run --json
 ```
 
 Write finalized frames with a redaction box:
 
 ```sh
-uv run aki buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --fps 30 --seconds 30 --redact-last-seconds 5 --box 0,0,240,120
+uv run junas buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --fps 30 --seconds 30 --redact-last-seconds 5 --box 0,0,240,120
 ```
 
 Then encode finalized frames with the direct MP4 sink:
 
 ```sh
-uv run aki mp4 from-redacted-frames --frames-dir ./buffer-demo/final_frames --output ./captures/redacted-session.mp4
+uv run junas mp4 from-redacted-frames --frames-dir ./buffer-demo/final_frames --output ./captures/redacted-session.mp4
 ```
 
 ## Retroactive Transform

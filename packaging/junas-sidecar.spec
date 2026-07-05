@@ -2,9 +2,9 @@
 #
 # Build:
 #     uv sync --extra packaging
-#     uv run pyinstaller packaging/aki-sidecar.spec
+#     uv run pyinstaller packaging/junas-sidecar.spec
 #
-# Output: dist/aki-sidecar/aki-sidecar
+# Output: dist/junas-sidecar/junas-sidecar
 
 # ruff: noqa
 # flake8: noqa
@@ -13,7 +13,7 @@ from pathlib import Path
 block_cipher = None
 ROOT = Path(globals().get("SPECPATH", Path.cwd() / "packaging")).parent
 SRC_DIR = ROOT / "src"
-ENTRYPOINT = ROOT / "packaging" / "aki_sidecar_entrypoint.py"
+ENTRYPOINT = ROOT / "packaging" / "junas_sidecar_entrypoint.py"
 
 hidden_imports = [
     "junas.cli",
@@ -61,7 +61,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name="aki-sidecar",
+    name="junas-sidecar",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -77,5 +77,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name="aki-sidecar",
+    name="junas-sidecar",
 )

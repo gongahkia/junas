@@ -14,14 +14,14 @@ evaluation path until packaged app installers are signed and tested.
 
 ## Cargo
 
-`cargo install aki` is not available for this repository.
+`cargo install junas` is not available for this repository.
 
 Reasons:
 
 - The current product is Junas, implemented as Python/FastAPI.
 - There is no `Cargo.toml` in this repo.
-- No `aki` or `junas` crate is published from this repo.
-- Legacy Aki/Rust distribution language is not current Junas release guidance.
+- No Rust crate is published from this repo.
+- Legacy Rust distribution language is not current Junas release guidance.
 
 Do not document `cargo install` as an install path unless a Rust crate is added,
 published, versioned, and wired into CI/release artifacts.
@@ -58,7 +58,7 @@ pipeline and stock-Mac verification gate are defined in
 
 The chosen public Homebrew tap is `gongahkia/tap`; its GitHub repository is
 `gongahkia/homebrew-tap`. A staged, non-release cask draft lives at
-`packaging/homebrew/Casks/aki.rb`. Homebrew release gates and install commands
+`packaging/homebrew/Casks/junas.rb`. Homebrew release gates and install commands
 are defined in `docs/homebrew-cask.md`.
 
 The local macOS daemon can still be built from source with

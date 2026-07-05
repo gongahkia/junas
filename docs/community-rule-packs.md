@@ -2,13 +2,13 @@
 
 Junas can consume local community rule packs through the optional Gitleaks TOML
 importer. This repo currently carries an in-tree seed under `rules/community/`;
-the intended external home is `gongahkia/aki-rules` after the format has enough
+the intended external home is `gongahkia/junas-rules` after the format has enough
 contributor traffic to justify a separate release stream.
 
 ## Local Smoke Test
 
 ```sh
-uv run aki rules test \
+uv run junas rules test \
   --gitleaks rules/community/gitleaks-acme-demo.toml \
   --text-file rules/community/fixtures/acme-api-token.txt
 ```
@@ -16,7 +16,7 @@ uv run aki rules test \
 Machine-readable output:
 
 ```sh
-uv run aki rules test \
+uv run junas rules test \
   --gitleaks rules/community/gitleaks-acme-demo.toml \
   --text-file rules/community/fixtures/acme-api-token.txt \
   --json
@@ -47,14 +47,14 @@ Every contributed rule must include:
 - one matching fixture containing a synthetic token
 - one non-matching or allowlisted fixture when the format has likely false
   positives
-- local `aki rules test` evidence before review
+- local `junas rules test` evidence before review
 
 Fixtures must be fake. Do not commit production secrets, customer data, or token
 samples copied from incidents.
 
 ## Versioning
 
-The future `gongahkia/aki-rules` repo should version packs independently from
+The future `gongahkia/junas-rules` repo should version packs independently from
 Junas:
 
 - `vMAJOR.MINOR.PATCH` tags for released pack bundles
@@ -68,10 +68,10 @@ checking out or vendoring a tagged rule-pack release and setting
 
 ## Repository Plan
 
-Until `gongahkia/aki-rules` exists, keep seed rules in `rules/community/`.
+Until `gongahkia/junas-rules` exists, keep seed rules in `rules/community/`.
 When split out, preserve this layout:
 
 - `gitleaks/*.toml` for materialized Gitleaks-compatible packs
 - `fixtures/<rule-id>/match.txt` and `fixtures/<rule-id>/allowlisted.txt`
-- `tests/` with a CLI smoke wrapper around `aki rules test`
+- `tests/` with a CLI smoke wrapper around `junas rules test`
 - `CONTRIBUTING.md` requiring one rule plus one fixture per contribution

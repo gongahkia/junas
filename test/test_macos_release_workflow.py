@@ -72,7 +72,7 @@ class MacosReleaseWorkflowTests(unittest.TestCase):
             "spctl -a -t open --context context:primary-signature",
             "hdiutil attach",
             "JunasMenuBar.app",
-            "Contents/Resources/aki-sidecar/aki-sidecar",
+            "Contents/Resources/junas-sidecar/junas-sidecar",
             "spctl -a -t exec -vv",
             "JUNAS_VERIFY_OVERWRITE",
             "JUNAS_VERIFY_OPEN",

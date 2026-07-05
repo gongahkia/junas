@@ -17,7 +17,7 @@ Status: 2026-07-04, based on open GitHub issues. This is an equivalent public ro
 |---|---|---|
 | Now | [#84](https://github.com/gongahkia/junas/issues/84) hosted deterministic demo, [#85](https://github.com/gongahkia/junas/issues/85) hosted playground verification. | Must improve current Junas launch evidence without widening product scope. |
 | Next | No promoted implementation issue. | Needs reproducible evidence, bounded claims, or an explicit decision note before implementation is promoted. |
-| Later / research | [#5](https://github.com/gongahkia/junas/issues/5)-[#9](https://github.com/gongahkia/junas/issues/9), [#15](https://github.com/gongahkia/junas/issues/15)-[#25](https://github.com/gongahkia/junas/issues/25), and [#4](https://github.com/gongahkia/junas/issues/4). | Legacy Aki/macOS/video-redaction ideas require fresh product-scope validation against current Junas positioning before work starts. |
+| Later / research | [#5](https://github.com/gongahkia/junas/issues/5)-[#9](https://github.com/gongahkia/junas/issues/9), [#15](https://github.com/gongahkia/junas/issues/15)-[#25](https://github.com/gongahkia/junas/issues/25), and [#4](https://github.com/gongahkia/junas/issues/4). | Legacy Junas/macOS/video-redaction ideas require fresh product-scope validation against current Junas positioning before work starts. |
 
 ## Kill Criteria
 

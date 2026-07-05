@@ -9,7 +9,7 @@ The macOS menu-bar shell talks to the local sidecar over newline-delimited stdio
 Chosen command:
 
 ```sh
-uv run aki sidecar stdio
+uv run junas sidecar stdio
 ```
 
 The shell owns the child process lifecycle. The sidecar reads one JSON object per stdin line and writes one JSON object per stdout line. Responses use JSON-RPC ids. Stats are sent as `stats.update` notifications without ids.

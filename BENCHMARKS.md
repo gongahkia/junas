@@ -1,6 +1,6 @@
 # Benchmarks
 
-This repo currently benchmarks Junas text/document review and rewrite paths. It does not ship the legacy Aki live-screen pipeline, so FPS at 1080p/1440p/4K, FrameDiff cell hit-rate, OBS output, virtual-camera output, and video redaction recall are not claimed here.
+This repo currently benchmarks Junas text/document review and rewrite paths. It does not ship a legacy live-screen pipeline, so FPS at 1080p/1440p/4K, FrameDiff cell hit-rate, OBS output, virtual-camera output, and video redaction recall are not claimed here.
 
 ## Hardware Context
 

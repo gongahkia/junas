@@ -24,7 +24,7 @@ The shell uses a SwiftUI `MenuBarExtra` plus a regular status window. It exposes
 - transform picker: review, redact, anonymize
 - output picker: preview, MP4, OBS, none
 - start, pause, and stop controls
-- `Open TUI`, which launches `aki --tui` in Terminal
+- `Open TUI`, which launches `junas --tui` in Terminal
 - stats line for redaction count, FPS, and CPU
 
 The app launches as a regular macOS app with a Dock presence and a primary `WindowGroup`.
@@ -36,13 +36,13 @@ The shell controls the sidecar through the stdio JSON-RPC protocol in `docs/inte
 Default sidecar command:
 
 ```sh
-aki sidecar stdio
+junas sidecar stdio
 ```
 
 Override for development or packaging tests:
 
 ```sh
-JUNAS_SIDECAR_COMMAND="uv run aki sidecar stdio" ./script/build_and_run.sh
+JUNAS_SIDECAR_COMMAND="uv run junas sidecar stdio" ./script/build_and_run.sh
 ```
 
 Start flow:
@@ -60,7 +60,7 @@ Pause and stop call `capture.pause` and `capture.stop`. `stats.update` notificat
 The TUI path is preserved as:
 
 ```sh
-aki --tui
+junas --tui
 ```
 
 This is the power-user terminal surface. It remains separate from the menu-bar shell so scripted and terminal workflows do not depend on SwiftUI.

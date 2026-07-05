@@ -2,7 +2,7 @@
 
 Source prototype: [`src/junas/integrations/obs_source.py`](../../src/junas/integrations/obs_source.py)
 
-Runtime prototype: `aki obs prototype-source`
+Runtime prototype: `junas obs prototype-source`
 
 Maturity: `experimental-local-fallback`
 
@@ -23,7 +23,7 @@ Native source-plugin design:
 1. A native OBS plugin registers an `obs_source_info` implementation.
 2. The source owns a configured input: capture source, media frames, or an
    intermediate frame provider.
-3. Frames enter the Junas/Aki transform boundary as RGBA or BGRA pixel buffers.
+3. Frames enter the Junas/Junas transform boundary as RGBA or BGRA pixel buffers.
 4. The transform returns a processed frame or a no-op frame when disabled.
 5. The source uploads the processed frame to an OBS texture and renders it from
    the source render callback.
@@ -33,8 +33,8 @@ Native source-plugin design:
 The prototype maps that flow to files:
 
 ```sh
-uv run aki obs prototype-source --frames-dir ./obs-input-frames --output-dir ./obs-prototype --box 0,0,240,120 --json
-uv run aki mp4 from-redacted-frames --frames-dir ./obs-prototype/processed_frames --output ./captures/obs-prototype.mp4
+uv run junas obs prototype-source --frames-dir ./obs-input-frames --output-dir ./obs-prototype --box 0,0,240,120 --json
+uv run junas mp4 from-redacted-frames --frames-dir ./obs-prototype/processed_frames --output ./captures/obs-prototype.mp4
 ```
 
 Prototype JSON reports `native_plugin_shipped=false` and

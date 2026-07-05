@@ -1,13 +1,13 @@
-# Aki Community Rule Packs
+# Junas Community Rule Packs
 
-This folder is the in-repo seed for a future standalone `gongahkia/aki-rules`
+This folder is the in-repo seed for a future standalone `gongahkia/junas-rules`
 repository. Packs here use the bounded Gitleaks TOML subset documented in
 `docs/community-rule-packs.md` and `docs/secret-rule-packs.md`.
 
 Run the sample pack locally:
 
 ```sh
-uv run aki rules test \
+uv run junas rules test \
   --gitleaks rules/community/gitleaks-acme-demo.toml \
   --text-file rules/community/fixtures/acme-api-token.txt
 ```

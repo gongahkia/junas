@@ -12,7 +12,7 @@ The failure mode Junas targets is not generic model quality. It is that risky te
 
 Junas is a deterministic pre-send review backend for those moments. A caller sends text or a supported document to `/review`; the backend returns findings, legal-basis codes, policy decision, required actions, audit ids, and rewrite options. The adapter then allows, warns, blocks, requests approval, redacts, pseudonymizes, or holds the content.
 
-This is not a Rust screen-redaction or OCR-frame-diff post. The older Aki wording around 30 FPS OCR, FrameDiff grids, crossfades, OBS, and virtual cameras does not describe this repo. Current Junas is Python/FastAPI text and document review; the benchmark doc explicitly avoids FPS and video-redaction claims.
+This is not a Rust screen-redaction or OCR-frame-diff post. The older Junas wording around 30 FPS OCR, FrameDiff grids, crossfades, OBS, and virtual cameras does not describe this repo. Current Junas is Python/FastAPI text and document review; the benchmark doc explicitly avoids FPS and video-redaction claims.
 
 ## Pipeline
 

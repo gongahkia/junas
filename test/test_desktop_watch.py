@@ -318,7 +318,7 @@ class DesktopWatchTests(unittest.TestCase):
             self.assertIn(token, doc)
         for token in (
             "--copy-anonymized-clipboard",
-            "AKI_WATCH_COMMAND",
+            "JUNAS_WATCH_COMMAND",
             "JUNAS_LOCAL_BASE_URL",
             "JUNAS_LOCAL_TOKEN_FILE",
         ):

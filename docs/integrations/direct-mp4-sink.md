@@ -4,7 +4,7 @@ Source: [`integrations/desktop/mp4_sink.py`](../../integrations/desktop/mp4_sink
 
 Maturity: `experimental-local-fallback`
 
-The `aki mp4 from-redacted-frames` helper encodes an explicit directory of
+The `junas mp4 from-redacted-frames` helper encodes an explicit directory of
 already-redacted PNG frames into a local MP4 file with `ffmpeg`. It is a file
 output sink for demos, audit review, and offline handoff. It does not capture
 the screen, inspect pixels for PII, or stream to a live camera device.
@@ -14,19 +14,19 @@ the screen, inspect pixels for PII, or stream to a live camera device.
 Dry-run the encoder plan:
 
 ```sh
-uv run aki mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./captures/redacted-session.mp4 --dry-run
+uv run junas mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./captures/redacted-session.mp4 --dry-run
 ```
 
 Write the MP4:
 
 ```sh
-uv run aki mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./captures/redacted-session.mp4
+uv run junas mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./captures/redacted-session.mp4
 ```
 
 Use a specific frame rate or filename pattern:
 
 ```sh
-uv run aki mp4 from-redacted-frames --frames-dir ./redacted-frames --pattern 'frame-*.png' --fps 24 --output ./captures/redacted-session.mp4
+uv run junas mp4 from-redacted-frames --frames-dir ./redacted-frames --pattern 'frame-*.png' --fps 24 --output ./captures/redacted-session.mp4
 ```
 
 ## Start And Stop Behavior

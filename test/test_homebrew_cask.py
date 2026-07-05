@@ -8,14 +8,14 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class HomebrewCaskTests(unittest.TestCase):
-    def test_staged_aki_cask_targets_signed_dmg_release_shape(self):
-        text = (ROOT / "packaging" / "homebrew" / "Casks" / "aki.rb").read_text(encoding="utf-8")
+    def test_staged_junas_cask_targets_signed_dmg_release_shape(self):
+        text = (ROOT / "packaging" / "homebrew" / "Casks" / "junas.rb").read_text(encoding="utf-8")
 
         for token in (
-            'cask "aki" do',
+            'cask "junas" do',
             'version "0.1.0"',
             'url "https://github.com/gongahkia/junas/releases/download/v#{version}/JunasMenuBar-#{version}.dmg"',
-            'name "Aki"',
+            'name "Junas"',
             'name "Junas Menu Bar"',
             "depends_on macos: :sonoma",
             'app "JunasMenuBar.app"',
@@ -31,17 +31,17 @@ class HomebrewCaskTests(unittest.TestCase):
             "Status: staging only",
             "`gongahkia/tap`",
             "`gongahkia/homebrew-tap`",
-            "`packaging/homebrew/Casks/aki.rb`",
+            "`packaging/homebrew/Casks/junas.rb`",
             "brew tap gongahkia/tap",
-            "brew install --cask aki",
-            "brew upgrade --cask aki",
-            "brew uninstall --cask aki",
+            "brew install --cask junas",
+            "brew upgrade --cask junas",
+            "brew uninstall --cask junas",
             "uv run python scripts/update_homebrew_cask.py",
             "./scripts/verify_homebrew_cask.sh",
             "`shasum -a 256 dist/JunasMenuBar-<version>.dmg`",
             "signed DMG release asset",
-            "brew style --cask Casks/aki.rb",
-            "brew audit --cask --strict --online aki",
+            "brew style --cask Casks/junas.rb",
+            "brew audit --cask --strict --online junas",
             "planned install path",
         ):
             self.assertIn(token, text)
@@ -57,9 +57,9 @@ class HomebrewCaskTests(unittest.TestCase):
     def test_update_homebrew_cask_script_sets_version_and_sha_from_dmg(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
-            cask_path = tmp_path / "aki.rb"
+            cask_path = tmp_path / "junas.rb"
             dmg_path = tmp_path / "JunasMenuBar-1.2.3.dmg"
-            cask_path.write_text((ROOT / "packaging" / "homebrew" / "Casks" / "aki.rb").read_text(), encoding="utf-8")
+            cask_path.write_text((ROOT / "packaging" / "homebrew" / "Casks" / "junas.rb").read_text(), encoding="utf-8")
             dmg_path.write_bytes(b"synthetic signed dmg bytes")
 
             result = subprocess.run(
@@ -91,7 +91,7 @@ class HomebrewCaskTests(unittest.TestCase):
         for token in (
             "brew tap-new --no-git",
             "junas/cask-verify",
-            "Casks/aki.rb",
+            "Casks/junas.rb",
             "brew style",
             "brew untap",
             "homebrew_cask_style_verified: true",

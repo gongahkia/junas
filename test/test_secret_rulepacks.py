@@ -128,7 +128,7 @@ class SecretRulePackTests(unittest.TestCase):
             "EXTERNAL_SECRET_RULE_PACK",
             "docs/secret-rule-packs.md",
             "docs/community-rule-packs.md",
-            "aki rules test",
+            "junas rules test",
         ):
             self.assertIn(token, readme)
         for token in (
@@ -144,7 +144,7 @@ class SecretRulePackTests(unittest.TestCase):
             "Rule Format",
             "Required Tests",
             "Versioning",
-            "gongahkia/aki-rules",
+            "gongahkia/junas-rules",
             "one regex or detector-equivalent rule",
             "one matching fixture",
         ):

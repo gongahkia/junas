@@ -12,6 +12,16 @@ Junas provides pre-send review, safe rewrite, and audit evidence for GenAI promp
 - Security engineers who need tenant isolation, privacy-safe telemetry, SIEM events, and integration contracts.
 - Platform integrators who need stable HTTP/OpenAPI contracts for DMS, gateway, browser, email, and internal workflow systems.
 
+## Selling Surfaces
+
+Lead with Junas as a security and compliance privacy-tools suite: one deterministic review and policy backend, exposed through the surfaces each audience can adopt.
+
+| Audience | Surface | Positioning |
+|---|---|---|
+| Developers and platform teams | FastAPI, OpenAPI, Python client, and `junas` CLI | Integrate pre-send review, rewrite, redaction, approval, and audit evidence into internal workflows without a UI adapter. |
+| Security, compliance, and operators | Outlook Smart Alerts, Browser GenAI extension, Word taskpane, DMS/API hooks, SIEM-safe telemetry, audit export | Activate the same backend decision contract inside email, GenAI, document, and repository workflows while keeping raw content out of telemetry. |
+| General public and evaluators | Hosted/local deterministic demo and visual redaction demo artifacts | Show the product concept with synthetic inputs only; screen/video redaction remains demo-only and must not be sold as endpoint enforcement. |
+
 ## Non-goals
 
 - Junas does not replace legal advice or external counsel review.

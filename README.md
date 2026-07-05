@@ -132,11 +132,11 @@ It starts a local backend, disables public-evidence and LLM paths, and prints th
 Render fake-only reproduction text without starting the backend:
 
 ```bash
-uv run aki demo
-uv run aki demo --case browser-prompt --frames 1
+uv run junas demo
+uv run junas demo --case browser-prompt --frames 1
 ```
 
-`aki demo` prints deterministic FAKE/DEMO secret and PII-shaped examples for screenshots, tweets, and bug reports. The values are synthetic and intentionally avoid real credential shapes.
+`junas demo` prints deterministic FAKE/DEMO secret and PII-shaped examples for screenshots, tweets, and bug reports. The values are synthetic and intentionally avoid real credential shapes.
 
 Docker equivalent:
 
@@ -196,10 +196,10 @@ curl -X POST http://127.0.0.1:8000/documents/scrub -H "Content-Type: application
 Check local capture/OCR setup without telemetry:
 
 ```bash
-uv run aki doctor
+uv run junas doctor
 ```
 
-`aki doctor` reports pass/warn/fail diagnostics for ScreenCaptureKit permissions, CoreMediaIO DAL plugins, virtual-camera setup, optional OBS reachability, and Tesseract data paths. It prints local remediation steps and does not collect or transmit telemetry.
+`junas doctor` reports pass/warn/fail diagnostics for ScreenCaptureKit permissions, CoreMediaIO DAL plugins, virtual-camera setup, optional OBS reachability, and Tesseract data paths. It prints local remediation steps and does not collect or transmit telemetry.
 
 ## What Junas Does
 
@@ -223,9 +223,17 @@ Junas is not a general DLP suite, legal-advice product, or model-training platfo
 
 ## Primary Product Spine
 
-The FastAPI backend is the trust boundary for Junas deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Adapters are not required to integrate Junas: direct HTTP/OpenAPI clients remain the baseline path and can integrate with this boundary without installing a UI adapter.
+Junas is a security and compliance privacy-tools suite with one deterministic review and policy backend behind multiple activation surfaces. The FastAPI backend is the trust boundary for Junas deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Adapters are not required to integrate Junas: direct HTTP/OpenAPI clients remain the baseline path and can integrate with this boundary without installing a UI adapter.
 
 Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI capture, Word taskpanes, desktop watching, DMS hooks, and future surfaces should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it.
+
+Audience-specific surfaces:
+
+| Audience | Current surfaces | Sell as |
+|---|---|---|
+| Developers and platform teams | FastAPI, OpenAPI, Python client, `junas` CLI | Deterministic review, rewrite, redaction, approval, and audit APIs for internal workflows. |
+| Security, compliance, and operators | Outlook Smart Alerts, Browser GenAI extension, Word taskpane, DMS/API hooks, SIEM-safe telemetry, audit export | Policy-controlled pre-send and pre-share review where users work. |
+| General public and evaluators | Hosted/local deterministic demo, synthetic visual redaction demo artifacts | A concrete demo of the privacy-review concept; screen/video redaction is demo-only, not endpoint enforcement. |
 
 ## Design Principles
 
@@ -274,15 +282,15 @@ uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765
 uv run junas-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --copy-anonymized-clipboard --base-url http://127.0.0.1:8765
-uv run aki --tui
+uv run junas --tui
 ./script/build_and_run.sh --verify
-uv run aki displays list
-uv run aki displays capture --display 1 --output-dir ./captures --dry-run
-printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}\n' | uv run aki sidecar stdio
-uv run aki redact ./recording.mov --output ./captures/recording-redacted.mp4 --box 0,0,240,120
-uv run aki buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --dry-run --json
-uv run aki obs prototype-source --frames-dir ./obs-input-frames --output-dir ./obs-prototype --dry-run --json
-uv run aki mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./captures/redacted-session.mp4 --dry-run
+uv run junas displays list
+uv run junas displays capture --display 1 --output-dir ./captures --dry-run
+printf '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}\n' | uv run junas sidecar stdio
+uv run junas redact ./recording.mov --output ./captures/recording-redacted.mp4 --box 0,0,240,120
+uv run junas buffer prototype --frames-dir ./capture-frames --output-dir ./buffer-demo --dry-run --json
+uv run junas obs prototype-source --frames-dir ./obs-input-frames --output-dir ./obs-prototype --dry-run --json
+uv run junas mp4 from-redacted-frames --frames-dir ./redacted-frames --output ./captures/redacted-session.mp4 --dry-run
 ```
 
 See [`docs/integrations/desktop-watcher.md`](./docs/integrations/desktop-watcher.md) for the security model and limitations. The AppleScript/Shortcuts wrapper for explicit clipboard redaction is documented in [`docs/integrations/macos-automation.md`](./docs/integrations/macos-automation.md).
@@ -535,7 +543,7 @@ Community rule-pack format, fixtures, and local smoke testing are documented in
 exists under [`rules/community/`](./rules/community/):
 
 ```bash
-uv run aki rules test \
+uv run junas rules test \
   --gitleaks rules/community/gitleaks-acme-demo.toml \
   --text-file rules/community/fixtures/acme-api-token.txt
 ```
@@ -629,7 +637,7 @@ Local OCR-region LLM prototype:
 ```bash
 JUNAS_LOCAL_OCR_LLM_ENABLED=1 \
 JUNAS_LOCAL_OCR_LLM_MODEL=<local-ollama-model> \
-uv run aki ocr classify-region --text "AK1A0CRNO1SE" --confidence 0.41 --json
+uv run junas ocr classify-region --text "AK1A0CRNO1SE" --confidence 0.41 --json
 ```
 
 This prototype is local-only, loopback-gated, advisory, and off by default. It

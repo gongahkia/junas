@@ -13,13 +13,13 @@ class DistributionDocsTests(unittest.TestCase):
             "junas-0.1.0-py3-none-any.whl",
             "junas-0.1.0.tar.gz",
             "checkout-first path",
-            "`cargo install aki` is not available",
+            "`cargo install junas` is not available",
             "There is no `Cargo.toml`",
             "No Nix flake or package expression is committed yet",
             "This is a plan, not a current install path",
             "No public Homebrew formula/cask or signed macOS DMG is published",
             "The chosen public Homebrew tap is `gongahkia/tap`",
-            "`packaging/homebrew/Casks/aki.rb`",
+            "`packaging/homebrew/Casks/junas.rb`",
             "`docs/homebrew-cask.md`",
         ):
             self.assertIn(token, text)

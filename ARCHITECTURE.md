@@ -29,7 +29,7 @@ flowchart LR
     Evidence --> Output
 ```
 
-Current Junas is a pre-send text/document review pipeline, not the legacy Aki
+Current Junas is a pre-send text/document review pipeline, not a live
 screen-redaction pipeline. It does not implement FrameDiff grids, frame
 backpressure, transform crossfades, OBS sources, virtual cameras, or live video
 output in this repo.

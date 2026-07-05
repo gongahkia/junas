@@ -145,7 +145,7 @@ class TimeBufferTests(unittest.TestCase):
             "Memory And Disk Implications",
             "Retroactive Transform",
             "does not unsend pixels from live streams",
-            "aki mp4 from-redacted-frames",
+            "junas mp4 from-redacted-frames",
         ):
             self.assertIn(token, doc)
         self.assertIn("docs/integrations/time-machine-buffer.md", readme)

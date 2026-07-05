@@ -36,8 +36,8 @@ class MacosMenuBarShellTests(unittest.TestCase):
         for token in ("source.select", "transform.select", "output.select", "capture.start", "capture.pause"):
             self.assertIn(token, client)
         self.assertIn("JUNAS_SIDECAR_COMMAND", client)
-        self.assertIn("aki-sidecar/aki-sidecar", client)
-        self.assertIn("aki --tui", store)
+        self.assertIn("junas-sidecar/junas-sidecar", client)
+        self.assertIn("junas --tui", store)
 
     def test_run_script_and_codex_environment_build_menu_bar_app(self):
         script = (ROOT / "script" / "build_and_run.sh").read_text(encoding="utf-8")
@@ -67,7 +67,7 @@ class MacosMenuBarShellTests(unittest.TestCase):
             "transform picker",
             "output picker",
             "start, pause, and stop",
-            "aki --tui",
+            "junas --tui",
             "JUNAS_SIDECAR_COMMAND",
             "dist/JunasMenuBar.app",
         ):

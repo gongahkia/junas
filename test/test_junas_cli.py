@@ -34,13 +34,13 @@ except ModuleNotFoundError:
 ROOT = Path(__file__).resolve().parent.parent
 
 
-class AkiCliTests(unittest.TestCase):
+class JunasCliTests(unittest.TestCase):
     def test_demo_output_is_deterministic_and_fake_labeled(self):
         first = render_demo()
         second = render_demo()
 
         self.assertEqual(first, second)
-        self.assertIn("Aki fake-secret demo", first)
+        self.assertIn("Junas fake-secret demo", first)
         self.assertIn("synthetic FAKE/DEMO fixtures", first)
         self.assertIn("AKIA-FAKE-DEMO-0000", first)
         self.assertIn("ghp_FAKE_DEMO_TOKEN_0000", first)
@@ -97,8 +97,8 @@ class AkiCliTests(unittest.TestCase):
             code = main(["--tui"])
 
         self.assertEqual(code, 0)
-        self.assertIn("Aki TUI", stdout.getvalue())
-        self.assertIn("aki sidecar stdio", stdout.getvalue())
+        self.assertIn("Junas TUI", stdout.getvalue())
+        self.assertIn("junas sidecar stdio", stdout.getvalue())
 
     def test_doctor_output_reports_status_and_remediation_without_telemetry(self):
         output = render_doctor(
@@ -113,16 +113,16 @@ class AkiCliTests(unittest.TestCase):
                     status="warn",
                     name="OBS reachability",
                     detail="OBS websocket URL is not configured; reachability check skipped.",
-                    remediation="Set AKI_OBS_WEBSOCKET_URL=ws://127.0.0.1:4455 when OBS integration is relevant.",
+                    remediation="Set JUNAS_OBS_WEBSOCKET_URL=ws://127.0.0.1:4455 when OBS integration is relevant.",
                 ),
             )
         )
 
-        self.assertIn("Aki doctor", output)
+        self.assertIn("Junas doctor", output)
         self.assertIn("telemetry: disabled", output)
         self.assertIn("pass: CoreMediaIO DAL state", output)
         self.assertIn("warn: OBS reachability", output)
-        self.assertIn("fix: Set AKI_OBS_WEBSOCKET_URL", output)
+        self.assertIn("fix: Set JUNAS_OBS_WEBSOCKET_URL", output)
         self.assertIn("summary: pass=1 warn=1 fail=0", output)
 
     def test_main_runs_doctor_and_returns_failure_on_failed_check(self):
@@ -168,7 +168,7 @@ class AkiCliTests(unittest.TestCase):
 
         self.assertEqual(code, 0)
         output = stdout.getvalue()
-        self.assertIn("Aki rules test", output)
+        self.assertIn("Junas rules test", output)
         self.assertIn("external_secret_acme-api-token", output)
         self.assertIn("a1b2c3d4e5f6g7h8i9j0", output)
 

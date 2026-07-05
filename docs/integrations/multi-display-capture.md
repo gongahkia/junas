@@ -4,7 +4,7 @@ Source: [`integrations/desktop/displays.py`](../../integrations/desktop/displays
 
 Maturity: `experimental-local-fallback`
 
-The `aki displays` helper lists currently connected macOS displays and builds
+The `junas displays` helper lists currently connected macOS displays and builds
 explicit `screencapture -D` commands for one or more selected display indexes.
 This is a local helper for demos, presentations, and recording workflows; it is
 not endpoint enforcement.
@@ -14,26 +14,26 @@ not endpoint enforcement.
 List displays:
 
 ```sh
-uv run aki displays list
-uv run aki displays list --json
+uv run junas displays list
+uv run junas displays list --json
 ```
 
 Build a capture plan for all online displays:
 
 ```sh
-uv run aki displays capture --output-dir ./captures --dry-run
+uv run junas displays capture --output-dir ./captures --dry-run
 ```
 
 Select specific displays:
 
 ```sh
-uv run aki displays capture --display 1 --display 2 --output-dir ./captures --dry-run
+uv run junas displays capture --display 1 --display 2 --output-dir ./captures --dry-run
 ```
 
 Record video from selected displays:
 
 ```sh
-uv run aki displays capture --display 1 --display 2 --video-seconds 30 --output-dir ./captures --dry-run
+uv run junas displays capture --display 1 --display 2 --video-seconds 30 --output-dir ./captures --dry-run
 ```
 
 Remove `--dry-run` to run `screencapture`.
@@ -68,6 +68,6 @@ Operational guidance:
 
 - prefer one selected display during demos unless the workflow needs multiple
 - use `--video-seconds` to bound recording duration
-- re-run `aki displays list` after hot-plugging displays
+- re-run `junas displays list` after hot-plugging displays
 - avoid recording mirrored confidential displays unless the operator explicitly
   selected them
