@@ -97,10 +97,23 @@ def run_smoke(output_dir: Path | None = None) -> tuple[bool, dict]:
                 names = set(archive.namelist())
                 findings = archive.read("findings.json").decode("utf-8")
                 manifest = json.loads(archive.read("manifest.json"))
+                required_names = {
+                    "manifest.json",
+                    "journal.jsonl",
+                    "findings.json",
+                    "decisions.json",
+                    "defensibility_manifest.json",
+                    "statutory-coverage.md",
+                    "defensibility/SG.md",
+                    "defensibility/US.md",
+                }
                 archive_ok = (
-                    {"manifest.json", "journal.jsonl", "findings.json", "decisions.json"}.issubset(names)
+                    required_names.issubset(names)
                     and manifest.get("journal_chain_status") == "valid"
-                    and "Dr Jane Tan" in findings
+                    and manifest.get("defensibility_included") is True
+                    and "Dr Jane Tan" not in findings
+                    and "matched_text_sha256" in findings
+                    and "matched_text_char_count" in findings
                 )
         ok = (
             export.returncode == 0
