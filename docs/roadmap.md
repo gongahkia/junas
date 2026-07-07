@@ -11,13 +11,14 @@ Scope anti-goals and deferred stretch ideas live in
 
 ## Current Issue Triage
 
-Status: 2026-07-04, based on open GitHub issues. This is an equivalent public roadmap, not a delivery promise.
+Status: 2026-07-07, based on open GitHub issues after #89 closure. This is an equivalent public roadmap, not a delivery promise.
 
 | Lane | Issues | Gate before promotion |
 |---|---|---|
-| Now | [#84](https://github.com/gongahkia/junas/issues/84) hosted deterministic demo, [#85](https://github.com/gongahkia/junas/issues/85) hosted playground verification. | Must improve current Junas launch evidence without widening product scope. |
-| Next | No promoted implementation issue. | Needs reproducible evidence, bounded claims, or an explicit decision note before implementation is promoted. |
-| Later / research | [#5](https://github.com/gongahkia/junas/issues/5)-[#9](https://github.com/gongahkia/junas/issues/9), [#15](https://github.com/gongahkia/junas/issues/15)-[#25](https://github.com/gongahkia/junas/issues/25), and [#4](https://github.com/gongahkia/junas/issues/4). | Legacy Junas/macOS/video-redaction ideas require fresh product-scope validation against current Junas positioning before work starts. |
+| Now | [#84](https://github.com/gongahkia/junas/issues/84) hosted deterministic demo, [#85](https://github.com/gongahkia/junas/issues/85) hosted playground verification, [#95](https://github.com/gongahkia/junas/issues/95) public demo evidence/limitations page. | Must improve current Junas launch evidence without widening product scope. |
+| Local distribution | [#7](https://github.com/gongahkia/junas/issues/7) signed/notarized macOS DMG, [#9](https://github.com/gongahkia/junas/issues/9) Homebrew cask path, [#92](https://github.com/gongahkia/junas/issues/92) real menu-bar sidecar execution, [#93](https://github.com/gongahkia/junas/issues/93) `junas-watch` size/scope guards, [#94](https://github.com/gongahkia/junas/issues/94) menu-bar runtime QA evidence. | Needs signed release evidence, local runtime evidence, and scoped fallback guardrails before promotion. |
+| Pilot certification | [#86](https://github.com/gongahkia/junas/issues/86) Outlook Smart Alerts tenant/client QA, [#87](https://github.com/gongahkia/junas/issues/87) managed browser QA, [#88](https://github.com/gongahkia/junas/issues/88) adapter telemetry collection, [#90](https://github.com/gongahkia/junas/issues/90) Word support posture, [#91](https://github.com/gongahkia/junas/issues/91) DMS v1 check-in hook. | Needs reproducible deployment evidence, privacy-safe telemetry, and bounded support claims before implementation is promoted. |
+| Later / research | Slack, Google Workspace, admin console, Windows desktop packaging, and universal endpoint/video-redaction claims remain out of promoted scope unless a new issue adds user evidence, acceptance criteria, and a test path. | Legacy or broad-surface ideas require fresh product-scope validation against current Junas positioning before work starts. |
 
 ## Kill Criteria
 

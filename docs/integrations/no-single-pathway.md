@@ -1,6 +1,6 @@
 # No Single Pathway
 
-Status: normative for production pilot architecture. A production pilot should deploy the direct API/backend contract plus at least one workflow adapter that covers a real user completion path.
+Status: normative for production pilot architecture. A production pilot should deploy the direct API/backend contract plus one supported workflow adapter that covers a real user completion path.
 
 Use with `docs/product/workflows.md`, `docs/integrations/direct-api.md`, `docs/integrations/maturity-matrix.md`, `docs/integrations/adapter-certification-checklist.md`, and `docs/deployment-pilot-rollout.md`.
 
@@ -9,7 +9,7 @@ Use with `docs/product/workflows.md`, `docs/integrations/direct-api.md`, `docs/i
 Do not deploy all adapters at once. For the first production pilot, use both:
 
 - Direct API: baseline integration with the FastAPI backend, policy config, auth, audit journal, SIEM export, and generated OpenAPI/client examples.
-- At least one workflow adapter: Outlook Smart Alerts, Browser GenAI extension, DMS hook, or another certified adapter that intercepts a real send, submit, upload, share, or review workflow.
+- One supported workflow adapter: Outlook Smart Alerts, Browser GenAI extension, DMS hook, or another certified adapter that intercepts a real send, submit, upload, share, or review workflow.
 
 This is not a requirement for every demo or backend-only customer integration. It is the recommended production pilot shape when Junas is being evaluated for daily user workflow value.
 
