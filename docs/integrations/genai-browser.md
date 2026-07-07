@@ -135,7 +135,9 @@ Unmanaged rows are developer smoke evidence only; they do not prove enterprise r
 
 `content.js` emits sanitized browser adapter telemetry to an optional
 `globalThis.junasTelemetrySink(event)` hook and a `junas:telemetry` DOM event when the
-runtime supports it. There is no backend telemetry transport endpoint in this repo yet.
+runtime supports it. Hosted or local deployments that collect those events should wire
+the sink to `POST /adapter-telemetry`; the backend normalizes them to SIEM-safe
+`adapter_telemetry` events and drops, hashes, or redacts unsafe fields.
 
 Event schema: `junas.browser.telemetry.v1`.
 

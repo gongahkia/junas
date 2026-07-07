@@ -136,7 +136,7 @@ Repeat the checklist on Outlook on the web, new Outlook on Windows, classic Outl
 
 ## Telemetry Events
 
-`launchevent.js` emits sanitized Outlook adapter telemetry to an optional `globalThis.junasTelemetrySink(event)` hook and a `junas:telemetry` DOM event when the runtime supports it. There is no backend transport endpoint in this repo yet, so hosted deployments must wire that sink before treating these events as collected telemetry.
+`launchevent.js` emits sanitized Outlook adapter telemetry to an optional `globalThis.junasTelemetrySink(event)` hook and a `junas:telemetry` DOM event when the runtime supports it. Hosted deployments that collect those events should wire the sink to `POST /adapter-telemetry`; the backend normalizes them to SIEM-safe `adapter_telemetry` events and drops, hashes, or redacts unsafe fields.
 
 Event schema: `junas.outlook.telemetry.v1`.
 

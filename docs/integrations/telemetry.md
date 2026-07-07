@@ -16,6 +16,75 @@ Use with `docs/telemetry-feedback-loop.md`, `docs/integrations/privacy.md`, `doc
 
 Adapters may emit surface-specific telemetry locally. SIEM exporters must normalize those events into the SIEM-safe shape before central export.
 
+## Backend Collection Endpoint
+
+Hosted or local deployments may collect adapter telemetry through
+`POST /adapter-telemetry`. The endpoint requires the same backend auth boundary
+as review endpoints: tenant API key/JWT for server deployments or
+`X-Junas-Local-Token` for local daemon clients when local ACLs are enabled.
+
+The request body is:
+
+```json
+{
+  "events": [
+    {
+      "schema_version": "junas.outlook.telemetry.v1",
+      "event_name": "outlook_policy_decision_received",
+      "surface": "outlook",
+      "workflow": "email_send",
+      "timestamp": "2026-07-07T00:00:00Z",
+      "details": {
+        "request_id": "req-123",
+        "review_id": "rev-123",
+        "policy_id": "default",
+        "policy_version": "2026-07-07",
+        "decision": "warn",
+        "send_allowed": false,
+        "required_actions": ["redact_pii"],
+        "finding_count": 1,
+        "recipient_count": 2,
+        "recipient_domain_count": 2,
+        "attachment_count": 1
+      }
+    },
+    {
+      "schema_version": "junas.browser.telemetry.v1",
+      "event_name": "browser_user_proceeded_after_warning",
+      "surface": "browser_genai",
+      "workflow": "prompt_submit",
+      "details": {
+        "request_id": "req-456",
+        "review_id": "rev-456",
+        "decision": "warn",
+        "send_allowed": false,
+        "operation": "review",
+        "finding_count": 1,
+        "selector_kind": "prompt"
+      }
+    }
+  ]
+}
+```
+
+The response reports accepted and emitted counts only; it does not return raw
+adapter details. The backend normalizes each event to `event_type="adapter_telemetry"`
+and emits it to the configured SIEM sink when `JUNAS_SIEM_ENABLED=1`.
+Unknown detail fields are dropped by count. Prohibited sensitive detail fields
+such as `text`, `prompt`, `document_base64`, `authorization`, `endpoint_url`,
+recipient addresses, filenames, and reviewer rationale are hashed or redacted by
+`src/junas/backend/siem.py`.
+
+Retention boundary: Junas does not persist adapter telemetry outside the
+configured SIEM/log sink. SIEM index retention remains operator-owned and should
+match `docs/security/data-retention.md` and the deployment retention manifest.
+
+Disable central adapter telemetry by leaving the adapter
+`globalThis.junasTelemetrySink(event)` hook unwired, blocking calls to
+`POST /adapter-telemetry`, or setting `JUNAS_SIEM_ENABLED=0`. Local DOM
+`junas:telemetry` events may still exist for in-process QA hooks unless the
+adapter build disables those hooks.
+
 ## Event Names
 
 | Surface | Event | Meaning |

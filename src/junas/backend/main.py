@@ -70,6 +70,8 @@ from junas.backend.local_auth import (
 from junas.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from junas.backend.schemas import (
     ADAPTER_SURFACE_REVIEW_EXAMPLES,
+    AdapterTelemetryRequest,
+    AdapterTelemetryResponse,
     AnonymizationMappingEntryResponse,
     AnonymizationReplacementResponse,
     AnonymizeRequest,
@@ -129,7 +131,12 @@ from junas.backend.schemas import (
     SafeRewriteResponse,
     SafeRewriteSkippedFindingResponse,
 )
-from junas.backend.siem import emit_privacy_ledger_events, emit_security_event
+from junas.backend.siem import (
+    build_adapter_telemetry_siem_event,
+    emit_privacy_ledger_events,
+    emit_security_event,
+    emit_siem_event,
+)
 from junas.configs.runtime import RuntimeSettings, get_runtime_settings
 from junas.external.privacy_guard import PrivacyGuard
 from junas.helper.determinism import configure_determinism
@@ -182,6 +189,7 @@ LOCAL_PAIRING_TTL_SECONDS = 300
 LOCAL_CLIENT_TOKEN_TTL_SECONDS = 90 * 24 * 60 * 60
 REVIEW_DECISION_VALIDITY_SECONDS = 5 * 60
 LOCAL_DAEMON_PROTECTED_PATHS = {
+    "/adapter-telemetry",
     "/anonymize",
     "/classify",
     "/classify/batch",
@@ -3509,6 +3517,39 @@ async def metrics():
     if observability is None:
         raise HTTPException(status_code=503, detail="observability not initialized")
     return Response(content=observability.render_metrics(), media_type=observability.content_type)
+
+
+@app.post(
+    "/adapter-telemetry",
+    response_model=AdapterTelemetryResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Runtime"],
+    summary="Record adapter telemetry",
+    description=(
+        "Normalize Outlook, browser, DMS, direct API, desktop, or Word adapter telemetry into SIEM-safe "
+        "events. Unknown detail fields are dropped, sensitive fields are hashed or redacted, and raw "
+        "prompt/body/document text is not returned."
+    ),
+)
+async def record_adapter_telemetry(req: AdapterTelemetryRequest):
+    events: list[dict[str, Any]] = []
+    emitted_count = 0
+    for telemetry_event in req.events:
+        event_payload = telemetry_event.model_dump(mode="json", exclude_none=True)
+        siem_event = build_adapter_telemetry_siem_event(event_payload)
+        emitted = emit_siem_event(siem_event, settings=current_runtime_settings().siem)
+        if emitted:
+            emitted_count += 1
+        events.append(
+            {
+                "event_name": str(event_payload.get("event_name", "")),
+                "surface": str(event_payload.get("surface", "")),
+                "workflow": str(event_payload.get("workflow", "")),
+                "outcome": str(siem_event.get("outcome", "")),
+                "emitted": emitted,
+            }
+        )
+    return AdapterTelemetryResponse(accepted_count=len(events), emitted_count=emitted_count, events=events)
 
 
 @app.post(

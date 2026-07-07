@@ -23,20 +23,37 @@ _logger = logging.getLogger("junas.siem")
 
 SENSITIVE_HASH_KEYS = {
     "anonymized_text",
+    "attachment_filename",
+    "base_url",
+    "body",
+    "comment",
     "context_after",
     "context_before",
     "document_text",
+    "email_body",
+    "endpoint_url",
     "error",
+    "file_path",
+    "jwt",
+    "local_path",
     "matched_text",
     "message",
+    "matter_name",
     "original_text",
+    "page_text",
+    "prompt",
     "query",
     "reason",
+    "recipient_address",
+    "recipient_email",
     "rationale",
     "replacement_text",
     "review_recommendation",
     "reviewer_id",
+    "subject",
+    "support_note",
     "text",
+    "url",
 }
 SENSITIVE_HASH_SUFFIXES = (
     "_matched_text",
@@ -47,8 +64,67 @@ SENSITIVE_HASH_SUFFIXES = (
     "_reviewer_id",
     "_text",
 )
-SENSITIVE_DROP_KEYS = {"api_key", "authorization", "ciphertext", "content", "mapping", "secret", "token"}
+SENSITIVE_DROP_KEYS = {
+    "api_key",
+    "auth_header",
+    "authorization",
+    "ciphertext",
+    "content",
+    "cookie",
+    "cookies",
+    "document_base64",
+    "mapping",
+    "secret",
+    "token",
+}
 SENSITIVE_DROP_SUFFIXES = ("_api_key", "_authorization", "_ciphertext", "_mapping", "_secret", "_token")
+ADAPTER_TELEMETRY_ALLOWED_DETAIL_KEYS = {
+    "adapter_version",
+    "attachment_count",
+    "auth_mode",
+    "backend_status",
+    "blocking_finding_count",
+    "decision",
+    "degraded_count",
+    "degraded_modes",
+    "document_hash",
+    "document_id_hash",
+    "elapsed_ms_bucket",
+    "error_type",
+    "failure_class",
+    "failure_mode",
+    "finding_count",
+    "idempotency_key_hash",
+    "matter_id_hash",
+    "mode",
+    "observed_user_action",
+    "operation",
+    "outcome",
+    "policy_id",
+    "policy_version",
+    "recipient_count",
+    "recipient_domain_count",
+    "recommended_actions",
+    "request_id",
+    "required_actions",
+    "retry_count",
+    "review_id",
+    "selector_kind",
+    "send_allowed",
+    "subject_hash",
+    "tenant_hash",
+    "timeout_ms",
+}
+ADAPTER_TELEMETRY_ALLOWED_OUTCOMES = {
+    "blocked",
+    "canceled",
+    "denied",
+    "failed",
+    "held",
+    "started",
+    "succeeded",
+    "warned",
+}
 
 
 def _now_iso() -> str:
@@ -236,6 +312,104 @@ def build_security_siem_event(
         request_id=request_id,
         review_id=review_id,
         details=details,
+    )
+
+
+def _adapter_telemetry_category(event_name: str) -> str:
+    lowered = event_name.lower()
+    if "privacy" in lowered:
+        return "privacy"
+    if "auth" in lowered or "bypass" in lowered:
+        return "security"
+    return "audit"
+
+
+def _adapter_telemetry_outcome(event_name: str, details: Mapping[str, Any]) -> str:
+    supplied = str(details.get("outcome", "") or "").lower()
+    if supplied in ADAPTER_TELEMETRY_ALLOWED_OUTCOMES:
+        return supplied
+    lowered = event_name.lower()
+    if lowered.endswith("_review_started"):
+        return "started"
+    if lowered.endswith("_policy_decision_received"):
+        return "succeeded"
+    if lowered.endswith("_user_proceeded_after_warning"):
+        return "warned"
+    if lowered.endswith("_user_canceled"):
+        return "canceled"
+    if lowered.endswith("_user_rewrote"):
+        return "succeeded"
+    if lowered.endswith("_user_requested_approval") or lowered.endswith("_upload_held"):
+        return "held"
+    if lowered.endswith("_user_blocked") or lowered.endswith("_upload_blocked"):
+        return "blocked"
+    if lowered.endswith("_backend_failure") or lowered.endswith("_backend_timeout") or lowered.endswith(
+        "_selector_failure"
+    ):
+        return "failed"
+    decision = str(details.get("decision", "") or "").lower()
+    if decision == "warn":
+        return "warned"
+    if decision in {"block", "rewrite_required"}:
+        return "blocked"
+    if decision == "approval_required":
+        return "held"
+    if decision == "allow":
+        return "succeeded"
+    return "succeeded"
+
+
+def _adapter_telemetry_details(details: Mapping[str, Any]) -> dict[str, Any]:
+    safe_details: dict[str, Any] = {}
+    dropped_count = 0
+    sanitized_prohibited_count = 0
+    for raw_key, value in details.items():
+        key = str(raw_key)
+        normalized_key = key.lower()
+        if normalized_key in ADAPTER_TELEMETRY_ALLOWED_DETAIL_KEYS:
+            safe_details[normalized_key] = value
+            continue
+        if _is_sensitive_key_name(normalized_key):
+            safe_details[normalized_key] = value
+            sanitized_prohibited_count += 1
+            continue
+        dropped_count += 1
+    if dropped_count:
+        safe_details["dropped_detail_field_count"] = dropped_count
+    if sanitized_prohibited_count:
+        safe_details["sanitized_prohibited_field_count"] = sanitized_prohibited_count
+    return safe_details
+
+
+def build_adapter_telemetry_siem_event(event: Mapping[str, Any]) -> dict[str, Any]:
+    details = event.get("details") if isinstance(event.get("details"), Mapping) else {}
+    safe_details = _adapter_telemetry_details(details)
+    schema_version = str(event.get("schema_version", "") or "")
+    event_name = str(event.get("event_name", "") or "adapter_telemetry")
+    surface = str(event.get("surface", "") or "")
+    workflow = str(event.get("workflow", "") or "")
+    adapter_version = str(event.get("adapter_version", "") or "")
+    timestamp = str(event.get("timestamp", "") or "")
+    if schema_version:
+        safe_details["adapter_schema_version"] = schema_version
+    if surface:
+        safe_details["surface"] = surface
+    if workflow:
+        safe_details["workflow"] = workflow
+    if adapter_version:
+        safe_details["adapter_version"] = adapter_version
+    if timestamp:
+        safe_details["adapter_timestamp"] = timestamp
+    request_id = str(event.get("request_id") or details.get("request_id") or "")
+    review_id = str(event.get("review_id") or details.get("review_id") or "")
+    return build_siem_event(
+        event_type="adapter_telemetry",
+        category=_adapter_telemetry_category(event_name),
+        action=event_name,
+        outcome=_adapter_telemetry_outcome(event_name, details),
+        request_id=request_id,
+        review_id=review_id,
+        details=safe_details,
     )
 
 

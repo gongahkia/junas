@@ -105,6 +105,78 @@ class BatchClassifyRequest(BaseModel):
     )
 
 
+AdapterTelemetrySurface = Literal["outlook", "browser_genai", "dms", "api", "desktop", "word"]
+
+
+class AdapterTelemetryEvent(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+        json_schema_extra={
+            "example": {
+                "schema_version": "junas.outlook.telemetry.v1",
+                "event_name": "outlook_policy_decision_received",
+                "surface": "outlook",
+                "workflow": "email_send",
+                "timestamp": "2026-07-07T00:00:00Z",
+                "details": {
+                    "request_id": "req-123",
+                    "review_id": "rev-123",
+                    "policy_id": "default",
+                    "policy_version": "2026-07-07",
+                    "decision": "warn",
+                    "send_allowed": False,
+                    "finding_count": 1,
+                    "degraded_count": 0,
+                    "required_actions": ["redact_pii"],
+                },
+            }
+        },
+    )
+
+    schema_version: str = Field(..., max_length=64, description="Surface telemetry schema version.")
+    event_name: str = Field(..., min_length=1, max_length=96, description="Adapter telemetry event name.")
+    surface: AdapterTelemetrySurface = Field(..., description="Adapter surface that emitted the event.")
+    workflow: str = Field(..., min_length=1, max_length=64, description="Adapter workflow, such as email_send.")
+    timestamp: Optional[str] = Field(None, max_length=64, description="Adapter-side ISO timestamp when available.")
+    adapter_version: Optional[str] = Field(None, max_length=64, description="Adapter package or manifest version.")
+    request_id: Optional[str] = Field(None, max_length=128, description="Backend request id when known.")
+    review_id: Optional[str] = Field(None, max_length=128, description="Review id when known.")
+    details: dict[str, Any] = Field(
+        default_factory=dict,
+        description="Telemetry details; backend drops or hashes unsafe keys.",
+    )
+
+    @field_validator("details")
+    @classmethod
+    def bound_details(cls, value: dict[str, Any]) -> dict[str, Any]:
+        if len(value) > 64:
+            raise ValueError("details exceeds maximum field count of 64")
+        return value
+
+
+class AdapterTelemetryRequest(BaseModel):
+    events: list[AdapterTelemetryEvent] = Field(
+        ...,
+        min_length=1,
+        max_length=50,
+        description="Batch of sanitized adapter telemetry events to normalize into SIEM-safe output.",
+    )
+
+
+class AdapterTelemetryAcceptedEvent(BaseModel):
+    event_name: str
+    surface: str
+    workflow: str
+    outcome: str
+    emitted: bool
+
+
+class AdapterTelemetryResponse(BaseModel):
+    accepted_count: int
+    emitted_count: int
+    events: list[AdapterTelemetryAcceptedEvent]
+
+
 ADAPTER_SURFACE_REVIEW_EXAMPLES: dict[str, dict[str, Any]] = {
     "outlook_email_send": {
         "summary": "Outlook Smart Alerts email send",

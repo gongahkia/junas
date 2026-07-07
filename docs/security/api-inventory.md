@@ -42,6 +42,7 @@ Legacy single-tenant mode: if `JUNAS_TENANCY_ENABLED=0` and `JUNAS_API_KEY` is u
 | GET | `/ready` | Public | n/a | none | none | n/a |
 | GET | `/diagnostics` | Public | n/a | none | none | n/a |
 | GET | `/metrics` | Public | n/a | none | none | n/a |
+| POST | `/adapter-telemetry` | Review access | `reviewer`, `maker`, `checker`, `admin` | credential-derived tenant context; emits SIEM-safe `adapter_telemetry` events without raw adapter payloads | none | global body cap |
 | POST | `/classify` | Review access | `reviewer`, `maker`, `checker`, `admin` | credential-derived tenant context for policy/audit side effects | none | global body cap |
 | POST | `/classify/batch` | Review access | `reviewer`, `maker`, `checker`, `admin` | credential-derived tenant context for policy/audit side effects | `batch_classify` when enabled | global body cap |
 | POST | `/review` | Review access | `reviewer`, `maker`, `checker`, `admin` | persisted sessions are scoped to credential-derived tenant id | `review` when enabled | global body cap |

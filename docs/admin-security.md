@@ -107,6 +107,19 @@ This follows the [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.ow
 
 Backend request logs include request ID, route, status, and latency only. SIEM events hash or drop sensitive values. Do not enable reverse-proxy body logging for Junas routes.
 
+Adapter telemetry is collected through `POST /adapter-telemetry` when adapters or
+deployment hosts wire `globalThis.junasTelemetrySink(event)` to the backend. The
+endpoint accepts Outlook, browser, DMS, direct API, desktop, and Word event
+schemas, normalizes them to SIEM-safe `adapter_telemetry` events, drops unknown
+detail fields, and hashes or redacts prohibited fields such as raw prompt/body
+text, document text, matched spans, auth headers, endpoint URLs, recipient
+addresses, filenames, and reviewer rationale. Junas does not persist adapter
+telemetry outside the configured SIEM/log sink; index retention is owned by the
+operator retention manifest.
+
+Disable central adapter telemetry by leaving the adapter sink unwired, blocking
+`POST /adapter-telemetry`, or keeping SIEM disabled with `JUNAS_SIEM_ENABLED=0`.
+
 Enable SIEM:
 
 ```sh
