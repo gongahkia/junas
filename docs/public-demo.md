@@ -34,6 +34,34 @@ Safety properties:
 - rate-limits by client IP;
 - tells users to submit synthetic, non-confidential text only.
 
+## Public Evidence And Limitations
+
+This page is the public evidence/limitations page for the hosted demo launch.
+All examples and screenshots used for the public demo must be synthetic only:
+demo prompts may include fake SG NRIC-shaped text, fake M&A codenames, and
+clean internal notes, but must not include customer, employee, matter, or
+credential material.
+
+The hosted demo runs strict deterministic review only. It does not run public
+evidence retrieval, LLM adjudication, LLM helpers, image scanning, tenancy, or
+review-session persistence, and it does not persist submitted text.
+
+Screen/video redaction artifacts in the README, release assets, or demo
+captures are demo-only and not endpoint enforcement. They illustrate local
+redaction concepts; they do not prove device management, screen capture control,
+clipboard governance, file-system policy, EDR, or universal adapter coverage.
+
+Selected host: Hugging Face Docker Space on free CPU Basic. Free CPU Basic
+Spaces sleep after 48 hours of inactivity; the first visitor after that idle
+period may wait longer while the Space wakes. If the selected host changes,
+update this section and the README cold-start copy before linking the public
+URL.
+
+Tracked launch work:
+
+- Deployment and README URL linking: [#84](https://github.com/gongahkia/junas/issues/84).
+- Hosted verification and launch checks: [#85](https://github.com/gongahkia/junas/issues/85).
+
 Tunable caps:
 
 ```sh

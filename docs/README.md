@@ -3,7 +3,7 @@
 This folder contains operator, developer, and product documentation. Product docs under `product/` are normative for roadmap decisions: roadmap, adapter maturity, and integration claims should match those documents before implementation starts.
 
 - `running.md`: launch and operational commands
-- `public-demo.md`: gated deterministic playground route and public-demo safety controls
+- `public-demo.md`: gated deterministic playground route, public evidence, limitations, and cold-start notes
 - `launch-notes.md`: gated launch copy, lead verdict, and candidate venues for public distribution
 - `roadmap.md`: Now/Next/Later issue triage and promotion gates
 - `release-process.md`: install-release tag convention and artifact checklist

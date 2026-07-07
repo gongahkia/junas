@@ -90,6 +90,7 @@ class PublicDemoTests(unittest.TestCase):
     def test_public_demo_docs_describe_gates_and_limits(self):
         doc = (main.PROJECT_ROOT / "docs" / "public-demo.md").read_text(encoding="utf-8")
         index = (main.PROJECT_ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+        readme = (main.PROJECT_ROOT / "README.md").read_text(encoding="utf-8")
         for token in (
             "disabled by default",
             "JUNAS_PUBLIC_DEMO_ENABLED=1",
@@ -104,10 +105,23 @@ class PublicDemoTests(unittest.TestCase):
             "JUNAS_PUBLIC_DEMO_TEXT_MAX_CHARS",
             "JUNAS_PUBLIC_DEMO_RATE_LIMIT",
             "synthetic, non-confidential text only",
+            "## Public Evidence And Limitations",
+            "public evidence/limitations page",
+            "synthetic only",
+            "strict deterministic review only",
+            "does not persist submitted text",
+            "Screen/video redaction artifacts",
+            "demo-only and not endpoint enforcement",
+            "Selected host: Hugging Face Docker Space",
+            "sleep after 48 hours of inactivity",
+            "https://github.com/gongahkia/junas/issues/84",
+            "https://github.com/gongahkia/junas/issues/85",
             "does not include a live hosted URL",
         ):
             self.assertIn(token, doc)
         self.assertIn("public-demo.md", index)
+        self.assertIn("Public demo evidence and limitations", readme)
+        self.assertIn("./docs/public-demo.md", readme)
 
     def test_public_demo_hosted_artifacts_use_local_sku_and_auth_gate(self):
         dockerfile = (main.PROJECT_ROOT / "Dockerfile.public-demo").read_text(encoding="utf-8")
@@ -325,6 +339,24 @@ class PublicDemoTests(unittest.TestCase):
                 base_url="http://example.com",
                 cold_start_copy="copy",
             )
+
+    def test_public_demo_readme_linker_does_not_write_when_verification_fails(self):
+        linker = _load_link_public_demo_module()
+        original = "# Junas\n\nProject status.\n\n## Install Locally\n\nBody.\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            readme_path = Path(tmp) / "README.md"
+            readme_path.write_text(original, encoding="utf-8")
+
+            with patch.object(linker, "verify_public_demo", side_effect=RuntimeError("unverified")):
+                with self.assertRaises(RuntimeError):
+                    linker.link_public_demo(
+                        base_url="https://unverified-demo.example",
+                        readme_path=readme_path,
+                        ready_timeout=0.01,
+                        request_timeout=0.01,
+                    )
+
+            self.assertEqual(readme_path.read_text(encoding="utf-8"), original)
 
     def test_public_demo_review_is_unauthenticated_strict_and_non_persistent(self):
         self._enable_demo()
