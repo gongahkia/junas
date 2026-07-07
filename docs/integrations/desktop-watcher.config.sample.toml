@@ -21,6 +21,7 @@ paths = []
 watch_folder = "./drop"
 supported_suffixes = [".txt", ".md", ".csv", ".json", ".eml"]
 poll_seconds = 2.0
+max_file_bytes = 5242880
 clipboard = false
 
 [output]
@@ -31,3 +32,4 @@ anonymize_output_dir = ""
 clipboard_requires_explicit_opt_in = true
 dedicated_watch_folder_required = true
 do_not_watch_home_or_cloud_drive_root = true
+max_file_size_guard_required = true

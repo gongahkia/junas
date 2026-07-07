@@ -80,6 +80,110 @@ class DesktopWatchTests(unittest.TestCase):
             self.assertFalse((source.parent / "client-note.txt.anonymized.txt").exists())
             self.assertFalse((root / "client-note.txt.anonymized.txt").exists())
 
+    def test_scan_paths_skips_oversized_direct_file_without_raw_content(self):
+        secret = "secret S1234567D"
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.object(watch, "_post_json_with_headers") as post,
+            mock.patch("builtins.print") as printed,
+        ):
+            source = Path(tmp) / "oversized.txt"
+            source.write_text(secret, encoding="utf-8")
+
+            summaries = watch.scan_paths([source], watch.WatchConfig(max_file_bytes=4))
+
+        post.assert_not_called()
+        self.assertEqual(summaries[0].status, "skipped")
+        self.assertIn("max-file-size", summaries[0].skipped_reason)
+        payload = json.loads(printed.call_args.args[0])
+        self.assertEqual(payload["status"], "skipped")
+        self.assertEqual(payload["file_size_bytes"], len(secret))
+        self.assertNotIn(secret, printed.call_args.args[0])
+
+    def test_watch_folder_skips_oversized_file_with_flag(self):
+        secret = "folder secret jane@example.com"
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.object(watch, "_post_json_with_headers") as post,
+            mock.patch("builtins.print") as printed,
+        ):
+            root = Path(tmp)
+            source = root / "drop.txt"
+            source.write_text(secret, encoding="utf-8")
+
+            result = watch.main(["--watch-folder", str(root), "--once", "--max-file-bytes", "4"])
+
+        self.assertEqual(result, 0)
+        post.assert_not_called()
+        payload = json.loads(printed.call_args.args[0])
+        self.assertEqual(payload["status"], "skipped")
+        self.assertNotIn(secret, printed.call_args.args[0])
+
+    def test_oversized_file_does_not_write_anonymized_output(self):
+        secret = "large secret S1234567D"
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.object(watch, "_post_json_with_headers") as post,
+            mock.patch("builtins.print"),
+        ):
+            root = Path(tmp)
+            source = root / "large.txt"
+            out = root / "out"
+            source.write_text(secret, encoding="utf-8")
+
+            summaries = watch.scan_paths(
+                [source],
+                watch.WatchConfig(anonymize_output_dir=out, max_file_bytes=4),
+            )
+
+        post.assert_not_called()
+        self.assertEqual(summaries[0].status, "skipped")
+        self.assertIsNone(summaries[0].anonymized_path)
+        self.assertFalse(out.exists())
+
+    def test_max_file_bytes_flag_overrides_env_for_larger_files(self):
+        secret = "reviewed despite small env cap"
+
+        def fake_post(_base_url, path, _payload, _timeout_seconds, _headers):
+            self.assertEqual(path, "/review")
+            return {"overall_risk": "LOW", "document_score": 0.0, "findings": []}
+
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.dict(watch.os.environ, {watch.MAX_FILE_BYTES_ENV: "4"}),
+            mock.patch.object(watch, "_post_json_with_headers", side_effect=fake_post) as post,
+            mock.patch("builtins.print") as printed,
+        ):
+            source = Path(tmp) / "allowed.txt"
+            source.write_text(secret, encoding="utf-8")
+
+            result = watch.main([str(source), "--max-file-bytes", str(len(secret) + 1)])
+
+        self.assertEqual(result, 0)
+        post.assert_called_once()
+        payload = json.loads(printed.call_args.args[0])
+        self.assertEqual(payload["status"], "reviewed")
+
+    def test_max_file_bytes_env_sets_default_cap(self):
+        secret = "env capped secret"
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.dict(watch.os.environ, {watch.MAX_FILE_BYTES_ENV: "4"}),
+            mock.patch.object(watch, "_post_json_with_headers") as post,
+            mock.patch("builtins.print") as printed,
+        ):
+            source = Path(tmp) / "env-capped.txt"
+            source.write_text(secret, encoding="utf-8")
+
+            result = watch.main([str(source)])
+
+        self.assertEqual(result, 0)
+        post.assert_not_called()
+        payload = json.loads(printed.call_args.args[0])
+        self.assertEqual(payload["status"], "skipped")
+        self.assertEqual(payload["max_file_bytes"], 4)
+        self.assertNotIn(secret, printed.call_args.args[0])
+
     def test_changed_files_tracks_new_and_modified_text_files_only(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -181,6 +285,15 @@ class DesktopWatchTests(unittest.TestCase):
     def test_copy_anonymized_clipboard_flag_requires_clipboard(self):
         with self.assertRaises(SystemExit):
             watch.main(["--copy-anonymized-clipboard"])
+
+    def test_help_documents_max_file_bytes_flag_and_env(self):
+        with mock.patch("sys.stdout") as stdout, self.assertRaises(SystemExit) as raised:
+            watch.main(["--help"])
+
+        self.assertEqual(raised.exception.code, 0)
+        help_text = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
+        self.assertIn("--max-file-bytes", help_text)
+        self.assertIn(watch.MAX_FILE_BYTES_ENV, help_text)
 
     def test_config_reads_local_token_file(self):
         with tempfile.TemporaryDirectory() as tmp:

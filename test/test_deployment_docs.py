@@ -2156,7 +2156,9 @@ class DeploymentDocsTests(unittest.TestCase):
             "Watched-folder scope",
             "dedicated drop directory",
             "Accidental large-file scans",
-            "no max-file-size option",
+            "default max-file-size cap",
+            "JUNAS_WATCH_MAX_FILE_BYTES",
+            "skipped-file reason",
             "Folder Watch",
             "Clipboard Watch",
             "not enterprise endpoint enforcement",
@@ -2170,9 +2172,11 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertEqual(sample["backend"]["base_url"], "http://127.0.0.1:8765")
         self.assertEqual(sample["sources"]["watch_folder"], "./drop")
         self.assertEqual(sample["sources"]["clipboard"], False)
+        self.assertEqual(sample["sources"]["max_file_bytes"], 5242880)
         self.assertEqual(sample["output"]["notify"], False)
         self.assertEqual(sample["operator_ack"]["clipboard_requires_explicit_opt_in"], True)
         self.assertEqual(sample["operator_ack"]["dedicated_watch_folder_required"], True)
+        self.assertEqual(sample["operator_ack"]["max_file_size_guard_required"], True)
 
         threat_model = (ROOT / "docs" / "security" / "adapter-threat-model.md").read_text(encoding="utf-8")
         packaging = (ROOT / "packaging" / "README.md").read_text(encoding="utf-8")

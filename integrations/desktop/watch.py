@@ -15,6 +15,8 @@ from typing import Any, Iterable
 
 DEFAULT_BASE_URL = "http://127.0.0.1:8765"
 DEFAULT_SUFFIXES = (".txt", ".md", ".csv", ".json", ".eml")
+DEFAULT_MAX_FILE_BYTES = 5 * 1024 * 1024
+MAX_FILE_BYTES_ENV = "JUNAS_WATCH_MAX_FILE_BYTES"
 FOREGROUND_PROFILE_CHOICES = ("auto", "off", "terminal", "chat", "editor", "browser", "broad")
 
 
@@ -33,6 +35,7 @@ class WatchConfig:
     anonymize_output_dir: Path | None = None
     local_token: str = ""
     notify: bool = False
+    max_file_bytes: int = DEFAULT_MAX_FILE_BYTES
 
 
 @dataclass(frozen=True)
@@ -61,6 +64,10 @@ class ReviewSummary:
     copied_to_clipboard: bool = False
     detector_profile: str = ""
     foreground_app: str = ""
+    status: str = "reviewed"
+    skipped_reason: str = ""
+    file_size_bytes: int | None = None
+    max_file_bytes: int | None = None
 
 
 FOREGROUND_PROFILES: dict[str, ForegroundProfile] = {
@@ -222,7 +229,30 @@ def anonymize_text(text: str, *, source: str, config: WatchConfig) -> str | None
     return str(target)
 
 
+def _skipped_file_summary(path: Path, *, file_size: int, max_file_bytes: int) -> ReviewSummary:
+    return ReviewSummary(
+        source=str(path),
+        overall_risk="SKIPPED",
+        finding_count=0,
+        document_score=0.0,
+        status="skipped",
+        skipped_reason=f"file exceeds max-file-size cap: {file_size} bytes > {max_file_bytes} bytes",
+        file_size_bytes=file_size,
+        max_file_bytes=max_file_bytes,
+    )
+
+
+def _oversized_file_summary(path: Path, config: WatchConfig) -> ReviewSummary | None:
+    file_size = path.stat().st_size
+    if file_size <= config.max_file_bytes:
+        return None
+    return _skipped_file_summary(path, file_size=file_size, max_file_bytes=config.max_file_bytes)
+
+
 def review_file(path: Path, config: WatchConfig) -> ReviewSummary:
+    skipped = _oversized_file_summary(path, config)
+    if skipped is not None:
+        return skipped
     text = path.read_text(encoding="utf-8")
     summary = review_text(text, source=str(path), config=config)
     anonymized_path = anonymize_text(text, source=str(path), config=config) if summary.finding_count else None
@@ -234,6 +264,10 @@ def review_file(path: Path, config: WatchConfig) -> ReviewSummary:
         anonymized_path=anonymized_path,
         detector_profile=summary.detector_profile,
         foreground_app=summary.foreground_app,
+        status=summary.status,
+        skipped_reason=summary.skipped_reason,
+        file_size_bytes=summary.file_size_bytes,
+        max_file_bytes=summary.max_file_bytes,
     )
 
 
@@ -358,6 +392,7 @@ def _apply_foreground_profile(
         anonymize_output_dir=config.anonymize_output_dir,
         local_token=config.local_token,
         notify=config.notify,
+        max_file_bytes=config.max_file_bytes,
     )
 
 
@@ -411,6 +446,24 @@ def _emit_summary(summary: ReviewSummary, config: WatchConfig) -> None:
         _notify(summary)
 
 
+def _parse_positive_int(value: str) -> int:
+    try:
+        parsed = int(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be an integer") from exc
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("must be >= 1")
+    return parsed
+
+
+def _default_max_file_bytes(parser: argparse.ArgumentParser) -> int:
+    raw = os.environ.get(MAX_FILE_BYTES_ENV, str(DEFAULT_MAX_FILE_BYTES))
+    try:
+        return _parse_positive_int(raw)
+    except argparse.ArgumentTypeError as exc:
+        parser.error(f"{MAX_FILE_BYTES_ENV} {exc}")
+
+
 def _config_from_args(args: argparse.Namespace) -> WatchConfig:
     local_token = (
         args.local_token or os.environ.get("JUNAS_LOCAL_DAEMON_TOKEN", "") or _read_token_file(args.local_token_file)
@@ -427,6 +480,7 @@ def _config_from_args(args: argparse.Namespace) -> WatchConfig:
         anonymize_output_dir=args.anonymize_output_dir,
         local_token=local_token,
         notify=args.notify,
+        max_file_bytes=getattr(args, "max_file_bytes", DEFAULT_MAX_FILE_BYTES),
     )
     mode = args.foreground_profile
     if mode == "off":
@@ -459,6 +513,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--timeout-seconds", type=float, default=10.0)
     parser.add_argument("--watch-folder", type=Path)
     parser.add_argument("--poll-seconds", type=float, default=2.0)
+    parser.add_argument(
+        "--max-file-bytes",
+        type=_parse_positive_int,
+        default=_default_max_file_bytes(parser),
+        help=f"max bytes for file/watch-folder review; env {MAX_FILE_BYTES_ENV}; default {DEFAULT_MAX_FILE_BYTES}",
+    )
     parser.add_argument("--clipboard", action="store_true")
     parser.add_argument("--copy-anonymized-clipboard", action="store_true")
     parser.add_argument("--once", action="store_true")

@@ -51,6 +51,9 @@ Current behavior:
 - Local daemon binds `127.0.0.1:8765` by default.
 - `junas.desktop.watch` can review watched files and optional clipboard content.
 - `--anonymize-output-dir` writes anonymized copies only when explicitly configured.
+- File and watched-folder review skip files above the default `--max-file-bytes`
+  cap of `5242880` bytes; override with `--max-file-bytes` or
+  `JUNAS_WATCH_MAX_FILE_BYTES`.
 - Supported default file suffixes are `.txt`, `.md`, `.csv`, `.json`, and `.eml`.
 
 ## Opt-In Local Fallback Flow
@@ -60,6 +63,7 @@ The watcher runs only when a user or operator starts it with an explicit source:
 ```sh
 uv run junas-watch ./draft.txt --base-url http://127.0.0.1:8765
 uv run junas-watch --watch-folder ./drop --once --base-url http://127.0.0.1:8765
+uv run junas-watch ./large-draft.txt --max-file-bytes 10485760 --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --base-url http://127.0.0.1:8765
 uv run junas-watch --clipboard --once --copy-anonymized-clipboard --base-url http://127.0.0.1:8765
 ```
@@ -95,10 +99,13 @@ keeps `clipboard = false` and requires explicit user opt-in through `--clipboard
 ## Folder Watch
 
 - `--watch-folder` recursively scans supported text-like suffixes.
+- Files larger than `--max-file-bytes` are skipped before content is read or sent
+  to the backend. The JSON summary includes `status="skipped"`, byte counts, and
+  a skipped-file reason, but not raw file content.
 - The first scan reviews existing matching files, then later scans review changed files.
 - `--poll-seconds` controls polling interval.
 - `--once` performs one scan and exits.
-- `--anonymize-output-dir` writes anonymized copies only when findings exist and output is explicitly configured.
+- `--anonymize-output-dir` writes anonymized copies only when findings exist, output is explicitly configured, and the file was not skipped by the size cap.
 
 ## Clipboard Watch
 
@@ -126,10 +133,10 @@ AppleScript and Shortcuts wrappers live in [`macos-automation.md`](./macos-autom
 - Watched-folder scope: `--watch-folder` scans recursively for supported suffixes. Use a
   dedicated drop directory, not a home directory, synced drive root, mail archive, or
   source tree with unrelated customer files.
-- Accidental large-file scans: the current CLI has no max-file-size option. A large
-  matching file is read into memory and sent to the backend, so operators should test
-  with `--once`, keep watched folders small, and avoid broad recursive roots until size
-  limits are implemented.
+- Accidental large-file scans: the current CLI has a default max-file-size cap.
+  Oversized matching files fail closed as skipped JSON summaries before content
+  is read or sent to the backend. Operators should still test with `--once`, keep
+  watched folders small, and avoid broad recursive roots.
 
 ## Enforcement Boundary
 
@@ -144,6 +151,7 @@ The desktop watcher is not enterprise endpoint enforcement.
 
 - Use `--local-token`, `--local-token-file`, or `JUNAS_LOCAL_DAEMON_TOKEN` when local daemon ACLs are enabled.
 - Output is a JSON summary with source, risk, finding count, document score, and optional anonymized path.
+- Oversized files emit a JSON-safe skipped-file reason and byte counts without raw file content.
 - Do not redirect watcher output to shared logs unless paths and counts are acceptable for that environment.
 - Keep `--anonymize-output-dir` scoped to a user-approved directory.
 
