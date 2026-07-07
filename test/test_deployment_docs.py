@@ -137,17 +137,17 @@ class DeploymentDocsTests(unittest.TestCase):
             "| Customer-managed Docker |",
             "| Offline local daemon |",
             "| Hybrid local-plus-server |",
-            "reverse proxy/TLS",
+            "Reverse proxy/TLS",
             "tenant auth",
             "versioned policy config",
             "SIEM export",
-            "customer-held `JUNAS_JOURNAL_KEY`",
+            "HMAC journal keys via `JUNAS_JOURNAL_KEYS_FILE`",
             "`JUNAS_MAPPING_STORE_KEY`",
             "`JUNAS_SUBJECT_INDEX_KEY`",
             "retention manifest",
             "backup/restore",
             "http://127.0.0.1:8765",
-            "Server remains the policy/audit source",
+            "Server state follows hosted/customer-managed controls",
             "docs/install.md",
         ):
             self.assertIn(token, text)
@@ -904,7 +904,7 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("faq/operator.md", docs_index)
         for token in (
             "# Operator FAQ",
-            "Checked on 2026-07-01",
+            "Checked on 2026-07-02",
             "pre-send review",
             "safe rewrite",
             "audit-evidence layer",
@@ -1657,10 +1657,10 @@ class DeploymentDocsTests(unittest.TestCase):
         self.assertIn("docs/integrations/no-single-pathway.md", direct_api)
         for token in (
             "Status: normative for production pilot architecture",
-            "direct API/backend contract plus at least one workflow adapter",
+            "direct API/backend contract plus one supported workflow adapter",
             "## Recommendation",
             "Direct API",
-            "At least one workflow adapter",
+            "One supported workflow adapter",
             "## Why Direct API Alone Is Not Enough For Workflow Pilots",
             "Direct API-only is acceptable when",
             "Direct API-only must not claim",
