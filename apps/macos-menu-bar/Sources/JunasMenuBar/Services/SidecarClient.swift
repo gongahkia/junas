@@ -22,8 +22,13 @@ final class SidecarClient {
   init(environment: [String: String] = ProcessInfo.processInfo.environment) {
     let configured = environment["JUNAS_SIDECAR_COMMAND"]?.split(separator: " ").map(String.init) ?? []
     if let first = configured.first {
-      executable = first
-      arguments = Array(configured.dropFirst())
+      if first.hasPrefix("/") {
+        executable = first
+        arguments = Array(configured.dropFirst())
+      } else {
+        executable = "/usr/bin/env"
+        arguments = configured
+      }
     } else if let bundled = Bundle.main.resourceURL?.appending(path: "junas-sidecar/junas-sidecar"),
       FileManager.default.isExecutableFile(atPath: bundled.path)
     {

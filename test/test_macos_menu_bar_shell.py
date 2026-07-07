@@ -20,6 +20,9 @@ class MacosMenuBarShellTests(unittest.TestCase):
         client = (APP_ROOT / "Sources" / "JunasMenuBar" / "Services" / "SidecarClient.swift").read_text(
             encoding="utf-8"
         )
+        runtime_qa = (APP_ROOT / "Sources" / "JunasMenuBar" / "Support" / "RuntimeQA.swift").read_text(
+            encoding="utf-8"
+        )
 
         for token in (
             "MenuBarExtra",
@@ -36,11 +39,23 @@ class MacosMenuBarShellTests(unittest.TestCase):
         for token in ("source.select", "transform.select", "output.select", "capture.start", "capture.pause"):
             self.assertIn(token, client)
         self.assertIn("JUNAS_SIDECAR_COMMAND", client)
+        self.assertIn('executable = "/usr/bin/env"', client)
         self.assertIn("junas-sidecar/junas-sidecar", client)
         self.assertIn("junas --tui", store)
+        for token in (
+            "JUNAS_MENU_BAR_RUNTIME_QA",
+            "JUNAS_MENU_BAR_QA_SCENARIO",
+            "normal_launch=pass",
+            "sidecar_child_launch=pass",
+            "sidecar_unavailable=pass",
+            "invalid_sidecar_response=pass",
+            "packaged_resource_lookup=",
+        ):
+            self.assertIn(token, runtime_qa)
 
     def test_run_script_and_codex_environment_build_menu_bar_app(self):
         script = (ROOT / "script" / "build_and_run.sh").read_text(encoding="utf-8")
+        qa_script = (ROOT / "script" / "menu_bar_runtime_qa.sh").read_text(encoding="utf-8")
         environment = (ROOT / ".codex" / "environments" / "environment.toml").read_text(encoding="utf-8")
 
         for token in (
@@ -52,10 +67,23 @@ class MacosMenuBarShellTests(unittest.TestCase):
             "--verify|verify",
         ):
             self.assertIn(token, script)
+        for token in (
+            "JUNAS_MENU_BAR_RUNTIME_QA",
+            "JUNAS_MENU_BAR_QA_SCENARIO",
+            "JUNAS_SIDECAR_COMMAND",
+            "normal",
+            "unavailable",
+            "invalid_response",
+            "packaged_resource",
+        ):
+            self.assertIn(token, qa_script)
         self.assertIn('command = "./script/build_and_run.sh"', environment)
 
     def test_menu_bar_shell_docs_cover_ui_sidecar_tui_and_packaging(self):
         doc = (ROOT / "docs" / "integrations" / "macos-menu-bar-shell.md").read_text(encoding="utf-8")
+        evidence = (ROOT / "docs" / "integrations" / "macos-menu-bar-runtime-qa-2026-07-07.md").read_text(
+            encoding="utf-8"
+        )
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         docs_index = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
         integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
@@ -80,8 +108,27 @@ class MacosMenuBarShellTests(unittest.TestCase):
             "last_output",
             "Display/window capture",
             "dist/JunasMenuBar.app",
+            "Runtime QA evidence",
+            "script/menu_bar_runtime_qa.sh",
+            "macos-menu-bar-runtime-qa-2026-07-07.md",
+            "sidecar child launch",
+            "sidecar unavailable",
+            "invalid sidecar response",
+            "packaged_resource_lookup=deferred",
+            "Contents/Resources/junas-sidecar/junas-sidecar",
         ):
             self.assertIn(token, doc)
+        for token in (
+            "./script/build_and_run.sh --verify",
+            "bash script/menu_bar_runtime_qa.sh",
+            "normal_launch=pass",
+            "sidecar_child_launch=pass",
+            "sidecar_unavailable=pass",
+            "invalid_sidecar_response=pass",
+            "app_shutdown=pass",
+            "packaged_resource_lookup=deferred",
+        ):
+            self.assertIn(token, evidence)
         self.assertIn("docs/integrations/macos-menu-bar-shell.md", readme)
         self.assertIn("integrations/macos-menu-bar-shell.md", docs_index)
         self.assertIn("macos-menu-bar-shell.md", integrations_index)

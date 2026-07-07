@@ -1,8 +1,16 @@
 import AppKit
+import Darwin
 import SwiftUI
 
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
   func applicationDidFinishLaunching(_ notification: Notification) {
+    if RuntimeQA.shouldRun {
+      let passed = RuntimeQA.run()
+      fflush(stdout)
+      fflush(stderr)
+      Darwin.exit(passed ? EXIT_SUCCESS : EXIT_FAILURE)
+    }
     NSApp.setActivationPolicy(.regular)
     NSApp.activate(ignoringOtherApps: true)
   }

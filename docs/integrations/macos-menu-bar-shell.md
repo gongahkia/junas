@@ -16,6 +16,14 @@ Verify build and launch:
 ./script/build_and_run.sh --verify
 ```
 
+Runtime QA evidence:
+
+```sh
+bash script/menu_bar_runtime_qa.sh
+```
+
+Recorded transcript: `docs/integrations/macos-menu-bar-runtime-qa-2026-07-07.md`
+
 ## UI Surface
 
 The shell uses a SwiftUI `MenuBarExtra` plus a regular status window. It exposes:
@@ -44,6 +52,10 @@ Override for development or packaging tests:
 ```sh
 JUNAS_SIDECAR_COMMAND="uv run junas sidecar stdio" ./script/build_and_run.sh
 ```
+
+The runtime QA script verifies the override, normal launch, sidecar child launch,
+sidecar unavailable handling, invalid sidecar response handling, and app
+shutdown.
 
 Start flow:
 
@@ -89,3 +101,4 @@ This is the power-user terminal surface. It remains separate from the menu-bar s
 ## Packaging Boundary
 
 `script/build_and_run.sh` stages `dist/JunasMenuBar.app` from the SwiftPM executable. The signed DMG release task must later bundle this app with the packaged sidecar and use the signing policy in `docs/macos-signing-credentials.md`.
+The packaged sidecar lookup path is `Contents/Resources/junas-sidecar/junas-sidecar`; local unsigned builds record `packaged_resource_lookup=deferred` until the signed DMG task bundles that executable.
