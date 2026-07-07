@@ -19,7 +19,7 @@ These pages mirror current adapter notes after ADR 0004. Adapter source lives un
 | Time-machine buffer prototype | `integrations/desktop/time_buffer.py` | `time-machine-buffer.md` |
 | OBS source-plugin prototype | `src/junas/integrations/obs_source.py` | `obs-source-plugin.md` |
 | Direct MP4 sink | `integrations/desktop/mp4_sink.py` | `direct-mp4-sink.md` |
-| DMS manifest scanner | `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
+| DMS mock check-in hook and manifest scanner | `src/junas/integrations/dms.py`, `scripts/mock_dms_checkin.py`, `scripts/scan_dms_manifest.py` | `dms.md` |
 | DMS matter id mapping | backend contract boundary | `dms-matter-ids.md` |
 | Adapter compatibility matrix | backend contract boundary | `compatibility-matrix.md` |
 | Adapter packaging | browser and Office artifact boundary | `adapter-packaging.md` |

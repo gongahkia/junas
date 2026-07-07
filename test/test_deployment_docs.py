@@ -1736,21 +1736,39 @@ class DeploymentDocsTests(unittest.TestCase):
 
     def test_dms_integration_doc_covers_upload_metadata_failure_and_audit_fields(self):
         text = (ROOT / "docs" / "integrations" / "dms.md").read_text(encoding="utf-8")
+        integrations_index = (ROOT / "docs" / "integrations" / "README.md").read_text(encoding="utf-8")
+        root_integrations = (ROOT / "integrations" / "README.md").read_text(encoding="utf-8")
         for token in (
             "Maturity: `experimental`",
+            "mockdms",
+            "MockDmsCheckInHook",
+            "scripts/mock_dms_checkin.py",
             'surface="dms"',
             'workflow="document_upload"',
+            "POST /review",
             "Required Metadata",
+            "MockDMS V1 Check-In Hook",
+            "Decision mapping",
+            "held_for_approval",
+            "held_for_rewrite",
+            "held_degraded",
+            "backend_timeout",
+            "auth_failed",
+            "validation_failed",
             "Failure Behavior",
             "Audit Fields To Store",
             "matter_id",
             "document_id",
             "Idempotency-Key",
+            "duplicate DMS audit records",
             "policy_decision.decision",
             "text_hash",
+            "document body, matched text",
             "docs/integrations/dms-matter-ids.md",
         ):
             self.assertIn(token, text)
+        self.assertIn("DMS mock check-in hook and manifest scanner", integrations_index)
+        self.assertIn("DMS mock check-in hook and manifest scanner", root_integrations)
 
     def test_dms_matter_id_doc_defines_vendor_neutral_mapping(self):
         text = (ROOT / "docs" / "integrations" / "dms-matter-ids.md").read_text(encoding="utf-8")

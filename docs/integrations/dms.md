@@ -1,12 +1,16 @@
 # DMS Integration
 
-Source: `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py`
+Source: `src/junas/integrations/dms.py`, `scripts/scan_dms_manifest.py`, `scripts/mock_dms_checkin.py`
 
 Maturity: `experimental`
 
 DMS integration is a service-side upload/check-in review flow. The backend remains the policy and audit boundary; the DMS adapter should collect document text or a supported document payload plus matter metadata, call `/review`, then allow, warn, block, request approval, or store audit fields according to `policy_decision`.
 
-The shipped code is a read-side neutral JSON manifest scanner for exports from systems such as iManage or NetDocuments. It does not write back to a customer repository and does not ship vendor SDK credentials. Matter-id mapping rules live in `docs/integrations/dms-matter-ids.md`.
+The shipped code includes a concrete `mockdms` v1 pre-check-in hook plus a
+read-side neutral JSON manifest scanner for exports from systems such as iManage
+or NetDocuments. It does not ship real vendor SDK credentials or write to a
+customer repository. Matter-id mapping rules live in
+`docs/integrations/dms-matter-ids.md`.
 
 ## Upload / Check-In Flow
 
@@ -62,6 +66,51 @@ Run the scanner:
 ```sh
 uv run python scripts/scan_dms_manifest.py manifest.json --output dms-review.json
 ```
+
+## MockDMS V1 Check-In Hook
+
+`MockDmsCheckInHook` is the concrete v1 hook target in this repo. It models a
+pre-commit DMS hook: build DMS metadata, call `POST /review` with
+`surface="dms"` and `workflow="document_upload"` before check-in completes, then
+store DMS-side audit fields and return a check-in decision.
+
+Run the hook against a local backend with a synthetic text file:
+
+```sh
+./scripts/launch/run_backend_only.sh
+uv run python scripts/mock_dms_checkin.py draft.txt \
+  --base-url http://127.0.0.1:8000 \
+  --dms mockdms \
+  --matter-id mockdms:M123 \
+  --document-id D-100 \
+  --actor-id service-account@example.com \
+  --output dms-checkin-audit.json
+```
+
+The hook sends only the review payload to Junas. The DMS-side output contains
+status, allow/hold/block result, and audit fields; it does not store the raw
+document body, matched text, auth headers, reversible mappings, or raw reviewer
+rationale.
+
+Decision mapping:
+
+| Backend result | MockDMS result | Check-in |
+|---|---|---|
+| `allow` | `allowed` | allowed |
+| `warn` | `warned` | allowed when `send_allowed=true` |
+| `approval_required` | `held_for_approval` | held |
+| `rewrite_required` | `held_for_rewrite` | held |
+| `block` | `blocked` | blocked |
+| degraded review | `held_degraded` | held |
+| backend timeout | `backend_timeout` | held |
+| auth failure | `auth_failed` | held |
+| validation failure | `validation_failed` | held |
+
+Idempotency: the hook uses the caller-provided `Idempotency-Key` equivalent when
+available, otherwise it derives a stable key from DMS id, matter id, document id,
+version id, jurisdictions, document type, and a SHA-256 hash of document text.
+Retries with unchanged content and metadata return the prior result and do not
+duplicate DMS audit records or approval/hold side effects.
 
 ## Failure Behavior
 
