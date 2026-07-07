@@ -19,8 +19,10 @@ Lead with Junas as a security and compliance privacy-tools suite: one determinis
 | Audience | Surface | Positioning |
 |---|---|---|
 | Developers and platform teams | FastAPI, OpenAPI, Python client, and `junas` CLI | Integrate pre-send review, rewrite, redaction, approval, and audit evidence into internal workflows without a UI adapter. |
-| Security, compliance, and operators | Outlook Smart Alerts, Browser GenAI extension, Word taskpane, DMS/API hooks, SIEM-safe telemetry, audit export | Activate the same backend decision contract inside email, GenAI, document, and repository workflows while keeping raw content out of telemetry. |
+| Security, compliance, and operators | Outlook Smart Alerts, Browser GenAI extension, DMS/API hooks, SIEM-safe telemetry, audit export; Word taskpane as experimental author-side review | Activate the same backend decision contract inside controlled email, GenAI, document-repository, and API workflows while keeping raw content out of telemetry. Word does not enforce save, export, print, share, email send, DMS upload, or repository check-in. |
 | General public and evaluators | Hosted/local deterministic demo and visual redaction demo artifacts | Show the product concept with synthetic inputs only; screen/video redaction remains demo-only and must not be sold as endpoint enforcement. |
+
+For enforced workflow completion, route through Outlook Smart Alerts, DMS hooks, direct API, or another controlled workflow unless Word enforcement is actually implemented and promoted.
 
 ## Non-goals
 

@@ -225,14 +225,14 @@ Junas is not a general DLP suite, legal-advice product, or model-training platfo
 
 Junas is a security and compliance privacy-tools suite with one deterministic review and policy backend behind multiple activation surfaces. The FastAPI backend is the trust boundary for Junas deployments. It owns review input validation, tenant/auth checks, deterministic findings, policy decisions, rewrite actions, audit events, and privacy-safe observability. Adapters are not required to integrate Junas: direct HTTP/OpenAPI clients remain the baseline path and can integrate with this boundary without installing a UI adapter.
 
-Adapters are workflow activation points. Outlook Smart Alerts, browser GenAI capture, Word taskpanes, desktop watching, DMS hooks, and future surfaces should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it.
+Adapters are workflow activation points. Supported targets such as Outlook Smart Alerts, browser GenAI capture, DMS hooks, and direct API clients should collect workflow context, call the backend contract, display the decision, and avoid storing raw content outside their runtime unless a documented policy allows it. Experimental surfaces such as the Word taskpane and desktop watcher are author-side or local fallback review until promoted.
 
 Audience-specific surfaces:
 
 | Audience | Current surfaces | Sell as |
 |---|---|---|
 | Developers and platform teams | FastAPI, OpenAPI, Python client, `junas` CLI | Deterministic review, rewrite, redaction, approval, and audit APIs for internal workflows. |
-| Security, compliance, and operators | Outlook Smart Alerts, Browser GenAI extension, Word taskpane, DMS/API hooks, SIEM-safe telemetry, audit export | Policy-controlled pre-send and pre-share review where users work. |
+| Security, compliance, and operators | Outlook Smart Alerts, Browser GenAI extension, DMS/API hooks, SIEM-safe telemetry, audit export; Word taskpane as experimental author-side review | Policy-controlled pre-send and pre-share review where controlled workflows can enforce completion. Word does not enforce save, export, print, share, email send, DMS upload, or repository check-in. |
 | General public and evaluators | Hosted/local deterministic demo, synthetic visual redaction demo artifacts | A concrete demo of the privacy-review concept; screen/video redaction is demo-only, not endpoint enforcement. |
 
 ## Design Principles
@@ -268,6 +268,8 @@ flowchart LR
 | Browser GenAI extension | `supported-target` | First-class prompt review target for managed browser pilots. | [`test/test_adapter_smoke.py`](./test/test_adapter_smoke.py), [`test/test_browser_extension.py`](./test/test_browser_extension.py). |
 | Word taskpane | `experimental` | Document review surface, not send-time enforcement. | Fixture smoke in [`test/test_adapter_smoke.py`](./test/test_adapter_smoke.py). |
 | Desktop watcher | `experimental-local-fallback` | Opt-in local fallback for demos, offline review, and power users. | Local watcher tests in [`test/test_desktop_watch.py`](./test/test_desktop_watch.py). |
+
+Final enforced completion should run through Outlook Smart Alerts, DMS hooks, direct API, or another controlled workflow unless a Word enforcement path is implemented and promoted.
 
 Browser GenAI screenshots: [`warn confirm`](./docs/assets/browser-extension/browser-extension-warn-confirm.png) and [`policy block`](./docs/assets/browser-extension/browser-extension-policy-block.png). They use a synthetic `chatgpt.com` fixture with the real MV3 extension and local backend; see [`docs/integrations/genai-browser.md`](./docs/integrations/genai-browser.md) for the DOM-stability caveat.
 

@@ -28,6 +28,16 @@ Current behavior:
 - Reviews selected or provided document text through the configured backend/local daemon.
 - Does not enforce send-time, upload-time, or repository check-in behavior.
 
+## Support Posture
+
+Parking path: keep the Word taskpane `experimental` until a Word-specific
+enforcement path is implemented, packaged, privacy-tested, and manually QA'd in
+real Word clients. Current support is author-side review only.
+
+Final enforced completion must happen through Outlook Smart Alerts, DMS hooks,
+direct API, or another controlled workflow unless Word enforcement is actually
+implemented and promoted.
+
 ## Document Review Flow
 
 1. User opens the Junas taskpane from the Word Home tab.

@@ -2105,7 +2105,12 @@ class DeploymentDocsTests(unittest.TestCase):
 
     def test_word_doc_marks_taskpane_as_review_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "word.md").read_text(encoding="utf-8")
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        integrations = (ROOT / "integrations" / "README.md").read_text(encoding="utf-8")
+        positioning = (ROOT / "docs" / "product" / "positioning.md").read_text(encoding="utf-8")
         for token in (
+            "Parking path",
+            "author-side review only",
             "Document Review Flow",
             "review selection",
             "review body",
@@ -2118,6 +2123,13 @@ class DeploymentDocsTests(unittest.TestCase):
             "Failure Behavior",
         ):
             self.assertIn(token, text)
+        for doc in (readme, integrations, positioning):
+            self.assertIn("Word taskpane", doc)
+            self.assertIn("experimental", doc)
+            self.assertIn("Outlook Smart Alerts, DMS hooks, direct API, or another controlled workflow", doc)
+        for doc in (readme, positioning):
+            self.assertIn("Word does not enforce save, export, print, share, email send, DMS upload", doc)
+        self.assertIn("Parking path", integrations)
 
     def test_desktop_watcher_doc_marks_opt_in_local_fallback_not_enforcement(self):
         text = (ROOT / "docs" / "integrations" / "desktop-watcher.md").read_text(encoding="utf-8")
