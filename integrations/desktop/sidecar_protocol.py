@@ -2,7 +2,11 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from typing import Any
+from pathlib import Path
+from typing import Any, Callable
+
+from junas.anonymize import DeterministicAnonymizer
+from junas.review.engine import PreSendReviewEngine
 
 PROTOCOL_VERSION = "2026-07-04"
 STATE_STOPPED = "stopped"
@@ -51,9 +55,18 @@ class SidecarSession:
     transform: dict[str, Any] | None = None
     output: dict[str, Any] | None = None
     frames_processed: int = 0
+    files_processed: int = 0
+    findings_count: int = 0
+    runs_started: int = 0
+    runs_succeeded: int = 0
+    runs_failed: int = 0
     last_error: str = ""
+    last_status: str = ""
+    last_output: dict[str, Any] = field(default_factory=dict)
     should_exit: bool = False
     capabilities: tuple[str, ...] = field(default_factory=lambda: SUPPORTED_METHODS)
+    review_engine_factory: Callable[[], Any] = PreSendReviewEngine
+    anonymizer_factory: Callable[[], Any] = DeterministicAnonymizer
 
     def handle(self, raw: str) -> list[dict[str, Any]]:
         try:
@@ -82,6 +95,13 @@ class SidecarSession:
             "transform": self.transform or {},
             "output": self.output or {},
             "frames_processed": self.frames_processed,
+            "files_processed": self.files_processed,
+            "findings_count": self.findings_count,
+            "runs_started": self.runs_started,
+            "runs_succeeded": self.runs_succeeded,
+            "runs_failed": self.runs_failed,
+            "last_status": self.last_status,
+            "last_output": self.last_output,
             "last_error": self.last_error,
         }
 
@@ -114,6 +134,10 @@ class SidecarSession:
             if not self.output:
                 raise SidecarProtocolError(ERROR_STATE, "output must be selected before capture.start")
             self.state = STATE_RUNNING
+            self.runs_started += 1
+            if self.source.get("kind") in {"file", "clipboard"}:
+                return self._run_one_shot()
+            self.last_status = "running"
             return self.snapshot()
         if request.method == "capture.pause":
             if self.state != STATE_RUNNING:
@@ -122,14 +146,58 @@ class SidecarSession:
             return self.snapshot()
         if request.method == "capture.stop":
             self.state = STATE_STOPPED
+            if self.last_status == "running":
+                self.last_status = "stopped"
             return self.snapshot()
         if request.method == "stats.snapshot":
             return self.snapshot()
         if request.method == "shutdown":
             self.state = STATE_STOPPED
+            if self.last_status == "running":
+                self.last_status = "shutdown"
             self.should_exit = True
             return {"state": self.state, "should_exit": self.should_exit}
         raise SidecarProtocolError(ERROR_METHOD_NOT_FOUND, f"unsupported method: {request.method}")
+
+    def _run_one_shot(self) -> dict[str, Any]:
+        try:
+            if self.source is None or self.transform is None or self.output is None:
+                raise SidecarProtocolError(ERROR_STATE, "source, transform, and output are required")
+            source_kind = str(self.source.get("kind") or "")
+            if source_kind == "file":
+                text = _read_file_source(self.source)
+            elif source_kind == "clipboard":
+                text = _clipboard_text_source(self.source)
+            else:
+                raise SidecarProtocolError(ERROR_INVALID_PARAMS, "one-shot execution requires file or clipboard source")
+            output = _execute_text_transform(
+                text,
+                source=self.source,
+                transform=self.transform,
+                output=self.output,
+                review_engine_factory=self.review_engine_factory,
+                anonymizer_factory=self.anonymizer_factory,
+            )
+            self.frames_processed += 1
+            if source_kind == "file":
+                self.files_processed += 1
+            self.findings_count += int(output.get("finding_count", 0) or 0)
+            self.runs_succeeded += 1
+            self.last_error = ""
+            self.last_status = "completed"
+            self.last_output = output
+            self.state = STATE_STOPPED
+            return self.snapshot()
+        except SidecarProtocolError:
+            self.runs_failed += 1
+            self.last_status = "failed"
+            self.state = STATE_STOPPED
+            raise
+        except Exception as exc:
+            self.runs_failed += 1
+            self.last_status = "failed"
+            self.state = STATE_STOPPED
+            raise SidecarProtocolError(ERROR_STATE, _safe_execution_error(exc)) from exc
 
     def _require_stopped_or_paused(self, action: str) -> None:
         if self.state == STATE_RUNNING:
@@ -184,6 +252,86 @@ def _validated_selection(params: dict[str, Any], *, kind_key: str, allowed: froz
     if "id" in selection and not isinstance(selection["id"], str):
         raise SidecarProtocolError(ERROR_INVALID_PARAMS, "id must be a string when present")
     return selection
+
+
+def _read_file_source(source: dict[str, Any]) -> str:
+    raw_path = source.get("path")
+    if not isinstance(raw_path, str) or not raw_path.strip():
+        raise SidecarProtocolError(ERROR_INVALID_PARAMS, "file source path is required")
+    try:
+        text = Path(raw_path).expanduser().read_text(encoding="utf-8")
+    except OSError as exc:
+        raise SidecarProtocolError(ERROR_STATE, "file source could not be read") from exc
+    if not text.strip():
+        raise SidecarProtocolError(ERROR_INVALID_PARAMS, "file source is empty")
+    return text
+
+
+def _clipboard_text_source(source: dict[str, Any]) -> str:
+    text = source.get("text")
+    if not isinstance(text, str) or not text.strip():
+        raise SidecarProtocolError(ERROR_INVALID_PARAMS, "clipboard text is required")
+    return text
+
+
+def _execute_text_transform(
+    text: str,
+    *,
+    source: dict[str, Any],
+    transform: dict[str, Any],
+    output: dict[str, Any],
+    review_engine_factory: Callable[[], Any],
+    anonymizer_factory: Callable[[], Any],
+) -> dict[str, Any]:
+    output_kind = str(output.get("kind") or "")
+    if output_kind not in {"preview", "none"}:
+        raise SidecarProtocolError(ERROR_INVALID_PARAMS, "one-shot execution supports preview or none output")
+    transform_kind = str(transform.get("kind") or "")
+    engine = review_engine_factory()
+    review = engine.review(
+        text=text,
+        source_jurisdiction=str(transform.get("source_jurisdiction") or source.get("source_jurisdiction") or "SG"),
+        destination_jurisdiction=str(
+            transform.get("destination_jurisdiction") or source.get("destination_jurisdiction") or "SG"
+        ),
+        entity_id=None,
+        include_suggestions=False,
+        document_type=str(source.get("document_type") or "sidecar_text"),
+        review_profile="strict",
+    )
+    finding_count = len(getattr(review, "findings", []) or [])
+    result: dict[str, Any] = {
+        "kind": output_kind,
+        "source_kind": str(source.get("kind") or ""),
+        "transform_kind": transform_kind,
+        "status": "completed",
+        "finding_count": finding_count,
+        "degraded_count": len(getattr(review, "degraded_modes", []) or []),
+        "overall_risk": str(getattr(getattr(review, "overall_risk", ""), "value", getattr(review, "overall_risk", ""))),
+    }
+    if transform_kind == "review_only":
+        result["preview"] = {
+            "finding_count": finding_count,
+            "degraded_count": result["degraded_count"],
+            "overall_risk": result["overall_risk"],
+        }
+        return result
+    if transform_kind == "anonymize":
+        anonymized = anonymizer_factory().anonymize(text=text, findings=list(getattr(review, "findings", []) or []))
+        result["preview"] = {
+            "text": anonymized.anonymized_text,
+            "mapping_count": len(anonymized.mapping),
+            "replacement_count": len(anonymized.replacements),
+            "finding_count": finding_count,
+        }
+        return result
+    raise SidecarProtocolError(ERROR_INVALID_PARAMS, "one-shot execution supports review_only or anonymize transform")
+
+
+def _safe_execution_error(exc: Exception) -> str:
+    if isinstance(exc, SidecarProtocolError):
+        return exc.message
+    return "execution failed"
 
 
 def _request_id_from_raw(raw: str) -> str | int | None:

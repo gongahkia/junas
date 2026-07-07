@@ -55,6 +55,27 @@ Start flow:
 
 Pause and stop call `capture.pause` and `capture.stop`. `stats.update` notifications refresh the status line.
 
+## V1 Execution Boundary
+
+The current sidecar executes real one-shot text workflows:
+
+- `file` source: reads a UTF-8 text file selected by path.
+- `clipboard` source: reviews caller-provided clipboard text in the JSON-RPC
+  request.
+- `review_only` transform: runs the local deterministic Junas review engine.
+- `anonymize` transform: runs deterministic review plus placeholder
+  anonymization.
+- `preview` output: returns a structured preview in the sidecar snapshot.
+
+The sidecar updates `frames_processed`, `files_processed`, `findings_count`,
+`runs_started`, `runs_succeeded`, `runs_failed`, `last_status`, and
+`last_output` from real work. File and clipboard one-shot runs stop
+automatically after completion. `shutdown` stops an active capture before exit.
+
+Display/window capture, `redaction_box`, MP4 output, and OBS output remain UI and
+protocol selections until the local capture/redaction/video path is implemented.
+The shell must not market those selections as functional capture/output yet.
+
 ## TUI Boundary
 
 The TUI path is preserved as:

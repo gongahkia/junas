@@ -45,6 +45,32 @@ State-changing calls also emit:
 {"jsonrpc":"2.0","method":"stats.update","params":{"state":"running","frames_processed":0}}
 ```
 
+## V1 Execution Boundary
+
+The sidecar now executes one-shot text workflows for `file` and `clipboard`
+sources:
+
+- source path: `source.select` with `{"kind":"file","path":"draft.txt"}` reads
+  UTF-8 text, or `{"kind":"clipboard","text":"..."}` uses caller-provided
+  clipboard text.
+- transform path: `review_only` runs the local Junas deterministic review engine;
+  `anonymize` runs deterministic review and placeholder anonymization.
+- output path: `preview` returns a structured preview in `last_output`; `none`
+  runs the transform and updates stats without preview text.
+
+Display/window capture, `redaction_box`, `mp4`, and `obs` remain selected protocol
+states for the Swift shell, but they are not real capture/output execution paths
+in this v1 sidecar. File/clipboard one-shot execution ends with `state="stopped"`
+and `last_status="completed"` or `last_status="failed"`.
+
+Stats snapshots include real work counters:
+
+- `frames_processed`: one-shot work units completed.
+- `files_processed`: file sources completed.
+- `findings_count`: cumulative findings seen by completed review/anonymize runs.
+- `runs_started`, `runs_succeeded`, and `runs_failed`.
+- `last_output`: sanitized transform/output summary.
+
 ## Process Lifecycle
 
 1. Shell launches the sidecar with pipes for stdin/stdout/stderr.
@@ -55,7 +81,7 @@ State-changing calls also emit:
 6. Shell sends `capture.pause`, `capture.stop`, or `shutdown`.
 7. If stdin closes or the process exits, the shell marks capture stopped and shows the last stderr line or JSON-RPC error.
 
-`source.select`, `transform.select`, and `output.select` are accepted only while stopped or paused. `capture.start` requires all three selections. `capture.pause` requires running state. `capture.stop` is idempotent.
+`source.select`, `transform.select`, and `output.select` are accepted only while stopped or paused. `capture.start` requires all three selections. `capture.pause` requires running state. `capture.stop` is idempotent. `shutdown` stops a running capture before returning `should_exit=true`.
 
 ## Error Handling
 
@@ -69,6 +95,6 @@ The sidecar uses JSON-RPC errors:
 | `-32602` | Invalid params. |
 | `-32000` | Invalid lifecycle state. |
 
-Errors never include raw screen text, matched text, local tokens, endpoint URLs, or file contents.
+Errors never include raw screen text, matched text, local tokens, endpoint URLs, or file contents. Execution failures return generic messages such as `execution failed` or field-level validation errors without echoing source text or paths.
 
 Implementation: `integrations/desktop/sidecar_protocol.py`.

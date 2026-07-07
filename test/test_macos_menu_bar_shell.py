@@ -69,6 +69,16 @@ class MacosMenuBarShellTests(unittest.TestCase):
             "start, pause, and stop",
             "junas --tui",
             "JUNAS_SIDECAR_COMMAND",
+            "V1 Execution Boundary",
+            "file",
+            "clipboard",
+            "review_only",
+            "anonymize",
+            "preview",
+            "frames_processed",
+            "files_processed",
+            "last_output",
+            "Display/window capture",
             "dist/JunasMenuBar.app",
         ):
             self.assertIn(token, doc)

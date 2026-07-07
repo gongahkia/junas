@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import io
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -38,6 +39,74 @@ class SidecarProtocolTests(unittest.TestCase):
         self.assertEqual(started[1]["params"]["state"], "running")
         self.assertEqual(paused[0]["result"]["state"], "paused")
         self.assertEqual(stopped[0]["result"]["state"], "stopped")
+
+    def test_sidecar_executes_file_review_preview(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source_path = Path(tmp) / "draft.txt"
+            source_path.write_text("Send Dr Jane Tan S1234567D the draft.", encoding="utf-8")
+            session = SidecarSession()
+
+            session.handle(_request(1, "source.select", {"kind": "file", "path": str(source_path)}))
+            session.handle(_request(2, "transform.select", {"kind": "review_only"}))
+            session.handle(_request(3, "output.select", {"kind": "preview"}))
+            started = session.handle(_request(4, "capture.start"))
+
+        snapshot = started[0]["result"]
+        self.assertEqual(snapshot["state"], "stopped")
+        self.assertEqual(snapshot["last_status"], "completed")
+        self.assertEqual(snapshot["frames_processed"], 1)
+        self.assertEqual(snapshot["files_processed"], 1)
+        self.assertGreaterEqual(snapshot["last_output"]["finding_count"], 1)
+        self.assertNotIn("Dr Jane Tan", json.dumps(snapshot))
+
+    def test_sidecar_executes_file_anonymize_preview(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source_path = Path(tmp) / "draft.txt"
+            source_path.write_text("Send Dr Jane Tan S1234567D the draft.", encoding="utf-8")
+            session = SidecarSession()
+
+            session.handle(_request(1, "source.select", {"kind": "file", "path": str(source_path)}))
+            session.handle(_request(2, "transform.select", {"kind": "anonymize"}))
+            session.handle(_request(3, "output.select", {"kind": "preview"}))
+            started = session.handle(_request(4, "capture.start"))
+
+        preview = started[0]["result"]["last_output"]["preview"]
+        self.assertIn("[PERSON_1]", preview["text"])
+        self.assertIn("[NRIC_FIN_1]", preview["text"])
+        self.assertNotIn("S1234567D", preview["text"])
+
+    def test_sidecar_backend_failure_error_is_sanitized(self):
+        class FailingEngine:
+            def review(self, **kwargs):
+                raise RuntimeError("backend saw token secret and /review URL with S1234567D")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            source_path = Path(tmp) / "draft.txt"
+            source_path.write_text("Send Dr Jane Tan S1234567D the draft.", encoding="utf-8")
+            session = SidecarSession(review_engine_factory=FailingEngine)
+            session.handle(_request(1, "source.select", {"kind": "file", "path": str(source_path)}))
+            session.handle(_request(2, "transform.select", {"kind": "review_only"}))
+            session.handle(_request(3, "output.select", {"kind": "preview"}))
+            failed = session.handle(_request(4, "capture.start"))
+
+        serialized = json.dumps(failed)
+        self.assertIn("execution failed", serialized)
+        self.assertNotIn("S1234567D", serialized)
+        self.assertNotIn("/review", serialized)
+        self.assertNotIn("secret", serialized.lower())
+
+    def test_sidecar_shutdown_while_running_stops_without_raw_state(self):
+        session = SidecarSession()
+        session.handle(_request(1, "source.select", {"kind": "display", "id": "main"}))
+        session.handle(_request(2, "transform.select", {"kind": "redaction_box"}))
+        session.handle(_request(3, "output.select", {"kind": "preview"}))
+        session.handle(_request(4, "capture.start"))
+
+        stopped = session.handle(_request(5, "shutdown"))
+
+        self.assertEqual(stopped[0]["result"]["state"], "stopped")
+        self.assertTrue(stopped[0]["result"]["should_exit"])
+        self.assertEqual(session.last_status, "shutdown")
 
     def test_sidecar_session_reports_json_rpc_errors(self):
         session = SidecarSession()
@@ -88,6 +157,16 @@ class SidecarProtocolTests(unittest.TestCase):
             "capture.pause",
             "capture.stop",
             "stats.update",
+            "V1 Execution Boundary",
+            "file",
+            "clipboard",
+            "review_only",
+            "anonymize",
+            "preview",
+            "frames_processed",
+            "files_processed",
+            "runs_succeeded",
+            "execution failed",
             "Process",
             "Error Handling",
         ):
