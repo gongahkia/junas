@@ -940,6 +940,8 @@ def _scan_eml(
         if part.is_multipart():
             continue
         payload = part.get_payload(decode=True) or b""
+        if not isinstance(payload, bytes):
+            raise ValueError("email part payload must be bytes")
         disposition = str(part.get_content_disposition() or "")
         if content_type == "text/plain":
             result.text_blocks.append(part.get_content())

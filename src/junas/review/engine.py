@@ -2806,7 +2806,7 @@ def _detect_quasi_identifier_combinations(
     if len(quasi) < _QUASI_IDENTIFIER_MIN_DISTINCT:
         return []
 
-    out: list["ReviewFinding"] = []
+    out = []
     idx = idx_start
     left = 0
     while left < len(quasi):
@@ -3292,9 +3292,10 @@ def _scale_financial_by_entity_size(
                 continue
             fraction = value / base
         else:  # financial_percentage — direct fraction; entity base used for context only
-            fraction = _parse_financial_percentage(f.matched_text)
-            if fraction is None:
+            percentage = _parse_financial_percentage(f.matched_text)
+            if percentage is None:
                 continue
+            fraction = percentage
         f.metadata = {
             **f.metadata,
             "materiality_base": base,

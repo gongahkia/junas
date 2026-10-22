@@ -453,6 +453,8 @@ def parse_eml_structure(data: bytes) -> DocumentStructure:
         content_type = part.get_content_type()
         filename = part.get_filename()
         payload = part.get_payload(decode=True) or b""
+        if not isinstance(payload, bytes):
+            raise ValueError("email part payload must be bytes")
         if content_type == "text/plain":
             text = part.get_content()
             blocks.append(("email_body", text, None))

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import Any
+from typing import Any, Literal
 
 import httpx
 
@@ -146,7 +146,7 @@ def _coerce_review_request(
     review_profile: str,
     entity_id: str | None,
     include_suggestions: bool,
-    degraded_policy: str,
+    degraded_policy: Literal["allow", "warn", "block_send"],
 ) -> ReviewRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -184,7 +184,7 @@ def _coerce_anonymize_request(
     entity_id: str | None,
     include_suggestions: bool,
     include_mnpi_scalars: bool,
-    degraded_policy: str,
+    degraded_policy: Literal["allow", "warn", "block_send"],
 ) -> AnonymizeRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -224,7 +224,7 @@ def _coerce_pseudonymize_request(
     include_suggestions: bool,
     include_mnpi_scalars: bool,
     persist_mapping: bool,
-    degraded_policy: str,
+    degraded_policy: Literal["allow", "warn", "block_send"],
 ) -> PseudonymizeRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -264,7 +264,7 @@ def _coerce_redact_request(
     entity_id: str | None,
     include_suggestions: bool,
     include_mnpi_scalars: bool,
-    degraded_policy: str,
+    degraded_policy: Literal["allow", "warn", "block_send"],
 ) -> RedactRequest:
     if request is not None:
         if text is not None or document_base64 is not None:
@@ -302,7 +302,7 @@ def _coerce_safe_rewrite_request(
     review_profile: str,
     entity_id: str | None,
     include_suggestions: bool,
-    degraded_policy: str,
+    degraded_policy: Literal["allow", "warn", "block_send"],
     allowed_actions: Sequence[str] | None,
     allowed_finding_ids: Sequence[str] | None,
 ) -> SafeRewriteRequest:
@@ -339,7 +339,7 @@ def _coerce_request_approval_request(
     request: RequestApprovalRequest | Mapping[str, Any] | None,
     review_id: str | None,
     finding_ids: Sequence[str] | None,
-    reason_code: str,
+    reason_code: Literal["policy_block", "approval_required", "rewrite_required", "user_requested", "other"],
 ) -> RequestApprovalRequest:
     if request is not None:
         if review_id is not None or finding_ids is not None:
@@ -540,7 +540,7 @@ class JunasClient:
         review_profile: str = "strict",
         entity_id: str | None = None,
         include_suggestions: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: ReviewRequest | Mapping[str, Any] | None = None,
     ) -> ReviewResponse:
         payload = _coerce_review_request(
@@ -579,7 +579,7 @@ class JunasClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: AnonymizeRequest | Mapping[str, Any] | None = None,
     ) -> AnonymizeResponse:
         payload = _coerce_anonymize_request(
@@ -620,7 +620,7 @@ class JunasClient:
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
         persist_mapping: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: PseudonymizeRequest | Mapping[str, Any] | None = None,
     ) -> PseudonymizeResponse:
         payload = _coerce_pseudonymize_request(
@@ -661,7 +661,7 @@ class JunasClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: RedactRequest | Mapping[str, Any] | None = None,
     ) -> RedactResponse:
         payload = _coerce_redact_request(
@@ -700,7 +700,7 @@ class JunasClient:
         review_profile: str = "strict",
         entity_id: str | None = None,
         include_suggestions: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         allowed_actions: Sequence[str] | None = None,
         allowed_finding_ids: Sequence[str] | None = None,
         request: SafeRewriteRequest | Mapping[str, Any] | None = None,
@@ -734,7 +734,9 @@ class JunasClient:
         review_id: str | None = None,
         *,
         finding_ids: Sequence[str] | None = None,
-        reason_code: str = "policy_block",
+        reason_code: Literal[
+            "policy_block", "approval_required", "rewrite_required", "user_requested", "other"
+        ] = "policy_block",
         request: RequestApprovalRequest | Mapping[str, Any] | None = None,
     ) -> RequestApprovalResponse:
         payload = _coerce_request_approval_request(
@@ -805,7 +807,7 @@ class AsyncJunasClient:
         *,
         api_key: str | None = None,
         timeout: float | httpx.Timeout = DEFAULT_TIMEOUT_SECONDS,
-        transport: httpx.AsyncBaseTransport | httpx.BaseTransport | None = None,
+        transport: httpx.AsyncBaseTransport | None = None,
     ) -> None:
         self.base_url = _normalize_base_url(base_url)
         self.api_key = api_key
@@ -914,7 +916,7 @@ class AsyncJunasClient:
         review_profile: str = "strict",
         entity_id: str | None = None,
         include_suggestions: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: ReviewRequest | Mapping[str, Any] | None = None,
     ) -> ReviewResponse:
         payload = _coerce_review_request(
@@ -953,7 +955,7 @@ class AsyncJunasClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: AnonymizeRequest | Mapping[str, Any] | None = None,
     ) -> AnonymizeResponse:
         payload = _coerce_anonymize_request(
@@ -994,7 +996,7 @@ class AsyncJunasClient:
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
         persist_mapping: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: PseudonymizeRequest | Mapping[str, Any] | None = None,
     ) -> PseudonymizeResponse:
         payload = _coerce_pseudonymize_request(
@@ -1035,7 +1037,7 @@ class AsyncJunasClient:
         entity_id: str | None = None,
         include_suggestions: bool = True,
         include_mnpi_scalars: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         request: RedactRequest | Mapping[str, Any] | None = None,
     ) -> RedactResponse:
         payload = _coerce_redact_request(
@@ -1074,7 +1076,7 @@ class AsyncJunasClient:
         review_profile: str = "strict",
         entity_id: str | None = None,
         include_suggestions: bool = True,
-        degraded_policy: str = "warn",
+        degraded_policy: Literal["allow", "warn", "block_send"] = "warn",
         allowed_actions: Sequence[str] | None = None,
         allowed_finding_ids: Sequence[str] | None = None,
         request: SafeRewriteRequest | Mapping[str, Any] | None = None,
@@ -1108,7 +1110,9 @@ class AsyncJunasClient:
         review_id: str | None = None,
         *,
         finding_ids: Sequence[str] | None = None,
-        reason_code: str = "policy_block",
+        reason_code: Literal[
+            "policy_block", "approval_required", "rewrite_required", "user_requested", "other"
+        ] = "policy_block",
         request: RequestApprovalRequest | Mapping[str, Any] | None = None,
     ) -> RequestApprovalResponse:
         payload = _coerce_request_approval_request(
@@ -1204,7 +1208,7 @@ async def async_classify_text(
     debug: bool = False,
     include_offending_spans: bool = False,
     timeout: float | httpx.Timeout = DEFAULT_TIMEOUT_SECONDS,
-    transport: httpx.AsyncBaseTransport | httpx.BaseTransport | None = None,
+    transport: httpx.AsyncBaseTransport | None = None,
 ) -> ClassifyResponse:
     async with AsyncJunasClient(
         base_url,

@@ -384,7 +384,8 @@ def _adapter_telemetry_details(details: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def build_adapter_telemetry_siem_event(event: Mapping[str, Any]) -> dict[str, Any]:
-    details = event.get("details") if isinstance(event.get("details"), Mapping) else {}
+    raw_details = event.get("details")
+    details = raw_details if isinstance(raw_details, Mapping) else {}
     safe_details = _adapter_telemetry_details(details)
     schema_version = str(event.get("schema_version", "") or "")
     event_name = str(event.get("event_name", "") or "adapter_telemetry")

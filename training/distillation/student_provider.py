@@ -28,7 +28,7 @@ from training.distillation.prompts import (
     build_user_content_structured_tokens,
 )
 
-_ADJUDICATION_DEFAULT = {
+_ADJUDICATION_DEFAULT: dict[str, Any] = {
     "status": "disabled",
     "provider": "local_distilled",
     "model": "",
@@ -82,8 +82,8 @@ class LocalDistilledAdjudicator:
         self.input_mode = input_mode
         self.max_new_tokens = max_new_tokens
         self.device = device  # None means auto-detect inside _load_model
-        self._model = None
-        self._tokenizer = None
+        self._model: Any = None
+        self._tokenizer: Any = None
 
     # --- lazy model loading ---------------------------------------------------
 

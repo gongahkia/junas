@@ -206,7 +206,7 @@ def record_decision(*, review_id: str, decision: Decision, tenant_id: str | None
     if not any(f.get("id") == decision.finding_id for f in findings):
         raise ReviewSessionError(f"unknown finding_id: {decision.finding_id}")
 
-    payload = {
+    payload: dict[str, Any] = {
         "finding_id": decision.finding_id,
         "action": decision.action,
         "replacement_text": decision.replacement_text,
