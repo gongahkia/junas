@@ -922,8 +922,7 @@ RACIAL_ETHNIC_ORIGIN_RE = re.compile(
     r"|"
     r"(?:民族|种族|族裔|族群)\s*[:：]\s*(?:" + _RACIAL_ETHNIC_TERMS + r")"
     r"|"
-    r"(?:العرق|الأصل\s+العرقي|الأصل\s+الإثني|الإثنية)\s*[:：]\s*(?:"
-    + _RACIAL_ETHNIC_TERMS + r")"
+    r"(?:العرق|الأصل\s+العرقي|الأصل\s+الإثني|الإثنية)\s*[:：]\s*(?:" + _RACIAL_ETHNIC_TERMS + r")"
     r")",
     re.IGNORECASE,
 )
@@ -1143,11 +1142,36 @@ VALID_REVIEW_PROFILES = frozenset({"strict", "audit_grade"})
 # tokens that NAME_RE may accidentally bind as the trailing word of a multi-token name
 # (e.g. "Mr Lee Ltd" → trailing "Ltd"). suppressed in the surname-only fuzzy pass so we don't
 # fire on every corporate-suffix occurrence in the document.
-_SURNAME_DENYLIST = frozenset({
-    "ltd", "limited", "inc", "incorporated", "llc", "llp", "plc", "corp", "corporation",
-    "co", "company", "gmbh", "ag", "sa", "nv", "bv", "pte", "pvt", "sdn", "bhd",
-    "holdings", "industries", "ventures", "capital", "partners", "group",
-})
+_SURNAME_DENYLIST = frozenset(
+    {
+        "ltd",
+        "limited",
+        "inc",
+        "incorporated",
+        "llc",
+        "llp",
+        "plc",
+        "corp",
+        "corporation",
+        "co",
+        "company",
+        "gmbh",
+        "ag",
+        "sa",
+        "nv",
+        "bv",
+        "pte",
+        "pvt",
+        "sdn",
+        "bhd",
+        "holdings",
+        "industries",
+        "ventures",
+        "capital",
+        "partners",
+        "group",
+    }
+)
 
 # per-document-type MNPI severity overrides. mirrors NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES.
 # the deterministic engine defaults below ship the strict/high posture; overrides soften severity
@@ -1186,12 +1210,14 @@ SOURCE_VERIFICATION_NOT_CHECKED = "not_checked"
 SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED = "public_source_matched"
 SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND = "no_public_source_found"
 SOURCE_VERIFICATION_AMBIGUOUS = "ambiguous"
-VALID_SOURCE_VERIFICATION = frozenset({
-    SOURCE_VERIFICATION_NOT_CHECKED,
-    SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED,
-    SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
-    SOURCE_VERIFICATION_AMBIGUOUS,
-})
+VALID_SOURCE_VERIFICATION = frozenset(
+    {
+        SOURCE_VERIFICATION_NOT_CHECKED,
+        SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED,
+        SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
+        SOURCE_VERIFICATION_AMBIGUOUS,
+    }
+)
 
 # in-document URL detector. used to honour item 36's "the document itself contains a
 # citable public source reference" carve-out: a material_event sentence that contains
@@ -1373,15 +1399,50 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r")\b",
     re.IGNORECASE,
 )
-_ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
-    "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
-    "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
-    "irmailbox", "listings", "media", "mna", "press", "privacy", "privacydesk",
-    "role", "room", "secretariat", "service", "servicedesk", "support", "treasury", "walloffice",
-})
-_CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
-    "contact", "cybersecurity", "info", "legal", "project", "service", "traders",
-})
+_ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset(
+    {
+        "admin",
+        "ap",
+        "ar",
+        "billing",
+        "capitalmarkets",
+        "corpsec",
+        "cosec",
+        "compliance",
+        "dealroom",
+        "disclosure",
+        "docroom",
+        "dpo",
+        "help",
+        "helpdesk",
+        "irmailbox",
+        "listings",
+        "media",
+        "mna",
+        "press",
+        "privacy",
+        "privacydesk",
+        "role",
+        "room",
+        "secretariat",
+        "service",
+        "servicedesk",
+        "support",
+        "treasury",
+        "walloffice",
+    }
+)
+_CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset(
+    {
+        "contact",
+        "cybersecurity",
+        "info",
+        "legal",
+        "project",
+        "service",
+        "traders",
+    }
+)
 _ROLE_MAILBOX_LOCAL_RE = re.compile(
     r"^(?:"
     r"(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us|in)?compliance|"
@@ -1497,18 +1558,16 @@ _PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE = re.compile(
 
 
 def _is_negated_context(text: str, match_start: int) -> bool:
-    window = text[max(0, match_start - 25):match_start]
+    window = text[max(0, match_start - 25) : match_start]
     if _NEGATION_LOOKBACK.search(window):
         return True
-    longer_window = text[max(0, match_start - 100):match_start]
+    longer_window = text[max(0, match_start - 100) : match_start]
     return bool(_ASSERTION_NEGATION_LOOKBACK.search(longer_window))
 
 
 def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     left = max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1
-    right_candidates = [
-        pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0
-    ]
+    right_candidates = [pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0]
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right].strip()
     local_part = text[start:end].split("@", 1)[0].casefold()
@@ -1535,23 +1594,18 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
             return True
     if local_part == "info" and re.search(r"\bpublic\s+channels?\b", context, re.IGNORECASE):
         return True
-    if (
-        local_part in _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS
-        or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part))
-    ):
+    if local_part in _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part)):
         return True
     if role_like and _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
         return True
-    next_clause = text[end:min(len(text), end + 120)]
+    next_clause = text[end : min(len(text), end + 120)]
     return (
-        role_like
-        and next_clause.lstrip().startswith(";")
-        and bool(_FUNCTIONAL_CONTACT_CONTEXT_RE.search(next_clause))
+        role_like and next_clause.lstrip().startswith(";") and bool(_FUNCTIONAL_CONTACT_CONTEXT_RE.search(next_clause))
     )
 
 
 def _is_obfuscated_email_fragment_context(text: str, start: int, end: int) -> bool:
-    before = text[max(0, start - 24):start]
+    before = text[max(0, start - 24) : start]
     return bool(re.search(r"[A-Z0-9._%+-]*\.[A-Z0-9._%+-]*[ \t]{2,}\Z", before, re.IGNORECASE))
 
 
@@ -1566,26 +1620,28 @@ def _trim_phone_span(text: str, start: int, end: int) -> tuple[int, int]:
 
 
 def _is_spaced_passport_numeric_context(text: str, start: int, end: int) -> bool:
-    before = text[max(0, start - 36):start]
-    return bool(re.search(
-        r"p\s*a\s*s\s*s\s*p\s*o\s*r\s*t(?:\s*[-:]?\s*[A-Z]){0,4}\s*\Z",
-        before,
-        re.IGNORECASE,
-    ))
+    before = text[max(0, start - 36) : start]
+    return bool(
+        re.search(
+            r"p\s*a\s*s\s*s\s*p\s*o\s*r\s*t(?:\s*[-:]?\s*[A-Z]){0,4}\s*\Z",
+            before,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_placeholder_passport_context(text: str, start: int, end: int) -> bool:
     left = max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1
-    right_candidates = [
-        pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0
-    ]
+    right_candidates = [pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0]
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right]
-    return bool(re.search(
-        r"\b(?:placeholder|format\s+example|example\s+only|invalid(?:\s+length)?|non[- ]operative)\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:placeholder|format\s+example|example\s+only|invalid(?:\s+length)?|non[- ]operative)\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool:
@@ -1614,17 +1670,14 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
         return True
     if _is_spaced_passport_numeric_context(text, start, end):
         return True
-    if re.search(r"\+[A-Z0-9]*[A-Z][A-Z0-9]*[-\s]*\Z", text[max(0, start - 12):start], re.IGNORECASE):
+    if re.search(r"\+[A-Z0-9]*[A-Z][A-Z0-9]*[-\s]*\Z", text[max(0, start - 12) : start], re.IGNORECASE):
         return True
     if len(digits) >= 14 and not matched.startswith("+"):
         return True
     if matched.startswith("+"):
         return False
-    context = text[max(0, start - 90): min(len(text), end + 90)]
-    return bool(
-        _NON_PHONE_NUMERIC_CONTEXT_RE.search(context)
-        or _URL_PARAM_IDENTIFIER_CONTEXT_RE.search(context)
-    )
+    context = text[max(0, start - 90) : min(len(text), end + 90)]
+    return bool(_NON_PHONE_NUMERIC_CONTEXT_RE.search(context) or _URL_PARAM_IDENTIFIER_CONTEXT_RE.search(context))
 
 
 def _is_closed_or_historical_privacy_request_context(text: str, start: int, end: int) -> bool:
@@ -1645,10 +1698,7 @@ def _is_closed_or_historical_privacy_request_context(text: str, start: int, end:
 
 def _is_ph_tin_non_tax_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    return (
-        bool(_PH_TIN_NON_TAX_CONTEXT_RE.search(context))
-        and not _PH_TIN_TAX_CONTEXT_RE.search(context)
-    )
+    return bool(_PH_TIN_NON_TAX_CONTEXT_RE.search(context)) and not _PH_TIN_TAX_CONTEXT_RE.search(context)
 
 
 def _is_negated_mac_address_context(text: str, start: int, end: int) -> bool:
@@ -1692,76 +1742,82 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         re.IGNORECASE,
     ):
         return True
-    return bool(re.search(
-        r"\b(?:"
-        r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
-        r"(?:mac|mae)\s+clause[^\n.;]{0,80}has\s+not\s+been\s+triggered|"
-        r"(?:mac|mae)\s+clause[^\n.;]{0,80}(?:was\s+not\s+invoked|not\s+invoked)|"
-        r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
-        r"do\s+not\s+(?:currently\s+)?assess[^\n.;]{0,120}material\s+adverse\s+change|"
-        r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change(?:\s+trigger)?|"
-        r"(?:mac|mae)[- ]?like\s+clause[^\n.;]{0,100}material\s+adverse\s+change(?:\s+trigger)?|"
-        r"mac\s+clause[^\n.;]{0,160}(?:is\s+negated|does\s+not\s+by\s+itself\s+signal)"
-        r"[^\n.;]{0,80}material\s+adverse\s+change|"
-        r"bukan\s+mac|not\s+a\s+mac"
-        r")\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:"
+            r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
+            r"(?:mac|mae)\s+clause[^\n.;]{0,80}has\s+not\s+been\s+triggered|"
+            r"(?:mac|mae)\s+clause[^\n.;]{0,80}(?:was\s+not\s+invoked|not\s+invoked)|"
+            r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
+            r"do\s+not\s+(?:currently\s+)?assess[^\n.;]{0,120}material\s+adverse\s+change|"
+            r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change(?:\s+trigger)?|"
+            r"(?:mac|mae)[- ]?like\s+clause[^\n.;]{0,100}material\s+adverse\s+change(?:\s+trigger)?|"
+            r"mac\s+clause[^\n.;]{0,160}(?:is\s+negated|does\s+not\s+by\s+itself\s+signal)"
+            r"[^\n.;]{0,80}material\s+adverse\s+change|"
+            r"bukan\s+mac|not\s+a\s+mac"
+            r")\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_negated_contingent_mnpi_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    return bool(re.search(
-        r"\bno\s+event\s+has\s+occurred[^\n.;]{0,120}"
-        r"(?:expected|reasonably\s+expected)\s+to\s+result\s+in\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\bno\s+event\s+has\s+occurred[^\n.;]{0,120}"
+            r"(?:expected|reasonably\s+expected)\s+to\s+result\s+in\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    return bool(re.search(
-        r"\b(?:not\s+(?:mnpi|upsi|inside\s+information|price[- ]sensitive\s+information)|"
-        r"not[^\n.;]{0,40}price[- ]sensitive\s+information|"
-        r"no\s+(?:new\s+)?(?:upsi|mnpi|inside\s+information|price[- ]sensitive\s+information|"
-        r"market[- ]sensitive\s+information|unpublished\s+material\s+information)|"
-        r"no\s+material\s+non[- ]public\s+information|"
-        r"(?:contains?\s+no|do(?:es)?\s+not\s+contain)[^\n.;]{0,120}"
-        r"(?:inside\s+information|price[- ]sensitive\s+information|market[- ]sensitive\s+information|"
-        r"material\s+non[- ]public\s+information|unpublished\s+material\s+information|"
-        r"undisclosed\s+(?:financial\s+metrics|material\s+facts))|"
-        r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
-        r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
-        r"no\s+non[- ]public\s+analyst\s+notes[^\n.;]{0,80}(?:attached|included)|"
-        r"no\s+undisclosed\s+material\s+facts\s+remain|"
-        r"references?\s+to\s+[\"“]?undisclosed[\"”]?[^\n.;]{0,80}definitional\s+only|"
-        r"references?\s+to[^\n.;]{0,80}inside\s+information[^\n.;]{0,80}procedural|"
-        r"do\s+not\s+summari[sz]e\s+non[- ]public\s+consultations|"
-        r"do\s+not\s+disclose[^\n.;]{0,80}inside\s+information|"
-        r"does\s+not\s+rely\s+on\s+non[- ]public\s+data|"
-        r"avoid[^\n.;]{0,80}\b(?:inside\s+information|undisclosed\s+assumptions)|"
-        r"excludes[^\n.;]{0,80}inside\s+information|"
-        r"could\s+be\s+construed\s+as\s+mnpi|"
-        r"[\"“]?\bmnpi\b[\"”]?\s+means|"
-        r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
-        r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,120}generic|"
-        r"\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
-        r"do\s+not\s+indicate\s+we\s+hold\s+any\s+non[- ]public\s+deal\s+terms|"
-        r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
-        r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
-        r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
-        r"\bmnpi\b[^\n.;]{0,120}training\s+context|"
-        r"\bmnpi\s+reminder\b[^\n.;]{0,120}(?:do(?:es)?\s+not|not)\b|"
-        r"terms?\s+like[^\n.;]{0,120}\bmnpi\b[^\n.;]{0,120}training\s+context|"
-        r"contains\s+only\s+public[^\n.;]{0,120}\bmnpi\b|"
-        r"defines?\s+inside\s+information\s+for\s+staff|"
-        r"(?:TDnet|DART|KRX|HKEX|ASX)[^\n.;]{0,80}public\s+website\s+labels?|"
-        r"disclosed\s+in\s+annual\s+reports|disclosed\s+via\s+public\s+notice)\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:not\s+(?:mnpi|upsi|inside\s+information|price[- ]sensitive\s+information)|"
+            r"not[^\n.;]{0,40}price[- ]sensitive\s+information|"
+            r"no\s+(?:new\s+)?(?:upsi|mnpi|inside\s+information|price[- ]sensitive\s+information|"
+            r"market[- ]sensitive\s+information|unpublished\s+material\s+information)|"
+            r"no\s+material\s+non[- ]public\s+information|"
+            r"(?:contains?\s+no|do(?:es)?\s+not\s+contain)[^\n.;]{0,120}"
+            r"(?:inside\s+information|price[- ]sensitive\s+information|market[- ]sensitive\s+information|"
+            r"material\s+non[- ]public\s+information|unpublished\s+material\s+information|"
+            r"undisclosed\s+(?:financial\s+metrics|material\s+facts))|"
+            r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
+            r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
+            r"no\s+non[- ]public\s+analyst\s+notes[^\n.;]{0,80}(?:attached|included)|"
+            r"no\s+undisclosed\s+material\s+facts\s+remain|"
+            r"references?\s+to\s+[\"“]?undisclosed[\"”]?[^\n.;]{0,80}definitional\s+only|"
+            r"references?\s+to[^\n.;]{0,80}inside\s+information[^\n.;]{0,80}procedural|"
+            r"do\s+not\s+summari[sz]e\s+non[- ]public\s+consultations|"
+            r"do\s+not\s+disclose[^\n.;]{0,80}inside\s+information|"
+            r"does\s+not\s+rely\s+on\s+non[- ]public\s+data|"
+            r"avoid[^\n.;]{0,80}\b(?:inside\s+information|undisclosed\s+assumptions)|"
+            r"excludes[^\n.;]{0,80}inside\s+information|"
+            r"could\s+be\s+construed\s+as\s+mnpi|"
+            r"[\"“]?\bmnpi\b[\"”]?\s+means|"
+            r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
+            r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,120}generic|"
+            r"\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
+            r"do\s+not\s+indicate\s+we\s+hold\s+any\s+non[- ]public\s+deal\s+terms|"
+            r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
+            r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
+            r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
+            r"\bmnpi\b[^\n.;]{0,120}training\s+context|"
+            r"\bmnpi\s+reminder\b[^\n.;]{0,120}(?:do(?:es)?\s+not|not)\b|"
+            r"terms?\s+like[^\n.;]{0,120}\bmnpi\b[^\n.;]{0,120}training\s+context|"
+            r"contains\s+only\s+public[^\n.;]{0,120}\bmnpi\b|"
+            r"defines?\s+inside\s+information\s+for\s+staff|"
+            r"(?:TDnet|DART|KRX|HKEX|ASX)[^\n.;]{0,80}public\s+website\s+labels?|"
+            r"disclosed\s+in\s+annual\s+reports|disclosed\s+via\s+public\s+notice)\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_benign_transaction_codename_context(text: str, start: int, end: int) -> bool:
@@ -1769,40 +1825,44 @@ def _is_benign_transaction_codename_context(text: str, start: int, end: int) -> 
     matched = text[start:end].casefold()
     if matched == "project code":
         return True
-    return bool(re.search(
-        r"\b(?:generic\s+form\s+labels?|sample\s+values?|placeholders?\s+only|"
-        r"public/stale|public\s+and\s+stale|already[-\s]+announced|"
-        r"public\s+(?:reference|archive|baseline))\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:generic\s+form\s+labels?|sample\s+values?|placeholders?\s+only|"
+            r"public/stale|public\s+and\s+stale|already[-\s]+announced|"
+            r"public\s+(?:reference|archive|baseline))\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    return bool(re.search(
-        r"\b(?:not\s+(?:material|upsi|mnpi)|are\s+not\s+upsi|"
-        r"routine\s+lease\s+renewal|disclosed\s+via\s+public\s+notice|"
-        r"closed\s+in\s+\d{4}|fully\s+announced|"
-        r"hkexnews|placeholder|"
-        r"does\s+not\s+modify\s+any\s+definitive\s+agreement|"
-        r"not\s+a\s+term\s+sheet|"
-        r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
-        r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
-        r"publicly\s+announced\s+mou[^\n]{0,180}no\s+binding\s+obligations|"
-        r"public\s+mou[^\n.;]{0,160}(?:non[- ]price\s+sensitive|not\s+issuer[- ]level)|"
-        r"Sha[’'‘ʻʿ]?ban|"
-        r"does\s+not\s+vary\s+any\s+SPA\s+MAC\s+clause|"
-        r"not\s+a\s+definitive\s+agreement|"
-        r"(?:does\s+not\s+concern|excludes?)[^\n.;]{0,120}definitive\s+agreement|"
-        r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
-        r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
-        r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
-        r"not\s+an\s+actual\s+client\s+identifier|"
-        r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:not\s+(?:material|upsi|mnpi)|are\s+not\s+upsi|"
+            r"routine\s+lease\s+renewal|disclosed\s+via\s+public\s+notice|"
+            r"closed\s+in\s+\d{4}|fully\s+announced|"
+            r"hkexnews|placeholder|"
+            r"does\s+not\s+modify\s+any\s+definitive\s+agreement|"
+            r"not\s+a\s+term\s+sheet|"
+            r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
+            r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
+            r"publicly\s+announced\s+mou[^\n]{0,180}no\s+binding\s+obligations|"
+            r"public\s+mou[^\n.;]{0,160}(?:non[- ]price\s+sensitive|not\s+issuer[- ]level)|"
+            r"Sha[’'‘ʻʿ]?ban|"
+            r"does\s+not\s+vary\s+any\s+SPA\s+MAC\s+clause|"
+            r"not\s+a\s+definitive\s+agreement|"
+            r"(?:does\s+not\s+concern|excludes?)[^\n.;]{0,120}definitive\s+agreement|"
+            r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
+            r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
+            r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
+            r"not\s+an\s+actual\s+client\s+identifier|"
+            r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_special_category_false_positive_context(rule_name: str, text: str, start: int, end: int) -> bool:
@@ -1843,8 +1903,8 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
     line = _line_context(text, start, end)
     line_match_start = max(0, line.find(matched))
     line_match_end = line_match_start + len(matched)
-    context = line[max(0, line_match_start - 40): min(len(line), line_match_end + 16)]
-    wider_context = line[max(0, line_match_start - 120): min(len(line), line_match_end + 16)]
+    context = line[max(0, line_match_start - 40) : min(len(line), line_match_end + 16)]
+    wider_context = line[max(0, line_match_start - 120) : min(len(line), line_match_end + 16)]
     if "http" in wider_context.casefold() and "," not in matched:
         return True
     return bool(
@@ -1860,7 +1920,7 @@ def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> boo
         return True
     if re.fullmatch(r"\d{1,3}[KMBT]", matched, re.IGNORECASE):
         context = _line_context(text, start, end)
-        after = text[end:end + 1]
+        after = text[end : end + 1]
         return bool(
             after in "-\u2010\u2011\u2012\u2013\u2014\u2015"
             or re.search(
@@ -1888,9 +1948,7 @@ def _is_public_or_benign_amount_context(text: str, start: int, end: int) -> bool
 
 def _is_public_or_benign_percentage_context(text: str, start: int, end: int) -> bool:
     left = max(text.rfind("\n", 0, start), text.rfind(";", 0, start)) + 1
-    right_candidates = [
-        pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0
-    ]
+    right_candidates = [pos for pos in (text.find("\n", end), text.find(";", end)) if pos >= 0]
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right]
     return bool(_PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE.search(context))
@@ -1898,60 +1956,84 @@ def _is_public_or_benign_percentage_context(text: str, start: int, end: int) -> 
 
 def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    return bool(re.search(
-        r"\b(?:"
-        r"training\s+materials?\s+only|policy\s+training\s+examples?|"
-        r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
-        r"general\s+education\s+only|"
-        r"definitions?\s+training|generic\s+compliance\s+education|"
-        r"hanya\s+sebagai\s+definisi\s+pelatihan|"
-        r"e[- ]?learning[^\n.;]{0,120}(?:insider\s+lists?|information\s+barriers?)|"
-        r"educational/marketing\s+materials?[^\n.;]{0,180}"
-        r"(?:insider[- ]list\s+management|information\s+barriers?|blackout\s+windows)|"
-        r"(?:marketing|education|educational)\s+only[^\n.;]{0,120}do\s+not\s+announce|"
-        r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}generic\s+compliance\s+education|"
-        r"references?\s+to[^\n.;]{0,160}(?:insider\s+lists?|blackout\s+windows)[^\n.;]{0,120}"
-        r"primarily\s+educational|"
-        r"primarily\s+educational[^\n.;]{0,80}not\s+price\s+sensitive|"
-        r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}only\s+as\s+definitions?\s+training|"
-        r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
-        r"training[^\n.;]{0,120}generic\s+examples?|"
-        r"terms?\s+[\"“]?insider\s+list[\"”]?[^\n.;]{0,120}generic|"
-        r"insider\s+list[^\n.;]{0,120}generic[^\n.;]{0,80}(?:policy|controls?)|"
-        r"does\s+not\s+specify[^\n.;]{0,120}\binsider\s+lists?|"
-        r"insider\s+lists?[^\n.;]{0,80}illustrative\s+only|"
-        r"public\s+webinar[^\n.;]{0,160}\binsider\s+lists?|"
-        r"public\s+webinar[^\n.;]{0,160}generic\s+case\s+studies|"
-        r"for\s+educational\s+purposes\s+only|"
-        r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
-        r"educational\s+note\s+only|educational\s+note[^\n.;]{0,120}purely\s+instructional"
-        r")\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:"
+            r"training\s+materials?\s+only|policy\s+training\s+examples?|"
+            r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
+            r"general\s+education\s+only|"
+            r"definitions?\s+training|generic\s+compliance\s+education|"
+            r"hanya\s+sebagai\s+definisi\s+pelatihan|"
+            r"e[- ]?learning[^\n.;]{0,120}(?:insider\s+lists?|information\s+barriers?)|"
+            r"educational/marketing\s+materials?[^\n.;]{0,180}"
+            r"(?:insider[- ]list\s+management|information\s+barriers?|blackout\s+windows)|"
+            r"(?:marketing|education|educational)\s+only[^\n.;]{0,120}do\s+not\s+announce|"
+            r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}generic\s+compliance\s+education|"
+            r"references?\s+to[^\n.;]{0,160}(?:insider\s+lists?|blackout\s+windows)[^\n.;]{0,120}"
+            r"primarily\s+educational|"
+            r"primarily\s+educational[^\n.;]{0,80}not\s+price\s+sensitive|"
+            r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}only\s+as\s+definitions?\s+training|"
+            r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
+            r"training[^\n.;]{0,120}generic\s+examples?|"
+            r"terms?\s+[\"“]?insider\s+list[\"”]?[^\n.;]{0,120}generic|"
+            r"insider\s+list[^\n.;]{0,120}generic[^\n.;]{0,80}(?:policy|controls?)|"
+            r"does\s+not\s+specify[^\n.;]{0,120}\binsider\s+lists?|"
+            r"insider\s+lists?[^\n.;]{0,80}illustrative\s+only|"
+            r"public\s+webinar[^\n.;]{0,160}\binsider\s+lists?|"
+            r"public\s+webinar[^\n.;]{0,160}generic\s+case\s+studies|"
+            r"for\s+educational\s+purposes\s+only|"
+            r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
+            r"educational\s+note\s+only|educational\s+note[^\n.;]{0,120}purely\s+instructional"
+            r")\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _is_percent_encoded_fragment(text: str, start: int, end: int) -> bool:
-    return end < len(text) - 1 and text[end:end + 2].lower() in {
-        "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
-        "2a", "2b", "2c", "2d", "2e", "2f", "3a", "3b", "3c", "3d",
-        "3e", "3f", "40",
+    return end < len(text) - 1 and text[end : end + 2].lower() in {
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "2a",
+        "2b",
+        "2c",
+        "2d",
+        "2e",
+        "2f",
+        "3a",
+        "3b",
+        "3c",
+        "3d",
+        "3e",
+        "3f",
+        "40",
     }
 
 
 def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
     if text[start:end].casefold() != "spa":
         return False
-    if text[end:end + 4].casefold() in {"-day", " day"}:
+    if text[end : end + 4].casefold() in {"-day", " day"}:
         return True
-    if re.match(r"[\u2010-\u2015]day\b", text[end:end + 5], re.IGNORECASE):
+    if re.match(r"[\u2010-\u2015]day\b", text[end : end + 5], re.IGNORECASE):
         return True
     context = _line_context(text, start, end)
-    return bool(re.search(
-        r"\b(?:wellness|voucher|pantry|conference\s+room|spa\s+day|not\s+the\s+spa|book\s+the\s+spa)\b",
-        context,
-        re.IGNORECASE,
-    ))
+    return bool(
+        re.search(
+            r"\b(?:wellness|voucher|pantry|conference\s+room|spa\s+day|not\s+the\s+spa|book\s+the\s+spa)\b",
+            context,
+            re.IGNORECASE,
+        )
+    )
 
 
 def _digits_only(value: str) -> str:
@@ -1975,11 +2057,7 @@ def _clamped_llm_warning_severity(warning: dict[str, Any]) -> str:
 def _structured_reason_for_warning(warning: dict[str, Any]) -> str:
     from junas.advisory.llm_adjudicator.structured_query import STRUCTURED_REASONS
 
-    candidate = str(
-        warning.get("structured_reason")
-        or warning.get("materiality_reason")
-        or ""
-    ).strip().lower()
+    candidate = str(warning.get("structured_reason") or warning.get("materiality_reason") or "").strip().lower()
     if candidate in STRUCTURED_REASONS:
         return candidate
     return "ambiguous_unconstrained"
@@ -2037,23 +2115,61 @@ def _llm_raised_findings_from_warnings(
 # Rules whose span "wins" over phone_number when the two overlap on the same bytes.
 # These are all primary-identifier detectors: a NRIC or UEN that happens to match the
 # loose PHONE_RE alternation is canonically the identifier, not a phone number.
-_HIGHER_PRIORITY_THAN_PHONE = frozenset({
-    "sg_nric_fin", "sg_uen",
-    "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
-    "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
-    "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
-    "in_aadhaar", "in_pan", "in_gstin", "in_voter_id",
-    "cn_resident_id", "cn_uscc", "cn_passport",
-    "ae_emirates_id", "ae_trade_licence", "ae_passport",
-    "sa_national_id", "sa_iqama", "sa_commercial_registration",
-    "passport_number", "bank_account", "us_itin", "us_driver_license", "imei",
-})
-_HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset({
-    "phone_number",
-    "financial_percentage", "date_of_birth", "age_reference",
-    "ip_address", "mac_address", "cookie_id", "advertising_id", "device_serial_number",
-    "sg_postal_address", "medical_record_number", "eu_national_id",
-})
+_HIGHER_PRIORITY_THAN_PHONE = frozenset(
+    {
+        "sg_nric_fin",
+        "sg_uen",
+        "my_mykad",
+        "id_nik",
+        "th_national_id",
+        "ph_philsys",
+        "ph_tin",
+        "vn_cccd",
+        "hk_hkid",
+        "hk_cr_no",
+        "au_tfn",
+        "au_abn",
+        "au_acn",
+        "jp_my_number",
+        "jp_corporate_number",
+        "kr_rrn",
+        "kr_business_registration",
+        "in_aadhaar",
+        "in_pan",
+        "in_gstin",
+        "in_voter_id",
+        "cn_resident_id",
+        "cn_uscc",
+        "cn_passport",
+        "ae_emirates_id",
+        "ae_trade_licence",
+        "ae_passport",
+        "sa_national_id",
+        "sa_iqama",
+        "sa_commercial_registration",
+        "passport_number",
+        "bank_account",
+        "us_itin",
+        "us_driver_license",
+        "imei",
+    }
+)
+_HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset(
+    {
+        "phone_number",
+        "financial_percentage",
+        "date_of_birth",
+        "age_reference",
+        "ip_address",
+        "mac_address",
+        "cookie_id",
+        "advertising_id",
+        "device_serial_number",
+        "sg_postal_address",
+        "medical_record_number",
+        "eu_national_id",
+    }
+)
 
 
 _HK_MARKET_KNOWN_DOMAINS = (
@@ -2082,8 +2198,7 @@ def _hk_market_known_source(source: Any) -> bool:
     if not isinstance(source, dict):
         return False
     text = " ".join(
-        str(source.get(key) or "")
-        for key in ("url", "title", "author", "source", "site_name", "text")
+        str(source.get(key) or "") for key in ("url", "title", "author", "source", "site_name", "text")
     ).casefold()
     return any(domain in text for domain in _HK_MARKET_KNOWN_DOMAINS) or any(
         marker in text for marker in _HK_MARKET_KNOWN_TEXT
@@ -2142,30 +2257,41 @@ def _apply_retrieval_verification(
 # proximity check is char-based, matching the existing _line_context convention used for
 # material_event. A bare "in discussions" or "please share" is noise; the same phrase
 # adjacent to "Project Sapphire" or a definitive-agreement reference is the offence.
-_CO_OCCURRENCE_AMPLIFIER_RULES = frozenset({
-    "contingent_mnpi_language", "tipping_language", "selective_disclosure_risk",
-    "insider_list_marker", "information_barrier_marker",
-    "dpt_pre_listing_marker", "dpt_protocol_event_marker",
-    "esg_climate_pre_disclosure", "esg_target_revision",
-    "cyber_incident_pre_disclosure", "pharma_trial_mnpi",
-    "financial_services_regulatory_mnpi", "energy_reserves_mnpi",
-    "legal_proceeding_mnpi",
-})
-_CO_OCCURRENCE_TRIGGER_RULES = frozenset({
-    "transaction_codename", "definitive_agreement", "material_adverse_change",
-    "material_event", "embargo_marker", "nonpublic_marker",
-})
+_CO_OCCURRENCE_AMPLIFIER_RULES = frozenset(
+    {
+        "contingent_mnpi_language",
+        "tipping_language",
+        "selective_disclosure_risk",
+        "insider_list_marker",
+        "information_barrier_marker",
+        "dpt_pre_listing_marker",
+        "dpt_protocol_event_marker",
+        "esg_climate_pre_disclosure",
+        "esg_target_revision",
+        "cyber_incident_pre_disclosure",
+        "pharma_trial_mnpi",
+        "financial_services_regulatory_mnpi",
+        "energy_reserves_mnpi",
+        "legal_proceeding_mnpi",
+    }
+)
+_CO_OCCURRENCE_TRIGGER_RULES = frozenset(
+    {
+        "transaction_codename",
+        "definitive_agreement",
+        "material_adverse_change",
+        "material_event",
+        "embargo_marker",
+        "nonpublic_marker",
+    }
+)
 _CO_OCCURRENCE_WINDOW = 200
 
 
 def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
     """Lift `contingent_mnpi_language` / `tipping_language` from low → medium when within
     ±_CO_OCCURRENCE_WINDOW chars of a trigger MNPI rule. Mutates findings in place."""
-    trigger_spans = [
-        (f.start_char, f.end_char)
-        for f in findings
-        if f.rule in _CO_OCCURRENCE_TRIGGER_RULES
-    ]
+    trigger_spans = [(f.start_char, f.end_char) for f in findings if f.rule in _CO_OCCURRENCE_TRIGGER_RULES]
     if not trigger_spans:
         return
     for f in findings:
@@ -2178,9 +2304,7 @@ def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
             if f_lo <= hi and lo <= f_hi:
                 f.severity = "medium"
                 f.score = SEVERITY_SCORE["medium"]
-                f.reason = (
-                    f.reason + " — escalated due to adjacent MNPI substrate within ±200 chars"
-                )
+                f.reason = f.reason + " — escalated due to adjacent MNPI substrate within ±200 chars"
                 break
 
 
@@ -2189,38 +2313,56 @@ def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
 # makes GDPR Recital 26 / PDPC Anonymisation Advisory treat these as personal data is
 # document-scoped, not span-local — once a named person + an internal ID both appear in
 # the same doc, the re-link is trivial.
-_PSEUDONYMISED_LINKABLE_RULES = frozenset({
-    "employee_id", "customer_account_number", "medical_record_number",
-    "internal_session_id", "bank_customer_reference", "insurance_member_id",
-})
+_PSEUDONYMISED_LINKABLE_RULES = frozenset(
+    {
+        "employee_id",
+        "customer_account_number",
+        "medical_record_number",
+        "internal_session_id",
+        "bank_customer_reference",
+        "insurance_member_id",
+    }
+)
 
 
 # items 109/110/111: PII-handling-event rules that require a lookback-25 negation guard.
 # These describe data flows / retention triggers / over-collection language; "no cross-border
 # transfer is contemplated", "consent has not been withdrawn", "we are not over-collecting"
 # should not fire. Parallel to the MNPI-side `_negation_guarded` set in `_mnpi_findings`.
-_PII_NEGATION_GUARDED = frozenset({
-    "cross_border_transfer_marker",
-    "consent_withdrawal_marker",
-    "data_minimisation_marker",
-    "personal_data_security_safeguards",
-    "personal_data_breach_notification",
-})
+_PII_NEGATION_GUARDED = frozenset(
+    {
+        "cross_border_transfer_marker",
+        "consent_withdrawal_marker",
+        "data_minimisation_marker",
+        "personal_data_security_safeguards",
+        "personal_data_breach_notification",
+    }
+)
 
 
 # Special-category PII opt-out. Tenants with high false-positive sensitivity can disable
 # individual categories via JUNAS_SPECIAL_CATEGORY_DISABLE=religion,union,political,
 # health,biometric,genetic,sexual.
 # Default-enabled in strict + audit_grade. Categories are casefolded comma-separated.
-_SPECIAL_CATEGORY_RULES = frozenset({
-    "religious_belief", "trade_union_membership", "political_opinion",
-    "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
-    "sexual_orientation", "sex_life_reference", "racial_ethnic_origin",
-})
+_SPECIAL_CATEGORY_RULES = frozenset(
+    {
+        "religious_belief",
+        "trade_union_membership",
+        "political_opinion",
+        "health_condition",
+        "medical_treatment",
+        "biometric_identifier",
+        "genetic_data",
+        "sexual_orientation",
+        "sex_life_reference",
+        "racial_ethnic_origin",
+    }
+)
 
 
 def _disabled_special_categories() -> frozenset[str]:
     import os
+
     raw = os.environ.get("JUNAS_SPECIAL_CATEGORY_DISABLE", "")
     if not raw.strip():
         return frozenset()
@@ -2303,12 +2445,12 @@ def _detect_minor_data_references(
     seen_spans: set[tuple[int, int]] = set()
     for m in MINOR_DATA_RE.finditer(text):
         # FP guard A: "for 18+ years of experience" / "18+ years of service"
-        trailing = text[m.end():m.end() + 40]
+        trailing = text[m.end() : m.end() + 40]
         if _MINOR_FP_TRAILING.match(trailing):
             continue
         # FP guard B: "Grade 1" preceded by Grade/Category/Level/Class — caught by the regex
         # itself for school-context patterns; this catches the broader case.
-        leading = text[max(0, m.start() - 12):m.start()]
+        leading = text[max(0, m.start() - 12) : m.start()]
         if _MINOR_FP_LEADING_GRADE.search(leading) and m.group("grade_us"):
             continue
 
@@ -2370,12 +2512,8 @@ def _detect_minor_data_references(
         else:
             reason_parts.append("minor-data marker detected without explicit age")
         if triggered_juris:
-            cliff_strs = [
-                f"{code} (<{_MINOR_AGE_CLIFFS[code]})" for code in triggered_juris
-            ]
-            reason_parts.append(
-                f"falls under children's-data regime for: {', '.join(cliff_strs)}"
-            )
+            cliff_strs = [f"{code} (<{_MINOR_AGE_CLIFFS[code]})" for code in triggered_juris]
+            reason_parts.append(f"falls under children's-data regime for: {', '.join(cliff_strs)}")
         out.append(
             _new_finding(
                 idx=idx,
@@ -2427,44 +2565,81 @@ def _detect_special_category_findings(
     seen_spans: set[tuple[str, int, int]] = set()
 
     rules: list[tuple[str, "re.Pattern[str]", str]] = [
-        ("religious_belief", RELIGION_RE,
-         "Religious-belief reference detected; special-category personal data"),
-        ("religious_belief", MULTILINGUAL_RELIGION_RE,
-         "Religious-belief reference detected; special-category personal data"),
-        ("trade_union_membership", TRADE_UNION_RE,
-         "Trade-union membership reference detected; special-category personal data"),
-        ("trade_union_membership", MULTILINGUAL_TRADE_UNION_RE,
-         "Trade-union membership reference detected; special-category personal data"),
-        ("political_opinion", POLITICAL_RE,
-         "Political-opinion / party-affiliation reference detected; special-category personal data"),
-        ("political_opinion", MULTILINGUAL_POLITICAL_RE,
-         "Political-opinion / party-affiliation reference detected; special-category personal data"),
-        ("racial_ethnic_origin", RACIAL_ETHNIC_ORIGIN_RE,
-         "Racial or ethnic-origin reference detected; special-category personal data"),
-        ("health_condition", HEALTH_CONDITION_RE,
-         "Health condition / diagnosis reference detected; special-category personal data"),
-        ("health_condition", MULTILINGUAL_HEALTH_CONDITION_RE,
-         "Health condition / diagnosis reference detected; special-category personal data"),
-        ("medical_treatment", MEDICAL_TREATMENT_RE,
-         "Medical treatment / medication reference detected; special-category personal data"),
-        ("medical_treatment", MULTILINGUAL_MEDICAL_TREATMENT_RE,
-         "Medical treatment / medication reference detected; special-category personal data"),
-        ("biometric_identifier", BIOMETRIC_IDENTIFIER_RE,
-         "Biometric identifier reference detected; special-category personal data"),
-        ("biometric_identifier", MULTILINGUAL_BIOMETRIC_RE,
-         "Biometric identifier reference detected; special-category personal data"),
-        ("genetic_data", GENETIC_DATA_RE,
-         "Genetic-data reference detected; special-category personal data"),
-        ("genetic_data", MULTILINGUAL_GENETIC_RE,
-         "Genetic-data reference detected; special-category personal data"),
-        ("sexual_orientation", SEXUAL_ORIENTATION_RE,
-         "Sexual-orientation reference detected; special-category personal data"),
-        ("sexual_orientation", MULTILINGUAL_SEXUAL_ORIENTATION_RE,
-         "Sexual-orientation reference detected; special-category personal data"),
-        ("sex_life_reference", SEX_LIFE_RE,
-         "Sex-life reference detected; special-category personal data"),
-        ("sex_life_reference", MULTILINGUAL_SEX_LIFE_RE,
-         "Sex-life reference detected; special-category personal data"),
+        ("religious_belief", RELIGION_RE, "Religious-belief reference detected; special-category personal data"),
+        (
+            "religious_belief",
+            MULTILINGUAL_RELIGION_RE,
+            "Religious-belief reference detected; special-category personal data",
+        ),
+        (
+            "trade_union_membership",
+            TRADE_UNION_RE,
+            "Trade-union membership reference detected; special-category personal data",
+        ),
+        (
+            "trade_union_membership",
+            MULTILINGUAL_TRADE_UNION_RE,
+            "Trade-union membership reference detected; special-category personal data",
+        ),
+        (
+            "political_opinion",
+            POLITICAL_RE,
+            "Political-opinion / party-affiliation reference detected; special-category personal data",
+        ),
+        (
+            "political_opinion",
+            MULTILINGUAL_POLITICAL_RE,
+            "Political-opinion / party-affiliation reference detected; special-category personal data",
+        ),
+        (
+            "racial_ethnic_origin",
+            RACIAL_ETHNIC_ORIGIN_RE,
+            "Racial or ethnic-origin reference detected; special-category personal data",
+        ),
+        (
+            "health_condition",
+            HEALTH_CONDITION_RE,
+            "Health condition / diagnosis reference detected; special-category personal data",
+        ),
+        (
+            "health_condition",
+            MULTILINGUAL_HEALTH_CONDITION_RE,
+            "Health condition / diagnosis reference detected; special-category personal data",
+        ),
+        (
+            "medical_treatment",
+            MEDICAL_TREATMENT_RE,
+            "Medical treatment / medication reference detected; special-category personal data",
+        ),
+        (
+            "medical_treatment",
+            MULTILINGUAL_MEDICAL_TREATMENT_RE,
+            "Medical treatment / medication reference detected; special-category personal data",
+        ),
+        (
+            "biometric_identifier",
+            BIOMETRIC_IDENTIFIER_RE,
+            "Biometric identifier reference detected; special-category personal data",
+        ),
+        (
+            "biometric_identifier",
+            MULTILINGUAL_BIOMETRIC_RE,
+            "Biometric identifier reference detected; special-category personal data",
+        ),
+        ("genetic_data", GENETIC_DATA_RE, "Genetic-data reference detected; special-category personal data"),
+        ("genetic_data", MULTILINGUAL_GENETIC_RE, "Genetic-data reference detected; special-category personal data"),
+        (
+            "sexual_orientation",
+            SEXUAL_ORIENTATION_RE,
+            "Sexual-orientation reference detected; special-category personal data",
+        ),
+        (
+            "sexual_orientation",
+            MULTILINGUAL_SEXUAL_ORIENTATION_RE,
+            "Sexual-orientation reference detected; special-category personal data",
+        ),
+        ("sex_life_reference", SEX_LIFE_RE, "Sex-life reference detected; special-category personal data"),
+        ("sex_life_reference", MULTILINGUAL_SEX_LIFE_RE, "Sex-life reference detected; special-category personal data"),
     ]
     for rule_name, pattern, reason in rules:
         if rule_name in disabled:
@@ -2508,27 +2683,70 @@ def _detect_special_category_findings(
 # co-occur within a 500-char sliding window. Activated under audit_grade only — the v1
 # rule is deliberately conservative recall-wise; item 70 v2 owns the full k-anonymity
 # probability estimate.
-_QUASI_IDENTIFIER_RULES = frozenset({
-    # named-person + direct contact
-    "named_person", "email_address", "phone_number", "bank_account",
-    # postal-address signals
-    "sg_postal_address", "uk_postal_address", "us_postal_address", "hk_postal_address",
-    "au_postal_address", "jp_postal_code", "jp_postal_address", "kr_postal_address", "eu_postal_address",
-    # SG / SEA / HK / AU / JP / KR / US / UK local government / company IDs
-    "sg_nric_fin", "sg_uen", "passport_number",
-    "my_mykad", "id_nik", "th_national_id", "ph_philsys", "ph_tin", "vn_cccd",
-    "hk_hkid", "hk_cr_no", "au_tfn", "au_abn", "au_acn",
-    "jp_my_number", "jp_corporate_number", "kr_rrn", "kr_business_registration",
-    "us_ssn", "us_ein", "us_itin", "us_driver_license", "uk_nin",
-    # pseudonymised-but-linkable (items 78 + 99)
-    "employee_id", "customer_account_number", "medical_record_number",
-    "internal_session_id", "bank_customer_reference", "insurance_member_id",
-    # item 33 mini-slice: DOB/age + online/device identifiers.
-    "date_of_birth", "age_reference", "ip_address", "mac_address", "imei",
-    "cookie_id", "advertising_id", "device_serial_number", "eu_national_id",
-    # SG wedge direct matter references
-    "sg_insurance_policy_number", "crypto_wallet_address", "sg_tribunal_reference",
-})
+_QUASI_IDENTIFIER_RULES = frozenset(
+    {
+        # named-person + direct contact
+        "named_person",
+        "email_address",
+        "phone_number",
+        "bank_account",
+        # postal-address signals
+        "sg_postal_address",
+        "uk_postal_address",
+        "us_postal_address",
+        "hk_postal_address",
+        "au_postal_address",
+        "jp_postal_code",
+        "jp_postal_address",
+        "kr_postal_address",
+        "eu_postal_address",
+        # SG / SEA / HK / AU / JP / KR / US / UK local government / company IDs
+        "sg_nric_fin",
+        "sg_uen",
+        "passport_number",
+        "my_mykad",
+        "id_nik",
+        "th_national_id",
+        "ph_philsys",
+        "ph_tin",
+        "vn_cccd",
+        "hk_hkid",
+        "hk_cr_no",
+        "au_tfn",
+        "au_abn",
+        "au_acn",
+        "jp_my_number",
+        "jp_corporate_number",
+        "kr_rrn",
+        "kr_business_registration",
+        "us_ssn",
+        "us_ein",
+        "us_itin",
+        "us_driver_license",
+        "uk_nin",
+        # pseudonymised-but-linkable (items 78 + 99)
+        "employee_id",
+        "customer_account_number",
+        "medical_record_number",
+        "internal_session_id",
+        "bank_customer_reference",
+        "insurance_member_id",
+        # item 33 mini-slice: DOB/age + online/device identifiers.
+        "date_of_birth",
+        "age_reference",
+        "ip_address",
+        "mac_address",
+        "imei",
+        "cookie_id",
+        "advertising_id",
+        "device_serial_number",
+        "eu_national_id",
+        # SG wedge direct matter references
+        "sg_insurance_policy_number",
+        "crypto_wallet_address",
+        "sg_tribunal_reference",
+    }
+)
 _QUASI_IDENTIFIER_WINDOW = 500
 _QUASI_IDENTIFIER_MIN_DISTINCT = 3
 
@@ -2594,8 +2812,7 @@ def _detect_quasi_identifier_combinations(
     while left < len(quasi):
         right = left
         while (
-            right + 1 < len(quasi)
-            and quasi[right + 1].start_char - quasi[left].start_char <= _QUASI_IDENTIFIER_WINDOW
+            right + 1 < len(quasi) and quasi[right + 1].start_char - quasi[left].start_char <= _QUASI_IDENTIFIER_WINDOW
         ):
             right += 1
         distinct_rules = {quasi[k].rule for k in range(left, right + 1)}
@@ -2610,8 +2827,7 @@ def _detect_quasi_identifier_combinations(
                     jurisdiction=jurisdiction,
                     severity="medium",
                     matched_text=(
-                        f"{len(distinct_rules)} distinct quasi-identifiers "
-                        f"within {window_end - window_start} chars"
+                        f"{len(distinct_rules)} distinct quasi-identifiers within {window_end - window_start} chars"
                     ),
                     start=window_start,
                     end=window_end,
@@ -2675,15 +2891,15 @@ def _amplify_pseudonymised_when_linked(findings: list["ReviewFinding"]) -> None:
 # threshold met wins. Existing SEVERITY_SCORE only defines low/medium/high — we collapse the
 # would-be "critical" top into "high" rather than expand the global severity vocabulary.
 _MATERIALITY_TIERS_US: tuple[tuple[float, str], ...] = (
-    (0.05, "high"),      # SAB 99 "5% rule of thumb"
-    (0.01, "medium"),    # below 5% but non-trivial
+    (0.05, "high"),  # SAB 99 "5% rule of thumb"
+    (0.01, "medium"),  # below 5% but non-trivial
 )
 _MATERIALITY_TIERS_AU_GENERAL: tuple[tuple[float, str], ...] = (
-    (0.10, "high"),      # ASX GN8 ≥10% disclose presumption
-    (0.05, "medium"),    # ASX GN8 5-10% grey zone
+    (0.10, "high"),  # ASX GN8 ≥10% disclose presumption
+    (0.05, "medium"),  # ASX GN8 5-10% grey zone
 )
 _MATERIALITY_TIERS_AU_ASX300: tuple[tuple[float, str], ...] = (
-    (0.05, "high"),       # halved per ASX GN8 ASX-300 guidance
+    (0.05, "high"),  # halved per ASX GN8 ASX-300 guidance
     (0.025, "medium"),
 )
 # Jurisdictions whose regulators explicitly refuse a numeric threshold. We surface percentage
@@ -2715,7 +2931,13 @@ class EntitySizeLookup:
 _ENTITY_SIZE_CSV_ENV = "JUNAS_ENTITY_SIZE_CSV"
 _ENTITY_SIZE_JSON_ENV = "JUNAS_ENTITY_SIZE_JSON"
 _ENTITY_ALIAS_FIELDS: tuple[str, ...] = (
-    "entity_id", "issuer", "issuer_name", "name", "ticker", "stock_code", "counter",
+    "entity_id",
+    "issuer",
+    "issuer_name",
+    "name",
+    "ticker",
+    "stock_code",
+    "counter",
 )
 _ENTITY_NUMERIC_FIELDS: tuple[str, ...] = ("revenue", "market_cap")
 
@@ -2737,14 +2959,7 @@ def _normalize_entity_lookup_key(value: Any) -> str:
 
 
 def _entity_lookup_jurisdiction_codes(value: str) -> set[str]:
-    return {
-        code
-        for code in (
-            normalize_jurisdiction(part, default="")
-            for part in str(value or "").split("+")
-        )
-        if code
-    }
+    return {code for code in (normalize_jurisdiction(part, default="") for part in str(value or "").split("+")) if code}
 
 
 def _coerce_entity_size_float(value: Any, *, label: str) -> float | None:
@@ -2941,10 +3156,15 @@ _AMOUNT_UNIT_RE = re.compile(
     re.IGNORECASE,
 )
 _UNIT_MULTIPLIER: dict[str, float] = {
-    "": 1.0, "K": 1e3, "THOUSAND": 1e3,
-    "M": 1e6, "MILLION": 1e6,
-    "B": 1e9, "BILLION": 1e9,
-    "T": 1e12, "TRILLION": 1e12,
+    "": 1.0,
+    "K": 1e3,
+    "THOUSAND": 1e3,
+    "M": 1e6,
+    "MILLION": 1e6,
+    "B": 1e9,
+    "BILLION": 1e9,
+    "T": 1e12,
+    "TRILLION": 1e12,
 }
 
 
@@ -3085,8 +3305,7 @@ def _scale_financial_by_entity_size(
         if ladder is None:
             # Advisory-only jurisdiction (MAR / SGX / HKEX): annotate reason, leave severity.
             f.reason = (
-                f.reason
-                + f" — entity-relative {fraction:.2%} "
+                f.reason + f" — entity-relative {fraction:.2%} "
                 "(regulator declines numeric materiality threshold; review required)"
             )
             continue
@@ -3098,9 +3317,7 @@ def _scale_financial_by_entity_size(
         f.severity = new_tier
         f.score = SEVERITY_SCORE[new_tier]
         f.reason = (
-            f.reason
-            + f" — escalated to {new_tier} per SAB 99 / ASX GN8 entity-relative tier "
-            f"({fraction:.2%} of base)"
+            f.reason + f" — escalated to {new_tier} per SAB 99 / ASX GN8 entity-relative tier ({fraction:.2%} of base)"
         )
     return []
 
@@ -3132,39 +3349,48 @@ def _scale_financial_by_entity_size(
 # External paid/provider lookup stays out of the local runtime path.
 
 _BLACKOUT_WINDOW_DAYS: dict[str, dict[str, int]] = {
-    "SG": {"interim": 14, "annual": 30},   # SGX MB 1207(19)(c)
-    "HK": {"interim": 30, "annual": 60},   # HKEX MB App C3
-    "UK": {"interim": 30, "annual": 30},   # UK MAR Art 19(11) + UKLR
-    "EU": {"interim": 30, "annual": 30},   # EU MAR Art 19(11) (parallel to UK MAR)
+    "SG": {"interim": 14, "annual": 30},  # SGX MB 1207(19)(c)
+    "HK": {"interim": 30, "annual": 60},  # HKEX MB App C3
+    "UK": {"interim": 30, "annual": 30},  # UK MAR Art 19(11) + UKLR
+    "EU": {"interim": 30, "annual": 30},  # EU MAR Art 19(11) (parallel to UK MAR)
 }
 
 # Earnings-date anchors. Each carries a period_type label so the engine selects the right
 # window. Order matters — more specific patterns first to avoid mis-classifying "annual" as
 # "interim".
 _EARNINGS_DATE_ANCHORS: tuple[tuple[re.Pattern[str], str], ...] = (
-    (re.compile(
-        r"\b(?:full[ -]year|annual|FY|year[ -]end)\s+results?\s+(?:announcement\s+)?"
-        r"(?:to\s+be\s+(?:released|announced|published)\s+on|scheduled\s+for|"
-        r"on|due|expected\s+on|set\s+for)\s+"
-        r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
-        re.IGNORECASE,
-    ), "annual"),
-    (re.compile(
-        r"\b(?:interim|half[ -]year|H[12]|Q[1-4]|quarterly)\s+results?\s+"
-        r"(?:announcement\s+)?(?:to\s+be\s+(?:released|announced|published)\s+on|"
-        r"scheduled\s+for|on|due|expected\s+on|set\s+for)\s+"
-        r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
-        re.IGNORECASE,
-    ), "interim"),
-    (re.compile(
-        # Generic "earnings on" / "results on" without period qualifier — default to interim
-        # (the shorter window is more conservative; reviewer can override).
-        r"\b(?:earnings|results)\s+(?:announcement\s+)?"
-        r"(?:to\s+be\s+(?:released|announced|published)\s+on|scheduled\s+for|"
-        r"on|due|expected\s+on|set\s+for)\s+"
-        r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
-        re.IGNORECASE,
-    ), "interim"),
+    (
+        re.compile(
+            r"\b(?:full[ -]year|annual|FY|year[ -]end)\s+results?\s+(?:announcement\s+)?"
+            r"(?:to\s+be\s+(?:released|announced|published)\s+on|scheduled\s+for|"
+            r"on|due|expected\s+on|set\s+for)\s+"
+            r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
+            re.IGNORECASE,
+        ),
+        "annual",
+    ),
+    (
+        re.compile(
+            r"\b(?:interim|half[ -]year|H[12]|Q[1-4]|quarterly)\s+results?\s+"
+            r"(?:announcement\s+)?(?:to\s+be\s+(?:released|announced|published)\s+on|"
+            r"scheduled\s+for|on|due|expected\s+on|set\s+for)\s+"
+            r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
+            re.IGNORECASE,
+        ),
+        "interim",
+    ),
+    (
+        re.compile(
+            # Generic "earnings on" / "results on" without period qualifier — default to interim
+            # (the shorter window is more conservative; reviewer can override).
+            r"\b(?:earnings|results)\s+(?:announcement\s+)?"
+            r"(?:to\s+be\s+(?:released|announced|published)\s+on|scheduled\s+for|"
+            r"on|due|expected\s+on|set\s+for)\s+"
+            r"([\w,/\- ]{6,40}?)(?=[.\n,;]|\Z)",
+            re.IGNORECASE,
+        ),
+        "interim",
+    ),
 )
 
 # Document date anchors. First match wins. Several common memo / email / contract headers.
@@ -3183,18 +3409,34 @@ _TICKER_CONTEXT_RE = re.compile(
 
 # Date parsing covering the SG/UK/EU/HK conventions reviewers actually use.
 _MONTH_NAMES: dict[str, int] = {
-    "jan": 1, "january": 1, "feb": 2, "february": 2, "mar": 3, "march": 3,
-    "apr": 4, "april": 4, "may": 5, "jun": 6, "june": 6, "jul": 7, "july": 7,
-    "aug": 8, "august": 8, "sep": 9, "sept": 9, "september": 9,
-    "oct": 10, "october": 10, "nov": 11, "november": 11, "dec": 12, "december": 12,
+    "jan": 1,
+    "january": 1,
+    "feb": 2,
+    "february": 2,
+    "mar": 3,
+    "march": 3,
+    "apr": 4,
+    "april": 4,
+    "may": 5,
+    "jun": 6,
+    "june": 6,
+    "jul": 7,
+    "july": 7,
+    "aug": 8,
+    "august": 8,
+    "sep": 9,
+    "sept": 9,
+    "september": 9,
+    "oct": 10,
+    "october": 10,
+    "nov": 11,
+    "november": 11,
+    "dec": 12,
+    "december": 12,
 }
 _DATE_ISO_RE = re.compile(r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b")
-_DATE_DMY_NAME_RE = re.compile(
-    r"\b(\d{1,2})\s+([A-Za-z]{3,9})\s+(\d{4})\b"
-)
-_DATE_MDY_NAME_RE = re.compile(
-    r"\b([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\b"
-)
+_DATE_DMY_NAME_RE = re.compile(r"\b(\d{1,2})\s+([A-Za-z]{3,9})\s+(\d{4})\b")
+_DATE_MDY_NAME_RE = re.compile(r"\b([A-Za-z]{3,9})\s+(\d{1,2}),?\s+(\d{4})\b")
 _DATE_DMY_SLASH_RE = re.compile(r"\b(\d{1,2})/(\d{1,2})/(\d{4})\b")
 
 
@@ -3206,6 +3448,7 @@ def _parse_date(text: str) -> tuple[int, int, int] | None:
     Implemented with stdlib only to keep `junas-local` torch-ban discipline intact.
     """
     import datetime as _dt
+
     text = text.strip()
     m = _DATE_ISO_RE.search(text)
     if m:
@@ -3370,6 +3613,7 @@ def _detect_blackout_period_references(
         return []
 
     import datetime as _dt
+
     doc_d = _dt.date(*doc_date)
 
     out: list["ReviewFinding"] = []
@@ -3391,9 +3635,7 @@ def _detect_blackout_period_references(
             if delta < 0:
                 continue
             # Pick the strictest applicable jurisdiction (longest window).
-            applicable_window = max(
-                _BLACKOUT_WINDOW_DAYS[code][period] for code in applicable_juris
-            )
+            applicable_window = max(_BLACKOUT_WINDOW_DAYS[code][period] for code in applicable_juris)
             if delta > applicable_window:
                 continue
             window_owner = max(
@@ -3492,18 +3734,13 @@ def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list[
     span. A partially-overlapping phone match keeps firing so we don't accidentally lose
     real phones that touch other entities."""
     spans_to_beat: list[tuple[int, int]] = [
-        (f.start_char, f.end_char)
-        for f in findings
-        if f.rule in _HIGHER_PRIORITY_THAN_PHONE
+        (f.start_char, f.end_char) for f in findings if f.rule in _HIGHER_PRIORITY_THAN_PHONE
     ]
     if not spans_to_beat:
         return findings
     kept: list["ReviewFinding"] = []
     for f in findings:
-        if f.rule == "phone_number" and any(
-            lo <= f.start_char and f.end_char <= hi
-            for lo, hi in spans_to_beat
-        ):
+        if f.rule == "phone_number" and any(lo <= f.start_char and f.end_char <= hi for lo, hi in spans_to_beat):
             continue
         kept.append(f)
     return kept
@@ -3512,9 +3749,7 @@ def _suppress_redundant_phone_findings(findings: list["ReviewFinding"]) -> list[
 def _suppress_redundant_numeric_findings(text: str, findings: list["ReviewFinding"]) -> list["ReviewFinding"]:
     """Drop broad numeric MNPI findings already owned by stronger identifier/amount rules."""
     spans_to_beat_large: list[tuple[int, int]] = [
-        (f.start_char, f.end_char)
-        for f in findings
-        if f.rule in _HIGHER_PRIORITY_THAN_LARGE_NUMBER
+        (f.start_char, f.end_char) for f in findings if f.rule in _HIGHER_PRIORITY_THAN_LARGE_NUMBER
     ]
     kept: list["ReviewFinding"] = []
     for f in findings:
@@ -3553,9 +3788,7 @@ def _rule_jurisdictions_for_finding(
         codes = [normalize_jurisdiction(raw, default="") or raw.upper()]
     elif isinstance(raw, list):
         codes = [
-            normalize_jurisdiction(str(item), default="") or str(item).upper()
-            for item in raw
-            if str(item).strip()
+            normalize_jurisdiction(str(item), default="") or str(item).upper() for item in raw if str(item).strip()
         ]
     else:
         codes = []
@@ -3712,30 +3945,74 @@ class PreSendReviewEngine:
                 ("bank_account", BANK_ACCOUNT_ENDING_RE, "high", "Bank/account-like financial identifier"),
                 # item 99: pseudonymised-but-linkable identifiers. medium standalone; amplified
                 # to high when a named_person finding co-occurs anywhere in the document.
-                ("employee_id", EMPLOYEE_ID_RE, "medium",
-                 "Employee identifier — pseudonymised-but-linkable personal data"),
-                ("customer_account_number", CUSTOMER_ACCOUNT_RE, "medium",
-                 "Customer account / member identifier — pseudonymised-but-linkable personal data"),
-                ("medical_record_number", MEDICAL_RECORD_RE, "high",
-                 "Medical record / patient identifier — special-category personal data"),
-                ("internal_session_id", INTERNAL_SESSION_ID_RE, "medium",
-                 "Internal session / user token — pseudonymised-but-linkable personal data"),
-                ("bank_customer_reference", BANK_CUSTOMER_REFERENCE_RE, "medium",
-                 "Bank customer reference — pseudonymised-but-linkable personal data"),
-                ("insurance_member_id", INSURANCE_MEMBER_ID_RE, "medium",
-                 "Insurance member identifier — pseudonymised-but-linkable personal data"),
+                (
+                    "employee_id",
+                    EMPLOYEE_ID_RE,
+                    "medium",
+                    "Employee identifier — pseudonymised-but-linkable personal data",
+                ),
+                (
+                    "customer_account_number",
+                    CUSTOMER_ACCOUNT_RE,
+                    "medium",
+                    "Customer account / member identifier — pseudonymised-but-linkable personal data",
+                ),
+                (
+                    "medical_record_number",
+                    MEDICAL_RECORD_RE,
+                    "high",
+                    "Medical record / patient identifier — special-category personal data",
+                ),
+                (
+                    "internal_session_id",
+                    INTERNAL_SESSION_ID_RE,
+                    "medium",
+                    "Internal session / user token — pseudonymised-but-linkable personal data",
+                ),
+                (
+                    "bank_customer_reference",
+                    BANK_CUSTOMER_REFERENCE_RE,
+                    "medium",
+                    "Bank customer reference — pseudonymised-but-linkable personal data",
+                ),
+                (
+                    "insurance_member_id",
+                    INSURANCE_MEMBER_ID_RE,
+                    "medium",
+                    "Insurance member identifier — pseudonymised-but-linkable personal data",
+                ),
                 # items 109/110/111: PII-handling-event markers. medium standalone; negation
                 # guard via `_PII_NEGATION_GUARDED` lookback-25.
-                ("cross_border_transfer_marker", CROSS_BORDER_TRANSFER_RE, "medium",
-                 "Cross-border personal-data transfer marker"),
-                ("consent_withdrawal_marker", CONSENT_WITHDRAWAL_RE, "medium",
-                 "Consent-withdrawal / data-subject-rights marker"),
-                ("data_minimisation_marker", DATA_MINIMISATION_RE, "medium",
-                 "Data-minimisation / over-collection marker"),
-                ("personal_data_security_safeguards", PERSONAL_DATA_SECURITY_SAFEGUARDS_RE, "medium",
-                 "Personal-data security-safeguards marker"),
-                ("personal_data_breach_notification", PERSONAL_DATA_BREACH_NOTIFICATION_RE, "medium",
-                 "Personal-data breach / notification marker"),
+                (
+                    "cross_border_transfer_marker",
+                    CROSS_BORDER_TRANSFER_RE,
+                    "medium",
+                    "Cross-border personal-data transfer marker",
+                ),
+                (
+                    "consent_withdrawal_marker",
+                    CONSENT_WITHDRAWAL_RE,
+                    "medium",
+                    "Consent-withdrawal / data-subject-rights marker",
+                ),
+                (
+                    "data_minimisation_marker",
+                    DATA_MINIMISATION_RE,
+                    "medium",
+                    "Data-minimisation / over-collection marker",
+                ),
+                (
+                    "personal_data_security_safeguards",
+                    PERSONAL_DATA_SECURITY_SAFEGUARDS_RE,
+                    "medium",
+                    "Personal-data security-safeguards marker",
+                ),
+                (
+                    "personal_data_breach_notification",
+                    PERSONAL_DATA_BREACH_NOTIFICATION_RE,
+                    "medium",
+                    "Personal-data breach / notification marker",
+                ),
             ]
         )
 
@@ -3761,9 +4038,8 @@ class PreSendReviewEngine:
                         continue
                 if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
                     continue
-                if (
-                    rule == "consent_withdrawal_marker"
-                    and _is_closed_or_historical_privacy_request_context(text, start, end)
+                if rule == "consent_withdrawal_marker" and _is_closed_or_historical_privacy_request_context(
+                    text, start, end
                 ):
                     continue
                 if rule == "sg_nric_fin" and _is_placeholder_identifier_context(text, start, end):
@@ -3815,9 +4091,7 @@ class PreSendReviewEngine:
         # query because a SG+MY query should run BOTH MyKad and NRIC detectors. dedup-on-span
         # below prevents the same matched bytes being double-counted when packs overlap (e.g.,
         # a customer pack defining its own `email_address` recognizer).
-        seen_spans: set[tuple[str, int, int]] = {
-            (f.rule, f.start_char, f.end_char) for f in findings
-        }
+        seen_spans: set[tuple[str, int, int]] = {(f.rule, f.start_char, f.end_char) for f in findings}
         for pack in packs:
             for recognizer in pack.recognizers:
                 for match in recognizer.pattern.finditer(text):
@@ -3905,9 +4179,7 @@ class PreSendReviewEngine:
         document_type: str,
         idx_start: int,
     ) -> list[ReviewFinding]:
-        severity = (
-            "high" if document_type.strip().lower() in NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES else "low"
-        )
+        severity = "high" if document_type.strip().lower() in NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES else "low"
         findings: list[ReviewFinding] = []
         occupied: list[tuple[int, int]] = []
         anchors: dict[str, str] = {}  # canonical key -> honorific-stripped surface form
@@ -4084,27 +4356,53 @@ class PreSendReviewEngine:
         suppressible_rules = {"definitive_agreement", "material_adverse_change"}
         for pattern, rule, severity, reason in [
             (NONPUBLIC_RE, "nonpublic_marker", "high", "Explicit non-public/confidentiality marker"),
-            (TRANSACTION_CODENAME_RE, "transaction_codename", "high",
-             "Internal deal codename detected; treat as MNPI until publicly disclosed"),
-            (DEFINITIVE_AGREEMENT_RE, "definitive_agreement", "high",
-             "Definitive-agreement reference may carry MNPI before announcement"),
-            (MAC_CLAUSE_RE, "material_adverse_change", "high",
-             "Material adverse change / effect language signals MNPI-grade context"),
-            (EMBARGO_RE, "embargo_marker", "high",
-             "Embargo / signing-date marker indicates MNPI handling"),
+            (
+                TRANSACTION_CODENAME_RE,
+                "transaction_codename",
+                "high",
+                "Internal deal codename detected; treat as MNPI until publicly disclosed",
+            ),
+            (
+                DEFINITIVE_AGREEMENT_RE,
+                "definitive_agreement",
+                "high",
+                "Definitive-agreement reference may carry MNPI before announcement",
+            ),
+            (
+                MAC_CLAUSE_RE,
+                "material_adverse_change",
+                "high",
+                "Material adverse change / effect language signals MNPI-grade context",
+            ),
+            (EMBARGO_RE, "embargo_marker", "high", "Embargo / signing-date marker indicates MNPI handling"),
             (MONEY_RE, "financial_amount", "medium", "Specific financial amount may be material"),
             (PERCENT_RE, "financial_percentage", "medium", "Specific financial percentage may be material"),
             (LONG_NUMBER_RE, "large_number", "medium", "Large numeric value may be material"),
-            (CONTRACT_UNIT_PRICE_RE, "contract_unit_price", "medium",
-             "Contract unit price / per-unit economics may be commercially sensitive MNPI"),
-            (CONTRACT_DISCOUNT_RE, "contract_discount_rate", "medium",
-             "Contract discount or rebate rate may be commercially sensitive MNPI"),
-            (VOLUME_COMMITMENT_RE, "volume_commitment", "medium",
-             "Contract volume commitment may be commercially sensitive MNPI"),
-            (ROYALTY_RATE_RE, "royalty_rate", "medium",
-             "Royalty rate may be commercially sensitive MNPI"),
-            (TOTAL_CONTRACT_VALUE_RE, "total_contract_value", "medium",
-             "Total contract value may be commercially sensitive MNPI"),
+            (
+                CONTRACT_UNIT_PRICE_RE,
+                "contract_unit_price",
+                "medium",
+                "Contract unit price / per-unit economics may be commercially sensitive MNPI",
+            ),
+            (
+                CONTRACT_DISCOUNT_RE,
+                "contract_discount_rate",
+                "medium",
+                "Contract discount or rebate rate may be commercially sensitive MNPI",
+            ),
+            (
+                VOLUME_COMMITMENT_RE,
+                "volume_commitment",
+                "medium",
+                "Contract volume commitment may be commercially sensitive MNPI",
+            ),
+            (ROYALTY_RATE_RE, "royalty_rate", "medium", "Royalty rate may be commercially sensitive MNPI"),
+            (
+                TOTAL_CONTRACT_VALUE_RE,
+                "total_contract_value",
+                "medium",
+                "Total contract value may be commercially sensitive MNPI",
+            ),
         ]:
             effective_severity = MNPI_DOC_TYPE_SEVERITY_OVERRIDES.get((rule, doc_type_key), severity)
             for match in pattern.finditer(text):
@@ -4122,9 +4420,7 @@ class PreSendReviewEngine:
                     text, match.start(), match.end()
                 ):
                     continue
-                if rule == "definitive_agreement" and _is_spa_day_reference(
-                    text, match.start(), match.end()
-                ):
+                if rule == "definitive_agreement" and _is_spa_day_reference(text, match.start(), match.end()):
                     continue
                 # narrow negation guard for MAC/MAE-style rules. catches the most common
                 # "no MAC clause concerns" / "not subject to MAC clause" patterns. doesn't
@@ -4137,13 +4433,9 @@ class PreSendReviewEngine:
                     text, match.start(), match.end()
                 ):
                     continue
-                if rule == "financial_amount" and _is_public_or_benign_amount_context(
-                    text, match.start(), match.end()
-                ):
+                if rule == "financial_amount" and _is_public_or_benign_amount_context(text, match.start(), match.end()):
                     continue
-                if rule == "financial_percentage" and _is_percent_encoded_fragment(
-                    text, match.start(), match.end()
-                ):
+                if rule == "financial_percentage" and _is_percent_encoded_fragment(text, match.start(), match.end()):
                     continue
                 if rule == "financial_percentage" and _is_public_or_benign_percentage_context(
                     text, match.start(), match.end()
@@ -4172,45 +4464,93 @@ class PreSendReviewEngine:
         # (Reg FD is US-specific — 17 CFR 243.100). The juris-gate is checked outside the loop.
         is_us_scope = any(pack.code == "US" for pack in packs)
         post_pass_rules: list[tuple[Any, str, str]] = [
-            (CONTINGENT_MNPI_RE, "contingent_mnpi_language",
-             "Contingent / forward-looking language; amplifies when adjacent to deal substrate"),
-            (TIPPING_RE, "tipping_language",
-             "Forwarding / distribution language; amplifies when adjacent to MNPI substrate"),
-            (INSIDER_LIST_RE, "insider_list_marker",
-             "Insider-list / wall-cross marker; amplifies when adjacent to MNPI substrate"),
-            (INFORMATION_BARRIER_RE, "information_barrier_marker",
-             "Information-barrier marker; amplifies when adjacent to MNPI substrate"),
-            (DPT_PRE_LISTING_RE, "dpt_pre_listing_marker",
-             "Digital-asset pre-listing / enforcement marker; amplifies when adjacent to MNPI substrate"),
-            (DPT_PROTOCOL_EVENT_RE, "dpt_protocol_event_marker",
-             "Digital-asset protocol-event marker; amplifies when adjacent to MNPI substrate"),
-            (ESG_CLIMATE_PRE_DISCLOSURE_RE, "esg_climate_pre_disclosure",
-             "ESG / climate pre-disclosure marker; amplifies when adjacent to MNPI substrate"),
-            (ESG_TARGET_REVISION_RE, "esg_target_revision",
-             "ESG target revision / assurance opinion; amplifies when adjacent to MNPI substrate"),
-            (CYBER_INCIDENT_RE, "cyber_incident_pre_disclosure",
-             "Cyber-incident pre-disclosure marker; amplifies when adjacent to MNPI substrate"),
-            (PHARMA_TRIAL_MNPI_RE, "pharma_trial_mnpi",
-             "Pharma clinical-trial / regulatory marker; amplifies when adjacent to MNPI substrate"),
-            (FINANCIAL_SERVICES_REGULATORY_MNPI_RE, "financial_services_regulatory_mnpi",
-             "Financial-services regulatory-capital / enforcement marker; amplifies when adjacent to MNPI substrate"),
-            (ENERGY_RESERVES_MNPI_RE, "energy_reserves_mnpi",
-             "Energy reserve / production-guidance marker; amplifies when adjacent to MNPI substrate"),
-            (LEGAL_PROCEEDING_MNPI_RE, "legal_proceeding_mnpi",
-             "Legal proceeding / settlement marker; amplifies when adjacent to MNPI substrate"),
+            (
+                CONTINGENT_MNPI_RE,
+                "contingent_mnpi_language",
+                "Contingent / forward-looking language; amplifies when adjacent to deal substrate",
+            ),
+            (
+                TIPPING_RE,
+                "tipping_language",
+                "Forwarding / distribution language; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                INSIDER_LIST_RE,
+                "insider_list_marker",
+                "Insider-list / wall-cross marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                INFORMATION_BARRIER_RE,
+                "information_barrier_marker",
+                "Information-barrier marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                DPT_PRE_LISTING_RE,
+                "dpt_pre_listing_marker",
+                "Digital-asset pre-listing / enforcement marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                DPT_PROTOCOL_EVENT_RE,
+                "dpt_protocol_event_marker",
+                "Digital-asset protocol-event marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                ESG_CLIMATE_PRE_DISCLOSURE_RE,
+                "esg_climate_pre_disclosure",
+                "ESG / climate pre-disclosure marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                ESG_TARGET_REVISION_RE,
+                "esg_target_revision",
+                "ESG target revision / assurance opinion; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                CYBER_INCIDENT_RE,
+                "cyber_incident_pre_disclosure",
+                "Cyber-incident pre-disclosure marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                PHARMA_TRIAL_MNPI_RE,
+                "pharma_trial_mnpi",
+                "Pharma clinical-trial / regulatory marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                FINANCIAL_SERVICES_REGULATORY_MNPI_RE,
+                "financial_services_regulatory_mnpi",
+                "Financial-services regulatory-capital / enforcement marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                ENERGY_RESERVES_MNPI_RE,
+                "energy_reserves_mnpi",
+                "Energy reserve / production-guidance marker; amplifies when adjacent to MNPI substrate",
+            ),
+            (
+                LEGAL_PROCEEDING_MNPI_RE,
+                "legal_proceeding_mnpi",
+                "Legal proceeding / settlement marker; amplifies when adjacent to MNPI substrate",
+            ),
         ]
         if is_us_scope:
             post_pass_rules.append(
-                (SELECTIVE_DISCLOSURE_RE, "selective_disclosure_risk",
-                 "Selective-disclosure language (Reg FD); amplifies when adjacent to MNPI substrate")
+                (
+                    SELECTIVE_DISCLOSURE_RE,
+                    "selective_disclosure_risk",
+                    "Selective-disclosure language (Reg FD); amplifies when adjacent to MNPI substrate",
+                )
             )
         # rules where lookback-window negation should suppress firing.
         _negation_guarded = {
-            "contingent_mnpi_language", "insider_list_marker", "information_barrier_marker",
-            "dpt_pre_listing_marker", "dpt_protocol_event_marker",
-            "esg_climate_pre_disclosure", "esg_target_revision",
-            "cyber_incident_pre_disclosure", "pharma_trial_mnpi",
-            "financial_services_regulatory_mnpi", "energy_reserves_mnpi",
+            "contingent_mnpi_language",
+            "insider_list_marker",
+            "information_barrier_marker",
+            "dpt_pre_listing_marker",
+            "dpt_protocol_event_marker",
+            "esg_climate_pre_disclosure",
+            "esg_target_revision",
+            "cyber_incident_pre_disclosure",
+            "pharma_trial_mnpi",
+            "financial_services_regulatory_mnpi",
+            "energy_reserves_mnpi",
             "legal_proceeding_mnpi",
         }
         for pattern, rule, reason in post_pass_rules:
@@ -4405,9 +4745,7 @@ class PreSendReviewEngine:
         document_structure: Any | None = None,
     ) -> ReviewResult:
         if review_profile not in VALID_REVIEW_PROFILES:
-            raise ValueError(
-                f"review_profile must be one of {sorted(VALID_REVIEW_PROFILES)}; got {review_profile!r}"
-            )
+            raise ValueError(f"review_profile must be one of {sorted(VALID_REVIEW_PROFILES)}; got {review_profile!r}")
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         privacy_ledger: list[dict[str, Any]] = []
         defined_terms = extract_defined_terms(text)
@@ -4582,9 +4920,7 @@ class PreSendReviewEngine:
                     "operation": "llm_adjudication",
                     "allowed": llm_adjudication.get("status") == "adjudicated",
                     "reason": str(
-                        llm_adjudication.get("review_recommendation")
-                        or llm_adjudication.get("status")
-                        or ""
+                        llm_adjudication.get("review_recommendation") or llm_adjudication.get("status") or ""
                     ),
                     "query": "",
                     "redactions": [],

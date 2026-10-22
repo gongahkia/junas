@@ -343,8 +343,10 @@ def _adapter_telemetry_outcome(event_name: str, details: Mapping[str, Any]) -> s
         return "held"
     if lowered.endswith("_user_blocked") or lowered.endswith("_upload_blocked"):
         return "blocked"
-    if lowered.endswith("_backend_failure") or lowered.endswith("_backend_timeout") or lowered.endswith(
-        "_selector_failure"
+    if (
+        lowered.endswith("_backend_failure")
+        or lowered.endswith("_backend_timeout")
+        or lowered.endswith("_selector_failure")
     ):
         return "failed"
     decision = str(details.get("decision", "") or "").lower()

@@ -116,9 +116,7 @@ def _inspect_docx(data: bytes) -> list[MetadataFinding]:
         ):
             xml = _read_zip_member(archive, name)
             if xml:
-                findings.extend(
-                    _docx_xml_findings(xml, source=source, detail=f"DOCX metadata part {name} is present")
-                )
+                findings.extend(_docx_xml_findings(xml, source=source, detail=f"DOCX metadata part {name} is present"))
 
         comments = _read_zip_member(archive, "word/comments.xml")
         if comments:

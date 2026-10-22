@@ -12,10 +12,12 @@ HoldUntilPublicAction = Literal["hold_until_public"]
 CitePublicSourceAction = Literal["cite_public_source"]
 RequestApprovalReason = Literal["policy_block", "approval_required", "rewrite_required", "user_requested", "other"]
 
+
 class Classification(str, Enum):
     SAFE = "SAFE"
     LOW_RISK = "LOW_RISK"
     HIGH_RISK = "HIGH_RISK"
+
 
 class ClassifyRequest(BaseModel):
     model_config = ConfigDict(
@@ -226,8 +228,7 @@ ADAPTER_SURFACE_REVIEW_EXAMPLES: dict[str, dict[str, Any]] = {
         "description": "Service-side DMS check-in review using matter/session context.",
         "value": {
             "document_base64": (
-                "RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUg"
-                "YW5ub3VuY2VtZW50Lg=="
+                "RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUgYW5ub3VuY2VtZW50Lg=="
             ),
             "document_filename": "board-memo.txt",
             "document_mime_type": "text/plain",
@@ -250,8 +251,7 @@ ADAPTER_SURFACE_REVIEW_EXAMPLES: dict[str, dict[str, Any]] = {
         "description": "Opt-in local file review from the desktop watcher/local daemon path.",
         "value": {
             "document_base64": (
-                "TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRl"
-                "bnRpYWwgUTEgZ3VpZGFuY2Uu"
+                "TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRlbnRpYWwgUTEgZ3VpZGFuY2Uu"
             ),
             "document_filename": "local-draft.txt",
             "document_mime_type": "text/plain",
@@ -806,12 +806,14 @@ class RedactRequest(PlaceholderOperationRequest):
         }
     )
 
+
 class LexiconHitResponse(BaseModel):
     rule: str = Field(description="Lexicon rule name that produced the hit.")
     matched_text: str = Field(description="Matched surface text recorded by the lexicon layer.")
     severity: str = Field(description="Lexicon hit severity, typically 'high' or 'info'.")
     detail: str = Field("", description="Rule-specific explanation for the hit.")
     score: float = Field(0.0, description="Rule contribution to the cumulative lexicon score.")
+
 
 class LexiconResponse(BaseModel):
     flagged: bool = Field(description="Whether the lexicon layer produced any notable hits.")
@@ -830,15 +832,18 @@ class LexiconResponse(BaseModel):
         description="Restricted-list entities inferred from the current request text.",
     )
 
+
 class Model1Response(BaseModel):
     label: str = Field(description="Model-1 output label: 'safe' or 'risk'.")
     confidence: float = Field(description="Confidence of the predicted Model-1 label.")
     risk_score: float = Field(description="Probability assigned to the 'risk' class.")
 
+
 class Model2Response(BaseModel):
     label: str = Field(description="Model-2 output label: 'low_risk' or 'high_risk'.")
     confidence: float = Field(description="Confidence of the predicted Model-2 label.")
     high_risk_score: float = Field(description="Probability assigned to the 'high_risk' class.")
+
 
 class RegressionResponse(BaseModel):
     risk_score: float = Field(description="Aggregate regression risk probability.")
@@ -1275,6 +1280,7 @@ class ReviewResponse(BaseModel):
     @property
     def available_actions(self) -> list[str]:
         return list(self.action_catalog)
+
     degraded_modes: list[DegradedModeResponse] = Field(
         default_factory=list,
         description="Explicit fail-open, fail-closed, or best-effort coverage limitations surfaced for this response.",
@@ -2505,9 +2511,7 @@ class MosaicResponse(BaseModel):
     entity_id: str = Field(description="Deprecated compatibility field; Mosaic is archived.")
     escalated: bool = Field(description="Deprecated compatibility field; Mosaic is archived.")
     recent_event_count: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
-    unique_fragment_count: int = Field(
-        description="Deprecated compatibility field; Mosaic is archived."
-    )
+    unique_fragment_count: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
     window_hours: float = Field(description="Deprecated compatibility field; Mosaic is archived.")
     threshold: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
     escalation_reason: str = Field("", description="Deprecated compatibility field; Mosaic is archived.")
@@ -2587,6 +2591,7 @@ class ObservabilityResponse(BaseModel):
         default_factory=list,
         description="Layer failures associated with this response.",
     )
+
 
 class ClassifyResponse(BaseModel):
     model_config = ConfigDict(
@@ -2694,8 +2699,7 @@ class ClassifyResponse(BaseModel):
     coverage_warnings: list[dict] = Field(
         default_factory=list,
         description=(
-            "Coverage_warning events. LLM warnings also produce capped origin=llm findings "
-            "under audit_grade."
+            "Coverage_warning events. LLM warnings also produce capped origin=llm findings under audit_grade."
         ),
     )
     degraded_modes: list[DegradedModeResponse] = Field(

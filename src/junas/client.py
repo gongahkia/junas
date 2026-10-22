@@ -128,8 +128,7 @@ def _coerce_batch_request(
         raise ValueError("items is required when request is not provided")
 
     normalized_items = [
-        item if isinstance(item, ClassifyRequest) else ClassifyRequest.model_validate(item)
-        for item in items
+        item if isinstance(item, ClassifyRequest) else ClassifyRequest.model_validate(item) for item in items
     ]
     return BatchClassifyRequest(items=normalized_items)
 
