@@ -37,7 +37,6 @@ import hashlib
 import hmac
 import json
 import os
-import re
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -46,10 +45,12 @@ from typing import Any
 
 import tomllib
 
+from junas.helper.file_lock import interprocess_lock
+from junas.helper.tenant_storage import tenant_storage_name
+
 GENESIS_HASH = "GENESIS"
 DEFAULT_JOURNAL_DIR_NAME = "junas-journal"
 LEGACY_KEY_VERSION = ""  # sentinel: entries without a key_version field use the legacy env-var key
-_TENANT_STORAGE_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 
 _journal_lock = Lock()
 
@@ -101,8 +102,7 @@ class JournalEntry:
 
 
 def _tenant_storage_dir_name(tenant_id: str) -> str:
-    safe = _TENANT_STORAGE_RE.sub("_", tenant_id.strip())[:128].strip("._-")
-    return safe or hashlib.sha256(tenant_id.encode("utf-8")).hexdigest()[:32]
+    return tenant_storage_name(tenant_id)
 
 
 def journal_dir(tenant_id: str | None = None) -> Path:
@@ -250,11 +250,11 @@ def append_event(
     payload: dict[str, Any],
     tenant_id: str | None = None,
 ) -> JournalEntry:
-    """Append a single event, chained to the previous entry. Thread-safe within a process.
+    """Append a single event, chained to the previous entry, across local workers.
     Uses the active key version from the keystore; falls back to the legacy single-key when
     no keystore is configured."""
-    with _journal_lock:
-        path = journal_path(tenant_id)
+    path = journal_path(tenant_id)
+    with _journal_lock, interprocess_lock(path.with_suffix(".jsonl.lock")):
         path.parent.mkdir(parents=True, exist_ok=True)
         last = _read_last_entry(path)
         seq = (last.seq + 1) if last else 0
@@ -298,14 +298,15 @@ def read_journal(*, review_id: str | None = None, tenant_id: str | None = None) 
     if not path.exists():
         return []
     entries: list[JournalEntry] = []
-    with path.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            stripped = line.strip()
-            if not stripped:
-                continue
-            entry = JournalEntry.from_dict(json.loads(stripped))
-            if review_id is None or entry.review_id == review_id:
-                entries.append(entry)
+    with _journal_lock, interprocess_lock(path.with_suffix(".jsonl.lock")):
+        with path.open("r", encoding="utf-8") as fh:
+            for line in fh:
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                entry = JournalEntry.from_dict(json.loads(stripped))
+                if review_id is None or entry.review_id == review_id:
+                    entries.append(entry)
     return entries
 
 
@@ -367,8 +368,7 @@ def rotate_journal_key(
         raise KeyResolutionError(f"to_version {to_version!r} is not in the keystore")
     if store.get("active") != to_version:
         raise KeyResolutionError(
-            f"rotation expects the keystore's active version to already be {to_version!r}; "
-            f"got {store.get('active')!r}"
+            f"rotation expects the keystore's active version to already be {to_version!r}; got {store.get('active')!r}"
         )
     last = _read_last_entry(journal_path(tenant_id))
     from_version = last.key_version if last else LEGACY_KEY_VERSION

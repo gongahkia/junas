@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Literal, Optional
+from typing import Any, Generic, Literal, Optional, Sequence, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -12,10 +12,12 @@ HoldUntilPublicAction = Literal["hold_until_public"]
 CitePublicSourceAction = Literal["cite_public_source"]
 RequestApprovalReason = Literal["policy_block", "approval_required", "rewrite_required", "user_requested", "other"]
 
+
 class Classification(str, Enum):
     SAFE = "SAFE"
     LOW_RISK = "LOW_RISK"
     HIGH_RISK = "HIGH_RISK"
+
 
 class ClassifyRequest(BaseModel):
     model_config = ConfigDict(
@@ -36,7 +38,7 @@ class ClassifyRequest(BaseModel):
         description="Document text to classify for MNPI sensitivity after control-character cleanup.",
     )
     entity_id: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         description="Optional issuer/entity context used by audit-grade public-source MNPI checks.",
     )
@@ -137,10 +139,14 @@ class AdapterTelemetryEvent(BaseModel):
     event_name: str = Field(..., min_length=1, max_length=96, description="Adapter telemetry event name.")
     surface: AdapterTelemetrySurface = Field(..., description="Adapter surface that emitted the event.")
     workflow: str = Field(..., min_length=1, max_length=64, description="Adapter workflow, such as email_send.")
-    timestamp: Optional[str] = Field(None, max_length=64, description="Adapter-side ISO timestamp when available.")
-    adapter_version: Optional[str] = Field(None, max_length=64, description="Adapter package or manifest version.")
-    request_id: Optional[str] = Field(None, max_length=128, description="Backend request id when known.")
-    review_id: Optional[str] = Field(None, max_length=128, description="Review id when known.")
+    timestamp: Optional[str] = Field(
+        default=None, max_length=64, description="Adapter-side ISO timestamp when available."
+    )
+    adapter_version: Optional[str] = Field(
+        default=None, max_length=64, description="Adapter package or manifest version."
+    )
+    request_id: Optional[str] = Field(default=None, max_length=128, description="Backend request id when known.")
+    review_id: Optional[str] = Field(default=None, max_length=128, description="Review id when known.")
     details: dict[str, Any] = Field(
         default_factory=dict,
         description="Telemetry details; backend drops or hashes unsafe keys.",
@@ -226,8 +232,7 @@ ADAPTER_SURFACE_REVIEW_EXAMPLES: dict[str, dict[str, Any]] = {
         "description": "Service-side DMS check-in review using matter/session context.",
         "value": {
             "document_base64": (
-                "RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUg"
-                "YW5ub3VuY2VtZW50Lg=="
+                "RHJhZnQgYm9hcmQgbWVtbzogQWNtZSB3aWxsIGFjcXVpcmUgR2xvYmFsVGVjaCBiZWZvcmUgYW5ub3VuY2VtZW50Lg=="
             ),
             "document_filename": "board-memo.txt",
             "document_mime_type": "text/plain",
@@ -250,8 +255,7 @@ ADAPTER_SURFACE_REVIEW_EXAMPLES: dict[str, dict[str, Any]] = {
         "description": "Opt-in local file review from the desktop watcher/local daemon path.",
         "value": {
             "document_base64": (
-                "TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRl"
-                "bnRpYWwgUTEgZ3VpZGFuY2Uu"
+                "TG9jYWwgZHJhZnQgY29udGFpbnMgRHIgSmFuZSBUYW4gUzEyMzQ1NjdEIGFuZCBjb25maWRlbnRpYWwgUTEgZ3VpZGFuY2Uu"
             ),
             "document_filename": "local-draft.txt",
             "document_mime_type": "text/plain",
@@ -300,21 +304,21 @@ class ReviewRequest(BaseModel):
     )
 
     text: Optional[str] = Field(
-        None,
+        default=None,
         max_length=MAX_CLASSIFY_TEXT_LENGTH,
         description="Inline document text. Provide either text or document_base64.",
     )
     document_base64: Optional[str] = Field(
-        None,
+        default=None,
         description="Base64-encoded text, DOCX, or PDF document payload.",
     )
     document_filename: Optional[str] = Field(
-        None,
+        default=None,
         max_length=256,
         description="Original filename used to infer document type when MIME type is omitted.",
     )
     document_mime_type: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         description="MIME type for document_base64, such as text/plain, application/pdf, or DOCX MIME.",
     )
@@ -346,7 +350,7 @@ class ReviewRequest(BaseModel):
         ),
     )
     entity_id: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         description="Optional issuer/entity used for public-source MNPI checks.",
     )
@@ -364,7 +368,7 @@ class ReviewRequest(BaseModel):
     )
     surface: Optional[
         Literal["api", "outlook", "browser_genai", "dms", "desktop", "word", "slack", "google_workspace", "other"]
-    ] = Field(None, description="Surface where the review was triggered.")
+    ] = Field(default=None, description="Surface where the review was triggered.")
     workflow: Optional[
         Literal[
             "api_review",
@@ -378,7 +382,7 @@ class ReviewRequest(BaseModel):
             "collaboration_message",
             "other",
         ]
-    ] = Field(None, description="Workflow being reviewed within the triggering surface.")
+    ] = Field(default=None, description="Workflow being reviewed within the triggering surface.")
     actor_role: Optional[
         Literal[
             "end_user",
@@ -390,31 +394,31 @@ class ReviewRequest(BaseModel):
             "service_account",
             "other",
         ]
-    ] = Field(None, description="Role of the actor requesting review.")
+    ] = Field(default=None, description="Role of the actor requesting review.")
     recipient_domains: Optional[list[str]] = Field(
-        None,
+        default=None,
         max_length=100,
         description="Destination domains known to the adapter or API caller. Empty lists are allowed.",
     )
     recipient_count: Optional[int] = Field(
-        None,
+        default=None,
         ge=0,
         le=10000,
         description="Number of intended recipients when known.",
     )
     attachment_count: Optional[int] = Field(
-        None,
+        default=None,
         ge=0,
         le=1000,
         description="Number of attachments or uploaded files associated with the workflow.",
     )
     sensitivity_label: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         description="Caller-supplied sensitivity label, such as confidential or restricted.",
     )
     external_destination: Optional[bool] = Field(
-        None,
+        default=None,
         description="Whether the destination leaves the caller's trusted internal boundary.",
     )
     requested_action: Optional[
@@ -433,9 +437,9 @@ class ReviewRequest(BaseModel):
             "proceed_with_warning",
             "other",
         ]
-    ] = Field(None, description="Action the caller wants to complete after review.")
+    ] = Field(default=None, description="Action the caller wants to complete after review.")
     session_id: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         pattern=r"^[A-Za-z0-9_\-]{1,128}$",
         description=(
@@ -446,7 +450,7 @@ class ReviewRequest(BaseModel):
         ),
     )
     matter_id: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         pattern=r"^[A-Za-z0-9_\-:]{1,128}$",
         description=(
@@ -504,7 +508,7 @@ class ReviewRequest(BaseModel):
         return cleaned or None
 
     @model_validator(mode="after")
-    def require_text_or_document(self):
+    def require_text_or_document(self) -> "ReviewRequest":
         if not self.text and not self.document_base64:
             raise ValueError("either text or document_base64 is required")
         return self
@@ -518,6 +522,18 @@ class PlaceholderOperationRequest(ReviewRequest):
             "Broad MNPI material-event passages remain review findings rather than automatic replacements."
         ),
     )
+
+
+def _default_safe_rewrite_actions() -> list[SafeRewriteAction]:
+    return ["safe_rewrite", "redact_pii", "hold_until_public"]
+
+
+def _default_redact_pii_actions() -> list[RedactPiiAction]:
+    return ["redact_pii"]
+
+
+def _default_hold_until_public_actions() -> list[HoldUntilPublicAction]:
+    return ["hold_until_public"]
 
 
 class SafeRewriteRequest(ReviewRequest):
@@ -537,21 +553,21 @@ class SafeRewriteRequest(ReviewRequest):
         }
     )
 
-    allowed_actions: list[SafeRewriteAction] = Field(
-        default_factory=lambda: ["safe_rewrite", "redact_pii", "hold_until_public"],
+    allowed_actions: Sequence[SafeRewriteAction] = Field(
+        default_factory=_default_safe_rewrite_actions,
         min_length=1,
         max_length=8,
         description="Policy actions the caller permits this safe rewrite to apply.",
     )
     allowed_finding_ids: Optional[list[str]] = Field(
-        None,
+        default=None,
         max_length=10000,
         description="Optional allowlist of original review finding ids eligible for rewrite.",
     )
 
     @field_validator("allowed_actions")
     @classmethod
-    def dedupe_allowed_actions(cls, value: list[SafeRewriteAction]) -> list[SafeRewriteAction]:
+    def dedupe_allowed_actions(cls, value: Sequence[SafeRewriteAction]) -> list[SafeRewriteAction]:
         return list(dict.fromkeys(value))
 
     @field_validator("allowed_finding_ids")
@@ -593,7 +609,7 @@ class RedactPiiRequest(SafeRewriteRequest):
     )
 
     allowed_actions: list[RedactPiiAction] = Field(
-        default_factory=lambda: ["redact_pii"],
+        default_factory=_default_redact_pii_actions,
         min_length=1,
         max_length=1,
         description="Only `redact_pii`; this action leaves MNPI text visible and flagged.",
@@ -617,7 +633,7 @@ class HoldUntilPublicRequest(SafeRewriteRequest):
     )
 
     allowed_actions: list[HoldUntilPublicAction] = Field(
-        default_factory=lambda: ["hold_until_public"],
+        default_factory=_default_hold_until_public_actions,
         min_length=1,
         max_length=1,
         description="Only `hold_until_public`; this action applies to high-severity MNPI findings.",
@@ -669,7 +685,7 @@ class RequestApprovalRequest(BaseModel):
         description="Review session identifier from a prior /review response.",
     )
     finding_ids: Optional[list[str]] = Field(
-        None,
+        default=None,
         max_length=10000,
         description="Optional finding ids that need approval. Omitted means all findings in the session.",
     )
@@ -806,12 +822,14 @@ class RedactRequest(PlaceholderOperationRequest):
         }
     )
 
+
 class LexiconHitResponse(BaseModel):
     rule: str = Field(description="Lexicon rule name that produced the hit.")
     matched_text: str = Field(description="Matched surface text recorded by the lexicon layer.")
     severity: str = Field(description="Lexicon hit severity, typically 'high' or 'info'.")
     detail: str = Field("", description="Rule-specific explanation for the hit.")
     score: float = Field(0.0, description="Rule contribution to the cumulative lexicon score.")
+
 
 class LexiconResponse(BaseModel):
     flagged: bool = Field(description="Whether the lexicon layer produced any notable hits.")
@@ -830,15 +848,18 @@ class LexiconResponse(BaseModel):
         description="Restricted-list entities inferred from the current request text.",
     )
 
+
 class Model1Response(BaseModel):
     label: str = Field(description="Model-1 output label: 'safe' or 'risk'.")
     confidence: float = Field(description="Confidence of the predicted Model-1 label.")
     risk_score: float = Field(description="Probability assigned to the 'risk' class.")
 
+
 class Model2Response(BaseModel):
     label: str = Field(description="Model-2 output label: 'low_risk' or 'high_risk'.")
     confidence: float = Field(description="Confidence of the predicted Model-2 label.")
     high_risk_score: float = Field(description="Probability assigned to the 'high_risk' class.")
+
 
 class RegressionResponse(BaseModel):
     risk_score: float = Field(description="Aggregate regression risk probability.")
@@ -858,7 +879,7 @@ class PublicEvidenceSourceResponse(BaseModel):
     author: str = Field("", description="Provider-supplied author when available.")
     highlights: list[str] = Field(default_factory=list, description="Provider-supplied source highlights.")
     text: str = Field("", description="Short public-source text excerpt returned by the provider.")
-    score: Optional[float] = Field(None, description="Provider relevance score when available.")
+    score: Optional[float] = Field(default=None, description="Provider relevance score when available.")
 
 
 class PrivacyLedgerEntryResponse(BaseModel):
@@ -907,7 +928,7 @@ class LLMAdjudicationResponse(BaseModel):
     status: str = Field(description="Adjudication status: disabled, adjudicated, or error.")
     provider: str = Field(description="Local LLM provider, such as vllm or ollama.")
     model: str = Field(description="Configured local model name.")
-    risk_label: Optional[Classification] = Field(None, description="LLM-adjudicated final risk label.")
+    risk_label: Optional[Classification] = Field(default=None, description="LLM-adjudicated final risk label.")
     public_status: str = Field("not_checked", description="public, not_public, ambiguous, or not_checked.")
     confidence: float = Field(0.0, description="LLM confidence in the adjudicated label.")
     materiality_reason: str = Field("", description="Short local-only rationale for materiality.")
@@ -944,7 +965,9 @@ class ReviewDocumentMetadataResponse(BaseModel):
     extraction_method: str = Field(
         description="Extraction path used for review, such as inline_text, docx_container_xml, or pypdf."
     )
-    page_count: Optional[int] = Field(None, description="Extracted page count when available, such as for PDFs.")
+    page_count: Optional[int] = Field(
+        default=None, description="Extracted page count when available, such as for PDFs."
+    )
     char_count: int = Field(description="Character count of the normalized extracted text reviewed by the engine.")
     extraction_quality: str = Field("accepted", description="Extraction quality gate result for the reviewed text.")
     extraction_warnings: list[str] = Field(
@@ -983,11 +1006,11 @@ class ReviewFindingResponse(BaseModel):
         description="Finding source: text for extracted document text, image_ocr for OCR-derived image text.",
     )
     image_locator: Optional["ImageLocatorResponse"] = Field(
-        None,
+        default=None,
         description="Image locator for OCR-derived findings, including container_path and image_index.",
     )
     image_ocr_confidence: Optional[float] = Field(
-        None,
+        default=None,
         ge=0.0,
         le=1.0,
         description="OCR provider confidence for the source image span when available.",
@@ -1035,7 +1058,7 @@ class ImageBoundingBoxResponse(BaseModel):
 class ImageLocatorResponse(BaseModel):
     container_path: str = Field(description="Path or synthetic name of the image inside the submitted document.")
     image_index: int = Field(description="Zero-based image index within the document.")
-    page_number: Optional[int] = Field(None, description="One-based PDF page number when known.")
+    page_number: Optional[int] = Field(default=None, description="One-based PDF page number when known.")
     source_type: str = Field(
         "embedded_image",
         description="Image source type, such as standalone_image or pdf_page_render.",
@@ -1047,17 +1070,17 @@ class ImageTextRegionResponse(BaseModel):
     start_char: int = Field(description="Zero-based inclusive start offset in the reviewed text.")
     end_char: int = Field(description="Zero-based exclusive end offset in the reviewed text.")
     bounding_box: Optional[ImageBoundingBoxResponse] = Field(
-        None,
+        default=None,
         description="Normalized source-image bounding box for this OCR region.",
     )
-    confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="Provider confidence when available.")
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0, description="Provider confidence when available.")
 
 
 class DegradedModeResponse(BaseModel):
     mode: str = Field(description="Subsystem or coverage mode that degraded, such as image_ocr or image_redaction.")
     status: str = Field(description="Degradation status, such as skipped, failed_closed, or unavailable.")
     reason: str = Field(description="Human-readable reason for the degraded mode.")
-    detail: Optional[dict[str, Any]] = Field(None, description="Optional structured detail for operators.")
+    detail: Optional[dict[str, Any]] = Field(default=None, description="Optional structured detail for operators.")
 
 
 class PolicyDecisionResponse(BaseModel):
@@ -1104,7 +1127,10 @@ class PolicyDecisionResponse(BaseModel):
     review_id: str = Field(description="Review session identifier associated with this policy decision.")
 
 
-class ReviewResponse(BaseModel):
+_FindingResponseT = TypeVar("_FindingResponseT", bound=BaseModel)
+
+
+class _ReviewResponseBase(BaseModel, Generic[_FindingResponseT]):
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
@@ -1184,9 +1210,11 @@ class ReviewResponse(BaseModel):
         }
     )
 
-    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    request_id: Optional[str] = Field(
+        default=None, description="Per-request UUID also returned as the X-Request-ID header."
+    )
     review_expires_at: Optional[str] = Field(
-        None,
+        default=None,
         description=(
             "RFC 3339 UTC timestamp after which adapters must require a fresh review before completing "
             "a send/share action."
@@ -1212,7 +1240,7 @@ class ReviewResponse(BaseModel):
         description="Compatibility field derived from policy_decision.send_allowed.",
     )
     policy_decision: Optional[PolicyDecisionResponse] = Field(
-        None,
+        default=None,
         description="Policy decision derived from findings, workflow context, and degraded coverage.",
     )
     action_catalog: list[str] = Field(
@@ -1220,7 +1248,7 @@ class ReviewResponse(BaseModel):
         description="Available next actions adapters may offer after review.",
     )
     document: ReviewDocumentMetadataResponse = Field(description="Extracted document metadata.")
-    findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")
+    findings: list[_FindingResponseT] = Field(default_factory=list, description="Localized PII and MNPI findings.")
     lane_suppressed_count: int = Field(
         0,
         description="Number of findings hidden from the default surfacing lane for this tenant.",
@@ -1234,11 +1262,11 @@ class ReviewResponse(BaseModel):
         description="Suggested redactions or rewrite actions for findings.",
     )
     public_evidence: Optional[PublicEvidenceResponse] = Field(
-        None,
+        default=None,
         description="Sanitized public-source retrieval output when public evidence is enabled.",
     )
     llm_adjudication: Optional[LLMAdjudicationResponse] = Field(
-        None,
+        default=None,
         description="Local LLM adjudication output when the local adjudicator is enabled.",
     )
     privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
@@ -1275,6 +1303,7 @@ class ReviewResponse(BaseModel):
     @property
     def available_actions(self) -> list[str]:
         return list(self.action_catalog)
+
     degraded_modes: list[DegradedModeResponse] = Field(
         default_factory=list,
         description="Explicit fail-open, fail-closed, or best-effort coverage limitations surfaced for this response.",
@@ -1283,6 +1312,10 @@ class ReviewResponse(BaseModel):
         default_factory=dict,
         description="Review timing breakdown in milliseconds plus total request time.",
     )
+
+
+class ReviewResponse(_ReviewResponseBase[ReviewFindingResponse]):
+    findings: list[ReviewFindingResponse] = Field(default_factory=list, description="Localized PII and MNPI findings.")
 
 
 class AnonymizationMappingEntryResponse(BaseModel):
@@ -1317,7 +1350,7 @@ class ReidentifyRequest(BaseModel):
         description="Text containing placeholders that should be restored.",
     )
     mapping: Optional[list[ReidentifyMappingEntry]] = Field(
-        None,
+        default=None,
         max_length=10000,
         description=(
             "Mapping entries from a prior /pseudonymize call. Required unless document_hash is provided "
@@ -1325,7 +1358,7 @@ class ReidentifyRequest(BaseModel):
         ),
     )
     document_hash: Optional[str] = Field(
-        None,
+        default=None,
         min_length=64,
         max_length=64,
         description=(
@@ -1345,14 +1378,16 @@ class ReidentifyRequest(BaseModel):
         return cleaned
 
     @model_validator(mode="after")
-    def require_mapping_or_hash(self):
+    def require_mapping_or_hash(self) -> "ReidentifyRequest":
         if not self.mapping and not self.document_hash:
             raise ValueError("either `mapping` or `document_hash` is required")
         return self
 
 
 class ReidentifyResponse(BaseModel):
-    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    request_id: Optional[str] = Field(
+        default=None, description="Per-request UUID also returned as the X-Request-ID header."
+    )
     text: str = Field(description="Reconstructed text with placeholders replaced by their originals.")
     replacement_count: int = Field(description="Number of placeholder occurrences replaced.")
     timings_ms: dict[str, float] = Field(
@@ -1364,12 +1399,12 @@ class ReidentifyResponse(BaseModel):
 class DocumentScrubRequest(BaseModel):
     document_base64: str = Field(..., description="Base64-encoded DOCX, PDF, JPEG, or PNG document payload.")
     document_filename: Optional[str] = Field(
-        None,
+        default=None,
         max_length=256,
         description="Original filename used to infer document type when MIME type is omitted.",
     )
     document_mime_type: Optional[str] = Field(
-        None,
+        default=None,
         max_length=128,
         description="MIME type for the scrub target.",
     )
@@ -1382,7 +1417,9 @@ class DocumentScrubActionResponse(BaseModel):
 
 
 class DocumentScrubResponse(BaseModel):
-    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    request_id: Optional[str] = Field(
+        default=None, description="Per-request UUID also returned as the X-Request-ID header."
+    )
     document_base64: str = Field(description="Base64-encoded scrubbed document payload.")
     document_filename: str = Field(description="Filename associated with the scrubbed document.")
     document_mime_type: str = Field(description="MIME type of the scrubbed document.")
@@ -1419,14 +1456,14 @@ class ReviewDecisionDetectorFeedback(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     detector_issue_category: Optional[DetectorIssueCategory] = Field(
-        None,
+        default=None,
         description="Privacy-safe detector issue category for feedback triage.",
     )
-    rule_id: Optional[str] = Field(None, max_length=128, description="Detector rule id.")
-    category: Optional[str] = Field(None, max_length=64, description="Finding category.")
-    severity: Optional[str] = Field(None, max_length=32, description="Finding severity.")
-    jurisdiction: Optional[str] = Field(None, max_length=64, description="Jurisdiction or pack context.")
-    source_verification: Optional[str] = Field(None, max_length=64, description="Source verification status.")
+    rule_id: Optional[str] = Field(default=None, max_length=128, description="Detector rule id.")
+    category: Optional[str] = Field(default=None, max_length=64, description="Finding category.")
+    severity: Optional[str] = Field(default=None, max_length=32, description="Finding severity.")
+    jurisdiction: Optional[str] = Field(default=None, max_length=64, description="Jurisdiction or pack context.")
+    source_verification: Optional[str] = Field(default=None, max_length=64, description="Source verification status.")
     fixture_task_intent: Optional[
         Literal[
             "none",
@@ -1436,7 +1473,7 @@ class ReviewDecisionDetectorFeedback(BaseModel):
             "known_limitation",
             "discard_reviewer_error",
         ]
-    ] = Field(None, description="Optional downstream detector-quality workflow intent.")
+    ] = Field(default=None, description="Optional downstream detector-quality workflow intent.")
     evidence_hashes: list[str] = Field(
         default_factory=list,
         max_length=32,
@@ -1481,15 +1518,15 @@ class ReviewDecisionRequest(BaseModel):
         description="Finding identifier from a prior /review response.",
     )
     action: str = Field(..., description=f"One of: {', '.join(DECISION_ACTIONS)}.")
-    decision_taxonomy: Optional[str] = Field(None, description=f"One of: {', '.join(DECISION_TAXONOMY)}.")
+    decision_taxonomy: Optional[str] = Field(default=None, description=f"One of: {', '.join(DECISION_TAXONOMY)}.")
     reviewer_confidence: Optional[float] = Field(
-        None,
+        default=None,
         ge=0.0,
         le=1.0,
         description="Reviewer confidence in the decision, from 0.0 to 1.0.",
     )
     detector_feedback: Optional[ReviewDecisionDetectorFeedback] = Field(
-        None,
+        default=None,
         description="Privacy-safe detector feedback metadata; raw text is not required.",
     )
     replacement_text: str = Field("", max_length=4096, description="Rewrite text when action=rewrite.")
@@ -1527,10 +1564,12 @@ class ReviewDecisionResponse(BaseModel):
     review_id: str = Field(description="Review session identifier.")
     finding_id: str = Field(description="Finding identifier whose decision was recorded.")
     action: str = Field(description=f"Recorded action: {', '.join(DECISION_ACTIONS)}.")
-    decision_taxonomy: Optional[str] = Field(None, description=f"Feedback taxonomy: {', '.join(DECISION_TAXONOMY)}.")
-    reviewer_confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="Reviewer confidence score.")
+    decision_taxonomy: Optional[str] = Field(
+        default=None, description=f"Feedback taxonomy: {', '.join(DECISION_TAXONOMY)}."
+    )
+    reviewer_confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0, description="Reviewer confidence score.")
     detector_feedback: Optional[ReviewDecisionDetectorFeedback] = Field(
-        None,
+        default=None,
         description="Privacy-safe detector feedback metadata.",
     )
     reviewer_id: str = Field("", description="Reviewer identifier persisted alongside the decision.")
@@ -1565,40 +1604,48 @@ class ReviewSessionFindingState(BaseModel):
         description="Exact matched text only when raw span persistence is explicitly enabled.",
     )
     matched_text_sha256: Optional[str] = Field(
-        None,
+        default=None,
         description="SHA-256 of the matched text when raw text is omitted.",
     )
-    matched_text_char_count: Optional[int] = Field(None, description="Matched text character count when available.")
+    matched_text_char_count: Optional[int] = Field(
+        default=None, description="Matched text character count when available."
+    )
     start_char: int = Field(description="Zero-based inclusive start offset.")
     end_char: int = Field(description="Zero-based exclusive end offset.")
     source: str = Field("text", description="Finding source: text or image_ocr.")
-    image_locator: Optional[ImageLocatorResponse] = Field(None, description="Image locator for OCR-derived findings.")
-    image_ocr_confidence: Optional[float] = Field(None, ge=0.0, le=1.0, description="OCR confidence when available.")
+    image_locator: Optional[ImageLocatorResponse] = Field(
+        default=None, description="Image locator for OCR-derived findings."
+    )
+    image_ocr_confidence: Optional[float] = Field(
+        default=None, ge=0.0, le=1.0, description="OCR confidence when available."
+    )
     image_ocr_regions: list[ImageTextRegionResponse] = Field(
         default_factory=list,
         description="OCR text regions overlapping this persisted finding.",
     )
     metadata: dict[str, Any] = Field(default_factory=dict, description="Persisted detector metadata.")
     decision: Optional[str] = Field(
-        None,
+        default=None,
         description=f"Current decision: {', '.join(DECISION_ACTIONS)}. None when undecided.",
     )
-    decision_seq: Optional[int] = Field(None, description="Journal seq for the most recent decision on this finding.")
-    decision_ts: Optional[str] = Field(None, description="Timestamp of the most recent decision.")
-    decision_reviewer_id: Optional[str] = Field(None, description="Reviewer identifier on the latest decision.")
+    decision_seq: Optional[int] = Field(
+        default=None, description="Journal seq for the most recent decision on this finding."
+    )
+    decision_ts: Optional[str] = Field(default=None, description="Timestamp of the most recent decision.")
+    decision_reviewer_id: Optional[str] = Field(default=None, description="Reviewer identifier on the latest decision.")
     decision_reviewer_identity_source: Optional[str] = Field(
-        None,
+        default=None,
         description="Source for decision_reviewer_id on the latest decision.",
     )
-    decision_taxonomy: Optional[str] = Field(None, description="Feedback taxonomy on the latest decision.")
+    decision_taxonomy: Optional[str] = Field(default=None, description="Feedback taxonomy on the latest decision.")
     decision_reviewer_confidence: Optional[float] = Field(
-        None,
+        default=None,
         ge=0.0,
         le=1.0,
         description="Reviewer confidence on the latest decision.",
     )
     decision_detector_feedback: Optional[ReviewDecisionDetectorFeedback] = Field(
-        None,
+        default=None,
         description="Privacy-safe detector feedback metadata on the latest decision.",
     )
 
@@ -1716,7 +1763,7 @@ class RedactedFindingResponse(BaseModel):
 class RedactedImageResponse(BaseModel):
     container_path: str = Field(description="Path or synthetic name of the redacted image source.")
     image_index: int = Field(description="Zero-based image index within the submitted document.")
-    page_number: Optional[int] = Field(None, description="One-based PDF page number when known.")
+    page_number: Optional[int] = Field(default=None, description="One-based PDF page number when known.")
     source_type: str = Field("embedded_image", description="Image source type.")
     mime_type: str = Field(description="MIME type of the returned redacted artifact.")
     document_base64: str = Field(description="Base64-encoded redacted PNG artifact.")
@@ -2312,7 +2359,7 @@ class PseudonymizeResponse(ReviewResponse):
         ),
     )
     redacted_document: Optional[RedactedDocumentResponse] = Field(
-        None,
+        default=None,
         description=(
             "Rewritten source container with OCR pixel redactions applied. DOCX rewrites embedded media; "
             "PDF output is a flattened pixel-safe PDF."
@@ -2404,12 +2451,12 @@ class AnonymizeResponse(ReviewResponse):
         description="Best-effort redacted PNG artifacts for image-origin findings.",
     )
     redacted_document: Optional[RedactedDocumentResponse] = Field(
-        None,
+        default=None,
         description="Rewritten source container with OCR pixel redactions applied.",
     )
 
 
-class RedactResponse(ReviewResponse):
+class RedactResponse(_ReviewResponseBase[RedactedFindingResponse]):
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
@@ -2496,7 +2543,7 @@ class RedactResponse(ReviewResponse):
         description="Best-effort redacted PNG artifacts for image-origin findings.",
     )
     redacted_document: Optional[RedactedDocumentResponse] = Field(
-        None,
+        default=None,
         description="Rewritten source container with OCR pixel redactions applied.",
     )
 
@@ -2505,9 +2552,7 @@ class MosaicResponse(BaseModel):
     entity_id: str = Field(description="Deprecated compatibility field; Mosaic is archived.")
     escalated: bool = Field(description="Deprecated compatibility field; Mosaic is archived.")
     recent_event_count: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
-    unique_fragment_count: int = Field(
-        description="Deprecated compatibility field; Mosaic is archived."
-    )
+    unique_fragment_count: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
     window_hours: float = Field(description="Deprecated compatibility field; Mosaic is archived.")
     threshold: int = Field(description="Deprecated compatibility field; Mosaic is archived.")
     escalation_reason: str = Field("", description="Deprecated compatibility field; Mosaic is archived.")
@@ -2541,29 +2586,29 @@ class OffendingSpanResponse(BaseModel):
     line_span: int = Field(description="Number of lines covered by the span.")
     context_before: str = Field("", description="Up to 48 characters of leading local context.")
     context_after: str = Field("", description="Up to 48 characters of trailing local context.")
-    score: Optional[float] = Field(None, description="Associated rule score or classifier score, if available.")
+    score: Optional[float] = Field(default=None, description="Associated rule score or classifier score, if available.")
     score_type: Optional[str] = Field(
-        None,
+        default=None,
         description="Metric represented by score, such as rule_score, risk_score, or high_risk_score.",
     )
     window_index: Optional[int] = Field(
-        None,
+        default=None,
         description="Zero-based classifier window index for approximate model spans.",
     )
     window_count: Optional[int] = Field(
-        None,
+        default=None,
         description="Total number of classifier windows evaluated for the request.",
     )
     window_token_count: Optional[int] = Field(
-        None,
+        default=None,
         description="Number of non-padding tokens in the selected classifier window.",
     )
     window_stride: Optional[int] = Field(
-        None,
+        default=None,
         description="Tokenizer stride used while constructing overlapping classifier windows.",
     )
     window_max_seq_len: Optional[int] = Field(
-        None,
+        default=None,
         description="Maximum token length used for classifier windows.",
     )
 
@@ -2587,6 +2632,7 @@ class ObservabilityResponse(BaseModel):
         default_factory=list,
         description="Layer failures associated with this response.",
     )
+
 
 class ClassifyResponse(BaseModel):
     model_config = ConfigDict(
@@ -2637,33 +2683,35 @@ class ClassifyResponse(BaseModel):
         }
     )
 
-    request_id: Optional[str] = Field(None, description="Per-request UUID also returned as the X-Request-ID header.")
+    request_id: Optional[str] = Field(
+        default=None, description="Per-request UUID also returned as the X-Request-ID header."
+    )
     classification: Classification = Field(description="Final document-level classification from engine.review().")
-    lexicon: Optional[LexiconResponse] = Field(None, description="Deprecated compatibility field; always null.")
+    lexicon: Optional[LexiconResponse] = Field(default=None, description="Deprecated compatibility field; always null.")
     model1: Optional[Model1Response] = Field(
-        None,
+        default=None,
         description="Deprecated compatibility field; always null.",
     )
     model2: Optional[Model2Response] = Field(
-        None,
+        default=None,
         description="Deprecated compatibility field; always null.",
     )
     embedding: Optional[list[float]] = Field(
-        None,
+        default=None,
         description="Deprecated compatibility field; always null.",
     )
-    clustering: Optional[dict] = Field(None, description="Deprecated compatibility field; always null.")
-    mosaic: Optional[MosaicResponse] = Field(None, description="Deprecated compatibility field; always null.")
+    clustering: Optional[dict] = Field(default=None, description="Deprecated compatibility field; always null.")
+    mosaic: Optional[MosaicResponse] = Field(default=None, description="Deprecated compatibility field; always null.")
     regression: Optional[RegressionResponse] = Field(
-        None,
+        default=None,
         description="Deprecated compatibility field; always null.",
     )
     public_evidence: Optional[PublicEvidenceResponse] = Field(
-        None,
+        default=None,
         description="Sanitized public-source retrieval output when the public evidence layer is enabled.",
     )
     llm_adjudication: Optional[LLMAdjudicationResponse] = Field(
-        None,
+        default=None,
         description="Local LLM adjudication output when the local adjudicator layer is enabled.",
     )
     privacy_ledger: list[PrivacyLedgerEntryResponse] = Field(
@@ -2672,7 +2720,7 @@ class ClassifyResponse(BaseModel):
     )
     observability: ObservabilityResponse = Field(description="Per-request runtime observability metadata.")
     offending_spans: Optional[list[OffendingSpanResponse]] = Field(
-        None,
+        default=None,
         description="Deprecated compatibility field; use `findings` for current span evidence.",
     )
     timings_ms: dict[str, float] = Field(
@@ -2680,11 +2728,11 @@ class ClassifyResponse(BaseModel):
         description="Review timing breakdown in milliseconds plus the total request time.",
     )
     pii_score: Optional[float] = Field(
-        None,
+        default=None,
         description="PII risk score from engine.review() (0-100). Populated under the item-63 thin-wrapper flow.",
     )
     mnpi_score: Optional[float] = Field(
-        None,
+        default=None,
         description="MNPI risk score from engine.review() (0-100). Populated under the item-63 thin-wrapper flow.",
     )
     findings: list[ReviewFindingResponse] = Field(
@@ -2694,8 +2742,7 @@ class ClassifyResponse(BaseModel):
     coverage_warnings: list[dict] = Field(
         default_factory=list,
         description=(
-            "Coverage_warning events. LLM warnings also produce capped origin=llm findings "
-            "under audit_grade."
+            "Coverage_warning events. LLM warnings also produce capped origin=llm findings under audit_grade."
         ),
     )
     degraded_modes: list[DegradedModeResponse] = Field(
@@ -2785,13 +2832,13 @@ class ReadyResponse(BaseModel):
 class DependencyStatusResponse(BaseModel):
     status: str = Field(description="Dependency health label, such as up, down, disabled, or unknown.")
     configured: bool = Field(description="Whether the dependency is configured for this runtime.")
-    healthy: Optional[bool] = Field(None, description="Boolean health signal when available.")
+    healthy: Optional[bool] = Field(default=None, description="Boolean health signal when available.")
     detail: str = Field("", description="Additional dependency detail text.")
 
 
 class RuntimeLayerErrorSummaryResponse(BaseModel):
     count: int = Field(0, description="Number of runtime failures observed for the layer.")
-    last_seen: Optional[str] = Field(None, description="UTC timestamp of the most recent runtime failure.")
+    last_seen: Optional[str] = Field(default=None, description="UTC timestamp of the most recent runtime failure.")
     last_message: str = Field("", description="Message from the most recent runtime failure.")
 
 

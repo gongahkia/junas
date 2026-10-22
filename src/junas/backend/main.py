@@ -17,10 +17,10 @@ from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, replace
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from threading import Lock, Thread
-from typing import Annotated, Any, cast
+from typing import Annotated, Any, AsyncIterator, Awaitable, Callable, cast
 
 from fastapi import Body, Depends, FastAPI, Header, HTTPException, Request, Response
 from fastapi.encoders import jsonable_encoder
@@ -70,6 +70,7 @@ from junas.backend.local_auth import (
 from junas.backend.observability import DependencyStatus, ObservabilityManager, get_metrics_mode
 from junas.backend.schemas import (
     ADAPTER_SURFACE_REVIEW_EXAMPLES,
+    AdapterTelemetryAcceptedEvent,
     AdapterTelemetryRequest,
     AdapterTelemetryResponse,
     AnonymizationMappingEntryResponse,
@@ -83,8 +84,10 @@ from junas.backend.schemas import (
     Classification,
     ClassifyRequest,
     ClassifyResponse,
+    DegradedModeResponse,
     DependencyStatusResponse,
     DiagnosticsResponse,
+    DocumentMetadataFindingResponse,
     DocumentScrubActionResponse,
     DocumentScrubRequest,
     DocumentScrubResponse,
@@ -126,6 +129,7 @@ from junas.backend.schemas import (
     ReviewSessionFindingState,
     ReviewSessionStateResponse,
     ReviewSuggestionResponse,
+    SafeRewriteAction,
     SafeRewriteReplacementResponse,
     SafeRewriteRequest,
     SafeRewriteResponse,
@@ -906,11 +910,7 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
                     status=str(health.get("status", "unknown")),
                     configured=True,
                     healthy=health.get("healthy"),
-                    detail=(
-                        "requires llm.enabled=true"
-                        if not settings.llm.enabled
-                        else str(health.get("detail", ""))
-                    ),
+                    detail=("requires llm.enabled=true" if not settings.llm.enabled else str(health.get("detail", ""))),
                 )
             except Exception as exc:
                 statuses[helper_name] = DependencyStatus(
@@ -995,10 +995,7 @@ def _mark_required_layer_warmed(layer: str) -> None:
 
 
 def start_required_layer_prewarm(optional_layers: set[str]) -> None:
-    warming_layers = [
-        layer for layer in sorted(_state.get("lazy_loaders", {}).keys())
-        if layer not in optional_layers
-    ]
+    warming_layers = [layer for layer in sorted(_state.get("lazy_loaders", {}).keys()) if layer not in optional_layers]
     if not warming_layers:
         _set_warming_required_layers([])
         return
@@ -1094,7 +1091,7 @@ def should_cache_response(req: ClassifyRequest, pipeline: list[str]) -> bool:
     return True
 
 
-def ensure_layer_loaded(layer: str):
+def ensure_layer_loaded(layer: str) -> Any:
     models = _state.get("models", {})
     existing = models.get(layer)
     if existing is not None:
@@ -1154,11 +1151,12 @@ def ensure_layer_loaded(layer: str):
             return None
 
 
-def get_layer_model(layer: str):
+def get_layer_model(layer: str) -> Any:
     model = _state.get("models", {}).get(layer)
     if model is not None:
         return model
     return ensure_layer_loaded(layer)
+
 
 def build_layer_error(
     layer: str,
@@ -1195,8 +1193,8 @@ def _offset_to_line_column(line_starts: list[int], offset: int) -> tuple[int, in
 
 
 def _build_context_window(text: str, start: int, end: int, radius: int = SPAN_CONTEXT_CHARS) -> tuple[str, str]:
-    before = text[max(0, start - radius):start]
-    after = text[end:min(len(text), end + radius)]
+    before = text[max(0, start - radius) : start]
+    after = text[end : min(len(text), end + radius)]
     return (before, after)
 
 
@@ -1216,7 +1214,6 @@ def _optional_int(value: Any) -> int | None:
         return int(value)
     except (TypeError, ValueError):
         return None
-
 
 
 def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
@@ -1561,11 +1558,11 @@ def _degraded_send_allowed(req: ReviewRequest, degraded_modes: list[dict[str, An
 
 
 def _utc_now_rfc3339() -> str:
-    return datetime.now(UTC).isoformat(timespec="seconds").replace("+00:00", "Z")
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
 def _review_expires_at() -> str:
-    expires_at = datetime.now(UTC) + timedelta(seconds=REVIEW_DECISION_VALIDITY_SECONDS)
+    expires_at = datetime.now(timezone.utc) + timedelta(seconds=REVIEW_DECISION_VALIDITY_SECONDS)
     return expires_at.isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
@@ -1633,7 +1630,7 @@ def _observe_review_policy_metrics(
 class _SafeRewriteCandidate:
     finding: Any
     finding_id: str
-    action: str
+    action: SafeRewriteAction
     replacement_text: str
     start_char: int
     end_char: int
@@ -1650,8 +1647,8 @@ def _safe_rewrite_action(
     *,
     finding: Any,
     policy_actions: set[str],
-    allowed_actions: set[str],
-) -> tuple[str | None, str]:
+    allowed_actions: set[SafeRewriteAction],
+) -> tuple[SafeRewriteAction | None, str]:
     category = str(_finding_attr(finding, "category", "")).upper()
     severity = str(_finding_attr(finding, "severity", "")).lower()
     if category == "PII":
@@ -1735,12 +1732,13 @@ def _safe_rewrite_plan(
         ),
     )
     for candidate in ordered:
-        if any(
-            candidate.start_char < existing.end_char and existing.start_char < candidate.end_char
-            for existing in accepted
-        ):
-            skip(candidate.finding_id, "overlaps with higher-priority replacement")
-            continue
+        if accepted and candidate.start_char < accepted[-1].end_char:
+            if candidate.end_char <= accepted[-1].end_char:
+                skip(candidate.finding_id, "overlaps with higher-priority replacement")
+                continue
+            # Preserve the approved finding's uncovered tail. Dropping the whole
+            # crossing span would leave part of a detected identifier visible.
+            candidate = replace(candidate, start_char=accepted[-1].end_char)
         accepted.append(candidate)
 
     skipped_findings = [
@@ -1884,7 +1882,7 @@ def _build_review_response(
         llm_adjudication=LLMAdjudicationResponse(**result.llm_adjudication) if result.llm_adjudication else None,
         privacy_ledger=[PrivacyLedgerEntryResponse(**entry) for entry in result.privacy_ledger],
         coverage_warnings=list(result.coverage_warnings),
-        degraded_modes=modes,
+        degraded_modes=[DegradedModeResponse.model_validate(mode) for mode in modes],
         timings_ms=timings_ms,
     )
 
@@ -2089,9 +2087,7 @@ def _run_review_sync(
             status_code=503,
             detail={
                 "message": f"review persistence failed closed: {exc}",
-                "degraded_modes": [
-                    _degraded_mode("subject_index", "failed_closed", str(exc), {})
-                ],
+                "degraded_modes": [_degraded_mode("subject_index", "failed_closed", str(exc), {})],
             },
         ) from exc
     _persist_coverage_warnings(
@@ -2110,9 +2106,7 @@ def _run_review_sync(
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
         visible_findings=lane_result.visible_findings,
-        lane_suppressed_findings=(
-            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
-        ),
+        lane_suppressed_findings=(lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []),
         lane_suppressed_count=lane_result.suppressed_count,
     )
     _persist_policy_decision_event(
@@ -2219,11 +2213,7 @@ def _public_source_citations(
         return []
     ledger_entries = list(public_evidence.privacy_ledger) + list(response.privacy_ledger)
     privacy_ledger_entry = next(
-        (
-            entry
-            for entry in ledger_entries
-            if entry.allowed and entry.operation == "external_query"
-        ),
+        (entry for entry in ledger_entries if entry.allowed and entry.operation == "external_query"),
         None,
     )
     if privacy_ledger_entry is None:
@@ -2375,9 +2365,7 @@ def _run_safe_rewrite_sync(
             status_code=503,
             detail={
                 "message": f"review persistence failed closed: {exc}",
-                "degraded_modes": [
-                    _degraded_mode("subject_index", "failed_closed", str(exc), {})
-                ],
+                "degraded_modes": [_degraded_mode("subject_index", "failed_closed", str(exc), {})],
             },
         ) from exc
     _persist_coverage_warnings(
@@ -2396,9 +2384,7 @@ def _run_safe_rewrite_sync(
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
         visible_findings=lane_result.visible_findings,
-        lane_suppressed_findings=(
-            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
-        ),
+        lane_suppressed_findings=(lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []),
         lane_suppressed_count=lane_result.suppressed_count,
     )
     _persist_policy_decision_event(
@@ -2409,6 +2395,9 @@ def _run_safe_rewrite_sync(
         degraded_modes=degraded_modes,
         tenant_id=tenant.storage_tenant_id,
     )
+
+    if review_response.policy_decision is None:
+        raise RuntimeError("safe rewrite requires a policy decision")
 
     t_safe_rewrite_start = time.perf_counter()
     replacements, skipped_findings = _safe_rewrite_plan(
@@ -2543,11 +2532,8 @@ def _run_hold_until_public_sync(
             response_type=HoldUntilPublicResponse,
         ),
     )
-    return cast(
-        HoldUntilPublicResponse,
-        response.model_copy(
-            update={"hold_reasons": _hold_until_public_reasons(response.replacements, response.policy_decision)}
-        ),
+    return response.model_copy(
+        update={"hold_reasons": _hold_until_public_reasons(response.replacements, response.policy_decision)}
     )
 
 
@@ -2632,8 +2618,7 @@ def _run_placeholder_review_sync(
         candidates=list(getattr(document, "image_candidates", []) or []),
         spans=list(getattr(document, "image_text_spans", []) or []),
         replacement_spans=[
-            (replacement.start_char, replacement.end_char)
-            for replacement in anonymization.replacements
+            (replacement.start_char, replacement.end_char) for replacement in anonymization.replacements
         ],
     )
     degraded_modes.extend(document_redaction_degraded_modes)
@@ -2650,9 +2635,7 @@ def _run_placeholder_review_sync(
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
         visible_findings=lane_result.visible_findings,
-        lane_suppressed_findings=(
-            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
-        ),
+        lane_suppressed_findings=(lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []),
         lane_suppressed_count=lane_result.suppressed_count,
     )
     _persist_policy_decision_event(
@@ -2802,9 +2785,7 @@ def _opaque_redactions(*, text: str, anonymization: Any) -> tuple[str, list[Opaq
         reverse=True,
     ):
         redacted_text = (
-            redacted_text[: replacement.start_char]
-            + redaction.marker
-            + redacted_text[replacement.end_char :]
+            redacted_text[: replacement.start_char] + redaction.marker + redacted_text[replacement.end_char :]
         )
     return redacted_text, redactions
 
@@ -2866,11 +2847,33 @@ def _run_pseudonymize_sync(
     return response
 
 
+def _irreversible_review_payload(response: ReviewResponse) -> dict[str, Any]:
+    """Retain policy/offset diagnostics without echoing input-derived free text."""
+    payload = response.model_dump(mode="python")
+    for key in ("findings", "lane_suppressed_findings"):
+        for finding in payload.get(key, []):
+            # Quasi-identifier components and OCR regions can repeat identifiers
+            # even when the top-level matched_text field has been excluded.
+            finding["matched_text"] = ""
+            finding["reason"] = "Finding details omitted from this irreversible response."
+            finding["metadata"] = {}
+            finding["image_ocr_regions"] = []
+    payload["suggestions"] = []
+    payload["public_evidence"] = None
+    payload["llm_adjudication"] = None
+    for finding in payload.get("document", {}).get("metadata_findings", []):
+        finding["value_preview"] = ""
+    for entry in payload.get("privacy_ledger", []):
+        entry["query"] = ""
+        entry["reason"] = "Query details omitted from this irreversible response."
+    return payload
+
+
 def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: TenantContext) -> AnonymizeResponse:
     payload = _run_placeholder_review_sync(req, request_id, tenant, timing_key="anonymize")
     anonymization = payload["anonymization"]
     response = AnonymizeResponse(
-        **payload["review_response"].model_dump(mode="python"),
+        **_irreversible_review_payload(payload["review_response"]),
         privacy_operation="anonymize",
         anonymization_mode="placeholder_only",
         anonymized_text=anonymization.anonymized_text,
@@ -2917,8 +2920,7 @@ def _run_redact_sync(req: RedactRequest, request_id: str | None, tenant: TenantC
         text=payload["document"].text,
         anonymization=payload["anonymization"],
     )
-    base_response = payload["review_response"].model_dump(mode="python")
-    base_response["suggestions"] = []
+    base_response = _irreversible_review_payload(payload["review_response"])
     response = RedactResponse(
         **base_response,
         privacy_operation="redact",
@@ -2962,7 +2964,7 @@ def _run_redact_sync(req: RedactRequest, request_id: str | None, tenant: TenantC
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     det_info = configure_determinism()
     log_backend_event(logging.INFO, event="determinism", **det_info)
 
@@ -3008,8 +3010,8 @@ async def lifespan(app: FastAPI):
                 _state["models"]["llm_adjudicator"] = llm_mod.LocalLLMAdjudicator.load()
             elif layer == "llm_defined_term_extractor":
                 helpers_mod = importlib.import_module("junas.advisory.llm_adjudicator.helpers")
-                _state["models"]["llm_defined_term_extractor"] = (
-                    helpers_mod.build_llm_defined_term_extractor(settings.llm)
+                _state["models"]["llm_defined_term_extractor"] = helpers_mod.build_llm_defined_term_extractor(
+                    settings.llm
                 )
             elif layer == "llm_coverage_auditor":
                 helpers_mod = importlib.import_module("junas.advisory.llm_adjudicator.helpers")
@@ -3099,7 +3101,9 @@ app.add_middleware(
 
 
 @app.middleware("http")
-async def api_request_guard_middleware(request: Request, call_next):
+async def api_request_guard_middleware(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+) -> Response:
     if request.method.upper() in {"POST", "PUT", "PATCH"}:
         max_bytes = current_runtime_settings().api.max_request_bytes
         raw_length = request.headers.get("content-length", "").strip()
@@ -3128,7 +3132,9 @@ async def api_request_guard_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
-async def local_daemon_acl_middleware(request: Request, call_next):
+async def local_daemon_acl_middleware(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+) -> Response:
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
         return await call_next(request)
@@ -3153,7 +3159,7 @@ async def local_daemon_acl_middleware(request: Request, call_next):
 
 
 @app.exception_handler(StarletteHTTPException)
-async def pretty_http_exception_handler(request: Request, exc: StarletteHTTPException):
+async def pretty_http_exception_handler(request: Request, exc: StarletteHTTPException) -> PrettyJSONResponse:
     return PrettyJSONResponse(
         status_code=exc.status_code,
         content={"detail": exc.detail},
@@ -3162,15 +3168,23 @@ async def pretty_http_exception_handler(request: Request, exc: StarletteHTTPExce
 
 
 @app.exception_handler(RequestValidationError)
-async def pretty_validation_exception_handler(request: Request, exc: RequestValidationError):
+async def pretty_validation_exception_handler(request: Request, exc: RequestValidationError) -> PrettyJSONResponse:
+    details = []
+    for error in exc.errors()[:100]:
+        location = list(error.get("loc", ()))
+        if error.get("type") == "extra_forbidden" and location:
+            location[-1] = "unexpected_field"
+        # Pydantic's input/context members can contain the submitted document,
+        # mappings or tokens. Keep useful schema diagnostics without copying it.
+        details.append({"type": error["type"], "loc": location, "msg": error["msg"]})
     return PrettyJSONResponse(
         status_code=422,
-        content={"detail": jsonable_encoder(exc.errors())},
+        content={"detail": jsonable_encoder(details)},
     )
 
 
 @app.middleware("http")
-async def request_context_middleware(request: Request, call_next):
+async def request_context_middleware(request: Request, call_next: Callable[[Request], Awaitable[Response]]) -> Response:
     request_id = str(uuid.uuid4())
     request.state.request_id = request_id
     t0 = time.perf_counter()
@@ -3229,6 +3243,7 @@ async def request_context_middleware(request: Request, call_next):
 
 @app.get(
     "/local/pairing/status",
+    response_model=None,
     tags=["Runtime"],
     summary="Get local daemon pairing status",
     description=(
@@ -3236,7 +3251,7 @@ async def request_context_middleware(request: Request, call_next):
         "has been provisioned. The token value is never returned."
     ),
 )
-async def local_pairing_status():
+async def local_pairing_status() -> dict[str, Any]:
     settings = current_runtime_settings().local_daemon
     token_provisioned = False
     token_error = ""
@@ -3263,7 +3278,7 @@ async def local_pairing_status():
     summary="Start local daemon pairing",
     description="Create a short-lived first-connect pairing request for browser and Office clients.",
 )
-async def local_pairing_start(req: LocalPairingStartRequest, request: Request):
+async def local_pairing_start(req: LocalPairingStartRequest, request: Request) -> dict[str, Any] | PrettyJSONResponse:
     _enforce_endpoint_rate_limit(request, "local_pairing")
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
@@ -3304,7 +3319,7 @@ async def local_pairing_approve(
     req: LocalPairingCodeRequest,
     request: Request,
     x_junas_local_token: str | None = Header(default=None, alias=LOCAL_TOKEN_HEADER),
-):
+) -> dict[str, Any] | PrettyJSONResponse:
     _enforce_endpoint_rate_limit(request, "local_pairing")
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
@@ -3351,7 +3366,7 @@ async def local_pairing_approve(
     summary="Claim approved local daemon pairing",
     description="Return the signed local client token after the desktop/tray approval step completes.",
 )
-async def local_pairing_claim(req: LocalPairingCodeRequest, request: Request):
+async def local_pairing_claim(req: LocalPairingCodeRequest, request: Request) -> dict[str, Any] | PrettyJSONResponse:
     _enforce_endpoint_rate_limit(request, "local_pairing")
     settings = current_runtime_settings().local_daemon
     if not settings.acl_enabled:
@@ -3392,7 +3407,7 @@ async def local_pairing_claim(req: LocalPairingCodeRequest, request: Request):
     summary="Serve deterministic public demo playground",
     description="Serves a static deterministic-only playground when JUNAS_PUBLIC_DEMO_ENABLED=1.",
 )
-async def public_demo_page():
+async def public_demo_page() -> HTMLResponse:
     if not _public_demo_enabled():
         raise HTTPException(status_code=404, detail="public demo is disabled")
     return HTMLResponse(PUBLIC_DEMO_HTML)
@@ -3408,7 +3423,7 @@ async def public_demo_page():
         "Forces strict text-only review, caps request size, rate-limits by client, and persists nothing."
     ),
 )
-async def public_demo_review(request: Request):
+async def public_demo_review(request: Request) -> ReviewResponse:
     if not _public_demo_enabled():
         raise HTTPException(status_code=404, detail="public demo is disabled")
     _enforce_public_demo_rate_limit(request)
@@ -3427,7 +3442,7 @@ async def public_demo_review(request: Request):
     summary="Get runtime health",
     description="Return a lightweight snapshot of active optional runtime helpers.",
 )
-async def health():
+async def health() -> HealthResponse:
     models = _state.get("models", {})
     return HealthResponse(
         status="ok",
@@ -3455,7 +3470,7 @@ async def health():
         "This endpoint remains degraded while required lazy layers are still warming."
     ),
 )
-async def ready():
+async def ready() -> ReadyResponse:
     ready_state = build_ready_snapshot()
     refresh_observability_state()
 
@@ -3479,7 +3494,7 @@ async def ready():
         "and accumulated runtime layer failures."
     ),
 )
-async def diagnostics():
+async def diagnostics() -> DiagnosticsResponse:
     pipeline = _state.get("pipeline", [])
     models = _state.get("models", {})
     refresh_observability_state()
@@ -3511,7 +3526,7 @@ async def diagnostics():
     summary="Get Prometheus metrics",
     description="Return Prometheus-formatted metrics for HTTP traffic, layer loads, classifications, and dependencies.",
 )
-async def metrics():
+async def metrics() -> Response:
     refresh_observability_state()
     observability = get_observability()
     if observability is None:
@@ -3531,8 +3546,8 @@ async def metrics():
         "prompt/body/document text is not returned."
     ),
 )
-async def record_adapter_telemetry(req: AdapterTelemetryRequest):
-    events: list[dict[str, Any]] = []
+async def record_adapter_telemetry(req: AdapterTelemetryRequest) -> AdapterTelemetryResponse:
+    events: list[AdapterTelemetryAcceptedEvent] = []
     emitted_count = 0
     for telemetry_event in req.events:
         event_payload = telemetry_event.model_dump(mode="json", exclude_none=True)
@@ -3541,13 +3556,13 @@ async def record_adapter_telemetry(req: AdapterTelemetryRequest):
         if emitted:
             emitted_count += 1
         events.append(
-            {
-                "event_name": str(event_payload.get("event_name", "")),
-                "surface": str(event_payload.get("surface", "")),
-                "workflow": str(event_payload.get("workflow", "")),
-                "outcome": str(siem_event.get("outcome", "")),
-                "emitted": emitted,
-            }
+            AdapterTelemetryAcceptedEvent(
+                event_name=str(event_payload.get("event_name", "")),
+                surface=str(event_payload.get("surface", "")),
+                workflow=str(event_payload.get("workflow", "")),
+                outcome=str(siem_event.get("outcome", "")),
+                emitted=emitted,
+            )
         )
     return AdapterTelemetryResponse(accepted_count=len(events), emitted_count=emitted_count, events=events)
 
@@ -3563,7 +3578,7 @@ async def record_adapter_telemetry(req: AdapterTelemetryRequest):
         "`include_offending_spans` is retained for older clients; use `findings` for current span evidence."
     ),
 )
-async def classify(request: Request, req: ClassifyRequest):
+async def classify(request: Request, req: ClassifyRequest) -> ClassifyResponse:
     return await run_in_threadpool(_run_classify_sync, req, getattr(request.state, "request_id", None), "/classify")
 
 
@@ -3578,7 +3593,7 @@ async def classify(request: Request, req: ClassifyRequest):
         "Each result preserves the same response shape as `POST /classify`."
     ),
 )
-async def classify_batch(request: Request, req: BatchClassifyRequest):
+async def classify_batch(request: Request, req: BatchClassifyRequest) -> BatchClassifyResponse:
     _enforce_endpoint_rate_limit(request, "batch_classify")
     return await run_in_threadpool(_run_batch_classify_sync, req, getattr(request.state, "request_id", None))
 
@@ -3598,7 +3613,7 @@ async def classify_batch(request: Request, req: BatchClassifyRequest):
 async def review_document(
     request: Request,
     req: Annotated[ReviewRequest, Body(openapi_examples=ADAPTER_SURFACE_REVIEW_EXAMPLES)],
-):
+) -> ReviewResponse:
     _enforce_endpoint_rate_limit(request, "review")
     return await run_in_threadpool(
         _run_review_sync,
@@ -3619,7 +3634,7 @@ async def review_document(
         "server retrieval timestamp, and allowed privacy-ledger entry for the outbound evidence query."
     ),
 )
-async def cite_public_source_document(request: Request, req: CitePublicSourceRequest):
+async def cite_public_source_document(request: Request, req: CitePublicSourceRequest) -> CitePublicSourceResponse:
     return await run_in_threadpool(
         _run_cite_public_source_sync,
         req,
@@ -3673,7 +3688,7 @@ async def request_review_approval(
     request: Request,
     req: RequestApprovalRequest,
     x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
-):
+) -> RequestApprovalResponse:
     _enforce_endpoint_rate_limit(request, "decision")
     tenant = tenant_context_from_request(request)
     requester_id, requester_identity_source = _resolve_reviewer_identity(
@@ -3701,7 +3716,7 @@ async def request_review_approval(
         "call an LLM or persist a reidentification mapping."
     ),
 )
-async def redact_pii_document(request: Request, req: RedactPiiRequest):
+async def redact_pii_document(request: Request, req: RedactPiiRequest) -> RedactPiiResponse:
     return await run_in_threadpool(
         _run_redact_pii_sync,
         req,
@@ -3722,7 +3737,7 @@ async def redact_pii_document(request: Request, req: RedactPiiRequest):
         "persist a reidentification mapping."
     ),
 )
-async def hold_until_public_document(request: Request, req: HoldUntilPublicRequest):
+async def hold_until_public_document(request: Request, req: HoldUntilPublicRequest) -> HoldUntilPublicResponse:
     return await run_in_threadpool(
         _run_hold_until_public_sync,
         req,
@@ -3742,7 +3757,7 @@ async def hold_until_public_document(request: Request, req: HoldUntilPublicReque
         "span replacements. This endpoint does not call an LLM and does not persist a reidentification mapping."
     ),
 )
-async def safe_rewrite_document(request: Request, req: SafeRewriteRequest):
+async def safe_rewrite_document(request: Request, req: SafeRewriteRequest) -> SafeRewriteResponse:
     return await run_in_threadpool(
         _run_safe_rewrite_sync,
         req,
@@ -3763,7 +3778,7 @@ async def safe_rewrite_document(request: Request, req: SafeRewriteRequest):
         "persist_mapping=true, POST /reidentify can restore by document_hash."
     ),
 )
-async def pseudonymize_document(request: Request, req: PseudonymizeRequest):
+async def pseudonymize_document(request: Request, req: PseudonymizeRequest) -> PseudonymizeResponse:
     return await run_in_threadpool(
         _run_pseudonymize_sync,
         req,
@@ -3784,7 +3799,7 @@ async def pseudonymize_document(request: Request, req: PseudonymizeRequest):
         "when callers need reidentification."
     ),
 )
-async def anonymize_document(request: Request, req: AnonymizeRequest):
+async def anonymize_document(request: Request, req: AnonymizeRequest) -> AnonymizeResponse:
     return await run_in_threadpool(
         _run_anonymize_sync,
         req,
@@ -3804,7 +3819,7 @@ async def anonymize_document(request: Request, req: AnonymizeRequest):
         "The response contains no mapping and no original matched text beyond the review findings."
     ),
 )
-async def redact_document(request: Request, req: RedactRequest):
+async def redact_document(request: Request, req: RedactRequest) -> RedactResponse:
     return await run_in_threadpool(
         _run_redact_sync,
         req,
@@ -3846,8 +3861,12 @@ def _run_document_scrub_sync(req: DocumentScrubRequest, request_id: str | None) 
         document_mime_type=result.mime_type,
         scrubbed=result.scrubbed,
         actions=[DocumentScrubActionResponse(**action) for action in result.actions],
-        metadata_findings=[finding.to_dict() for finding in result.original_findings],
-        remaining_warnings=[finding.to_dict() for finding in result.remaining_findings],
+        metadata_findings=[
+            DocumentMetadataFindingResponse.model_validate(finding.to_dict()) for finding in result.original_findings
+        ],
+        remaining_warnings=[
+            DocumentMetadataFindingResponse.model_validate(finding.to_dict()) for finding in result.remaining_findings
+        ],
     )
 
 
@@ -3862,7 +3881,7 @@ def _run_document_scrub_sync(req: DocumentScrubRequest, request_id: str | None) 
         "Visible document text is preserved where practical; metadata findings and scrub actions are returned."
     ),
 )
-async def scrub_document_metadata(request: Request, req: DocumentScrubRequest):
+async def scrub_document_metadata(request: Request, req: DocumentScrubRequest) -> DocumentScrubResponse:
     return await run_in_threadpool(_run_document_scrub_sync, req, getattr(request.state, "request_id", None))
 
 
@@ -3923,7 +3942,7 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None, tenant:
         "cannot be restored by document_hash."
     ),
 )
-async def reidentify_document(request: Request, req: ReidentifyRequest):
+async def reidentify_document(request: Request, req: ReidentifyRequest) -> ReidentifyResponse:
     _enforce_endpoint_rate_limit(request, "reidentify")
     return await run_in_threadpool(
         _run_reidentify_sync,
@@ -3985,9 +4004,7 @@ def _session_finding_state(finding: dict[str, Any], decision: dict[str, Any] | N
         decision_seq=decision["seq"] if decision else None,
         decision_ts=decision["ts"] if decision else None,
         decision_reviewer_id=decision.get("reviewer_id") if decision else None,
-        decision_reviewer_identity_source=(
-            decision.get("reviewer_identity_source") if decision else None
-        ),
+        decision_reviewer_identity_source=(decision.get("reviewer_identity_source") if decision else None),
         decision_taxonomy=decision.get("decision_taxonomy") if decision else None,
         decision_reviewer_confidence=decision.get("reviewer_confidence") if decision else None,
         decision_detector_feedback=decision.get("detector_feedback") if decision else None,
@@ -4017,14 +4034,12 @@ def _serialize_session_state(
 
     decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
     visible_raw, suppressed_raw = partition_persisted_findings(list(state.get("findings", [])))
-    findings = [
-        _session_finding_state(finding, decisions_by_id.get(finding.get("id")))
-        for finding in visible_raw
-    ]
-    suppressed_findings = [
-        _session_finding_state(finding, decisions_by_id.get(finding.get("id")))
-        for finding in suppressed_raw
-    ] if include_lane_suppressed else []
+    findings = [_session_finding_state(finding, decisions_by_id.get(finding.get("id"))) for finding in visible_raw]
+    suppressed_findings = (
+        [_session_finding_state(finding, decisions_by_id.get(finding.get("id"))) for finding in suppressed_raw]
+        if include_lane_suppressed
+        else []
+    )
     return ReviewSessionStateResponse(
         review_id=state["review_id"],
         text_hash=state.get("text_hash") or "",
@@ -4066,7 +4081,7 @@ async def post_review_decision(
     review_id: str,
     req: ReviewDecisionRequest,
     x_reviewer_id: str | None = Header(default=None, alias="X-Reviewer-ID"),
-):
+) -> ReviewDecisionResponse:
     _enforce_endpoint_rate_limit(request, "decision")
     _ensure_persistence_enabled()
     tenant = tenant_context_from_request(request)
@@ -4087,9 +4102,7 @@ async def post_review_decision(
                 decision_taxonomy=req.decision_taxonomy or "",
                 reviewer_confidence=req.reviewer_confidence,
                 detector_feedback=(
-                    req.detector_feedback.model_dump(exclude_none=True)
-                    if req.detector_feedback
-                    else {}
+                    req.detector_feedback.model_dump(exclude_none=True) if req.detector_feedback else {}
                 ),
             ),
             tenant_id=tenant.storage_tenant_id,
@@ -4115,7 +4128,7 @@ async def post_review_decision(
         "with the most recent decision per finding. Requires JUNAS_REVIEW_PERSIST=1."
     ),
 )
-async def get_review_session(request: Request, review_id: str):
+async def get_review_session(request: Request, review_id: str) -> ReviewSessionStateResponse:
     _ensure_persistence_enabled()
     tenant = tenant_context_from_request(request)
     state = get_session_state(review_id=review_id, tenant_id=tenant.storage_tenant_id)

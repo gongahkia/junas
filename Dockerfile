@@ -15,6 +15,7 @@ RUN apt-get update \
 COPY pyproject.toml uv.lock README.md ./
 COPY config.toml ./
 COPY src ./src
+COPY integrations/desktop ./integrations/desktop
 COPY scripts/preflight.py scripts/check_retention_manifest.py scripts/demo.py ./scripts/
 
 RUN uv sync --frozen --no-dev --extra server \
@@ -26,4 +27,4 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD curl -fsS http://127.0.0.1:8000/ready >/dev/null || exit 1
 
-CMD ["uv", "run", "uvicorn", "junas.backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/app/.venv/bin/uvicorn", "junas.backend.main:app", "--host", "0.0.0.0", "--port", "8000"]

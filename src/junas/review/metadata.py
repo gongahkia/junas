@@ -6,7 +6,7 @@ import re
 import zipfile
 from dataclasses import dataclass
 from io import BytesIO
-from typing import Any
+from typing import Any, Mapping
 from xml.etree import ElementTree
 
 DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -116,9 +116,7 @@ def _inspect_docx(data: bytes) -> list[MetadataFinding]:
         ):
             xml = _read_zip_member(archive, name)
             if xml:
-                findings.extend(
-                    _docx_xml_findings(xml, source=source, detail=f"DOCX metadata part {name} is present")
-                )
+                findings.extend(_docx_xml_findings(xml, source=source, detail=f"DOCX metadata part {name} is present"))
 
         comments = _read_zip_member(archive, "word/comments.xml")
         if comments:
@@ -164,7 +162,7 @@ def _inspect_pdf(data: bytes) -> list[MetadataFinding]:
 
     reader = PdfReader(BytesIO(data))
     findings: list[MetadataFinding] = []
-    metadata = reader.metadata or {}
+    metadata: Mapping[str, Any] = reader.metadata or {}
     for raw_key, raw_value in metadata.items():
         key = str(raw_key).lstrip("/")
         value = _preview(raw_value)
@@ -200,7 +198,7 @@ def _inspect_image(data: bytes, mime_type: str) -> list[MetadataFinding]:
                 continue
             findings.append(_finding("image_exif", str(tag), raw_value, "Image EXIF metadata is present"))
         for key, value in image.info.items():
-            if key.lower() in {"exif", "icc_profile"}:
+            if str(key).lower() in {"exif", "icc_profile"}:
                 continue
             findings.append(
                 _finding("image_info", str(key), value, "Image container metadata is present", severity="low")

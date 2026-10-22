@@ -19,10 +19,7 @@ async def _noop_lifespan(app):
 
 
 def _docx_base64(paragraphs: list[str]) -> str:
-    body = "".join(
-        f"<w:p><w:r><w:t>{paragraph}</w:t></w:r></w:p>"
-        for paragraph in paragraphs
-    )
+    body = "".join(f"<w:p><w:r><w:t>{paragraph}</w:t></w:r></w:p>" for paragraph in paragraphs)
     document_xml = (
         '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'
@@ -171,8 +168,9 @@ class AnonymizeApiTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         payload = response.json()
         uen_findings = [f for f in payload["findings"] if f["rule"] == "sg_uen"]
-        matched_text = {f["matched_text"] for f in uen_findings}
+        matched_text = {text[f["start_char"] : f["end_char"]] for f in uen_findings}
         self.assertEqual(matched_text, {"200512345A", "T08LL1234A"})
+        self.assertTrue(all(f["matched_text"] == "" for f in uen_findings))
         for finding in uen_findings:
             self.assertEqual(finding["severity"], "high")
         # legacy uen 200512345A occupies the same span as a potential nric scan but nric requires

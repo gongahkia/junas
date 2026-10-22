@@ -32,6 +32,18 @@ def _hs256_token(payload: dict, secret: str) -> str:
 
 
 class TenantIsolationTests(unittest.TestCase):
+    def test_punctuation_in_authoritative_tenant_ids_cannot_alias_other_tenants(self):
+        credentials = {
+            "tenant-a-key": {"tenant_id": "tenant/a", "subject": "alice", "roles": ["reviewer", "maker", "auditor"]},
+            "tenant-b-key": {"tenant_id": "tenant_a", "subject": "bob", "roles": ["reviewer", "maker", "auditor"]},
+        }
+        os.environ["JUNAS_TENANT_CREDENTIALS_JSON"] = json.dumps(credentials)
+        self.main._state.clear()
+        with TestClient(self.main.app) as client:
+            review_id = self._start_review(client, "tenant-a-key")
+            other = client.get(f"/review/{review_id}", headers={"X-API-Key": "tenant-b-key"})
+            self.assertEqual(other.status_code, 404, "A different authenticated tenant must not read this review")
+
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
@@ -197,18 +209,14 @@ class TenantIsolationTests(unittest.TestCase):
             tenant_a = client.post("/review", headers={"X-API-Key": "tenant-a-key"}, json=probe)
             self.assertEqual(tenant_a.status_code, 200, tenant_a.text)
             tenant_a_names = {
-                finding["matched_text"]
-                for finding in tenant_a.json()["findings"]
-                if finding["rule"] == "named_person"
+                finding["matched_text"] for finding in tenant_a.json()["findings"] if finding["rule"] == "named_person"
             }
             self.assertNotIn("Mr Purchaser", tenant_a_names)
 
             tenant_b = client.post("/review", headers={"X-API-Key": "tenant-b-key"}, json=probe)
             self.assertEqual(tenant_b.status_code, 200, tenant_b.text)
             tenant_b_names = {
-                finding["matched_text"]
-                for finding in tenant_b.json()["findings"]
-                if finding["rule"] == "named_person"
+                finding["matched_text"] for finding in tenant_b.json()["findings"] if finding["rule"] == "named_person"
             }
             self.assertIn("Mr Purchaser", tenant_b_names)
 

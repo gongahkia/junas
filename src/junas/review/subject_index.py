@@ -17,6 +17,7 @@ from pathlib import Path
 from threading import Lock
 from typing import Any
 
+from junas.helper.file_lock import interprocess_lock
 from junas.review.journal import journal_dir
 
 SUBJECT_INDEX_KEY_ENV = "JUNAS_SUBJECT_INDEX_KEY"
@@ -37,9 +38,7 @@ class SubjectIndexKeyError(SubjectIndexError):
 def require_subject_index_key() -> bytes:
     key = os.environ.get(SUBJECT_INDEX_KEY_ENV, "").strip()
     if not key:
-        raise SubjectIndexKeyError(
-            f"{SUBJECT_INDEX_KEY_ENV} is required when JUNAS_REVIEW_PERSIST=1"
-        )
+        raise SubjectIndexKeyError(f"{SUBJECT_INDEX_KEY_ENV} is required when JUNAS_REVIEW_PERSIST=1")
     return key.encode("utf-8")
 
 
@@ -113,7 +112,7 @@ def _add_entries(entries_by_hash: dict[str, list[dict[str, Any]]], *, tenant_id:
     if not entries_by_hash:
         return 0
     require_subject_index_key()
-    with _index_lock:
+    with _index_lock, interprocess_lock(subject_index_path(tenant_id).with_suffix(".lock")):
         payload = _load_index(tenant_id)
         all_entries: dict[str, list[dict[str, Any]]] = payload["entries"]
         added = 0
@@ -201,7 +200,7 @@ def index_review_findings(
 
 def lookup_subject(value: Any, *, tenant_id: str | None = None) -> dict[str, Any]:
     pii_hash = subject_hash(value)
-    with _index_lock:
+    with _index_lock, interprocess_lock(subject_index_path(tenant_id).with_suffix(".lock")):
         payload = _load_index(tenant_id)
         entries = list(payload["entries"].get(pii_hash, []))
     return {"pii_hash": pii_hash, "entries": entries}
@@ -209,7 +208,7 @@ def lookup_subject(value: Any, *, tenant_id: str | None = None) -> dict[str, Any
 
 def remove_subject(value: Any, *, tenant_id: str | None = None) -> int:
     pii_hash = subject_hash(value)
-    with _index_lock:
+    with _index_lock, interprocess_lock(subject_index_path(tenant_id).with_suffix(".lock")):
         payload = _load_index(tenant_id)
         entries = payload["entries"].pop(pii_hash, [])
         if entries:
@@ -219,5 +218,5 @@ def remove_subject(value: Any, *, tenant_id: str | None = None) -> int:
 
 def reset_index(*, tenant_id: str | None = None) -> Path:
     require_subject_index_key()
-    with _index_lock:
+    with _index_lock, interprocess_lock(subject_index_path(tenant_id).with_suffix(".lock")):
         return _write_index(_empty_index(), tenant_id)

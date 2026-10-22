@@ -8,10 +8,11 @@ from __future__ import annotations
 
 import hashlib
 import os
-import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+from junas.helper.tenant_storage import tenant_storage_name
 
 try:
     import tomllib
@@ -25,7 +26,6 @@ CONFIG_ENV = "JUNAS_TENANT_CONFIG_DIR"
 EVENT_LANE_CONFIG_UPDATED = "lane_config_updated"
 EVENT_LANE_CONFIG_DRIFT_DETECTED = "lane_config_drift_detected"
 LANE_REVIEW_ID_PREFIX = "tenant-lane:"
-_TENANT_STORAGE_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 
 
 class SurfacingLaneError(ValueError):
@@ -69,8 +69,7 @@ def tenant_config_dir() -> Path | None:
 
 
 def safe_tenant_id(tenant_id: str) -> str:
-    safe = _TENANT_STORAGE_RE.sub("_", tenant_id.strip())[:128].strip("._-")
-    return safe or hashlib.sha256(tenant_id.encode("utf-8")).hexdigest()[:32]
+    return tenant_storage_name(tenant_id)
 
 
 def tenant_lane_config_path(tenant_id: str, *, root: Path | None = None) -> Path | None:

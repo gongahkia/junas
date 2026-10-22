@@ -173,7 +173,7 @@ class AdapterFixturePagePlaywrightSmokeTests(unittest.TestCase):
     def _smoke_outlook_send(self, page):
         self._route_fixture(page, "http://adapter-smoke.local/outlook.html", FIXTURES / "outlook_message_send.html")
         page.evaluate(
-            """
+            """() => {
             window.__fetches = [];
             window.__telemetry = [];
             window.__completion = null;
@@ -231,6 +231,7 @@ class AdapterFixturePagePlaywrightSmokeTests(unittest.TestCase):
                 })
               };
             };
+            }
             """
         )
         page.add_script_tag(path=str(OUTLOOK / "launchevent.js"))
@@ -253,7 +254,7 @@ class AdapterFixturePagePlaywrightSmokeTests(unittest.TestCase):
     def _smoke_word_taskpane(self, page):
         self._route_fixture(page, "http://adapter-smoke.local/word.html", FIXTURES / "word_taskpane.html")
         page.evaluate(
-            """
+            """() => {
             window.__fetches = [];
             window.Office = {
               AsyncResultStatus: {Succeeded: "succeeded"},
@@ -290,6 +291,7 @@ class AdapterFixturePagePlaywrightSmokeTests(unittest.TestCase):
                 })
               };
             };
+            }
             """
         )
         page.add_script_tag(path=str(WORD / "taskpane.js"))

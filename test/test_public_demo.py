@@ -140,10 +140,12 @@ class PublicDemoTests(unittest.TestCase):
             "JUNAS_LLM_ENABLED=0",
             "JUNAS_LLM_HELPERS_ENABLED=0",
             "uv sync --frozen --no-dev",
-            "JUNAS_API_KEY=$(uv run python -c",
+            "JUNAS_API_KEY=$(/app/.venv/bin/python -c",
         ):
             self.assertIn(token, dockerfile)
         self.assertNotIn("--extra server", dockerfile)
+        startup = next(line for line in dockerfile.splitlines() if line.startswith("CMD "))
+        self.assertNotIn("uv run", startup)
         for token in (
             "--repo-type space",
             "--space-sdk docker",

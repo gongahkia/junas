@@ -42,9 +42,7 @@ MAX_TOTAL_UNCOMPRESSED_BYTES = 100 * 1024 * 1024
 MAX_COMPRESSION_RATIO = 100.0
 MAX_PREVIEW_CHARS = 160
 
-_DOCX_TEXT_PART_RE = re.compile(
-    r"^word/(?:document|comments|footnotes|endnotes|header\d+|footer\d+)\.xml$"
-)
+_DOCX_TEXT_PART_RE = re.compile(r"^word/(?:document|comments|footnotes|endnotes|header\d+|footer\d+)\.xml$")
 _PPTX_TEXT_PART_RE = re.compile(
     r"^ppt/(?:slides/slide\d+|notesSlides/notesSlide\d+|slideMasters/slideMaster\d+|"
     r"slideLayouts/slideLayout\d+|comments/comment\d+)\.xml$"
@@ -467,7 +465,7 @@ def _scan_docx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
         findings.extend(_office_media_findings(archive, prefix="word/media/", source="docx_embedded_media"))
         for rel_name in sorted(name for name in names if name.endswith(".rels")):
             rel_xml = archive.read(rel_name)
-            if b"TargetMode=\"External\"" in rel_xml or b"TargetMode='External'" in rel_xml:
+            if b'TargetMode="External"' in rel_xml or b"TargetMode='External'" in rel_xml:
                 findings.append(
                     _finding(
                         "external_reference",
@@ -477,12 +475,16 @@ def _scan_docx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
                         severity="high",
                     )
                 )
-        images = _collect_zip_images(
-            archive,
-            prefix="word/media/",
-            source_type="docx_embedded_image",
-            container_prefix=container_prefix,
-        ) if image_scan_enabled else []
+        images = (
+            _collect_zip_images(
+                archive,
+                prefix="word/media/",
+                source_type="docx_embedded_image",
+                container_prefix=container_prefix,
+            )
+            if image_scan_enabled
+            else []
+        )
     return ContainerScanResult(blocks, _dedupe_findings(findings), image_candidates=images)
 
 
@@ -540,12 +542,16 @@ def _scan_xlsx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
             _office_embedded_object_findings(archive, prefix="xl/embeddings/", source="xlsx_embedded_object")
         )
         findings.extend(_office_media_findings(archive, prefix="xl/media/", source="xlsx_embedded_media"))
-        images = _collect_zip_images(
-            archive,
-            prefix="xl/media/",
-            source_type="xlsx_embedded_image",
-            container_prefix=container_prefix,
-        ) if image_scan_enabled else []
+        images = (
+            _collect_zip_images(
+                archive,
+                prefix="xl/media/",
+                source_type="xlsx_embedded_image",
+                container_prefix=container_prefix,
+            )
+            if image_scan_enabled
+            else []
+        )
     return ContainerScanResult(blocks, _dedupe_findings(findings), image_candidates=images)
 
 
@@ -589,12 +595,16 @@ def _scan_pptx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
             _office_embedded_object_findings(archive, prefix="ppt/embeddings/", source="pptx_embedded_object")
         )
         findings.extend(_office_media_findings(archive, prefix="ppt/media/", source="pptx_embedded_media"))
-        images = _collect_zip_images(
-            archive,
-            prefix="ppt/media/",
-            source_type="pptx_embedded_image",
-            container_prefix=container_prefix,
-        ) if image_scan_enabled else []
+        images = (
+            _collect_zip_images(
+                archive,
+                prefix="ppt/media/",
+                source_type="pptx_embedded_image",
+                container_prefix=container_prefix,
+            )
+            if image_scan_enabled
+            else []
+        )
     return ContainerScanResult(blocks, _dedupe_findings(findings), image_candidates=images)
 
 
@@ -916,9 +926,7 @@ def _scan_eml(
                 if not hasattr(nested_message, "as_bytes"):
                     continue
                 nested_filename = forwarded_name if index == 1 else f"{forwarded_name}:{index}"
-                nested_prefix = (
-                    f"{container_prefix}/{nested_filename}" if container_prefix else nested_filename
-                )
+                nested_prefix = f"{container_prefix}/{nested_filename}" if container_prefix else nested_filename
                 nested = _scan_by_type(
                     nested_message.as_bytes(policy=policy.default),
                     filename=nested_filename,
@@ -932,6 +940,8 @@ def _scan_eml(
         if part.is_multipart():
             continue
         payload = part.get_payload(decode=True) or b""
+        if not isinstance(payload, bytes):
+            raise ValueError("email part payload must be bytes")
         disposition = str(part.get_content_disposition() or "")
         if content_type == "text/plain":
             result.text_blocks.append(part.get_content())

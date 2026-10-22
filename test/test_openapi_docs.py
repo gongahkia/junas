@@ -271,14 +271,13 @@ class OpenApiDocsTests(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
         payload = response.json()
 
-        openapi_examples = payload["paths"]["/review"]["post"]["requestBody"]["content"]["application/json"][
-            "examples"
-        ]
+        openapi_examples = payload["paths"]["/review"]["post"]["requestBody"]["content"]["application/json"]["examples"]
         artifact = json.loads((ROOT / "docs" / "api" / "adapter_surface_review_examples.json").read_text())
         doc_examples = artifact["examples"]
-        self.assertEqual({key: example["value"] for key, example in openapi_examples.items()}, {
-            key: example["value"] for key, example in doc_examples.items()
-        })
+        self.assertEqual(
+            {key: example["value"] for key, example in openapi_examples.items()},
+            {key: example["value"] for key, example in doc_examples.items()},
+        )
 
         for key, example in doc_examples.items():
             with self.subTest(example=key):
@@ -370,7 +369,9 @@ class OpenApiDocsTests(unittest.TestCase):
                     if lang == "python":
                         ast.parse(block)
                     elif lang in {"sh", "bash"}:
-                        result = subprocess.run(["bash", "-n"], input=block, check=False, capture_output=True, text=True)
+                        result = subprocess.run(
+                            ["bash", "-n"], input=block, check=False, capture_output=True, text=True
+                        )
                         self.assertEqual(result.returncode, 0, result.stderr)
 
 

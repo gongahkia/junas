@@ -29,9 +29,7 @@ class DocumentStructure:
 
     def containing_span(self, start: int, end: int) -> StructuralUnit | None:
         candidates = [
-            unit
-            for unit in self.units
-            if unit.start_char <= start and end <= unit.end_char and unit.kind != "document"
+            unit for unit in self.units if unit.start_char <= start and end <= unit.end_char and unit.kind != "document"
         ]
         if not candidates:
             return self.units[0] if self.units else None
@@ -41,9 +39,7 @@ class DocumentStructure:
         return tuple(
             candidate
             for candidate in self.units
-            if candidate is not unit
-            and candidate.parent_index == unit.parent_index
-            and candidate.kind == unit.kind
+            if candidate is not unit and candidate.parent_index == unit.parent_index and candidate.kind == unit.kind
         )
 
     def nearby_units(self, start: int, end: int, *, max_distance: int = 1) -> tuple[StructuralUnit, ...]:
@@ -59,9 +55,7 @@ class DocumentStructure:
         return self.units[left:right]
 
 
-_HEADING_RE = re.compile(
-    r"^(?:#{1,6}\s+\S|[A-Z][A-Z0-9 /&(),.'-]{5,}$|\d+(?:\.\d+)*[.)]\s+\S)"
-)
+_HEADING_RE = re.compile(r"^(?:#{1,6}\s+\S|[A-Z][A-Z0-9 /&(),.'-]{5,}$|\d+(?:\.\d+)*[.)]\s+\S)")
 _LIST_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)]|[a-zA-Z][.)])\s+\S")
 _SIGNATURE_RE = re.compile(
     r"^\s*(?:signature|signed\s+by|authori[sz]ed\s+signatory|name|title|date)\s*[:#-]?",
@@ -259,10 +253,7 @@ def parse_docx_structure(data: bytes) -> DocumentStructure:
             for row in child.findall(f".//{_WORD_NS}tr"):
                 cell_texts: list[str] = []
                 for cell in row.findall(f"{_WORD_NS}tc"):
-                    paragraphs = [
-                        _docx_paragraph_text(paragraph)
-                        for paragraph in cell.findall(f".//{_WORD_NS}p")
-                    ]
+                    paragraphs = [_docx_paragraph_text(paragraph) for paragraph in cell.findall(f".//{_WORD_NS}p")]
                     cell_text = " ".join(part for part in paragraphs if part).strip()
                     if cell_text:
                         cell_texts.append(cell_text)
@@ -462,6 +453,8 @@ def parse_eml_structure(data: bytes) -> DocumentStructure:
         content_type = part.get_content_type()
         filename = part.get_filename()
         payload = part.get_payload(decode=True) or b""
+        if not isinstance(payload, bytes):
+            raise ValueError("email part payload must be bytes")
         if content_type == "text/plain":
             text = part.get_content()
             blocks.append(("email_body", text, None))

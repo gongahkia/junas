@@ -28,7 +28,7 @@ from training.distillation.prompts import (
     build_user_content_structured_tokens,
 )
 
-_ADJUDICATION_DEFAULT = {
+_ADJUDICATION_DEFAULT: dict[str, Any] = {
     "status": "disabled",
     "provider": "local_distilled",
     "model": "",
@@ -82,8 +82,8 @@ class LocalDistilledAdjudicator:
         self.input_mode = input_mode
         self.max_new_tokens = max_new_tokens
         self.device = device  # None means auto-detect inside _load_model
-        self._model = None
-        self._tokenizer = None
+        self._model: Any = None
+        self._tokenizer: Any = None
 
     # --- lazy model loading ---------------------------------------------------
 
@@ -129,14 +129,19 @@ class LocalDistilledAdjudicator:
         if self.input_mode == "raw_text":
             return [
                 {"role": "system", "content": SYSTEM_PROMPT_RAW_TEXT},
-                {"role": "user", "content": build_user_content_raw_text(
-                    text=text, current_classification=current_classification,
-                )},
+                {
+                    "role": "user",
+                    "content": build_user_content_raw_text(
+                        text=text,
+                        current_classification=current_classification,
+                    ),
+                },
             ]
         if self.input_mode == "structured_tokens":
             from junas.advisory.llm_adjudicator.structured_query import (
                 build_structured_query,
             )
+
             query = build_structured_query(
                 text=text,
                 findings=list(findings or []),
@@ -180,14 +185,12 @@ class LocalDistilledAdjudicator:
 
         if hasattr(self._tokenizer, "apply_chat_template") and self._tokenizer.chat_template:
             prompt = self._tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True,
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
             )
         else:
-            prompt = (
-                f"<|system|>\n{messages[0]['content']}\n"
-                f"<|user|>\n{messages[1]['content']}\n"
-                f"<|assistant|>\n"
-            )
+            prompt = f"<|system|>\n{messages[0]['content']}\n<|user|>\n{messages[1]['content']}\n<|assistant|>\n"
 
         inputs = self._tokenizer(prompt, return_tensors="pt").to(self._device)
         with torch.no_grad():
@@ -198,14 +201,17 @@ class LocalDistilledAdjudicator:
                 pad_token_id=self._tokenizer.pad_token_id,
             )
         completion = self._tokenizer.decode(
-            out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True,
+            out[0][inputs["input_ids"].shape[1] :],
+            skip_special_tokens=True,
         )
 
         raw = _coerce_json_from_completion(completion)
         if not raw:
-            return {**_ADJUDICATION_DEFAULT,
-                    "model": str(self.adapter_path.name),
-                    "review_recommendation": "student emitted non-JSON output"}
+            return {
+                **_ADJUDICATION_DEFAULT,
+                "model": str(self.adapter_path.name),
+                "review_recommendation": "student emitted non-JSON output",
+            }
 
         # mirror LocalLLMAdjudicator._normalize_payload normalisation contract so
         # the response is shape-compatible with the runtime ReviewResponse schema.
