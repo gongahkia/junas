@@ -1,11 +1,15 @@
 from __future__ import annotations
 
 import base64
+import math
 import mimetypes
 import re
+import time
 import zipfile
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from io import BytesIO
+from statistics import median
 from typing import Any, Protocol
 
 import httpx
@@ -127,8 +131,7 @@ class ImageTextSpan:
 class ImageScanner(Protocol):
     provider: str
 
-    def scan(self, candidate: ImageCandidate) -> ImageOcrResult:
-        ...
+    def scan(self, candidate: ImageCandidate) -> ImageOcrResult: ...
 
 
 def clean_ocr_text(text: str) -> str:
@@ -298,6 +301,11 @@ class _CloudImageScanner:
 class TesseractImageScanner:
     provider = "tesseract"
 
+    def __init__(self, *, timeout_seconds: float = 20.0):
+        if not math.isfinite(timeout_seconds) or timeout_seconds <= 0:
+            raise ImageScanError("Tesseract OCR timeout must be finite and positive")
+        self.timeout_seconds = timeout_seconds
+
     def scan(self, candidate: ImageCandidate) -> ImageOcrResult:
         try:
             import pytesseract
@@ -307,7 +315,9 @@ class TesseractImageScanner:
 
         try:
             with Image.open(BytesIO(candidate.data)) as image:
-                text, regions, confidence = _tesseract_text_regions(pytesseract, image)
+                text, regions, confidence = _tesseract_text_regions(
+                    pytesseract, image, timeout_seconds=self.timeout_seconds
+                )
         except Exception as exc:
             raise ImageScanError(f"Tesseract OCR failed for {candidate.locator.container_path}: {exc}") from exc
         return ImageOcrResult(
@@ -420,21 +430,117 @@ def _append_region_text(parts: list[str], text: str, *, separator: str = " ") ->
     return start
 
 
-def _tesseract_text_regions(pytesseract: Any, image: Any) -> tuple[str, list[ImageTextRegion], float | None]:
+_AMBIGUOUS_ID_PREFIX = re.compile(r"(?:[$1Il]|[1Il][STFGM1Il])[0-9]{7}[A-Z]", re.IGNORECASE)
+
+
+def _tesseract_character_boxes(raw: str, width: int, height: int) -> list[tuple[str, int, int, int, int]]:
+    boxes = []
+    for line in raw.splitlines():
+        values = line.split()
+        if len(values) != 6:
+            continue
+        try:
+            left, bottom, right, top = (int(value) for value in values[1:5])
+        except ValueError:
+            continue
+        if 0 <= left < right <= width and 0 <= bottom < top <= height:
+            boxes.append((values[0], left, height - top, right, height - bottom))
+    return boxes
+
+
+def _tesseract_refine_prefix(
+    pytesseract: Any,
+    image: Any,
+    word: str,
+    bounds: tuple[int, int, int, int],
+    characters: list[tuple[str, int, int, int, int]],
+    remaining: Callable[[], float],
+) -> str:
+    from PIL import ImageOps
+
+    left, top, width, height = bounds
+    selected = [
+        box
+        for box in characters
+        if left <= (box[1] + box[3]) / 2 <= left + width and top <= (box[2] + box[4]) / 2 <= top + height
+    ]
+    # Use only boxes that independently reproduce this token and its position.
+    if "".join(box[0] for box in selected) != word:
+        return word
+    count = len(word) - 8
+    prefix = selected[:count]
+    if word.startswith("$"):
+        body_heights = [box[4] - box[2] for box in selected[1:]]
+        if prefix[0][4] - prefix[0][2] > median(body_heights) * 1.15:
+            return word  # Preserve the currency stroke extending beyond the letter body.
+    separate = count == 2 and min(prefix[0][3], prefix[1][3]) <= max(prefix[0][1], prefix[1][1])
+    if separate:
+        if word[1] not in "1Il":
+            return word  # Separate literal 1/I/l and T/F/etc. must not be merged.
+        prefix = prefix[1:]  # A separate T may itself have been read as 1.
+    glyph = image.crop(
+        (
+            min(box[1] for box in prefix),
+            min(box[2] for box in prefix),
+            max(box[3] for box in prefix),
+            max(box[4] for box in prefix),
+        )
+    )
+    recognized = ""
+    allowed = {"S"} if word.startswith("$") else {"S", "T", "F", "G", "M"}
+    for margin in (10, 20):
+        padded = ImageOps.expand(glyph, border=margin, fill="white")
+        recognized = pytesseract.image_to_string(padded, config="--psm 10", timeout=remaining()).strip().upper()
+        if recognized in allowed:
+            break
+    if count == 1 and recognized in ({"S"} if word.startswith("$") else {"S", "T", "F", "G", "M"}):
+        return recognized + word[1:]
+    if count == 2 and recognized in {"S", "T", "F", "G", "M"}:
+        return (word[0] if separate else "") + recognized + word[2:]
+    return word
+
+
+def _tesseract_text_regions(
+    pytesseract: Any, image: Any, *, timeout_seconds: float = 20.0
+) -> tuple[str, list[ImageTextRegion], float | None]:
+    deadline = time.monotonic() + timeout_seconds
+
+    def remaining() -> float:
+        seconds = deadline - time.monotonic()
+        if seconds <= 0:
+            raise ImageScanError("Tesseract OCR exceeded its time budget")
+        return seconds
+
     try:
-        data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
+        data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT, timeout=remaining())
+    except RuntimeError:
+        raise  # A timed-out subprocess must not start an unbounded fallback.
     except Exception:
-        return pytesseract.image_to_string(image), [], None
+        return pytesseract.image_to_string(image, timeout=remaining()), [], None
 
     width, height = image.size
     parts: list[str] = []
     regions: list[ImageTextRegion] = []
     confidences: list[float] = []
+    characters: list[tuple[str, int, int, int, int]] | None = None
     texts = list(data.get("text", []) or [])
     for index, raw_text in enumerate(texts):
         word = clean_ocr_text(str(raw_text or ""))
         if not word:
             continue
+        remaining()
+        if _AMBIGUOUS_ID_PREFIX.fullmatch(word):
+            if characters is None:
+                characters = _tesseract_character_boxes(
+                    pytesseract.image_to_boxes(image, timeout=remaining()), width, height
+                )
+            bounds = (
+                int(_list_item(data.get("left", []), index, 0)),
+                int(_list_item(data.get("top", []), index, 0)),
+                int(_list_item(data.get("width", []), index, 0)),
+                int(_list_item(data.get("height", []), index, 0)),
+            )
+            word = _tesseract_refine_prefix(pytesseract, image, word, bounds, characters, remaining)
         start = _append_region_text(parts, word)
         end = start + len(word)
         confidence = _normalize_confidence(_list_item(data.get("conf", []), index))
@@ -458,7 +564,7 @@ def _tesseract_text_regions(pytesseract: Any, image: Any) -> tuple[str, list[Ima
         )
     text = "".join(parts)
     if not text:
-        text = pytesseract.image_to_string(image)
+        text = pytesseract.image_to_string(image, timeout=remaining())
     return text, regions, _mean_confidence(confidences)
 
 
@@ -645,7 +751,7 @@ class AWSRekognitionImageScanner(_CloudImageScanner):
 
 
 def _rekognition_sort_key(item: dict[str, Any]) -> tuple[float, float, int]:
-    box = ((item.get("Geometry") or {}).get("BoundingBox") or {})
+    box = (item.get("Geometry") or {}).get("BoundingBox") or {}
     return (float(box.get("Top", 0.0) or 0.0), float(box.get("Left", 0.0) or 0.0), int(item.get("Id", 0) or 0))
 
 
@@ -662,7 +768,7 @@ def _rekognition_regions(
         if not line:
             continue
         start = _append_region_text(parts, line, separator=separator)
-        box = ((item.get("Geometry") or {}).get("BoundingBox") or {})
+        box = (item.get("Geometry") or {}).get("BoundingBox") or {}
         confidence = _normalize_confidence(item.get("Confidence"))
         if confidence is not None:
             confidences.append(confidence)
@@ -785,7 +891,7 @@ def build_image_scanner(
     if provider == "none":
         return None
     if provider == "tesseract":
-        return TesseractImageScanner()
+        return TesseractImageScanner(timeout_seconds=float(getattr(settings, "timeout_seconds", 20.0)))
     if provider == "openai_vision":
         return OpenAIVisionImageScanner(settings, privacy_guard=privacy_guard, tenant_id=tenant_id)
     if provider == "google_vision":
@@ -933,9 +1039,7 @@ def image_regions_for_span(spans: list[ImageTextSpan], start: int, end: int) -> 
 
 def image_boxes_for_span(spans: list[ImageTextSpan], start: int, end: int) -> list[ImageBoundingBox]:
     return [
-        region.bounding_box
-        for region in image_regions_for_span(spans, start, end)
-        if region.bounding_box is not None
+        region.bounding_box for region in image_regions_for_span(spans, start, end) if region.bounding_box is not None
     ]
 
 
@@ -1008,6 +1112,7 @@ def health_check_image_scan(settings: Any) -> dict[str, Any]:
     if provider == "google_vision":
         try:
             from google.cloud import vision  # noqa: F401
+
             import_ok = True
         except Exception as exc:
             import_ok = False
@@ -1024,6 +1129,7 @@ def health_check_image_scan(settings: Any) -> dict[str, Any]:
     if provider == "aws_rekognition":
         try:
             import boto3  # noqa: F401
+
             import_ok = True
         except Exception as exc:
             import_ok = False
@@ -1041,6 +1147,7 @@ def health_check_image_scan(settings: Any) -> dict[str, Any]:
         configured = bool(getattr(settings, "azure_endpoint", "")) and bool(getattr(settings, "azure_key", ""))
         try:
             from azure.ai.vision.imageanalysis import ImageAnalysisClient  # noqa: F401
+
             import_ok = True
         except Exception as exc:
             import_ok = False
