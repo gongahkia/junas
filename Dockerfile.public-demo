@@ -27,6 +27,7 @@ RUN apt-get update \
 COPY pyproject.toml uv.lock README.md ./
 COPY config.toml ./
 COPY src ./src
+COPY integrations/desktop ./integrations/desktop
 
 RUN uv sync --frozen --no-dev \
     && uv run python -m spacy download en_core_web_sm \
@@ -37,4 +38,4 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD curl -fsS "http://127.0.0.1:${PORT:-8000}/ready" >/dev/null || exit 1
 
-CMD ["sh", "-c", "if [ -z \"${JUNAS_API_KEY:-}\" ]; then JUNAS_API_KEY=$(uv run python -c 'import secrets; print(secrets.token_urlsafe(32))'); export JUNAS_API_KEY; fi; uv run uvicorn junas.backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "if [ -z \"${JUNAS_API_KEY:-}\" ]; then JUNAS_API_KEY=$(/app/.venv/bin/python -c 'import secrets; print(secrets.token_urlsafe(32))'); export JUNAS_API_KEY; fi; /app/.venv/bin/uvicorn junas.backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

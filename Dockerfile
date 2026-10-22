@@ -15,6 +15,7 @@ RUN apt-get update \
 COPY pyproject.toml uv.lock README.md ./
 COPY config.toml ./
 COPY src ./src
+COPY integrations/desktop ./integrations/desktop
 COPY scripts/preflight.py scripts/check_retention_manifest.py scripts/demo.py ./scripts/
 
 RUN uv sync --frozen --no-dev --extra server \
