@@ -28,6 +28,7 @@ const JUNAS_TELEMETRY_KEYS = new Set([
 ]);
 let currentSettings = {...DEFAULTS};
 let bypassNextSubmit = false;
+let pendingSubmit = null;
 
 chrome.storage.sync.get(DEFAULTS).then((cfg) => {
   currentSettings = cfg;
@@ -199,6 +200,7 @@ function promptText(element) {
 }
 
 function reviewOutcome(result) {
+  if (!validReviewDecision(result)) return "block";
   const policy = result?.policy_decision || {};
   const recommended = Array.isArray(policy.recommended_actions) ? policy.recommended_actions : [];
   const findings = Array.isArray(result?.findings) ? result.findings.length : 0;
@@ -208,6 +210,11 @@ function reviewOutcome(result) {
   if (policy.decision && policy.decision !== "allow") return "block";
   if (findings > 0) return "warn";
   return "allow";
+}
+
+function validReviewDecision(result) {
+  return !!result && typeof result === "object" && Array.isArray(result.findings) &&
+    (typeof result.send_allowed === "boolean" || typeof result.policy_decision?.send_allowed === "boolean");
 }
 
 function reportSelectorFailure(kind) {
@@ -225,6 +232,10 @@ async function reviewBeforeSubmit(target) {
   if (!response?.ok) {
     emitBackendFailureTelemetry(response?.error, {operation: "review"});
     showPanel(`Junas: ${response?.error || "review unavailable"}`);
+    return false;
+  }
+  if (!validReviewDecision(response.result)) {
+    showPanel("Junas: invalid backend review response; review again before submitting.");
     return false;
   }
   const outcome = reviewOutcome(response.result);
@@ -256,10 +267,32 @@ async function guardPromptSubmit(event, target, submitButton) {
   }
   event.preventDefault();
   event.stopImmediatePropagation();
-  const allowed = await reviewBeforeSubmit(target);
-  if (!allowed) return;
-  bypassNextSubmit = true;
-  submitButton.click();
+  if (pendingSubmit) {
+    showPanel("Junas: a prompt review is already in progress.");
+    return;
+  }
+  const pending = {target, text: promptText(target)};
+  pendingSubmit = pending;
+  try {
+    const allowed = await reviewBeforeSubmit(target);
+    if (!allowed) return;
+    if (target.isConnected === false || submitButton.isConnected === false ||
+        findPromptTarget() !== target || findSubmitButton() !== submitButton ||
+        promptText(target) !== pending.text) {
+      showPanel("Junas: the prompt changed during review; review again before submitting.");
+      return;
+    }
+    bypassNextSubmit = true;
+    try {
+      submitButton.click();
+    } finally {
+      // A disabled/replaced control may dispatch no click. Never leave a bypass
+      // armed for the user's next action.
+      bypassNextSubmit = false;
+    }
+  } finally {
+    if (pendingSubmit === pending) pendingSubmit = null;
+  }
 }
 
 function captureInsertionPoint(element) {

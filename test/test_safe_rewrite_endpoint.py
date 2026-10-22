@@ -145,11 +145,15 @@ class SafeRewriteEndpointTests(unittest.TestCase):
             req=request,
         )
 
-        self.assertEqual([replacement.finding_id for replacement in replacements], ["p1"])
+        self.assertEqual([replacement.finding_id for replacement in replacements], ["p1", "m1"])
+        self.assertEqual([(item.start_char, item.end_char) for item in replacements], [(0, 4), (4, 6)])
+        self.assertEqual(
+            main._apply_safe_rewrite(request.text, replacements),
+            "[REDACTED PERSONAL DATA][HOLD UNTIL PUBLIC DISCLOSURE OR APPROVAL]",
+        )
         self.assertEqual(
             {finding.finding_id: finding.reason for finding in skipped},
             {
-                "m1": "overlaps with higher-priority replacement",
                 "p2": "overlaps with higher-priority replacement",
             },
         )

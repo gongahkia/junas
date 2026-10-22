@@ -24,6 +24,7 @@ import hmac
 import json
 import os
 import sys
+import tempfile
 import zipfile
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -45,7 +46,9 @@ from junas.review.decisions import (  # noqa: E402
 )
 from junas.review.journal import (  # noqa: E402
     JournalEntry,
+    _active_key_version,
     _journal_key,
+    _resolve_key_for_version,
     append_event,
     read_journal,
     verify_chain,
@@ -59,7 +62,12 @@ def _canonicalize_manifest(manifest: dict) -> bytes:
 
 
 def _seal_manifest(manifest: dict) -> str:
-    return hmac.new(_journal_key(), _canonicalize_manifest(manifest), hashlib.sha256).hexdigest()
+    key = (
+        _resolve_key_for_version(str(manifest["pack_key_version"]))
+        if "pack_key_version" in manifest
+        else _journal_key()
+    )
+    return hmac.new(key, _canonicalize_manifest(manifest), hashlib.sha256).hexdigest()
 
 
 def _entries_to_dicts(entries: list[JournalEntry]) -> list[dict]:
@@ -200,11 +208,13 @@ def build_pack(
     include_defensibility: bool = False,
     tenant_id: str | None = None,
 ) -> dict:
-    entries = read_journal(review_id=review_id, tenant_id=tenant_id)
+    # Verify the same immutable snapshot used to build the review slice.
+    snapshot = read_journal(tenant_id=tenant_id)
+    entries = [entry for entry in snapshot if entry.review_id == review_id]
     if not entries or entries[0].event_type != EVENT_REVIEW_STARTED:
         raise SystemExit(f"no review_started event found for {review_id}")
 
-    valid, errors = verify_chain(tenant_id=tenant_id)
+    valid, errors = verify_chain(snapshot)
     chain_status = "valid" if valid else "tampered"
 
     init_payload = entries[0].payload
@@ -219,6 +229,11 @@ def build_pack(
     privacy_operations = _build_privacy_operation_counters(entries)
     wait_ok, wait_warning = _check_min_wait(entries)
     manifest = {
+        "pack_schema_version": 2,
+        "pack_key_version": _active_key_version(),
+        "journal_scope": "review_slice",
+        "journal_checkpoint_seq": snapshot[-1].seq,
+        "journal_checkpoint_hmac": snapshot[-1].hmac,
         "review_id": review_id,
         "text_hash": init_payload.get("text_hash"),
         "document_type": init_payload.get("document_type"),
@@ -249,28 +264,36 @@ def build_pack(
             item.removeprefix("defensibility/").removesuffix(".md")
             for item in defensibility_manifest["defensibility_reports"]
         ]
+    payloads = {
+        "journal.jsonl": (
+            "\n".join(json.dumps(e, sort_keys=True, separators=(",", ":")) for e in _entries_to_dicts(entries)) + "\n"
+        ).encode("utf-8"),
+        "findings.json": json.dumps(findings, indent=2).encode("utf-8"),
+        "decisions.json": json.dumps(decisions, indent=2).encode("utf-8"),
+    }
+    if include_defensibility and defensibility_manifest is not None:
+        payloads["statutory-coverage.md"] = (REPO_ROOT / "docs/statutory-coverage.md").read_bytes()
+        payloads["defensibility_manifest.json"] = json.dumps(defensibility_manifest, indent=2, sort_keys=True).encode()
+        for code in report_codes:
+            report_path = REPO_ROOT / "docs" / "defensibility" / f"{code}.md"
+            if report_path.exists():
+                payloads[f"defensibility/{code}.md"] = report_path.read_bytes()
+    manifest["members_sha256"] = {name: hashlib.sha256(data).hexdigest() for name, data in payloads.items()}
     manifest["pack_hmac"] = _seal_manifest(manifest)
+    payloads["manifest.json"] = json.dumps(manifest, indent=2, sort_keys=True).encode()
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as archive:
-        archive.writestr("manifest.json", json.dumps(manifest, indent=2, sort_keys=True))
-        archive.writestr(
-            "journal.jsonl",
-            "\n".join(json.dumps(e, sort_keys=True, separators=(",", ":")) for e in _entries_to_dicts(entries)) + "\n",
-        )
-        archive.writestr("findings.json", json.dumps(findings, indent=2))
-        archive.writestr("decisions.json", json.dumps(decisions, indent=2))
-        if include_defensibility and defensibility_manifest is not None:
-            statutory_path = REPO_ROOT / "docs" / "statutory-coverage.md"
-            archive.write(statutory_path, "statutory-coverage.md")
-            archive.writestr(
-                "defensibility_manifest.json",
-                json.dumps(defensibility_manifest, indent=2, sort_keys=True),
-            )
-            for code in report_codes:
-                report_path = REPO_ROOT / "docs" / "defensibility" / f"{code}.md"
-                if report_path.exists():
-                    archive.write(report_path, f"defensibility/{code}.md")
+    with tempfile.NamedTemporaryFile(
+        dir=output_path.parent, prefix=".junas-audit-", suffix=".tmp", delete=False
+    ) as stage:
+        temporary_path = Path(stage.name)
+    try:
+        with zipfile.ZipFile(temporary_path, "w", zipfile.ZIP_DEFLATED) as archive:
+            for name, data in payloads.items():
+                archive.writestr(name, data)
+        temporary_path.replace(output_path)
+    finally:
+        temporary_path.unlink(missing_ok=True)
 
     append_event(
         event_type=EVENT_AUDIT_EXPORTED,

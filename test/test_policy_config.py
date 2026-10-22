@@ -1,9 +1,10 @@
 import sys
 import tempfile
 import textwrap
-import tomllib
 import unittest
 from pathlib import Path
+
+import tomllib
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_ROOT = ROOT / "src"

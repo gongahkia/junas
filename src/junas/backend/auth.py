@@ -6,7 +6,6 @@ import base64
 import hashlib
 import hmac
 import json
-import re
 import time
 from dataclasses import dataclass
 from typing import Any
@@ -17,8 +16,6 @@ from junas.configs.runtime import TENANCY_ROLES, RuntimeSettings
 REVIEW_ROLES = frozenset({"reviewer", "maker", "checker", "admin"})
 DECISION_ROLES = frozenset({"maker", "checker", "admin"})
 AUDIT_ROLES = frozenset({"auditor", "checker", "admin"})
-
-_TENANT_STORAGE_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 
 
 class AuthFailure(RuntimeError):
@@ -40,8 +37,9 @@ class TenantContext:
     def storage_tenant_id(self) -> str | None:
         if not self.enabled:
             return None
-        safe = _TENANT_STORAGE_RE.sub("_", self.tenant_id.strip())[:128].strip("._-")
-        return safe or hashlib.sha256(self.tenant_id.encode("utf-8")).hexdigest()[:32]
+        # Storage helpers encode once at the filesystem boundary. Lossy
+        # sanitization here would alias different authenticated tenant IDs.
+        return self.tenant_id
 
 
 DISABLED_TENANT_CONTEXT = TenantContext(

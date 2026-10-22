@@ -73,6 +73,13 @@ class LaunchScriptSmokeTests(unittest.TestCase):
             )
             env["JUNAS_API_KEY"] = "launch-test-api-key"
             env["JUNAS_RETENTION_MANIFEST"] = str(manifest)
+            policy = Path(tmp_dir) / "policy.toml"
+            policy.write_text(
+                '[policy]\npolicy_id = "synthetic-launch"\npolicy_version = "test-1"\n',
+                encoding="utf-8",
+            )
+            env["JUNAS_POLICY_CONFIG"] = str(policy)
+            env["JUNAS_ALLOWED_ORIGINS"] = "https://addin.example.test"
         proc = subprocess.Popen(
             ["bash", str(ROOT / "scripts" / "launch" / script_name)],
             cwd=str(ROOT),

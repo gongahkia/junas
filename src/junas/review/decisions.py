@@ -8,6 +8,7 @@ reconstructs the current state of any review session.
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 from dataclasses import dataclass, field
 from typing import Any
@@ -140,14 +141,29 @@ def _is_truthy_env(name: str) -> bool:
 
 
 def _sanitize_journal_finding(finding: dict[str, Any]) -> dict[str, Any]:
-    sanitized = dict(finding)
-    matched_text = str(sanitized.get("matched_text", "") or "")
-    if matched_text:
-        sanitized["matched_text_sha256"] = hashlib.sha256(matched_text.encode("utf-8")).hexdigest()
-        sanitized["matched_text_char_count"] = len(matched_text)
-    if not _is_truthy_env(REVIEW_PERSIST_SPANS_ENV):
-        sanitized.pop("matched_text", None)
-    return sanitized
+    persist_spans = _is_truthy_env(REVIEW_PERSIST_SPANS_ENV)
+    text_keys = TEXT_BEARING_DETECTOR_FEEDBACK_KEYS | {"text", "original_text", "context", "excerpt"}
+
+    def sanitize(value: Any) -> Any:
+        if isinstance(value, list):
+            return [sanitize(item) for item in value]
+        if not isinstance(value, dict):
+            return value
+        result: dict[str, Any] = {}
+        for key, item in value.items():
+            if key in text_keys:
+                if item:
+                    text = item if isinstance(item, str) else json.dumps(item, sort_keys=True, ensure_ascii=False)
+                    result[f"{key}_sha256"] = hashlib.sha256(text.encode("utf-8")).hexdigest()
+                    result[f"{key}_char_count"] = len(text)
+                if not persist_spans:
+                    continue
+            result[key] = sanitize(item)
+        return result
+
+    # Nested quasi-identifier components and OCR text are subject to the same
+    # default privacy boundary as the top-level span. Never mutate the live result.
+    return sanitize(finding)
 
 
 def start_review_session(

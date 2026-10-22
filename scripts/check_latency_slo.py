@@ -361,7 +361,8 @@ def run_live_http_gate(
 
 def render_summary(results: list[dict[str, Any]]) -> str:
     lines = [
-        f"{'case':<24} {'fixture_kb':>10} {'p50':>10} {'p95':>10} {'budget':>10} {'policy_p95':>12} {'policy_budget':>14} {'status':>8}",
+        f"{'case':<24} {'fixture_kb':>10} {'p50':>10} {'p95':>10} {'budget':>10} "
+        f"{'policy_p95':>12} {'policy_budget':>14} {'status':>8}",
         "-" * 108,
     ]
     for item in results:
@@ -452,9 +453,7 @@ def main() -> int:
             else os.environ.get("JUNAS_LATENCY_SLO_API_KEY", os.environ.get("JUNAS_API_KEY", ""))
         )
         bearer_token = (
-            args.bearer_token
-            if args.bearer_token is not None
-            else os.environ.get("JUNAS_LATENCY_SLO_BEARER_TOKEN", "")
+            args.bearer_token if args.bearer_token is not None else os.environ.get("JUNAS_LATENCY_SLO_BEARER_TOKEN", "")
         )
         results = run_live_http_gate(
             cases=cases,

@@ -906,11 +906,7 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
                     status=str(health.get("status", "unknown")),
                     configured=True,
                     healthy=health.get("healthy"),
-                    detail=(
-                        "requires llm.enabled=true"
-                        if not settings.llm.enabled
-                        else str(health.get("detail", ""))
-                    ),
+                    detail=("requires llm.enabled=true" if not settings.llm.enabled else str(health.get("detail", ""))),
                 )
             except Exception as exc:
                 statuses[helper_name] = DependencyStatus(
@@ -995,10 +991,7 @@ def _mark_required_layer_warmed(layer: str) -> None:
 
 
 def start_required_layer_prewarm(optional_layers: set[str]) -> None:
-    warming_layers = [
-        layer for layer in sorted(_state.get("lazy_loaders", {}).keys())
-        if layer not in optional_layers
-    ]
+    warming_layers = [layer for layer in sorted(_state.get("lazy_loaders", {}).keys()) if layer not in optional_layers]
     if not warming_layers:
         _set_warming_required_layers([])
         return
@@ -1160,6 +1153,7 @@ def get_layer_model(layer: str):
         return model
     return ensure_layer_loaded(layer)
 
+
 def build_layer_error(
     layer: str,
     *,
@@ -1195,8 +1189,8 @@ def _offset_to_line_column(line_starts: list[int], offset: int) -> tuple[int, in
 
 
 def _build_context_window(text: str, start: int, end: int, radius: int = SPAN_CONTEXT_CHARS) -> tuple[str, str]:
-    before = text[max(0, start - radius):start]
-    after = text[end:min(len(text), end + radius)]
+    before = text[max(0, start - radius) : start]
+    after = text[end : min(len(text), end + radius)]
     return (before, after)
 
 
@@ -1216,7 +1210,6 @@ def _optional_int(value: Any) -> int | None:
         return int(value)
     except (TypeError, ValueError):
         return None
-
 
 
 def _classify_core(req: ClassifyRequest, request_id: str | None, endpoint: str) -> ClassifyResponse:
@@ -1735,12 +1728,13 @@ def _safe_rewrite_plan(
         ),
     )
     for candidate in ordered:
-        if any(
-            candidate.start_char < existing.end_char and existing.start_char < candidate.end_char
-            for existing in accepted
-        ):
-            skip(candidate.finding_id, "overlaps with higher-priority replacement")
-            continue
+        if accepted and candidate.start_char < accepted[-1].end_char:
+            if candidate.end_char <= accepted[-1].end_char:
+                skip(candidate.finding_id, "overlaps with higher-priority replacement")
+                continue
+            # Preserve the approved finding's uncovered tail. Dropping the whole
+            # crossing span would leave part of a detected identifier visible.
+            candidate = replace(candidate, start_char=accepted[-1].end_char)
         accepted.append(candidate)
 
     skipped_findings = [
@@ -2089,9 +2083,7 @@ def _run_review_sync(
             status_code=503,
             detail={
                 "message": f"review persistence failed closed: {exc}",
-                "degraded_modes": [
-                    _degraded_mode("subject_index", "failed_closed", str(exc), {})
-                ],
+                "degraded_modes": [_degraded_mode("subject_index", "failed_closed", str(exc), {})],
             },
         ) from exc
     _persist_coverage_warnings(
@@ -2110,9 +2102,7 @@ def _run_review_sync(
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
         visible_findings=lane_result.visible_findings,
-        lane_suppressed_findings=(
-            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
-        ),
+        lane_suppressed_findings=(lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []),
         lane_suppressed_count=lane_result.suppressed_count,
     )
     _persist_policy_decision_event(
@@ -2219,11 +2209,7 @@ def _public_source_citations(
         return []
     ledger_entries = list(public_evidence.privacy_ledger) + list(response.privacy_ledger)
     privacy_ledger_entry = next(
-        (
-            entry
-            for entry in ledger_entries
-            if entry.allowed and entry.operation == "external_query"
-        ),
+        (entry for entry in ledger_entries if entry.allowed and entry.operation == "external_query"),
         None,
     )
     if privacy_ledger_entry is None:
@@ -2375,9 +2361,7 @@ def _run_safe_rewrite_sync(
             status_code=503,
             detail={
                 "message": f"review persistence failed closed: {exc}",
-                "degraded_modes": [
-                    _degraded_mode("subject_index", "failed_closed", str(exc), {})
-                ],
+                "degraded_modes": [_degraded_mode("subject_index", "failed_closed", str(exc), {})],
             },
         ) from exc
     _persist_coverage_warnings(
@@ -2396,9 +2380,7 @@ def _run_safe_rewrite_sync(
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
         visible_findings=lane_result.visible_findings,
-        lane_suppressed_findings=(
-            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
-        ),
+        lane_suppressed_findings=(lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []),
         lane_suppressed_count=lane_result.suppressed_count,
     )
     _persist_policy_decision_event(
@@ -2632,8 +2614,7 @@ def _run_placeholder_review_sync(
         candidates=list(getattr(document, "image_candidates", []) or []),
         spans=list(getattr(document, "image_text_spans", []) or []),
         replacement_spans=[
-            (replacement.start_char, replacement.end_char)
-            for replacement in anonymization.replacements
+            (replacement.start_char, replacement.end_char) for replacement in anonymization.replacements
         ],
     )
     degraded_modes.extend(document_redaction_degraded_modes)
@@ -2650,9 +2631,7 @@ def _run_placeholder_review_sync(
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
         visible_findings=lane_result.visible_findings,
-        lane_suppressed_findings=(
-            lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []
-        ),
+        lane_suppressed_findings=(lane_result.suppressed_findings if _can_view_lane_suppressed(tenant) else []),
         lane_suppressed_count=lane_result.suppressed_count,
     )
     _persist_policy_decision_event(
@@ -2802,9 +2781,7 @@ def _opaque_redactions(*, text: str, anonymization: Any) -> tuple[str, list[Opaq
         reverse=True,
     ):
         redacted_text = (
-            redacted_text[: replacement.start_char]
-            + redaction.marker
-            + redacted_text[replacement.end_char :]
+            redacted_text[: replacement.start_char] + redaction.marker + redacted_text[replacement.end_char :]
         )
     return redacted_text, redactions
 
@@ -2866,11 +2843,33 @@ def _run_pseudonymize_sync(
     return response
 
 
+def _irreversible_review_payload(response: ReviewResponse) -> dict[str, Any]:
+    """Retain policy/offset diagnostics without echoing input-derived free text."""
+    payload = response.model_dump(mode="python")
+    for key in ("findings", "lane_suppressed_findings"):
+        for finding in payload.get(key, []):
+            # Quasi-identifier components and OCR regions can repeat identifiers
+            # even when the top-level matched_text field has been excluded.
+            finding["matched_text"] = ""
+            finding["reason"] = "Finding details omitted from this irreversible response."
+            finding["metadata"] = {}
+            finding["image_ocr_regions"] = []
+    payload["suggestions"] = []
+    payload["public_evidence"] = None
+    payload["llm_adjudication"] = None
+    for finding in payload.get("document", {}).get("metadata_findings", []):
+        finding["value_preview"] = ""
+    for entry in payload.get("privacy_ledger", []):
+        entry["query"] = ""
+        entry["reason"] = "Query details omitted from this irreversible response."
+    return payload
+
+
 def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: TenantContext) -> AnonymizeResponse:
     payload = _run_placeholder_review_sync(req, request_id, tenant, timing_key="anonymize")
     anonymization = payload["anonymization"]
     response = AnonymizeResponse(
-        **payload["review_response"].model_dump(mode="python"),
+        **_irreversible_review_payload(payload["review_response"]),
         privacy_operation="anonymize",
         anonymization_mode="placeholder_only",
         anonymized_text=anonymization.anonymized_text,
@@ -2917,8 +2916,7 @@ def _run_redact_sync(req: RedactRequest, request_id: str | None, tenant: TenantC
         text=payload["document"].text,
         anonymization=payload["anonymization"],
     )
-    base_response = payload["review_response"].model_dump(mode="python")
-    base_response["suggestions"] = []
+    base_response = _irreversible_review_payload(payload["review_response"])
     response = RedactResponse(
         **base_response,
         privacy_operation="redact",
@@ -3008,8 +3006,8 @@ async def lifespan(app: FastAPI):
                 _state["models"]["llm_adjudicator"] = llm_mod.LocalLLMAdjudicator.load()
             elif layer == "llm_defined_term_extractor":
                 helpers_mod = importlib.import_module("junas.advisory.llm_adjudicator.helpers")
-                _state["models"]["llm_defined_term_extractor"] = (
-                    helpers_mod.build_llm_defined_term_extractor(settings.llm)
+                _state["models"]["llm_defined_term_extractor"] = helpers_mod.build_llm_defined_term_extractor(
+                    settings.llm
                 )
             elif layer == "llm_coverage_auditor":
                 helpers_mod = importlib.import_module("junas.advisory.llm_adjudicator.helpers")
@@ -3163,9 +3161,17 @@ async def pretty_http_exception_handler(request: Request, exc: StarletteHTTPExce
 
 @app.exception_handler(RequestValidationError)
 async def pretty_validation_exception_handler(request: Request, exc: RequestValidationError):
+    details = []
+    for error in exc.errors()[:100]:
+        location = list(error.get("loc", ()))
+        if error.get("type") == "extra_forbidden" and location:
+            location[-1] = "unexpected_field"
+        # Pydantic's input/context members can contain the submitted document,
+        # mappings or tokens. Keep useful schema diagnostics without copying it.
+        details.append({"type": error["type"], "loc": location, "msg": error["msg"]})
     return PrettyJSONResponse(
         status_code=422,
-        content={"detail": jsonable_encoder(exc.errors())},
+        content={"detail": jsonable_encoder(details)},
     )
 
 
@@ -3985,9 +3991,7 @@ def _session_finding_state(finding: dict[str, Any], decision: dict[str, Any] | N
         decision_seq=decision["seq"] if decision else None,
         decision_ts=decision["ts"] if decision else None,
         decision_reviewer_id=decision.get("reviewer_id") if decision else None,
-        decision_reviewer_identity_source=(
-            decision.get("reviewer_identity_source") if decision else None
-        ),
+        decision_reviewer_identity_source=(decision.get("reviewer_identity_source") if decision else None),
         decision_taxonomy=decision.get("decision_taxonomy") if decision else None,
         decision_reviewer_confidence=decision.get("reviewer_confidence") if decision else None,
         decision_detector_feedback=decision.get("detector_feedback") if decision else None,
@@ -4017,14 +4021,12 @@ def _serialize_session_state(
 
     decisions_by_id = {d["finding_id"]: d for d in state.get("decisions", [])}
     visible_raw, suppressed_raw = partition_persisted_findings(list(state.get("findings", [])))
-    findings = [
-        _session_finding_state(finding, decisions_by_id.get(finding.get("id")))
-        for finding in visible_raw
-    ]
-    suppressed_findings = [
-        _session_finding_state(finding, decisions_by_id.get(finding.get("id")))
-        for finding in suppressed_raw
-    ] if include_lane_suppressed else []
+    findings = [_session_finding_state(finding, decisions_by_id.get(finding.get("id"))) for finding in visible_raw]
+    suppressed_findings = (
+        [_session_finding_state(finding, decisions_by_id.get(finding.get("id"))) for finding in suppressed_raw]
+        if include_lane_suppressed
+        else []
+    )
     return ReviewSessionStateResponse(
         review_id=state["review_id"],
         text_hash=state.get("text_hash") or "",
@@ -4087,9 +4089,7 @@ async def post_review_decision(
                 decision_taxonomy=req.decision_taxonomy or "",
                 reviewer_confidence=req.reviewer_confidence,
                 detector_feedback=(
-                    req.detector_feedback.model_dump(exclude_none=True)
-                    if req.detector_feedback
-                    else {}
+                    req.detector_feedback.model_dump(exclude_none=True) if req.detector_feedback else {}
                 ),
             ),
             tenant_id=tenant.storage_tenant_id,

@@ -7,6 +7,7 @@ import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from unittest.mock import patch
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
@@ -41,8 +42,15 @@ class AuditPackTests(unittest.TestCase):
             source_jurisdiction="SG",
             destination_jurisdiction="SG",
             findings=[
-                {"id": "f1", "category": "PII", "rule": "named_person", "severity": "high",
-                 "matched_text": "Dr Jane Tan", "start_char": 0, "end_char": 11},
+                {
+                    "id": "f1",
+                    "category": "PII",
+                    "rule": "named_person",
+                    "severity": "high",
+                    "matched_text": "Dr Jane Tan",
+                    "start_char": 0,
+                    "end_char": 11,
+                },
             ],
         )
         self.decisions.record_decision(
@@ -84,6 +92,49 @@ class AuditPackTests(unittest.TestCase):
         self.assertEqual(verify.returncode, 0, msg=verify.stderr)
         self.assertIn("valid", verify.stdout)
 
+    def test_review_slice_can_start_late_and_interleave_with_another_review(self):
+        self.journal.append_event(event_type="synthetic", review_id="other-review", payload={"private": "other case"})
+        self._seed()
+        self.journal.append_event(event_type="synthetic", review_id="other-review", payload={"private": "other case"})
+        self.journal.append_event(event_type="synthetic", review_id="rev-pack", payload={"count": 1})
+        output = self.tmpdir / "interleaved.zip"
+        exported = self._run("export_audit_pack.py", "rev-pack", "--output", str(output))
+        self.assertEqual(exported.returncode, 0, exported.stderr)
+        verified = self._run("verify_audit_pack.py", str(output))
+        self.assertEqual(verified.returncode, 0, verified.stderr)
+        with zipfile.ZipFile(output) as archive:
+            self.assertNotIn(b"other case", archive.read("journal.jsonl"))
+
+    def test_same_count_payload_tampering_and_unattested_files_are_rejected(self):
+        self._seed()
+        output = self.tmpdir / "pack.zip"
+        self.assertEqual(self._run("export_audit_pack.py", "rev-pack", "--output", str(output)).returncode, 0)
+        with zipfile.ZipFile(output) as archive:
+            original = {name: archive.read(name) for name in archive.namelist()}
+        for member in ("findings.json", "decisions.json", "unattested.txt"):
+            with self.subTest(member=member):
+                payloads = dict(original)
+                if member == "unattested.txt":
+                    payloads[member] = b"synthetic extra content"
+                else:
+                    value = json.loads(payloads[member])
+                    value[0]["synthetic_tampered_field"] = "altered"
+                    payloads[member] = json.dumps(value).encode()
+                altered = self.tmpdir / "altered.zip"
+                with zipfile.ZipFile(altered, "w") as archive:
+                    for name, content in payloads.items():
+                        archive.writestr(name, content)
+                self.assertNotEqual(self._run("verify_audit_pack.py", str(altered)).returncode, 0)
+
+    def test_verifier_rejects_export_with_tampered_global_chain_even_if_review_slice_is_valid(self):
+        self._seed()
+        self.journal.append_event(event_type="synthetic", review_id="other-review", payload={"count": 1})
+        path = self.tmpdir / "journal.jsonl"
+        path.write_text(path.read_text().replace('"count":1', '"count":2'))
+        output = self.tmpdir / "tampered-chain.zip"
+        self.assertNotEqual(self._run("export_audit_pack.py", "rev-pack", "--output", str(output)).returncode, 0)
+        self.assertNotEqual(self._run("verify_audit_pack.py", str(output)).returncode, 0)
+
     def test_tenant_scoped_export_rejects_guessed_other_tenant_review_id(self):
         self.decisions.start_review_session(
             review_id="tenant-b-review",
@@ -92,8 +143,15 @@ class AuditPackTests(unittest.TestCase):
             source_jurisdiction="SG",
             destination_jurisdiction="SG",
             findings=[
-                {"id": "f1", "category": "PII", "rule": "named_person", "severity": "high",
-                 "matched_text": "Dr Jane Tan", "start_char": 0, "end_char": 11},
+                {
+                    "id": "f1",
+                    "category": "PII",
+                    "rule": "named_person",
+                    "severity": "high",
+                    "matched_text": "Dr Jane Tan",
+                    "start_char": 0,
+                    "end_char": 11,
+                },
             ],
             tenant_id="tenant-b",
         )
@@ -133,14 +191,42 @@ class AuditPackTests(unittest.TestCase):
             source_jurisdiction="SG",
             destination_jurisdiction="SG",
             findings=[
-                {"id": "f1", "category": "PII", "rule": "named_person", "severity": "high",
-                 "matched_text": "Dr Jane Tan", "start_char": 0, "end_char": 11},
-                {"id": "f2", "category": "PII", "rule": "named_person", "severity": "high",
-                 "matched_text": "Mr John Lim", "start_char": 12, "end_char": 23},
-                {"id": "f3", "category": "MNPI", "rule": "transaction_codename", "severity": "high",
-                 "matched_text": "Project Atlas", "start_char": 24, "end_char": 37},
-                {"id": "f4", "category": "MNPI", "rule": "transaction_codename", "severity": "high",
-                 "matched_text": "Project Zenith", "start_char": 38, "end_char": 52},
+                {
+                    "id": "f1",
+                    "category": "PII",
+                    "rule": "named_person",
+                    "severity": "high",
+                    "matched_text": "Dr Jane Tan",
+                    "start_char": 0,
+                    "end_char": 11,
+                },
+                {
+                    "id": "f2",
+                    "category": "PII",
+                    "rule": "named_person",
+                    "severity": "high",
+                    "matched_text": "Mr John Lim",
+                    "start_char": 12,
+                    "end_char": 23,
+                },
+                {
+                    "id": "f3",
+                    "category": "MNPI",
+                    "rule": "transaction_codename",
+                    "severity": "high",
+                    "matched_text": "Project Atlas",
+                    "start_char": 24,
+                    "end_char": 37,
+                },
+                {
+                    "id": "f4",
+                    "category": "MNPI",
+                    "rule": "transaction_codename",
+                    "severity": "high",
+                    "matched_text": "Project Zenith",
+                    "start_char": 38,
+                    "end_char": 52,
+                },
             ],
         )
         self.decisions.record_decision(
@@ -250,9 +336,11 @@ class AuditPackTests(unittest.TestCase):
         env["JUNAS_AUDIT_MIN_WAIT_SECONDS"] = "60"
         env["PYTHONPATH"] = str(REPO_ROOT / "src")
         result = subprocess.run(
-            [sys.executable, str(REPO_ROOT / "scripts" / "export_audit_pack.py"),
-             "rev-pack", "--output", str(output)],
-            capture_output=True, text=True, env=env, cwd=REPO_ROOT,
+            [sys.executable, str(REPO_ROOT / "scripts" / "export_audit_pack.py"), "rev-pack", "--output", str(output)],
+            capture_output=True,
+            text=True,
+            env=env,
+            cwd=REPO_ROOT,
         )
         # exit 2 = chain valid but min-wait violation surfaced
         self.assertEqual(result.returncode, 2, msg=result.stderr)
@@ -280,6 +368,27 @@ class AuditPackTests(unittest.TestCase):
         verify = self._run("verify_audit_pack.py", str(tampered_path))
         self.assertNotEqual(verify.returncode, 0)
         self.assertIn("pack_hmac mismatch", verify.stderr)
+
+    def test_pack_remains_verifiable_after_active_key_rotation(self):
+        store = self.tmpdir / "keys.toml"
+        keys = '\n[keys.v1]\nsecret = "synthetic-first-key"\n[keys.v2]\nsecret = "synthetic-next-key"\n'
+        store.write_text('active = "v1"\n' + keys)
+        with patch.dict(os.environ, {"JUNAS_JOURNAL_KEYS_FILE": str(store)}):
+            self._seed()
+            output = self.tmpdir / "rotation.zip"
+            exported = self._run("export_audit_pack.py", "rev-pack", "--output", str(output))
+            self.assertEqual(exported.returncode, 0, exported.stderr)
+            store.write_text('active = "v2"\n' + keys)
+            verified = self._run("verify_audit_pack.py", str(output))
+            self.assertEqual(verified.returncode, 0, verified.stderr)
+
+    def test_malformed_archive_is_reported_invalid_without_traceback(self):
+        output = self.tmpdir / "malformed.zip"
+        output.write_bytes(b"synthetic malformed archive")
+        verified = self._run("verify_audit_pack.py", str(output))
+        self.assertNotEqual(verified.returncode, 0)
+        self.assertIn("INVALID", verified.stdout)
+        self.assertNotIn("Traceback", verified.stderr)
 
 
 if __name__ == "__main__":

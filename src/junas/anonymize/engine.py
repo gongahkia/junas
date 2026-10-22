@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import OrderedDict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any
 
 from junas.review.entity_linker import canonical_org, canonical_person
@@ -206,11 +206,17 @@ class DeterministicAnonymizer:
         )
         accepted: list[_Candidate] = []
         for candidate in ordered:
-            if any(
-                candidate.start_char < existing.end_char and existing.start_char < candidate.end_char
-                for existing in accepted
-            ):
-                continue
+            if accepted and candidate.start_char < accepted[-1].end_char:
+                if candidate.end_char <= accepted[-1].end_char:
+                    continue
+                # The prefix is already protected. Keep the uncovered suffix of
+                # a crossing span instead of exposing detected sensitive text.
+                start = accepted[-1].end_char
+                candidate = replace(
+                    candidate,
+                    start_char=start,
+                    original_text=candidate.original_text[start - candidate.start_char :],
+                )
             accepted.append(candidate)
         return sorted(accepted, key=lambda item: (item.start_char, item.end_char))
 

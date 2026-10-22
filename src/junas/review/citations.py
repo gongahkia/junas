@@ -19,12 +19,15 @@ import tomllib
 # rule -> short PII rationale used when no jurisdiction-specific override applies.
 _PII_DEFAULT_RATIONALE = {
     "sg_nric_fin": (
-        "PDPA s13 and PDPC NRIC Advisory (effective 31 Dec 2026): NRIC/FIN must not be "
-        "collected, used, or disclosed without explicit purpose and consent. Mask before send."
+        "PDPA s13 permits collection, use or disclosure with consent or deemed consent, "
+        "or where required or authorised by law. PDPC NRIC guidance restricts indiscriminate "
+        "collection, use and disclosure of NRIC/FIN. Mask before send under review policy "
+        "unless the lawful purpose and recipient have been verified."
     ),
     "sg_uen": (
         "UEN paired with named individuals can re-identify directors/officers. Mask unless "
-        "the recipient and purpose are documented under PDPA s18 (notification of purpose)."
+        "the recipient and purpose are documented under PDPA s18 (purpose limitation) "
+        "and s20 (notification of purpose)."
     ),
     "sg_postal_address": (
         "PDPA s2 personal data includes residential address. Disclose only when the purpose "
@@ -636,9 +639,7 @@ _MNPI_DEFAULT_RATIONALE = {
         "Specific percentage figure may be material non-public information. Verify the value "
         "is publicly disclosed; otherwise generalise or redact."
     ),
-    "large_number": (
-        "Large numeric value may be material non-public information. Verify or generalise."
-    ),
+    "large_number": ("Large numeric value may be material non-public information. Verify or generalise."),
     "conjunctive_mnpi": (
         "Layer-2 conjunctive MNPI finding detected: entity/deal and non-public elements co-occur, "
         "with materiality recorded in finding metadata as lexicalised, quantitative, implied, or "
@@ -804,8 +805,7 @@ _PII_JURISDICTION_SUFFIX = {
     "KR": "Reference: Korea Personal Information Protection Act Articles 2 and 24-2.",
     "IN": "Reference: India Digital Personal Data Protection Act 2023 (DPDPA) sections 2(t), 9, 10, 16.",
     "CN": (
-        "Reference: China Personal Information Protection Law 2021 (PIPL) Articles 4, "
-        "28, 31, 38; CSL 2016; DSL 2021."
+        "Reference: China Personal Information Protection Law 2021 (PIPL) Articles 4, 28, 31, 38; CSL 2016; DSL 2021."
     ),
     "AE": (
         "Reference: UAE Federal Decree-Law 45/2021 (PDPL) Articles 1, 15, 22; "
@@ -889,9 +889,7 @@ def _load_citations_override_path(path: Path) -> dict[str, dict[str, dict[str, s
         if isinstance(section, dict):
             for rule, juris_map in section.items():
                 if isinstance(juris_map, dict):
-                    normalized[category][rule] = {
-                        str(k).strip().upper(): str(v) for k, v in juris_map.items()
-                    }
+                    normalized[category][rule] = {str(k).strip().upper(): str(v) for k, v in juris_map.items()}
                 else:
                     raise CitationOverrideError(
                         f"citation override section {category}.{rule} must be a jurisdiction table"

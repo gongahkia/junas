@@ -26,6 +26,7 @@ from pathlib import Path
 from threading import Lock
 from typing import Any
 
+from junas.helper.file_lock import interprocess_lock
 from junas.review.journal import journal_dir
 from junas.review.subject_index import SubjectIndexError, index_mapping, require_subject_index_key
 
@@ -88,18 +89,14 @@ def _fernet_from_env(*, required: bool = False):
     key = os.environ.get(MAPPING_STORE_KEY_ENV, "").strip()
     if not key:
         if required:
-            raise MappingStoreKeyError(
-                f"{MAPPING_STORE_KEY_ENV} is required when {REVIEW_PERSIST_ENV}=1"
-            )
+            raise MappingStoreKeyError(f"{MAPPING_STORE_KEY_ENV} is required when {REVIEW_PERSIST_ENV}=1")
         return None
     try:
         from cryptography.fernet import Fernet
 
         return Fernet(key.encode("ascii"))
     except Exception as exc:
-        raise MappingStoreKeyError(
-            f"{MAPPING_STORE_KEY_ENV} must be a valid Fernet key"
-        ) from exc
+        raise MappingStoreKeyError(f"{MAPPING_STORE_KEY_ENV} must be a valid Fernet key") from exc
 
 
 def _require_mapping_key_for_persistence() -> None:
@@ -140,7 +137,7 @@ def save_mapping(*, document_hash: str, mapping: list[Any], tenant_id: str | Non
             "created_at": plain_payload["created_at"],
             "ciphertext": ciphertext,
         }
-    with _mapping_lock:
+    with _mapping_lock, interprocess_lock(_mapping_dir(tenant_id) / ".store.lock"):
         path = _mapping_path(document_hash, tenant_id)
         path.parent.mkdir(parents=True, exist_ok=True)
         # atomic write: full payload to a temp file then rename so a crash mid-write cannot
@@ -148,12 +145,11 @@ def save_mapping(*, document_hash: str, mapping: list[Any], tenant_id: str | Non
         tmp = path.with_suffix(".json.tmp")
         tmp.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         tmp.replace(path)
-    try:
-        index_mapping(document_hash=document_hash, mapping=mapping, tenant_id=tenant_id)
-    except SubjectIndexError:
-        with _mapping_lock:
+        try:
+            index_mapping(document_hash=document_hash, mapping=mapping, tenant_id=tenant_id)
+        except SubjectIndexError:
             path.unlink(missing_ok=True)
-        raise
+            raise
     return path
 
 
@@ -174,14 +170,10 @@ def load_mapping(document_hash: str, *, tenant_id: str | None = None) -> list[di
             plaintext = fernet.decrypt(str(data.get("ciphertext", "")).encode("ascii"))
             data = json.loads(plaintext.decode("utf-8"))
         except Exception as exc:
-            raise MappingStoreKeyError(
-                "encrypted mapping could not be decrypted with the configured key"
-            ) from exc
+            raise MappingStoreKeyError("encrypted mapping could not be decrypted with the configured key") from exc
     elif str(data.get("storage_format", "plaintext-v1") or "") == "plaintext-v1":
         if not _plaintext_mappings_allowed():
-            raise MappingStoreKeyError(
-                f"plaintext mappings require {ALLOW_PLAINTEXT_MAPPINGS_ENV}=1"
-            )
+            raise MappingStoreKeyError(f"plaintext mappings require {ALLOW_PLAINTEXT_MAPPINGS_ENV}=1")
         _warn_plaintext_allowed()
     if str(data.get("document_hash", "")) != document_hash:
         raise MappingStoreError("mapping document_hash does not match requested hash")
@@ -190,7 +182,7 @@ def load_mapping(document_hash: str, *, tenant_id: str | None = None) -> list[di
 
 def purge_mapping(document_hash: str, *, tenant_id: str | None = None) -> bool:
     """Delete a single mapping by document hash. Returns True when a file was removed."""
-    with _mapping_lock:
+    with _mapping_lock, interprocess_lock(_mapping_dir(tenant_id) / ".store.lock"):
         path = _mapping_path(document_hash, tenant_id)
         if not path.exists():
             return False
@@ -229,10 +221,10 @@ def purge_expired_mappings(
         raise ValueError("older_than_days must be >= 0")
     cutoff = datetime.now(timezone.utc) - timedelta(days=older_than_days)
     removed: list[dict[str, Any]] = []
-    with _mapping_lock:
-        mapping_dir = _mapping_dir(tenant_id)
-        if not mapping_dir.exists():
-            return []
+    mapping_dir = _mapping_dir(tenant_id)
+    if not mapping_dir.exists():
+        return []
+    with _mapping_lock, interprocess_lock(mapping_dir / ".store.lock"):
         for path in sorted(mapping_dir.glob("*.json")):
             created_at = _mapping_created_at(path)
             if created_at is None or created_at > cutoff:

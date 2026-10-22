@@ -1,4 +1,5 @@
 import importlib
+import json
 import os
 import tempfile
 import unittest
@@ -17,6 +18,31 @@ def _setup_isolated_journal(tmpdir: Path):
 
 
 class DecisionStateMachineTests(unittest.TestCase):
+    def test_nested_detector_text_is_hashed_in_default_journal_without_mutating_input(self):
+        secret = "S1234567D"
+        finding = {
+            "id": "synthetic-nested",
+            "category": "PII",
+            "rule": "quasi_identifier_combination",
+            "severity": "high",
+            "matched_text": secret,
+            "start_char": 0,
+            "end_char": len(secret),
+            "metadata": {"components": [{"matched_text": secret, "text": secret}], "count": 1},
+        }
+        self.decisions_mod.start_review_session(
+            review_id="nested-privacy",
+            text_hash="synthetic",
+            document_type="email",
+            source_jurisdiction="SG",
+            destination_jurisdiction="US",
+            findings=[finding],
+        )
+        entries = self.journal_mod.read_journal(review_id="nested-privacy")
+        self.assertNotIn(secret, json.dumps(entries[0].payload))
+        self.assertEqual(entries[0].payload["findings"][0]["metadata"]["count"], 1)
+        self.assertEqual(finding["metadata"]["components"][0]["matched_text"], secret)
+
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
         self.tmpdir = Path(self._tmpdir.name)
@@ -37,10 +63,24 @@ class DecisionStateMachineTests(unittest.TestCase):
             source_jurisdiction="SG",
             destination_jurisdiction="SG",
             findings=[
-                {"id": "f1", "category": "PII", "rule": "named_person", "severity": "high",
-                 "matched_text": "Dr Jane Tan", "start_char": 0, "end_char": 11},
-                {"id": "f2", "category": "PII", "rule": "email_address", "severity": "medium",
-                 "matched_text": "jane@x.com", "start_char": 20, "end_char": 30},
+                {
+                    "id": "f1",
+                    "category": "PII",
+                    "rule": "named_person",
+                    "severity": "high",
+                    "matched_text": "Dr Jane Tan",
+                    "start_char": 0,
+                    "end_char": 11,
+                },
+                {
+                    "id": "f2",
+                    "category": "PII",
+                    "rule": "email_address",
+                    "severity": "medium",
+                    "matched_text": "jane@x.com",
+                    "start_char": 20,
+                    "end_char": 30,
+                },
             ],
         )
 
