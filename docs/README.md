@@ -1,104 +1,11 @@
-# Docs Folder
+# Research documentation
 
-This folder contains operator, developer, and product documentation. Product docs under `product/` are normative for roadmap decisions: roadmap, adapter maturity, and integration claims should match those documents before implementation starts.
-
-- `running.md`: launch and operational commands
-- `public-demo.md`: gated deterministic playground route, public evidence, limitations, and cold-start notes
-- `launch-notes.md`: gated launch copy, lead verdict, and candidate venues for public distribution
-- `roadmap.md`: Now/Next/Later issue triage and promotion gates
-- `release-process.md`: install-release tag convention and artifact checklist
-- `distribution.md`: current wheel/sdist path plus Cargo, Nix, Homebrew, and DMG status
-- `macos-dmg-release.md`: DMG packaging, bundled sidecar, signing, notarization, stapling, and stock-Mac verification gates
-- `macos-signing-credentials.md`: Developer ID ownership, notary credential custody, and fail-safe release signing mode
-- `.github/workflows/release-macos-dmg.yml`: protected signed/notarized DMG release workflow
-- `homebrew-cask.md`: Homebrew tap naming, staged cask source, and release gates
-- `landing/index.html`: static one-page landing page with demo hero and social preview metadata
-- `blog/engineering-pre-send-review.md`: draft technical companion post backed by benchmark artifacts
-- `install.md`: local, extension, Office, and server install flow
-- `admin-security.md`: identity, tenant, key, SIEM, and local pairing controls
-- `threat-model.md`: data flow, trust boundaries, threats, controls, and residual risk
-- `known-limitations.md`: explicit unsupported or limited surfaces
-- `singling-out-pack-eval.md`: SG/US/UK singling-out pack validation and widening decision
-- `llm-governance.md`: LLM promotion, privacy eval, and invariant gates
-- `local-ocr-llm.md`: opt-in loopback-only local model prototype for low-confidence OCR regions
-- `schema.md`: API and artifact contracts
-- `architecture.md`: pipeline architecture overview
-- `accuracy.md`: generated per-detector recall/precision disclosure
-- `observability-alerts.md`: privacy-safe Prometheus alert rules and preflight textfile metrics
-- `observability-metrics.md`: SIEM-safe, local-only, and prohibited metrics boundary
-- `deployment-hardening.md`: production filesystem, transport, secrets, Kubernetes, SIEM guidance, and deployment-mode comparison
-- `secret-rule-packs.md`: optional local Gitleaks TOML import for bounded secret-detector coverage
-- `community-rule-packs.md`: community rule-pack format, versioning, fixtures, and `junas rules test` smoke path
-- `deployment-customer-managed.md`: customer-held secret custody requirements for mappings, journal HMAC, subject index, auth, and retention evidence
-- `deployment-local-only.md`: local daemon deployment boundary and unavailable server-side optional layers
-- `deployment-managed-llm.md`: deterministic default, public-evidence opt-in, and LLM adjudication deployment gates
-- `deployment-rollback.md`: uninstall and rollback runbook for server, local daemon, Outlook, browser, and Word surfaces
-- `deployment-pilot-rollout.md`: production pilot checklist for auth, policy, one adapter, audit, telemetry, support, rollback, and metrics
-- `mapping-store-hardening.md`: encryption, retention, subject erasure, and deployment controls for persisted mappings
-- `security/local-daemon.md`: local daemon pairing, token, origin, socket, loopback, and uninstall controls
-- `security/adapter-threat-model.md`: threat boundaries for Outlook, browser, Word, desktop, DMS, and direct API adapters
-- `security/api-inventory.md`: route inventory with auth, roles, tenant scope, rate limits, and payload caps
-- `security/rate-limits.md`: optional backend route limits, keying, headers, and proxy boundary
-- `security/dependency-scanning.md`: dependency and artifact scanning gates for Python, adapters, Office assets, and PyInstaller
-- `security/sbom.md`: CycloneDX SBOM generation for server and local desktop release artifacts
-- `security/release-checklist.md`: required release gates for OpenAPI, auth, tenant isolation, logs, local daemon CSRF, adapter privacy, dependency scans, and SBOMs
-- `security/data-retention.md`: retention matrix and manifest controls for journals, mappings, subject index, sessions, matter terms, telemetry, SIEM, audit packs, fixtures, reports, logs, and backups
-- `security/feedback-artifact-retention.md`: retention, legal-hold, and erasure policy for feedback hashes, labels, sidecars, raw samples, reports, and dashboards
-- `security/subject-erasure.md`: subject-erasure runbook and artifact disposition for deleted, tombstoned, retained, and delegated data
-- `security/remote-llm-config.md`: remote LLM config gates for structured-token default, raw-text opt-in, tenant consent, and privacy ledger evidence
-- `assumption.md`: implementation assumptions and invariants
-- `product/positioning.md`: canonical product positioning, target users, non-goals, and DLP boundary
-- `product/workflows.md`: daily workflow maps for Outlook, GenAI browser, DMS, API, reviewer, and auditor paths
-- `product/non-goals.md`: explicit control planes Junas does not replace
-- `product/scope-governance.md`: launch anti-goals, deferred stretch backlog, and scope-creep rejection rule
-- `product/polish-backlog.md`: non-blocking polish estimates and hidden-UI discoverability rule
-- `product/research-basis.md`: external deployment/security research basis for adapter and DLP claims
-- `product/value-metrics.md`: privacy-safe product value metrics and aggregation rules
-- `product/pilot-success-rubric.md`: measurable avoided-send, rewrite, reviewer-decision, and false-positive fatigue rubric for pilots
-- `product/usability-pass-2026-07-04.md`: local product usability pass with demo/runtime evidence and launch blockers
-- `product/integration-backlog.md`: validated user-requested integration ledger and category labels
-- `product/claim-review-checklist.md`: evidence checklist for marketing, security, accuracy, deployment, and adapter claims
-- `product/procurement-demo-scripts.md`: backend API, Outlook, browser GenAI, DMS, and audit export demo scripts for buyer walkthroughs
-- `product/glossary.md`: product vocabulary for review, rewrite, audit evidence, adapters, and surfaces
-- `product/review-examples.md`: same-contract `/review` examples for GenAI, email, legal memo, DMS, and Slack-style messages
-- `feedback-loop.md`: canonical journal-to-candidate-corpus path from reviewer decision to candidate fixture to promoted recall lock
-- `telemetry-feedback-loop.md`: privacy-safe join model for adapter telemetry, policy outcomes, and reviewer decisions
-- `support-triage-template.md`: support intake templates for detector, false-positive, adapter, auth, policy, and audit issues
-- `customer-changelog-format.md`: customer-facing changelog format separating detector, policy, adapter, and security changes
-- `releases/v0.1.0.md`: release notes for the first install package release
-- `faq/procurement.md`: procurement-facing claim discipline and promoted evidence links
-- `faq/buyer-objections.md`: buyer-objection responses for accuracy, liability, data residency, deployment, friction, false positives, and DLP coexistence
-- `faq/operator.md`: operator-facing FAQ for how Junas complements DLP, endpoint, SIEM, and SaaS controls
-- `faq/developer.md`: developer endpoint-choice FAQ for review, rewrite, scrub, reidentify, and classify flows
-- `migration/redactor-to-review.md`: migration guide from redactor/anonymizer-first integrations to review and policy decisions
-- `admin-console/requirements.md`: admin console requirements for review sessions, decisions, policy config, audit exports, false-positive triage, and tenant health
-- `admin-console/review-session-list-endpoint.md`: read-only review-session list endpoint requirements for pagination, tenant isolation, role checks, and no raw body exposure by default
-- `admin-console/policy-config-ui.md`: policy config UI requirements for draft, validate, publish, rollback, and audit journal events
-- `admin-console/reviewer-queue.md`: reviewer queue requirements for approval assignment, rationale, SLA, and audit trail evidence
-- `admin-console/false-positive-triage.md`: false-positive triage requirements linking reviewer rejects to fixture generation and detector issue categories
-- `admin-console/audit-export-ui.md`: audit export UI requirements using export, audit-pack verification, and journal verification scripts
-- `admin-console/auth-requirements.md`: admin console auth requirements using existing tenant roles and rejecting local-dev-only headers in production
-- `admin-console/telemetry-requirements.md`: admin console telemetry requirements for policy changes, approval decisions, export events, and failed access attempts
-- `admin-console/no-build-prototype.md`: no-build admin console wireframe required before frontend framework dependencies or admin UI routes
-- `adr/0005-admin-console-docs-only-until-validation.md`: decision to keep the admin console docs-only until customer validation and no-build prototype review
-- `adr/0006-local-redaction-log.md`: decision to use the keyed review journal instead of a separate local redaction-event log for v1
-- `integrations/`: mirrored adapter docs and maturity criteria for browser extension, enterprise browser deployment, Outlook Smart Alerts, Word taskpane, and desktop watcher
-- `integrations/macos-menu-bar-shell.md`: SwiftPM macOS menu-bar shell for source/transform/output control and TUI launch
-- `integrations/menu-bar-sidecar-protocol.md`: stdio JSON-RPC control plane for the v1 macOS menu-bar shell and local sidecar
-- `integrations/macos-automation.md`: AppleScript and Shortcuts wrapper for explicit clipboard review/redaction
-- `integrations/multi-display-capture.md`: explicit multi-display source selection and capture planning
-- `integrations/offline-video-redaction.md`: `junas redact` path for existing `.mov`/`.mp4` files using local frame transforms
-- `integrations/time-machine-buffer.md`: recording-only ring-buffer prototype for retroactive local redaction before final output
-- `integrations/obs-source-plugin.md`: OBS source-plugin technical design, prototype boundary, and distribution requirements
-- `integrations/direct-mp4-sink.md`: direct MP4 file output from already-redacted frame directories
-- `integrations/adapter-packaging.md`: browser extension and Office add-in packaging artifacts separate from backend deployment
-- `integrations/sequence-diagrams.md`: adapter/backend sequence diagrams for Outlook, browser, DMS, and reviewer approval flows
-- `policy/schema.md`: policy TOML fields, decision precedence, thresholds, recipient-domain rules, roles, and failure modes
-- `policy/examples.md`: sample tenant policy profiles for strict, soft-warning, offline, audit-grade, and GenAI review modes
-- `policy/decision-contract.md`: adapter behavior for allow, warn, block, approval-required, and rewrite-required decisions
-- `policy/journal-replay.md`: backward-compatible replay rules for review decision journal actions
-- `policy/decision-taxonomy.md`: allowed privacy-safe feedback taxonomy labels for reviewer decisions and detector-quality work
-- `api/versioning.md`: `/v1` compatibility, `/classify` deprecation, and adapter schema pinning rules
-- `api/idempotency.md`: request id, retry, and adapter idempotency guidance
-- `api/`: generated Postman collection, cURL snippets, and Python client integration notes
-- `json/`: example training corpus batches
+- [Architecture](../ARCHITECTURE.md): local classifier and document pipeline.
+- [Evaluation methodology](../BENCHMARKS.md): repeatable measurements and limitations.
+- [Current baseline](baseline.md): results after removing product surfaces.
+- [Generated accuracy locks](accuracy.md): historical regression expectations.
+- [Known limitations](known-limitations.md): gaps that passing fixtures do not resolve.
+- [Candidate corpus status](candidate_corpus_status.md) and [miss concentration](miss_concentration.md).
+- [Statutory coverage](statutory-coverage.md) and [jurisdiction evidence](defensibility/SG.md).
+- [Secret rule packs](secret-rule-packs.md) and [community rule packs](community-rule-packs.md).
+- [Advisory-layer governance](llm-governance.md) and [runtime assumptions](assumption.md).

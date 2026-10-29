@@ -3,7 +3,7 @@
 
 This is the item 31 substrate. It intentionally avoids sklearn in v1: the output
 is a transparent table keyed by rule/jurisdiction/severity with accept/reject
-rates. A later server-only model can consume the same JSONL.
+rates. A later experimental model can consume the same JSONL.
 """
 
 from __future__ import annotations

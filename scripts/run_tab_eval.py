@@ -245,22 +245,26 @@ def score_spans(
         for annotator in doc_annotators:
             predicted_units.append((prediction, annotator))
 
-    unmatched = set(range(len(gold)))
+    # Only annotations from the same document/annotator can match. Preserve the
+    # original gold order within each group so greedy one-to-one matching is unchanged.
+    unmatched: dict[tuple[str, str], dict[int, GoldSpan]] = defaultdict(dict)
+    for index, span in enumerate(gold):
+        unmatched[(span.doc_id, span.annotator)][index] = span
     true_positive = 0
     false_positive = 0
     for prediction, annotator in predicted_units:
+        candidates = unmatched.get((prediction.doc_id, annotator), {})
         matched_index = None
-        for index in sorted(unmatched):
-            candidate = gold[index]
-            if candidate.annotator == annotator and _span_matches(prediction, candidate, match_mode):
+        for index, candidate in candidates.items():
+            if _span_matches(prediction, candidate, match_mode):
                 matched_index = index
                 break
         if matched_index is None:
             false_positive += 1
         else:
-            unmatched.remove(matched_index)
+            del candidates[matched_index]
             true_positive += 1
-    return _score_from_counts(true_positive, false_positive, len(unmatched))
+    return _score_from_counts(true_positive, false_positive, len(gold) - true_positive)
 
 
 def _score_by_key(

@@ -73,42 +73,9 @@ def _load_pair(path: Path) -> tuple[str, dict[str, Any]]:
 
 def _configured_audit_grade_engine() -> PreSendReviewEngine:
     from junas.configs.runtime import get_runtime_settings
+    from junas.pipeline import build_review_engine
 
-    settings = get_runtime_settings()
-    public_evidence = None
-    if settings.public_evidence.enabled:
-        from junas.external.privacy_guard import PrivacyGuard
-        from junas.external.public_evidence.inference import PublicEvidenceRetriever
-
-        public_evidence = PublicEvidenceRetriever(
-            settings.public_evidence,
-            PrivacyGuard(
-                external_query_policy=settings.privacy.external_query_policy,
-                max_query_chars=settings.privacy.max_query_chars,
-                redact_exact_numbers=settings.privacy.redact_exact_numbers,
-            ),
-        )
-    llm_adjudicator = None
-    if settings.llm.enabled:
-        from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
-
-        llm_adjudicator = LocalLLMAdjudicator(settings.llm)
-    llm_defined_term_extractor = None
-    llm_coverage_auditor = None
-    if settings.llm.enabled and settings.llm_helpers.defined_terms_enabled:
-        from junas.advisory.llm_adjudicator.helpers import build_llm_defined_term_extractor
-
-        llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
-    if settings.llm.enabled and settings.llm_helpers.coverage_audit_enabled:
-        from junas.advisory.llm_adjudicator.helpers import build_llm_coverage_auditor
-
-        llm_coverage_auditor = build_llm_coverage_auditor(settings.llm)
-    return PreSendReviewEngine(
-        public_evidence_retriever=public_evidence,
-        llm_adjudicator=llm_adjudicator,
-        llm_defined_term_extractor=llm_defined_term_extractor,
-        llm_coverage_auditor=llm_coverage_auditor,
-    )
+    return build_review_engine(get_runtime_settings(), review_profile="audit_grade")
 
 
 def _engine_for_profile(review_profile: str) -> PreSendReviewEngine:
@@ -228,9 +195,7 @@ def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDoc
     missed = [item for item in expected if (item["rule"], item["matched_text"]) not in finding_keys]
     source_has_detector_provenance = labels_have_detector_source(labels)
     independent_expected = [
-        item
-        for item in expected
-        if not source_has_detector_provenance and not label_item_has_detector_provenance(item)
+        item for item in expected if not source_has_detector_provenance and not label_item_has_detector_provenance(item)
     ]
     independent_matched = [
         item for item in independent_expected if (item["rule"], item["matched_text"]) in finding_keys
@@ -337,9 +302,7 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
     candidate_recall = total_matched / total_expected if total_expected else 0.0
     independent_candidate_recall = total_independent_matched / total_independent if total_independent else 0.0
     candidate_precision = (
-        total_matched / (total_matched + total_unexpected)
-        if total_matched + total_unexpected
-        else 0.0
+        total_matched / (total_matched + total_unexpected) if total_matched + total_unexpected else 0.0
     )
     ideal_candidate_recall = total_ideal_matched / total_ideal if total_ideal else 0.0
     ideal_candidate_precision = (
@@ -375,10 +338,7 @@ def _summary(reports: list[CandidateDocReport]) -> dict[str, Any]:
         "ideal_candidate_f2": round(_f_beta(ideal_candidate_precision, ideal_candidate_recall, beta=2), 4),
         "by_rule": by_rule,
         "ideal_by_rule": ideal_by_rule,
-        "unexpected_triage": {
-            bucket: unexpected_triage.get(bucket, 0)
-            for bucket in UNEXPECTED_TRIAGE_BUCKETS
-        },
+        "unexpected_triage": {bucket: unexpected_triage.get(bucket, 0) for bucket in UNEXPECTED_TRIAGE_BUCKETS},
     }
 
 

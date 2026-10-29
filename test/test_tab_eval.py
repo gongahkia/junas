@@ -217,3 +217,45 @@ class TabEvalTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_indexed_matching_preserves_original_greedy_counts():
+    """Compare with the original global scan across ties, duplicates and annotators."""
+    import random
+
+    from scripts.run_tab_eval import _annotators_by_doc, _score_from_counts, _span_matches
+
+    rng = random.Random(42)
+    docs = [SimpleNamespace(doc_id=str(i), annotations={"a": {}, "b": {}}) for i in range(4)]
+    for mode in ("exact", "overlap"):
+        for _ in range(20):
+            gold = [
+                SimpleNamespace(
+                    doc_id=str(rng.randrange(4)), annotator=rng.choice(["a", "b"]), start=start, end=start + 5
+                )
+                for start in [rng.randrange(30) for _ in range(80)]
+            ]
+            predictions = [
+                SimpleNamespace(doc_id=str(rng.randrange(5)), start=start, end=start + rng.choice([1, 5, 12]))
+                for start in [rng.randrange(30) for _ in range(100)]
+            ]
+            remaining = set(range(len(gold)))
+            tp = fp = 0
+            annotators = _annotators_by_doc(docs)
+            for prediction in predictions:
+                for annotator in annotators.get(prediction.doc_id) or {""}:
+                    matched = next(
+                        (
+                            i
+                            for i in sorted(remaining)
+                            if gold[i].annotator == annotator and _span_matches(prediction, gold[i], mode)
+                        ),
+                        None,
+                    )
+                    if matched is None:
+                        fp += 1
+                    else:
+                        remaining.remove(matched)
+                        tp += 1
+            expected = _score_from_counts(tp, fp, len(remaining))
+            assert score_spans(docs, gold, predictions, match_mode=mode) == expected

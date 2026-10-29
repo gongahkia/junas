@@ -1,6 +1,5 @@
 """Real optional local OCR regressions, separate from fake provider API tests."""
 
-import base64
 import importlib.util
 import json
 import os
@@ -14,10 +13,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
 
-from fastapi.testclient import TestClient
 from PIL import Image, ImageDraw, ImageFont
 
-import junas.backend.main as main
 from junas.review.image_scan import (
     ImageCandidate,
     ImageLocator,
@@ -31,45 +28,17 @@ FIXTURE = Path(__file__).parent / "fixtures/ocr/ambiguous-s-prefix.png"
 
 @unittest.skipUnless(HAS_TESSERACT, "optional pytesseract and native Tesseract required")
 class TesseractOcrTests(unittest.TestCase):
-    def test_preserved_s_prefix_fixture_is_detected_and_its_pixels_are_redacted(self):
-        import io
+    def test_preserved_s_prefix_fixture_is_detected_with_ocr_coordinates(self):
+        from junas import ReviewPipeline
+        from junas.configs.runtime import load_runtime_settings
 
-        import pytesseract
-
-        main._state.clear()
-        data = FIXTURE.read_bytes()
-        payload = {
-            "document_base64": base64.b64encode(data).decode(),
-            "document_filename": "synthetic-identity.png",
-            "document_mime_type": "image/png",
-            "review_profile": "strict",
-            "degraded_policy": "block_send",
-        }
-        with (
-            mock.patch.dict(
-                os.environ,
-                {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract", "JUNAS_LLM_ENABLED": "0", "JUNAS_REVIEW_PERSIST": "0"},
-            ),
-            TestClient(main.app) as client,
-        ):
-            response = client.post("/review", json=payload)
-            self.assertEqual(response.status_code, 200, response.text)
-            findings = response.json()["findings"]
-            nric = next((finding for finding in findings if finding["rule"] == "sg_nric_fin"), None)
-            self.assertIsNotNone(nric, "the preserved S-prefix input must be detected")
-            self.assertEqual(nric["matched_text"], "S1234567D")
-            self.assertEqual(nric["source"], "image_ocr")
-            self.assertTrue(nric["image_ocr_regions"][0]["bounding_box"])
-            self.assertFalse(response.json()["send_allowed"])
-            redacted = client.post("/redact", json=payload)
-            self.assertEqual(redacted.status_code, 200, redacted.text)
-            output = redacted.json()
-            image = Image.open(io.BytesIO(base64.b64decode(output["redacted_document"]["document_base64"])))
-            independent = pytesseract.image_to_string(image, timeout=5)
-            self.assertNotIn("1234567", independent)
-            self.assertNotIn("synthetic@example.test", independent)
-            self.assertNotIn("1234567", json.dumps(output))
-            self.assertNotIn("1234567", json.dumps(image.info))
+        settings = load_runtime_settings(cli_overrides={"image_scan.provider": "tesseract"})
+        analysis = ReviewPipeline(settings).review_file(FIXTURE)
+        finding = next((item for item in analysis.review.findings if item.rule == "sg_nric_fin"), None)
+        self.assertIsNotNone(finding, "the preserved S-prefix input must be detected")
+        self.assertEqual(finding.matched_text, "S1234567D")
+        self.assertEqual(finding.source, "image_ocr")
+        self.assertTrue(finding.image_ocr_regions[0]["bounding_box"])
 
     @unittest.skipUnless(Path("/System/Library/Fonts/Supplemental/Arial.ttf").exists(), "macOS control font required")
     def test_actual_currency_and_digit_prefix_are_not_changed_into_identity_prefixes(self):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run locked-corpus recall gates when policy/rewrite paths change."""
+"""Run locked-corpus recall gates when classifier/pipeline paths change."""
 
 from __future__ import annotations
 
@@ -12,16 +12,18 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WATCHED_PATH_PREFIXES = (
-    "src/junas/policy/",
-    "src/junas/anonymize/",
-    "src/junas/backend/",
+    "src/junas/review/",
+    "src/junas/ingest/",
+    "src/junas/configs/",
 )
-WATCHED_PATHS = frozenset({
-    "src/junas/policy/config.py",
-    "src/junas/policy/engine.py",
-    "src/junas/anonymize/engine.py",
-    "src/junas/backend/main.py",
-})
+WATCHED_PATHS = frozenset(
+    {
+        "src/junas/configs/runtime.py",
+        "src/junas/review/engine.py",
+        "src/junas/review/document.py",
+        "src/junas/pipeline.py",
+    }
+)
 DEFAULT_CORPORA = (
     Path("test/fixtures/legal-corpus"),
     Path("test/fixtures/legal-corpus-adversarial"),
@@ -41,9 +43,7 @@ def _normalize(path: str | Path) -> str:
 
 def path_triggers_false_negative_gate(path: str | Path) -> bool:
     normalized = _normalize(path)
-    return normalized in WATCHED_PATHS or any(
-        normalized.startswith(prefix) for prefix in WATCHED_PATH_PREFIXES
-    )
+    return normalized in WATCHED_PATHS or any(normalized.startswith(prefix) for prefix in WATCHED_PATH_PREFIXES)
 
 
 def changed_paths_from_git(base_ref: str, head_ref: str) -> list[str]:
@@ -84,18 +84,20 @@ def run_recall_gates(corpora: list[Path]) -> list[dict[str, Any]]:
             text=True,
             check=False,
         )
-        results.append({
-            "corpus": str(corpus),
-            "returncode": result.returncode,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-        })
+        results.append(
+            {
+                "corpus": str(corpus),
+                "returncode": result.returncode,
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+            }
+        )
     return results
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Fail if policy/rewrite changes regress locked legal-corpus recall"
+        description="Fail if classifier/pipeline changes regress locked legal-corpus recall"
     )
     parser.add_argument("--base-ref")
     parser.add_argument("--head-ref", default="HEAD")
@@ -115,9 +117,9 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         triggers = triggered_paths(changed)
         if not triggers:
-            print("no policy/rewrite changes; false-negative risk gate skipped")
+            print("no classifier/pipeline changes; false-negative risk gate skipped")
             return 0
-        print("policy/rewrite changes require locked-corpus recall gates:")
+        print("classifier/pipeline changes require locked-corpus recall gates:")
         for path in triggers:
             print(f"  {path}")
 

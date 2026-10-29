@@ -1,22 +1,14 @@
-# Scripts Folder
+# Evaluation and corpus tools
 
-This folder contains stable CLI entrypoints. Keep paths stable because docs, fixtures, and operator runbooks reference them directly.
+Start with `uv run python scripts/evaluate_accuracy.py`. It writes a source/corpus-fingerprinted report and executes the existing locks without updating them.
 
-Runtime and launch:
-- `launch/`: UV-first backend launchers.
-- `demo.sh`, `demo.py`, `preflight.py`, `preflight_production.py`, `verify_runtime.sh`, `watch_backend_status.py`, `trace_request_logs.sh`, `trace_policy_decision.sh`, `smoke_local_daemon_acl.py`
+- `recall_gate.py`: per-rule regression checks.
+- `evaluate_candidate_corpus.py`: detailed matched, missed, unexpected and ideal-label results.
+- `run_tab_eval.py`, `run_ai4privacy_eval.py`, `run_singling_out_pack_eval.py`: external breadth checks.
+- `fetch_tab_fixture.sh`, `fetch_ai4privacy_fixture.py`: explicit external dataset acquisition.
+- `run_layer_attribution_eval.py`, `bucket_candidate_misses.py`, `miss_concentration.py`: gap analysis.
+- `candidate_review.py`, `review_candidate_fixture.py`, `check_candidate_stage_gate.py`, `promote_candidate_fixtures.py`: label review and promotion.
+- `check_fixture_scrub.py`, `check_mnpi_conjunctive_provenance.py`: fixture/privacy and provenance checks.
+- `generate_accuracy_doc.py`, `generate_defensibility_reports.py`: generated research documentation.
 
-Evaluation and corpus:
-- `recall_gate.py`, `generate_accuracy_doc.py`, `generate_detector_dashboard.py`, `check_promoted_lock_freshness.py`, `check_false_negative_risk.py`, `check_precision_risk.py`, `benchmark_latency.py`, `benchmark_latency_corpus.sh`, `check_latency_slo.py`
-- `fetch_tab_fixture.sh`, `run_tab_eval.py`: clone the independent TAB fixture locally and report span-level P/R/F2 without touching candidate-corpus locks.
-- `fetch_ai4privacy_fixture.py`, `run_ai4privacy_eval.py`: fetch the English ai4privacy `pii-masking-200k` fixture and report semi-independent recall on documented US/UK label-proxy slices.
-- candidate corpus, autolabel, bucketing, stage-gate, layer-attribution, defensibility, and frequency-table scripts
-
-Admin and audit:
-- `export_audit_pack.py`, `verify_audit_pack.py`, `verify_journal.py`, `erase_subject.py`, `purge_mappings.py`
-- `generate_tenant_credentials.py`, `scan_dms_manifest.py`, `check_retention_manifest.py`, `promote_journal_to_corpus.py`, `export_false_positive_queue.py`, `export_false_negative_queue.py`
-- `generate_product_value_report.py`: privacy-safe JSON report from Prometheus text metrics.
-
-Packaging and clients:
-- `package_macos_desktop.sh`, `package_browser_extension.sh`, `render_outlook_manifest.py`, `validate_outlook_manifest.py`, `check_python_clients.sh`, `export_openapi_examples.py`
-- `examples/`: runnable sync and async Python client examples.
+Generation and autolabelling scripts create candidates, not independent ground truth. Run each tool with `--help` before changing corpus labels. Never lower a lock simply to pass a test.

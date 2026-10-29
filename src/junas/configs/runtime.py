@@ -3,16 +3,12 @@ from __future__ import annotations
 import ipaddress
 import json
 import os
+import tomllib
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
-
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.toml"
@@ -30,42 +26,8 @@ EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "d
 IMAGE_SCAN_PROVIDERS = frozenset(
     {"none", "tesseract", "openai_vision", "google_vision", "aws_rekognition", "azure_vision"}
 )
-TENANCY_AUTH_MODES = frozenset({"api_key", "jwt"})
-TENANCY_ROLES = frozenset({"reviewer", "maker", "checker", "admin", "auditor"})
-SIEM_FACILITIES = frozenset(
-    {
-        "auth",
-        "authpriv",
-        "cron",
-        "daemon",
-        "kern",
-        "local0",
-        "local1",
-        "local2",
-        "local3",
-        "local4",
-        "local5",
-        "local6",
-        "local7",
-        "syslog",
-        "user",
-    }
-)
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
-    "api": frozenset({"allowed_origins", "max_request_bytes"}),
-    "local_daemon": frozenset({"acl_enabled", "allowed_origins", "token", "token_file", "socket_path"}),
-    "rate_limit": frozenset(
-        {
-            "enabled",
-            "window_seconds",
-            "review_per_window",
-            "batch_classify_per_window",
-            "reidentify_per_window",
-            "local_pairing_per_window",
-            "decision_per_window",
-        }
-    ),
     "document_ingest": frozenset(
         {
             "fail_closed",
@@ -135,25 +97,6 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
         }
     ),
     "pipeline": frozenset({"layers", "optional_layers"}),
-    "response_cache": frozenset({"size", "ttl_seconds"}),
-    "siem": frozenset({"enabled", "sink", "syslog_address", "facility", "app_name"}),
-    "startup": frozenset(
-        {"lazy_load_heavy", "prewarm_required_layers", "fail_on_layer_load_error"}
-    ),
-    "tenancy": frozenset(
-        {
-            "enabled",
-            "auth_modes",
-            "tenant_credentials_json",
-            "jwt_issuer",
-            "jwt_audience",
-            "jwt_jwks_url",
-            "jwt_hs256_secret",
-            "jwt_tenant_claim",
-            "jwt_subject_claim",
-            "jwt_roles_claim",
-        }
-    ),
 }
 _MISSING = object()
 
@@ -169,61 +112,12 @@ class PipelineSettings:
 
 
 @dataclass(frozen=True)
-class ApiSettings:
-    allowed_origins: tuple[str, ...]
-    api_key: str = ""
-    max_request_bytes: int = 10 * 1024 * 1024
-
-
-@dataclass(frozen=True)
-class LocalDaemonSettings:
-    acl_enabled: bool
-    allowed_origins: tuple[str, ...]
-    token: str
-    token_file: str
-    socket_path: str
-
-
-@dataclass(frozen=True)
-class RateLimitSettings:
-    enabled: bool
-    window_seconds: int
-    review_per_window: int
-    batch_classify_per_window: int
-    reidentify_per_window: int
-    local_pairing_per_window: int
-    decision_per_window: int
-
-
-@dataclass(frozen=True)
 class DocumentIngestSettings:
     fail_closed: bool
     min_pdf_text_chars: int
     min_pdf_chars_per_page: int
     max_empty_pdf_page_ratio: float
     reject_image_only_pdf: bool
-
-
-@dataclass(frozen=True)
-class TenantCredential:
-    api_key: str
-    tenant_id: str
-    subject: str
-    roles: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class TenancySettings:
-    enabled: bool
-    auth_modes: tuple[str, ...]
-    tenant_credentials: tuple[TenantCredential, ...]
-    jwt_issuer: str
-    jwt_audience: str
-    jwt_jwks_url: str
-    jwt_hs256_secret: str
-    jwt_tenant_claim: str
-    jwt_subject_claim: str
-    jwt_roles_claim: str
 
 
 @dataclass(frozen=True)
@@ -307,47 +201,16 @@ class PrivacySettings:
 
 
 @dataclass(frozen=True)
-class ResponseCacheSettings:
-    size: int
-    ttl_seconds: float
-
-
-@dataclass(frozen=True)
-class SIEMSettings:
-    enabled: bool
-    sink: str
-    syslog_address: str
-    facility: str
-    app_name: str
-
-
-@dataclass(frozen=True)
-class StartupSettings:
-    lazy_load_heavy: bool
-    prewarm_required_layers: bool
-    fail_on_layer_load_error: bool
-    batch_max_concurrency: int
-    pretty_logs: bool
-
-
-@dataclass(frozen=True)
 class RuntimeSettings:
     config_path: Path
     raw_config: dict[str, Any] = field(repr=False)
     pipeline: PipelineSettings
-    api: ApiSettings
-    local_daemon: LocalDaemonSettings
-    rate_limit: RateLimitSettings
     document_ingest: DocumentIngestSettings
-    tenancy: TenancySettings
     public_evidence: PublicEvidenceSettings
     llm: LLMSettings
     llm_helpers: LLMHelperSettings
     image_scan: ImageScanSettings
     privacy: PrivacySettings
-    response_cache: ResponseCacheSettings
-    siem: SIEMSettings
-    startup: StartupSettings
 
 
 def _is_truthy(value: str | None, *, default: bool = False) -> bool:
@@ -434,55 +297,6 @@ def _is_private_or_local_base_url(base_url: str) -> bool:
         return host.endswith(".local")
 
 
-def _parse_tenant_credentials(value: Any, *, label: str) -> tuple[TenantCredential, ...]:
-    if value in (None, ""):
-        return ()
-    raw = value
-    if isinstance(value, str):
-        try:
-            raw = json.loads(value)
-        except json.JSONDecodeError as exc:
-            raise ConfigError(f"{label} must be valid JSON") from exc
-
-    entries: list[dict[str, Any]] = []
-    if isinstance(raw, Mapping):
-        for api_key, body in raw.items():
-            if not isinstance(body, Mapping):
-                raise ConfigError(f"{label} mapping values must be objects")
-            entries.append({"api_key": str(api_key), **dict(body)})
-    elif isinstance(raw, Sequence) and not isinstance(raw, (bytes, bytearray, str)):
-        for item in raw:
-            if not isinstance(item, Mapping):
-                raise ConfigError(f"{label} array items must be objects")
-            entries.append(dict(item))
-    else:
-        raise ConfigError(f"{label} must be a JSON object or array")
-
-    credentials: list[TenantCredential] = []
-    seen_keys: set[str] = set()
-    for index, item in enumerate(entries):
-        api_key = _parse_str(item.get("api_key", ""), label=f"{label}[{index}].api_key")
-        tenant_id = _parse_str(item.get("tenant_id", ""), label=f"{label}[{index}].tenant_id")
-        subject = _parse_str(item.get("subject", ""), label=f"{label}[{index}].subject") or tenant_id
-        roles = tuple(role.lower() for role in _parse_list(item.get("roles", ()), label=f"{label}[{index}].roles"))
-        if not api_key:
-            raise ConfigError(f"{label}[{index}].api_key must not be empty")
-        if api_key in seen_keys:
-            raise ConfigError(f"{label} contains a duplicate api_key")
-        if not tenant_id:
-            raise ConfigError(f"{label}[{index}].tenant_id must not be empty")
-        invalid_roles = sorted(set(roles) - TENANCY_ROLES)
-        if invalid_roles:
-            raise ConfigError(f"{label}[{index}].roles contains invalid roles: {', '.join(invalid_roles)}")
-        if not roles:
-            raise ConfigError(f"{label}[{index}].roles must not be empty")
-        seen_keys.add(api_key)
-        credentials.append(
-            TenantCredential(api_key=api_key, tenant_id=tenant_id, subject=subject, roles=roles)
-        )
-    return tuple(credentials)
-
-
 def _parse_provider_opt_in_map(value: Any, *, label: str) -> dict[str, tuple[str, ...]]:
     if value in (None, ""):
         return {}
@@ -502,9 +316,7 @@ def _parse_provider_opt_in_map(value: Any, *, label: str) -> dict[str, tuple[str
             raise ConfigError(f"{label} tenant ids must not be empty")
         if isinstance(providers, Mapping):
             provider_names = [
-                name
-                for name, enabled in providers.items()
-                if _parse_bool(enabled, label=f"{label}.{tenant}.{name}")
+                name for name, enabled in providers.items() if _parse_bool(enabled, label=f"{label}.{tenant}.{name}")
             ]
         else:
             provider_names = list(_parse_list(providers, label=f"{label}.{tenant}"))
@@ -518,10 +330,6 @@ def _parse_provider_opt_in_map(value: Any, *, label: str) -> dict[str, tuple[str
             normalized.append(provider_name)
         out[tenant] = tuple(sorted(set(normalized)))
     return out
-
-
-def _default_response_cache_size() -> int:
-    return 0 if os.environ.get("PROMETHEUS_MULTIPROC_DIR") else 256
 
 
 def _config_path_from_overrides(cli_overrides: Mapping[str, Any] | None = None) -> Path:
@@ -548,9 +356,7 @@ def _load_toml(path: Path) -> dict[str, Any]:
 def _validate_known_keys(raw_config: Mapping[str, Any], *, config_path: Path) -> None:
     unknown_sections = sorted(set(raw_config) - set(KNOWN_CONFIG_KEYS))
     if unknown_sections:
-        raise ConfigError(
-            f"unknown config sections in {config_path}: {', '.join(unknown_sections)}"
-        )
+        raise ConfigError(f"unknown config sections in {config_path}: {', '.join(unknown_sections)}")
     for section, value in raw_config.items():
         if not isinstance(value, Mapping):
             raise ConfigError(f"config section '{section}' in {config_path} must be a table")
@@ -559,9 +365,7 @@ def _validate_known_keys(raw_config: Mapping[str, Any], *, config_path: Path) ->
             continue
         unknown_keys = sorted(set(value) - set(allowed_keys))
         if unknown_keys:
-            raise ConfigError(
-                f"unknown keys in [{section}] of {config_path}: {', '.join(unknown_keys)}"
-            )
+            raise ConfigError(f"unknown keys in [{section}] of {config_path}: {', '.join(unknown_keys)}")
 
 
 def load_config(config_path: str | os.PathLike[str] | None = None) -> dict[str, Any]:
@@ -597,218 +401,40 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
     config_path = _config_path_from_overrides(cli_overrides)
     raw_config = load_config(config_path)
 
-    pipeline_layers = _parse_list(
-        _resolve_raw_value(
-            raw_config,
-            cli_overrides,
-            section="pipeline",
-            key="layers",
-            env_vars=("PIPELINE_LAYERS",),
-            default=DEFAULT_PIPELINE_LAYERS,
-        ),
-        label="pipeline.layers",
-    ) or DEFAULT_PIPELINE_LAYERS
-    optional_layers = _parse_list(
-        _resolve_raw_value(
-            raw_config,
-            cli_overrides,
-            section="pipeline",
-            key="optional_layers",
-            env_vars=("JUNAS_OPTIONAL_LAYERS",),
-            default=DEFAULT_OPTIONAL_LAYERS,
-        ),
-        label="pipeline.optional_layers",
-    ) or DEFAULT_OPTIONAL_LAYERS
+    pipeline_layers = (
+        _parse_list(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="pipeline",
+                key="layers",
+                env_vars=("PIPELINE_LAYERS",),
+                default=DEFAULT_PIPELINE_LAYERS,
+            ),
+            label="pipeline.layers",
+        )
+        or DEFAULT_PIPELINE_LAYERS
+    )
+    optional_layers = (
+        _parse_list(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="pipeline",
+                key="optional_layers",
+                env_vars=("JUNAS_OPTIONAL_LAYERS",),
+                default=DEFAULT_OPTIONAL_LAYERS,
+            ),
+            label="pipeline.optional_layers",
+        )
+        or DEFAULT_OPTIONAL_LAYERS
+    )
     invalid_layers = sorted(set(pipeline_layers) - VALID_LAYERS)
     if invalid_layers:
         raise ConfigError(f"invalid pipeline layers: {', '.join(invalid_layers)}")
     invalid_optional_layers = sorted(set(optional_layers) - VALID_LAYERS)
     if invalid_optional_layers:
-        raise ConfigError(
-            "optional layers must be valid known layers: "
-            + ", ".join(invalid_optional_layers)
-        )
-
-    allowed_origins = _parse_list(
-        _resolve_raw_value(
-            raw_config,
-            cli_overrides,
-            section="api",
-            key="allowed_origins",
-            env_vars=("JUNAS_ALLOWED_ORIGINS",),
-            default=("http://localhost", "http://127.0.0.1"),
-        ),
-        label="api.allowed_origins",
-    ) or ("http://localhost", "http://127.0.0.1")
-    api_key = _parse_str(os.environ.get("JUNAS_API_KEY", ""), label="JUNAS_API_KEY")
-    max_request_bytes = _parse_int(
-        _resolve_raw_value(
-            raw_config,
-            cli_overrides,
-            section="api",
-            key="max_request_bytes",
-            env_vars=("JUNAS_MAX_REQUEST_BYTES",),
-            default=10 * 1024 * 1024,
-        ),
-        label="api.max_request_bytes",
-        minimum=1024,
-    )
-
-    local_daemon_allowed_origins = _parse_list(
-        _resolve_raw_value(
-            raw_config,
-            cli_overrides,
-            section="local_daemon",
-            key="allowed_origins",
-            env_vars=("JUNAS_LOCAL_DAEMON_ALLOWED_ORIGINS",),
-            default=(
-                "chrome-extension://*",
-                "https://chatgpt.com",
-                "https://claude.ai",
-                "https://gemini.google.com",
-            ),
-        ),
-        label="local_daemon.allowed_origins",
-    ) or (
-        "chrome-extension://*",
-        "https://chatgpt.com",
-        "https://claude.ai",
-        "https://gemini.google.com",
-    )
-    local_daemon = LocalDaemonSettings(
-        acl_enabled=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="local_daemon",
-                key="acl_enabled",
-                env_vars=("JUNAS_LOCAL_DAEMON_ACL_ENABLED",),
-                default=False,
-            ),
-            label="local_daemon.acl_enabled",
-        ),
-        allowed_origins=tuple(dict.fromkeys(local_daemon_allowed_origins)),
-        token=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="local_daemon",
-                key="token",
-                env_vars=("JUNAS_LOCAL_DAEMON_TOKEN",),
-                default="",
-            ),
-            label="local_daemon.token",
-        ),
-        token_file=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="local_daemon",
-                key="token_file",
-                env_vars=("JUNAS_LOCAL_DAEMON_TOKEN_FILE",),
-                default="",
-            ),
-            label="local_daemon.token_file",
-        ),
-        socket_path=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="local_daemon",
-                key="socket_path",
-                env_vars=("JUNAS_LOCAL_SOCKET_PATH",),
-                default="",
-            ),
-            label="local_daemon.socket_path",
-        ),
-    )
-
-    rate_limit = RateLimitSettings(
-        enabled=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="enabled",
-                env_vars=("JUNAS_RATE_LIMIT_ENABLED",),
-                default=False,
-            ),
-            label="rate_limit.enabled",
-        ),
-        window_seconds=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="window_seconds",
-                env_vars=("JUNAS_RATE_LIMIT_WINDOW_SECONDS",),
-                default=60,
-            ),
-            label="rate_limit.window_seconds",
-            minimum=1,
-            maximum=3600,
-        ),
-        review_per_window=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="review_per_window",
-                env_vars=("JUNAS_RATE_LIMIT_REVIEW",),
-                default=120,
-            ),
-            label="rate_limit.review_per_window",
-            minimum=0,
-        ),
-        batch_classify_per_window=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="batch_classify_per_window",
-                env_vars=("JUNAS_RATE_LIMIT_BATCH_CLASSIFY",),
-                default=30,
-            ),
-            label="rate_limit.batch_classify_per_window",
-            minimum=0,
-        ),
-        reidentify_per_window=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="reidentify_per_window",
-                env_vars=("JUNAS_RATE_LIMIT_REIDENTIFY",),
-                default=60,
-            ),
-            label="rate_limit.reidentify_per_window",
-            minimum=0,
-        ),
-        local_pairing_per_window=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="local_pairing_per_window",
-                env_vars=("JUNAS_RATE_LIMIT_LOCAL_PAIRING",),
-                default=20,
-            ),
-            label="rate_limit.local_pairing_per_window",
-            minimum=0,
-        ),
-        decision_per_window=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="rate_limit",
-                key="decision_per_window",
-                env_vars=("JUNAS_RATE_LIMIT_DECISION",),
-                default=60,
-            ),
-            label="rate_limit.decision_per_window",
-            minimum=0,
-        ),
-    )
+        raise ConfigError("optional layers must be valid known layers: " + ", ".join(invalid_optional_layers))
 
     document_ingest = DocumentIngestSettings(
         fail_closed=_parse_bool(
@@ -818,7 +444,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
                 section="document_ingest",
                 key="fail_closed",
                 env_vars=("JUNAS_DOCUMENT_FAIL_CLOSED",),
-                default=False,
+                default=True,
             ),
             label="document_ingest.fail_closed",
         ),
@@ -870,138 +496,6 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
     )
 
-    tenancy_auth_modes = tuple(
-        mode.lower()
-        for mode in (
-            _parse_list(
-                _resolve_raw_value(
-                    raw_config,
-                    cli_overrides,
-                    section="tenancy",
-                    key="auth_modes",
-                    env_vars=("JUNAS_TENANCY_AUTH_MODES",),
-                    default=("api_key", "jwt"),
-                ),
-                label="tenancy.auth_modes",
-            )
-            or ("api_key", "jwt")
-        )
-    )
-    invalid_auth_modes = sorted(set(tenancy_auth_modes) - TENANCY_AUTH_MODES)
-    if invalid_auth_modes:
-        raise ConfigError(f"tenancy.auth_modes contains invalid modes: {', '.join(invalid_auth_modes)}")
-    tenancy = TenancySettings(
-        enabled=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="enabled",
-                env_vars=("JUNAS_TENANCY_ENABLED",),
-                default=False,
-            ),
-            label="tenancy.enabled",
-        ),
-        auth_modes=tenancy_auth_modes,
-        tenant_credentials=_parse_tenant_credentials(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="tenant_credentials_json",
-                env_vars=("JUNAS_TENANT_CREDENTIALS_JSON",),
-                default="",
-            ),
-            label="tenancy.tenant_credentials_json",
-        ),
-        jwt_issuer=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_issuer",
-                env_vars=("JUNAS_JWT_ISSUER",),
-                default="",
-            ),
-            label="tenancy.jwt_issuer",
-        ),
-        jwt_audience=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_audience",
-                env_vars=("JUNAS_JWT_AUDIENCE",),
-                default="",
-            ),
-            label="tenancy.jwt_audience",
-        ),
-        jwt_jwks_url=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_jwks_url",
-                env_vars=("JUNAS_JWT_JWKS_URL",),
-                default="",
-            ),
-            label="tenancy.jwt_jwks_url",
-        ),
-        jwt_hs256_secret=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_hs256_secret",
-                env_vars=("JUNAS_JWT_HS256_SECRET",),
-                default="",
-            ),
-            label="tenancy.jwt_hs256_secret",
-        ),
-        jwt_tenant_claim=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_tenant_claim",
-                env_vars=("JUNAS_JWT_TENANT_CLAIM",),
-                default="tenant_id",
-            ),
-            label="tenancy.jwt_tenant_claim",
-        )
-        or "tenant_id",
-        jwt_subject_claim=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_subject_claim",
-                env_vars=("JUNAS_JWT_SUBJECT_CLAIM",),
-                default="sub",
-            ),
-            label="tenancy.jwt_subject_claim",
-        )
-        or "sub",
-        jwt_roles_claim=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="tenancy",
-                key="jwt_roles_claim",
-                env_vars=("JUNAS_JWT_ROLES_CLAIM",),
-                default="roles",
-            ),
-            label="tenancy.jwt_roles_claim",
-        )
-        or "roles",
-    )
-    if tenancy.enabled and not tenancy.auth_modes:
-        raise ConfigError("tenancy.auth_modes must not be empty when tenancy.enabled=true")
-    if tenancy.enabled and "api_key" in tenancy.auth_modes and not tenancy.tenant_credentials:
-        raise ConfigError("tenancy.tenant_credentials_json is required when tenancy api_key mode is enabled")
-    if tenancy.enabled and "jwt" in tenancy.auth_modes and not (tenancy.jwt_hs256_secret or tenancy.jwt_jwks_url):
-        raise ConfigError("tenancy.jwt_hs256_secret or tenancy.jwt_jwks_url is required when jwt mode is enabled")
-
     public_evidence_provider = (
         _parse_str(
             _resolve_raw_value(
@@ -1025,21 +519,22 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         "none": ("", ""),
     }
     _key_env, _endpoint_default = _provider_defaults.get(public_evidence_provider, ("", ""))
-    public_evidence_api_key = (
-        _parse_str(os.environ.get(_key_env, ""), label=_key_env) if _key_env else ""
-    )
+    public_evidence_api_key = _parse_str(os.environ.get(_key_env, ""), label=_key_env) if _key_env else ""
 
-    _resolved_endpoint = _parse_str(
-        _resolve_raw_value(
-            raw_config,
-            cli_overrides,
-            section="public_evidence",
-            key="endpoint",
-            env_vars=("JUNAS_PUBLIC_EVIDENCE_ENDPOINT",),
-            default=_endpoint_default,
-        ),
-        label="public_evidence.endpoint",
-    ) or _endpoint_default
+    _resolved_endpoint = (
+        _parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="public_evidence",
+                key="endpoint",
+                env_vars=("JUNAS_PUBLIC_EVIDENCE_ENDPOINT",),
+                default=_endpoint_default,
+            ),
+            label="public_evidence.endpoint",
+        )
+        or _endpoint_default
+    )
     # if the resolved endpoint is the exa default but the provider is not exa, the user has
     # likely flipped only `provider` without updating the legacy endpoint in config.toml.
     # snap to the provider's default endpoint in that case so tinyfish requests don't hit exa.
@@ -1238,9 +733,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         llm_input_mode=llm_input_mode,
     )
     if llm.provider not in {"vllm", "ollama", "openai", "azure_openai", "local_distilled", "none"}:
-        raise ConfigError(
-            "llm.provider must be one of: vllm, ollama, openai, azure_openai, local_distilled, none"
-        )
+        raise ConfigError("llm.provider must be one of: vllm, ollama, openai, azure_openai, local_distilled, none")
     if llm.llm_input_mode not in {"raw_text", "structured_tokens"}:
         raise ConfigError("llm.llm_input_mode must be one of: raw_text, structured_tokens")
     if (
@@ -1524,9 +1017,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
     )
     if image_scan.provider not in IMAGE_SCAN_PROVIDERS:
-        raise ConfigError(
-            "image_scan.provider must be one of: " + ", ".join(sorted(IMAGE_SCAN_PROVIDERS))
-        )
+        raise ConfigError("image_scan.provider must be one of: " + ", ".join(sorted(IMAGE_SCAN_PROVIDERS)))
     provider_has_tenant_map = any(
         image_scan.provider in set(providers) or "*" in set(providers)
         for providers in image_scan.tenant_opt_ins.values()
@@ -1581,172 +1072,18 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         ),
     )
     if privacy.external_query_policy not in EXTERNAL_QUERY_POLICIES:
-        raise ConfigError(
-            "privacy.external_query_policy must be one of "
-            + ", ".join(sorted(EXTERNAL_QUERY_POLICIES))
-        )
-
-    response_cache = ResponseCacheSettings(
-        size=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="response_cache",
-                key="size",
-                env_vars=("JUNAS_RESPONSE_CACHE_SIZE",),
-                default=_default_response_cache_size(),
-            ),
-            label="response_cache.size",
-            minimum=0,
-        ),
-        ttl_seconds=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="response_cache",
-                key="ttl_seconds",
-                env_vars=("JUNAS_RESPONSE_CACHE_TTL_SECONDS",),
-                default=60.0,
-            ),
-            label="response_cache.ttl_seconds",
-            minimum=0.0,
-        ),
-    )
-
-    siem = SIEMSettings(
-        enabled=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="siem",
-                key="enabled",
-                env_vars=("JUNAS_SIEM_ENABLED",),
-                default=False,
-            ),
-            label="siem.enabled",
-        ),
-        sink=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="siem",
-                key="sink",
-                env_vars=("JUNAS_SIEM_SINK",),
-                default="syslog",
-            ),
-            label="siem.sink",
-        ).lower()
-        or "syslog",
-        syslog_address=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="siem",
-                key="syslog_address",
-                env_vars=("JUNAS_SIEM_SYSLOG_ADDRESS",),
-                default="/var/run/syslog",
-            ),
-            label="siem.syslog_address",
-        )
-        or "/var/run/syslog",
-        facility=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="siem",
-                key="facility",
-                env_vars=("JUNAS_SIEM_FACILITY",),
-                default="local4",
-            ),
-            label="siem.facility",
-        ).lower()
-        or "local4",
-        app_name=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="siem",
-                key="app_name",
-                env_vars=("JUNAS_SIEM_APP_NAME",),
-                default="junas",
-            ),
-            label="siem.app_name",
-        )
-        or "junas",
-    )
-    if siem.sink not in {"syslog", "stdout"}:
-        raise ConfigError("siem.sink must be one of: syslog, stdout")
-    if siem.facility not in SIEM_FACILITIES:
-        raise ConfigError("siem.facility must be a known syslog facility")
-    if not siem.app_name:
-        raise ConfigError("siem.app_name must not be empty")
-
-    startup = StartupSettings(
-        lazy_load_heavy=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="startup",
-                key="lazy_load_heavy",
-                env_vars=("JUNAS_LAZY_LOAD_HEAVY",),
-                default=True,
-            ),
-            label="startup.lazy_load_heavy",
-        ),
-        prewarm_required_layers=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="startup",
-                key="prewarm_required_layers",
-                env_vars=("JUNAS_PREWARM_REQUIRED_LAYERS",),
-                default=True,
-            ),
-            label="startup.prewarm_required_layers",
-        ),
-        fail_on_layer_load_error=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="startup",
-                key="fail_on_layer_load_error",
-                env_vars=("JUNAS_FAIL_ON_LAYER_LOAD_ERROR",),
-                default=False,
-            ),
-            label="startup.fail_on_layer_load_error",
-        ),
-        batch_max_concurrency=_parse_int(
-            os.environ.get("JUNAS_BATCH_MAX_CONCURRENCY", min(4, os.cpu_count() or 1)),
-            label="JUNAS_BATCH_MAX_CONCURRENCY",
-            minimum=1,
-        ),
-        pretty_logs=_parse_bool(
-            os.environ.get("JUNAS_PRETTY_LOGS", "1"),
-            label="JUNAS_PRETTY_LOGS",
-        ),
-    )
+        raise ConfigError("privacy.external_query_policy must be one of " + ", ".join(sorted(EXTERNAL_QUERY_POLICIES)))
 
     return RuntimeSettings(
         config_path=config_path,
         raw_config=raw_config,
         pipeline=PipelineSettings(layers=tuple(pipeline_layers), optional_layers=tuple(optional_layers)),
-        api=ApiSettings(
-            allowed_origins=tuple(dict.fromkeys(allowed_origins)),
-            api_key=api_key,
-            max_request_bytes=max_request_bytes,
-        ),
-        local_daemon=local_daemon,
-        rate_limit=rate_limit,
         document_ingest=document_ingest,
-        tenancy=tenancy,
         public_evidence=public_evidence,
         llm=llm,
         llm_helpers=llm_helpers,
         image_scan=image_scan,
         privacy=privacy,
-        response_cache=response_cache,
-        siem=siem,
-        startup=startup,
     )
 
 
@@ -1773,9 +1110,7 @@ def get_config_val(
     try:
         return cast_type(value)
     except (TypeError, ValueError) as exc:
-        raise ConfigError(
-            f"invalid value for {section}.{key} from {env_var or 'config'}: {value!r}"
-        ) from exc
+        raise ConfigError(f"invalid value for {section}.{key} from {env_var or 'config'}: {value!r}") from exc
 
 
 class _ConfigProxy(Mapping[str, Any]):

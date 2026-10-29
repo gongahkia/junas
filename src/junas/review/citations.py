@@ -1,4 +1,4 @@
-"""Per-finding statute-cited rationales for the /review and /anonymize suggestion field.
+"""Per-finding statute-cited rationales for classifier explanations.
 
 Each suggestion's `rationale` should be forwardable verbatim by a compliance reviewer to
 internal audit. The text below names the statutory hook (PDPA, SFA, GDPR, MAR, Reg FD…) so
@@ -11,10 +11,9 @@ References here are intentionally short and load-bearing. They are not legal adv
 from __future__ import annotations
 
 import os
+import tomllib
 from pathlib import Path
 from typing import Iterable
-
-import tomllib
 
 # rule -> short PII rationale used when no jurisdiction-specific override applies.
 _PII_DEFAULT_RATIONALE = {

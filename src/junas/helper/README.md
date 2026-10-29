@@ -1,6 +1,3 @@
-# Helper Folder
+# Determinism helpers
 
-This package contains shared helper modules used by the canonical `junas`
-package.
-
-- `determinism.py`: reproducibility setup used by backend startup and tests.
+`determinism.py` sets experiment seeds and optional numerical-runtime controls. It does not initialize a server or persistence layer.

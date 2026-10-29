@@ -36,17 +36,6 @@ class MetadataFinding:
         }
 
 
-@dataclass(frozen=True)
-class ScrubResult:
-    data: bytes
-    mime_type: str
-    filename: str
-    scrubbed: bool
-    actions: list[dict[str, str]]
-    original_findings: list[MetadataFinding]
-    remaining_findings: list[MetadataFinding]
-
-
 def _preview(value: Any) -> str:
     text = str(value or "").replace("\x00", "").strip()
     if len(text) <= MAX_PREVIEW_CHARS:
@@ -216,88 +205,3 @@ def inspect_metadata(data: bytes, *, filename: str, mime_type: str) -> list[Meta
     if normalized in IMAGE_MIMES:
         return _inspect_image(data, normalized)
     return []
-
-
-def _scrub_docx(data: bytes) -> tuple[bytes, list[dict[str, str]]]:
-    actions: list[dict[str, str]] = []
-    with BytesIO() as buffer:
-        with (
-            zipfile.ZipFile(BytesIO(data), "r") as source,
-            zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as target,
-        ):
-            for item in source.infolist():
-                name = item.filename
-                if name in {"docProps/core.xml", "docProps/app.xml", "docProps/custom.xml", "word/comments.xml"}:
-                    actions.append({"source": "docx", "field": name, "action": "removed"})
-                    continue
-                content = source.read(name)
-                if name == "word/document.xml":
-                    stripped = re.sub(rb'\s+w:(?:author|date|initials)="[^"]*"', b"", content)
-                    if stripped != content:
-                        actions.append(
-                            {
-                                "source": "docx_track_changes",
-                                "field": "author/date/initials",
-                                "action": "removed",
-                            }
-                        )
-                    content = stripped
-                target.writestr(item, content)
-        return buffer.getvalue(), actions
-
-
-def _scrub_pdf(data: bytes) -> tuple[bytes, list[dict[str, str]]]:
-    try:
-        from pypdf import PdfReader, PdfWriter
-    except Exception as exc:
-        raise ValueError("PDF metadata scrubbing requires the optional pypdf dependency") from exc
-
-    reader = PdfReader(BytesIO(data))
-    writer = PdfWriter()
-    for page in reader.pages:
-        writer.add_page(page)
-    writer.add_metadata({})
-    with BytesIO() as buffer:
-        writer.write(buffer)
-        return buffer.getvalue(), [{"source": "pdf_info", "field": "*", "action": "removed"}]
-
-
-def _scrub_image(data: bytes, mime_type: str) -> tuple[bytes, list[dict[str, str]]]:
-    try:
-        from PIL import Image
-    except Exception as exc:
-        raise ValueError("image metadata scrubbing requires Pillow") from exc
-
-    with Image.open(BytesIO(data)) as image:
-        image_format = image.format or ("PNG" if mime_type == "image/png" else "JPEG")
-        clean = Image.new(image.mode, image.size)
-        clean.putdata(list(image.getdata()))
-        with BytesIO() as buffer:
-            save_kwargs: dict[str, Any] = {}
-            if image_format.upper() == "JPEG":
-                save_kwargs["quality"] = 95
-            clean.save(buffer, format=image_format, **save_kwargs)
-            return buffer.getvalue(), [{"source": "image_exif", "field": "*", "action": "removed"}]
-
-
-def scrub_document(data: bytes, *, filename: str, mime_type: str) -> ScrubResult:
-    original = inspect_metadata(data, filename=filename, mime_type=mime_type)
-    normalized = mime_type.lower()
-    if normalized == DOCX_MIME:
-        scrubbed_data, actions = _scrub_docx(data)
-    elif normalized == PDF_MIME:
-        scrubbed_data, actions = _scrub_pdf(data)
-    elif normalized in IMAGE_MIMES:
-        scrubbed_data, actions = _scrub_image(data, normalized)
-    else:
-        raise ValueError(f"unsupported document_mime_type for scrub: {mime_type}")
-    remaining = inspect_metadata(scrubbed_data, filename=filename, mime_type=mime_type)
-    return ScrubResult(
-        data=scrubbed_data,
-        mime_type=mime_type,
-        filename=filename,
-        scrubbed=bool(actions),
-        actions=actions,
-        original_findings=original,
-        remaining_findings=remaining,
-    )

@@ -1,22 +1,10 @@
 import os
 import tempfile
 import unittest
-from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi.testclient import TestClient
-
-import junas.backend.main as main
 from junas.review import citations
 from junas.review.engine import EntitySizeLookup, PreSendReviewEngine
-
-
-@asynccontextmanager
-async def _noop_lifespan(app):
-    yield
-
-
-main.app.router.lifespan_context = _noop_lifespan
 
 
 class _Lookup(EntitySizeLookup):
@@ -27,8 +15,6 @@ class _Lookup(EntitySizeLookup):
 class ConjunctiveMNPITests(unittest.TestCase):
     def setUp(self):
         self.engine = PreSendReviewEngine()
-        main._state.clear()
-        main.app.openapi_schema = None
         self._orig_override = os.environ.get("JUNAS_CITATIONS_OVERRIDE")
         citations._CITATIONS_OVERRIDE_CACHE.clear()
 
@@ -112,8 +98,7 @@ class ConjunctiveMNPITests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "citations.toml"
             path.write_text(
-                "[mnpi.conjunctive_mnpi]\n"
-                'default = "Internal Trading Policy §12 — conjunctive MNPI review"\n',
+                '[mnpi.conjunctive_mnpi]\ndefault = "Internal Trading Policy §12 — conjunctive MNPI review"\n',
                 encoding="utf-8",
             )
             os.environ["JUNAS_CITATIONS_OVERRIDE"] = str(path)
@@ -124,25 +109,6 @@ class ConjunctiveMNPITests(unittest.TestCase):
 
         suggestion = next(item for item in result.suggestions if item.finding_id == finding.id)
         self.assertIn("Internal Trading Policy §12", suggestion.rationale)
-
-    def test_api_response_includes_conjunctive_metadata(self):
-        with TestClient(main.app) as client:
-            response = client.post(
-                "/review",
-                json={
-                    "text": "Confidential Acme Corp acquisition before announcement.",
-                    "source_jurisdiction": "SG",
-                    "destination_jurisdiction": "US",
-                    "document_type": "memo",
-                    "include_suggestions": False,
-                },
-            )
-
-        self.assertEqual(response.status_code, 200)
-        payload = response.json()
-        finding = next(item for item in payload["findings"] if item["rule"] == "conjunctive_mnpi")
-        self.assertEqual(finding["metadata"]["materiality_state"], "lexicalised")
-        self.assertTrue(finding["metadata"]["entity_element_satisfied"])
 
     def test_adversarial_raw_element_probes_emit_nonzero_findings(self):
         probes = [

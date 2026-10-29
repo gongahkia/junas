@@ -1,5 +1,3 @@
 #!/bin/bash
 set -euo pipefail
-
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-exec "${ROOT}/scripts/check_python_clients.sh"
+uv run ruff check src/junas/models.py src/junas/pipeline.py src/junas/cli.py scripts/evaluate_accuracy.py

@@ -22,7 +22,7 @@ uv run junas rules test \
   --json
 ```
 
-To enable a pack in `/review`, point `JUNAS_GITLEAKS_RULE_PACKS` at one or more
+To enable a pack in the classifier, point `JUNAS_GITLEAKS_RULE_PACKS` at one or more
 local TOML files as documented in `docs/secret-rule-packs.md`.
 
 ## Rule Format

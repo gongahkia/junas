@@ -2,14 +2,7 @@
 
 End-to-end pipeline for distilling a cloud LLM (the *teacher*) into a small local model (the *student*) that serves the same MNPI adjudication contract via `LocalLLMAdjudicator`. Tracks architecture item 29.
 
-## Why this exists
-
-The runtime `LocalLLMAdjudicator` supports `provider=openai` for tenants who opt in. That gets you cloud-grade adjudication accuracy but with two downsides:
-
-1. Per-call latency + cost.
-2. The desktop SKU (`junas-local`) cannot use it — by design, the desktop SKU is offline-default.
-
-A LoRA-tuned student model (Qwen-1.5B / Phi-3-mini / Gemma-2B class) can recover most of the teacher's accuracy locally, ship inside `junas-local`, and serve `audit_grade` requests with no cloud round-trip.
+This optional experiment studies teacher/student agreement, privacy constraints, and inference cost. No trained adapter is promoted. Teacher agreement is not an accuracy measurement against independent human labels.
 
 ## Components
 
@@ -28,7 +21,7 @@ A LoRA-tuned student model (Qwen-1.5B / Phi-3-mini / Gemma-2B class) can recover
 JUNAS_LLM_PROVIDER=local_distilled \
 JUNAS_LLM_DISTILLED_ADAPTER_PATH=training/distillation/student-lora-v1 \
 JUNAS_LLM_DISTILLED_BASE_MODEL=Qwen/Qwen2.5-1.5B-Instruct \
-uvicorn junas.backend.main:app
+uv run junas classify --profile audit_grade --file sample.txt
 ```
 
 The `LocalLLMAdjudicator.adjudicate()` routing branch in `inference.py` delegates to the student backend lazily on first call.
@@ -79,13 +72,13 @@ python3 training/distillation/promotion_gate.py \
 
 ## Architectural invariants preserved
 
-- The student is **never** allowed to upgrade past a deterministic-high finding. `eval_against_corpus.py` tracks invariant violations and fails the run if any occur.
+- The student is **never** allowed to suppress a deterministic-high finding. `eval_against_corpus.py` tracks invariant violations and fails the run if any occur.
 - The LLM tier (student or teacher) **only fires inside the ambiguous score band** (`LLM_TIER_MNPI_LOWER ≤ mnpi_score < LLM_TIER_MNPI_UPPER`). The two-tier router is unchanged.
 - In `structured_tokens` mode the student sees the same closed-vocabulary outputs the cloud teacher learned to emit — no privacy regression vs `LocalLLMAdjudicator`.
 
 ## Privacy posture
 
-- Teacher collection writes a per-call **training ledger** to `${JUNAS_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct exactly which documents went to the teacher.
+- Teacher collection writes a per-call **training ledger** to `${JUNAS_CACHE_DIR}/training_ledger.jsonl` so the auditor can reconstruct exactly which documents went to the teacher.
 - `structured_tokens` mode lets you distill on hashes-only data — the trained student never has the chance to memorise raw document text.
 - The student inference path is fully local: no outbound network calls.
 - Promotion requires `privacy_eval.json` to pass `structured_tokens_default`,
@@ -93,9 +86,6 @@ python3 training/distillation/promotion_gate.py \
   `privacy_ledger_recorded`, plus the SG PDPC GenAI consultation mirror
   `pdpc_genai_personal_data_review`.
 
-## What's intentionally NOT here
+## Experimental status
 
-- **No ungated student promotion**: `promotion_gate.py` is the promotion decision point.
-  It currently records that no adapter is promoted.
-- **No multi-tenant fine-tuning**: per-tenant LoRA adapters would require a per-tenant journal sanitisation pipeline that doesn't exist yet. v1 pools across consenting tenants.
-- **No quantisation**: the inference path uses bf16/fp32. 4-bit quantisation via `bitsandbytes` is a follow-up once a real adapter exists to measure against.
+Promotion requires the model card, privacy evaluation, adapter and invariant report. No adapter is currently promoted. Evaluate any trained model on an untouched human-labelled holdout before enabling it; agreement with the teacher or deterministic engine does not establish correctness.

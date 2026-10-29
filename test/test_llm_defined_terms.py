@@ -43,12 +43,12 @@ class FailingExtractor:
 class LLMDefinedTermCacheTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_CACHE_DIR"] = self._tmpdir.name
         importlib.reload(llm_defined_terms)
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("JUNAS_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_CACHE_DIR", None)
         importlib.reload(llm_defined_terms)
 
     def test_extract_with_cache_returns_casefolded_terms(self):
@@ -93,12 +93,12 @@ class LLMDefinedTermCacheTests(unittest.TestCase):
 class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
     def setUp(self):
         self._tmpdir = tempfile.TemporaryDirectory()
-        os.environ["JUNAS_JOURNAL_DIR"] = self._tmpdir.name
+        os.environ["JUNAS_CACHE_DIR"] = self._tmpdir.name
         importlib.reload(llm_defined_terms)
 
     def tearDown(self):
         self._tmpdir.cleanup()
-        os.environ.pop("JUNAS_JOURNAL_DIR", None)
+        os.environ.pop("JUNAS_CACHE_DIR", None)
         importlib.reload(llm_defined_terms)
 
     def test_audit_grade_engages_extractor_and_suppresses_named_person(self):
@@ -108,8 +108,12 @@ class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
         engine = PreSendReviewEngine(llm_defined_term_extractor=extractor)
         text = "Mr Seller shall execute the contract."
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="SPA",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="SPA",
             review_profile="audit_grade",
         )
         self.assertEqual(extractor.calls, 1)
@@ -120,8 +124,12 @@ class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
         extractor = DummyExtractor(["Seller"])
         engine = PreSendReviewEngine(llm_defined_term_extractor=extractor)
         engine.review(
-            text="Mr Seller signs.", source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text="Mr Seller signs.",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         self.assertEqual(extractor.calls, 0, "strict profile must not call the LLM extractor")
@@ -132,8 +140,12 @@ class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
         text = "Mr Seller shall execute the contract."
         for _ in range(3):
             engine.review(
-                text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-                entity_id=None, include_suggestions=False, document_type="SPA",
+                text=text,
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="SPA",
                 review_profile="audit_grade",
             )
         self.assertEqual(extractor.calls, 1, "calls 2+ must be served from on-disk cache")

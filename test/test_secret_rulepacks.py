@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from junas.backend.schemas import Classification
+from junas.models import Classification
 from junas.review.engine import PreSendReviewEngine
 from junas.review.secret_rulepacks import (
     DEFAULT_GITLEAKS_MAX_MATCHES,

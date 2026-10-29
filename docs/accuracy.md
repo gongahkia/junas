@@ -2,21 +2,13 @@
 
 This file is generated from committed recall and precision locks. Do not edit it by hand.
 
-## Endpoint Data States
-
-| Endpoint | Data state | Mapping retained | Accuracy caveat |
-|---|---|---|---|
-| `/pseudonymize` | Pseudonymised personal data | Yes | Detector baselines describe span detection before reversible replacement; output remains re-identifiable where the controller holds the mapping. |
-| `/anonymize` | Placeholder-only anonymised text | No | Detector baselines do not prove statistical anonymisation; residual singling-out/linkability/inference risk remains document-context dependent. |
-| `/redact` | Opaque redacted text | No | Detector baselines describe what was found for redaction; residual risk depends on unredacted context and container metadata handling. |
-
 ## Comparative Baseline Context
 
 [PIIBench](https://arxiv.org/abs/2604.15776) reports that eight published PII detectors all score below 0.14 span-level F1 on a unified multi-source benchmark, with the best published system, Presidio, at F1=0.1385 and zero recall on most entity types. Treat Junas `1.0000` rows below as fixture-regression locks for known in-domain spans, not as broad out-of-distribution coverage claims. Independent TAB and ai4privacy reports provide separate breadth checks against external corpora.
 
 ## Metric Convention
 
-Span-detection reports use precision, recall, and F2 where both true-positive and false-positive counts are available. This follows [Microsoft Presidio evaluation guidance](https://microsoft.github.io/presidio/evaluation/): F-beta combines precision and recall, and beta=2 weights recall more heavily. Junas uses beta=2 for pre-send safety because missed sensitive spans are usually costlier than extra human review.
+Span-detection reports use precision, recall, and F2 where both true-positive and false-positive counts are available. This follows [Microsoft Presidio evaluation guidance](https://microsoft.github.io/presidio/evaluation/): F-beta combines precision and recall, and beta=2 weights recall more heavily. Junas uses beta=2 for sensitive-span detection because missed sensitive spans are usually costlier than extra human review.
 
 ## Corpus Locks
 
@@ -38,7 +30,7 @@ Do not claim improved detection until all of this evidence is committed:
 - A precision report or precision lock is committed, including false-positive or `unexpected` counts.
 - `docs/accuracy.md` is regenerated from locks and `scripts/generate_accuracy_doc.py --check` passes.
 
-Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not improved-detection evidence.
+Candidate-only reports, unpromoted sidecars, and roadmap notes are not improved-detection evidence.
 
 ## Independent Benchmark Targets
 
@@ -68,11 +60,11 @@ The current deterministic changes produced no measured ideal-recall gain on the 
 
 The post-detection layer-attribution report leaves 360 labels in `needs_review` and `true_inference_miss`: 336 `needs_review` labels and 24 `true_inference_miss` labels, 1.55% of the 23,170 ideal misses.
 
-This slice is the capped-severity, human-adjudicated, server-only LLM tier. It covers cases where deterministic span evidence is insufficient because the missing decision depends on inference or reviewer judgment.
+This slice is the capped-severity, human-adjudicated, opt-in experimental LLM tier. It covers cases where deterministic span evidence is insufficient because the missing decision depends on inference or reviewer judgment.
 
 [Inference] The medium-severity LLM-raised-finding cap and `audit_grade` score-band router preserve the deterministic-high invariant: strict mode does not call LLM helpers, and already-high deterministic MNPI findings stay controlling instead of being cleared by helper output.
 
-Do not describe these residual buckets as work the deterministic layer should reach. Treat them as the documented boundary where server-side audit-grade review may add advisory warnings for a human reviewer.
+Do not describe these residual buckets as work the deterministic layer should reach. Treat them as the documented boundary where optional audit-grade experiments may add advisory warnings for a human reviewer.
 
 ## Per-Detector Baselines
 

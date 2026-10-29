@@ -1,14 +1,14 @@
 # Optional Secret Rule Packs
 
 Junas can import a bounded, text-only subset of Gitleaks TOML rules for users
-who want established secret-detector coverage in `/review`. This is disabled by
+who want established secret-detector coverage in the classifier. This is disabled by
 default and is not a cloud dependency.
 
 Enable with a local file path:
 
 ```sh
 JUNAS_GITLEAKS_RULE_PACKS=/path/to/gitleaks.toml \
-uv run uvicorn junas.backend.main:app --host 127.0.0.1 --port 8000
+uv run junas classify --file sample.txt
 ```
 
 Multiple packs use the platform path separator:

@@ -14,25 +14,30 @@ from scripts.check_precision_risk import (
 
 
 class PrecisionRiskGateTests(unittest.TestCase):
-    def test_detector_and_outlook_browser_adapter_paths_trigger_gate(self):
+    def test_detector_and_pipeline_paths_trigger_gate(self):
         self.assertTrue(path_triggers_precision_gate("src/junas/review/detectors/identifiers.py"))
         self.assertTrue(path_triggers_precision_gate("src/junas/review/jurisdictions_data/SG.toml"))
-        self.assertTrue(path_triggers_precision_gate("integrations/outlook_addin/launchevent.js"))
-        self.assertTrue(path_triggers_precision_gate("integrations/browser_extension/content.js"))
-        self.assertFalse(path_triggers_precision_gate("integrations/word_addin/taskpane.js"))
-        self.assertFalse(path_triggers_precision_gate("docs/feedback-loop.md"))
+        self.assertTrue(path_triggers_precision_gate("src/junas/models.py"))
+        self.assertTrue(path_triggers_precision_gate("src/junas/pipeline.py"))
+        self.assertFalse(path_triggers_precision_gate("test/test_core_pipeline.py"))
+        self.assertFalse(path_triggers_precision_gate("docs/README.md"))
 
     def test_triggered_paths_filters_changed_files(self):
-        result = triggered_paths([
-            "docs/feedback-loop.md",
-            "src/junas/review/engine.py",
-            "integrations/browser_extension/service_worker.js",
-        ])
+        result = triggered_paths(
+            [
+                "docs/README.md",
+                "src/junas/review/engine.py",
+                "src/junas/pipeline.py",
+            ]
+        )
 
-        self.assertEqual(result, [
-            "integrations/browser_extension/service_worker.js",
-            "src/junas/review/engine.py",
-        ])
+        self.assertEqual(
+            result,
+            [
+                "src/junas/pipeline.py",
+                "src/junas/review/engine.py",
+            ],
+        )
 
     def test_default_corpora_have_precision_locks_and_exclude_candidates(self):
         corpus_names = {path.as_posix() for path in DEFAULT_CORPORA}

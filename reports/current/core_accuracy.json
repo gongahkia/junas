@@ -1,0 +1,2345 @@
+{
+  "corpora": [
+    {
+      "corpus": "test/fixtures/legal-corpus",
+      "corpus_sha256": "263c1664e6cd5d555f4b5fe6c7d678d66892da01f64fc69836a7a9fb0a9bc0ba",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "a80a990e84dede99c4870d2f949e02d02b9b36dec98b8432f52d85d4702cbd30",
+      "misses": [
+        {
+          "document": "employment_letter_02",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "employment_letter_05",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "employment_letter_12",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "research_note_10",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "research_note_12",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "sha_15",
+          "rules": [
+            "named_person"
+          ]
+        }
+      ],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "advertising_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "age_reference": {
+            "matched": 2,
+            "missed": 0
+          },
+          "au_postal_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "bank_customer_reference": {
+            "matched": 1,
+            "missed": 0
+          },
+          "biometric_identifier": {
+            "matched": 2,
+            "missed": 0
+          },
+          "consent_withdrawal_marker": {
+            "matched": 10,
+            "missed": 0
+          },
+          "contingent_mnpi_language": {
+            "matched": 10,
+            "missed": 0
+          },
+          "contract_discount_rate": {
+            "matched": 3,
+            "missed": 0
+          },
+          "contract_unit_price": {
+            "matched": 3,
+            "missed": 0
+          },
+          "cookie_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cross_border_transfer_marker": {
+            "matched": 9,
+            "missed": 0
+          },
+          "crypto_wallet_address": {
+            "matched": 3,
+            "missed": 0
+          },
+          "cyber_incident_pre_disclosure": {
+            "matched": 8,
+            "missed": 0
+          },
+          "data_minimisation_marker": {
+            "matched": 8,
+            "missed": 0
+          },
+          "date_of_birth": {
+            "matched": 2,
+            "missed": 0
+          },
+          "definitive_agreement": {
+            "matched": 88,
+            "missed": 0
+          },
+          "device_serial_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "dpt_pre_listing_marker": {
+            "matched": 6,
+            "missed": 0
+          },
+          "email_address": {
+            "matched": 179,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 20,
+            "missed": 0
+          },
+          "employee_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "esg_climate_pre_disclosure": {
+            "matched": 5,
+            "missed": 0
+          },
+          "esg_target_revision": {
+            "matched": 3,
+            "missed": 0
+          },
+          "eu_company_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "eu_national_id": {
+            "matched": 7,
+            "missed": 0
+          },
+          "eu_postal_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "financial_amount": {
+            "matched": 123,
+            "missed": 0
+          },
+          "financial_percentage": {
+            "matched": 18,
+            "missed": 0
+          },
+          "genetic_data": {
+            "matched": 2,
+            "missed": 0
+          },
+          "health_condition": {
+            "matched": 3,
+            "missed": 0
+          },
+          "information_barrier_marker": {
+            "matched": 6,
+            "missed": 0
+          },
+          "insider_list_marker": {
+            "matched": 13,
+            "missed": 0
+          },
+          "insurance_member_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "internal_session_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "large_number": {
+            "matched": 7,
+            "missed": 0
+          },
+          "material_adverse_change": {
+            "matched": 3,
+            "missed": 0
+          },
+          "medical_record_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "medical_treatment": {
+            "matched": 2,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 258,
+            "missed": 6
+          },
+          "nonpublic_marker": {
+            "matched": 32,
+            "missed": 0
+          },
+          "passport_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "personal_attribute_inference": {
+            "matched": 2,
+            "missed": 0
+          },
+          "phone_number": {
+            "matched": 171,
+            "missed": 0
+          },
+          "political_opinion": {
+            "matched": 1,
+            "missed": 0
+          },
+          "postal_address": {
+            "matched": 2,
+            "missed": 0
+          },
+          "racial_ethnic_origin": {
+            "matched": 1,
+            "missed": 0
+          },
+          "religious_belief": {
+            "matched": 1,
+            "missed": 0
+          },
+          "royalty_rate": {
+            "matched": 3,
+            "missed": 0
+          },
+          "sex_life_reference": {
+            "matched": 3,
+            "missed": 0
+          },
+          "sexual_orientation": {
+            "matched": 2,
+            "missed": 0
+          },
+          "sg_acra_transaction_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_hdb_reference": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_insurance_policy_number": {
+            "matched": 3,
+            "missed": 0
+          },
+          "sg_ipos_tm_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_nric_fin": {
+            "matched": 151,
+            "missed": 0
+          },
+          "sg_postal_address": {
+            "matched": 138,
+            "missed": 0
+          },
+          "sg_sla_lot_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_tribunal_reference": {
+            "matched": 3,
+            "missed": 0
+          },
+          "sg_uen": {
+            "matched": 70,
+            "missed": 0
+          },
+          "sg_ura_planning_reference": {
+            "matched": 1,
+            "missed": 0
+          },
+          "total_contract_value": {
+            "matched": 3,
+            "missed": 0
+          },
+          "trade_union_membership": {
+            "matched": 2,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 41,
+            "missed": 0
+          },
+          "uk_company_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "uk_postal_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "us_postal_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "volume_commitment": {
+            "matched": 3,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.8825,
+        "candidate_precision": 0.6062,
+        "candidate_recall": 0.9959,
+        "doc_count": 147,
+        "expected_labels": 1461,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 2481,
+        "independent_candidate_f2": 0.8825,
+        "independent_candidate_recall": 0.9959,
+        "independent_expected_labels": 1461,
+        "independent_matched": 1455,
+        "independent_missed": 6,
+        "matched": 1455,
+        "missed": 6,
+        "must_not_detect_violations": 0,
+        "unexpected": 945,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 943,
+          "taxonomy_model_label_mismatch": 2
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-adversarial",
+      "corpus_sha256": "a9c812e3723222980411cfd091a5cc6cf19242ebaa158cc9c786d4b16e97c822",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "7d2e4bb34227eed5221854ffebe6c0ea7723b09db9d8bea8a321c0f44c3474e5",
+      "misses": [
+        {
+          "document": "employment_letter_adv_02",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "employment_letter_adv_16",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "memo_adv_06",
+          "rules": [
+            "material_event"
+          ]
+        },
+        {
+          "document": "memo_adv_09",
+          "rules": [
+            "transaction_codename"
+          ]
+        },
+        {
+          "document": "negative_prose_01",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "research_note_adv_14",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "sha_adv_12",
+          "rules": [
+            "definitive_agreement"
+          ]
+        },
+        {
+          "document": "sha_adv_16",
+          "rules": [
+            "definitive_agreement"
+          ]
+        },
+        {
+          "document": "spa_adv_05",
+          "rules": [
+            "definitive_agreement",
+            "large_number"
+          ]
+        },
+        {
+          "document": "spa_adv_08",
+          "rules": [
+            "named_person"
+          ]
+        },
+        {
+          "document": "spa_adv_09",
+          "rules": [
+            "large_number"
+          ]
+        },
+        {
+          "document": "spa_adv_10",
+          "rules": [
+            "bank_account"
+          ]
+        },
+        {
+          "document": "term_sheet_adv_09",
+          "rules": [
+            "definitive_agreement"
+          ]
+        }
+      ],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "bank_account": {
+            "matched": 0,
+            "missed": 1
+          },
+          "bank_customer_reference": {
+            "matched": 1,
+            "missed": 0
+          },
+          "biometric_identifier": {
+            "matched": 1,
+            "missed": 0
+          },
+          "contingent_mnpi_language": {
+            "matched": 1,
+            "missed": 0
+          },
+          "customer_account_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "definitive_agreement": {
+            "matched": 126,
+            "missed": 7
+          },
+          "email_address": {
+            "matched": 183,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 8,
+            "missed": 0
+          },
+          "employee_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "financial_amount": {
+            "matched": 111,
+            "missed": 0
+          },
+          "financial_percentage": {
+            "matched": 7,
+            "missed": 0
+          },
+          "genetic_data": {
+            "matched": 1,
+            "missed": 0
+          },
+          "health_condition": {
+            "matched": 1,
+            "missed": 0
+          },
+          "insurance_member_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "internal_session_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "large_number": {
+            "matched": 9,
+            "missed": 2
+          },
+          "material_event": {
+            "matched": 0,
+            "missed": 2
+          },
+          "medical_record_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "medical_treatment": {
+            "matched": 1,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 264,
+            "missed": 6
+          },
+          "nonpublic_marker": {
+            "matched": 2,
+            "missed": 0
+          },
+          "personal_attribute_inference": {
+            "matched": 1,
+            "missed": 0
+          },
+          "phone_number": {
+            "matched": 170,
+            "missed": 0
+          },
+          "racial_ethnic_origin": {
+            "matched": 2,
+            "missed": 0
+          },
+          "sex_life_reference": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sexual_orientation": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_nric_fin": {
+            "matched": 168,
+            "missed": 0
+          },
+          "sg_postal_address": {
+            "matched": 129,
+            "missed": 0
+          },
+          "sg_uen": {
+            "matched": 72,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 11,
+            "missed": 1
+          }
+        },
+        "candidate_f2": 0.8654,
+        "candidate_precision": 0.5821,
+        "candidate_recall": 0.9853,
+        "doc_count": 134,
+        "expected_labels": 1295,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 2340,
+        "independent_candidate_f2": 0.8654,
+        "independent_candidate_recall": 0.9853,
+        "independent_expected_labels": 1295,
+        "independent_matched": 1276,
+        "independent_missed": 19,
+        "matched": 1276,
+        "missed": 19,
+        "must_not_detect_violations": 0,
+        "unexpected": 916,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 912,
+          "taxonomy_model_label_mismatch": 4
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-sea",
+      "corpus_sha256": "68422b1b040dd9c7990f655b5d8ceaea2c18fe621cf08870c3d6a12bd32798c8",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "8511fba141afae925dcbd3669807502b32ececf2c7a0592ae4e43a376e438678",
+      "misses": [],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "email_address": {
+            "matched": 5,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 1,
+            "missed": 0
+          },
+          "financial_percentage": {
+            "matched": 1,
+            "missed": 0
+          },
+          "id_nik": {
+            "matched": 1,
+            "missed": 0
+          },
+          "my_mykad": {
+            "matched": 1,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 5,
+            "missed": 0
+          },
+          "ph_philsys": {
+            "matched": 1,
+            "missed": 0
+          },
+          "ph_tin": {
+            "matched": 1,
+            "missed": 0
+          },
+          "th_national_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 2,
+            "missed": 0
+          },
+          "vn_cccd": {
+            "matched": 1,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.7634,
+        "candidate_precision": 0.3922,
+        "candidate_recall": 1.0,
+        "doc_count": 5,
+        "expected_labels": 20,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 52,
+        "independent_candidate_f2": 0.7634,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 20,
+        "independent_matched": 20,
+        "independent_missed": 0,
+        "matched": 20,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 31,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 31,
+          "taxonomy_model_label_mismatch": 0
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-hk-au-jp-kr",
+      "corpus_sha256": "54690dbce8d85be1026980cbf0d62f68d6e0b23410a01c2add4b80f66aa8ba36",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "4d32c7f50637e912fb7bfb2ef7ba53f76799be6ee3b8d7b2d37a86804b00687a",
+      "misses": [],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "au_abn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "au_acn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "au_tfn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "definitive_agreement": {
+            "matched": 3,
+            "missed": 0
+          },
+          "email_address": {
+            "matched": 4,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 4,
+            "missed": 0
+          },
+          "financial_amount": {
+            "matched": 5,
+            "missed": 0
+          },
+          "hk_cr_no": {
+            "matched": 1,
+            "missed": 0
+          },
+          "hk_hkid": {
+            "matched": 1,
+            "missed": 0
+          },
+          "jp_corporate_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "jp_my_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "kr_business_registration": {
+            "matched": 1,
+            "missed": 0
+          },
+          "kr_rrn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 4,
+            "missed": 0
+          },
+          "nonpublic_marker": {
+            "matched": 4,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 4,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.8937,
+        "candidate_precision": 0.6271,
+        "candidate_recall": 1.0,
+        "doc_count": 4,
+        "expected_labels": 37,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 60,
+        "independent_candidate_f2": 0.8937,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 37,
+        "independent_matched": 37,
+        "independent_missed": 0,
+        "matched": 37,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 22,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 22,
+          "taxonomy_model_label_mismatch": 0
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-cn",
+      "corpus_sha256": "184963ea9b57adc56369e924adac7539af694d825170148e5d5c82d39b36dc77",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "da15b325dbacc5e8d3078cdc3f5ff4314e3c2227c1e2cecddb10e56d80559596",
+      "misses": [],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "cn_passport": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cn_phone": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cn_resident_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cn_uscc": {
+            "matched": 1,
+            "missed": 0
+          },
+          "email_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 1,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.7692,
+        "candidate_precision": 0.4,
+        "candidate_recall": 1.0,
+        "doc_count": 1,
+        "expected_labels": 6,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 16,
+        "independent_candidate_f2": 0.7692,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 6,
+        "independent_matched": 6,
+        "independent_missed": 0,
+        "matched": 6,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 9,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 7,
+          "taxonomy_model_label_mismatch": 2
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-in",
+      "corpus_sha256": "99be7f8fb38dbc1802426248357cf89eea65c5e33bd70144fee0422b180c148c",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "1f86e2927c84d73adb8fb48adcb9e998133f43b38a65114cb6b59966c0775d00",
+      "misses": [],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "email_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_aadhaar": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_gstin": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_pan": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_voter_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 1,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 1,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.875,
+        "candidate_precision": 0.5833,
+        "candidate_recall": 1.0,
+        "doc_count": 1,
+        "expected_labels": 7,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 12,
+        "independent_candidate_f2": 0.875,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 7,
+        "independent_matched": 7,
+        "independent_missed": 0,
+        "matched": 7,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 5,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 5,
+          "taxonomy_model_label_mismatch": 0
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-ae",
+      "corpus_sha256": "563760abe85574a659616c4a905538d316e50f7680b7893380f850824fe98ff6",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "39b0763c32bb0c6daa63506f2882a151310c907d305e01b0e8ff1e420da8d475",
+      "misses": [],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "ae_emirates_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "ae_passport": {
+            "matched": 1,
+            "missed": 0
+          },
+          "email_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 1,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 1,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 1,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.7692,
+        "candidate_precision": 0.4,
+        "candidate_recall": 1.0,
+        "doc_count": 1,
+        "expected_labels": 6,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 16,
+        "independent_candidate_f2": 0.7692,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 6,
+        "independent_matched": 6,
+        "independent_missed": 0,
+        "matched": 6,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 9,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 8,
+          "taxonomy_model_label_mismatch": 1
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-sa",
+      "corpus_sha256": "98da4d84623e62c18b2c3d63c68e9ed2322c57728b6d3f5f741c3685349b5b5f",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "9dd2c149d5a5b8c7e6ba7a7366d2717889b68dd1f9d7fe786d4a145aef9efd16",
+      "misses": [],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "email_address": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sa_commercial_registration": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sa_iqama": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sa_national_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 1,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.8065,
+        "candidate_precision": 0.4545,
+        "candidate_recall": 1.0,
+        "doc_count": 1,
+        "expected_labels": 5,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {},
+        "ideal_candidate_f2": 0.0,
+        "ideal_candidate_precision": 0.0,
+        "ideal_candidate_recall": 0.0,
+        "ideal_labels": 0,
+        "ideal_matched": 0,
+        "ideal_missed": 0,
+        "ideal_unexpected": 12,
+        "independent_candidate_f2": 0.8065,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 5,
+        "independent_matched": 5,
+        "independent_missed": 0,
+        "matched": 5,
+        "missed": 0,
+        "must_not_detect_violations": 0,
+        "unexpected": 6,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 6,
+          "taxonomy_model_label_mismatch": 0
+        }
+      }
+    },
+    {
+      "corpus": "test/fixtures/legal-corpus-reviewed-candidates",
+      "corpus_sha256": "85ad18e52fbd2bc1fd4d0f88aa831742d5677cd02c4733ad945bfc6ad2818caa",
+      "interpretation": "Exact rule/text expectation matching on internal fixtures. Unexpected findings may reflect incomplete labels; candidate_precision is a label-agreement measure, not independently verified precision. Use external held-out evaluation for generalization claims.",
+      "lock_sha256": "a9c170c034a405f49aa69cdcaae2a5e92e05c3532f12404fc4df506d4cda4f41",
+      "misses": [
+        {
+          "document": "ae_jurisdictional_mnpi_incident_report_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "ae_jurisdictional_mnpi_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "ae_quasi_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "ae_special_category_memo_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "au_direct_identifiers_incident_report_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "au_direct_identifiers_memo_default_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "au_jurisdictional_mnpi_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "au_universal_mnpi_privacy_notice_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "cn_privacy_events_memo_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "cn_privacy_events_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "cn_quasi_identifiers_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "cn_sector_mnpi_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "cn_universal_mnpi_memo_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "eu_direct_identifiers_memo_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "eu_jurisdictional_mnpi_incident_report_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "eu_jurisdictional_mnpi_memo_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "eu_privacy_events_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "eu_quasi_identifiers_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "eu_special_category_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_direct_identifiers_memo_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_direct_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_jurisdictional_mnpi_incident_report_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_privacy_events_memo_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_privacy_events_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_quasi_identifiers_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_sector_mnpi_memo_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_special_category_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_special_category_privacy_notice_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_universal_mnpi_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_universal_mnpi_privacy_notice_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "hk_universal_mnpi_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "id_privacy_events_privacy_notice_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "id_universal_mnpi_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "in_sector_mnpi_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "in_universal_mnpi_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "jp_direct_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "jp_sector_mnpi_incident_report_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "jp_special_category_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "jp_universal_mnpi_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "kr_direct_identifiers_memo_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "kr_direct_identifiers_memo_default_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "kr_special_category_incident_report_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "my_quasi_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "my_universal_mnpi_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "sa_direct_identifiers_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "sa_universal_mnpi_privacy_notice_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "sg_direct_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "sg_direct_identifiers_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "sg_jurisdictional_mnpi_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "sg_privacy_events_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "th_direct_identifiers_memo_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "th_quasi_identifiers_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "th_sector_mnpi_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "th_sector_mnpi_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "th_sector_mnpi_term_sheet_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "uk_direct_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "uk_privacy_events_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "uk_quasi_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "uk_sector_mnpi_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "uk_special_category_incident_report_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "uk_universal_mnpi_privacy_notice_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "us_direct_identifiers_incident_report_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "us_direct_identifiers_memo_default_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "us_direct_identifiers_privacy_notice_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "us_direct_identifiers_privacy_notice_default_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "us_direct_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "us_direct_identifiers_term_sheet_default_001",
+          "rules": [
+            "quasi_identifier_combination"
+          ]
+        },
+        {
+          "document": "us_sector_mnpi_memo_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "us_sector_mnpi_term_sheet_negative_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "us_special_category_memo_default_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        },
+        {
+          "document": "vn_quasi_identifiers_term_sheet_adversarial_001",
+          "rules": [
+            "conjunctive_mnpi"
+          ]
+        }
+      ],
+      "regression_gate": {
+        "diagnostics": "",
+        "passed": true,
+        "returncode": 0
+      },
+      "summary": {
+        "by_rule": {
+          "ae_emirates_id": {
+            "matched": 16,
+            "missed": 0
+          },
+          "ae_passport": {
+            "matched": 1,
+            "missed": 0
+          },
+          "ae_trade_licence": {
+            "matched": 45,
+            "missed": 0
+          },
+          "age_reference": {
+            "matched": 19,
+            "missed": 0
+          },
+          "au_abn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "au_acn": {
+            "matched": 4,
+            "missed": 0
+          },
+          "au_postal_address": {
+            "matched": 36,
+            "missed": 0
+          },
+          "au_tfn": {
+            "matched": 1,
+            "missed": 0
+          },
+          "bank_account": {
+            "matched": 72,
+            "missed": 0
+          },
+          "biometric_identifier": {
+            "matched": 75,
+            "missed": 0
+          },
+          "cn_passport": {
+            "matched": 3,
+            "missed": 0
+          },
+          "cn_phone": {
+            "matched": 4,
+            "missed": 0
+          },
+          "cn_resident_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cn_uscc": {
+            "matched": 1,
+            "missed": 0
+          },
+          "conjunctive_mnpi": {
+            "matched": 1298,
+            "missed": 58
+          },
+          "consent_withdrawal_marker": {
+            "matched": 725,
+            "missed": 0
+          },
+          "contingent_mnpi_language": {
+            "matched": 71,
+            "missed": 0
+          },
+          "contract_discount_rate": {
+            "matched": 4,
+            "missed": 0
+          },
+          "contract_unit_price": {
+            "matched": 1,
+            "missed": 0
+          },
+          "cross_border_transfer_marker": {
+            "matched": 125,
+            "missed": 0
+          },
+          "customer_account_number": {
+            "matched": 18,
+            "missed": 0
+          },
+          "cyber_incident_pre_disclosure": {
+            "matched": 31,
+            "missed": 0
+          },
+          "data_minimisation_marker": {
+            "matched": 239,
+            "missed": 0
+          },
+          "date_of_birth": {
+            "matched": 170,
+            "missed": 0
+          },
+          "definitive_agreement": {
+            "matched": 1183,
+            "missed": 0
+          },
+          "device_serial_number": {
+            "matched": 19,
+            "missed": 0
+          },
+          "dpt_pre_listing_marker": {
+            "matched": 2,
+            "missed": 0
+          },
+          "email_address": {
+            "matched": 1515,
+            "missed": 0
+          },
+          "embargo_marker": {
+            "matched": 87,
+            "missed": 0
+          },
+          "employee_id": {
+            "matched": 109,
+            "missed": 0
+          },
+          "esg_climate_pre_disclosure": {
+            "matched": 115,
+            "missed": 0
+          },
+          "esg_target_revision": {
+            "matched": 1,
+            "missed": 0
+          },
+          "eu_company_id": {
+            "matched": 2,
+            "missed": 0
+          },
+          "eu_national_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "financial_amount": {
+            "matched": 969,
+            "missed": 0
+          },
+          "financial_percentage": {
+            "matched": 1101,
+            "missed": 0
+          },
+          "genetic_data": {
+            "matched": 34,
+            "missed": 0
+          },
+          "health_condition": {
+            "matched": 2,
+            "missed": 0
+          },
+          "hk_cr_no": {
+            "matched": 7,
+            "missed": 0
+          },
+          "hk_hkid": {
+            "matched": 1,
+            "missed": 0
+          },
+          "id_nik": {
+            "matched": 6,
+            "missed": 0
+          },
+          "id_postal_address": {
+            "matched": 5,
+            "missed": 0
+          },
+          "imei": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_aadhaar": {
+            "matched": 1,
+            "missed": 0
+          },
+          "in_gstin": {
+            "matched": 11,
+            "missed": 0
+          },
+          "in_pan": {
+            "matched": 6,
+            "missed": 0
+          },
+          "information_barrier_marker": {
+            "matched": 234,
+            "missed": 0
+          },
+          "insider_list_marker": {
+            "matched": 840,
+            "missed": 0
+          },
+          "ip_address": {
+            "matched": 5,
+            "missed": 0
+          },
+          "jp_corporate_number": {
+            "matched": 3,
+            "missed": 0
+          },
+          "jp_my_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "jp_postal_code": {
+            "matched": 3,
+            "missed": 0
+          },
+          "kr_business_registration": {
+            "matched": 5,
+            "missed": 0
+          },
+          "kr_rrn": {
+            "matched": 6,
+            "missed": 0
+          },
+          "large_number": {
+            "matched": 838,
+            "missed": 0
+          },
+          "legal_proceeding_mnpi": {
+            "matched": 1,
+            "missed": 0
+          },
+          "material_adverse_change": {
+            "matched": 94,
+            "missed": 0
+          },
+          "material_event": {
+            "matched": 2514,
+            "missed": 0
+          },
+          "medical_record_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "medical_treatment": {
+            "matched": 1,
+            "missed": 0
+          },
+          "minor_data_reference": {
+            "matched": 222,
+            "missed": 0
+          },
+          "my_mykad": {
+            "matched": 5,
+            "missed": 0
+          },
+          "my_postal_address": {
+            "matched": 2,
+            "missed": 0
+          },
+          "named_person": {
+            "matched": 2146,
+            "missed": 0
+          },
+          "nonpublic_marker": {
+            "matched": 2879,
+            "missed": 0
+          },
+          "passport_number": {
+            "matched": 97,
+            "missed": 0
+          },
+          "personal_attribute_inference": {
+            "matched": 285,
+            "missed": 0
+          },
+          "ph_philsys": {
+            "matched": 2,
+            "missed": 0
+          },
+          "ph_tin": {
+            "matched": 14,
+            "missed": 0
+          },
+          "phone_number": {
+            "matched": 754,
+            "missed": 0
+          },
+          "postal_address": {
+            "matched": 481,
+            "missed": 0
+          },
+          "quasi_identifier_combination": {
+            "matched": 226,
+            "missed": 13
+          },
+          "religious_belief": {
+            "matched": 4,
+            "missed": 0
+          },
+          "sa_iqama": {
+            "matched": 8,
+            "missed": 0
+          },
+          "sa_national_id": {
+            "matched": 2,
+            "missed": 0
+          },
+          "selective_disclosure_risk": {
+            "matched": 19,
+            "missed": 0
+          },
+          "sexual_orientation": {
+            "matched": 2,
+            "missed": 0
+          },
+          "sg_insurance_policy_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_nric_fin": {
+            "matched": 6,
+            "missed": 0
+          },
+          "sg_postal_address": {
+            "matched": 22,
+            "missed": 0
+          },
+          "sg_sgx_counter": {
+            "matched": 2,
+            "missed": 0
+          },
+          "sg_uen": {
+            "matched": 22,
+            "missed": 0
+          },
+          "th_national_id": {
+            "matched": 1,
+            "missed": 0
+          },
+          "tipping_language": {
+            "matched": 8,
+            "missed": 0
+          },
+          "trade_union_membership": {
+            "matched": 3,
+            "missed": 0
+          },
+          "transaction_codename": {
+            "matched": 394,
+            "missed": 0
+          },
+          "uk_company_number": {
+            "matched": 16,
+            "missed": 0
+          },
+          "uk_postal_address": {
+            "matched": 5,
+            "missed": 0
+          },
+          "us_ein": {
+            "matched": 8,
+            "missed": 0
+          },
+          "vn_cccd": {
+            "matched": 7,
+            "missed": 0
+          }
+        },
+        "candidate_f2": 0.9913,
+        "candidate_precision": 0.9711,
+        "candidate_recall": 0.9965,
+        "doc_count": 1428,
+        "expected_labels": 20399,
+        "fbeta_beta": 2,
+        "ideal_by_rule": {
+          "advertising_id": {
+            "matched": 0,
+            "missed": 3
+          },
+          "ae_emirates_id": {
+            "matched": 16,
+            "missed": 92
+          },
+          "ae_passport": {
+            "matched": 1,
+            "missed": 3
+          },
+          "ae_trade_licence": {
+            "matched": 45,
+            "missed": 94
+          },
+          "age_reference": {
+            "matched": 19,
+            "missed": 205
+          },
+          "au_abn": {
+            "matched": 1,
+            "missed": 37
+          },
+          "au_acn": {
+            "matched": 4,
+            "missed": 33
+          },
+          "au_postal_address": {
+            "matched": 23,
+            "missed": 26
+          },
+          "au_tfn": {
+            "matched": 1,
+            "missed": 9
+          },
+          "bank_account": {
+            "matched": 72,
+            "missed": 498
+          },
+          "bank_customer_reference": {
+            "matched": 0,
+            "missed": 65
+          },
+          "biometric_identifier": {
+            "matched": 74,
+            "missed": 252
+          },
+          "blackout_period_reference": {
+            "matched": 0,
+            "missed": 1153
+          },
+          "cn_passport": {
+            "matched": 3,
+            "missed": 5
+          },
+          "cn_phone": {
+            "matched": 4,
+            "missed": 43
+          },
+          "cn_resident_id": {
+            "matched": 1,
+            "missed": 87
+          },
+          "cn_uscc": {
+            "matched": 1,
+            "missed": 127
+          },
+          "conjunctive_mnpi": {
+            "matched": 0,
+            "missed": 2
+          },
+          "consent_withdrawal_marker": {
+            "matched": 685,
+            "missed": 384
+          },
+          "contingent_mnpi_language": {
+            "matched": 63,
+            "missed": 620
+          },
+          "contract_discount_rate": {
+            "matched": 4,
+            "missed": 13
+          },
+          "contract_unit_price": {
+            "matched": 1,
+            "missed": 87
+          },
+          "cookie_id": {
+            "matched": 0,
+            "missed": 12
+          },
+          "cross_border_transfer_marker": {
+            "matched": 121,
+            "missed": 1218
+          },
+          "crypto_wallet_address": {
+            "matched": 0,
+            "missed": 27
+          },
+          "customer_account_number": {
+            "matched": 18,
+            "missed": 197
+          },
+          "cyber_incident_pre_disclosure": {
+            "matched": 31,
+            "missed": 542
+          },
+          "data_minimisation_marker": {
+            "matched": 236,
+            "missed": 1987
+          },
+          "date_of_birth": {
+            "matched": 168,
+            "missed": 167
+          },
+          "definitive_agreement": {
+            "matched": 1138,
+            "missed": 403
+          },
+          "device_serial_number": {
+            "matched": 19,
+            "missed": 254
+          },
+          "dpt_pre_listing_marker": {
+            "matched": 2,
+            "missed": 73
+          },
+          "dpt_protocol_event_marker": {
+            "matched": 0,
+            "missed": 150
+          },
+          "email_address": {
+            "matched": 1510,
+            "missed": 1601
+          },
+          "embargo_marker": {
+            "matched": 85,
+            "missed": 549
+          },
+          "employee_id": {
+            "matched": 106,
+            "missed": 511
+          },
+          "esg_climate_pre_disclosure": {
+            "matched": 113,
+            "missed": 333
+          },
+          "esg_target_revision": {
+            "matched": 1,
+            "missed": 18
+          },
+          "eu_national_id": {
+            "matched": 1,
+            "missed": 2
+          },
+          "financial_amount": {
+            "matched": 959,
+            "missed": 67
+          },
+          "financial_percentage": {
+            "matched": 1093,
+            "missed": 219
+          },
+          "genetic_data": {
+            "matched": 34,
+            "missed": 51
+          },
+          "health_condition": {
+            "matched": 2,
+            "missed": 233
+          },
+          "hk_cr_no": {
+            "matched": 7,
+            "missed": 13
+          },
+          "hk_hkid": {
+            "matched": 1,
+            "missed": 17
+          },
+          "id_nik": {
+            "matched": 6,
+            "missed": 14
+          },
+          "imei": {
+            "matched": 1,
+            "missed": 32
+          },
+          "in_aadhaar": {
+            "matched": 1,
+            "missed": 72
+          },
+          "in_gstin": {
+            "matched": 11,
+            "missed": 70
+          },
+          "in_pan": {
+            "matched": 6,
+            "missed": 90
+          },
+          "information_barrier_marker": {
+            "matched": 227,
+            "missed": 1041
+          },
+          "insider_list_marker": {
+            "matched": 800,
+            "missed": 596
+          },
+          "insurance_member_id": {
+            "matched": 0,
+            "missed": 16
+          },
+          "internal_session_id": {
+            "matched": 0,
+            "missed": 377
+          },
+          "ip_address": {
+            "matched": 5,
+            "missed": 89
+          },
+          "jp_corporate_number": {
+            "matched": 3,
+            "missed": 14
+          },
+          "jp_my_number": {
+            "matched": 1,
+            "missed": 80
+          },
+          "jp_postal_code": {
+            "matched": 3,
+            "missed": 14
+          },
+          "kr_business_registration": {
+            "matched": 5,
+            "missed": 15
+          },
+          "kr_rrn": {
+            "matched": 6,
+            "missed": 99
+          },
+          "large_number": {
+            "matched": 830,
+            "missed": 72
+          },
+          "mac_address": {
+            "matched": 0,
+            "missed": 27
+          },
+          "material_adverse_change": {
+            "matched": 94,
+            "missed": 212
+          },
+          "material_event": {
+            "matched": 2380,
+            "missed": 1089
+          },
+          "medical_record_number": {
+            "matched": 1,
+            "missed": 17
+          },
+          "medical_treatment": {
+            "matched": 1,
+            "missed": 163
+          },
+          "minor_data_reference": {
+            "matched": 219,
+            "missed": 307
+          },
+          "my_mykad": {
+            "matched": 5,
+            "missed": 10
+          },
+          "named_person": {
+            "matched": 2105,
+            "missed": 940
+          },
+          "nonpublic_marker": {
+            "matched": 2460,
+            "missed": 1540
+          },
+          "passport_number": {
+            "matched": 95,
+            "missed": 120
+          },
+          "ph_philsys": {
+            "matched": 2,
+            "missed": 1
+          },
+          "ph_tin": {
+            "matched": 14,
+            "missed": 30
+          },
+          "phone_number": {
+            "matched": 749,
+            "missed": 341
+          },
+          "political_opinion": {
+            "matched": 0,
+            "missed": 29
+          },
+          "postal_address": {
+            "matched": 0,
+            "missed": 174
+          },
+          "quasi_identifier_combination": {
+            "matched": 0,
+            "missed": 559
+          },
+          "religious_belief": {
+            "matched": 4,
+            "missed": 113
+          },
+          "sa_commercial_registration": {
+            "matched": 0,
+            "missed": 147
+          },
+          "sa_iqama": {
+            "matched": 8,
+            "missed": 90
+          },
+          "sa_national_id": {
+            "matched": 2,
+            "missed": 31
+          },
+          "selective_disclosure_risk": {
+            "matched": 19,
+            "missed": 1288
+          },
+          "sex_life_reference": {
+            "matched": 0,
+            "missed": 2
+          },
+          "sexual_orientation": {
+            "matched": 2,
+            "missed": 64
+          },
+          "sg_insurance_policy_number": {
+            "matched": 1,
+            "missed": 0
+          },
+          "sg_nric_fin": {
+            "matched": 6,
+            "missed": 5
+          },
+          "sg_postal_address": {
+            "matched": 22,
+            "missed": 4
+          },
+          "sg_sgx_counter": {
+            "matched": 1,
+            "missed": 7
+          },
+          "sg_uen": {
+            "matched": 20,
+            "missed": 0
+          },
+          "th_national_id": {
+            "matched": 1,
+            "missed": 7
+          },
+          "tipping_language": {
+            "matched": 4,
+            "missed": 329
+          },
+          "total_contract_value": {
+            "matched": 0,
+            "missed": 15
+          },
+          "trade_union_membership": {
+            "matched": 3,
+            "missed": 162
+          },
+          "transaction_codename": {
+            "matched": 367,
+            "missed": 111
+          },
+          "uk_nin": {
+            "matched": 0,
+            "missed": 11
+          },
+          "us_driver_license": {
+            "matched": 0,
+            "missed": 1
+          },
+          "us_ein": {
+            "matched": 8,
+            "missed": 8
+          },
+          "us_ssn": {
+            "matched": 0,
+            "missed": 15
+          },
+          "vn_cccd": {
+            "matched": 7,
+            "missed": 7
+          },
+          "volume_commitment": {
+            "matched": 0,
+            "missed": 21
+          }
+        },
+        "ideal_candidate_f2": 0.472,
+        "ideal_candidate_precision": 0.8362,
+        "ideal_candidate_recall": 0.4256,
+        "ideal_labels": 40338,
+        "ideal_matched": 17168,
+        "ideal_missed": 23170,
+        "ideal_unexpected": 3363,
+        "independent_candidate_f2": 0.9941,
+        "independent_candidate_recall": 1.0,
+        "independent_expected_labels": 17528,
+        "independent_matched": 17528,
+        "independent_missed": 0,
+        "matched": 20328,
+        "missed": 71,
+        "must_not_detect_violations": 0,
+        "unexpected": 605,
+        "unexpected_triage": {
+          "actual_detector_false_positive": 0,
+          "ideal_only_statutory_gap": 0,
+          "real_detector_hit_missing_from_strict_labels": 592,
+          "taxonomy_model_label_mismatch": 13
+        }
+      }
+    }
+  ],
+  "detector_environment_overrides": {},
+  "evaluator_sha256": "dc7ce9291769463fe6400bb52b4346efbe8143a13b9c09f14da2f315ab2cb207",
+  "external": {
+    "ai4privacy": {
+      "available": true,
+      "output": "reports/current/core_ai4privacy_eval.json",
+      "runner": "scripts/run_ai4privacy_eval.py",
+      "status": "skipped_by_request"
+    },
+    "tab": {
+      "available": true,
+      "output": "reports/current/core_tab_eval.json",
+      "runner": "scripts/run_tab_eval.py",
+      "status": "skipped_by_request"
+    }
+  },
+  "external_mode": "skip",
+  "generated_at": "2026-10-29T17:16:45.866373+00:00",
+  "limitations": [
+    "Regression locks measure retained behavior, not sufficient accuracy.",
+    "Internal candidate labels are not independent public MNPI ground truth.",
+    "This text-corpus run does not measure file extraction or OCR accuracy.",
+    "External datasets are never downloaded automatically or treated as passing when absent."
+  ],
+  "local_ner_enabled": "0",
+  "local_ner_model": "en_core_web_sm",
+  "package_versions": {
+    "Pillow": "12.2.0",
+    "junas": "0.1.0",
+    "numpy": "2.4.6",
+    "pypdf": "6.12.1",
+    "spacy": null
+  },
+  "profile": "strict",
+  "python": "3.12.14",
+  "regression_gates_passed": true,
+  "run_passed": true,
+  "schema_version": "junas.core_accuracy.v1",
+  "source_sha256": "18318dbad49984dadaf5e30e2f838595ee4e8d60567d4332bea510cad12efc34"
+}

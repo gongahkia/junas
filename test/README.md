@@ -1,12 +1,7 @@
-# Test Folder
+# Classifier tests
 
-This folder contains the automated test suite and test fixtures.
+`uv run pytest` runs the retained detector, document parsing, OCR, provider contract, corpus curation and evaluation tests. Optional native OCR checks skip when Tesseract or its Python dependencies are absent.
 
-- API contract tests
-- observability and startup-path tests
-- launcher and benchmark smoke tests
-- backend-only layout and archived-asset pruning tests
-- pre-send review and anonymization tests
-- `fixtures/latency-corpus/` is the canonical home for benchmark input `.txt` files
-- `fixtures/external/text-anonymization-benchmark/` is the ignored, read-only TAB clone populated by `scripts/fetch_tab_fixture.sh`
-- `fixtures/external/ai4privacy-pii-masking-200k/` is the ignored, read-only ai4privacy fixture populated by `scripts/fetch_ai4privacy_fixture.py`
+`fixtures/` retains labelled synthetic corpora and the preserved OCR failure fixture. External TAB and ai4privacy datasets are fetched explicitly and ignored by Git. Corpus text mentioning email or prompts remains useful detection data; product adapter fixtures have been removed.
+
+Use `uv run python scripts/evaluate_accuracy.py` for measurements. A passing unit suite or regression lock is not a general accuracy claim.

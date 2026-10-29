@@ -1,11 +1,6 @@
-import os
-import tempfile
 import unittest
-from pathlib import Path
 
-from junas.policy import evaluate_policy
-from junas.review.engine import LLM_TIER_MNPI_UPPER, PreSendReviewEngine, ReviewFinding
-from junas.review.surfacing_lane import apply_surfacing_lanes
+from junas.review.engine import LLM_TIER_MNPI_UPPER, PreSendReviewEngine
 
 HIGH_MNPI_TEXT = (
     "Confidential pre-announcement acquisition of GlobalTech for $2.5 billion. "
@@ -68,9 +63,7 @@ class DeterministicHighNonSuppressionTests(unittest.TestCase):
         )
 
         high_findings = [
-            finding
-            for finding in result.findings
-            if finding.category == "MNPI" and finding.severity == "high"
+            finding for finding in result.findings if finding.category == "MNPI" and finding.severity == "high"
         ]
         self.assertGreaterEqual(result.mnpi_score, LLM_TIER_MNPI_UPPER)
         self.assertGreater(len(high_findings), 0)
@@ -79,48 +72,6 @@ class DeterministicHighNonSuppressionTests(unittest.TestCase):
         self.assertEqual(public_evidence.calls, 0)
         self.assertEqual(llm.calls, 0)
         self.assertNotEqual(result.overall_risk.value, "SAFE")
-
-    def test_surfacing_lane_cannot_hide_deterministic_high_findings(self):
-        finding = ReviewFinding(
-            id="m1",
-            category="MNPI",
-            rule="material_event",
-            jurisdiction="SG",
-            severity="high",
-            score=91.0,
-            matched_text="Acme acquisition",
-            start_char=0,
-            end_char=16,
-            reason="test",
-            legal_basis="SG_SFA_MARKET_MISCONDUCT",
-        )
-        with tempfile.TemporaryDirectory() as tmp:
-            os.environ["JUNAS_TENANT_CONFIG_DIR"] = tmp
-            try:
-                Path(tmp, "tenant-a.toml").write_text(
-                    "[lane.high]\nroute = \"batched\"\ndigest_cadence = \"daily\"\n",
-                    encoding="utf-8",
-                )
-                result = apply_surfacing_lanes([finding], tenant_id="tenant-a")
-            finally:
-                os.environ.pop("JUNAS_TENANT_CONFIG_DIR", None)
-
-        self.assertEqual([item.id for item in result.visible_findings], ["m1"])
-        self.assertEqual(result.suppressed_findings, [])
-        lane = result.visible_findings[0].metadata["lane_routing"]
-        self.assertFalse(lane["suppressed"])
-        self.assertEqual(lane["reason"], "deterministic_high_visible")
-
-    def test_policy_softening_keeps_high_mnpi_visible(self):
-        finding = _finding("m1", source_verification="public_source_matched")
-
-        decision = evaluate_policy(findings=[finding])
-
-        self.assertEqual(decision.decision, "warn")
-        self.assertTrue(decision.send_allowed)
-        self.assertIn("high-risk MNPI has public evidence but should remain visible", decision.policy_reasons)
-        self.assertEqual(finding["severity"], "high")
-        self.assertEqual(finding["source_verification"], "public_source_matched")
 
 
 if __name__ == "__main__":

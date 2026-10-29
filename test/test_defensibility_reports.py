@@ -22,7 +22,7 @@ class DefensibilityReportDriftTests(unittest.TestCase):
             text = path.read_text(encoding="utf-8")
             self.assertIn("Statutory Coverage", text)
             self.assertIn("Known Gaps", text)
-            self.assertIn("Operational Controls", text)
+            self.assertIn("Reproducibility", text)
             self.assertIn("not legal advice", text.lower())
             self.assertIn("docs/statutory-coverage.md", text)
             self.assertIn(pack.label, text)

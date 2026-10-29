@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run precision-backed corpus gates for detector and Outlook/browser adapter changes."""
+"""Run precision-backed corpus gates for classifier and pipeline changes."""
 
 from __future__ import annotations
 
@@ -14,10 +14,10 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WATCHED_PATH_PREFIXES = (
     "src/junas/review/",
-    "src/junas/backend/",
-    "src/junas/policy/",
-    "integrations/outlook_addin/",
-    "integrations/browser_extension/",
+    "src/junas/configs/",
+    "src/junas/ingest/",
+    "src/junas/models.py",
+    "src/junas/pipeline.py",
 )
 DEFAULT_CORPORA = (
     Path("test/fixtures/legal-corpus"),
@@ -85,13 +85,15 @@ def run_precision_gates(corpora: list[Path]) -> list[dict[str, Any]]:
     for corpus in corpora:
         rules = precision_baseline_rules(corpus)
         if not rules:
-            results.append({
-                "corpus": str(corpus),
-                "returncode": 2,
-                "stdout": "",
-                "stderr": "precision baseline missing",
-                "precision_rule_count": 0,
-            })
+            results.append(
+                {
+                    "corpus": str(corpus),
+                    "returncode": 2,
+                    "stdout": "",
+                    "stderr": "precision baseline missing",
+                    "precision_rule_count": 0,
+                }
+            )
             continue
         corpus_path = corpus if corpus.is_absolute() else REPO_ROOT / corpus
         command = [
@@ -108,13 +110,15 @@ def run_precision_gates(corpora: list[Path]) -> list[dict[str, Any]]:
             text=True,
             check=False,
         )
-        results.append({
-            "corpus": str(corpus),
-            "returncode": result.returncode,
-            "stdout": result.stdout,
-            "stderr": result.stderr,
-            "precision_rule_count": len(rules),
-        })
+        results.append(
+            {
+                "corpus": str(corpus),
+                "returncode": result.returncode,
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+                "precision_rule_count": len(rules),
+            }
+        )
     return results
 
 
@@ -149,10 +153,7 @@ def main(argv: list[str] | None = None) -> int:
     results = run_precision_gates(corpora)
     failures = [item for item in results if item["returncode"] != 0]
     for item in results:
-        print(
-            f"{item['corpus']}: recall_gate exit={item['returncode']} "
-            f"precision_rules={item['precision_rule_count']}"
-        )
+        print(f"{item['corpus']}: recall_gate exit={item['returncode']} precision_rules={item['precision_rule_count']}")
     if failures:
         for item in failures:
             print(f"precision risk gate failed for {item['corpus']}", file=sys.stderr)

@@ -7,21 +7,9 @@ Four guarantees:
 4. With persistence enabled, each warning becomes a coverage_warning journal event.
 """
 
-import importlib
-import os
-import tempfile
 import unittest
-from contextlib import asynccontextmanager
-from pathlib import Path
-
-from fastapi.testclient import TestClient
 
 from junas.review.engine import PreSendReviewEngine, ReviewLayerError
-
-
-@asynccontextmanager
-async def _noop_lifespan(app):
-    yield
 
 
 class DummyAuditor:
@@ -68,8 +56,12 @@ class CoverageAuditPrivacyTests(unittest.TestCase):
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
         engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="memo",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="memo",
             review_profile="audit_grade",
         )
         self.assertEqual(auditor.calls, 1)
@@ -86,8 +78,12 @@ class CoverageAuditPrivacyTests(unittest.TestCase):
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         text = "Acme acquisition for $2.5 billion is pending."
         engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         # SHA-256 of "any text" — 64 hex chars
@@ -100,9 +96,13 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         result = engine.review(
-            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
-            destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
-            document_type="memo", review_profile="audit_grade",
+            text="Acme acquisition for $2.5 billion is pending.",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="memo",
+            review_profile="audit_grade",
         )
         self.assertEqual(len(result.coverage_warnings), 2)
         self.assertEqual(result.coverage_warnings[0]["rule_guess"], "embargo_marker")
@@ -120,13 +120,21 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         text = "Lunch invite for Friday."
         result_strict = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         result_audit = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         self.assertEqual(result_strict.overall_risk, result_audit.overall_risk)
@@ -136,9 +144,13 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
     def test_llm_warning_severity_is_capped_at_medium(self):
         engine = PreSendReviewEngine(llm_coverage_auditor=HighWarningAuditor())
         result = engine.review(
-            text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
-            destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
-            document_type="memo", review_profile="audit_grade",
+            text="Acme acquisition for $2.5 billion is pending.",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="memo",
+            review_profile="audit_grade",
         )
         raised = [finding for finding in result.findings if finding.rule == "llm_raised_finding"]
         self.assertEqual(len(raised), 1)
@@ -150,9 +162,13 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         engine.review(
-            text="Confidential acquisition for $2.5 billion.", source_jurisdiction="SG",
-            destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
-            document_type="memo", review_profile="strict",
+            text="Confidential acquisition for $2.5 billion.",
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="memo",
+            review_profile="strict",
         )
         self.assertEqual(auditor.calls, 0)
 
@@ -161,8 +177,12 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
         with self.assertRaises(ReviewLayerError) as ctx:
             engine.review(
-                text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-                entity_id=None, include_suggestions=False, document_type="memo",
+                text=text,
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="memo",
                 review_profile="audit_grade",
             )
         self.assertEqual(ctx.exception.layer, "llm_coverage_audit")
@@ -171,89 +191,25 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
         class BadAuditor:
             def audit(self, *, findings, body_hash, document_type):
                 return [
-                    {"rule_guess": "x", "why": "ok"},      # valid
-                    "not a dict",                            # rejected
-                    {"rule_guess": "missing why"},           # rejected — missing why
-                    {"why": "missing rule_guess"},           # rejected
-                    {"rule_guess": "y", "why": "ok2"},      # valid
+                    {"rule_guess": "x", "why": "ok"},  # valid
+                    "not a dict",  # rejected
+                    {"rule_guess": "missing why"},  # rejected — missing why
+                    {"why": "missing rule_guess"},  # rejected
+                    {"rule_guess": "y", "why": "ok2"},  # valid
                 ]
+
         engine = PreSendReviewEngine(llm_coverage_auditor=BadAuditor())
         with self.assertRaises(ReviewLayerError) as ctx:
             engine.review(
-                text="Acme acquisition for $2.5 billion is pending.", source_jurisdiction="SG",
-                destination_jurisdiction="SG", entity_id=None, include_suggestions=False,
-                document_type="memo", review_profile="audit_grade",
+                text="Acme acquisition for $2.5 billion is pending.",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="memo",
+                review_profile="audit_grade",
             )
         self.assertEqual(ctx.exception.layer, "llm_coverage_audit")
-
-
-class CoverageAuditJournalingTests(unittest.TestCase):
-    def setUp(self):
-        self._tmpdir = tempfile.TemporaryDirectory()
-        self.tmpdir = Path(self._tmpdir.name)
-        os.environ["JUNAS_JOURNAL_DIR"] = str(self.tmpdir)
-        os.environ["JUNAS_JOURNAL_KEY"] = "audit-test-key"
-        os.environ["JUNAS_REVIEW_PERSIST"] = "1"
-        os.environ["JUNAS_MAPPING_STORE_KEY"] = "q5cVCBcQ0PHsgxBpwoXOrp0tGSgZBz7oBfZmuZBFLJk="
-        os.environ["JUNAS_SUBJECT_INDEX_KEY"] = "subject-index-test-key"
-
-        # reload journal + main so they pick up the new env
-        import junas.backend.main as main_mod
-        import junas.review.decisions as decisions_mod
-        import junas.review.journal as journal_mod
-
-        importlib.reload(journal_mod)
-        importlib.reload(decisions_mod)
-        importlib.reload(main_mod)
-        self.journal = journal_mod
-        self.main = main_mod
-        self.main._state.clear()
-        self.main.app.openapi_schema = None
-        self.main.app.router.lifespan_context = _noop_lifespan
-        # wire a dummy auditor
-        self.auditor = DummyAuditor()
-        self.main._state["models"] = {"llm_coverage_auditor": self.auditor}
-
-    def tearDown(self):
-        self._tmpdir.cleanup()
-        for var in (
-            "JUNAS_JOURNAL_DIR",
-            "JUNAS_JOURNAL_KEY",
-            "JUNAS_REVIEW_PERSIST",
-            "JUNAS_MAPPING_STORE_KEY",
-            "JUNAS_SUBJECT_INDEX_KEY",
-        ):
-            os.environ.pop(var, None)
-        import junas.backend.main as main_mod
-        importlib.reload(main_mod)
-
-    def test_warnings_journaled_with_persist_enabled(self):
-        text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
-        with TestClient(self.main.app) as client:
-            response = client.post(
-                "/review",
-                json={
-                    "text": text,
-                    "source_jurisdiction": "SG",
-                    "destination_jurisdiction": "SG",
-                    "review_profile": "audit_grade",
-                    "document_type": "memo",
-                },
-            )
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        # ensure the auditor was actually called (document lands in band)
-        if self.auditor.calls == 0:
-            self.skipTest("test document did not land in ambiguous band for this scoring")
-        self.assertEqual(len(payload["coverage_warnings"]), 2)
-        raised = [finding for finding in payload["findings"] if finding["rule"] == "llm_raised_finding"]
-        self.assertEqual(len(raised), 2)
-        self.assertEqual(raised[0]["metadata"]["origin"], "llm")
-        # journal carries a coverage_warning event per warning
-        entries = self.journal.read_journal(review_id=payload["request_id"])
-        warning_events = [e for e in entries if e.event_type == "coverage_warning"]
-        self.assertEqual(len(warning_events), 2)
-        self.assertEqual(warning_events[0].payload["rule_guess"], "embargo_marker")
 
 
 if __name__ == "__main__":

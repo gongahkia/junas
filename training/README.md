@@ -1,7 +1,5 @@
-# Training Folder
+# Training experiments
 
-This folder is limited to pivot-aligned distillation work.
+Training is separate from the default classifier. `distillation/` contains teacher collection, student training, corpus evaluation and a promotion gate. `severity_calibrator/` fits a transparent decision table from manually prepared, sanitized labelled preferences.
 
-- `distillation/`: build-time teacher collection, local student training, and corpus evaluation for the optional `local_distilled` LLM adjudicator path.
-
-The archived classifier training entrypoints were removed with the legacy layer1-6 stack. New accuracy work should target deterministic detector fixtures, recall/precision locks, or the advisory LLM distillation path.
+Use independent reviewed data and preserve held-out test splits. Do not train on a benchmark and then present its regression score as evidence of generalization. Provider calls require explicit configuration. Teacher ledgers are research artifacts under `JUNAS_CACHE_DIR`, not production audit records.

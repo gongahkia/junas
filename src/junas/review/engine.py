@@ -5,8 +5,8 @@ import re
 from dataclasses import dataclass, field
 from typing import Any
 
-from junas.backend.schemas import Classification
 from junas.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
+from junas.models import Classification
 from junas.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from junas.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from junas.review.defined_terms import extract_defined_terms, is_defined_term
@@ -4739,8 +4739,7 @@ class PreSendReviewEngine:
         entity_id: str | None,
         include_suggestions: bool,
         document_type: str = "generic",
-        session_id: str | None = None,
-        matter_id: str | None = None,
+        context_terms: set[str] | None = None,
         review_profile: str = "strict",
         tenant_id: str | None = None,
         document_structure: Any | None = None,
@@ -4749,7 +4748,7 @@ class PreSendReviewEngine:
             raise ValueError(f"review_profile must be one of {sorted(VALID_REVIEW_PROFILES)}; got {review_profile!r}")
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         privacy_ledger: list[dict[str, Any]] = []
-        defined_terms = extract_defined_terms(text)
+        defined_terms = extract_defined_terms(text) | {term.casefold() for term in (context_terms or set())}
         # audit_grade-only LLM pre-pass over the preamble to catch defined terms the regex
         # misses. cached by document hash; raw doc body is not sent (the helper sees only
         # the first PREAMBLE_CHAR_CAP characters).
@@ -4766,39 +4765,6 @@ class PreSendReviewEngine:
             except Exception as exc:
                 _drain_privacy_ledger_events(self.llm_defined_term_extractor)
                 raise ReviewLayerError("llm_defined_terms", f"LLM defined-term extraction failed: {exc}") from exc
-        # cross-doc defined-term inheritance: merge prior session-scoped terms into the current
-        # document's set, then persist the current document's terms back to the session store so
-        # the next related-doc review inherits them too. SPA defines `the "Purchaser"` once;
-        # a paired disclosure schedule reviewed in the same session inherits that suppression.
-        if session_id:
-            from junas.review.session_store import add_defined_terms, load_defined_terms
-
-            try:
-                inherited = load_defined_terms(session_id, tenant_id=tenant_id)
-                defined_terms = defined_terms | inherited
-                if defined_terms - inherited:
-                    add_defined_terms(session_id, defined_terms - inherited, tenant_id=tenant_id)
-            except Exception as exc:
-                raise ReviewLayerError("session_defined_terms", f"session defined-term store failed: {exc}") from exc
-        # item 55: matter-scoped inheritance sits above session-scope. Sessions belong to a matter;
-        # defined terms accumulate at matter level and inherit into every session within that matter.
-        # Closes the 30+ document M&A case where session-scope loses inheritance once the session
-        # rotates. matter terms persist across reviewers / weeks / sessions under the same matter_id.
-        if matter_id:
-            from junas.review.matter_store import (
-                add_defined_terms as add_matter_terms,
-            )
-            from junas.review.matter_store import (
-                load_defined_terms as load_matter_terms,
-            )
-
-            try:
-                matter_inherited = load_matter_terms(matter_id, tenant_id=tenant_id)
-                defined_terms = defined_terms | matter_inherited
-                if defined_terms - matter_inherited:
-                    add_matter_terms(matter_id, defined_terms - matter_inherited, tenant_id=tenant_id)
-            except Exception as exc:
-                raise ReviewLayerError("matter_defined_terms", f"matter defined-term store failed: {exc}") from exc
         document_structure = document_structure or parse_document_structure(text)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type

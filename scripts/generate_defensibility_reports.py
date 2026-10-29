@@ -15,7 +15,7 @@ if str(SRC_PATH) not in sys.path:
 from junas.review import jurisdictions  # noqa: E402
 
 DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "defensibility"
-GENERATED_ON = "2026-06-06"
+GENERATED_ON = "2026-10-30"
 
 
 def _format_list(values: list[str] | tuple[str, ...], *, empty: str) -> str:
@@ -47,7 +47,7 @@ def render_report(pack: jurisdictions.JurisdictionRulePack) -> str:
     return (
         f"# {pack.label} ({pack.code}) Defensibility Report\n\n"
         f"> Generated {GENERATED_ON} from `src/junas/review/jurisdictions_data/{pack.code}.toml`. "
-        "Internal benchmarking and procurement-support artifact only; not legal advice.\n"
+        "Internal detector research artifact only; not legal advice.\n"
         f"{baseline_note}\n"
         "## Statutory Coverage\n\n"
         "Companion coverage source: `docs/statutory-coverage.md`. Runtime statutory references:\n\n"
@@ -65,13 +65,10 @@ def render_report(pack: jurisdictions.JurisdictionRulePack) -> str:
         "- Candidate `.bucket.json` sidecars are internal benchmarking review artifacts, not procurement-grade "
         "legal truth.\n"
         "- Customer citation overrides can change the cited internal policy without changing detector recall.\n\n"
-        "## Operational Controls\n\n"
-        "- Review responses expose per-finding `source_verification` and detector `metadata` where applicable.\n"
-        "- HMAC journal and audit-pack export provide tamper-evident reviewer decisions and pack manifests.\n"
-        "- `/pseudonymize` is reversible and may persist mappings when explicitly enabled; `/anonymize` is "
-        "irreversible placeholder-only; `/redact` emits opaque markers without reidentification material.\n"
-        "- Sanitized reviewer action rates are aggregated by rule in audit packs; raw reviewer rationale and "
-        "raw document text are not added to defensibility manifests.\n\n"
+        "## Reproducibility\n\n"
+        "- Engine results expose per-finding `source_verification` and detector `metadata` where applicable.\n"
+        "- Corpus locks, label provenance and measured reports provide reproducible detection evidence.\n"
+        "- Internal fixture agreement does not establish generalization to unseen documents.\n\n"
         "## Pack Manifest\n\n"
         f"- Jurisdiction code: `{pack.code}`\n"
         f"- Label: {pack.label}\n"

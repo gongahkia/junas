@@ -12,24 +12,29 @@ from scripts.check_false_negative_risk import (
 
 
 class FalseNegativeRiskGateTests(unittest.TestCase):
-    def test_policy_rewrite_and_backend_paths_trigger_gate(self):
-        self.assertTrue(path_triggers_false_negative_gate("src/junas/policy/engine.py"))
-        self.assertTrue(path_triggers_false_negative_gate("src/junas/anonymize/engine.py"))
-        self.assertTrue(path_triggers_false_negative_gate("src/junas/backend/main.py"))
-        self.assertFalse(path_triggers_false_negative_gate("docs/feedback-loop.md"))
-        self.assertFalse(path_triggers_false_negative_gate("test/test_policy_engine.py"))
+    def test_classifier_and_pipeline_paths_trigger_gate(self):
+        self.assertTrue(path_triggers_false_negative_gate("src/junas/review/engine.py"))
+        self.assertTrue(path_triggers_false_negative_gate("src/junas/review/document.py"))
+        self.assertTrue(path_triggers_false_negative_gate("src/junas/pipeline.py"))
+        self.assertFalse(path_triggers_false_negative_gate("docs/README.md"))
+        self.assertFalse(path_triggers_false_negative_gate("test/test_core_pipeline.py"))
 
     def test_triggered_paths_filters_changed_files(self):
-        result = triggered_paths([
-            "docs/feedback-loop.md",
-            "src/junas/policy/config.py",
-            "src/junas/anonymize/mapping_store.py",
-        ])
+        result = triggered_paths(
+            [
+                "docs/README.md",
+                "src/junas/configs/runtime.py",
+                "src/junas/ingest/parser_tools/parse_docs.py",
+            ]
+        )
 
-        self.assertEqual(result, [
-            "src/junas/anonymize/mapping_store.py",
-            "src/junas/policy/config.py",
-        ])
+        self.assertEqual(
+            result,
+            [
+                "src/junas/configs/runtime.py",
+                "src/junas/ingest/parser_tools/parse_docs.py",
+            ],
+        )
 
     def test_default_corpora_include_locked_legal_sets(self):
         corpus_names = {path.as_posix() for path in DEFAULT_CORPORA}

@@ -63,7 +63,7 @@ def _git_files() -> list[Path]:
         capture_output=True,
         text=True,
     )
-    return [Path(line) for line in result.stdout.splitlines() if line.strip()]
+    return [Path(line) for line in result.stdout.splitlines() if line.strip() and (ROOT / line).is_file()]
 
 
 def is_target(path: Path) -> bool:

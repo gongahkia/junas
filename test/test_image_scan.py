@@ -1,16 +1,12 @@
 import base64
-import os
 import types
 import unittest
 import zipfile
-from contextlib import asynccontextmanager
 from io import BytesIO
 from unittest import mock
 
-from fastapi.testclient import TestClient
 from PIL import Image
 
-import junas.backend.main as main
 from junas.external.privacy_guard import PrivacyGuard
 from junas.review.document import extract_review_document
 from junas.review.image_scan import (
@@ -28,14 +24,6 @@ from junas.review.image_scan import (
     image_boxes_for_span,
     scan_image_candidates,
 )
-
-
-@asynccontextmanager
-async def _noop_lifespan(app):
-    yield
-
-
-main.app.router.lifespan_context = _noop_lifespan
 
 
 def _png_bytes() -> bytes:
@@ -91,11 +79,6 @@ class FakeImageScanner:
 
 
 class ImageScanTests(unittest.TestCase):
-    def setUp(self):
-        main.app.router.lifespan_context = _noop_lifespan
-        main._state.clear()
-        main.app.openapi_schema = None
-
     def test_docx_embedded_images_are_collected_for_ocr(self):
         candidates = collect_docx_images(_docx_with_embedded_png())
 
@@ -103,167 +86,6 @@ class ImageScanTests(unittest.TestCase):
         candidate = candidates[0]
         self.assertEqual(candidate.mime_type, "image/png")
         self.assertEqual(candidate.locator.container_path, "word/media/image1.png")
-
-    def test_standalone_image_fails_open_without_provider(self):
-        encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with TestClient(main.app) as client:
-            response = client.post(
-                "/review",
-                json={
-                    "document_base64": encoded,
-                    "document_filename": "scan.png",
-                },
-            )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        self.assertEqual(payload["document"]["extraction_quality"], "degraded")
-        self.assertTrue(any(mode["status"] == "failed_open" for mode in payload["degraded_modes"]))
-
-    def test_image_ocr_findings_carry_source_and_locator(self):
-        scanner = FakeImageScanner()
-        main._state["models"] = {"image_scanner": scanner}
-        encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
-            with TestClient(main.app) as client:
-                response = client.post(
-                    "/review",
-                    json={
-                        "document_base64": encoded,
-                        "document_filename": "scan.png",
-                        "source_jurisdiction": "SG",
-                        "destination_jurisdiction": "SG",
-                    },
-                )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        finding = next(item for item in payload["findings"] if item["rule"] == "sg_nric_fin")
-        self.assertEqual(finding["source"], "image_ocr")
-        self.assertEqual(finding["image_locator"]["container_path"], "scan.png")
-        self.assertEqual(finding["image_locator"]["image_index"], 0)
-        self.assertEqual(finding["image_ocr_confidence"], 0.98)
-        self.assertGreater(finding["image_ocr_regions"][0]["bounding_box"]["x"], 0.05)
-        self.assertEqual(scanner.last_candidate.mime_type, "image/png")
-
-    def test_image_ocr_failure_fails_open(self):
-        main._state["models"] = {"image_scanner": FakeImageScanner(fail=True)}
-        encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
-            with TestClient(main.app) as client:
-                response = client.post(
-                    "/review",
-                    json={"document_base64": encoded, "document_filename": "scan.png"},
-                )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        modes = response.json()["degraded_modes"]
-        self.assertTrue(any(mode["mode"] == "image_ocr" and mode["status"] == "failed_open" for mode in modes))
-
-    def test_cloud_image_ocr_privacy_ledger_is_returned(self):
-        ledger = [
-            {
-                "destination": "openai_vision",
-                "operation": "image_ocr",
-                "allowed": True,
-                "reason": "external image OCR content transfer approved",
-                "query": "",
-                "redactions": [],
-                "input_mode": "",
-                "content_sha256": "a" * 64,
-                "content_type": "image/png",
-            }
-        ]
-        main._state["models"] = {"image_scanner": FakeImageScanner(ledger=ledger)}
-        encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        env = {
-            "JUNAS_IMAGE_SCAN_PROVIDER": "openai_vision",
-            "JUNAS_IMAGE_SCAN_TENANT_OPT_IN_OPENAI": "1",
-        }
-        with mock.patch.dict(os.environ, env, clear=False):
-            with TestClient(main.app) as client:
-                response = client.post(
-                    "/review",
-                    json={"document_base64": encoded, "document_filename": "scan.png"},
-                )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        entry = response.json()["privacy_ledger"][0]
-        self.assertEqual(entry["operation"], "image_ocr")
-        self.assertEqual(entry["content_sha256"], "a" * 64)
-        self.assertEqual(entry["content_type"], "image/png")
-
-    def test_anonymize_returns_redacted_image_artifact_when_boxes_exist(self):
-        main._state["models"] = {"image_scanner": FakeImageScanner(text="S1234567D")}
-        encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
-            with TestClient(main.app) as client:
-                response = client.post(
-                    "/anonymize",
-                    json={
-                        "document_base64": encoded,
-                        "document_filename": "scan.png",
-                        "source_jurisdiction": "SG",
-                        "destination_jurisdiction": "SG",
-                    },
-                )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        self.assertIn("[NRIC_FIN_1]", payload["anonymized_text"])
-        self.assertEqual(len(payload["redacted_images"]), 1)
-        redacted = payload["redacted_images"][0]
-        self.assertEqual(redacted["mime_type"], "image/png")
-        self.assertGreater(len(base64.b64decode(redacted["document_base64"])), 0)
-        self.assertEqual(payload["redacted_document"]["mime_type"], "image/png")
-        self.assertGreater(len(base64.b64decode(payload["redacted_document"]["document_base64"])), 0)
-        self.assertEqual(payload["degraded_modes"], [])
-
-    def test_docx_anonymize_returns_redacted_docx_container(self):
-        main._state["models"] = {"image_scanner": FakeImageScanner(text="S1234567D")}
-        encoded = base64.b64encode(_docx_with_embedded_png()).decode("ascii")
-        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
-            with TestClient(main.app) as client:
-                response = client.post(
-                    "/anonymize",
-                    json={
-                        "document_base64": encoded,
-                        "document_filename": "draft.docx",
-                        "source_jurisdiction": "SG",
-                        "destination_jurisdiction": "SG",
-                    },
-                )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        redacted_document = payload["redacted_document"]
-        self.assertEqual(
-            redacted_document["mime_type"],
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        )
-        rewritten = base64.b64decode(redacted_document["document_base64"])
-        with zipfile.ZipFile(BytesIO(rewritten)) as archive:
-            redacted_image = archive.read("word/media/image1.png")
-        self.assertNotEqual(redacted_image, _png_bytes())
-
-    def test_anonymize_reports_degraded_mode_when_boxes_missing(self):
-        class NoBoxScanner(FakeImageScanner):
-            def scan(self, candidate):
-                return ImageOcrResult(text="S1234567D", locator=candidate.locator, provider=self.provider)
-
-        main._state["models"] = {"image_scanner": NoBoxScanner()}
-        encoded = base64.b64encode(_png_bytes()).decode("ascii")
-        with mock.patch.dict(os.environ, {"JUNAS_IMAGE_SCAN_PROVIDER": "tesseract"}, clear=False):
-            with TestClient(main.app) as client:
-                response = client.post(
-                    "/anonymize",
-                    json={"document_base64": encoded, "document_filename": "scan.png"},
-                )
-
-        self.assertEqual(response.status_code, 200, response.text)
-        payload = response.json()
-        self.assertEqual(payload["redacted_images"], [])
-        self.assertEqual(payload["degraded_modes"][0]["mode"], "image_redaction")
 
     def test_scan_image_candidates_enforces_total_byte_limit(self):
         candidate = ImageCandidate(
@@ -577,15 +399,6 @@ class ImageScanTests(unittest.TestCase):
         self.assertEqual(result.text, "S1234567D")
         self.assertAlmostEqual(result.regions[0].bounding_box.width, 0.3)
         self.assertEqual(result.privacy_ledger[0]["destination"], "azure_vision")
-
-    def test_diagnostics_include_image_scan_dependency(self):
-        with TestClient(main.app) as client:
-            response = client.get("/diagnostics")
-
-        self.assertEqual(response.status_code, 200)
-        image_status = response.json()["dependency_status"]["image_scan"]
-        self.assertEqual(image_status["status"], "disabled")
-        self.assertFalse(image_status["configured"])
 
 
 if __name__ == "__main__":

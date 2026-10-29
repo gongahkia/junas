@@ -79,20 +79,6 @@ def render_accuracy_doc() -> str:
         "",
         "This file is generated from committed recall and precision locks. Do not edit it by hand.",
         "",
-        "## Endpoint Data States",
-        "",
-        "| Endpoint | Data state | Mapping retained | Accuracy caveat |",
-        "|---|---|---|---|",
-        "| `/pseudonymize` | Pseudonymised personal data | Yes | "
-        "Detector baselines describe span detection before reversible replacement; "
-        "output remains re-identifiable where the controller holds the mapping. |",
-        "| `/anonymize` | Placeholder-only anonymised text | No | "
-        "Detector baselines do not prove statistical anonymisation; residual "
-        "singling-out/linkability/inference risk remains document-context dependent. |",
-        "| `/redact` | Opaque redacted text | No | "
-        "Detector baselines describe what was found for redaction; residual risk "
-        "depends on unredacted context and container metadata handling. |",
-        "",
         "## Comparative Baseline Context",
         "",
         "[PIIBench](https://arxiv.org/abs/2604.15776) reports that eight published PII detectors "
@@ -108,7 +94,7 @@ def render_accuracy_doc() -> str:
         "false-positive counts are available. This follows "
         "[Microsoft Presidio evaluation guidance](https://microsoft.github.io/presidio/evaluation/): "
         "F-beta combines precision and recall, and beta=2 weights recall more heavily. Junas uses "
-        "beta=2 for pre-send safety because missed sensitive spans are usually costlier than extra "
+        "beta=2 for sensitive-span detection because missed sensitive spans are usually costlier than extra "
         "human review.",
         "",
         "## Corpus Locks",
@@ -141,38 +127,37 @@ def render_accuracy_doc() -> str:
             "- A precision report or precision lock is committed, including false-positive or `unexpected` counts.",
             "- `docs/accuracy.md` is regenerated from locks and `scripts/generate_accuracy_doc.py --check` passes.",
             "",
-        "Candidate-only reports, demo screenshots, unpromoted sidecars, and roadmap notes are not "
-        "improved-detection evidence.",
-        "",
-        "## Independent Benchmark Targets",
-        "",
-        "| Target | Fixture | Runner | Independence | Lock behavior |",
-        "|---|---|---|---|---|",
-        "| TAB (Text Anonymization Benchmark) | "
-        "`test/fixtures/external/text-anonymization-benchmark/` via "
-        "`scripts/fetch_tab_fixture.sh` | `scripts/run_tab_eval.py` | "
-        "1,268 manually annotated ECHR cases from an external corpus; scored from TAB "
-        "`DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | "
-        "Separate eval target; reports span-level precision/recall/F2, includes TAB QUASI/coreference "
-        "singling-out validation, and never updates the candidate-corpus promotion lock. Current "
-        "SG/US/UK pack report: `reports/current/singling_out_pack_eval_20260701.json`. |",
-        "| ai4privacy `pii-masking-200k` | "
-        "`test/fixtures/external/ai4privacy-pii-masking-200k/english_pii_43k.jsonl` via "
-        "`scripts/fetch_ai4privacy_fixture.py` | `scripts/run_ai4privacy_eval.py` | "
-        "Semi-independent external synthetic corpus with ai4privacy human-in-the-loop validation claims; "
-        "scored separately from TAB because Hugging Face also publishes a Presidio-powered PII report. | "
-        "Committed report in `reports/current/ai4privacy_pii_masking_200k_en_us_en_gb_eval.json`; "
-        "reports recall on documented English US/UK label-proxy slices and never updates promotion locks. |",
-        "",
-        "## MNPI Benchmark Limitation",
-        "",
-        "No public MNPI text-detection benchmark comparable to TAB or ai4privacy was identified in "
-        "the 2026-07-01 source review. MNPI recall is measured against internal "
-        "expert-labelled/project-owner-reviewed fixtures, with provenance in "
-        "`test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`. "
-        "Strict `conjunctive_mnpi` span placement includes detector reconciliation and is not an "
-        "independent public benchmark.",
-    ]
+            "Candidate-only reports, unpromoted sidecars, and roadmap notes are not improved-detection evidence.",
+            "",
+            "## Independent Benchmark Targets",
+            "",
+            "| Target | Fixture | Runner | Independence | Lock behavior |",
+            "|---|---|---|---|---|",
+            "| TAB (Text Anonymization Benchmark) | "
+            "`test/fixtures/external/text-anonymization-benchmark/` via "
+            "`scripts/fetch_tab_fixture.sh` | `scripts/run_tab_eval.py` | "
+            "1,268 manually annotated ECHR cases from an external corpus; scored from TAB "
+            "`DIRECT` and `QUASI` masked spans only, with no Junas-authored labels. | "
+            "Separate eval target; reports span-level precision/recall/F2, includes TAB QUASI/coreference "
+            "singling-out validation, and never updates the candidate-corpus promotion lock. Current "
+            "SG/US/UK pack report: `reports/current/singling_out_pack_eval_20260701.json`. |",
+            "| ai4privacy `pii-masking-200k` | "
+            "`test/fixtures/external/ai4privacy-pii-masking-200k/english_pii_43k.jsonl` via "
+            "`scripts/fetch_ai4privacy_fixture.py` | `scripts/run_ai4privacy_eval.py` | "
+            "Semi-independent external synthetic corpus with ai4privacy human-in-the-loop validation claims; "
+            "scored separately from TAB because Hugging Face also publishes a Presidio-powered PII report. | "
+            "Committed report in `reports/current/ai4privacy_pii_masking_200k_en_us_en_gb_eval.json`; "
+            "reports recall on documented English US/UK label-proxy slices and never updates promotion locks. |",
+            "",
+            "## MNPI Benchmark Limitation",
+            "",
+            "No public MNPI text-detection benchmark comparable to TAB or ai4privacy was identified in "
+            "the 2026-07-01 source review. MNPI recall is measured against internal "
+            "expert-labelled/project-owner-reviewed fixtures, with provenance in "
+            "`test/fixtures/legal-corpus-reviewed-candidates/mnpi_conjunctive_label_provenance.json`. "
+            "Strict `conjunctive_mnpi` span placement includes detector reconciliation and is not an "
+            "independent public benchmark.",
+        ]
     )
     if LAYER_ATTRIBUTION_DELTA.is_file():
         delta_payload = _load_json(LAYER_ATTRIBUTION_DELTA)
@@ -209,7 +194,7 @@ def render_accuracy_doc() -> str:
                 f"`needs_review` labels and {residual_true_inference} `true_inference_miss` "
                 f"labels, {residual_share:.2f}% of the {ideal_misses:,} ideal misses.",
                 "",
-                "This slice is the capped-severity, human-adjudicated, server-only LLM tier. "
+                "This slice is the capped-severity, human-adjudicated, opt-in experimental LLM tier. "
                 "It covers cases where deterministic span evidence is insufficient because "
                 "the missing decision depends on inference or reviewer judgment.",
                 "",
@@ -219,8 +204,8 @@ def render_accuracy_doc() -> str:
                 "stay controlling instead of being cleared by helper output.",
                 "",
                 "Do not describe these residual buckets as work the deterministic layer should "
-                "reach. Treat them as the documented boundary where server-side audit-grade "
-                "review may add advisory warnings for a human reviewer.",
+                "reach. Treat them as the documented boundary where optional audit-grade "
+                "experiments may add advisory warnings for a human reviewer.",
             ]
         )
 

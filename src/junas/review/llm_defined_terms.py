@@ -13,9 +13,9 @@ caches results by SHA-256 of the full document text. The preamble (first ~500 to
 ≈ 2000 chars) is the only thing sent to the LLM; the document body never leaves the
 process boundary via this path.
 
-Cache layout: `${JUNAS_JOURNAL_DIR}/llm_defined_terms/{document_hash}.json` carrying
+Cache layout: `${JUNAS_CACHE_DIR}/llm_defined_terms/{document_hash}.json` carrying
 `{"terms": [casefolded, sorted], "ts": "<iso utc>"}`. Cache reads tolerate a missing
-or malformed entry by re-running the extractor. Under the API audit_grade path,
+or malformed entry by re-running the extractor. Under the audit_grade path,
 extractor and cache-write failures fail closed instead of silently dropping this layer.
 """
 
@@ -54,12 +54,12 @@ class LLMDefinedTermError(RuntimeError):
     """Raised when the audit_grade defined-term helper cannot produce trustworthy output."""
 
 
-def _journal_dir() -> Path:
-    return Path(os.environ.get("JUNAS_JOURNAL_DIR", "./junas-journal"))
+def _cache_root() -> Path:
+    return Path(os.environ.get("JUNAS_CACHE_DIR", "./.junas-cache"))
 
 
 def _cache_dir() -> Path:
-    return _journal_dir() / "llm_defined_terms"
+    return _cache_root() / "llm_defined_terms"
 
 
 def document_hash(text: str) -> str:
@@ -127,9 +127,7 @@ def extract_with_cache(
         raw_terms = []
     invalid_terms = [type(term).__name__ for term in raw_terms if not isinstance(term, str)]
     if invalid_terms and fail_closed:
-        raise LLMDefinedTermError(
-            "extractor returned non-string terms: " + ", ".join(invalid_terms[:3])
-        )
+        raise LLMDefinedTermError("extractor returned non-string terms: " + ", ".join(invalid_terms[:3]))
     terms = {str(t).strip().casefold() for t in raw_terms if t and isinstance(t, str)}
     with _cache_lock:
         try:

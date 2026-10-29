@@ -1,24 +1,14 @@
 # Junas Statutory Coverage
 
-> Last revised 2026-07-01. Procurement-facing artefact mapping every shipped detector to the statute it implements. Authoritative source for "what junas actually detects under PDPA / GDPR / SFA / MAR / Reg FD" assertions. Companion to `docs/architecture.md`; this doc is the standalone artefact a procurement reviewer can hand to compliance.
+> Research inventory of the statutory rationales associated with implemented detectors. This inventory records existing rule assumptions; it does not certify current law or legal compliance.
 
 This file is regression-tested. `test/test_statutory_coverage_doc.py` asserts that every jurisdiction in `citations.py:_MNPI_JURISDICTION_SUFFIX` / `_PII_JURISDICTION_SUFFIX`, every detector rule_name in `jurisdictions_data/*.toml`, and every PII/MNPI rationale key in `citations.py` is mentioned somewhere in this file. Drift fails CI.
 
 ## Scope
 
-Junas is a pre-send document safety layer detecting **personal data (PII)** and **material non-public information (MNPI)** evidence in documents destined for GenAI prompts, email, or external sharing. It is **not** a horizontal DLP replacement (Purview / Netskope / Nightfall already compete on detector breadth). The wedge is SG/SEA-native local-ID + legal-MNPI detection with statute-cited rationales.
+Junas detects personal data (PII) and material non-public information (MNPI) evidence in text and extracted documents. The current scope is classifier accuracy and reproducible evaluation.
 
 Citations below are reproduced from public commentary and official statute text. Statute section numbers (notably SG SFA s215/s218/s219/s221, HK SFO Cap. 571 Part XIV s270-281, JP FIEA Art 166-167, KR FSCMA Art 174-179) should be re-verified against the official statute revision in force before external use; item 53 owns this cadence.
-
-## Endpoint data states
-
-Junas exposes three rewrite operations with distinct legal states. GDPR Art 4(5), GDPR Recital 26, A29WP Opinion 05/2014, ICO anonymisation guidance, PDPC Advisory Guidelines on Anonymisation, and EDPB pseudonymisation guidance treat reversibility and means reasonably likely to re-identify as the key distinction.
-
-| Endpoint | Data state after rewrite | Mapping retained | Re-identification posture | Operational controls |
-|---|---|---|---|---|
-| `/pseudonymize` | Pseudonymised personal data | Yes; deterministic mapping persisted per tenant/session | Still personal data because the mapping can re-identify the subject; EDPB says pseudonymised data remains personal data if additional information can link it back | Tenant-scoped HMAC IDs, mapping-store access control, audit journal, key rotation |
-| `/anonymize` | Intended anonymised text | No mapping retained; deterministic placeholders only | Not personal data only if residual singling-out/linkability/inference risk is not reasonably likely | No mapping write, metadata scrub path, residual-risk findings remain visible |
-| `/redact` | Redacted text | No mapping retained; opaque markers hide entity type | Lowest re-identification surface among shipped rewrite operations, subject to context left in the document | No mapping write, opaque replacement markers, audit journal, metadata scrub path |
 
 ## Jurisdictions in scope
 
@@ -218,7 +208,7 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 ## Cross-cutting doctrinal coverage
 
 - **Quasi-identifier reasoning** — PDPA s2 ("identified from that data and other information"), GDPR Recital 26 ("means reasonably likely to be used"), CCPA §1798.140(v) ("reasonably capable of being associated"), Sweeney 2000 (DOB+ZIP+gender → 87% re-identification). Implemented as `quasi_identifier_combination` (item 101).
-- **Conjunctive MNPI element reasoning** — inside-information regimes require a joined view over entity/deal subject, non-public status, possession/duty context, and materiality rather than isolated tokens. Implemented as `conjunctive_mnpi` (item 120) with deterministic metadata so reviewer and audit-pack exports can distinguish lexicalised, quantitative, implied, and undetermined materiality without spending API credits.
+- **Conjunctive MNPI element reasoning** — inside-information regimes require a joined view over entity/deal subject, non-public status, possession/duty context, and materiality rather than isolated tokens. Implemented as `conjunctive_mnpi` (item 120) with deterministic metadata so research reports can distinguish lexicalised, quantitative, implied, and undetermined materiality without spending API credits.
 - **DOB / adult-age fields** — HIPAA 45 CFR §164.514(b)(2)(i)(C) includes dates tied to an individual and ages over 89 in the de-identification safe-harbor identifier list; PDPA s2, GDPR Recital 26, and CCPA §1798.140 cover linkable quasi-identifiers. Implemented as `date_of_birth` and `age_reference` (item 33 mini-slice + polish anchors). Minor ages remain routed to `minor_data_reference`.
 - **Online / device identifiers** — GDPR Recital 30 explicitly names IP addresses and device/cookie identifiers as online identifiers; HIPAA 45 CFR §164.514(b)(2)(i)(M)/(O) lists device identifiers and IP addresses; CCPA §1798.140 covers online identifiers. Implemented as `ip_address`, `mac_address`, `imei`, `cookie_id`, `advertising_id`, and `device_serial_number` with labelled/validator-backed anchors (item 33).
 - **EU national identifiers** — GDPR Art 4(1) covers direct/indirect identifiers and Art 87 recognises member-state rules for national identification numbers. Implemented as labelled `eu_national_id` hooks plus checksum-backed validator slices for ES/NL/PL/FR/DE/IT/BE/PT/SE/FI/IE/AT/CZ/SK/RO; full member-state breadth remains open (item 33).
@@ -242,7 +232,7 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 - **Sector MNPI packs** — pharma clinical-trial / regulatory actions, financial-services capital / supervision, energy reserves / production, and legal proceeding / settlement events. Implemented as `pharma_trial_mnpi`, `financial_services_regulatory_mnpi`, `energy_reserves_mnpi`, and `legal_proceeding_mnpi` with co-occurrence amplifier (item 72 partial).
 - **Quiet-period / blackout-window calendrical reasoning** — SGX MB 1207(19)(c) + HKEX MB App C3 + UK MAR Art 19(11) + EU MAR Art 19(11). Implemented as `blackout_period_reference` (item 84). US Reg FD has no codified duration and is intentionally not registered. Supports explicit-date detection plus operator-maintained `JUNAS_EARNINGS_CALENDAR_CSV` ticker / issuer lookup for next-results-date matching.
 - **Issuer-relative materiality (SAB 99 + ASX GN8)** — SEC SAB 99 5% "rule of thumb" (US) + ASX Guidance Note 8 >=10% material / <=5% non-material / ASX-300 halved (AU) + MAR / SGX MB 703 / HKEX 13.09 advisory-only (regulators refuse a numeric threshold). Implemented as `_scale_financial_by_entity_size` post-pass (item 73). Supports direct `EntitySizeLookup` injection plus operator-maintained `JUNAS_ENTITY_SIZE_CSV` / `JUNAS_ENTITY_SIZE_JSON` providers; otherwise emits `materiality_lookup_not_configured` degraded mode and leaves severity intact (fail-loud, no silent default).
-- **Matter-scoped defined-term inheritance** — matter sits above session: defined terms accumulate at matter level and inherit into every session within that matter. Closes the 30+ document M&A case where session-scope loses inheritance once the session rotates. Implemented as `matter_store.py` mirroring `session_store.py` at `${JUNAS_JOURNAL_DIR}/matters/{matter_id}/defined_terms.json` (item 55). Matter ID supports `{dms_vendor}:{matter_id}` composite keys aligned with iManage Work / NetDocuments matter IDs (no published cross-vendor canonical spec — opaque-key approach).
+- **Explicit defined-term context** — experiments may supply `context_terms` to `PreSendReviewEngine.review()`. Session and matter stores have been removed; context is caller-provided and is not persisted.
 - **Special-category PII seed (religion / union / political / health / biometric / genetic / sex-life / racial-ethnic origin)** — GDPR Art 9(1) verbatim list + HIPAA 45 CFR §164.514 + HHS de-identification guidance + PIPA Korea Art 23 + APPI Japan Art 2(3) "creed" / special care-required doctrine + LGPD Brazil Art 5(II) + PIPL China Art 28 + UAE PDPL Art 15 + KSA PDPL Art 6 + PDPC SG Advisory Guidelines on Key Concepts and Healthcare Sector guidance. Implemented as `religious_belief` + `trade_union_membership` + `political_opinion` (item 98), `health_condition` + `medical_treatment` + `biometric_identifier` + `genetic_data` + `sexual_orientation` + `sex_life_reference` (items 105/106/108), and `racial_ethnic_origin` (item 71 seed) rules with strict context anchors. DPDPA India has no sensitive-data tier; SDF designation (s10) is the escalation. Per-category opt-out via `JUNAS_SPECIAL_CATEGORY_DISABLE=religion,union,political,health,biometric,genetic,sexual,ethnicity`. Broader semantic special-category inference remains open under item 71. KSA/UAE: detector flags neutrally — does not editorialise on jurisdiction-specific permissibility (state-religion / anti-discrimination law analysis is downstream).
 - **Jurisdiction-age-cliff minors detector** — DPDPA India s2(f) + s9 (<18) / GDPR Art 8 (<16 default; member-states may lower to 13) / PIPL China Art 31 (<14) / COPPA US 16 CFR Part 312 (<13) / PDPC SG Children's Data Advisory Guidelines (<18) / UK ICO Children's Code (<18) / AU OAIC Children's Code (<18; phase-3 consultation 31 Mar 2026 to 5 Jun 2026, code due 10 Dec 2026) / HK PCPD Minors Note (<18) / UAE Wadeema Law (<18) / KSA Saudi Child Protection Law (<18) / LGPD Art 14 (<18). Implemented as `minor_data_reference` with single rule + per-jurisdiction-resolved severity from `_MINOR_AGE_CLIFFS` map (item 107). Strictest applicable cliff wins. Explicit age regex + minor/juvenile lexicon + online activity + age assurance + behavioural monitoring + targeted advertising + school-grade markers (SG primary/secondary, UK Year N, US grade N) + verifiable-parental-consent vocabulary.
 - **Jurisdiction-suffix wiring** — every MNPI finding's suggestion rationale carries the destination-jurisdiction statute suffix; cross-jurisdiction routing (e.g. source=SG, destination=US) carries BOTH suffixes. Audited by `test/test_mnpi_jurisdiction_suffix.py` (item 94).
@@ -275,7 +265,7 @@ These statutory concepts are recognised in the first-principles analysis and are
 | Special-category PII (racial / ethnic origin; broader semantic special-category inference) | seed `racial_ethnic_origin` detector ships for explicit fields, named-subject statements, Mandarin fields, and Arabic fields; broader semantic special-category inference remains open | 71 partial |
 | Children's / minor's data (DPDPA s9 <18, GDPR Art 8 <16, COPPA <13, PIPL Art 31 <14) | v1 shipped 2026-05-27 (item 107): `minor_data_reference` single rule with per-jurisdiction-resolved severity from `_MINOR_AGE_CLIFFS` map | 107 (v1 shipped) |
 | Issuer-size-relative materiality (SAB No. 99) | v1 shipped 2026-05-27 (item 73): `_scale_financial_by_entity_size` post-pass with US (SAB 99 5%) + AU (GN8 5/10% + ASX-300 halving) tier ladders; MAR/SGX/HKEX advisory-only; fail-loud via `degraded_modes` when no lookup is configured. Direct `EntitySizeLookup` injection and operator-driven `JUNAS_ENTITY_SIZE_CSV` / `JUNAS_ENTITY_SIZE_JSON` providers ship | 73 (v1 shipped) |
-| Cross-document materiality (SEC v. Texas Gulf Sulphur) | v1 partial shipped 2026-05-27: matter store (item 55) provides defined-term inheritance across sessions. Combinatorial findings aggregator (full item 74) deferred — research showed matter-boundary inference without explicit ID is undecidable and risks privilege-waiver surface area | 55 (shipped) / 74 (aggregator deferred) |
+| Cross-document materiality (SEC v. Texas Gulf Sulphur) | Explicit defined-term context can be supplied per call; no automatic cross-document aggregation or persistent matter context | aggregator deferred |
 | Sector-specific MNPI (pharma, cyber, financial-services, energy, legal) | partial shipped 2026-06-10: `pharma_trial_mnpi`, `cyber_incident_pre_disclosure`, `financial_services_regulatory_mnpi`, `energy_reserves_mnpi`, `legal_proceeding_mnpi`; broader sector taxonomy / reviewer calibration remains open | 72 partial |
 | HK "not generally known" narrower test | shipped: audit-grade retriever treats generic web availability as `SOURCE_VERIFICATION_AMBIGUOUS` for HK unless the source is HK market-known (`hkexnews.hk`, HKEX/SFC text markers, issuer announcement / regulatory-announcement context), with `hk_public_status=available_but_not_generally_known` metadata | 82 (shipped) |
 | Quiet-period / blackout-window calendrical reasoning | v1 shipped 2026-05-27 (item 84): `blackout_period_reference` rule with SG/HK/UK/EU window registry; explicit-date detection plus operator `JUNAS_EARNINGS_CALENDAR_CSV` ticker / issuer lookup | 84 (v1 shipped) |
@@ -283,32 +273,9 @@ These statutory concepts are recognised in the first-principles analysis and are
 | Public-evidence retrieval for non-US jurisdictions | configured under audit_grade; HK-specific market-known threshold ships as ambiguous-unless-HK-market-source | 82 (shipped) |
 | Local postal-address for HK / KR beyond conservative format anchors | conservative `hk_postal_address` and `kr_postal_address` slices ship; broad multi-line/free-form building, unit, and district parsing remains open | 86 follow-up partial |
 
-## Operational defensibility surfaces
+## Extraction and evaluation
 
-The detector inventory above is one defensibility axis. The operational surfaces below are the other.
-
-| Surface | Status | Citation |
-|---|---|---|
-| Conditional HMAC-chained review journal integrity (`JUNAS_JOURNAL_KEY` or `JUNAS_JOURNAL_KEYS_FILE`) | shipped | items 14, 16, 18 |
-| Journal key rotation (per-org keystore) | shipped | item 14 |
-| Conditional mapping-store encryption (Fernet only when `JUNAS_MAPPING_STORE_KEY` is supplied) | shipped | item 41 |
-| Mapping retention / purge tooling | shipped | item 41 |
-| Multi-tenant request isolation (server SKU) | shipped | item 42 |
-| JWT/API-key tenant auth + RBAC | shipped | item 42 |
-| SIEM export (JSON-over-syslog) | shipped | item 43 |
-| Document metadata leakage review/scrub (DOCX, PDF, JPEG/PNG EXIF) | shipped | item 49 |
-| Fail-closed scanned-PDF / uncertain-format gate | shipped | item 50 |
-| Reviewer-mandated wait period (audit-pack export) | shipped | item 17 |
-| Audit-pack reviewer roll-up (maker-checker visibility) | shipped | item 15 |
-| Recall-baseline reviewer attribution | shipped | item 16 |
-| Latency SLO targets in CI | shipped | item 56 |
-| Per-tenant citations override | shipped | item 60 |
-| Subject-erasure reverse-index | shipped | item 59 |
-| Reviewer identity bound to authenticated principal | shipped | item 57 |
-| Local-daemon production ACL | shipped | item 58 |
-| Workflow-wide fail-closed audit | backlog | item 65 |
-| Binary / container metadata coverage (EML attachments and forwarded messages, PDF annotations/forms/signatures/XFA/embedded files, DOCX comments/track-changes, XLSX hidden sheets/pivot caches, PPTX notes, archives) | partial | item 61 |
-| Image OCR / recognition | shipped | item 64 |
+Document extraction, metadata inspection, bounded container traversal, and optional OCR remain in the pipeline. Unsupported or unreadable input is rejected by default. Corpus locks and label provenance remain available for reproducible detection experiments. Product enforcement and persistence have been removed.
 
 ## Disclaimers
 

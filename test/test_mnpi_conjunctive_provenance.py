@@ -27,7 +27,6 @@ class MnpiConjunctiveProvenanceTests(unittest.TestCase):
         self.assertIn("No public MNPI text-detection benchmark", text)
         self.assertIn("internal expert-labelled/project-owner-reviewed fixtures", text)
         self.assertIn("Strict `conjunctive_mnpi` span placement includes detector reconciliation", text)
-        self.assertIn("market gap Junas targets", text)
 
 
 if __name__ == "__main__":

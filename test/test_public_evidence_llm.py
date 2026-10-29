@@ -1,23 +1,8 @@
 import unittest
-from contextlib import asynccontextmanager
 from types import SimpleNamespace
-from unittest import mock
 
-from fastapi.testclient import TestClient
-
-import junas.backend.main as main
 from junas.external.privacy_guard import PrivacyGuard
 from junas.external.public_evidence.inference import PublicEvidenceRetriever
-from junas.review.engine import Classification, ReviewResult
-from test import observability_test_app as test_app
-
-
-@asynccontextmanager
-async def _noop_lifespan(app):
-    yield
-
-
-main.app.router.lifespan_context = _noop_lifespan
 
 
 class DummyPublicEvidence:
@@ -126,68 +111,6 @@ class PublicEvidencePrivacyTests(unittest.TestCase):
         self.assertEqual(payload["status"], "skipped")
         self.assertEqual(payload["queries"], [])
         self.assertEqual(payload["privacy_ledger"], [])
-
-
-class PublicEvidenceLLMApiTests(unittest.TestCase):
-    def test_classify_stays_strict_deterministic_even_when_llm_layers_seeded(self):
-        text = "Acme Corp announced its acquisition of GlobalTech in a public press release."
-        llm = DummyLLMAdjudicator()
-        test_app.seed_test_state(
-            pipeline=["public_evidence", "llm_adjudicator"],
-            models={
-                "public_evidence": DummyPublicEvidence(),
-                "llm_adjudicator": llm,
-            },
-        )
-
-        with mock.patch("junas.backend.main.emit_privacy_ledger_events") as emit_privacy_events:
-            with TestClient(test_app.app) as client:
-                response = client.post("/classify", json={"text": text, "entity_id": "Acme Corp"})
-
-        self.assertEqual(response.status_code, 200)
-        payload = response.json()
-        self.assertEqual(payload["classification"], "LOW_RISK")
-        self.assertIsNone(payload["public_evidence"])
-        self.assertIsNone(payload["llm_adjudication"])
-        self.assertEqual(payload["privacy_ledger"], [])
-        self.assertEqual(payload["lexicon"], None)
-        self.assertEqual(payload["model1"], None)
-        self.assertEqual(payload["mosaic"], None)
-        self.assertFalse(hasattr(llm, "last_payload"))
-        emit_privacy_events.assert_called_once()
-        self.assertEqual(emit_privacy_events.call_args.kwargs["endpoint"], "/classify")
-        self.assertEqual(len(emit_privacy_events.call_args.args[0]), 0)
-
-    def test_classify_surfaces_engine_degraded_modes(self):
-        class DegradedEngine:
-            def review(self, **kwargs):
-                return ReviewResult(
-                    overall_risk=Classification.SAFE,
-                    document_score=0.0,
-                    pii_score=0.0,
-                    mnpi_score=0.0,
-                    jurisdictions_applied=["SG"],
-                    jurisdiction_policy="strictest_wins",
-                    degraded_modes=[
-                        {
-                            "mode": "entity_size_lookup",
-                            "status": "unavailable",
-                            "reason": "entity_size_lookup is not configured",
-                            "detail": {"entity_id": "Acme Corp"},
-                        }
-                    ],
-                )
-
-        with mock.patch("junas.backend.main._build_review_engine", return_value=DegradedEngine()):
-            response = main._classify_core(
-                main.ClassifyRequest(text="Acme Corp revenue threshold check", entity_id="Acme Corp"),
-                "req-1",
-                "/classify",
-            )
-
-        self.assertTrue(response.observability.degraded)
-        self.assertEqual(response.degraded_modes[0].mode, "entity_size_lookup")
-        self.assertEqual(response.degraded_modes[0].status, "unavailable")
 
 
 if __name__ == "__main__":

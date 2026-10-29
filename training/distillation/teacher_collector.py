@@ -20,7 +20,7 @@ Dataset row shape:
 
 Re-runs are idempotent: rows already present in the output JSONL keyed by text_hash are
 skipped unless `--force` is set. Every cloud call is recorded in the privacy ledger
-under `${JUNAS_JOURNAL_DIR}/training_ledger.jsonl` so the auditor can reconstruct
+under `${JUNAS_CACHE_DIR}/training_ledger.jsonl` so the auditor can reconstruct
 exactly which documents were sent to the teacher and when.
 
 Usage:
@@ -141,7 +141,7 @@ def _load_existing_hashes(output: Path) -> set[str]:
 
 
 def _ledger_path() -> Path:
-    journal_dir = Path(os.environ.get("JUNAS_JOURNAL_DIR", "./junas-journal"))
+    journal_dir = Path(os.environ.get("JUNAS_CACHE_DIR", "./.junas-cache"))
     return journal_dir / DEFAULT_LEDGER_NAME
 
 
@@ -171,8 +171,9 @@ class TeacherAdjudicator:
     def __init__(self, adjudicator: Any):
         self.adjudicator = adjudicator
 
-    def adjudicate(self, *, text: str, current_classification: str,
-                   findings: list, entity_id: str | None) -> dict[str, Any]:
+    def adjudicate(
+        self, *, text: str, current_classification: str, findings: list, entity_id: str | None
+    ) -> dict[str, Any]:
         # the underlying adjudicator either has the modern signature (accepts findings
         # + entity_id) or the legacy one. catch TypeError to support both.
         try:
@@ -194,6 +195,7 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
     is forwarded to the runtime settings loader so the same env-var / config-file
     plumbing applies as at server runtime."""
     if provider_arg == "mock":
+
         class _Mock:
             def adjudicate(self, *, text, current_classification, **_):
                 return {
@@ -208,6 +210,7 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
                     "unverified_claims": [],
                     "review_recommendation": "no escalation (mock)",
                 }
+
         return TeacherAdjudicator(_Mock())
 
     from junas.advisory.llm_adjudicator.inference import LocalLLMAdjudicator
@@ -217,8 +220,9 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
     return TeacherAdjudicator(LocalLLMAdjudicator(settings.llm))
 
 
-def _build_user_content_for_row(*, input_mode: str, text: str, classification: str,
-                                  findings: list, entity_id: str | None) -> str:
+def _build_user_content_for_row(
+    *, input_mode: str, text: str, classification: str, findings: list, entity_id: str | None
+) -> str:
     """Build the JSON string the LLM saw on the user turn — store it in the row so
     distill_train.py doesn't have to re-derive it from text. Lazy import keeps the
     runtime-only imports off the test path when provider=mock."""
@@ -233,6 +237,7 @@ def _build_user_content_for_row(*, input_mode: str, text: str, classification: s
         from junas.advisory.llm_adjudicator.structured_query import (
             build_structured_query,
         )
+
         query = build_structured_query(
             text=text,
             findings=findings,
@@ -266,8 +271,10 @@ def collect(
             text_hash = _text_hash(doc.text)
             if text_hash in existing:
                 _record_ledger(
-                    doc_id=doc.doc_id, text_hash=text_hash,
-                    status="skipped", detail="already collected",
+                    doc_id=doc.doc_id,
+                    text_hash=text_hash,
+                    status="skipped",
+                    detail="already collected",
                 )
                 continue
 
@@ -289,8 +296,10 @@ def collect(
                 )
                 if str(verdict.get("status", "")) == "error":
                     _record_ledger(
-                        doc_id=doc.doc_id, text_hash=text_hash,
-                        status="teacher_error", detail=str(verdict.get("review_recommendation", "")),
+                        doc_id=doc.doc_id,
+                        text_hash=text_hash,
+                        status="teacher_error",
+                        detail=str(verdict.get("review_recommendation", "")),
                     )
                     errors += 1
                     continue
@@ -321,13 +330,17 @@ def collect(
                 rows_written += 1
                 existing.add(text_hash)
                 _record_ledger(
-                    doc_id=doc.doc_id, text_hash=text_hash,
-                    status="collected", detail=verdict.get("provider", ""),
+                    doc_id=doc.doc_id,
+                    text_hash=text_hash,
+                    status="collected",
+                    detail=verdict.get("provider", ""),
                 )
             except Exception as exc:
                 _record_ledger(
-                    doc_id=doc.doc_id, text_hash=text_hash,
-                    status="exception", detail=str(exc)[:200],
+                    doc_id=doc.doc_id,
+                    text_hash=text_hash,
+                    status="exception",
+                    detail=str(exc)[:200],
                 )
                 errors += 1
     return rows_written, errors
@@ -336,25 +349,33 @@ def collect(
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Collect teacher verdicts for distillation")
     parser.add_argument(
-        "--corpus", type=Path, action="append", required=True,
+        "--corpus",
+        type=Path,
+        action="append",
+        required=True,
         help="corpus dir to walk. repeat for multiple corpora.",
     )
     parser.add_argument(
-        "--output", type=Path, required=True,
+        "--output",
+        type=Path,
+        required=True,
         help="JSONL output path; appended-to so re-runs are idempotent by text_hash.",
     )
     parser.add_argument(
-        "--input-mode", default="raw_text",
+        "--input-mode",
+        default="raw_text",
         choices=["raw_text", "structured_tokens"],
         help="must match the LLM input mode used at serve time so the student sees the same shape.",
     )
     parser.add_argument(
-        "--provider", default="runtime",
+        "--provider",
+        default="runtime",
         help="`runtime` (default) reads junas.configs.runtime for the adjudicator; "
         "`mock` returns canned verdicts (tests).",
     )
     parser.add_argument(
-        "--force", action="store_true",
+        "--force",
+        action="store_true",
         help="re-emit rows for every doc, even those already in --output by text_hash.",
     )
     parser.add_argument("--entity-id", default=None, help="optional entity_id passed to the teacher.")
@@ -384,13 +405,18 @@ def main(argv: list[str] | None = None) -> int:
         force=args.force,
         entity_id=args.entity_id,
     )
-    print(json.dumps({
-        "rows_written": rows,
-        "errors": errors,
-        "output": str(output),
-        "ledger": str(_ledger_path()),
-        "input_mode": args.input_mode,
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "rows_written": rows,
+                "errors": errors,
+                "output": str(output),
+                "ledger": str(_ledger_path()),
+                "input_mode": args.input_mode,
+            },
+            indent=2,
+        )
+    )
     return 1 if errors else 0
 
 
