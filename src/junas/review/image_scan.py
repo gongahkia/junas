@@ -112,7 +112,17 @@ def _preflight_pdf_images(page: Any, budget: _ImageBudget) -> None:
         if len(visited) > MAX_PDF_IMAGE_OBJECTS:
             raise ImageScanError("PDF image resource traversal limit exceeded")
         if obj.get("/Subtype") == "/Image":
-            budget.charge(pixels=_check_dimensions(obj.get("/Width"), obj.get("/Height")))
+            pixels = _check_dimensions(obj.get("/Width"), obj.get("/Height"))
+            filters = obj.get("/Filter") or []
+            filters = filters if isinstance(filters, list) else [filters]
+            encoded_bytes = 0
+            if any(str(f) in {"/DCTDecode", "/JPXDecode"} for f in filters):
+                payload = obj.get_data()
+                encoded_bytes = len(payload)
+                if encoded_bytes > int(getattr(budget.settings, "max_bytes", 10 * 1024 * 1024)):
+                    raise ImageScanError("PDF encoded image byte budget exceeded")
+                pixels = max(pixels, image_pixel_count(payload))
+            budget.charge(pixels=pixels, encoded_bytes=encoded_bytes)
             for key in ("/SMask", "/Mask"):
                 mask = obj.get(key)
                 if mask is not None and not isinstance(mask, (list, str)):
@@ -134,11 +144,13 @@ def _preflight_pdf_images(page: Any, budget: _ImageBudget) -> None:
         for operands, operator in contents.operations:
             if operator == b"INLINE IMAGE":
                 settings = operands["settings"]
-                budget.charge(
-                    pixels=_check_dimensions(
-                        settings.get("/W", settings.get("/Width")), settings.get("/H", settings.get("/Height"))
-                    )
+                pixels = _check_dimensions(
+                    settings.get("/W", settings.get("/Width")), settings.get("/H", settings.get("/Height"))
                 )
+                filters = settings.get("/F", settings.get("/Filter"))
+                if str(filters) in {"/DCT", "/DCTDecode", "/JPXDecode"}:
+                    pixels = max(pixels, image_pixel_count(operands["data"]))
+                budget.charge(pixels=pixels)
 
 
 @dataclass(frozen=True)
@@ -486,7 +498,7 @@ def _normalize_confidence(raw: Any) -> float | None:
         value = float(raw)
     except (TypeError, ValueError):
         return None
-    if value < 0:
+    if not math.isfinite(value) or value < 0:
         return None
     if value > 1.0:
         value = value / 100.0
@@ -1088,7 +1100,15 @@ def scan_image_candidates(
                 raise ImageScanError("OCR result locator differs from submitted image")
             if result.regions and result.text != clean_ocr_text(result.text):
                 raise ImageScanError("OCR normalization would invalidate source regions")
+            for confidence in [result.confidence, *(r.confidence for r in result.regions)]:
+                if confidence is not None and (not math.isfinite(confidence) or not 0 <= confidence <= 1):
+                    raise ImageScanError("OCR confidence is invalid")
             for region in result.regions:
+                box = region.bounding_box
+                if box is not None and any(
+                    not math.isfinite(v) or not 0 <= v <= 1 for v in (box.x, box.y, box.width, box.height)
+                ):
+                    raise ImageScanError("OCR bounding box is not a valid normalized source region")
                 if (
                     not 0 <= region.start_char < region.end_char <= len(result.text)
                     or result.text[region.start_char : region.end_char] != region.text

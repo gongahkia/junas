@@ -215,7 +215,8 @@ def _extract_pdf(
                     "page_number": page_number,
                     "text_chars": page_text_lengths[-1],
                     "images": page_images,
-                    "needs_ocr": page_text_lengths[-1] < min_chars_per_page,
+                    "needs_page_render": page_text_lengths[-1] < min_chars_per_page,
+                    "needs_ocr": page_text_lengths[-1] < min_chars_per_page or page_images is None or page_images > 0,
                 }
             )
 
@@ -396,7 +397,7 @@ def extract_review_document(
         method = "pypdf"
         image_candidates = []
         if image_scan_enabled:
-            required_pages = [p["page_number"] for p in page_inventory if p["needs_ocr"]]
+            required_pages = [p["page_number"] for p in page_inventory if p["needs_page_render"]]
             if not page_inventory and extraction_quality == "ocr_pending":
                 required_pages = list(range(1, (page_count or 0) + 1))
             try:

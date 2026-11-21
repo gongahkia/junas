@@ -3,6 +3,7 @@
 import base64
 import importlib.util
 import io
+import shutil
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
@@ -437,3 +438,154 @@ def test_real_pdfium_raster_and_fake_provider_are_distinguished():
     assert [s.locator.page_number for s in result.document.image_text_spans] == [1, 2]
     assert _summary(result)["processed"] == 2
     _assert_integrity(result)
+
+
+def test_pdf_jpeg_header_cannot_hide_behind_smaller_declared_dimensions(monkeypatch):
+    from PIL import Image
+    from pypdf.generic import EncodedStreamObject
+
+    encoded = io.BytesIO()
+    Image.new("RGB", (80, 30), "white").save(encoded, format="JPEG")
+    writer = PdfWriter()
+    page = writer.add_blank_page(width=72, height=72)
+    img = EncodedStreamObject()
+    img._data = encoded.getvalue()
+    img.update(
+        {
+            NameObject("/Subtype"): NameObject("/Image"),
+            NameObject("/Width"): NumberObject(1),
+            NameObject("/Height"): NumberObject(1),
+            NameObject("/Filter"): NameObject("/DCTDecode"),
+            NameObject("/ColorSpace"): NameObject("/DeviceRGB"),
+            NameObject("/BitsPerComponent"): NumberObject(8),
+        }
+    )
+    page[NameObject("/Resources")] = DictionaryObject(
+        {NameObject("/XObject"): DictionaryObject({NameObject("/I"): writer._add_object(img)})}
+    )
+    out = io.BytesIO()
+    writer.write(out)
+    monkeypatch.setattr(image_scan, "MAX_IMAGE_PIXELS", 100)
+    with patch(
+        "pypdf.generic._image_xobject._xobj_to_image", side_effect=AssertionError("pixel decoder reached")
+    ) as decoder:
+        with pytest.raises(ImageScanError, match="pixel"):
+            image_scan.collect_pdf_images(out.getvalue())
+        decoder.assert_not_called()
+
+
+def test_archive_image_omission_is_qualified_when_ocr_disabled():
+    import zipfile
+
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w") as archive:
+        archive.writestr("body.txt", "Original body S1234567D")
+        archive.writestr("image.png", _png_bytes())
+    result = ReviewPipeline().review(_payload(stream.getvalue(), "images.zip"))
+    assert result.to_dict()["status"] == "degraded"
+    assert "image.png" in " ".join(result.document.extraction_warnings)
+    _assert_integrity(result)
+
+
+def test_image_email_attachment_retains_part_identity_after_ocr_append():
+    mail = _email("Original S1234567D")
+    _attach(mail, _png_bytes(), "scan.png", "image/png")
+    with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner()):
+        result = ReviewPipeline(_settings()).review(_payload(mail.as_bytes(), "mail.eml"))
+    image_finding = next(f for f in result.review.findings if f.source == "image_ocr" and f.rule == "sg_nric_fin")
+    assert image_finding.image_locator["container_path"] == "1.2/scan.png"
+    assert image_finding.metadata["original_document"] == "mail.eml"
+    body_finding = next(f for f in result.review.findings if f.source == "text" and f.rule == "sg_nric_fin")
+    assert body_finding.metadata["email_sources"][0]["part_path"] == "1.1"
+    _assert_integrity(result)
+
+
+@pytest.mark.skipif(
+    not HAS_PDFIUM or shutil.which("tesseract") is None or importlib.util.find_spec("pytesseract") is None,
+    reason="optional native PDFium and Tesseract required",
+)
+def test_real_pdfium_and_tesseract_recover_preserved_fixture(tmp_path):
+    import os
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    from PIL import Image
+
+    fixture = Path(__file__).parent / "fixtures/ocr/ambiguous-s-prefix.png"
+    with Image.open(fixture) as image:
+        image = image.convert("RGB")
+        width, height = image.size
+        writer = PdfWriter()
+        page = writer.add_blank_page(width=width / 2, height=height / 2)
+        img = DecodedStreamObject()
+        img.set_data(image.tobytes())
+        img.update(
+            {
+                NameObject("/Type"): NameObject("/XObject"),
+                NameObject("/Subtype"): NameObject("/Image"),
+                NameObject("/Width"): NumberObject(width),
+                NameObject("/Height"): NumberObject(height),
+                NameObject("/ColorSpace"): NameObject("/DeviceRGB"),
+                NameObject("/BitsPerComponent"): NumberObject(8),
+            }
+        )
+    page[NameObject("/Resources")] = DictionaryObject(
+        {NameObject("/XObject"): DictionaryObject({NameObject("/I"): writer._add_object(img.flate_encode())})}
+    )
+    contents = DecodedStreamObject()
+    contents.set_data(f"q {width / 2} 0 0 {height / 2} 0 0 cm /I Do Q".encode())
+    page[NameObject("/Contents")] = writer._add_object(contents)
+    path = tmp_path / "scan.pdf"
+    writer.write(path)
+    # use a fresh interpreter because other tests stub optional provider modules.
+    code = """
+import sys
+from junas import ReviewPipeline
+from junas.configs.runtime import get_runtime_settings
+result = ReviewPipeline(get_runtime_settings({'image_scan.provider':'tesseract'})).review_file(sys.argv[1])
+f = next(f for f in result.review.findings if f.rule == 'sg_nric_fin')
+assert f.matched_text == 'S1234567D'
+assert f.source == 'image_ocr' and f.image_locator['page_number'] == 1
+assert f.image_ocr_regions and f.image_ocr_regions[0]['bounding_box']
+assert result.document.text[f.start_char:f.end_char] == f.matched_text
+assert result.to_dict()['status'] == 'completed'
+"""
+    env = {k: v for k, v in os.environ.items() if not k.startswith("JUNAS_")}
+    completed = subprocess.run(
+        [sys.executable, "-B", "-c", code, str(path)], env=env, capture_output=True, text=True, timeout=30
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+
+
+@pytest.mark.parametrize("value", [float("nan"), float("inf"), -1])
+def test_nonfinite_or_negative_provider_confidence_is_unknown(value):
+    assert image_scan._normalize_confidence(value) is None
+
+
+def test_provider_region_coordinates_are_validated_without_fabrication():
+    from junas.review.image_scan import ImageBoundingBox, ImageTextRegion
+
+    c = ImageCandidate(_png_bytes(), "image/png", ImageLocator("x.png", 0))
+    scanner = Mock(provider="fake")
+    scanner.scan.return_value = ImageOcrResult(
+        "sensitive",
+        c.locator,
+        "fake",
+        regions=[ImageTextRegion("sensitive", 0, 9, ImageBoundingBox(float("nan"), 0, 1, 1))],
+    )
+    with pytest.raises(ImageScanError, match="bounding box"):
+        image_scan.scan_image_candidates([c], scanner=scanner, settings=SimpleNamespace())
+
+
+def test_image_decompression_bomb_header_is_an_explicit_refusal():
+    from PIL import Image
+
+    with patch("PIL.Image.open", side_effect=Image.DecompressionBombWarning("bounded synthetic header warning")):
+        with pytest.raises(ImageScanError, match="header"):
+            image_scan.image_pixel_count(b"not decoded")
+
+
+@pytest.mark.parametrize("scale", [0.25, 4.0])
+def test_render_scale_supported_boundaries(scale):
+    assert _settings(**{"image_scan.pdf_render_scale": scale}).image_scan.pdf_render_scale == scale

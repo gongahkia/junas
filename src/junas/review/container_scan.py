@@ -391,6 +391,10 @@ def _scan_by_type(
                 )
             ]
         )
+    if mime_type in IMAGE_MIMES:
+        return ContainerScanResult(
+            warnings=[f"Image {container_prefix or filename} has OCR disabled; reviewed text layer only"]
+        )
     if mime_type.startswith("text/") or mime_type == "application/json":
         return ContainerScanResult(text_blocks=[data.decode("utf-8", errors="replace")])
     if email_budget is not None and email_budget.email_depth:

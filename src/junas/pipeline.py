@@ -173,15 +173,15 @@ class ReviewPipeline:
                         unit["reason"] = str(exc)
             if not coverage:
                 coverage = [
-                    {"locator": c.locator.to_dict(), "status": "not_submitted"} for c in document.image_candidates
+                    {"locator": c.locator.to_dict(), "status": "not_submitted"} for c in document.image_candidates or []
                 ]
-            metadata = list(document.metadata_findings or [])
+            coverage_metadata = list(document.metadata_findings or [])
             for index, unit in enumerate(coverage):
                 unit["provider"] = settings.image_scan.provider
                 unit["retained"] = any(
                     span.locator.to_dict() == unit["locator"] for span in document.image_text_spans or []
                 )
-                metadata.append(
+                coverage_metadata.append(
                     {
                         "id": f"ocr-unit-{index}",
                         "source": "image_ocr_coverage",
@@ -191,7 +191,7 @@ class ReviewPipeline:
                         "value_preview": unit["status"],
                     }
                 )
-            for item in metadata:
+            for item in coverage_metadata:
                 if item["source"] == "pdf_page_coverage":
                     page = json.loads(item["detail"])
                     units = [u for u in coverage if u["locator"].get("page_number") == page["page_number"]]
@@ -206,7 +206,7 @@ class ReviewPipeline:
                 "not_submitted": sum(u["status"] == "not_submitted" for u in coverage),
                 "retained": sum(u["retained"] for u in coverage),
             }
-            metadata.append(
+            coverage_metadata.append(
                 {
                     "id": "ocr-summary",
                     "source": "image_ocr_coverage",
@@ -216,7 +216,7 @@ class ReviewPipeline:
                     "value_preview": "work_accounting",
                 }
             )
-            document = replace(document, metadata_findings=metadata)
+            document = replace(document, metadata_findings=coverage_metadata)
         check_analyzed_text(document.text)
         engine = self._engines.get(review_profile)
         if engine is None:
@@ -251,6 +251,7 @@ class ReviewPipeline:
                 finding.image_ocr_confidence = metadata.get("confidence")
                 finding.image_ocr_regions = metadata.get("regions", [])
                 finding.metadata["image_ocr_provider"] = metadata.get("provider")
+                finding.metadata["image_ocr_region_extent"] = "provider_region"
                 finding.metadata["original_document"] = document.filename
         review.privacy_ledger = privacy_ledger + review.privacy_ledger
         review.degraded_modes = degraded + review.degraded_modes
