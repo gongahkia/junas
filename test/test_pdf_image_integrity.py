@@ -1,6 +1,7 @@
 """Bounded PDF/OCR coverage tests; fake providers are separate from native checks."""
 
 import base64
+import importlib.util
 import io
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
@@ -15,6 +16,9 @@ from junas.review import image_scan
 from junas.review.image_scan import ImageCandidate, ImageLocator, ImageOcrResult, ImageScanError
 from test.test_email_attachment_integrity import _attach, _email
 from test.test_image_scan import FakeImageScanner, _docx_with_embedded_png, _png_bytes
+
+HAS_PDFIUM = importlib.util.find_spec("pypdfium2") is not None
+NATIVE_RENDER = pytest.mark.skipif(not HAS_PDFIUM, reason="optional pypdfium2 required")
 
 
 def _pdf(pages):
@@ -82,6 +86,7 @@ def test_best_effort_sparse_pdf_with_ocr_disabled_is_degraded():
     assert any("page" in w for w in result.document.extraction_warnings)
 
 
+@NATIVE_RENDER
 def test_embedded_image_does_not_hide_sparse_page_rendering():
     with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner()) as scanner:
         result = ReviewPipeline(_settings()).review(
@@ -111,6 +116,7 @@ def test_decoded_pixel_limit_precedes_scanner(monkeypatch):
     scanner.scan.assert_not_called()
 
 
+@NATIVE_RENDER
 def test_render_pixel_estimate_precedes_rasterization(monkeypatch):
     monkeypatch.setattr(image_scan, "MAX_IMAGE_PIXELS", 100, raising=False)
     with pytest.raises(ImageScanError, match="pixel"):
@@ -241,6 +247,7 @@ def test_unsupported_office_media_is_visibly_unreviewed(strict):
 
 
 @pytest.mark.parametrize("strict", [True, False])
+@NATIVE_RENDER
 def test_page_limit_cannot_hide_later_text_or_omitted_page(strict):
     pages = [("", False), ("Late text contains S1234567D and remains reviewable", False), ("", False)]
     with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner()):
@@ -329,12 +336,16 @@ def test_invalid_or_excessive_dimensions(width, height):
 
 @pytest.mark.parametrize("scale", [float("nan"), float("inf"), -1, 0, 4.01])
 def test_direct_renderer_rejects_scale_before_native_open(scale):
-    with patch("pypdfium2.PdfDocument") as native:
+    with patch.dict("sys.modules", {"pypdfium2": SimpleNamespace(PdfDocument=Mock())}):
+        import pypdfium2
+
+        native = pypdfium2.PdfDocument
         with pytest.raises(ImageScanError):
             image_scan.collect_pdf_page_renders(b"no native parser needed", scale=scale)
         native.assert_not_called()
 
 
+@NATIVE_RENDER
 def test_oversized_pdf_page_checked_before_render():
     writer = PdfWriter()
     writer.add_blank_page(width=20000, height=144)
@@ -346,6 +357,7 @@ def test_oversized_pdf_page_checked_before_render():
         render.assert_not_called()
 
 
+@NATIVE_RENDER
 def test_render_aggregate_pixel_budget_stops_next_raster(monkeypatch):
     monkeypatch.setattr(image_scan, "MAX_TOTAL_IMAGE_PIXELS", 20736)
     import pypdfium2
@@ -417,6 +429,7 @@ def test_standalone_image_success_is_counted_with_exact_provenance():
     _assert_integrity(result)
 
 
+@NATIVE_RENDER
 def test_real_pdfium_raster_and_fake_provider_are_distinguished():
     # real PDFium rasterization, synthetic OCR: this is not OCR accuracy evidence.
     with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner()):

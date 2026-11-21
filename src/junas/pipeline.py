@@ -191,6 +191,12 @@ class ReviewPipeline:
                         "value_preview": unit["status"],
                     }
                 )
+            for item in metadata:
+                if item["source"] == "pdf_page_coverage":
+                    page = json.loads(item["detail"])
+                    units = [u for u in coverage if u["locator"].get("page_number") == page["page_number"]]
+                    page["ocr_outcomes"] = [{"status": u["status"], "retained": u["retained"]} for u in units]
+                    item["detail"] = json.dumps(page, sort_keys=True)
             summary = {
                 "discovered": len(coverage),
                 "submitted": sum(u["status"] != "not_submitted" for u in coverage),

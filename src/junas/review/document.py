@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import html
+import json
 import re
 import zipfile
 from dataclasses import dataclass
@@ -250,7 +251,7 @@ def _extract_pdf(
         )
     if warnings:
         return extracted, page_count, "degraded", [_fail_open_warning(w) for w in warnings]
-    if empty_pages:
+    if empty_pages and not image_scan_enabled:
         warnings.append(f"PDF has {empty_pages} sparse page(s); reviewed text layer only")
     if image_count and not image_scan_enabled:
         warnings.append("PDF contains embedded images; reviewed text layer only")
@@ -413,8 +414,9 @@ def extract_review_document(
                     extraction_warnings.append(_fail_open_warning(reason))
                     extraction_quality = "degraded"
                 selected = required_pages[:max_pages]
-                image_candidates = collect_pdf_images(
-                    data, exclude_pages=set(required_pages), settings=image_scan_settings
+                image_candidates = list(container_image_candidates)
+                image_candidates.extend(
+                    collect_pdf_images(data, exclude_pages=set(required_pages), settings=image_scan_settings)
                 )
                 if selected:
                     render_budget = _ImageBudget(image_scan_settings)
@@ -436,7 +438,7 @@ def extract_review_document(
                     extraction_warnings.append(f"PDF rendered {len(rendered)} page(s) for configured image OCR")
                 if required_pages and not image_candidates:
                     raise ImageScanError("PDF pages require OCR but no images were collected")
-            except (ImageScanError, ValueError, RuntimeError, OSError) as exc:
+            except Exception as exc:
                 if fail_closed:
                     raise ImageScanError(f"PDF image collection failed closed: {exc}") from exc
                 image_candidates = []
@@ -450,8 +452,12 @@ def extract_review_document(
                     "source": "pdf_page_coverage",
                     "field": str(page["page_number"]),
                     "severity": "info",
-                    "detail": (
-                        f"text_chars={page['text_chars']}; images={page['images']}; requires_ocr={page['needs_ocr']}"
+                    "detail": json.dumps(
+                        {
+                            **page,
+                            "ocr_units": sum(c.locator.page_number == page["page_number"] for c in image_candidates),
+                        },
+                        sort_keys=True,
                     ),
                     "value_preview": "text_and_image_inventory",
                 }

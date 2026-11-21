@@ -118,6 +118,12 @@ def _preflight_pdf_images(page: Any, budget: _ImageBudget) -> None:
                 if mask is not None and not isinstance(mask, (list, str)):
                     stack.append(mask)
             continue
+        if obj.get("/Subtype") == "/Form":
+            from pypdf.generic import ContentStream
+
+            contents = ContentStream(obj, getattr(page, "pdf", None))
+            if any(operator == b"INLINE IMAGE" for _, operator in contents.operations):
+                raise ImageScanError("inline image in PDF Form is unsupported by image extraction")
         resources = obj.get("/Resources") or {}
         resources = resources.get_object() if hasattr(resources, "get_object") else resources
         xobjects = resources.get("/XObject") or {}
@@ -1065,20 +1071,13 @@ def scan_image_candidates(
     for candidate in candidates:
         if candidate.mime_type not in SUPPORTED_IMAGE_MIMES:
             raise ImageScanError(f"unsupported OCR media {candidate.mime_type} at {candidate.locator.container_path}")
+        if len(candidate.data) > max_bytes:
+            raise ImageScanError(f"image OCR individual byte budget exceeds maximum {max_bytes}")
         budget.charge(pixels=image_pixel_count(candidate.data), encoded_bytes=len(candidate.data))
 
     results: list[ImageOcrResult] = []
     privacy_ledger: list[dict[str, Any]] = []
     for index, candidate in enumerate(candidates):
-        if candidate.mime_type not in SUPPORTED_IMAGE_MIMES:
-            raise ImageScanError(
-                f"image OCR does not support {candidate.mime_type} at {candidate.locator.container_path}"
-            )
-        if len(candidate.data) > max_bytes:
-            raise ImageScanError(
-                f"image OCR refused {candidate.locator.container_path}; "
-                f"{len(candidate.data)} bytes exceeds maximum {max_bytes}"
-            )
         coverage[index]["status"] = "submitted"
         try:
             raw_result = scanner.scan(candidate)
