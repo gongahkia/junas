@@ -238,7 +238,9 @@ def _context_span(text: str, start: int, end: int) -> tuple[int, int, str]:
         matched = text[center_left:center_right].strip()
         left = center_left
         right = center_right
-    return left, right, matched
+    raw = text[left:right]
+    left += len(raw) - len(raw.lstrip())
+    return left, left + len(matched), matched
 
 
 def _severity_for_elements(materiality_state: str, possession_or_duty: bool) -> str:

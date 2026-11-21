@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any
 
 from junas.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
@@ -1298,12 +1298,44 @@ def _risk_from_score(score: float) -> Classification:
     return Classification.SAFE
 
 
-def _line_context(text: str, start: int, end: int) -> str:
+def _line_span(text: str, start: int, end: int) -> tuple[int, int]:
     left = text.rfind("\n", 0, start) + 1
     right = text.find("\n", end)
     if right < 0:
         right = len(text)
-    return text[left:right].strip()
+    raw = text[left:right]
+    left += len(raw) - len(raw.lstrip())
+    return left, left + len(raw.strip())
+
+
+def _line_context(text: str, start: int, end: int) -> str:
+    left, right = _line_span(text, start, end)
+    return text[left:right]
+
+
+def _deduplicate_findings(findings: list[ReviewFinding]) -> list[ReviewFinding]:
+    """Retain the first emission; only the generated ID may differ."""
+    seen: dict[tuple[str, str, str, int, int], list[ReviewFinding]] = {}
+    unique: list[ReviewFinding] = []
+    for finding in findings:
+        key = (finding.category, finding.rule, finding.source, finding.start_char, finding.end_char)
+        peers = seen.setdefault(key, [])
+        evidence = replace(finding, id="")
+        if evidence in peers:
+            continue
+        peers.append(evidence)
+        unique.append(finding)
+    return unique
+
+
+def _validate_finding_spans(text: str, findings: list[ReviewFinding]) -> None:
+    for finding in findings:
+        # document-level advisory observations do not claim a text evidence span.
+        if finding.source not in {"text", "image_ocr"}:
+            continue
+        start, end = finding.start_char, finding.end_char
+        if not (0 <= start < end <= len(text)) or text[start:end] != finding.matched_text:
+            raise ReviewLayerError("finding_integrity", f"Invalid evidence span for rule {finding.rule}")
 
 
 def _new_finding(
@@ -1319,6 +1351,7 @@ def _new_finding(
     reason: str,
     legal_basis: str,
     source_verification: str = SOURCE_VERIFICATION_NOT_CHECKED,
+    source: str = "text",
     metadata: dict[str, Any] | None = None,
 ) -> ReviewFinding:
     return ReviewFinding(
@@ -1334,6 +1367,7 @@ def _new_finding(
         reason=reason,
         legal_basis=legal_basis,
         source_verification=source_verification,
+        source=source,
         metadata=dict(metadata or {}),
     )
 
@@ -2754,6 +2788,7 @@ _QUASI_IDENTIFIER_MIN_DISTINCT = 3
 def _detect_quasi_identifier_combinations(
     findings: list["ReviewFinding"],
     *,
+    text: str,
     review_profile: str,
     jurisdiction: str,
     legal_basis: str,
@@ -2826,9 +2861,7 @@ def _detect_quasi_identifier_combinations(
                     rule="quasi_identifier_combination",
                     jurisdiction=jurisdiction,
                     severity="medium",
-                    matched_text=(
-                        f"{len(distinct_rules)} distinct quasi-identifiers within {window_end - window_start} chars"
-                    ),
+                    matched_text=text[window_start:window_end],
                     start=window_start,
                     end=window_end,
                     reason=(
@@ -3496,6 +3529,7 @@ class _CalendarMatch:
     start: int
     end: int
     matched_text: str
+    source: str = "text"
 
 
 def _normalize_ticker(value: str) -> str:
@@ -3510,8 +3544,29 @@ def _ticker_contexts(text: str) -> dict[str, tuple[int, int, str]]:
     for match in _TICKER_CONTEXT_RE.finditer(text):
         ticker = _normalize_ticker(match.group("ticker"))
         if ticker:
-            out.setdefault(ticker, (match.start("ticker"), match.end("ticker"), match.group()))
+            out.setdefault(ticker, (match.start("ticker"), match.end("ticker"), match.group("ticker")))
     return out
+
+
+def _issuer_context(text: str, folded_text: str, issuer: str) -> tuple[int, int, str] | None:
+    if not issuer:
+        return None
+    folded_start = folded_text.find(issuer.casefold())
+    if folded_start < 0:
+        return None
+    folded_end = folded_start + len(issuer.casefold())
+    # the existing first-issuer lookup is in casefolded text, whose length can differ.
+    # derive source coordinates while locating that occurrence, before emitting evidence.
+    folded_offset = 0
+    start = 0
+    for index, char in enumerate(text):
+        next_offset = folded_offset + len(char.casefold())
+        if folded_offset <= folded_start < next_offset:
+            start = index
+        if folded_offset < folded_end <= next_offset:
+            return start, index + 1, text[start : index + 1]
+        folded_offset = next_offset
+    return None
 
 
 def _operator_calendar_matches(
@@ -3553,19 +3608,18 @@ def _operator_calendar_matches(
                 ticker = _normalize_ticker(row.get("ticker") or "")
                 issuer = (row.get("issuer") or "").strip()
                 ticker_hit = ticker_contexts.get(ticker) if ticker else None
-                issuer_hit = bool(issuer and issuer.casefold() in text_casefold)
+                issuer_context = _issuer_context(text, text_casefold, issuer)
                 entity_hit = bool(entity_key and entity_key in {ticker.casefold(), issuer.casefold()})
-                if not ticker_hit and not issuer_hit and not entity_hit:
+                if not ticker_hit and issuer_context is None and not entity_hit:
                     continue
+                source = "text"
                 if ticker_hit:
                     start, end, matched_text = ticker_hit
+                elif issuer_context is not None:
+                    start, end, matched_text = issuer_context
                 else:
-                    needle = issuer if issuer_hit else (issuer or ticker)
-                    start = text_casefold.find(needle.casefold()) if needle else 0
-                    if start < 0:
-                        start = 0
-                    end = start + len(needle)
-                    matched_text = needle
+                    start, end, matched_text = 0, 0, ""
+                    source = "operator_csv"
                 matches.append(
                     _CalendarMatch(
                         jurisdiction=jurisdiction,
@@ -3576,6 +3630,7 @@ def _operator_calendar_matches(
                         start=start,
                         end=end,
                         matched_text=matched_text,
+                        source=source,
                     )
                 )
     except OSError as exc:
@@ -3703,6 +3758,7 @@ def _detect_blackout_period_references(
                 matched_text=calendar_match.matched_text,
                 start=calendar_match.start,
                 end=calendar_match.end,
+                source=calendar_match.source,
                 reason=(
                     f"Document dated {doc_d.isoformat()}; operator earnings calendar has "
                     f"{calendar_match.period} results announcement on {ed.isoformat()} "
@@ -4308,8 +4364,13 @@ class PreSendReviewEngine:
         defined = defined_terms or set()
         doc_type_key = (document_type or "generic").strip().lower()
         idx = 0
+        material_spans: set[tuple[int, int]] = set()
         for match in MATERIAL_EVENT_RE.finditer(text):
-            context = _line_context(text, match.start(), match.end())
+            start, end = _line_span(text, match.start(), match.end())
+            if (start, end) in material_spans:
+                continue
+            material_spans.add((start, end))
+            context = text[start:end]
             if _MATERIAL_EVENT_NEGATED_CONTEXT_RE.search(context):
                 continue
             if (
@@ -4340,9 +4401,9 @@ class PreSendReviewEngine:
                     rule="material_event",
                     jurisdiction=jurisdiction,
                     severity=severity,
-                    matched_text=context or match.group(),
-                    start=max(0, text.rfind("\n", 0, match.start()) + 1),
-                    end=(text.find("\n", match.end()) if text.find("\n", match.end()) >= 0 else len(text)),
+                    matched_text=context,
+                    start=start,
+                    end=end,
                     reason=reason,
                     legal_basis=legal_basis,
                     source_verification=source_verification,
@@ -4584,7 +4645,7 @@ class PreSendReviewEngine:
         return findings
 
     def _score(self, findings: list[ReviewFinding], category: str) -> float:
-        matches = [finding.score for finding in findings if finding.category == category]
+        matches = [finding.score for finding in _deduplicate_findings(findings) if finding.category == category]
         if not matches:
             return 0.0
         return min(100.0, max(matches) + max(0, len(matches) - 1) * 3.0)
@@ -4779,6 +4840,7 @@ class PreSendReviewEngine:
                 new_finding=_new_finding,
             )
         )
+        findings = _deduplicate_findings(findings)
         # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
         # Mutates in place before scoring so the escalated severity feeds into mnpi_score.
         _amplify_co_occurring_low_mnpi(findings)
@@ -4817,6 +4879,7 @@ class PreSendReviewEngine:
         findings.extend(
             _detect_quasi_identifier_combinations(
                 findings,
+                text=text,
                 review_profile=review_profile,
                 jurisdiction=jurisdiction_label,
                 legal_basis=pii_legal_basis,
@@ -4825,6 +4888,7 @@ class PreSendReviewEngine:
             )
         )
         findings = _suppress_redundant_numeric_findings(text, findings)
+        _validate_finding_spans(text, findings)
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)
@@ -4938,6 +5002,8 @@ class PreSendReviewEngine:
             mnpi_score = self._score(findings, "MNPI")
             document_score = max(pii_score, mnpi_score)
             overall_risk = _risk_from_score(document_score)
+        findings = _deduplicate_findings(findings)
+        _validate_finding_spans(text, findings)
         _annotate_jurisdiction_attribution(
             findings,
             packs=packs,
