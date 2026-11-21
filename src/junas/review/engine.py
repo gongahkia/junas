@@ -4181,6 +4181,7 @@ class PreSendReviewEngine:
                             end=end,
                             reason=recognizer.reason,
                             legal_basis=legal_basis,
+                            metadata={"rule_jurisdictions": [pack.code]},
                         )
                     )
                     idx += 1

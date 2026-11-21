@@ -215,3 +215,37 @@ def approved_reviewer(labels: dict[str, Any]) -> str:
 def approved_reviewed_at(labels: dict[str, Any]) -> str:
     review = labels.get("_human_review") or {}
     return str(review.get("reviewed_at_utc") or "") if isinstance(review, dict) else ""
+
+
+def assess_annotation_provenance(labels: dict[str, Any], item: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Conservative v1 audit; historical exclusion filters above remain unchanged."""
+    item = item or {}
+    metadata = {key:value for key,value in labels.items() if key.startswith('_')}
+    evidence = json.dumps({'metadata':metadata,'item':item}, sort_keys=True).lower()
+    categories: set[str] = set()
+    reconciled = any('reconcil' in key or 'strict_realign' in key for key in metadata)
+    reconciled |= bool(re.search(r'detector.aligned|detector.reconcil|runtime.*reconcil', evidence))
+    derived = is_detector_derived_provenance(evidence)
+    if reconciled:
+        categories.add('reconciled_against_detector_output')
+    if derived:
+        categories.add('detector_derived')
+    model = bool(labels.get('_label_model')) or bool(re.search(r'auto.label|llm|gpt|model.generated', evidence))
+    if model:
+        categories.add('model_derived')
+        if is_human_approved(labels):
+            categories.add('human_reviewed_model_proposals')
+    if labels.get('_generation_note') or model or 'synthetic' in str(labels.get('_label_source','')).lower():
+        categories.add('synthetic_generated_labels')
+    protocol = item.get('annotation_provenance', labels.get('_annotation_provenance',{}))
+    declared = isinstance(protocol,dict) and protocol.get('origin') == 'independent_human' and (
+        protocol.get('blinded_to_detector') is True and bool(protocol.get('author')) and bool(protocol.get('protocol_id')))
+    if declared:
+        categories.add('declared_independent_human_annotations')
+    if not categories:
+        categories.add('unknown_or_insufficient')
+    return {'schema_version':'junas.annotation_provenance.v1','categories':sorted(categories),
+            'human_review_recorded':is_human_approved(labels),
+            'independence_status':'declared_not_verified' if declared and not (model or derived or reconciled)
+                                  else 'not_established',
+            'note':'Metadata declarations are not independent verification; reconciliation markers apply file-wide.'}

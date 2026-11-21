@@ -293,3 +293,63 @@ def test_nonparticipating_capture_group_does_not_fall_back_to_whole_match(custom
     j.reload_registry()
     result = _engine("XY", "XY", "ZX2468")
     assert not any(f.rule == "synthetic_token" for f in result.findings)
+
+
+def test_custom_recognizer_attribution_identifies_its_actual_pack(custom):
+    _pack(custom / "local.toml", extra=_recognizer())
+    j.reload_registry()
+    result = _engine("SG", "XY", "CODE: ZX2468")
+    finding = next(f for f in result.findings if f.rule == "synthetic_token")
+    assert finding.metadata["jurisdictions_considered"] == ["SG", "XY"]
+    assert finding.metadata["rule_jurisdictions"] == ["XY"]
+    assert finding.metadata["source_juris_finding"] is False
+    assert finding.metadata["destination_juris_finding"] is True
+
+
+def test_duplicate_custom_codes_do_not_hide_another_pack(custom):
+    _pack(custom / "first.toml")
+    _pack(custom / "second.toml")
+    with pytest.raises(ValueError, match="duplicate"):
+        j.reload_registry()
+
+
+def test_recognizer_defaults_remain_supported(custom):
+    _pack(
+        custom / "local.toml",
+        extra='\n[[recognizers]]\nname = "local"\nrule_name = "synthetic_token"\npattern = "ZX2468"\n',
+    )
+    j.reload_registry()
+    result = _engine("XY", "XY", "ZX2468")
+    assert any(f.rule == "synthetic_token" and f.severity == "high" for f in result.findings)
+
+
+def test_invalid_rules_diagnostic_jurisdiction_is_rejected(tmp_path, capsys):
+    nonexistent = tmp_path / "not-read.toml"
+    result = main(
+        ["rules", "test", "--gitleaks", str(nonexistent), "--text", "ZX2468", "--jurisdiction", "SNGAPORE", "--json"]
+    )
+    assert result == 2
+    captured = capsys.readouterr()
+    assert "jurisdiction" in captured.err and not captured.out
+
+
+def test_none_preserves_existing_omitted_defaults():
+    assert [p.code for p in j.resolve_rule_packs(None, None)] == ["SG"]
+    result = ReviewPipeline().review_text("S1234567D", source_jurisdiction=None)
+    assert result.review.jurisdictions_applied == ["SG"]
+
+
+def test_invalid_jurisdiction_is_not_accepted_in_best_effort():
+    from junas.configs.runtime import get_runtime_settings
+
+    pipeline = ReviewPipeline(get_runtime_settings({"document_ingest.fail_closed": False}))
+    with pytest.raises(ValueError, match="jurisdiction"):
+        pipeline.review_text("S1234567D", source_jurisdiction="SNGAPORE")
+
+
+def test_invalid_custom_directory_expansion_is_a_resolution_error(custom):
+    with patch("pathlib.Path.expanduser", side_effect=RuntimeError("synthetic home expansion failure")):
+        with pytest.raises(ValueError, match="jurisdiction.*directory"):
+            j.reload_registry()
+    with pytest.raises(ValueError):
+        j.resolve_rule_packs("SG", "SG")

@@ -22,6 +22,7 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from junas.review.engine import PreSendReviewEngine  # noqa: E402
+from scripts.span_metrics import aggregate_internal_audits, internal_annotation_audit
 from scripts.candidate_review import (  # noqa: E402
     collect_detector_provenance_violations,
     collect_review_status_violations,
@@ -51,6 +52,7 @@ class CandidateDocReport:
     document_type: str
     human_review_status: str
     label_source: str
+    annotation_audit_v1: dict[str, Any] = field(default_factory=dict)
     matched: list[dict[str, str]] = field(default_factory=list)
     missed: list[dict[str, str]] = field(default_factory=list)
     independent_matched: list[dict[str, str]] = field(default_factory=list)
@@ -258,6 +260,7 @@ def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDoc
         document_type=str(labels.get("document_type") or "generic"),
         human_review_status=str(labels.get("_human_review_status") or "unknown"),
         label_source=str(labels.get("_label_source") or "unknown"),
+        annotation_audit_v1=internal_annotation_audit(labels),
         matched=matched,
         missed=missed,
         independent_matched=independent_matched,
@@ -545,6 +548,8 @@ def main(argv: list[str] | None = None) -> int:
         "corpus": str(corpus),
         "review_profile": args.profile,
         "summary": _summary(reports),
+        "annotation_audit_v1": aggregate_internal_audits(r.annotation_audit_v1 for r in reports),
+        "metric_contract": "Legacy rule/text agreement, including historical provenance-exclusion fields; not independently established accuracy.",
         "documents": [report.__dict__ for report in reports],
         "note": "candidate report only; do not update recall locks without human review.",
     }

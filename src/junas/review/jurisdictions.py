@@ -12,13 +12,13 @@ Each pack TOML carries:
     mnpi_rules      -- list of rule identifiers
     references      -- list of citation strings
     aliases         -- optional list of aliases that normalise to `code`
-Unknown request identifiers are rejected. Malformed configured packs disable resolution
-until a successful reload; recognizers remain optional for policy-only packs.
-
     [[recognizers]] -- optional list of jurisdiction-local PII recognizers, each with:
                        name, rule_name, pattern, severity ∈ {low,medium,high}, reason,
                        optional capture_group (int, defaults to 0 for full-match span),
                        and optional validator (named checksum/shape validator)
+
+Unknown request identifiers are rejected. Malformed configured packs disable resolution
+until a successful reload; recognizers remain optional for policy-only packs.
 """
 
 from __future__ import annotations
@@ -519,7 +519,10 @@ def _discover_pack_dirs() -> list[Path]:
     dirs = [_BUILTIN_PACKS_DIR]
     override = os.environ.get("JUNAS_JURISDICTION_PACKS_DIR", "").strip()
     if override:
-        dirs.append(Path(override).expanduser())
+        try:
+            dirs.append(Path(override).expanduser())
+        except (RuntimeError, ValueError) as exc:
+            raise ValueError(f"invalid jurisdiction pack directory {override!r}: {exc}") from exc
     return dirs
 
 

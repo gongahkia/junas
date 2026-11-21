@@ -166,8 +166,10 @@ def _aggregate_independent_recall(docs: list[DocResult]) -> dict[str, float]:
 
 
 def _aggregate_precision(docs: list[DocResult]) -> dict[str, float]:
-    """Per-rule precision = TP / (TP + FP). Rules with neither TP nor FP do not appear in the
-    output — there's nothing to measure. Rules with TP=0 and FP>0 get precision 0.0."""
+    """Legacy hard-negative agreement: label hits/(hits + explicitly forbidden emissions).
+
+    Unlabelled extra predictions are not charged here. This is not general precision.
+    """
     tp: dict[str, int] = {}
     fp: dict[str, int] = {}
     for doc in docs:
@@ -350,6 +352,7 @@ def main(argv: list[str] | None = None) -> int:
     independent_recall = _aggregate_independent_recall(docs)
     current_precision = _aggregate_precision(docs)
 
+    print("Legacy rule/text regression metrics; precision charges explicit hard negatives only; independence is not established.")
     print("per-rule recall:")
     for rule in sorted(current_recall):
         print(f"  {rule}: {current_recall[rule]:.4f}")
