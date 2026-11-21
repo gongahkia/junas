@@ -65,6 +65,31 @@ class ContainerScanError(ValueError):
     """Raised when a submitted container cannot be traversed safely."""
 
 
+@dataclass
+class _EmailBudget:
+    fail_closed: bool = True
+    parts: int = 0
+    decoded_bytes: int = 0
+    expanded_bytes: int = 0
+
+    def message_factory(self, *args: Any, **kwargs: Any) -> email.message.EmailMessage:
+        self.parts += 1
+        if self.parts > MAX_ENTRIES:
+            raise ContainerScanError(f"email MIME part count exceeds maximum {MAX_ENTRIES}")
+        return email.message.EmailMessage(*args, **kwargs)
+
+    def check_decoded(self, size: int) -> None:
+        if size > MAX_MEMBER_BYTES:
+            raise ContainerScanError(f"email part exceeds maximum {MAX_MEMBER_BYTES} decoded bytes")
+        if self.decoded_bytes + size > MAX_TOTAL_UNCOMPRESSED_BYTES:
+            raise ContainerScanError("email aggregate decoded bytes exceed safety cap")
+
+    def charge_expansion(self, size: int) -> None:
+        if self.expanded_bytes + size > MAX_TOTAL_UNCOMPRESSED_BYTES:
+            raise ContainerScanError("email aggregate container expansion exceeds safety cap")
+        self.expanded_bytes += size
+
+
 @dataclass(frozen=True)
 class ContainerFinding:
     source: str
@@ -95,16 +120,19 @@ class ContainerScanResult:
     findings: list[ContainerFinding] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     image_candidates: list[ImageCandidate] = field(default_factory=list)
+    text_sources: dict[int, dict[str, str]] = field(default_factory=dict)
 
     @property
     def text(self) -> str:
         return "\n\n".join(block for block in self.text_blocks if block.strip())
 
     def extend(self, other: "ContainerScanResult", *, prefix: str | None = None) -> None:
-        if prefix:
-            self.text_blocks.extend(f"[Container: {prefix}]\n{block}" for block in other.text_blocks if block.strip())
-        else:
-            self.text_blocks.extend(other.text_blocks)
+        for index, block in enumerate(other.text_blocks):
+            if not block.strip():
+                continue
+            if index in other.text_sources:
+                self.text_sources[len(self.text_blocks)] = dict(other.text_sources[index])
+            self.text_blocks.append(f"[Container: {prefix}]\n{block}" if prefix else block)
         self.findings.extend(other.findings)
         self.warnings.extend(other.warnings)
         self.image_candidates.extend(other.image_candidates)
@@ -116,6 +144,7 @@ def scan_container(
     filename: str,
     mime_type: str,
     image_scan_enabled: bool = False,
+    fail_closed: bool = True,
 ) -> ContainerScanResult:
     normalized = (mime_type or infer_mime_type(filename, data)).partition(";")[0].strip().lower()
     return _scan_by_type(
@@ -125,6 +154,7 @@ def scan_container(
         image_scan_enabled=image_scan_enabled,
         depth=0,
         container_prefix="",
+        email_budget=_EmailBudget(fail_closed=fail_closed) if normalized in EML_MIMES else None,
     )
 
 
@@ -192,8 +222,7 @@ def _macro_content_type(value: str) -> bool:
     return any(marker in value.casefold() for marker in ("macroenabled", "vbaproject", "macrosheet"))
 
 
-def validate_document_type(data: bytes, *, filename: str, mime_type: str) -> None:
-    """Refuse unsupported Office evidence before metadata or body parsers run."""
+def _validate_office_declaration(filename: str, mime_type: str) -> str | None:
     normalized = mime_type.partition(";")[0].strip().lower()
     extension = PurePosixPath(filename.rstrip(" .")).suffix.lower()
     if extension in _MACRO_EXTENSIONS or _macro_content_type(normalized):
@@ -201,6 +230,15 @@ def validate_document_type(data: bytes, *, filename: str, mime_type: str) -> Non
     named_type = _OFFICE_EXTENSIONS.get(extension)
     if named_type and normalized not in {named_type, *ZIP_MIMES}:
         raise ContainerScanError("document type mismatch between Office extension and declared MIME type")
+    return named_type
+
+
+def validate_document_type(
+    data: bytes, *, filename: str, mime_type: str, email_budget: _EmailBudget | None = None
+) -> None:
+    """Refuse unsupported Office evidence before metadata or body parsers run."""
+    normalized = mime_type.partition(";")[0].strip().lower()
+    named_type = _validate_office_declaration(filename, normalized)
     if data.startswith(bytes.fromhex("d0cf11e0a1b11ae1")):
         raise ContainerScanError("unsupported legacy Office/OLE container refused")
     _check_magic_bytes(data, filename=filename, mime_type=normalized)
@@ -214,6 +252,8 @@ def validate_document_type(data: bytes, *, filename: str, mime_type: str) -> Non
     office_type = named_type or (normalized if normalized in _OFFICE_MAIN_PARTS else None)
     with _zip_archive(data) as archive:
         _validate_zip(archive)
+        if email_budget is not None:
+            email_budget.charge_expansion(sum(info.file_size for info in archive.infolist()))
         names = set(archive.namelist())
         _refuse_macros(names)
         main_part, family = _OFFICE_MAIN_PARTS[office_type] if office_type else ("", "")
@@ -250,10 +290,11 @@ def _scan_by_type(
     image_scan_enabled: bool,
     depth: int,
     container_prefix: str,
+    email_budget: _EmailBudget | None = None,
 ) -> ContainerScanResult:
     if depth > MAX_DEPTH:
         raise ContainerScanError(f"container recursion depth exceeds maximum {MAX_DEPTH}")
-    validate_document_type(data, filename=filename, mime_type=mime_type)
+    validate_document_type(data, filename=filename, mime_type=mime_type, email_budget=email_budget)
     if mime_type == DOCX_MIME:
         return _scan_docx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
     if mime_type == XLSX_MIME:
@@ -261,13 +302,20 @@ def _scan_by_type(
     if mime_type == PPTX_MIME:
         return _scan_pptx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
     if mime_type == PDF_MIME:
-        return _scan_pdf(data, image_scan_enabled=image_scan_enabled, depth=depth, container_prefix=container_prefix)
+        return _scan_pdf(
+            data,
+            image_scan_enabled=image_scan_enabled,
+            depth=depth,
+            container_prefix=container_prefix,
+            email_budget=email_budget,
+        )
     if mime_type in ZIP_MIMES:
         return _scan_zip_archive(
             data,
             image_scan_enabled=image_scan_enabled,
             depth=depth,
             container_prefix=container_prefix,
+            email_budget=email_budget,
         )
     if mime_type in TAR_MIMES:
         return _scan_tar_archive(
@@ -275,15 +323,22 @@ def _scan_by_type(
             image_scan_enabled=image_scan_enabled,
             depth=depth,
             container_prefix=container_prefix,
+            email_budget=email_budget,
         )
     if mime_type in EML_MIMES:
-        return _scan_eml(data, image_scan_enabled=image_scan_enabled, depth=depth, container_prefix=container_prefix)
+        return _scan_eml(
+            data,
+            image_scan_enabled=image_scan_enabled,
+            depth=depth,
+            container_prefix=container_prefix,
+            email_budget=email_budget,
+        )
     if mime_type == "application/vnd.ms-outlook":
         raise ContainerScanError("MSG containers require an optional safe parser and are refused by default")
     if mime_type == "application/x-7z-compressed":
         raise ContainerScanError("7z archive traversal requires an optional safe parser and is refused by default")
     if mime_type in HTML_MIMES:
-        return _scan_html(data, source="html")
+        return _scan_html(data, source="html", include_display_none_text=email_budget is None)
     if mime_type in SVG_MIMES:
         return _scan_svg(data)
     if mime_type in RTF_MIMES:
@@ -304,8 +359,10 @@ def _scan_by_type(
                 )
             ]
         )
-    if mime_type.startswith("text/"):
+    if mime_type.startswith("text/") or mime_type == "application/json":
         return ContainerScanResult(text_blocks=[data.decode("utf-8", errors="replace")])
+    if email_budget is not None:
+        raise ContainerScanError(f"unsupported embedded document {container_prefix or filename} ({mime_type})")
     return ContainerScanResult()
 
 
@@ -678,6 +735,7 @@ def _scan_pdf(
     image_scan_enabled: bool,
     depth: int,
     container_prefix: str,
+    email_budget: _EmailBudget | None = None,
 ) -> ContainerScanResult:
     del image_scan_enabled
     try:
@@ -741,9 +799,22 @@ def _scan_pdf(
             image_scan_enabled=True,
             depth=depth + 1,
             container_prefix=f"{container_prefix}/{name}" if container_prefix else name,
+            email_budget=email_budget,
         )
         result.extend(nested, prefix=name)
     for page_index, page in enumerate(reader.pages):
+        if email_budget is not None:
+            try:
+                text = page.extract_text() or ""
+            except Exception as exc:
+                raise ContainerScanError(f"PDF attachment page {page_index + 1} text extraction failed: {exc}") from exc
+            email_budget.charge_expansion(len(text.encode("utf-8")))
+            if text.strip():
+                result.text_blocks.append(f"[PDF page {page_index + 1}]\n{text}")
+        if email_budget is not None and _pdf_get(_pdf_get(page, "/Resources"), "/XObject"):
+            detail = f"PDF attachment page {page_index + 1} has native/image XObjects; reviewed text layer only"
+            result.warnings.append(detail)
+            result.findings.append(_finding("pdf_embedded_media", str(page_index + 1), "[present]", detail))
         annots = _pdf_get(page, "/Annots") or []
         if hasattr(annots, "get_object"):
             annots = annots.get_object()
@@ -883,6 +954,7 @@ def _scan_zip_archive(
     image_scan_enabled: bool,
     depth: int,
     container_prefix: str,
+    email_budget: _EmailBudget | None = None,
 ) -> ContainerScanResult:
     result = ContainerScanResult()
     with _zip_archive(data) as archive:
@@ -900,6 +972,7 @@ def _scan_zip_archive(
                 image_scan_enabled=image_scan_enabled,
                 depth=depth + 1,
                 container_prefix=nested_prefix,
+                email_budget=email_budget,
             )
             result.extend(nested, prefix=info.filename)
     return result
@@ -911,6 +984,7 @@ def _scan_tar_archive(
     image_scan_enabled: bool,
     depth: int,
     container_prefix: str,
+    email_budget: _EmailBudget | None = None,
 ) -> ContainerScanResult:
     result = ContainerScanResult()
     try:
@@ -931,6 +1005,8 @@ def _scan_tar_archive(
             total += member.size
             if member.size > MAX_MEMBER_BYTES or total > MAX_TOTAL_UNCOMPRESSED_BYTES:
                 raise ContainerScanError("TAR archive uncompressed size exceeds safety cap")
+            if email_budget is not None:
+                email_budget.charge_expansion(member.size)
             extracted = archive.extractfile(member)
             if extracted is None:
                 continue
@@ -946,9 +1022,45 @@ def _scan_tar_archive(
                 image_scan_enabled=image_scan_enabled,
                 depth=depth + 1,
                 container_prefix=nested_prefix,
+                email_budget=email_budget,
             )
             result.extend(nested, prefix=member.name)
     return result
+
+
+def _decoded_email_payload(part: Any, budget: _EmailBudget) -> bytes:
+    # get_payload(decode=False) can decode 8-bit text already. Account for the
+    # parser's wire representation before allocating transfer-decoded bytes.
+    raw = part._payload
+    if not isinstance(raw, str):
+        raise ContainerScanError("email part payload must be encoded text")
+    encoding = str(part.get("Content-Transfer-Encoding", "7bit")).strip().lower()
+    estimated = len(raw)
+    if encoding == "base64":
+        length = len(raw) - sum(len(m.group()) for m in re.finditer(r"\s+", raw))
+        if length % 4:
+            raise ContainerScanError("truncated base64 email part")
+        padding = re.search(r"(={1,2})\s*$", raw)
+        estimated = length // 4 * 3 - (len(padding.group(1)) if padding else 0)
+    elif encoding == "quoted-printable":
+        if re.search(r"=(?![0-9a-fA-F]{2}|\r?\n)", raw):
+            raise ContainerScanError("invalid quoted-printable email part")
+        estimated -= sum(
+            len(m.group()) - (0 if m.group().endswith("\n") else 1) for m in re.finditer(r"=[0-9a-fA-F]{2}|=\r?\n", raw)
+        )
+    elif encoding not in {"7bit", "8bit", "binary"}:
+        raise ContainerScanError(f"unsupported email transfer encoding: {encoding}")
+    budget.check_decoded(estimated)
+    payload = part.get_payload(decode=True)
+    if not isinstance(payload, bytes):
+        raise ContainerScanError("email part payload must decode to bytes")
+    budget.check_decoded(len(payload))
+    budget.decoded_bytes += len(payload)
+    if part.defects:
+        raise ContainerScanError(
+            "invalid email transfer encoding: " + ", ".join(type(d).__name__ for d in part.defects)
+        )
+    return payload
 
 
 def _scan_eml(
@@ -957,93 +1069,172 @@ def _scan_eml(
     image_scan_enabled: bool,
     depth: int,
     container_prefix: str,
+    email_budget: _EmailBudget | None = None,
 ) -> ContainerScanResult:
-    message = email.message_from_bytes(data, policy=policy.default)
+    from junas.review.document_structure import clean_document_text
+
+    budget = email_budget or _EmailBudget()
+    if len(data) > MAX_TOTAL_UNCOMPRESSED_BYTES:
+        raise ContainerScanError("email wire size exceeds safety cap")
+    message = email.message_from_bytes(data, policy=policy.default.clone(message_factory=budget.message_factory))
     result = ContainerScanResult()
-    for header in ("from", "to", "cc", "bcc", "subject", "reply-to"):
-        value = message.get(header)
-        if value:
-            result.text_blocks.append(f"[Email {header}]\n{value}")
-            result.findings.append(_finding("eml_header", header, value, "Email header can contain personal data"))
-    for part in message.walk():
-        content_type = part.get_content_type()
+    retained_bytes = 0
+
+    def incomplete(path: str, error: Exception) -> None:
+        detail = f"email part {path}: {error}"
+        if budget.fail_closed:
+            raise ContainerScanError(detail) from error
+        result.warnings.append(f"fail-open: {detail}")
+        result.findings.append(_finding("eml_unreviewed_part", path, path, detail, severity="high"))
+
+    def emit(nested: ContainerScanResult, source: dict[str, str], label: str = "") -> None:
+        nonlocal retained_bytes
+        staged = ContainerScanResult(
+            findings=nested.findings, warnings=nested.warnings, image_candidates=nested.image_candidates
+        )
+        for index, block in enumerate(nested.text_blocks):
+            block = clean_document_text(block)
+            if not block:
+                continue
+            if label and not staged.text_blocks:
+                block = clean_document_text(label + "\n" + block)
+            staged.text_sources[len(staged.text_blocks)] = dict(nested.text_sources.get(index, source))
+            staged.text_blocks.append(block)
+        if not staged.text_blocks and label:
+            staged.text_sources[0] = dict(source)
+            staged.text_blocks.append(clean_document_text(label))
+        size = sum(len(block.encode("utf-8")) for block in staged.text_blocks)
+        size += 2 * max(0, len(staged.text_blocks) - 1)
+        if result.text_blocks and staged.text_blocks:
+            size += 2
+        if retained_bytes + size > MAX_TOTAL_UNCOMPRESSED_BYTES:
+            raise ContainerScanError("email retained text exceeds safety cap")
+        retained_bytes += size
+        result.extend(staged)
+
+    # A forwarded message is already a parsed subtree. Never walk it again after
+    # visiting its children, and never reparse a serialized copy of the same part.
+    stack = [(message, "1", depth, True, "")]
+    while stack:
+        part, ordinal, part_depth, is_message, owner_filename = stack.pop()
+        content_type = part.get_content_type().lower()
         filename = part.get_filename() or ""
-        if content_type == "message/rfc822":
-            forwarded_name = filename or "forwarded.eml"
-            result.findings.append(
-                _finding(
-                    "eml_forwarded_message",
-                    forwarded_name,
-                    "[present]",
-                    "Forwarded email message recursively scanned",
-                    severity="medium",
-                )
+        path = f"{container_prefix}/{ordinal}" if container_prefix else ordinal
+        failure_path = f"{path}/{filename or content_type}"
+        source = {
+            "kind": "email_body",
+            "part_path": path,
+            "filename": filename or owner_filename,
+            "mime_type": content_type,
+            "container_path": container_prefix,
+        }
+        try:
+            declared = (
+                infer_mime_type(filename) if filename and content_type == "application/octet-stream" else content_type
             )
-            payload = part.get_payload()
-            nested_messages = payload if isinstance(payload, list) else []
-            for index, nested_message in enumerate(nested_messages, start=1):
-                if not hasattr(nested_message, "as_bytes"):
-                    continue
-                nested_filename = forwarded_name if index == 1 else f"{forwarded_name}:{index}"
-                nested_prefix = f"{container_prefix}/{nested_filename}" if container_prefix else nested_filename
-                nested = _scan_by_type(
-                    nested_message.as_bytes(policy=policy.default),
-                    filename=nested_filename,
-                    mime_type="message/rfc822",
-                    image_scan_enabled=image_scan_enabled,
-                    depth=depth + 1,
-                    container_prefix=nested_prefix,
+            _validate_office_declaration(filename, declared)
+            if part_depth > MAX_DEPTH:
+                raise ContainerScanError(f"container recursion depth exceeds maximum {MAX_DEPTH}")
+            if part.defects:
+                defect = ContainerScanError(", ".join(type(d).__name__ for d in part.defects))
+                if budget.fail_closed:
+                    raise defect
+                incomplete(failure_path, defect)
+            if is_message:
+                for header in ("from", "to", "cc", "bcc", "subject", "reply-to"):
+                    value = part.get(header)
+                    if value:
+                        emit(
+                            ContainerScanResult(text_blocks=[f"{header}: {value}"]),
+                            {**source, "kind": "email_header"},
+                        )
+                        result.findings.append(
+                            _finding("eml_header", path + "/" + header, value, "Email header can contain personal data")
+                        )
+            if content_type == "message/rfc822":
+                children = part.get_payload()
+                if not isinstance(children, list) or not children:
+                    raise ContainerScanError("forwarded email has no readable message")
+                result.findings.append(
+                    _finding(
+                        "eml_forwarded_message",
+                        path,
+                        filename or "forwarded.eml",
+                        "Forwarded email message recursively scanned",
+                    )
                 )
-                result.extend(nested, prefix=nested_filename)
-            continue
-        if part.is_multipart():
-            continue
-        payload = part.get_payload(decode=True) or b""
-        if not isinstance(payload, bytes):
-            raise ValueError("email part payload must be bytes")
-        disposition = str(part.get_content_disposition() or "")
-        if content_type == "text/plain":
-            result.text_blocks.append(part.get_content())
-            continue
-        if content_type == "text/html":
-            result.extend(_scan_html(payload, source="eml_html"))
-            continue
-        if content_type.startswith("image/") and image_scan_enabled:
-            path = filename or f"inline-image-{len(result.image_candidates)}"
-            nested_path = f"{container_prefix}/{path}" if container_prefix else path
-            result.image_candidates.append(
-                ImageCandidate(
-                    data=payload,
-                    mime_type=content_type,
-                    locator=ImageLocator(
-                        container_path=nested_path,
-                        image_index=len(result.image_candidates),
-                        source_type="eml_inline_image" if disposition != "attachment" else "eml_attachment_image",
-                    ),
-                )
+                for index, child in reversed(list(enumerate(children, start=1))):
+                    stack.append((child, f"{ordinal}.{index}", part_depth + 1, True, filename or "forwarded.eml"))
+                continue
+            if part.is_multipart():
+                if not content_type.startswith("multipart/"):
+                    raise ContainerScanError(f"unsupported structured MIME part: {content_type}")
+                if content_type == "multipart/encrypted":
+                    raise ContainerScanError(f"unsupported protected email container: {content_type}")
+                children = part.get_payload()
+                for index, child in reversed(list(enumerate(children, start=1))):
+                    stack.append((child, f"{ordinal}.{index}", part_depth, False, owner_filename))
+                continue
+            payload = _decoded_email_payload(part, budget)
+            disposition = part.get_content_disposition()
+            attachment = bool(
+                filename or disposition == "attachment" or content_type not in {"text/plain", "text/html"}
             )
-            continue
-        if filename:
-            result.findings.append(
-                _finding(
-                    "eml_attachment",
-                    filename,
-                    content_type,
-                    "Email attachment recursively scanned",
-                    severity="medium",
-                )
+            if not attachment:
+                text = payload.decode(part.get_content_charset() or "utf-8")
+                if content_type == "text/html":
+                    nested = _scan_html(text.encode("utf-8"), source="eml_html", include_display_none_text=False)
+                    emit(nested, {**source, "kind": "email_html_body"})
+                else:
+                    emit(ContainerScanResult(text_blocks=[text]), source)
+                continue
+            attachment_name = filename or "unnamed-attachment"
+            _validate_member_path(attachment_name)
+            # Generic binary transport may use the existing filename-based router;
+            # an explicit type always reaches the T2A validation unchanged.
+            nested_mime = (
+                infer_mime_type(attachment_name, payload)
+                if content_type == "application/octet-stream"
+                else content_type
             )
-            nested_mime = infer_mime_type(filename, payload)
-            nested_prefix = f"{container_prefix}/{filename}" if container_prefix else filename
+            nested_prefix = f"{path}/{attachment_name}"
+            if nested_mime.startswith("text/") or nested_mime == "application/json":
+                validate_document_type(payload, filename=attachment_name, mime_type=nested_mime)
+                payload = payload.decode(part.get_content_charset() or "utf-8").encode("utf-8")
             nested = _scan_by_type(
                 payload,
-                filename=filename,
+                filename=attachment_name,
                 mime_type=nested_mime,
                 image_scan_enabled=image_scan_enabled,
-                depth=depth + 1,
+                depth=part_depth + 1,
                 container_prefix=nested_prefix,
+                email_budget=budget,
             )
-            result.extend(nested, prefix=filename)
+            excluded_media = not image_scan_enabled and (
+                nested.image_candidates or any(m.source.endswith("_embedded_media") for m in nested.findings)
+            )
+            excluded_objects = any(m.source.endswith("_embedded_object") for m in nested.findings)
+            if excluded_media or excluded_objects:
+                detail = (
+                    f"email part {failure_path}: embedded media or native objects unreviewed; reviewed text layer only"
+                )
+                nested.warnings.append(detail)
+                nested.findings.append(
+                    _finding("eml_unreviewed_part", failure_path, failure_path, detail, severity="high")
+                )
+                if excluded_media:
+                    nested.image_candidates = []
+            empty_text = not payload and nested_mime in {"text/plain", "text/markdown", "text/html", "application/json"}
+            if not nested.text.strip() and not nested.image_candidates and not empty_text:
+                raise ContainerScanError(f"unsupported or unreadable attachment ({nested_mime}); no reviewable content")
+            emit(nested, {**source, "kind": "email_attachment"}, f"[Email attachment {path}: {attachment_name}]")
+            result.findings.append(
+                _finding(
+                    "eml_attachment", nested_prefix, content_type, "Email attachment processed by container scanner"
+                )
+            )
+        except (ValueError, LookupError, RuntimeError, zipfile.BadZipFile, NotImplementedError, OSError) as exc:
+            incomplete(failure_path, exc)
     result.findings = _dedupe_findings(result.findings)
     return result
 
@@ -1052,7 +1243,7 @@ def _decode_text(data: bytes) -> str:
     return data.decode("utf-8", errors="replace")
 
 
-def _scan_html(data: bytes, *, source: str) -> ContainerScanResult:
+def _scan_html(data: bytes, *, source: str, include_display_none_text: bool = True) -> ContainerScanResult:
     text = _decode_text(data)
     result = ContainerScanResult()
     for match in re.finditer(r"<!--(.*?)-->", text, flags=re.DOTALL):
@@ -1069,7 +1260,8 @@ def _scan_html(data: bytes, *, source: str) -> ContainerScanResult:
     ):
         hidden = _strip_tags(match.group("body"))
         if hidden:
-            result.text_blocks.append(f"[HTML display:none]\n{hidden}")
+            if include_display_none_text:
+                result.text_blocks.append(f"[HTML display:none]\n{hidden}")
             result.findings.append(
                 _finding(source, "display_none", hidden, "HTML display:none text is present", severity="high")
             )

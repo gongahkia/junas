@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import email
 import html
 import re
 import zipfile
-from dataclasses import dataclass
-from email import policy
+from collections.abc import Callable
+from dataclasses import dataclass, replace
 from io import BytesIO
 from typing import Any
 from xml.etree import ElementTree
@@ -20,6 +19,7 @@ class StructuralUnit:
     line_start: int
     line_end: int
     parent_index: int | None = None
+    source: dict[str, str] | None = None
 
 
 @dataclass(frozen=True)
@@ -79,19 +79,32 @@ def _clean_block(text: str) -> str:
     return text.strip()
 
 
-def _structure_from_blocks(blocks: list[tuple[str, str, int | None]]) -> DocumentStructure:
+def clean_document_text(text: str) -> str:
+    cleaned = text.replace("\x00", "")
+    cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
+    cleaned = re.sub(r"[ \t]+", " ", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
+
+
+def _structure_from_blocks(
+    blocks: list[tuple[str, str, int | None]],
+    *,
+    cleaner: Callable[[str], str] = _clean_block,
+    separator: str = "\n",
+) -> DocumentStructure:
     parts: list[str] = []
     units: list[StructuralUnit] = []
     offset = 0
     line_no = 1
     for kind, raw_text, parent_index in blocks:
-        text = _clean_block(raw_text)
+        text = cleaner(raw_text)
         if not text:
             continue
         if parts:
-            parts.append("\n")
-            offset += 1
-            line_no += 1
+            parts.append(separator)
+            offset += len(separator)
+            line_no += separator.count("\n")
         start = offset
         parts.append(text)
         units.append(
@@ -433,41 +446,28 @@ def parse_pptx_structure(data: bytes) -> DocumentStructure:
     return _structure_from_blocks(blocks)
 
 
-def _strip_html(text: str) -> str:
-    text = re.sub(r"<script\b.*?</script>", " ", text, flags=re.IGNORECASE | re.DOTALL)
-    text = re.sub(r"<style\b.*?</style>", " ", text, flags=re.IGNORECASE | re.DOTALL)
-    text = re.sub(r"<[^>]+>", " ", text)
-    return re.sub(r"\s+", " ", html.unescape(text)).strip()
+def parse_eml_structure(data: bytes, *, container_scan: Any | None = None) -> DocumentStructure:
+    # use the same bounded extraction for standalone callers and the review pipeline.
+    if container_scan is None:
+        from junas.review.container_scan import scan_container
 
-
-def parse_eml_structure(data: bytes) -> DocumentStructure:
-    message = email.message_from_bytes(data, policy=policy.default)
-    blocks: list[tuple[str, str, int | None]] = []
-    for header in ("from", "to", "cc", "bcc", "subject", "reply-to"):
-        value = message.get(header)
-        if value:
-            blocks.append(("email_header", f"{header}: {value}", None))
-    for part in message.walk():
-        if part.is_multipart():
+        container_scan = scan_container(data, filename="document.eml", mime_type="message/rfc822")
+    blocks = []
+    sources = []
+    for index, block in enumerate(container_scan.text_blocks):
+        if not clean_document_text(block):
             continue
-        content_type = part.get_content_type()
-        filename = part.get_filename()
-        payload = part.get_payload(decode=True) or b""
-        if not isinstance(payload, bytes):
-            raise ValueError("email part payload must be bytes")
-        if content_type == "text/plain":
-            text = part.get_content()
-            blocks.append(("email_body", text, None))
-        elif content_type == "text/html":
-            blocks.append(("email_html_body", _strip_html(payload.decode("utf-8", errors="replace")), None))
-        elif filename:
-            label = f"Attachment: {filename} ({content_type})"
-            if content_type.startswith("text/"):
-                body = payload.decode("utf-8", errors="replace")
-                blocks.append(("email_attachment", f"{label}\n{body}", None))
-            else:
-                blocks.append(("email_attachment", label, None))
-    return _structure_from_blocks(blocks)
+        source = container_scan.text_sources.get(index, {})
+        blocks.append((source.get("kind", "email_attachment"), block, None))
+        sources.append(source)
+    structure = _structure_from_blocks(blocks, cleaner=clean_document_text, separator="\n\n")
+    return replace(
+        structure,
+        units=(
+            structure.units[0],
+            *(replace(unit, source=source) for unit, source in zip(structure.units[1:], sources)),
+        ),
+    )
 
 
 def _pdf_get(obj: Any, key: str) -> Any:

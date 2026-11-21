@@ -39,6 +39,7 @@ from junas.review.document_structure import (
     parse_pptx_structure,
     parse_xlsx_structure,
 )
+from junas.review.document_structure import clean_document_text as _clean_text
 from junas.review.image_scan import (
     ImageCandidate,
     collect_docx_images,
@@ -87,14 +88,6 @@ class ExtractedDocument:
     image_text_spans: list[Any] | None = None
     image_scan_provider: str = "none"
     document_structure: DocumentStructure | None = None
-
-
-def _clean_text(text: str) -> str:
-    cleaned = text.replace("\x00", "")
-    cleaned = "".join(ch for ch in cleaned if ch.isprintable() or ch in ("\n", "\r", "\t"))
-    cleaned = re.sub(r"[ \t]+", " ", cleaned)
-    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
-    return cleaned.strip()
 
 
 def _decode_base64(raw: str) -> bytes:
@@ -302,14 +295,15 @@ def extract_review_document(
     container_findings: list[dict[str, str]] = []
     container_warnings: list[str] = []
     container_image_candidates: list[ImageCandidate] = []
+    container_scan: ContainerScanResult | None = None
     if is_container_mime(mime_type):
-        container_scan: ContainerScanResult | None = None
         try:
             container_scan = scan_container(
                 data,
                 filename=filename,
                 mime_type=mime_type,
                 image_scan_enabled=image_scan_enabled,
+                fail_closed=fail_closed,
             )
         except ContainerScanError as exc:
             if fail_closed:
@@ -393,11 +387,15 @@ def extract_review_document(
         extraction_warnings = container_warnings
         image_candidates = container_image_candidates
     elif mime_type in EML_MIMES:
-        document_structure = parse_eml_structure(data)
-        extracted = document_structure.text
+        document_structure = parse_eml_structure(data, container_scan=container_scan) if container_scan else None
+        extracted = document_structure.text if document_structure else ""
         method = "eml_container"
         page_count = None
-        extraction_quality = "accepted"
+        extraction_quality = (
+            "degraded"
+            if any("fail-open:" in w or "reviewed text layer only" in w for w in container_warnings)
+            else "accepted"
+        )
         extraction_warnings = container_warnings
         image_candidates = container_image_candidates
     elif mime_type in SUPPORTED_CONTAINER_MIMES:

@@ -5,14 +5,16 @@ import zipfile
 from email import policy
 from email.message import EmailMessage
 from io import BytesIO
+from unittest.mock import patch
 
 import pytest
 
 from junas import DocumentInput, ReviewPipeline
 from junas.configs.runtime import get_runtime_settings
-from junas.review.container_scan import DOCX_MIME, scan_container
+from junas.review.container_scan import DOCX_MIME, _decoded_email_payload, _EmailBudget, scan_container
 from junas.review.document_structure import parse_eml_structure
 from test.test_document_hardening import _pptx_with_notes, _xlsx_with_hidden_sheet
+from test.test_image_scan import FakeImageScanner, _png_bytes
 
 IDENTIFIER = "S1234567D"
 
@@ -235,3 +237,195 @@ def test_aggregate_attachment_expansion_is_bounded(monkeypatch):
     assert _review(single).to_dict()["status"] == "completed"
     with pytest.raises(ValueError):
         _review(message)
+
+
+@pytest.mark.parametrize("fail_closed", [True, False])
+def test_encrypted_pdf_attachment_is_refused_or_qualified(fail_closed):
+    from pypdf import PdfWriter
+
+    writer = PdfWriter()
+    writer.add_blank_page(width=72, height=72)
+    writer.encrypt("synthetic-only-password")
+    with BytesIO() as buffer:
+        writer.write(buffer)
+        data = buffer.getvalue()
+    message = _email("Readable body " + IDENTIFIER)
+    _attach(message, data, "encrypted.pdf", "application/pdf")
+    if fail_closed:
+        with pytest.raises(ValueError, match="encrypted"):
+            _review(message)
+    else:
+        result = _review(message, fail_closed=False)
+        assert _identifiers(result)
+        assert result.to_dict()["status"] == "degraded"
+        assert any("encrypted.pdf" in d.get("part_path", "") for d in result.review.degraded_modes)
+
+
+def test_mime_node_budget_accepts_exact_limit_and_refuses_next(monkeypatch):
+    message = _email()
+    _attach(message)
+    monkeypatch.setattr("junas.review.container_scan.MAX_ENTRIES", 3)
+    assert _identifiers(_review(message))
+    _attach(message)
+    with pytest.raises(ValueError, match="MIME part count"):
+        _review(message)
+
+
+def test_8bit_size_is_checked_before_transfer_decoding(monkeypatch):
+    from email import message_from_bytes
+
+    message = EmailMessage()
+    message.set_content("가가", cte="8bit")
+    part = message_from_bytes(message.as_bytes(), policy=policy.default)
+    monkeypatch.setattr("junas.review.container_scan.MAX_MEMBER_BYTES", 6)
+    with patch.object(part, "get_payload", wraps=part.get_payload) as decode:
+        with pytest.raises(ValueError, match="decoded bytes"):
+            _decoded_email_payload(part, _EmailBudget())
+    decode.assert_not_called()
+
+
+def test_forwarding_depth_is_bounded_without_rewalking_messages():
+    message = _email(IDENTIFIER)
+    for _ in range(4):
+        outer = _email("Outer body")
+        outer.add_attachment(message, filename="forwarded.eml")
+        message = outer
+    with pytest.raises(ValueError, match="recursion depth"):
+        _review(message)
+    result = _review(message, fail_closed=False)
+    assert "Outer body" in result.document.text
+    assert result.to_dict()["status"] == "degraded"
+
+
+def test_attachment_charset_and_control_cleanup_keep_source_offsets():
+    message = _email()
+    message.add_attachment("Café\x01 " + IDENTIFIER, charset="iso-8859-1", filename="note.txt")
+    result = _review(message)
+    assert "Café " + IDENTIFIER in result.document.text
+    assert len(_identifiers(result)) == 1
+    _assert_spans(result)
+
+
+def test_unsupported_member_in_attached_zip_is_not_silently_ignored():
+    message = _email()
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr("unknown.bin", b"unreviewed binary")
+            archive.writestr("safe.txt", IDENTIFIER)
+        data = buffer.getvalue()
+    _attach(message, data, "bundle.zip", "application/zip")
+    with pytest.raises(ValueError, match="unknown.bin"):
+        _review(message)
+    assert _review(message, fail_closed=False).to_dict()["status"] == "degraded"
+
+
+def test_office_embedded_media_uses_explicit_text_layer_exclusion():
+    message = _email()
+    with BytesIO(_docx()) as buffer:
+        with zipfile.ZipFile(buffer, "a") as archive:
+            archive.writestr("word/media/image1.png", _png_bytes())
+        data = buffer.getvalue()
+    _attach(message, data)
+    result = _review(message)
+    assert _identifiers(result)
+    assert result.to_dict()["status"] == "degraded"
+    assert result.document.extraction_quality == "degraded"
+    assert any("reviewed text layer only" in d["reason"] for d in result.review.degraded_modes)
+
+
+def test_existing_ocr_does_not_erase_attachment_degradation_or_text_provenance():
+    message = _email(IDENTIFIER)
+    _attach(message)
+    _attach(message, b"unsupported", "unknown.bin", "application/octet-stream")
+    _attach(message, _png_bytes(), "scan.png", "image/png")
+    settings = get_runtime_settings({"document_ingest.fail_closed": False, "image_scan.provider": "tesseract"})
+    with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner(text=IDENTIFIER)):
+        result = ReviewPipeline(settings).review(
+            DocumentInput(document_base64=base64.b64encode(message.as_bytes()).decode(), document_filename="cover.eml")
+        )
+    findings = _identifiers(result)
+    assert len(findings) == 3
+    assert result.document.extraction_quality == "degraded"
+    assert result.to_dict()["status"] == "degraded"
+    assert all(f.metadata.get("email_sources") for f in findings if f.source == "text")
+    image = next(f for f in findings if f.source == "image_ocr")
+    assert "scan.png" in image.image_locator["container_path"]
+    for finding in findings:
+        assert result.document.text[finding.start_char : finding.end_char] == finding.matched_text
+
+
+@pytest.mark.parametrize("filename", ["macro.docm", "wrong.docx"])
+def test_office_declarations_are_checked_before_forwarded_message_traversal(filename):
+    outer = _email("Preserved outer body")
+    outer.add_attachment(_email(IDENTIFIER), filename=filename)
+    with pytest.raises(ValueError, match="macro-enabled|mismatch"):
+        _review(outer)
+    result = _review(outer, fail_closed=False)
+    assert result.to_dict()["status"] == "degraded"
+    assert not _identifiers(result)
+    assert "Preserved outer body" in result.document.text
+
+
+def test_supported_docx_inside_attached_zip_reaches_classifier():
+    message = _email()
+    with BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr("nested/identity.docx", _docx())
+        data = buffer.getvalue()
+    _attach(message, data, "bundle.zip", "application/zip")
+    result = _review(message)
+    assert len(_identifiers(result)) == 1
+    assert "nested/identity.docx" in result.document.text
+    assert _identifiers(result)[0].metadata["email_sources"][0]["filename"] == "bundle.zip"
+    _assert_spans(result)
+
+
+def test_supported_pdf_text_attachment_reaches_classifier():
+    from pypdf import PdfWriter
+    from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
+
+    writer = PdfWriter()
+    page = writer.add_blank_page(width=612, height=792)
+    font = DictionaryObject(
+        {
+            NameObject("/Type"): NameObject("/Font"),
+            NameObject("/Subtype"): NameObject("/Type1"),
+            NameObject("/BaseFont"): NameObject("/Helvetica"),
+        }
+    )
+    page[NameObject("/Resources")] = DictionaryObject(
+        {NameObject("/Font"): DictionaryObject({NameObject("/F1"): writer._add_object(font)})}
+    )
+    stream = DecodedStreamObject()
+    stream.set_data(
+        b"BT /F1 12 Tf 72 720 Td (Synthetic identity record S1234567D provided for classification review only.) Tj ET"
+    )
+    page[NameObject("/Contents")] = writer._add_object(stream)
+    with BytesIO() as buffer:
+        writer.write(buffer)
+        data = buffer.getvalue()
+    message = _email()
+    _attach(message, data, "identity.pdf", "application/pdf")
+    result = _review(message)
+    assert len(_identifiers(result)) == 1
+    assert result.to_dict()["status"] == "completed"
+    _assert_spans(result)
+
+
+@pytest.mark.parametrize("fail_closed", [True, False])
+def test_unsupported_structured_message_cannot_be_silently_walked_as_empty_text(fail_closed):
+    message = _email("Readable report body")
+    status = EmailMessage()
+    status.set_type("message/delivery-status")
+    fields = EmailMessage()
+    fields["Final-Recipient"] = "rfc822; synthetic@example.test"
+    status.set_payload([fields])
+    message.make_mixed()
+    message.attach(status)
+    if fail_closed:
+        with pytest.raises(ValueError, match="unsupported structured MIME part"):
+            _review(message)
+    else:
+        result = _review(message, fail_closed=False)
+        assert "Readable report body" in result.document.text
+        assert result.to_dict()["status"] == "degraded"

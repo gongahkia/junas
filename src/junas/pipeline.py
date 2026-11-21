@@ -122,9 +122,18 @@ class ReviewPipeline:
             image_scan_settings=settings.image_scan,
         )
         degraded: list[dict[str, Any]] = []
+        email_structure = document.document_structure if document.mime_type == "message/rfc822" else None
+        incomplete_parts = {
+            item["detail"]: item["field"]
+            for item in document.metadata_findings or []
+            if item["source"] == "eml_unreviewed_part"
+        }
         for warning in document.extraction_warnings or []:
             if "fail-open:" in warning or "reviewed text layer only" in warning:
-                degraded.append({"layer": "document_ingest", "mode": "incomplete", "reason": warning})
+                entry = {"layer": "document_ingest", "mode": "incomplete", "reason": warning}
+                if part_path := incomplete_parts.get(warning.removeprefix("fail-open: ")):
+                    entry["part_path"] = part_path
+                degraded.append(entry)
         privacy_ledger: list[dict[str, Any]] = []
         if settings.image_scan.provider != "none" and document.image_candidates:
             try:
@@ -146,7 +155,7 @@ class ReviewPipeline:
                     text=text,
                     image_text_spans=spans,
                     image_scan_provider=settings.image_scan.provider,
-                    extraction_quality="accepted",
+                    extraction_quality="degraded" if document.extraction_quality == "degraded" else "accepted",
                     document_structure=None,
                 )
             except ImageScanError as exc:
@@ -169,6 +178,14 @@ class ReviewPipeline:
             document_structure=document.document_structure,
         )
         for finding in review.findings:
+            if email_structure is not None and finding.start_char < finding.end_char:
+                sources = [
+                    {**unit.source, "start_char": unit.start_char, "end_char": unit.end_char}
+                    for unit in email_structure.units
+                    if unit.source and unit.start_char < finding.end_char and finding.start_char < unit.end_char
+                ]
+                if sources:
+                    finding.metadata["email_sources"] = sources
             spans = document.image_text_spans or []
             locator = image_locator_for_span(spans, finding.start_char, finding.end_char)
             if locator is not None:
