@@ -22,7 +22,6 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
         stdout = sys.stdout
     try:
         from junas.review.secret_rulepacks import (
-            SecretRulePackError,
             detect_secret_findings,
             load_gitleaks_rule_pack,
         )
@@ -43,7 +42,7 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
             new_finding=_dict_finding,
             max_matches=args.max_matches,
         )
-    except (OSError, ValueError, SecretRulePackError) as exc:
+    except Exception as exc:
         print(str(exc), file=sys.stderr)
         return 2
     if args.json:
@@ -107,7 +106,7 @@ def main(argv: list[str] | None = None) -> int:
             result = pipeline.review_text(args.text, **options)
         print(json.dumps(result.to_dict(), indent=2, ensure_ascii=False))
         return 1 if result.review.degraded_modes else 0
-    except (OSError, ValueError, RuntimeError) as exc:
+    except Exception as exc:
         print(f"classification failed: {exc}", file=sys.stderr)
         return 2
 

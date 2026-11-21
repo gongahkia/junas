@@ -539,6 +539,7 @@ def parse_pdf_structure(data: bytes) -> DocumentStructure:
 
 
 def parse_document_structure(text: str) -> DocumentStructure:
+    limits.check_analyzed_text(text)
     units: list[StructuralUnit] = [
         StructuralUnit(
             kind="document",

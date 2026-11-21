@@ -307,7 +307,8 @@ def test_xlsx_shared_string_amplification_is_checked_before_row_join(monkeypatch
             archive.writestr("xl/sharedStrings.xml", f"<sst {ns}><si><t>{'x' * 32}</t></si></sst>")
             archive.writestr(
                 "xl/worksheets/sheet1.xml",
-                f'<worksheet {ns}><sheetData><row><c t="s"><v>0</v></c><c t="s"><v>0</v></c></row></sheetData></worksheet>',
+                f"<worksheet {ns}><sheetData><row>"
+                '<c t="s"><v>0</v></c><c t="s"><v>0</v></c></row></sheetData></worksheet>',
             )
         data = buffer.getvalue()
     monkeypatch.setattr(input_limits, "MAX_ANALYZED_TEXT_BYTES", 64)
@@ -366,3 +367,16 @@ def test_ocr_text_overflow_is_refused_or_explicitly_degraded(monkeypatch, fail_c
             result = ReviewPipeline(settings).review(payload)
             assert result.to_dict()["status"] == "degraded"
             assert result.document.extraction_quality == "degraded"
+
+
+def test_malformed_native_parser_failure_uses_cli_exit_two(tmp_path, monkeypatch, capsys):
+    with io.BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr("word/document.xml", "<unclosed>")
+        wire = buffer.getvalue()
+    path = tmp_path / "malformed.docx"
+    path.write_bytes(wire)
+    settings = get_runtime_settings({"document_ingest.fail_closed": False})
+    monkeypatch.setattr("junas.cli.get_runtime_settings", lambda *_: settings)
+    assert main(["classify", "--file", str(path)]) == 2
+    assert "classification failed:" in capsys.readouterr().err
