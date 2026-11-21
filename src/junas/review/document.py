@@ -9,7 +9,13 @@ from io import BytesIO
 from typing import Any
 from xml.etree import ElementTree
 
-from junas.input_limits import check_analyzed_text, check_encoded_document, check_inline_text, check_source_bytes
+import junas.input_limits as limits
+from junas.input_limits import (
+    check_analyzed_text,
+    check_encoded_document,
+    check_inline_text,
+    check_source_bytes,
+)
 from junas.review.container_scan import (
     DOCX_MIME,
     EML_MIMES,
@@ -191,8 +197,12 @@ def _extract_pdf(
     pages: list[str] = []
     page_text_lengths: list[int] = []
     image_count = 0
+    retained_bytes = 0
     for page in reader.pages:
         text = page.extract_text() or ""
+        if pages:
+            retained_bytes += 2
+        retained_bytes += limits._utf8_size(text, limits.MAX_ANALYZED_TEXT_BYTES - retained_bytes, "analyzed text")
         pages.append(text)
         page_text_lengths.append(len(_clean_text(text)))
         image_count += _pdf_page_image_count(page)

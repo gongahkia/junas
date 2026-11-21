@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ipaddress
 import json
+import math
 import os
 import tomllib
 from collections.abc import Iterator, Mapping, Sequence
@@ -273,6 +274,8 @@ def _parse_float(value: Any, *, label: str, minimum: float | None = None) -> flo
         parsed = float(value)
     except (TypeError, ValueError) as exc:
         raise ConfigError(f"invalid float for {label}: {value!r}") from exc
+    if not math.isfinite(parsed):
+        raise ConfigError(f"{label} must be finite")
     if minimum is not None and parsed < minimum:
         raise ConfigError(f"{label} must be >= {minimum}, got {parsed}")
     return parsed

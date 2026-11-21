@@ -271,3 +271,98 @@ def test_cli_preserves_degraded_exit_one(monkeypatch, capsys):
     result = ReviewPipeline(settings).review(DocumentInput(document_base64="eA==", document_filename="unsupported.msg"))
     monkeypatch.setattr(ReviewPipeline, "review_text", lambda *a, **k: result)
     assert main(["classify", "--text", "ordinary"]) == 1
+
+
+@pytest.mark.parametrize("size", [7, 8, 9])
+def test_short_binary_reads_are_not_mistaken_for_end_of_input(small_source, monkeypatch, size):
+    class Short(io.BytesIO):
+        def read(self, size=-1):
+            assert size >= 0
+            return super().read(min(2, size))
+
+    stream = Short(b"x" * size)
+    if size > 8:
+        with pytest.raises(ValueError):
+            input_limits.read_source(stream)
+    else:
+        assert input_limits.read_source(stream) == b"x" * size
+    monkeypatch.setattr(sys, "stdin", SimpleNamespace(buffer=Short(b"x" * size)))
+    assert main(["classify", "--file", "-"]) == (2 if size > 8 else 0)
+
+
+@pytest.mark.parametrize("value", [float("nan"), float("inf"), float("-inf")])
+@pytest.mark.parametrize("key", ["image_scan.pdf_render_scale", "image_scan.timeout_seconds"])
+def test_nonfinite_resource_settings_are_rejected(key, value):
+    with pytest.raises(ValueError):
+        get_runtime_settings({key: value})
+
+
+def test_xlsx_shared_string_amplification_is_checked_before_row_join(monkeypatch):
+    from junas.review import document_structure
+
+    ns = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"'
+    with io.BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w") as archive:
+            archive.writestr("xl/workbook.xml", f'<workbook {ns}><sheets><sheet name="Sheet"/></sheets></workbook>')
+            archive.writestr("xl/sharedStrings.xml", f"<sst {ns}><si><t>{'x' * 32}</t></si></sst>")
+            archive.writestr(
+                "xl/worksheets/sheet1.xml",
+                f'<worksheet {ns}><sheetData><row><c t="s"><v>0</v></c><c t="s"><v>0</v></c></row></sheetData></worksheet>',
+            )
+        data = buffer.getvalue()
+    monkeypatch.setattr(input_limits, "MAX_ANALYZED_TEXT_BYTES", 64)
+    with patch.object(
+        document_structure, "_structure_from_blocks", side_effect=AssertionError("row already allocated")
+    ):
+        with pytest.raises(ValueError, match="limit"):
+            document_structure.parse_xlsx_structure(data)
+
+
+@pytest.mark.parametrize("fail_closed", [True, False])
+def test_global_archive_entry_limit_refuses_or_degrades_whole_request(monkeypatch, fail_closed):
+    wire, _ = _siblings_zip()
+    monkeypatch.setattr(container_scan, "MAX_ENTRIES", 3)
+    settings = get_runtime_settings({"document_ingest.fail_closed": fail_closed})
+    payload = DocumentInput(document_base64=base64.b64encode(wire).decode(), document_filename="siblings.zip")
+    if fail_closed:
+        with pytest.raises(ValueError, match="aggregate archive entries"):
+            ReviewPipeline(settings).review(payload)
+    else:
+        result = ReviewPipeline(settings).review(payload)
+        assert result.to_dict()["status"] == "degraded"
+        assert result.document.extraction_quality == "degraded"
+
+
+def test_nested_decoded_email_keeps_separate_budget_from_source_capture(monkeypatch):
+    message = _email("neutral " * 100 + " S1234567D")
+    wire = message.as_bytes()
+    with io.BytesIO() as buffer:
+        with zipfile.ZipFile(buffer, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr("nested.eml", wire)
+        data = buffer.getvalue()
+    assert len(data) < 512 < len(wire)
+    monkeypatch.setattr(input_limits, "MAX_SOURCE_BYTES", 512)
+    monkeypatch.setattr(input_limits, "MAX_INLINE_TEXT_BYTES", 512)
+    result = ReviewPipeline().review(
+        DocumentInput(document_base64=base64.b64encode(data).decode(), document_filename="email.zip")
+    )
+    assert any(f.rule == "sg_nric_fin" for f in result.review.findings)
+    assert result.to_dict()["status"] == "completed"
+
+
+@pytest.mark.parametrize("fail_closed", [True, False])
+def test_ocr_text_overflow_is_refused_or_explicitly_degraded(monkeypatch, fail_closed):
+    from junas.review.image_scan import ImageScanError
+    from test.test_image_scan import FakeImageScanner, _png_bytes
+
+    monkeypatch.setattr(input_limits, "MAX_ANALYZED_TEXT_BYTES", 8)
+    settings = get_runtime_settings({"document_ingest.fail_closed": fail_closed, "image_scan.provider": "tesseract"})
+    payload = DocumentInput(document_base64=base64.b64encode(_png_bytes()).decode(), document_filename="scan.png")
+    with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner(text="oversized OCR output")):
+        if fail_closed:
+            with pytest.raises((ValueError, ImageScanError)):
+                ReviewPipeline(settings).review(payload)
+        else:
+            result = ReviewPipeline(settings).review(payload)
+            assert result.to_dict()["status"] == "degraded"
+            assert result.document.extraction_quality == "degraded"

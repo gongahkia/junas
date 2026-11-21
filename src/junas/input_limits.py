@@ -61,18 +61,30 @@ def check_text_parts(parts: Iterable[str], *, separator: str = "") -> None:
         first = False
 
 
+def _read_binary(stream: BinaryIO, maximum: int, label: str) -> bytes:
+    parts: list[bytes] = []
+    total = 0
+    while True:
+        part = stream.read(min(_TEXT_CHUNK, maximum - total + 1))
+        if not isinstance(part, bytes):
+            raise ValueError(f"{label} must provide bytes")
+        if not part:
+            break
+        total += len(part)
+        if total > maximum:
+            raise ResourceLimitError(f"{label} exceeds the {maximum}-byte limit")
+        parts.append(part)
+    return b"".join(parts)
+
+
 def read_source(stream: BinaryIO) -> bytes:
-    data = stream.read(MAX_SOURCE_BYTES + 1)
-    check_source_bytes(data)
-    return data
+    return _read_binary(stream, MAX_SOURCE_BYTES, "document source")
 
 
 def read_stdin(stream: TextIO) -> str:
     binary = getattr(stream, "buffer", None)
     if binary is not None:
-        data = binary.read(MAX_INLINE_TEXT_BYTES + 1)
-        if len(data) > MAX_INLINE_TEXT_BYTES:
-            raise ResourceLimitError(f"standard input exceeds the {MAX_INLINE_TEXT_BYTES}-byte limit")
+        data = _read_binary(binary, MAX_INLINE_TEXT_BYTES, "standard input")
         text = data.decode("utf-8")
         check_inline_text(text)
         return text

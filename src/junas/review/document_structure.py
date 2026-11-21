@@ -287,6 +287,7 @@ def parse_docx_structure(data: bytes) -> DocumentStructure:
                 if not cell_texts:
                     continue
                 append_separator()
+                limits.check_text_parts(cell_texts, separator=" | ")
                 row_text = " | ".join(cell_texts)
                 row_start = offset
                 row_line = line_no
@@ -310,6 +311,7 @@ def parse_docx_structure(data: bytes) -> DocumentStructure:
                 parts.append(row_text)
                 offset += len(row_text)
 
+    limits.check_text_parts(parts)
     text = "".join(parts)
     document = StructuralUnit(
         kind="document",
@@ -401,6 +403,7 @@ def parse_xlsx_structure(data: bytes) -> DocumentStructure:
                 cells = [_cell_value(cell, shared).strip() for cell in row.findall(f"{_SHEET_NS}c")]
                 values = [value for value in cells if value]
                 if values:
+                    limits.check_text_parts(values, separator=" | ")
                     blocks.append(("table_row", " | ".join(values), sheet_parent))
                     row_parent = len(blocks) - 1
                     for value in values:
