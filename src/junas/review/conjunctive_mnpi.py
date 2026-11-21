@@ -17,65 +17,77 @@ SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED = "public_source_matched"
 SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND = "no_public_source_found"
 SOURCE_VERIFICATION_AMBIGUOUS = "ambiguous"
 
-MATERIALITY_LEXICAL_RULES = frozenset({
-    "material_event",
-    "material_adverse_change",
-    "transaction_codename",
-    "definitive_agreement",
-    "embargo_marker",
-    "dpt_pre_listing_marker",
-    "dpt_protocol_event_marker",
-    "esg_climate_pre_disclosure",
-    "esg_target_revision",
-    "cyber_incident_pre_disclosure",
-})
+MATERIALITY_LEXICAL_RULES = frozenset(
+    {
+        "material_event",
+        "material_adverse_change",
+        "transaction_codename",
+        "definitive_agreement",
+        "embargo_marker",
+        "dpt_pre_listing_marker",
+        "dpt_protocol_event_marker",
+        "esg_climate_pre_disclosure",
+        "esg_target_revision",
+        "cyber_incident_pre_disclosure",
+    }
+)
 MATERIALITY_QUANT_RULES = frozenset({"financial_amount", "financial_percentage"})
-MATERIALITY_IMPLIED_RULES = frozenset({
-    "contingent_mnpi_language",
-    "tipping_language",
-    "selective_disclosure_risk",
-    "insider_list_marker",
-    "information_barrier_marker",
-    "blackout_period_reference",
-})
-NON_PUBLIC_RULES = frozenset({
-    "nonpublic_marker",
-    "embargo_marker",
-    "transaction_codename",
-    "definitive_agreement",
-    "material_adverse_change",
-    "insider_list_marker",
-    "information_barrier_marker",
-    "blackout_period_reference",
-})
-NON_PUBLIC_SOURCE_STATES = frozenset({
-    SOURCE_VERIFICATION_NOT_CHECKED,
-    SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
-    SOURCE_VERIFICATION_AMBIGUOUS,
-})
-ENTITY_FINDING_RULES = frozenset({
-    "named_person",
-    "sg_uen",
-    "sg_sgx_counter",
-    "sg_mas_licence",
-    "sg_acra_transaction_number",
-    "hk_cr_no",
-    "au_abn",
-    "au_acn",
-    "jp_corporate_number",
-    "kr_business_registration",
-    "us_ein",
-    "uk_company_number",
-    "in_pan",
-    "in_gstin",
-    "cn_uscc",
-})
-POSSESSION_DUTY_RULES = frozenset({
-    "tipping_language",
-    "selective_disclosure_risk",
-    "insider_list_marker",
-    "information_barrier_marker",
-})
+MATERIALITY_IMPLIED_RULES = frozenset(
+    {
+        "contingent_mnpi_language",
+        "tipping_language",
+        "selective_disclosure_risk",
+        "insider_list_marker",
+        "information_barrier_marker",
+        "blackout_period_reference",
+    }
+)
+NON_PUBLIC_RULES = frozenset(
+    {
+        "nonpublic_marker",
+        "embargo_marker",
+        "transaction_codename",
+        "definitive_agreement",
+        "material_adverse_change",
+        "insider_list_marker",
+        "information_barrier_marker",
+        "blackout_period_reference",
+    }
+)
+NON_PUBLIC_SOURCE_STATES = frozenset(
+    {
+        SOURCE_VERIFICATION_NOT_CHECKED,
+        SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
+        SOURCE_VERIFICATION_AMBIGUOUS,
+    }
+)
+ENTITY_FINDING_RULES = frozenset(
+    {
+        "named_person",
+        "sg_uen",
+        "sg_sgx_counter",
+        "sg_mas_licence",
+        "sg_acra_transaction_number",
+        "hk_cr_no",
+        "au_abn",
+        "au_acn",
+        "jp_corporate_number",
+        "kr_business_registration",
+        "us_ein",
+        "uk_company_number",
+        "in_pan",
+        "in_gstin",
+        "cn_uscc",
+    }
+)
+POSSESSION_DUTY_RULES = frozenset(
+    {
+        "tipping_language",
+        "selective_disclosure_risk",
+        "insider_list_marker",
+        "information_barrier_marker",
+    }
+)
 
 ORG_NAME_RE = re.compile(
     r"\b[A-Z][A-Za-z0-9&.'-]*(?:\s+[A-Z][A-Za-z0-9&.'-]*){0,5}\s+"

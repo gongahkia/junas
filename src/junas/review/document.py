@@ -25,6 +25,7 @@ from junas.review.container_scan import (
     ContainerScanResult,
     is_container_mime,
     scan_container,
+    validate_document_type,
 )
 from junas.review.container_scan import (
     infer_mime_type as infer_container_mime_type,
@@ -215,13 +216,9 @@ def _extract_pdf(
     scanner_hint = any(marker in metadata_text for marker in ("scanner", "scan", "ocr", "image capture"))
     warnings: list[str] = []
     if len(cleaned) < min_text_chars:
-        warnings.append(
-            f"PDF text layer is too sparse ({len(cleaned)} chars; minimum {min_text_chars})"
-        )
+        warnings.append(f"PDF text layer is too sparse ({len(cleaned)} chars; minimum {min_text_chars})")
     if page_count and empty_ratio > max_empty_ratio:
-        warnings.append(
-            f"PDF has too many pages without a reliable text layer ({empty_pages}/{page_count})"
-        )
+        warnings.append(f"PDF has too many pages without a reliable text layer ({empty_pages}/{page_count})")
     if reject_image_only and image_count and avg_chars_per_page < min_chars_per_page:
         warnings.append("PDF appears image-heavy without enough extractable text")
     if scanner_hint and avg_chars_per_page < min_chars_per_page:
@@ -242,7 +239,7 @@ def _extract_pdf(
 
 def _infer_mime_type(filename: str, mime_type: str | None) -> str:
     if mime_type:
-        return mime_type.strip().lower()
+        return mime_type.partition(";")[0].strip().lower()
     inferred = infer_container_mime_type(filename)
     if inferred != "text/plain":
         return inferred
@@ -288,12 +285,12 @@ def extract_review_document(
         raise ValueError("either text or document_base64 is required")
 
     data = _decode_base64(str(raw_base64))
+    validate_document_type(data, filename=filename, mime_type=mime_type)
     fail_closed = _fail_closed(ingest_settings)
     fail_open_warnings: list[str] = []
     try:
         metadata_findings = [
-            finding.to_dict()
-            for finding in inspect_metadata(data, filename=filename, mime_type=mime_type)
+            finding.to_dict() for finding in inspect_metadata(data, filename=filename, mime_type=mime_type)
         ]
     except Exception as exc:
         if fail_closed:
@@ -378,9 +375,7 @@ def extract_review_document(
                 )
                 if image_candidates:
                     extraction_warnings = list(extraction_warnings)
-                    extraction_warnings.append(
-                        f"PDF rendered {len(image_candidates)} page(s) for configured image OCR"
-                    )
+                    extraction_warnings.append(f"PDF rendered {len(image_candidates)} page(s) for configured image OCR")
     elif mime_type == SUPPORTED_XLSX_MIME:
         document_structure = parse_xlsx_structure(data)
         extracted = document_structure.text
@@ -441,9 +436,7 @@ def extract_review_document(
         method = "unsupported_document"
         page_count = None
         extraction_quality = "degraded"
-        extraction_warnings = container_warnings + [
-            _fail_open_warning(f"unsupported document_mime_type: {mime_type}")
-        ]
+        extraction_warnings = container_warnings + [_fail_open_warning(f"unsupported document_mime_type: {mime_type}")]
         image_candidates = []
 
     cleaned = _clean_text(extracted)

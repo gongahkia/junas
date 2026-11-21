@@ -35,6 +35,14 @@ EML_MIMES = {"message/rfc822"}
 MARKDOWN_MIMES = {"text/markdown"}
 IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp", "image/gif", "image/tiff", "image/bmp"}
 
+_OFFICE_EXTENSIONS = {".docx": DOCX_MIME, ".xlsx": XLSX_MIME, ".pptx": PPTX_MIME}
+_OFFICE_MAIN_PARTS = {
+    DOCX_MIME: ("word/document.xml", "wordprocessingml.document"),
+    XLSX_MIME: ("xl/workbook.xml", "spreadsheetml.sheet"),
+    PPTX_MIME: ("ppt/presentation.xml", "presentationml.presentation"),
+}
+_MACRO_EXTENSIONS = {".docm", ".dotm", ".xlsm", ".xltm", ".xlam", ".xlsb", ".pptm", ".potm", ".ppam", ".ppsm", ".sldm"}
+
 MAX_DEPTH = 3
 MAX_ENTRIES = 256
 MAX_MEMBER_BYTES = 25 * 1024 * 1024
@@ -109,7 +117,7 @@ def scan_container(
     mime_type: str,
     image_scan_enabled: bool = False,
 ) -> ContainerScanResult:
-    normalized = (mime_type or infer_mime_type(filename, data)).lower()
+    normalized = (mime_type or infer_mime_type(filename, data)).partition(";")[0].strip().lower()
     return _scan_by_type(
         data,
         filename=filename or "document",
@@ -180,6 +188,60 @@ def is_container_mime(mime_type: str) -> bool:
     }
 
 
+def _macro_content_type(value: str) -> bool:
+    return any(marker in value.casefold() for marker in ("macroenabled", "vbaproject", "macrosheet"))
+
+
+def validate_document_type(data: bytes, *, filename: str, mime_type: str) -> None:
+    """Refuse unsupported Office evidence before metadata or body parsers run."""
+    normalized = mime_type.partition(";")[0].strip().lower()
+    extension = PurePosixPath(filename.rstrip(" .")).suffix.lower()
+    if extension in _MACRO_EXTENSIONS or _macro_content_type(normalized):
+        raise ContainerScanError("macro-enabled Office formats are unsupported and refused")
+    named_type = _OFFICE_EXTENSIONS.get(extension)
+    if named_type and normalized not in {named_type, *ZIP_MIMES}:
+        raise ContainerScanError("document type mismatch between Office extension and declared MIME type")
+    if data.startswith(bytes.fromhex("d0cf11e0a1b11ae1")):
+        raise ContainerScanError("unsupported legacy Office/OLE container refused")
+    _check_magic_bytes(data, filename=filename, mime_type=normalized)
+    # detect prefixed ZIPs before a text decoder can consume their binary contents.
+    text_like = normalized.startswith("text/") or normalized in {"application/json", "application/octet-stream"}
+    is_zip = data.startswith(b"PK\x03\x04") or (text_like and zipfile.is_zipfile(BytesIO(data)))
+    if not is_zip:
+        return
+    if normalized not in {*_OFFICE_MAIN_PARTS, *ZIP_MIMES}:
+        raise ContainerScanError("document type mismatch: ZIP container declared as a non-ZIP document")
+    office_type = named_type or (normalized if normalized in _OFFICE_MAIN_PARTS else None)
+    with _zip_archive(data) as archive:
+        _validate_zip(archive)
+        names = set(archive.namelist())
+        _refuse_macros(names)
+        main_part, family = _OFFICE_MAIN_PARTS[office_type] if office_type else ("", "")
+        if office_type:
+            present = {part for part, _ in _OFFICE_MAIN_PARTS.values() if part in names}
+            if present != {main_part}:
+                raise ContainerScanError(
+                    "document type mismatch: Office package main part does not match declared type"
+                )
+        # read every manifest entry, including duplicates, before any body XML.
+        for info in archive.infolist():
+            if info.filename.casefold() != "[content_types].xml":
+                continue
+            try:
+                manifest = archive.read(info)
+            except (zipfile.BadZipFile, RuntimeError, NotImplementedError) as exc:
+                raise ContainerScanError(f"Office content-type manifest is unreadable: {exc}") from exc
+            root = _safe_xml_root(manifest, label=info.filename)
+            for node in root.iter():
+                content_type = node.attrib.get("ContentType", "")
+                if _macro_content_type(content_type):
+                    raise ContainerScanError("macro-enabled Office content type refused")
+                if office_type and node.attrib.get("PartName", "").lstrip("/") == main_part:
+                    expected = f"application/vnd.openxmlformats-officedocument.{family}.main+xml"
+                    if content_type.lower() != expected:
+                        raise ContainerScanError("document type mismatch in Office main-part content type")
+
+
 def _scan_by_type(
     data: bytes,
     *,
@@ -191,10 +253,7 @@ def _scan_by_type(
 ) -> ContainerScanResult:
     if depth > MAX_DEPTH:
         raise ContainerScanError(f"container recursion depth exceeds maximum {MAX_DEPTH}")
-    _check_magic_bytes(data, filename=filename, mime_type=mime_type)
-    lower = filename.lower()
-    if lower.endswith((".docm", ".xlsm", ".pptm")):
-        raise ContainerScanError("macro-enabled Office containers are refused by default")
+    validate_document_type(data, filename=filename, mime_type=mime_type)
     if mime_type == DOCX_MIME:
         return _scan_docx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
     if mime_type == XLSX_MIME:
@@ -609,7 +668,7 @@ def _scan_pptx(data: bytes, *, image_scan_enabled: bool, container_prefix: str) 
 
 
 def _refuse_macros(names: set[str]) -> None:
-    if any(name.lower().endswith("vbaproject.bin") for name in names):
+    if any(name.lower().endswith("vbaproject.bin") or "/macrosheets/" in name.lower() for name in names):
         raise ContainerScanError("macro-enabled Office container refused by default")
 
 
