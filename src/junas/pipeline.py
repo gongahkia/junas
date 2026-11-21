@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import json
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
@@ -135,13 +136,16 @@ class ReviewPipeline:
                 degraded.append(entry)
         privacy_ledger: list[dict[str, Any]] = []
         if settings.image_scan.provider != "none" and document.image_candidates:
+            coverage: list[dict[str, Any]] = []
             try:
                 scanner = build_image_scanner(settings.image_scan, _privacy_guard(settings))
                 if scanner is None:
                     raise ImageScanError("configured OCR provider is unavailable")
                 results, privacy_ledger = scan_image_candidates(
-                    document.image_candidates, scanner=scanner, settings=settings.image_scan
+                    document.image_candidates, scanner=scanner, settings=settings.image_scan, coverage=coverage
                 )
+                if len(results) != len(document.image_candidates) and settings.document_ingest.fail_closed:
+                    raise ImageScanError("some OCR images yielded empty text; complete coverage is unknown")
                 text, spans = append_ocr_text_blocks(document.text, results)
                 if not text.strip():
                     raise ImageScanError("image OCR produced no reviewable text")
@@ -154,7 +158,9 @@ class ReviewPipeline:
                     text=text,
                     image_text_spans=spans,
                     image_scan_provider=settings.image_scan.provider,
-                    extraction_quality="degraded" if document.extraction_quality == "degraded" else "accepted",
+                    extraction_quality="degraded"
+                    if degraded or document.extraction_quality == "degraded"
+                    else "accepted",
                     document_structure=None,
                 )
             except (ImageScanError, ResourceLimitError) as exc:
@@ -162,6 +168,49 @@ class ReviewPipeline:
                     raise
                 degraded.append({"layer": "image_ocr", "mode": "failed", "reason": str(exc)})
                 document = replace(document, extraction_quality="degraded")
+                for unit in coverage:
+                    if unit["status"] == "not_submitted":
+                        unit["reason"] = str(exc)
+            if not coverage:
+                coverage = [
+                    {"locator": c.locator.to_dict(), "status": "not_submitted"} for c in document.image_candidates
+                ]
+            metadata = list(document.metadata_findings or [])
+            for index, unit in enumerate(coverage):
+                unit["provider"] = settings.image_scan.provider
+                unit["retained"] = any(
+                    span.locator.to_dict() == unit["locator"] for span in document.image_text_spans or []
+                )
+                metadata.append(
+                    {
+                        "id": f"ocr-unit-{index}",
+                        "source": "image_ocr_coverage",
+                        "field": str(index),
+                        "severity": "info",
+                        "detail": json.dumps(unit, sort_keys=True),
+                        "value_preview": unit["status"],
+                    }
+                )
+            summary = {
+                "discovered": len(coverage),
+                "submitted": sum(u["status"] != "not_submitted" for u in coverage),
+                "processed": sum(u["status"] == "processed" for u in coverage),
+                "empty": sum(u["status"] == "empty" for u in coverage),
+                "failed": sum(u["status"] == "failed" for u in coverage),
+                "not_submitted": sum(u["status"] == "not_submitted" for u in coverage),
+                "retained": sum(u["retained"] for u in coverage),
+            }
+            metadata.append(
+                {
+                    "id": "ocr-summary",
+                    "source": "image_ocr_coverage",
+                    "field": "summary",
+                    "severity": "info",
+                    "detail": json.dumps(summary, sort_keys=True),
+                    "value_preview": "work_accounting",
+                }
+            )
+            document = replace(document, metadata_findings=metadata)
         check_analyzed_text(document.text)
         engine = self._engines.get(review_profile)
         if engine is None:
@@ -195,6 +244,8 @@ class ReviewPipeline:
                 finding.image_locator = locator
                 finding.image_ocr_confidence = metadata.get("confidence")
                 finding.image_ocr_regions = metadata.get("regions", [])
+                finding.metadata["image_ocr_provider"] = metadata.get("provider")
+                finding.metadata["original_document"] = document.filename
         review.privacy_ledger = privacy_ledger + review.privacy_ledger
         review.degraded_modes = degraded + review.degraded_modes
         return AnalysisResult(review=review, document=document)

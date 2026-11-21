@@ -5,6 +5,7 @@ import math
 import mimetypes
 import re
 import time
+import warnings
 import zipfile
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -31,6 +32,107 @@ AWS_REKOGNITION_MIMES = frozenset({"image/jpeg", "image/png"})
 
 class ImageScanError(ValueError):
     """Raised when configured image OCR cannot complete safely."""
+
+
+# a 25 MP RGBA surface alone occupies about 100 MB; these are admission
+# limits, not bounds on decoder scratch space or native process memory.
+MAX_IMAGE_DIMENSION = 16_384
+MAX_IMAGE_PIXELS = 25_000_000
+MAX_TOTAL_IMAGE_PIXELS = 100_000_000
+MAX_RENDER_SCALE = 4.0
+MAX_PDF_IMAGE_OBJECTS = 256
+
+
+def _check_dimensions(width: Any, height: Any) -> int:
+    try:
+        w, h = float(width), float(height)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ImageScanError("invalid image dimensions") from exc
+    if not math.isfinite(w) or not math.isfinite(h) or w <= 0 or h <= 0:
+        raise ImageScanError("image dimensions must be finite and positive")
+    if w > MAX_IMAGE_DIMENSION or h > MAX_IMAGE_DIMENSION:
+        raise ImageScanError(f"image dimension exceeds maximum {MAX_IMAGE_DIMENSION}")
+    pixels = math.ceil(w) * math.ceil(h)
+    if pixels > MAX_IMAGE_PIXELS:
+        raise ImageScanError(f"image pixel estimate {pixels} exceeds maximum {MAX_IMAGE_PIXELS}")
+    return pixels
+
+
+def image_pixel_count(data: bytes) -> int:
+    """Inspect headers before full pixel loading; header parsers remain native work."""
+    from PIL import Image
+
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", Image.DecompressionBombWarning)
+            with Image.open(BytesIO(data)) as image:
+                pixels = _check_dimensions(*image.size)
+                if getattr(image, "n_frames", 1) != 1:
+                    raise ImageScanError("multi-frame image OCR is unsupported; frames would be omitted")
+                return pixels
+    except ImageScanError:
+        raise
+    except Exception as exc:
+        raise ImageScanError(f"image header inspection failed: {exc}") from exc
+
+
+@dataclass
+class _ImageBudget:
+    settings: Any = None
+    images: int = 0
+    encoded_bytes: int = 0
+    pixels: int = 0
+
+    def charge(self, *, pixels: int, encoded_bytes: int = 0) -> None:
+        max_images = int(getattr(self.settings, "max_images", 32))
+        max_bytes = int(getattr(self.settings, "max_bytes", 10 * 1024 * 1024))
+        max_total = int(getattr(self.settings, "max_total_bytes", 100 * 1024 * 1024))
+        if self.images + 1 > max_images:
+            raise ImageScanError(f"image OCR image count exceeds maximum {max_images}")
+        if encoded_bytes > max_bytes or self.encoded_bytes + encoded_bytes > max_total:
+            raise ImageScanError("image OCR encoded byte budget exceeded")
+        if self.pixels + pixels > MAX_TOTAL_IMAGE_PIXELS:
+            raise ImageScanError(f"aggregate image pixel budget exceeds maximum {MAX_TOTAL_IMAGE_PIXELS}")
+        self.images += 1
+        self.encoded_bytes += encoded_bytes
+        self.pixels += pixels
+
+
+def _preflight_pdf_images(page: Any, budget: _ImageBudget) -> None:
+    # page.images converts pixels during iteration. Inspect nested resources and
+    # inline declarations first, including masks which can allocate separately.
+    stack = [page]
+    visited: set[int] = set()
+    while stack:
+        obj = stack.pop()
+        obj = obj.get_object() if hasattr(obj, "get_object") else obj
+        if id(obj) in visited:
+            continue
+        visited.add(id(obj))
+        if len(visited) > MAX_PDF_IMAGE_OBJECTS:
+            raise ImageScanError("PDF image resource traversal limit exceeded")
+        if obj.get("/Subtype") == "/Image":
+            budget.charge(pixels=_check_dimensions(obj.get("/Width"), obj.get("/Height")))
+            for key in ("/SMask", "/Mask"):
+                mask = obj.get(key)
+                if mask is not None and not isinstance(mask, (list, str)):
+                    stack.append(mask)
+            continue
+        resources = obj.get("/Resources") or {}
+        resources = resources.get_object() if hasattr(resources, "get_object") else resources
+        xobjects = resources.get("/XObject") or {}
+        xobjects = xobjects.get_object() if hasattr(xobjects, "get_object") else xobjects
+        stack.extend(xobjects.values())
+    contents = page.get_contents()
+    if contents is not None:
+        for operands, operator in contents.operations:
+            if operator == b"INLINE IMAGE":
+                settings = operands["settings"]
+                budget.charge(
+                    pixels=_check_dimensions(
+                        settings.get("/W", settings.get("/Width")), settings.get("/H", settings.get("/Height"))
+                    )
+                )
 
 
 @dataclass(frozen=True)
@@ -180,7 +282,9 @@ def collect_docx_images(data: bytes) -> list[ImageCandidate]:
     return candidates
 
 
-def collect_pdf_images(data: bytes) -> list[ImageCandidate]:
+def collect_pdf_images(
+    data: bytes, *, exclude_pages: set[int] | None = None, settings: Any = None
+) -> list[ImageCandidate]:
     try:
         from pypdf import PdfReader
     except Exception as exc:
@@ -189,7 +293,12 @@ def collect_pdf_images(data: bytes) -> list[ImageCandidate]:
     candidates: list[ImageCandidate] = []
     reader = PdfReader(BytesIO(data))
     image_index = 0
+    budget = _ImageBudget(settings)
+    encoded_budget = _ImageBudget(settings)
     for page_index, page in enumerate(reader.pages):
+        if page_index + 1 in (exclude_pages or set()):
+            continue
+        _preflight_pdf_images(page, budget)
         try:
             page_images = getattr(page, "images", None) or []
         except Exception as exc:
@@ -197,7 +306,8 @@ def collect_pdf_images(data: bytes) -> list[ImageCandidate]:
         for raw_image in page_images:
             image_data = getattr(raw_image, "data", None)
             if not image_data:
-                continue
+                raise ImageScanError(f"PDF image on page {page_index + 1} has no reviewable payload")
+            encoded_budget.charge(pixels=image_pixel_count(image_data), encoded_bytes=len(image_data))
             name = str(getattr(raw_image, "name", "") or f"page-{page_index + 1}-image-{image_index}")
             candidates.append(
                 ImageCandidate(
@@ -220,7 +330,14 @@ def collect_pdf_page_renders(
     *,
     max_pages: int = 8,
     scale: float = 2.0,
+    page_numbers: list[int] | None = None,
+    settings: Any = None,
+    _budget: _ImageBudget | None = None,
 ) -> list[ImageCandidate]:
+    if not math.isfinite(scale) or not 0.25 <= scale <= MAX_RENDER_SCALE:
+        raise ImageScanError(f"PDF render scale must be between 0.25 and {MAX_RENDER_SCALE}")
+    if max_pages < 1:
+        raise ImageScanError("PDF render page limit must be positive")
     try:
         import pypdfium2 as pdfium
     except Exception as exc:
@@ -231,16 +348,38 @@ def collect_pdf_page_renders(
         pdf = pdfium.PdfDocument(data)
     except Exception as exc:
         raise ImageScanError(f"PDF page rendering failed: {exc}") from exc
-    page_count = min(len(pdf), max_pages)
+    budget = _budget or _ImageBudget(settings)
     try:
-        for page_index in range(page_count):
+        selected = page_numbers if page_numbers is not None else list(range(1, min(len(pdf), max_pages) + 1))
+        if (
+            len(selected) > max_pages
+            or len(set(selected)) != len(selected)
+            or any(n < 1 or n > len(pdf) for n in selected)
+        ):
+            raise ImageScanError("invalid or excessive PDF render page selection")
+        for page_number in selected:
+            page_index = page_number - 1
             page = pdf[page_index]
             try:
+                width, height = page.get_size()
+                pixels = _check_dimensions(width * scale, height * scale)
+                budget.charge(pixels=pixels)
                 bitmap = page.render(scale=scale)
-                image = bitmap.to_pil()
-                with BytesIO() as buffer:
-                    image.save(buffer, format="PNG")
-                    image_data = buffer.getvalue()
+                try:
+                    image = bitmap.to_pil()
+                    try:
+                        with BytesIO() as buffer:
+                            image.save(buffer, format="PNG")
+                            image_data = buffer.getvalue()
+                    finally:
+                        image.close()
+                finally:
+                    bitmap.close()
+                max_bytes = int(getattr(settings, "max_bytes", 10 * 1024 * 1024))
+                max_total = int(getattr(settings, "max_total_bytes", 100 * 1024 * 1024))
+                budget.encoded_bytes += len(image_data)
+                if len(image_data) > max_bytes or budget.encoded_bytes > max_total:
+                    raise ImageScanError("PDF rendered image encoded byte budget exceeded")
             finally:
                 close = getattr(page, "close", None)
                 if callable(close):
@@ -313,6 +452,7 @@ class TesseractImageScanner:
             raise ImageScanError("Tesseract OCR requires Pillow and pytesseract") from exc
 
         try:
+            image_pixel_count(candidate.data)
             with Image.open(BytesIO(candidate.data)) as image:
                 text, regions, confidence = _tesseract_text_regions(
                     pytesseract, image, timeout_seconds=self.timeout_seconds
@@ -907,7 +1047,11 @@ def scan_image_candidates(
     *,
     scanner: ImageScanner,
     settings: Any,
+    coverage: list[dict[str, Any]] | None = None,
 ) -> tuple[list[ImageOcrResult], list[dict[str, Any]]]:
+    if coverage is None:
+        coverage = []
+    coverage.extend({"locator": c.locator.to_dict(), "status": "not_submitted"} for c in candidates)
     max_images = int(getattr(settings, "max_images", 32) or 32)
     max_bytes = int(getattr(settings, "max_bytes", 10 * 1024 * 1024) or (10 * 1024 * 1024))
     max_total_bytes = int(getattr(settings, "max_total_bytes", max_bytes * max_images) or (max_bytes * max_images))
@@ -917,9 +1061,15 @@ def scan_image_candidates(
     if total_bytes > max_total_bytes:
         raise ImageScanError(f"image OCR refused {total_bytes} total image bytes; maximum is {max_total_bytes}")
 
+    budget = _ImageBudget(settings)
+    for candidate in candidates:
+        if candidate.mime_type not in SUPPORTED_IMAGE_MIMES:
+            raise ImageScanError(f"unsupported OCR media {candidate.mime_type} at {candidate.locator.container_path}")
+        budget.charge(pixels=image_pixel_count(candidate.data), encoded_bytes=len(candidate.data))
+
     results: list[ImageOcrResult] = []
     privacy_ledger: list[dict[str, Any]] = []
-    for candidate in candidates:
+    for index, candidate in enumerate(candidates):
         if candidate.mime_type not in SUPPORTED_IMAGE_MIMES:
             raise ImageScanError(
                 f"image OCR does not support {candidate.mime_type} at {candidate.locator.container_path}"
@@ -929,15 +1079,29 @@ def scan_image_candidates(
                 f"image OCR refused {candidate.locator.container_path}; "
                 f"{len(candidate.data)} bytes exceeds maximum {max_bytes}"
             )
-        raw_result = scanner.scan(candidate)
-        result = _coerce_scan_result(
-            raw_result,
-            candidate=candidate,
-            provider=getattr(scanner, "provider", "image_ocr"),
-        )
-        privacy_ledger.extend(result.privacy_ledger)
-        if result.text:
-            results.append(result)
+        coverage[index]["status"] = "submitted"
+        try:
+            raw_result = scanner.scan(candidate)
+            result = _coerce_scan_result(
+                raw_result, candidate=candidate, provider=getattr(scanner, "provider", "image_ocr")
+            )
+            if result.locator != candidate.locator:
+                raise ImageScanError("OCR result locator differs from submitted image")
+            if result.regions and result.text != clean_ocr_text(result.text):
+                raise ImageScanError("OCR normalization would invalidate source regions")
+            for region in result.regions:
+                if (
+                    not 0 <= region.start_char < region.end_char <= len(result.text)
+                    or result.text[region.start_char : region.end_char] != region.text
+                ):
+                    raise ImageScanError("OCR source region does not match its text offsets")
+            coverage[index]["status"] = "processed" if clean_ocr_text(result.text) else "empty"
+            privacy_ledger.extend(result.privacy_ledger)
+            if clean_ocr_text(result.text):
+                results.append(result)
+        except Exception as exc:
+            coverage[index].update(status="failed", reason=str(exc))
+            raise ImageScanError(f"OCR failed at {candidate.locator.to_dict()}: {exc}") from exc
     return results, privacy_ledger
 
 
@@ -981,7 +1145,7 @@ def append_ocr_text_blocks(
     from junas.input_limits import check_analyzed_text, check_text_parts
 
     check_analyzed_text(base_text)
-    text = clean_ocr_text(base_text)
+    text = base_text
     spans: list[ImageTextSpan] = []
     for result in ocr_results:
         check_analyzed_text(result.text)
@@ -1056,12 +1220,8 @@ def _clip_region_to_span(region: ImageTextRegion, start: int, end: int) -> Image
     local_end = max(local_start + 1, overlap_end - region.start_char)
     text = region.text[local_start:local_end] if region.text else region.text
     box = region.bounding_box
-    if box is not None:
-        box = box.clipped_to_text_range(
-            text_length=len(region.text or ""),
-            start=local_start,
-            end=local_end,
-        )
+    # retain the provider's actual region extent; text offsets do not establish
+    # narrower character coordinates within a line or word box.
     return ImageTextRegion(
         text=text,
         start_char=overlap_start,

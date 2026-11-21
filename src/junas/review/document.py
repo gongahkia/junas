@@ -50,10 +50,14 @@ from junas.review.document_structure import (
 from junas.review.document_structure import clean_document_text as _clean_text
 from junas.review.image_scan import (
     ImageCandidate,
+    ImageScanError,
+    _ImageBudget,
+    _preflight_pdf_images,
     collect_docx_images,
     collect_pdf_images,
     collect_pdf_page_renders,
     image_mime_from_name,
+    image_pixel_count,
     standalone_image_candidate,
 )
 from junas.review.metadata import inspect_metadata
@@ -161,20 +165,13 @@ def _docx_image_count(data: bytes) -> int:
         return 0
 
 
-def _pdf_page_image_count(page: Any) -> int:
+def _pdf_page_image_count(page: Any) -> int | None:
     try:
-        resources = page.get("/Resources") or {}
-        xobjects = resources.get("/XObject") or {}
-        if hasattr(xobjects, "get_object"):
-            xobjects = xobjects.get_object()
-        count = 0
-        for item in xobjects.values():
-            obj = item.get_object() if hasattr(item, "get_object") else item
-            if obj.get("/Subtype") == "/Image":
-                count += 1
-        return count
+        budget = _ImageBudget()
+        _preflight_pdf_images(page, budget)
+        return budget.images
     except Exception:
-        return 0
+        return None
 
 
 def _pdf_metadata_text(reader: Any) -> str:
@@ -187,6 +184,7 @@ def _extract_pdf(
     ingest_settings: Any | None = None,
     *,
     image_scan_enabled: bool = False,
+    page_inventory: list[dict[str, Any]] | None = None,
 ) -> tuple[str, int | None, str, list[str]]:
     try:
         from pypdf import PdfReader
@@ -198,21 +196,31 @@ def _extract_pdf(
     page_text_lengths: list[int] = []
     image_count = 0
     retained_bytes = 0
-    for page in reader.pages:
+    unknown_images = False
+    min_chars_per_page = int(getattr(ingest_settings, "min_pdf_chars_per_page", 20) or 0)
+    for page_number, page in enumerate(reader.pages, start=1):
         text = page.extract_text() or ""
         if pages:
             retained_bytes += 2
         retained_bytes += limits._utf8_size(text, limits.MAX_ANALYZED_TEXT_BYTES - retained_bytes, "analyzed text")
         pages.append(text)
         page_text_lengths.append(len(_clean_text(text)))
-        image_count += _pdf_page_image_count(page)
+        page_images = _pdf_page_image_count(page)
+        unknown_images |= page_images is None
+        image_count += page_images or 0
+        if page_inventory is not None:
+            page_inventory.append(
+                {
+                    "page_number": page_number,
+                    "text_chars": page_text_lengths[-1],
+                    "images": page_images,
+                    "needs_ocr": page_text_lengths[-1] < min_chars_per_page,
+                }
+            )
 
     page_count = len(reader.pages)
     extracted = "\n\n".join(page.strip() for page in pages if page.strip())
     cleaned = _clean_text(extracted)
-    if not _fail_closed(ingest_settings):
-        return extracted, page_count, "accepted", []
-
     min_text_chars = int(getattr(ingest_settings, "min_pdf_text_chars", 20) or 0)
     min_chars_per_page = int(getattr(ingest_settings, "min_pdf_chars_per_page", 20) or 0)
     max_empty_ratio = float(getattr(ingest_settings, "max_empty_pdf_page_ratio", 0.2))
@@ -234,14 +242,20 @@ def _extract_pdf(
     if warnings and image_scan_enabled:
         warnings.append("PDF text layer is sparse; configured image OCR will scan images or rendered pages")
         return extracted, page_count, "ocr_pending", warnings
-    if warnings:
+    if warnings and _fail_closed(ingest_settings):
         raise ValueError(
             "document extraction failed closed: "
             + "; ".join(warnings)
             + ". Convert/export the file to .docx or submit a PDF with a reliable text layer."
         )
-    if image_count:
+    if warnings:
+        return extracted, page_count, "degraded", [_fail_open_warning(w) for w in warnings]
+    if empty_pages:
+        warnings.append(f"PDF has {empty_pages} sparse page(s); reviewed text layer only")
+    if image_count and not image_scan_enabled:
         warnings.append("PDF contains embedded images; reviewed text layer only")
+    if unknown_images:
+        warnings.append("PDF image inventory is unknown; reviewed text layer only")
     return extracted, page_count, "accepted", warnings
 
 
@@ -363,10 +377,12 @@ def extract_review_document(
         extraction_warnings.extend(container_warnings)
         image_candidates = container_image_candidates or (collect_docx_images(data) if image_scan_enabled else [])
     elif mime_type == SUPPORTED_PDF_MIME:
+        page_inventory: list[dict[str, Any]] = []
         extracted, page_count, extraction_quality, extraction_warnings = _extract_pdf(
             data,
             ingest_settings,
             image_scan_enabled=image_scan_enabled,
+            page_inventory=page_inventory,
         )
         extracted = _merge_text_blocks(extracted, container_text)
         try:
@@ -377,25 +393,69 @@ def extract_review_document(
             document_structure = None
         extraction_warnings.extend(container_warnings)
         method = "pypdf"
-        image_candidates = collect_pdf_images(data) if image_scan_enabled else []
-        if image_scan_enabled and not image_candidates and extraction_quality == "ocr_pending":
-            render_enabled = bool(getattr(image_scan_settings, "pdf_render_pages", True))
-            if render_enabled:
-                max_pages = int(getattr(image_scan_settings, "pdf_render_max_pages", 8) or 8)
-                if page_count is not None and page_count > max_pages:
-                    reason = f"PDF OCR page limit {max_pages} would leave {page_count - max_pages} page(s) unreviewed"
+        image_candidates = []
+        if image_scan_enabled:
+            required_pages = [p["page_number"] for p in page_inventory if p["needs_ocr"]]
+            if not page_inventory and extraction_quality == "ocr_pending":
+                required_pages = list(range(1, (page_count or 0) + 1))
+            try:
+                render_enabled = bool(getattr(image_scan_settings, "pdf_render_pages", True))
+                max_pages = int(getattr(image_scan_settings, "pdf_render_max_pages", 8))
+                if required_pages and not render_enabled:
+                    raise ImageScanError(f"PDF OCR rendering disabled; pages {required_pages} require OCR")
+                if len(required_pages) > max_pages:
+                    reason = (
+                        f"PDF OCR page limit {max_pages} would leave "
+                        f"{len(required_pages) - max_pages} page(s) unreviewed"
+                    )
                     if fail_closed:
-                        raise ValueError(reason)
+                        raise ImageScanError(reason)
                     extraction_warnings.append(_fail_open_warning(reason))
                     extraction_quality = "degraded"
-                image_candidates = collect_pdf_page_renders(
-                    data,
-                    max_pages=max_pages,
-                    scale=float(getattr(image_scan_settings, "pdf_render_scale", 2.0) or 2.0),
+                selected = required_pages[:max_pages]
+                image_candidates = collect_pdf_images(
+                    data, exclude_pages=set(required_pages), settings=image_scan_settings
                 )
-                if image_candidates:
-                    extraction_warnings = list(extraction_warnings)
-                    extraction_warnings.append(f"PDF rendered {len(image_candidates)} page(s) for configured image OCR")
+                if selected:
+                    render_budget = _ImageBudget(image_scan_settings)
+                    for candidate in image_candidates:
+                        render_budget.charge(
+                            pixels=image_pixel_count(candidate.data), encoded_bytes=len(candidate.data)
+                        )
+                    rendered = collect_pdf_page_renders(
+                        data,
+                        max_pages=max_pages,
+                        scale=float(getattr(image_scan_settings, "pdf_render_scale", 2.0)),
+                        page_numbers=selected,
+                        settings=image_scan_settings,
+                        _budget=render_budget,
+                    )
+                    if len(rendered) != len(selected):
+                        raise ImageScanError("PDF required page rendering returned incomplete coverage")
+                    image_candidates.extend(rendered)
+                    extraction_warnings.append(f"PDF rendered {len(rendered)} page(s) for configured image OCR")
+                if required_pages and not image_candidates:
+                    raise ImageScanError("PDF pages require OCR but no images were collected")
+            except (ImageScanError, ValueError, RuntimeError, OSError) as exc:
+                if fail_closed:
+                    raise ImageScanError(f"PDF image collection failed closed: {exc}") from exc
+                image_candidates = []
+                extraction_quality = "degraded"
+                extraction_warnings.append(_fail_open_warning(f"PDF image collection incomplete: {exc}"))
+        image_candidates.sort(key=lambda c: (c.locator.page_number or 0, c.locator.image_index))
+        for page in page_inventory:
+            metadata_findings.append(
+                {
+                    "id": f"pdf-page-{page['page_number']}",
+                    "source": "pdf_page_coverage",
+                    "field": str(page["page_number"]),
+                    "severity": "info",
+                    "detail": (
+                        f"text_chars={page['text_chars']}; images={page['images']}; requires_ocr={page['needs_ocr']}"
+                    ),
+                    "value_preview": "text_and_image_inventory",
+                }
+            )
     elif mime_type == SUPPORTED_XLSX_MIME:
         document_structure = parse_xlsx_structure(data)
         extracted = document_structure.text
@@ -463,6 +523,8 @@ def extract_review_document(
         extraction_warnings = container_warnings + [_fail_open_warning(f"unsupported document_mime_type: {mime_type}")]
         image_candidates = []
 
+    if any("fail-open:" in warning or "reviewed text layer only" in warning for warning in extraction_warnings):
+        extraction_quality = "degraded"
     check_analyzed_text(extracted)
     cleaned = _clean_text(extracted)
     if not cleaned and not image_candidates:

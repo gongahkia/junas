@@ -99,7 +99,7 @@ class ImageScanTests(unittest.TestCase):
 
         self.assertIn("total image bytes", str(ctx.exception))
 
-    def test_line_level_region_boxes_are_clipped_to_matched_span(self):
+    def test_line_level_region_boxes_retain_provider_extent(self):
         span = types.SimpleNamespace(
             start_char=0,
             end_char=len("Alpha S1234567D Omega"),
@@ -119,8 +119,8 @@ class ImageScanTests(unittest.TestCase):
         boxes = image_boxes_for_span([span], start, end)
 
         self.assertEqual(len(boxes), 1)
-        self.assertGreater(boxes[0].x, 0.2)
-        self.assertLess(boxes[0].width, 0.6)
+        self.assertEqual(boxes[0].x, 0.0)
+        self.assertEqual(boxes[0].width, 1.0)
 
     def test_pdf_ocr_uses_page_render_fallback_when_no_embedded_images(self):
         from pypdf import PdfWriter

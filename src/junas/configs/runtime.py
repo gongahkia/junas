@@ -1025,6 +1025,8 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         image_scan.provider in set(providers) or "*" in set(providers)
         for providers in image_scan.tenant_opt_ins.values()
     )
+    if image_scan.pdf_render_scale > 4.0:
+        raise ConfigError("image_scan.pdf_render_scale must be <= 4.0")
     if image_scan.max_total_bytes < image_scan.max_bytes:
         raise ConfigError("image_scan.max_total_bytes must be >= image_scan.max_bytes")
     if image_scan.provider == "openai_vision" and not (image_scan.tenant_opt_in_openai or provider_has_tenant_map):

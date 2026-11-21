@@ -169,6 +169,9 @@ def _inspect_image(data: bytes, mime_type: str) -> list[MetadataFinding]:
     except Exception as exc:
         raise ValueError("image metadata inspection requires Pillow") from exc
 
+    from junas.review.image_scan import image_pixel_count
+
+    image_pixel_count(data)
     findings: list[MetadataFinding] = []
     with Image.open(BytesIO(data)) as image:
         exif = image.getexif()

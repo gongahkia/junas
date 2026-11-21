@@ -21,7 +21,13 @@ from typing import Any
 from xml.etree import ElementTree
 
 from junas.input_limits import check_text_parts
-from junas.review.image_scan import ImageCandidate, ImageLocator, image_mime_from_name
+from junas.review.image_scan import (
+    ImageCandidate,
+    ImageLocator,
+    _ImageBudget,
+    _preflight_pdf_images,
+    image_mime_from_name,
+)
 
 DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 XLSX_MIME = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -311,11 +317,20 @@ def _scan_by_type(
     if not preflighted:
         validate_document_type(data, filename=filename, mime_type=mime_type, email_budget=email_budget)
     if mime_type == DOCX_MIME:
-        return _scan_docx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
+        return _qualify_office_media(
+            _scan_docx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix),
+            image_scan_enabled=image_scan_enabled,
+        )
     if mime_type == XLSX_MIME:
-        return _scan_xlsx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
+        return _qualify_office_media(
+            _scan_xlsx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix),
+            image_scan_enabled=image_scan_enabled,
+        )
     if mime_type == PPTX_MIME:
-        return _scan_pptx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
+        return _qualify_office_media(
+            _scan_pptx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix),
+            image_scan_enabled=image_scan_enabled,
+        )
     if mime_type == PDF_MIME:
         return _scan_pdf(
             data,
@@ -381,6 +396,19 @@ def _scan_by_type(
     if email_budget is not None and email_budget.email_depth:
         raise ContainerScanError(f"unsupported embedded document {container_prefix or filename} ({mime_type})")
     return ContainerScanResult()
+
+
+def _qualify_office_media(result: ContainerScanResult, *, image_scan_enabled: bool) -> ContainerScanResult:
+    for finding in result.findings:
+        if finding.source.endswith("_embedded_media") and (
+            not image_scan_enabled or finding.value_preview not in IMAGE_MIMES
+        ):
+            result.warnings.append(
+                f"Office media {finding.field} has no supported configured OCR; reviewed text layer only"
+            )
+        if finding.source.endswith("_embedded_object"):
+            result.warnings.append(f"Office native object {finding.field} is not extracted; reviewed text layer only")
+    return result
 
 
 def _preview(value: Any) -> str:
@@ -754,7 +782,6 @@ def _scan_pdf(
     container_prefix: str,
     email_budget: _EmailBudget | None = None,
 ) -> ContainerScanResult:
-    del image_scan_enabled
     try:
         from pypdf import PdfReader
     except Exception as exc:
@@ -813,25 +840,44 @@ def _scan_pdf(
             payload,
             filename=name,
             mime_type=nested_mime,
-            image_scan_enabled=True,
+            image_scan_enabled=image_scan_enabled,
             depth=depth + 1,
             container_prefix=f"{container_prefix}/{name}" if container_prefix else name,
             email_budget=email_budget,
         )
         result.extend(nested, prefix=name)
     for page_index, page in enumerate(reader.pages):
-        if email_budget is not None and email_budget.email_depth:
+        if container_prefix:
             try:
                 text = page.extract_text() or ""
             except Exception as exc:
                 raise ContainerScanError(f"PDF attachment page {page_index + 1} text extraction failed: {exc}") from exc
-            email_budget.charge_expansion(len(text.encode("utf-8")))
+            if email_budget is not None:
+                email_budget.charge_expansion(len(text.encode("utf-8")))
+            if not text.strip():
+                detail = (
+                    f"PDF attachment page {page_index + 1} has sparse text; "
+                    "attachment OCR is unsupported; reviewed text layer only"
+                )
+                if email_budget is not None and email_budget.fail_closed:
+                    raise ContainerScanError(detail)
+                result.warnings.append(f"fail-open: {detail}")
             if text.strip():
                 result.text_blocks.append(f"[PDF page {page_index + 1}]\n{text}")
-        if email_budget is not None and email_budget.email_depth and _pdf_get(_pdf_get(page, "/Resources"), "/XObject"):
-            detail = f"PDF attachment page {page_index + 1} has native/image XObjects; reviewed text layer only"
-            result.warnings.append(detail)
-            result.findings.append(_finding("pdf_embedded_media", str(page_index + 1), "[present]", detail))
+        if container_prefix:
+            try:
+                image_budget = _ImageBudget()
+                _preflight_pdf_images(page, image_budget)
+                media = str(image_budget.images)
+            except Exception:
+                media = "unknown"
+            if media != "0":
+                detail = (
+                    f"PDF attachment page {page_index + 1} has {media} image work unit(s); "
+                    "attachment OCR is unsupported; reviewed text layer only"
+                )
+                result.warnings.append(detail)
+                result.findings.append(_finding("pdf_embedded_media", str(page_index + 1), "[present]", detail))
         annots = _pdf_get(page, "/Annots") or []
         if hasattr(annots, "get_object"):
             annots = annots.get_object()
