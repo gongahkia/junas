@@ -11,6 +11,7 @@ from typing import TextIO
 from junas.configs.runtime import get_runtime_settings
 from junas.input_limits import check_inline_text, read_source, read_stdin
 from junas.pipeline import ReviewPipeline
+from junas.review.jurisdictions import resolve_rule_packs
 
 
 def _dict_finding(**kwargs: object) -> dict[str, object]:
@@ -26,6 +27,7 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
             load_gitleaks_rule_pack,
         )
 
+        jurisdiction = resolve_rule_packs(args.jurisdiction, args.jurisdiction)[0].code
         pack_path = Path(args.gitleaks).expanduser()
         if args.text_file is None:
             text = args.text
@@ -37,7 +39,7 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
         findings = detect_secret_findings(
             text=text,
             rule_packs=(pack,),
-            jurisdiction=args.jurisdiction,
+            jurisdiction=jurisdiction,
             idx_start=0,
             new_finding=_dict_finding,
             max_matches=args.max_matches,

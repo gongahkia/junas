@@ -375,8 +375,12 @@ def collect_pdf_page_renders(
             or any(n < 1 or n > len(pdf) for n in selected)
         ):
             raise ImageScanError("invalid or excessive PDF render page selection")
+        from pypdf import PdfReader
+
+        source_pages = PdfReader(BytesIO(data)).pages
         for page_number in selected:
             page_index = page_number - 1
+            _preflight_pdf_images(source_pages[page_index], budget)
             page = pdf[page_index]
             try:
                 width, height = page.get_size()

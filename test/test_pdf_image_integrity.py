@@ -504,7 +504,7 @@ def test_image_email_attachment_retains_part_identity_after_ocr_append():
     not HAS_PDFIUM or shutil.which("tesseract") is None or importlib.util.find_spec("pytesseract") is None,
     reason="optional native PDFium and Tesseract required",
 )
-def test_real_pdfium_and_tesseract_recover_preserved_fixture(tmp_path):
+def test_real_pdf_image_extraction_rendering_and_tesseract_recover_preserved_fixture(tmp_path):
     import os
     import subprocess
     import sys
@@ -589,3 +589,65 @@ def test_image_decompression_bomb_header_is_an_explicit_refusal():
 @pytest.mark.parametrize("scale", [0.25, 4.0])
 def test_render_scale_supported_boundaries(scale):
     assert _settings(**{"image_scan.pdf_render_scale": scale}).image_scan.pdf_render_scale == scale
+
+
+@NATIVE_RENDER
+def test_pdf_page_limit_counts_required_work_not_text_pages():
+    pages = [
+        ("First page has a reliable ordinary text layer", False),
+        ("Second page has reliable text S1234567D", False),
+        ("", False),
+    ]
+    with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner()):
+        result = ReviewPipeline(_settings(**{"image_scan.pdf_render_max_pages": 1})).review(
+            _payload(_pdf(pages), "three.pdf")
+        )
+    assert result.to_dict()["status"] == "completed"
+    assert [c.locator.page_number for c in result.document.image_candidates] == [3]
+    assert "Second page has reliable text S1234567D" in result.document.text
+    _assert_integrity(result)
+
+
+def test_pdf_embedded_image_ocr_does_not_require_page_render_setting():
+    with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner()):
+        result = ReviewPipeline(_settings(**{"image_scan.pdf_render_pages": False})).review(
+            _payload(_pdf([("", True)]), "image.pdf")
+        )
+    assert result.to_dict()["status"] == "completed"
+    assert result.document.image_candidates[0].locator.source_type == "pdf_embedded_image"
+
+
+@NATIVE_RENDER
+def test_renderer_preflights_source_image_dimensions_before_raster():
+    writer = PdfWriter()
+    page = writer.add_blank_page(width=72, height=72)
+    img = DecodedStreamObject()
+    img.set_data(b"x")
+    img.update(
+        {
+            NameObject("/Subtype"): NameObject("/Image"),
+            NameObject("/Width"): NumberObject(20000),
+            NameObject("/Height"): NumberObject(1),
+        }
+    )
+    page[NameObject("/Resources")] = DictionaryObject(
+        {NameObject("/XObject"): DictionaryObject({NameObject("/I"): writer._add_object(img)})}
+    )
+    out = io.BytesIO()
+    writer.write(out)
+    with patch("pypdfium2.PdfPage.render") as render:
+        with pytest.raises(ImageScanError, match="dimension"):
+            image_scan.collect_pdf_page_renders(out.getvalue())
+        render.assert_not_called()
+
+
+def test_unsupported_archive_image_is_not_silently_discarded():
+    import zipfile
+
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w") as archive:
+        archive.writestr("body.txt", "Original body with enough text to classify")
+        archive.writestr("unsupported.avif", b"opaque synthetic unsupported image")
+    result = ReviewPipeline().review(_payload(stream.getvalue(), "media.zip"))
+    assert result.to_dict()["status"] == "degraded"
+    assert "unsupported.avif" in " ".join(result.document.extraction_warnings)

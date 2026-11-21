@@ -22,6 +22,7 @@ from junas.review.image_scan import (
     image_ocr_metadata_for_span,
     scan_image_candidates,
 )
+from junas.review.jurisdictions import normalize_jurisdiction, resolve_rule_packs
 
 
 def build_review_engine(settings: RuntimeSettings, *, review_profile: str = "strict") -> PreSendReviewEngine:
@@ -114,6 +115,10 @@ class ReviewPipeline:
     ) -> AnalysisResult:
         if review_profile not in {"strict", "audit_grade"}:
             raise ValueError("review_profile must be strict or audit_grade")
+        destination_jurisdiction = source_jurisdiction if destination_jurisdiction is None else destination_jurisdiction
+        resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
+        source_jurisdiction = normalize_jurisdiction(source_jurisdiction)
+        destination_jurisdiction = normalize_jurisdiction(destination_jurisdiction)
         settings = self.settings
         document = extract_review_document(
             payload,
@@ -225,7 +230,7 @@ class ReviewPipeline:
         review = engine._review_analyzed(
             text=document.text,
             source_jurisdiction=source_jurisdiction,
-            destination_jurisdiction=destination_jurisdiction or source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
             entity_id=entity_id,
             include_suggestions=include_suggestions,
             document_type=document_type,

@@ -4153,11 +4153,7 @@ class PreSendReviewEngine:
         for pack in packs:
             for recognizer in pack.recognizers:
                 for match in recognizer.pattern.finditer(text):
-                    cg = recognizer.capture_group
-                    if cg and match.lastindex and cg <= match.lastindex:
-                        start, end = match.span(cg)
-                    else:
-                        start, end = match.span()
+                    start, end = match.span(recognizer.capture_group)
                     if end <= start:
                         continue
                     digits = _digits_only(text[start:end])

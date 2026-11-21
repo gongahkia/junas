@@ -215,7 +215,7 @@ def _extract_pdf(
                     "page_number": page_number,
                     "text_chars": page_text_lengths[-1],
                     "images": page_images,
-                    "needs_page_render": page_text_lengths[-1] < min_chars_per_page,
+                    "needs_page_render": page_text_lengths[-1] < min_chars_per_page and page_images == 0,
                     "needs_ocr": page_text_lengths[-1] < min_chars_per_page or page_images is None or page_images > 0,
                 }
             )

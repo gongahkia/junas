@@ -391,9 +391,9 @@ def _scan_by_type(
                 )
             ]
         )
-    if mime_type in IMAGE_MIMES:
+    if mime_type.startswith("image/"):
         return ContainerScanResult(
-            warnings=[f"Image {container_prefix or filename} has OCR disabled; reviewed text layer only"]
+            warnings=[f"Image {container_prefix or filename} has no supported configured OCR; reviewed text layer only"]
         )
     if mime_type.startswith("text/") or mime_type == "application/json":
         return ContainerScanResult(text_blocks=[data.decode("utf-8", errors="replace")])

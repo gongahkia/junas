@@ -62,14 +62,15 @@ class JurisdictionsPluginTests(unittest.TestCase):
             self.assertEqual(pack.label, "Singapore (internal compliance pack)")
             self.assertEqual(pack.pii_rules, ("INTERNAL_SG_PII_POLICY",))
 
-    def test_malformed_customer_pack_is_skipped(self):
+    def test_malformed_customer_pack_refuses_resolution(self):
         with tempfile.TemporaryDirectory() as tmp:
             pack_path = Path(tmp) / "broken.toml"
             pack_path.write_text("this is not valid toml [\n", encoding="utf-8")
             os.environ["JUNAS_JURISDICTION_PACKS_DIR"] = str(tmp)
-            jurisdictions.reload_registry()
-            # built-in SG still loads even if a customer pack is malformed.
-            self.assertIn("SG", jurisdictions.RULE_PACKS)
+            with self.assertRaisesRegex(ValueError, "broken.toml"):
+                jurisdictions.reload_registry()
+            with self.assertRaisesRegex(ValueError, "configuration unavailable"):
+                jurisdictions.resolve_rule_packs("SG", "SG")
 
 
 if __name__ == "__main__":
