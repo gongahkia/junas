@@ -6,6 +6,7 @@ from dataclasses import dataclass, field, replace
 from typing import Any
 
 from junas.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
+from junas.input_limits import check_analyzed_text, check_inline_text
 from junas.models import Classification
 from junas.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from junas.review.conjunctive_mnpi import detect_conjunctive_mnpi
@@ -4805,6 +4806,35 @@ class PreSendReviewEngine:
         tenant_id: str | None = None,
         document_structure: Any | None = None,
     ) -> ReviewResult:
+        check_inline_text(text)
+        return self._review_analyzed(
+            text=text,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            document_type=document_type,
+            context_terms=context_terms,
+            review_profile=review_profile,
+            tenant_id=tenant_id,
+            document_structure=document_structure,
+        )
+
+    def _review_analyzed(
+        self,
+        *,
+        text: str,
+        source_jurisdiction: str,
+        destination_jurisdiction: str,
+        entity_id: str | None,
+        include_suggestions: bool,
+        document_type: str = "generic",
+        context_terms: set[str] | None = None,
+        review_profile: str = "strict",
+        tenant_id: str | None = None,
+        document_structure: Any | None = None,
+    ) -> ReviewResult:
+        check_analyzed_text(text)
         if review_profile not in VALID_REVIEW_PROFILES:
             raise ValueError(f"review_profile must be one of {sorted(VALID_REVIEW_PROFILES)}; got {review_profile!r}")
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)

@@ -9,6 +9,8 @@ from io import BytesIO
 from typing import Any
 from xml.etree import ElementTree
 
+import junas.input_limits as limits
+
 
 @dataclass(frozen=True)
 class StructuralUnit:
@@ -97,14 +99,18 @@ def _structure_from_blocks(
     units: list[StructuralUnit] = []
     offset = 0
     line_no = 1
+    retained_bytes = 0
     for kind, raw_text, parent_index in blocks:
+        limits.check_analyzed_text(raw_text)
         text = cleaner(raw_text)
         if not text:
             continue
         if parts:
+            retained_bytes += len(separator.encode("utf-8"))
             parts.append(separator)
             offset += len(separator)
             line_no += separator.count("\n")
+        retained_bytes += limits._utf8_size(text, limits.MAX_ANALYZED_TEXT_BYTES - retained_bytes, "analyzed text")
         start = offset
         parts.append(text)
         units.append(
@@ -198,7 +204,15 @@ def _docx_paragraph_kind(text: str, style: str, numbered: bool) -> str:
     return "paragraph"
 
 
+def _preflight_office(data: bytes, extension: str) -> None:
+    from junas.review.container_scan import infer_mime_type, validate_document_type
+
+    filename = f"document.{extension}"
+    validate_document_type(data, filename=filename, mime_type=infer_mime_type(filename))
+
+
 def parse_docx_structure(data: bytes) -> DocumentStructure:
+    _preflight_office(data, "docx")
     with zipfile.ZipFile(BytesIO(data)) as archive:
         try:
             document_xml = archive.read("word/document.xml")
@@ -359,6 +373,7 @@ def _cell_value(cell: ElementTree.Element, shared: list[str]) -> str:
 
 
 def parse_xlsx_structure(data: bytes) -> DocumentStructure:
+    _preflight_office(data, "xlsx")
     with zipfile.ZipFile(BytesIO(data)) as archive:
         names = set(archive.namelist())
         if "xl/workbook.xml" not in names:
@@ -426,6 +441,7 @@ def _pptx_text(xml_bytes: bytes, *, label: str) -> str:
 
 
 def parse_pptx_structure(data: bytes) -> DocumentStructure:
+    _preflight_office(data, "pptx")
     with zipfile.ZipFile(BytesIO(data)) as archive:
         names = set(archive.namelist())
         if "ppt/presentation.xml" not in names:

@@ -9,6 +9,7 @@ from typing import Any
 
 from junas.configs.runtime import RuntimeSettings, get_runtime_settings
 from junas.external.privacy_guard import PrivacyGuard
+from junas.input_limits import ResourceLimitError, check_analyzed_text, read_source
 from junas.models import DocumentInput
 from junas.review.document import ExtractedDocument, extract_review_document
 from junas.review.engine import PreSendReviewEngine, ReviewResult
@@ -92,9 +93,7 @@ class ReviewPipeline:
     def review_file(self, path: str | Path, **kwargs: Any) -> AnalysisResult:
         path = Path(path)
         with path.open("rb") as stream:
-            data = stream.read(10 * 1024 * 1024 + 1)
-        if len(data) > 10 * 1024 * 1024:
-            raise ValueError("document exceeds the 10 MiB input limit")
+            data = read_source(stream)
         return self.review(
             DocumentInput(document_base64=base64.b64encode(data).decode("ascii"), document_filename=path.name),
             **kwargs,
@@ -158,15 +157,17 @@ class ReviewPipeline:
                     extraction_quality="degraded" if document.extraction_quality == "degraded" else "accepted",
                     document_structure=None,
                 )
-            except ImageScanError as exc:
+            except (ImageScanError, ResourceLimitError) as exc:
                 if settings.document_ingest.fail_closed:
                     raise
                 degraded.append({"layer": "image_ocr", "mode": "failed", "reason": str(exc)})
+                document = replace(document, extraction_quality="degraded")
+        check_analyzed_text(document.text)
         engine = self._engines.get(review_profile)
         if engine is None:
             engine = build_review_engine(settings, review_profile=review_profile)
             self._engines[review_profile] = engine
-        review = engine.review(
+        review = engine._review_analyzed(
             text=document.text,
             source_jurisdiction=source_jurisdiction,
             destination_jurisdiction=destination_jurisdiction or source_jurisdiction,

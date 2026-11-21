@@ -9,6 +9,7 @@ from io import BytesIO
 from typing import Any
 from xml.etree import ElementTree
 
+from junas.input_limits import check_analyzed_text, check_encoded_document, check_inline_text, check_source_bytes
 from junas.review.container_scan import (
     DOCX_MIME,
     EML_MIMES,
@@ -23,6 +24,7 @@ from junas.review.container_scan import (
     ZIP_MIMES,
     ContainerScanError,
     ContainerScanResult,
+    _EmailBudget,
     is_container_mime,
     scan_container,
     validate_document_type,
@@ -91,10 +93,13 @@ class ExtractedDocument:
 
 
 def _decode_base64(raw: str) -> bytes:
+    check_encoded_document(raw)
     try:
-        return base64.b64decode(raw, validate=True)
+        data = base64.b64decode(raw, validate=True)
     except Exception as exc:
         raise ValueError("document_base64 must be valid base64") from exc
+    check_source_bytes(data)
+    return data
 
 
 def _fail_closed(ingest_settings: Any | None) -> bool:
@@ -256,6 +261,7 @@ def extract_review_document(
     mime_type = _infer_mime_type(filename, getattr(payload, "document_mime_type", None))
 
     if text:
+        check_inline_text(text)
         cleaned = _clean_text(str(text))
         if not cleaned:
             raise ValueError("text must contain non-whitespace printable content")
@@ -277,9 +283,10 @@ def extract_review_document(
     if not raw_base64:
         raise ValueError("either text or document_base64 is required")
 
-    data = _decode_base64(str(raw_base64))
-    validate_document_type(data, filename=filename, mime_type=mime_type)
+    data = _decode_base64(raw_base64)
     fail_closed = _fail_closed(ingest_settings)
+    budget = _EmailBudget(fail_closed=fail_closed)
+    validate_document_type(data, filename=filename, mime_type=mime_type, email_budget=budget)
     fail_open_warnings: list[str] = []
     try:
         metadata_findings = [
@@ -304,6 +311,8 @@ def extract_review_document(
                 mime_type=mime_type,
                 image_scan_enabled=image_scan_enabled,
                 fail_closed=fail_closed,
+                _budget=budget,
+                _preflighted=True,
             )
         except ContainerScanError as exc:
             if fail_closed:
@@ -362,9 +371,16 @@ def extract_review_document(
         if image_scan_enabled and not image_candidates and extraction_quality == "ocr_pending":
             render_enabled = bool(getattr(image_scan_settings, "pdf_render_pages", True))
             if render_enabled:
+                max_pages = int(getattr(image_scan_settings, "pdf_render_max_pages", 8) or 8)
+                if page_count is not None and page_count > max_pages:
+                    reason = f"PDF OCR page limit {max_pages} would leave {page_count - max_pages} page(s) unreviewed"
+                    if fail_closed:
+                        raise ValueError(reason)
+                    extraction_warnings.append(_fail_open_warning(reason))
+                    extraction_quality = "degraded"
                 image_candidates = collect_pdf_page_renders(
                     data,
-                    max_pages=int(getattr(image_scan_settings, "pdf_render_max_pages", 8) or 8),
+                    max_pages=max_pages,
                     scale=float(getattr(image_scan_settings, "pdf_render_scale", 2.0) or 2.0),
                 )
                 if image_candidates:
@@ -437,6 +453,7 @@ def extract_review_document(
         extraction_warnings = container_warnings + [_fail_open_warning(f"unsupported document_mime_type: {mime_type}")]
         image_candidates = []
 
+    check_analyzed_text(extracted)
     cleaned = _clean_text(extracted)
     if not cleaned and not image_candidates:
         if fail_closed:

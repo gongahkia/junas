@@ -20,6 +20,7 @@ from pathlib import PurePosixPath
 from typing import Any
 from xml.etree import ElementTree
 
+from junas.input_limits import check_text_parts
 from junas.review.image_scan import ImageCandidate, ImageLocator, image_mime_from_name
 
 DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
@@ -71,6 +72,8 @@ class _EmailBudget:
     parts: int = 0
     decoded_bytes: int = 0
     expanded_bytes: int = 0
+    archive_entries: int = 0
+    email_depth: int = 0
 
     def message_factory(self, *args: Any, **kwargs: Any) -> email.message.EmailMessage:
         self.parts += 1
@@ -88,6 +91,11 @@ class _EmailBudget:
         if self.expanded_bytes + size > MAX_TOTAL_UNCOMPRESSED_BYTES:
             raise ContainerScanError("email aggregate container expansion exceeds safety cap")
         self.expanded_bytes += size
+
+    def charge_entries(self, count: int) -> None:
+        if self.archive_entries + count > MAX_ENTRIES:
+            raise ContainerScanError(f"aggregate archive entries exceed maximum {MAX_ENTRIES}")
+        self.archive_entries += count
 
 
 @dataclass(frozen=True)
@@ -124,6 +132,7 @@ class ContainerScanResult:
 
     @property
     def text(self) -> str:
+        check_text_parts((block for block in self.text_blocks if block.strip()), separator="\n\n")
         return "\n\n".join(block for block in self.text_blocks if block.strip())
 
     def extend(self, other: "ContainerScanResult", *, prefix: str | None = None) -> None:
@@ -145,6 +154,8 @@ def scan_container(
     mime_type: str,
     image_scan_enabled: bool = False,
     fail_closed: bool = True,
+    _budget: _EmailBudget | None = None,
+    _preflighted: bool = False,
 ) -> ContainerScanResult:
     normalized = (mime_type or infer_mime_type(filename, data)).partition(";")[0].strip().lower()
     return _scan_by_type(
@@ -154,7 +165,8 @@ def scan_container(
         image_scan_enabled=image_scan_enabled,
         depth=0,
         container_prefix="",
-        email_budget=_EmailBudget(fail_closed=fail_closed) if normalized in EML_MIMES else None,
+        email_budget=_budget or _EmailBudget(fail_closed=fail_closed),
+        preflighted=_preflighted,
     )
 
 
@@ -253,6 +265,7 @@ def validate_document_type(
     with _zip_archive(data) as archive:
         _validate_zip(archive)
         if email_budget is not None:
+            email_budget.charge_entries(len(archive.infolist()))
             email_budget.charge_expansion(sum(info.file_size for info in archive.infolist()))
         names = set(archive.namelist())
         _refuse_macros(names)
@@ -291,10 +304,12 @@ def _scan_by_type(
     depth: int,
     container_prefix: str,
     email_budget: _EmailBudget | None = None,
+    preflighted: bool = False,
 ) -> ContainerScanResult:
     if depth > MAX_DEPTH:
         raise ContainerScanError(f"container recursion depth exceeds maximum {MAX_DEPTH}")
-    validate_document_type(data, filename=filename, mime_type=mime_type, email_budget=email_budget)
+    if not preflighted:
+        validate_document_type(data, filename=filename, mime_type=mime_type, email_budget=email_budget)
     if mime_type == DOCX_MIME:
         return _scan_docx(data, image_scan_enabled=image_scan_enabled, container_prefix=container_prefix)
     if mime_type == XLSX_MIME:
@@ -338,7 +353,9 @@ def _scan_by_type(
     if mime_type == "application/x-7z-compressed":
         raise ContainerScanError("7z archive traversal requires an optional safe parser and is refused by default")
     if mime_type in HTML_MIMES:
-        return _scan_html(data, source="html", include_display_none_text=email_budget is None)
+        return _scan_html(
+            data, source="html", include_display_none_text=not (email_budget and email_budget.email_depth)
+        )
     if mime_type in SVG_MIMES:
         return _scan_svg(data)
     if mime_type in RTF_MIMES:
@@ -361,7 +378,7 @@ def _scan_by_type(
         )
     if mime_type.startswith("text/") or mime_type == "application/json":
         return ContainerScanResult(text_blocks=[data.decode("utf-8", errors="replace")])
-    if email_budget is not None:
+    if email_budget is not None and email_budget.email_depth:
         raise ContainerScanError(f"unsupported embedded document {container_prefix or filename} ({mime_type})")
     return ContainerScanResult()
 
@@ -803,7 +820,7 @@ def _scan_pdf(
         )
         result.extend(nested, prefix=name)
     for page_index, page in enumerate(reader.pages):
-        if email_budget is not None:
+        if email_budget is not None and email_budget.email_depth:
             try:
                 text = page.extract_text() or ""
             except Exception as exc:
@@ -811,7 +828,7 @@ def _scan_pdf(
             email_budget.charge_expansion(len(text.encode("utf-8")))
             if text.strip():
                 result.text_blocks.append(f"[PDF page {page_index + 1}]\n{text}")
-        if email_budget is not None and _pdf_get(_pdf_get(page, "/Resources"), "/XObject"):
+        if email_budget is not None and email_budget.email_depth and _pdf_get(_pdf_get(page, "/Resources"), "/XObject"):
             detail = f"PDF attachment page {page_index + 1} has native/image XObjects; reviewed text layer only"
             result.warnings.append(detail)
             result.findings.append(_finding("pdf_embedded_media", str(page_index + 1), "[present]", detail))
@@ -988,15 +1005,16 @@ def _scan_tar_archive(
 ) -> ContainerScanResult:
     result = ContainerScanResult()
     try:
-        archive = tarfile.open(fileobj=BytesIO(data), mode="r:*")
+        archive = tarfile.open(fileobj=BytesIO(data), mode="r|*")
     except tarfile.TarError as exc:
         raise ContainerScanError(f"TAR archive parse failed: {exc}") from exc
     with archive:
-        members = archive.getmembers()
-        if len(members) > MAX_ENTRIES:
-            raise ContainerScanError(f"TAR archive has {len(members)} entries; maximum is {MAX_ENTRIES}")
         total = 0
-        for member in members:
+        for index, member in enumerate(archive, start=1):
+            if index > MAX_ENTRIES:
+                raise ContainerScanError(f"TAR archive entries exceed maximum {MAX_ENTRIES}")
+            if email_budget is not None:
+                email_budget.charge_entries(1)
             _validate_member_path(member.name)
             if member.issym() or member.islnk():
                 raise ContainerScanError(f"TAR link member refused: {member.name}")
@@ -1064,6 +1082,28 @@ def _decoded_email_payload(part: Any, budget: _EmailBudget) -> bytes:
 
 
 def _scan_eml(
+    data: bytes,
+    *,
+    image_scan_enabled: bool,
+    depth: int,
+    container_prefix: str,
+    email_budget: _EmailBudget | None = None,
+) -> ContainerScanResult:
+    budget = email_budget or _EmailBudget()
+    budget.email_depth += 1
+    try:
+        return _scan_eml_contents(
+            data,
+            image_scan_enabled=image_scan_enabled,
+            depth=depth,
+            container_prefix=container_prefix,
+            email_budget=budget,
+        )
+    finally:
+        budget.email_depth -= 1
+
+
+def _scan_eml_contents(
     data: bytes,
     *,
     image_scan_enabled: bool,

@@ -196,8 +196,10 @@ def _inspect_image(data: bytes, mime_type: str) -> list[MetadataFinding]:
 
 
 def inspect_metadata(data: bytes, *, filename: str, mime_type: str) -> list[MetadataFinding]:
-    del filename
-    normalized = mime_type.lower()
+    from junas.review.container_scan import validate_document_type
+
+    validate_document_type(data, filename=filename, mime_type=mime_type)
+    normalized = mime_type.partition(";")[0].strip().lower()
     if normalized == DOCX_MIME:
         return _inspect_docx(data)
     if normalized == PDF_MIME:

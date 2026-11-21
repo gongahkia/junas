@@ -1,0 +1,87 @@
+"""Fixed capture and retained-text quotas; container/OCR quotas remain separate."""
+
+from collections.abc import Iterable
+from typing import BinaryIO, TextIO
+
+MAX_SOURCE_BYTES = 10 * 1024 * 1024
+MAX_INLINE_TEXT_BYTES = 10 * 1024 * 1024
+MAX_ANALYZED_TEXT_BYTES = 100 * 1024 * 1024
+_TEXT_CHUNK = 4096
+
+
+class ResourceLimitError(ValueError):
+    """The input cannot be processed within the declared resource profile."""
+
+
+def _utf8_size(text: str, maximum: int, label: str) -> int:
+    if not isinstance(text, str):
+        raise ValueError(f"{label} must be text")
+    if len(text) > maximum:
+        raise ResourceLimitError(f"{label} exceeds the {maximum}-byte limit")
+    total = 0
+    for offset in range(0, len(text), _TEXT_CHUNK):
+        total += len(text[offset : offset + _TEXT_CHUNK].encode("utf-8"))
+        if total > maximum:
+            raise ResourceLimitError(f"{label} exceeds the {maximum}-byte limit")
+    return total
+
+
+def check_inline_text(text: str) -> None:
+    _utf8_size(text, MAX_INLINE_TEXT_BYTES, "source text")
+
+
+def check_source_bytes(data: bytes) -> None:
+    if len(data) > MAX_SOURCE_BYTES:
+        raise ResourceLimitError(f"document exceeds the {MAX_SOURCE_BYTES}-byte source limit")
+
+
+def check_encoded_document(encoded: str) -> None:
+    if not isinstance(encoded, str):
+        raise ValueError("document_base64 must be text")
+    maximum = 4 * ((MAX_SOURCE_BYTES + 2) // 3)
+    if len(encoded) > maximum:
+        raise ResourceLimitError(f"encoded document exceeds the {MAX_SOURCE_BYTES}-byte source limit")
+    if len(encoded) % 4 == 0:
+        padding = 2 if encoded.endswith("==") else int(encoded.endswith("="))
+        if len(encoded) // 4 * 3 - padding > MAX_SOURCE_BYTES:
+            raise ResourceLimitError(f"decoded document exceeds the {MAX_SOURCE_BYTES}-byte source limit")
+
+
+def check_analyzed_text(text: str) -> None:
+    _utf8_size(text, MAX_ANALYZED_TEXT_BYTES, "analyzed text")
+
+
+def check_text_parts(parts: Iterable[str], *, separator: str = "") -> None:
+    total = 0
+    first = True
+    for part in parts:
+        if not first:
+            total += len(separator.encode("utf-8"))
+        total += _utf8_size(part, MAX_ANALYZED_TEXT_BYTES - total, "analyzed text")
+        first = False
+
+
+def read_source(stream: BinaryIO) -> bytes:
+    data = stream.read(MAX_SOURCE_BYTES + 1)
+    check_source_bytes(data)
+    return data
+
+
+def read_stdin(stream: TextIO) -> str:
+    binary = getattr(stream, "buffer", None)
+    if binary is not None:
+        data = binary.read(MAX_INLINE_TEXT_BYTES + 1)
+        if len(data) > MAX_INLINE_TEXT_BYTES:
+            raise ResourceLimitError(f"standard input exceeds the {MAX_INLINE_TEXT_BYTES}-byte limit")
+        text = data.decode("utf-8")
+        check_inline_text(text)
+        return text
+    parts: list[str] = []
+    total = 0
+    while True:
+        part = stream.read(min(_TEXT_CHUNK, MAX_INLINE_TEXT_BYTES - total + 1))
+        if not part:
+            break
+        total += _utf8_size(part, MAX_INLINE_TEXT_BYTES - total, "standard input")
+        parts.append(part)
+    return "".join(parts)

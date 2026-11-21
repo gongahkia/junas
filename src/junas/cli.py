@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import TextIO
 
 from junas.configs.runtime import get_runtime_settings
+from junas.input_limits import check_inline_text, read_source, read_stdin
 from junas.pipeline import ReviewPipeline
 
 
@@ -27,7 +28,12 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
         )
 
         pack_path = Path(args.gitleaks).expanduser()
-        text = args.text if args.text_file is None else Path(args.text_file).expanduser().read_text(encoding="utf-8")
+        if args.text_file is None:
+            text = args.text
+        else:
+            with Path(args.text_file).expanduser().open("rb") as stream:
+                text = read_source(stream).decode("utf-8")
+        check_inline_text(text)
         pack = load_gitleaks_rule_pack(pack_path)
         findings = detect_secret_findings(
             text=text,
@@ -37,7 +43,7 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
             new_finding=_dict_finding,
             max_matches=args.max_matches,
         )
-    except (OSError, SecretRulePackError) as exc:
+    except (OSError, ValueError, SecretRulePackError) as exc:
         print(str(exc), file=sys.stderr)
         return 2
     if args.json:
@@ -94,7 +100,7 @@ def main(argv: list[str] | None = None) -> int:
             "review_profile": args.profile,
         }
         if args.file == "-":
-            result = pipeline.review_text(sys.stdin.read(), **options)
+            result = pipeline.review_text(read_stdin(sys.stdin), **options)
         elif args.file:
             result = pipeline.review_file(args.file, **options)
         else:

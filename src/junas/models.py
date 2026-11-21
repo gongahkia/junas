@@ -3,6 +3,8 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from junas.input_limits import check_encoded_document, check_inline_text
+
 
 class Classification(str, Enum):
     SAFE = "SAFE"
@@ -20,6 +22,10 @@ class DocumentInput:
     def __post_init__(self) -> None:
         if (self.text is None) == (self.document_base64 is None):
             raise ValueError("supply exactly one of text or document_base64")
+        if self.text is not None:
+            check_inline_text(self.text)
+        if self.document_base64 is not None:
+            check_encoded_document(self.document_base64)
         if self.text is not None and not self.text.strip():
             raise ValueError("text must contain non-whitespace content")
         if self.document_base64 is not None and not self.document_base64:

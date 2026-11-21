@@ -978,9 +978,13 @@ def append_ocr_text_blocks(
     base_text: str,
     ocr_results: list[ImageOcrResult],
 ) -> tuple[str, list[ImageTextSpan]]:
+    from junas.input_limits import check_analyzed_text, check_text_parts
+
+    check_analyzed_text(base_text)
     text = clean_ocr_text(base_text)
     spans: list[ImageTextSpan] = []
     for result in ocr_results:
+        check_analyzed_text(result.text)
         ocr_text = clean_ocr_text(result.text)
         if not ocr_text:
             continue
@@ -988,6 +992,7 @@ def append_ocr_text_blocks(
         if text:
             prefix += "\n\n"
         prefix += f"[Image OCR: {result.locator.container_path}#{result.locator.image_index}]\n"
+        check_text_parts((text, prefix, ocr_text))
         start = len(text) + len(prefix)
         text = text + prefix + ocr_text
         end = start + len(ocr_text)
