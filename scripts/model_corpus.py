@@ -28,6 +28,7 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT)]
 
+from scripts.corpus_partitions import sampling_slot, validate_sampling  # noqa: E402
 from scripts.prepare_evaluation_dataset import PII_RULE_MAP  # noqa: E402
 from scripts.span_metrics import Span, input_identity, occurrence_scores, reproducibility  # noqa: E402
 
@@ -140,7 +141,7 @@ def validate_config(config: Any) -> dict:
             "judges",
             "pricing_checked_on",
         }
-        | ({"judge_mode", "spending_limit"} & config.keys()),
+        | ({"judge_mode", "spending_limit", "sampling"} & config.keys()),
     )
     require(config["schema_version"] == VERSION, "unknown corpus configuration")
     require(integer(config["documents"], 1, 500), "documents must be in [1, 500]")
@@ -156,6 +157,8 @@ def validate_config(config: Any) -> dict:
         config["documents"] < 4 or all(n > 0 for n in config["quadrant_targets"].values()),
         "all four quadrants require positive targets",
     )
+    if "sampling" in config:
+        validate_sampling(config["sampling"])
     date.fromisoformat(config["pricing_checked_on"])
     models = [config["generator"], *config["judges"]]
     for model in models:
@@ -507,6 +510,7 @@ def plan(config: dict) -> dict:
         "label_origin": "model_consensus",
         "human_ground_truth": False,
         "live_calls_authorized": False,
+        "sampling": config.get("sampling", {"split": "development", "groups": "legacy"}),
     }
     if "spending_limit" in config:
         limit = validate_spending_limit(config["spending_limit"])
@@ -703,7 +707,7 @@ def evaluate_records(records: list[dict]) -> dict:
     rule_map = {rule: label for label, rules in PII_RULE_MAP.items() for rule in rules}
     contextual_counts = {c: dict.fromkeys(("tp", "fp", "tn", "fn", "unknown"), 0) for c in document_counts}
     for record in records:
-        if record["status"] != "completed" or not record["accepted"]:
+        if record.get("split") == "holdout" or record["status"] != "completed" or not record["accepted"]:
             continue
         unit = ("synthetic_development", record["document_id"], "model_consensus")
         text = record["text"]
@@ -788,7 +792,17 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
         if coverage["coverage_passed"]:
             break
         requested_quadrant = max(QUADRANTS, key=lambda q: coverage["shortfall"][q])
+        slot = (
+            sampling_slot(config["sampling"], index)
+            if "sampling" in config
+            else {
+                "split": "development",
+                "template_group": "legacy-development",
+                "scenario": SCENARIOS[index % len(SCENARIOS)],
+            }
+        )
         record: dict[str, Any] = {
+            **slot,
             "document_id": f"synthetic-{index + 1:04d}",
             "status": "error",
             "source_origin": "model_generated",
@@ -800,7 +814,7 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
                 config["generator"],
                 role="generator",
                 data={
-                    "scenario": SCENARIOS[index % len(SCENARIOS)],
+                    "scenario": slot["scenario"],
                     "variant": index,
                     "requested_quadrant": requested_quadrant,
                     "sampling_instruction": QUADRANT_INSTRUCTIONS[requested_quadrant],
@@ -883,7 +897,8 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
         "spending_limit": validate_spending_limit(config["spending_limit"]) if "spending_limit" in config else None,
         "charged_or_reserved_ceiling_usd": str(client.budget.charged),
         "human_annotations": 0,
-        "protected_holdout": False,
+        "protected_holdout": config.get("sampling", {}).get("split") == "holdout",
+        "holdout_note": "reserved model-reference corpus; not independently validated truth",
         "evaluation": evaluate_records(records),
     }
     write_new(output / "report.json", report)

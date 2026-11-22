@@ -1,0 +1,48 @@
+{
+  "schema_version": "junas.partition_reservation.v1",
+  "groups": {
+    "development": [
+      {
+        "id": "dev-intake-v1",
+        "scenario": "fictional individual client intake form"
+      },
+      {
+        "id": "dev-payroll-v1",
+        "scenario": "fictional payroll correction request"
+      },
+      {
+        "id": "dev-board-v1",
+        "scenario": "fictional listed issuer board memorandum"
+      },
+      {
+        "id": "dev-public-v1",
+        "scenario": "fictional already published investor announcement"
+      }
+    ],
+    "holdout": [
+      {
+        "id": "holdout-estate-v1",
+        "scenario": "fictional estate administration ledger entry"
+      },
+      {
+        "id": "holdout-benefits-v1",
+        "scenario": "fictional benefits eligibility appeal"
+      },
+      {
+        "id": "holdout-covenant-v1",
+        "scenario": "fictional issuer covenant waiver exchange"
+      },
+      {
+        "id": "holdout-research-v1",
+        "scenario": "fictional market research corrections bulletin"
+      }
+    ]
+  },
+  "existing_corpus_split": "development",
+  "fresh_holdout_documents": 40,
+  "fresh_holdout_per_quadrant": 10,
+  "status": "reserved_not_generated",
+  "holdout_established": false,
+  "independent_ground_truth": false,
+  "policy": "holdout is excluded from development evaluation; one-shot release consumes it"
+}
