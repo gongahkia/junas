@@ -6,6 +6,7 @@ import re
 from datetime import datetime
 from typing import Any
 
+from junas.review.contextual_identifiers import identifier_fields
 from junas.review.contextual_mnpi import contextual_mnpi
 
 TARGET_VERSION = "junas.sensitivity.v1"
@@ -14,7 +15,7 @@ PII_RULE_MAP = {
     "PERSON_NAME": ("named_person",),
     "EMAIL": ("email_address",),
     "PHONE": ("phone_number",),
-    "POSTAL_ADDRESS": ("sg_postal_address", "au_postal_address"),
+    "POSTAL_ADDRESS": ("sg_postal_address", "au_postal_address", "postal_address"),
     "BANK_ACCOUNT": ("bank_account",),
     "PERSONAL_RECORD_ID": (
         "employee_id",
@@ -79,7 +80,7 @@ def personal_context(text: str, start: int, end: int) -> bool:
 
 
 def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dict]]:
-    spans, excluded = [], []
+    spans, excluded = identifier_fields(text), []
     for match in NAME_CONTEXT.finditer(text):
         # lower-case prose terminates a name; organization suffixes reject the whole candidate.
         raw = match.group("value")

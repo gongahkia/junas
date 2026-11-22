@@ -141,7 +141,7 @@ def validate_config(config: Any) -> dict:
             "judges",
             "pricing_checked_on",
         }
-        | ({"judge_mode", "spending_limit", "sampling"} & config.keys()),
+        | ({"judge_mode", "spending_limit", "sampling", "entity_targets"} & config.keys()),
     )
     require(config["schema_version"] == VERSION, "unknown corpus configuration")
     require(integer(config["documents"], 1, 500), "documents must be in [1, 500]")
@@ -159,6 +159,12 @@ def validate_config(config: Any) -> dict:
     )
     if "sampling" in config:
         validate_sampling(config["sampling"])
+    if "entity_targets" in config:
+        exact_keys(config["entity_targets"], set(PII_RULE_MAP))
+        require(
+            all(integer(n, 1, config["documents"]) for n in config["entity_targets"].values()),
+            "positive entity targets required",
+        )
     date.fromisoformat(config["pricing_checked_on"])
     models = [config["generator"], *config["judges"]]
     for model in models:
@@ -423,6 +429,24 @@ def quadrant_coverage(records: list[dict], config: dict) -> dict:
     }
 
 
+def entity_coverage(records: list[dict], config: dict) -> dict:
+    targets = config.get("entity_targets", {})
+    counts = Counter(
+        s["label"]
+        for r in records
+        if r.get("accepted") and r.get("status") == "completed"
+        for s in r["consensus"]["pii"]
+    )
+    shortfall = {label: max(0, count - counts[label]) for label, count in targets.items()}
+    return {
+        "observed_positive_occurrences": dict(counts),
+        "targets": targets,
+        "shortfall": shortfall,
+        "coverage_passed": not any(shortfall.values()),
+        "reference": "model-consensus occurrences",
+    }
+
+
 def token_cost(model: dict, inputs: int, outputs: int) -> Decimal:
     return (money(model["input_rate"]) * inputs + money(model["output_rate"]) * outputs) / 1_000_000
 
@@ -488,6 +512,7 @@ def plan(config: dict) -> dict:
         "documents": config["documents"],
         "max_candidates": config["max_candidates"],
         "quadrant_targets": config["quadrant_targets"],
+        "entity_targets": config.get("entity_targets", {}),
         "first_pass_model_calls": config["documents"] * len(models),
         "model_calls": config["max_candidates"] * (1 + MAX_JUDGE_ATTEMPTS * len(config["judges"])),
         "token_count_requests": config["max_candidates"] * (1 + MAX_JUDGE_ATTEMPTS * len(config["judges"])),
@@ -800,6 +825,10 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
         if coverage["coverage_passed"]:
             break
         requested_quadrant = max(QUADRANTS, key=lambda q: coverage["shortfall"][q])
+        entities = entity_coverage(records, config)
+        focus = (
+            max(entities["shortfall"], key=entities["shortfall"].get) if any(entities["shortfall"].values()) else None
+        )
         slot = (
             sampling_slot(config["sampling"], index)
             if "sampling" in config
@@ -811,6 +840,7 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
         )
         record: dict[str, Any] = {
             **slot,
+            "focus_label": focus,
             "document_id": f"synthetic-{index + 1:04d}",
             "status": "error",
             "source_origin": "model_generated",
@@ -826,6 +856,18 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
                     "variant": index,
                     "requested_quadrant": requested_quadrant,
                     "sampling_instruction": QUADRANT_INSTRUCTIONS[requested_quadrant],
+                    **(
+                        {
+                            "coverage_focus": focus,
+                            "focus_instruction": (
+                                "Include a fictional person-linked instance of this type."
+                                if requested_quadrant in {"pii_only", "both"}
+                                else "Include a benign corporate or generic lookalike, without personal information."
+                            ),
+                        }
+                        if focus
+                        else {}
+                    ),
                 },
                 schema=GENERATE_SCHEMA,
             )
@@ -867,15 +909,21 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
         if stopped:
             break
     coverage = quadrant_coverage(records, config)
+    entities = entity_coverage(records, config)
     report = {
         "schema_version": VERSION,
-        "status": "stopped" if stopped else "completed" if coverage["coverage_passed"] else "coverage_shortfall",
+        "status": "stopped"
+        if stopped
+        else "completed"
+        if coverage["coverage_passed"] and entities["coverage_passed"]
+        else "coverage_shortfall",
         "stop_reason": stopped,
         "requested_documents": config["documents"],
         "accepted_documents": sum(r["accepted"] for r in records),
         "attempted_candidates": len(records),
         "candidate_limit": config["max_candidates"],
         "quadrant_coverage": coverage,
+        "entity_coverage": entities,
         "completed_documents": sum(r["status"] == "completed" for r in records),
         "documents_with_abstentions": sum(
             any(

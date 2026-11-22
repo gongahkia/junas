@@ -89,3 +89,27 @@ def test_mnpi_does_not_promote_public_hypothetical_negated_or_unlinked_claims():
         "The acquisition has not been publicly disclosed.",
     ]:
         assert review(text).sensitivity["mnpi"]["state"] != "present", text
+
+
+def test_sparse_identifier_types_have_exact_person_linked_evidence():
+    text = (
+        "Client name: Noor Tay\nPersonal bank account number: 123-456-789\n"
+        "Passport number: X1234567\nPersonal mobile: +65 8123 4567\n"
+        "Client staff ID: PT-7821; direct extension 418\n"
+        "Home address: 28 Example Road, Singapore\n"
+        "Only resident uniquely identified: Age: 41; postal code: 123456; occupation: archivist"
+    )
+    evidence = review(text).sensitivity["pii"]["evidence"]
+    labels = {s["label"] for s in evidence}
+    assert {"BANK_ACCOUNT", "PHONE", "GOVERNMENT_ID", "POSTAL_ADDRESS", "QUASI_IDENTIFIER_COMBINATION"} <= labels
+    for s in evidence:
+        assert text[s["start_char"] : s["end_char"]] == s["matched_text"]
+
+
+def test_corporate_and_generic_lookalikes_are_not_personal_fields():
+    text = (
+        "Company bank account number: 123-456-789\nPublic hotline telephone: +65 6123 4567\n"
+        "Corporate passport number: X1234567\nOffice mailing address: 28 Example Road\n"
+        "Age: 41; postal code: 123456; occupation: archivist"
+    )
+    assert not any(s["rule"].startswith("contextual_") for s in review(text).sensitivity["pii"]["evidence"])

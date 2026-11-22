@@ -874,3 +874,14 @@ def test_stale_fx_assumptions_refuse_live_spending():
     cfg["spending_limit"] = spending_limit() | {"fx_checked_on": "2000-01-01"}
     with pytest.raises(ValueError, match="recheck FX"):
         corpus.validate_authorization(authorization(cfg), cfg)
+
+
+def test_entity_coverage_does_not_infer_bank_accounts_from_quadrants():
+    cfg = config(4)
+    cfg["entity_targets"] = dict.fromkeys(corpus.PII_RULE_MAP, 1)
+    corpus.validate_config(cfg)
+    assert corpus.entity_coverage([], cfg)["shortfall"]["BANK_ACCOUNT"] == 1
+    records = [{"status": "completed", "accepted": True, "consensus": {"pii": [{"label": "BANK_ACCOUNT"}]}}]
+    assert corpus.entity_coverage(records, cfg)["shortfall"]["BANK_ACCOUNT"] == 0
+    records[0]["accepted"] = False
+    assert corpus.entity_coverage(records, cfg)["shortfall"]["BANK_ACCOUNT"] == 1
