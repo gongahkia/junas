@@ -1,31 +1,57 @@
-"""Explicit person-linked fields, including sparse synthetic evaluation strata."""
+"""Person-linked field and prose identifiers with local organizational exclusions."""
 
 from __future__ import annotations
 
 import re
+from bisect import bisect_left
 
+from junas.review.conjunctive_mnpi import ORG_NAME_RE
+
+PERSON = re.compile(
+    r"\b(?:personal|individual|employee|patient|customer|client|resident|staff|holder|"
+    r"director|shareholder|applicant|beneficiary|claimant|home|residential)\b",
+    re.I,
+)
+PRONOUN = re.compile(r"\b(?:her|his|their|she|he)\b", re.I)
+ORG_CONTACT = re.compile(
+    r"\b(?:office|corporate|company|registered|firm|public|general|reception|switchboard|hotline)"
+    r"(?:\s+(?:office|mailing|postal|bank|contact|telephone|phone|account|address|line|"
+    r"number|no\.?|passport|national|ID|NRIC|FIN)){0,5}\s*[:#=]?\s*$",
+    re.I,
+)
+EXAMPLE = re.compile(
+    r"\b(?:dummy|placeholder|mock company|corporate template|does not identify|not anyone[’']s)\b", re.I
+)
 FIELD_PATTERNS = {
     "BANK_ACCOUNT": re.compile(
-        r"(?i:\b(?:personal\s+)?bank\s+account\s*(?:number|no\.?|ID)?\s*[:#=]\s*)"
+        r"(?i:\b(?:personal\s+)?bank\s+account(?:\s*(?:number|no\.?|ID))?\s*[:#=]?\s*)"
         r"(?P<value>[A-Z]{0,2}\d(?:[A-Z0-9 -]{3,30}[A-Z0-9]))\b"
     ),
     "GOVERNMENT_ID": re.compile(
-        r"(?i:\b(?:passport|national\s+ID|NRIC|FIN|taxpayer\s+ID)\s*(?:number|no\.?)?\s*[:#=]\s*)"
-        r"(?P<value>[A-Z0-9][A-Z0-9-]{4,19})\b"
+        r"(?i:\b(?:passport|national\s+ID|NRIC|FIN|taxpayer\s+ID|identity document reference)"
+        r"\s*(?:number|no\.?)?\s*[:#=]?\s*)(?P<value>[A-Z0-9][A-Z0-9-]{4,24})\b"
     ),
     "PHONE": re.compile(
-        r"(?i:\b(?:personal\s+(?:mobile|phone)|mobile|telephone|direct\s+(?:line|extension))\s*(?:number)?\s*[:#=]?\s*)"
-        r"(?P<value>\+?\d[\d ()-]{1,20}\d)\b"
-    ),
-    "POSTAL_ADDRESS": re.compile(
-        r"(?i:\b(?:home|residential|mailing|correspondence)\s+address\s*[:=]\s*)"
-        r"(?P<value>\d[^\n;]{5,100})"
+        r"(?i:\b(?:personal\s+(?:mobile|phone)|mobile|telephone|phone|direct\s+(?:line|extension))\s*"
+        r"(?:number)?\s*[:#=]?\s*)(?P<value>\+?\d[\d ()-]{1,20}\d)\b"
     ),
 }
-LINK = re.compile(
-    r"\b(?:personal|individual|employee|patient|customer|client|resident|staff|holder|home|residential)\b", re.I
+BANK_NUMBER = re.compile(r"\baccount\s+(?:no\.?|number)\s*[:#=]?\s*(?P<value>\d[\d -]{4,29}\d)\b", re.I)
+PHONE_NUMBER = re.compile(r"(?<![\w\d])(?P<value>\+\d{1,3}[ -]\d[\d ()-]{5,18}\d)\b")
+ADDRESS = re.compile(
+    r"\b(?P<value>\d{1,5}(?:[ \t]+[^\W\d_][\w’'-]*){1,6}[ \t]+"
+    r"(?:Road|Rd|Street|St|Lane|Ln|Walk|Quay|Grove|Drive|Dr|Avenue|Ave|Crescent|Close|Way|Terrace|Place)"
+    r"(?:,?[ \t]+#\d{1,3}-\d{1,5})?(?:,?[ \t]+Singapore(?:[ \t]+\d{6})?)?)\b",
+    re.I,
 )
-BUSINESS = re.compile(r"\b(?:company|corporate|business|office|public|hotline)\b", re.I)
+QUOTED_ADDRESS = re.compile(
+    r"[“\"](?P<value>[^\n”\"]{2,70})[”\"]\s+under\s+(?:her\s+|his\s+|their\s+)?correspondence address\b", re.I
+)
+ROLE_EMPLOYER = re.compile(
+    r"\b(?P<role>(?:board observer|treasury analyst|payroll lead|finance manager|sole administrator|"
+    r"chief financial officer|general counsel))\s+(?:at|of)\s+",
+    re.I,
+)
 QUASI_FIELDS = (
     re.compile(r"\bAge\s*:\s*\d{1,3}\b", re.I),
     re.compile(r"\b(?:postcode|postal code)\s*:\s*[A-Z0-9 -]{3,10}\b", re.I),
@@ -33,51 +59,181 @@ QUASI_FIELDS = (
 )
 
 
-def identifier_fields(text: str) -> list[dict]:
+def local_bounds(text: str, start: int, end: int, distance: int = 180) -> tuple[int, int]:
+    a = max(text.rfind("\n", max(0, start - distance), start) + 1, start - distance, 0)
+    b = text.find("\n", end, end + distance)
+    return a, min(b if b >= 0 else len(text), end + distance)
+
+
+def nonpersonal(text: str, start: int, end: int, label: str) -> bool:
+    a, b = local_bounds(text, start, end)
+    before, after = text[a:start], text[end:b]
+    if ORG_CONTACT.search(before[-65:]):
+        return True
+    if re.match(r"\s*\((?:sample|public|general|office|company|corporate|dummy|template|switchboard)\b", after, re.I):
+        return True
+    if label == "GOVERNMENT_ID" and (
+        EXAMPLE.search(before[-90:] + after[:160])
+        or re.search(r"\b(?:circular|company|corporate)\s+(?:reference|registration)", after[:100], re.I)
+    ):
+        return True
+    if label == "DATE_OF_BIRTH" and re.search(
+        r"\b(?:incorporation|establishment) date\b|not anyone[’']s birth", after[:200], re.I
+    ):
+        return True
+    return bool(
+        label == "BANK_ACCOUNT" and re.search(r"\b(?:dummy|placeholder|template)\b", before[-45:] + after[:60], re.I)
+    )
+
+
+def personal_link(text: str, start: int, end: int, people: list[dict]) -> bool:
+    a, b = local_bounds(text, start, end)
+    index = bisect_left(people, a, key=lambda s: s["start_char"])
+    if index < len(people) and people[index]["start_char"] < b:
+        return True
+    value = text[a:b]
+    if re.search(
+        r"\b(?:personal|home|residential)\b|\b(?:individual|employee|patient|customer|client|staff)"
+        r"(?:[’']s|\s+(?:mobile|phone|telephone|address|account|ID|number))\b",
+        value,
+        re.I,
+    ):
+        return True
+    # a personal pronoun needs an anchored person elsewhere in the paragraph.
+    if PRONOUN.search(value):
+        left = max(0, start - 1200, text.rfind("\n\n", max(0, start - 1200), start) + 2)
+        right = text.find("\n\n", end, end + 1200)
+        index = bisect_left(people, left, key=lambda s: s["start_char"])
+        return index < len(people) and people[index]["start_char"] < (right if right >= 0 else end + 1200)
+    return False
+
+
+def _span(text: str, start: int, end: int, label: str, reason: str) -> dict:
+    return dict(
+        label=label,
+        rule="contextual_" + label.lower(),
+        start_char=start,
+        end_char=end,
+        matched_text=text[start:end],
+        reason=reason,
+    )
+
+
+def quasi_identifiers(text: str, people: list[dict]) -> list[dict]:
     spans = []
-    for label, pattern in FIELD_PATTERNS.items():
-        for match in pattern.finditer(text):
-            value = match.group("value").rstrip(" .,")
-            line = text[
-                text.rfind("\n", 0, match.start()) + 1 : text.find("\n", match.end())
-                if "\n" in text[match.end() :]
-                else len(text)
-            ]
-            context = text[max(0, match.start() - 100) : match.end()]
-            if BUSINESS.search(line) or (label in {"BANK_ACCOUNT", "PHONE"} and not LINK.search(context)):
-                continue
-            if label == "GOVERNMENT_ID" and not any(c.isdigit() for c in value):
-                continue
-            if label == "PHONE" and not 3 <= sum(c.isdigit() for c in value) <= 15:
-                continue
-            if label == "BANK_ACCOUNT" and not 6 <= sum(c.isdigit() for c in value) <= 22:
-                continue
-            start, end = match.start("value"), match.start("value") + len(value)
-            spans.append(
-                dict(
-                    label=label,
-                    rule="contextual_" + label.lower(),
-                    start_char=start,
-                    end_char=end,
-                    matched_text=text[start:end],
-                    reason="explicit personal field context",
-                )
-            )
+    individual = bool(re.search(r"\b(?:individual|private)[- ]client\b|\bclient capacity\s*:", text, re.I))
     for block in re.finditer(r"[^\n]+", text):
         value = block.group()
         fields = [p.search(value) for p in QUASI_FIELDS]
-        if all(fields) and LINK.search(value) and re.search(r"\b(?:only|unique|identif\w+)\b", value, re.I):
+        if all(fields) and PERSON.search(value) and re.search(r"\b(?:only|unique|identif\w+)\b", value, re.I):
             matches = [m for m in fields if m is not None]
-            start = block.start() + min(m.start() for m in matches)
-            end = block.start() + max(m.end() for m in matches)
             spans.append(
-                dict(
-                    label="QUASI_IDENTIFIER_COMBINATION",
-                    rule="contextual_quasi_identifier",
-                    start_char=start,
-                    end_char=end,
-                    matched_text=text[start:end],
-                    reason="three quasi-identifier fields with explicit singling-out claim; unverified",
+                _span(
+                    text,
+                    block.start() + min(m.start() for m in matches),
+                    block.start() + max(m.end() for m in matches),
+                    "QUASI_IDENTIFIER_COMBINATION",
+                    "three linked fields with an explicit singling-out claim; unverified",
                 )
             )
+    orgs = list(ORG_NAME_RE.finditer(text))
+    org_at = {m.start(): m for m in orgs}
+    for role in ROLE_EMPLOYER.finditer(text):
+        org = org_at.get(role.end())
+        if org and (individual or "lead" in role.group("role").casefold()):
+            spans.append(
+                _span(
+                    text,
+                    role.start(),
+                    org.end(),
+                    "QUASI_IDENTIFIER_COMBINATION",
+                    "individual role and employer linkage; identifying potential is unverified",
+                )
+            )
+    if individual:
+        for org in orgs:
+            tail = re.match(
+                r",\s+a\s+[^.\n]{0,60}issuer\s+where\s+(?:she|he|the client)\s+works\s+as\s+"
+                r"(?:a\s+)?(?:finance manager|treasury analyst|payroll lead)\b",
+                text[org.end() :],
+                re.I,
+            )
+            if tail:
+                spans.append(
+                    _span(
+                        text,
+                        org.start(),
+                        org.end() + tail.end(),
+                        "QUASI_IDENTIFIER_COMBINATION",
+                        "employer, listing and personal role linkage; identifying potential is unverified",
+                    )
+                )
+        for match in re.finditer(r"\b\d[\d,]*\s+[A-Z][\w-]*\s+shares through an employee plan\b", text):
+            spans.append(
+                _span(
+                    text,
+                    *match.span(),
+                    "QUASI_IDENTIFIER_COMBINATION",
+                    "personal holding amount, security and employment-plan linkage; unverified",
+                )
+            )
+        for match in re.finditer(r"\blives in\s+[^.\n]{10,120};\s*works\s+[^.\n]{5,100}?\s+at\s+", text, re.I):
+            org = org_at.get(match.end())
+            if org:
+                spans.append(
+                    _span(
+                        text,
+                        match.start(),
+                        org.end(),
+                        "QUASI_IDENTIFIER_COMBINATION",
+                        "linked housing, locality, work pattern and employer; unverified",
+                    )
+                )
+        for match in re.finditer(
+            r"\bIndividual investor holding shares in\s+[^\n]{5,180}?own-account brokerage account\. "
+            r"The client also works in the issuer[’']s [^.\n]{2,50}\bteam\b",
+            text,
+            re.I,
+        ):
+            spans.append(
+                _span(
+                    text,
+                    *match.span(),
+                    "QUASI_IDENTIFIER_COMBINATION",
+                    "linked ownership, account capacity and employer role; unverified",
+                )
+            )
+    return spans
+
+
+def identifier_fields(text: str, people: list[dict] | None = None) -> list[dict]:
+    people = sorted(people or [], key=lambda s: s["start_char"])
+    spans = []
+    patterns = [(label, p) for label, p in FIELD_PATTERNS.items()] + [
+        ("BANK_ACCOUNT", BANK_NUMBER),
+        ("PHONE", PHONE_NUMBER),
+        ("POSTAL_ADDRESS", ADDRESS),
+        ("POSTAL_ADDRESS", QUOTED_ADDRESS),
+    ]
+    for label, pattern in patterns:
+        for match in pattern.finditer(text):
+            value = match.group("value").rstrip(" .,")
+            start, end = match.start("value"), match.start("value") + len(value)
+            if nonpersonal(text, start, end, label):
+                continue
+            if label != "GOVERNMENT_ID" and not personal_link(text, start, end, people):
+                continue
+            digits = sum(c.isdigit() for c in value)
+            if label == "GOVERNMENT_ID" and not digits:
+                continue
+            if label == "PHONE" and not (
+                7 <= digits <= 15
+                or 3 <= digits <= 6
+                and re.search(r"direct\s+extension\s*[:#]?\s*$", text[max(0, start - 30) : start], re.I)
+            ):
+                continue
+            if label == "BANK_ACCOUNT" and not 6 <= digits <= 22:
+                continue
+            spans.append(_span(text, start, end, label, "locally person-linked field or prose identifier"))
+    spans.extend(quasi_identifiers(text, people))
     return spans

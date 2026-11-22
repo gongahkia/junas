@@ -6,7 +6,7 @@ import re
 from datetime import datetime
 from typing import Any
 
-from junas.review.contextual_identifiers import identifier_fields
+from junas.review.contextual_identifiers import identifier_fields, nonpersonal
 from junas.review.contextual_mnpi import contextual_mnpi
 from junas.review.contextual_people import person_names
 
@@ -31,7 +31,8 @@ PII_RULE_MAP = {
 SHARED_MAILBOX = re.compile(
     r"^(?:info|contact|support|sales|admin|office|help|hello|enquiries|inquiries|"
     r"compliance|legal|privacy|ir|investor[._-]?relations|reception|billing|noreply|no-reply|"
-    r"registry|secretariat|announcements|disclosure|press|media|operations|ops|records|board|companysecretary)(?:[._+-].*)?$",
+    r"registry|secretariat|announcements|disclosures?|press|media|operations|ops|records|board|companysecretary|"
+    r"intake|governance|payroll)(?:[._+-].*)?$",
     re.I,
 )
 
@@ -49,7 +50,7 @@ RECORD_CONTEXT = re.compile(
     r"\s*(?:ID|number|no\.?|reference|ref\.?)?\s*(?:as|is|:|\#)?[ \t]+)(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
 )
 DOB_CONTEXT = re.compile(
-    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*[:=]?[ \t]+)"
+    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|:|=)?[ \t]+)"
     r"(?P<value>\d{1,2}[ /-](?:[A-Za-z]+|\d{1,2})[ /-]\d{4}|\d{4}-\d{2}-\d{2})\b"
 )
 
@@ -74,14 +75,17 @@ def personal_context(text: str, start: int, end: int) -> bool:
 
 
 def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dict]]:
-    spans, excluded = identifier_fields(text), []
-    spans.extend(person_names(text))
+    people = person_names(text)
+    spans, excluded = identifier_fields(text, people), []
+    spans.extend(people)
     for pattern, label, rule in (
         (RECORD_CONTEXT, "PERSONAL_RECORD_ID", "contextual_personal_record"),
         (DOB_CONTEXT, "DATE_OF_BIRTH", "contextual_birth_date"),
     ):
         for match in pattern.finditer(text):
             value = match.group("value")
+            if nonpersonal(text, *match.span("value"), label):
+                continue
             if label == "DATE_OF_BIRTH" and not valid_birth_date(value):
                 continue
             if label == "PERSONAL_RECORD_ID" and not any(c.isdigit() for c in value):
@@ -89,10 +93,24 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
             spans.append(evidence(text, *match.span("value"), label, rule, "explicit person-linked field"))
     if re.search(r"\b(?:individual|private)[- ]client\b|\bclient capacity\s*:|\bretail shareholder\b", text, re.I):
         header = text.split("\n\n", 1)[0]
+        actual_client = bool(
+            people
+            or re.search(
+                r"\bclient capacity\s*:|\b(?:client|analyst|applicant)\s+"
+                r"(?:seeks|asks|reports|says|placed|is|works|holds)\b|"
+                r"\bapplicant[’']s details\b",
+                text,
+                re.I,
+            )
+        )
         for m in re.finditer(
             r"\b(?:Ref\.?|File|Matter)\s*[:#]?\s+(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)+)\b", header, re.I
         ):
-            if any(c.isdigit() for c in m.group("value")):
+            if (
+                actual_client
+                and not re.search(r"\btemplate\s*$", header[max(0, m.start() - 20) : m.start()], re.I)
+                and any(c.isdigit() for c in m.group("value"))
+            ):
                 spans.append(
                     evidence(
                         text,
@@ -106,6 +124,10 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
     for finding in findings:
         if finding.category != "PII" or finding.rule not in mapping:
             continue
+        if mapping[finding.rule] in {"QUASI_IDENTIFIER_COMBINATION", "POSTAL_ADDRESS", "PERSON_NAME"}:
+            continue  # broad inferred findings are signals; contextual extraction supplies target spans.
+        if nonpersonal(text, finding.start_char, finding.end_char, mapping[finding.rule]):
+            continue
         item = evidence(
             text,
             finding.start_char,
@@ -117,23 +139,24 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
         reason = None
         if finding.rule == "email_address":
             local = finding.matched_text.split("@")[0]
-            if SHARED_MAILBOX.fullmatch(local):
+            shared = SHARED_MAILBOX.fullmatch(local) or re.search(
+                r"(?:^|[._+-])(?:intake|governance|payroll|disclosures?|secretariat|registry)(?:$|[._+-])", local, re.I
+            )
+            if shared:
                 reason = "role/shared mailbox is outside the personal-email target"
             elif not (
                 re.fullmatch(r"[^\W\d_]+[._-][^\W\d_.-]+", local)
                 or personal_context(text, finding.start_char, finding.end_char)
             ):
                 reason = "person association not established"
-        elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"} and re.search(
-            r"\b(?:office|corporate|company|public hotline)\b",
-            text[text.rfind("\n", 0, finding.start_char) + 1 : finding.start_char],
-            re.I,
-        ):
-            reason = "explicit organizational contact is outside the personal target"
-        elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"} and not personal_context(
-            text, finding.start_char, finding.end_char
-        ):
-            reason = "person association not established"
+        elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"}:
+            if not any(
+                s["label"] == item["label"]
+                and s["start_char"] == item["start_char"]
+                and s["end_char"] == item["end_char"]
+                for s in spans
+            ):
+                continue
         if reason:
             item["reason"] = reason
             excluded.append(item)

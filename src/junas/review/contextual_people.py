@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from bisect import bisect_left, bisect_right
 
 from junas.review.conjunctive_mnpi import ORG_NAME_RE
 
@@ -11,7 +12,8 @@ TOKENS = re.compile(rf"\b{TOKEN}\b")
 ORG_WORD = re.compile(
     r"\b(?:Ltd|Limited|Pte|Corp|Inc|LLC|LLP|Holdings|Group|Services|Team|Department|"
     r"Advisory|Systems|Infrastructure|Secretariat|Bank|Legal|Notice|Memorandum|Singapore|"
-    r"Government|Board|Company|Corporate|Client|Intake|General|Date|Private|Email|Ref|File)\b",
+    r"Government|Board|Company|Corporate|Client|Intake|General|Date|Private|Email|Ref|File|"
+    r"Payroll|Operations|Service|Desk)\b",
     re.I,
 )
 PREFIX = re.compile(
@@ -76,6 +78,8 @@ def person_names(text: str) -> list[dict]:
             run.append(tokens[j])
             j += 1
         start, end = run[0].start(), run[-1].end()
+        if text[start:end].endswith(("’s", "'s")):
+            end -= 2
         value = text[start:end]
         prefix, suffix = text[max(0, start - 65) : start], text[end : end + 100]
         if (
@@ -90,24 +94,48 @@ def person_names(text: str) -> list[dict]:
         for line in re.finditer(r"[^\n]+", text)
         for m in ORG_NAME_RE.finditer(line.group())
     ]
-    anchored = list(candidates)
-    # shortened references must be grounded in an already anchored full name.
-    for start, end in anchored:
-        parts = list(TOKENS.finditer(text[start:end]))
+    org_starts = [a for a, _ in orgs]
+
+    def in_org(a: int, b: int) -> bool:
+        index = bisect_right(org_starts, a) - 1
+        return index >= 0 and b <= orgs[index][1]
+
+    candidates = [(a, b) for a, b in candidates if not in_org(a, b)]
+    starts = [m.start() for m in tokens]
+    occupied = set()
+    for a, b in candidates + orgs:
+        occupied.update(range(bisect_left(starts, a), bisect_left(starts, b)))
+    aliases = set()
+    for value in {text[a:b] for a, b in candidates}:
+        parts = tuple(m.group() for m in TOKENS.finditer(value))
         for width in range(1, len(parts) + 1):
             for offset in range(len(parts) - width + 1):
-                name = text[start + parts[offset].start() : start + parts[offset + width - 1].end()]
-                for match in re.finditer(r"(?<!\w)" + re.escape(name) + r"(?!\w)", text):
-                    a, b = match.span()
-                    if any(x <= a and b <= y for x, y in candidates + orgs):
-                        continue
-                    # single-token mentions need an honorific, possessive or personal action.
-                    if width == 1 and not (
-                        HONORIFIC.search(text[max(0, a - 10) : a])
-                        or re.match(r"(?:[’']s\b|\s+(?:says|holds|asked|requested|works|submitted)\b)", text[b:])
-                    ):
-                        continue
-                    candidates.append((a, b))
+                aliases.add(parts[offset : offset + width])
+    # scan tokens once; repeated names must not trigger repeated full-document searches.
+    for i in range(len(tokens)):
+        if i in occupied:
+            continue
+        for width in range(min(5, len(tokens) - i), 0, -1):
+            run = tokens[i : i + width]
+            if any(j in occupied for j in range(i, i + width)):
+                continue
+            values = tuple(m.group()[:-2] if m.group().endswith(("’s", "'s")) else m.group() for m in run)
+            if values not in aliases or any(
+                not re.fullmatch(r"[ \t]+", text[x.end() : y.start()]) for x, y in zip(run, run[1:])
+            ):
+                continue
+            a, b = run[0].start(), run[-1].end()
+            if text[a:b].endswith(("’s", "'s")):
+                b -= 2
+            if width == 1 and not (
+                re.search(r"\b(?:names?|named|contact is)\s*$", text[max(0, a - 25) : a], re.I)
+                or HONORIFIC.search(text[max(0, a - 10) : a])
+                or re.match(r"(?:[’']s\b|\s+(?:says|holds|asked|requested|works|submitted)\b)", text[b:])
+            ):
+                continue
+            candidates.append((a, b))
+            occupied.update(range(i, i + width))
+            break
     return [
         dict(
             label="PERSON_NAME",
@@ -118,5 +146,4 @@ def person_names(text: str) -> list[dict]:
             reason="person field, role, contact or anchored shortened reference",
         )
         for a, b in sorted(set(candidates))
-        if not any(x <= a and b <= y for x, y in orgs)
     ]

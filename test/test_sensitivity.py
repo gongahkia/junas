@@ -156,3 +156,54 @@ def test_client_case_reference_requires_individual_linkage():
 def test_capitalized_organization_titles_and_city_are_not_person_names():
     text = "Company name: Cedar Vale Systems Ltd.\nFrom: Singapore Corporate Secretariat\nGeneral Board Memorandum"
     assert not any(s["label"] == "PERSON_NAME" for s in review(text).sensitivity["pii"]["evidence"])
+
+
+def test_prose_contacts_belong_to_person_despite_company_in_sentence():
+    text = (
+        "The company secretary recorded director Amira Vale’s preferred number as +65 8111 2233. "
+        "Her correspondence address is 71 Invented Fern Lane, #03-09, Singapore 123456. "
+        "Her personal bank account (Example Bank, account no. 123-456-789) receives refunds."
+    )
+    items = review(text).sensitivity["pii"]["evidence"]
+    assert {"+65 8111 2233", "71 Invented Fern Lane, #03-09, Singapore 123456", "123-456-789"} <= {
+        s["matched_text"] for s in items
+    }
+
+
+def test_role_mailboxes_and_corporate_identifier_lookalikes_are_excluded():
+    text = (
+        "Individual intake guidance: the mock company reference is T1234567A. "
+        "It does not identify an applicant. Contact intake@example.test, payroll-ops@example.test, "
+        "or brand-disclosures@example.test. Registered office: 71 Invented Fern Lane, Singapore 123456."
+    )
+    assert review(text).sensitivity["pii"]["state"] == "not_detected"
+
+
+def test_quasi_identifier_requires_person_linkage_and_preserves_source():
+    text = "Individual client intake. Client capacity: treasury analyst at Cedar Vale Ltd."
+    items = review(text).sensitivity["pii"]["evidence"]
+    assert any(
+        s["label"] == "QUASI_IDENTIFIER_COMBINATION" and s["matched_text"] == "treasury analyst at Cedar Vale Ltd"
+        for s in items
+    )
+    generic = "The policy explains what a treasury analyst at Cedar Vale Ltd. does."
+    assert not any(s["label"] == "QUASI_IDENTIFIER_COMBINATION" for s in review(generic).sensitivity["pii"]["evidence"])
+
+
+def test_company_mailer_and_template_case_ids_are_not_personal_identifiers():
+    text = (
+        "Individual client intake research. Template ref. QZ-571. "
+        "A specimen shareholder circular lists Corporate Secretariat, 51 Imaginary Grove, Singapore 123456. "
+        "Payroll Operations (payroll@example.test) handles generic queries. No individual particulars were recorded."
+    )
+    assert review(text).sensitivity["pii"]["state"] == "not_detected"
+
+
+def test_repeated_names_use_exact_offsets_without_duplicate_aliases():
+    text = "Client name: Élodie Moss\n" * 200
+    from junas.review.contextual_people import person_names
+
+    names = person_names(text)
+    assert len(names) == 200
+    assert len({(n["start_char"], n["end_char"]) for n in names}) == 200
+    assert all(n["matched_text"] == "Élodie Moss" for n in names)
