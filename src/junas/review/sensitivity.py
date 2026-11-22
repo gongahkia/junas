@@ -6,11 +6,11 @@ import re
 from datetime import datetime
 from typing import Any
 
-from junas.review.contextual_identifiers import identifier_fields, nonpersonal
+from junas.review.contextual_identifiers import identifier_fields, nonpersonal, personal_link
 from junas.review.contextual_mnpi import contextual_mnpi
 from junas.review.contextual_people import person_names
 
-TARGET_VERSION = "junas.sensitivity.v1"
+TARGET_VERSION = "junas.sensitivity.v2"
 PII_RULE_MAP = {
     "GOVERNMENT_ID": ("sg_nric_fin", "us_ssn", "uk_nin", "au_tfn", "passport_number"),
     "PERSON_NAME": ("named_person",),
@@ -32,7 +32,8 @@ SHARED_MAILBOX = re.compile(
     r"^(?:info|contact|support|sales|admin|office|help|hello|enquiries|inquiries|"
     r"compliance|legal|privacy|ir|investor[._-]?relations|reception|billing|noreply|no-reply|"
     r"registry|secretariat|announcements|disclosures?|press|media|operations|ops|records|board|companysecretary|"
-    r"intake|governance|payroll)(?:[._+-].*)?$",
+    r"intake|governance|payroll|policy|policy[-_]?desk|research|research[-_]?desk|editorial|editor|"
+    r"review|consultation|taxdesk|listingdesk|capmarkets|issuer[-_]?records)(?:[._+-].*)?$",
     re.I,
 )
 
@@ -46,11 +47,13 @@ def evidence(text: str, start: int, end: int, label: str, rule: str, reason: str
 RECORD_CONTEXT = re.compile(
     r"(?i:\b(?:staff|employee|patient|medical record|insurance member|individual verification|"
     r"contact record|internal contact|personal record|client reference|customer reference|"
-    r"intake|holder|register|portal|secretariat|shareholder|collection|client|customer|staff ref\.?|identity document)"
-    r"\s*(?:ID|number|no\.?|reference|ref\.?)?\s*(?:as|is|:|\#)?[ \t]+)(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
+    r"intake|holder|register|portal|secretariat|shareholder|collection|client|customer|"
+    r"personnel|deal-team|reader|correspondence|staff ref\.?|identity document)"
+    r"\s*(?:ID|number|no\.?|reference|ref\.?)?\s*(?:\([^\n)]{1,25}\))?\s*(?:as|is|:|\#)?[ \t]+\(?)"
+    r"(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
 )
 DOB_CONTEXT = re.compile(
-    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|:|=)?[ \t]+)"
+    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|:|=)?[ \t]+\(?)"
     r"(?P<value>\d{1,2}[ /-](?:[A-Za-z]+|\d{1,2})[ /-]\d{4}|\d{4}-\d{2}-\d{2})\b"
 )
 
@@ -65,13 +68,6 @@ def _date_matches(value: str, fmt: str) -> bool:
         return True
     except ValueError:
         return False
-
-
-def personal_context(text: str, start: int, end: int) -> bool:
-    local = text[max(0, start - 100) : min(len(text), end + 100)]
-    return bool(
-        re.search(r"\b(?:personal|individual|employee|patient|customer|client|resident|staff|holder)\b", local, re.I)
-    )
 
 
 def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dict]]:
@@ -120,6 +116,18 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
                         "individual-client case reference",
                     )
                 )
+    record_ids = {s["matched_text"] for s in spans if s["label"] == "PERSONAL_RECORD_ID"}
+    for match in re.finditer(r"\b[A-Z][A-Z0-9]{1,}(?:[-/][A-Z0-9]+)*\b", text):
+        if match.group() in record_ids:
+            spans.append(
+                evidence(
+                    text,
+                    *match.span(),
+                    "PERSONAL_RECORD_ID",
+                    "contextual_record_reference",
+                    "repeated identifier anchored by a person-linked record field",
+                )
+            )
     mapping = {rule: label for label, rules in PII_RULE_MAP.items() for rule in rules}
     for finding in findings:
         if finding.category != "PII" or finding.rule not in mapping:
@@ -140,13 +148,16 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
         if finding.rule == "email_address":
             local = finding.matched_text.split("@")[0]
             shared = SHARED_MAILBOX.fullmatch(local) or re.search(
-                r"(?:^|[._+-])(?:intake|governance|payroll|disclosures?|secretariat|registry)(?:$|[._+-])", local, re.I
+                r"(?:^|[._+-])(?:intake|governance|payroll|disclosures?|secretariat|registry|policy|research|"
+                r"editorial|editor|review|consultation|taxdesk|listingdesk|capmarkets|records)(?:$|[._+-])",
+                local,
+                re.I,
             )
             if shared:
                 reason = "role/shared mailbox is outside the personal-email target"
             elif not (
                 re.fullmatch(r"[^\W\d_]+[._-][^\W\d_.-]+", local)
-                or personal_context(text, finding.start_char, finding.end_char)
+                or personal_link(text, finding.start_char, finding.end_char, people)
             ):
                 reason = "person association not established"
         elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"}:

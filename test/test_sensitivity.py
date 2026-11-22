@@ -207,3 +207,36 @@ def test_repeated_names_use_exact_offsets_without_duplicate_aliases():
     assert len(names) == 200
     assert len({(n["start_char"], n["end_char"]) for n in names}) == 200
     assert all(n["matched_text"] == "Élodie Moss" for n in names)
+
+
+def test_structured_contacts_support_compound_names_and_masked_ids():
+    text = (
+        "Contact: Vale Mei Wen, Amira\nEmail: amira.vale-wen@example.test\n"
+        "Staff ID (sender): HM-Z8-271\nNRIC on file: T••••123B\n"
+        "Mailing address: 12 Invented Shore Rise, #09-02, Singapore\n"
+        "The email was signed “V. Mei”. Her date of birth (18 June 1986) is on file."
+    )
+    items = review(text).sensitivity["pii"]["evidence"]
+    values = {s["matched_text"] for s in items}
+    assert {
+        "Vale Mei Wen, Amira",
+        "amira.vale-wen@example.test",
+        "HM-Z8-271",
+        "T••••123B",
+        "12 Invented Shore Rise, #09-02, Singapore",
+        "18 June 1986",
+    } <= values
+
+
+def test_repeated_personal_record_identifier_keeps_both_occurrences():
+    text = "Client name: Anika Moss. Contact record ID: ZZ-123-AB. Please quote ZZ-123-AB in the reply."
+    spans = [s for s in review(text).sensitivity["pii"]["evidence"] if s["matched_text"] == "ZZ-123-AB"]
+    assert len(spans) == 2
+
+
+def test_generic_editorial_roles_and_mailboxes_are_not_persons():
+    text = (
+        "From: Research Counsel <research-desk@example.test>\nTo: Library Review <review@example.test>\n"
+        "Nerali Policy Forum prepared general guidance. Comments: policy-desk@example.test."
+    )
+    assert review(text).sensitivity["pii"]["state"] == "not_detected"

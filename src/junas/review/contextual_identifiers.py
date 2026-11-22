@@ -29,7 +29,7 @@ FIELD_PATTERNS = {
     ),
     "GOVERNMENT_ID": re.compile(
         r"(?i:\b(?:passport|national\s+ID|NRIC|FIN|taxpayer\s+ID|identity document reference)"
-        r"\s*(?:number|no\.?)?\s*[:#=]?\s*)(?P<value>[A-Z0-9][A-Z0-9-]{4,24})\b"
+        r"\s*(?:number|no\.?|on file)?\s*[:#=]?\s*)(?P<value>[A-Z0-9][A-Z0-9•*…-]{4,24})\b"
     ),
     "PHONE": re.compile(
         r"(?i:\b(?:personal\s+(?:mobile|phone)|mobile|telephone|phone|direct\s+(?:line|extension))\s*"
@@ -40,7 +40,7 @@ BANK_NUMBER = re.compile(r"\baccount\s+(?:no\.?|number)\s*[:#=]?\s*(?P<value>\d[
 PHONE_NUMBER = re.compile(r"(?<![\w\d])(?P<value>\+\d{1,3}[ -]\d[\d ()-]{5,18}\d)\b")
 ADDRESS = re.compile(
     r"\b(?P<value>\d{1,5}(?:[ \t]+[^\W\d_][\w’'-]*){1,6}[ \t]+"
-    r"(?:Road|Rd|Street|St|Lane|Ln|Walk|Quay|Grove|Drive|Dr|Avenue|Ave|Crescent|Close|Way|Terrace|Place)"
+    r"(?:Road|Rd|Street|St|Lane|Ln|Walk|Quay|Grove|Drive|Dr|Avenue|Ave|Crescent|Close|Way|Terrace|Place|Rise|Reach|View|Link|Green|Square|Park)"
     r"(?:,?[ \t]+#\d{1,3}-\d{1,5})?(?:,?[ \t]+Singapore(?:[ \t]+\d{6})?)?)\b",
     re.I,
 )
@@ -99,8 +99,14 @@ def personal_link(text: str, start: int, end: int, people: list[dict]) -> bool:
         re.I,
     ):
         return True
+    field = re.search(
+        r"\b(?:mailing|correspondence) address\s*[:=]?\s*$|\b(?:bank account|mobile|phone|email)"
+        r"(?: address| number)?\s*[:=]?\s*$",
+        text[max(0, start - 60) : start],
+        re.I,
+    )
     # a personal pronoun needs an anchored person elsewhere in the paragraph.
-    if PRONOUN.search(value):
+    if field or PRONOUN.search(value):
         left = max(0, start - 1200, text.rfind("\n\n", max(0, start - 1200), start) + 2)
         right = text.find("\n\n", end, end + 1200)
         index = bisect_left(people, left, key=lambda s: s["start_char"])
