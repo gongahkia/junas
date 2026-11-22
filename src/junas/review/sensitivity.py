@@ -6,6 +6,8 @@ import re
 from datetime import datetime
 from typing import Any
 
+from junas.review.contextual_mnpi import contextual_mnpi
+
 TARGET_VERSION = "junas.sensitivity.v1"
 PII_RULE_MAP = {
     "GOVERNMENT_ID": ("sg_nric_fin", "us_ssn", "uk_nin", "au_tfn", "passport_number"),
@@ -150,14 +152,6 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
     ]
     unique = {(s["label"], s["start_char"], s["end_char"]): s for s in spans}
     return sorted(unique.values(), key=lambda s: (s["start_char"], s["end_char"], s["label"])), excluded
-
-
-def contextual_mnpi(text: str, findings: list[Any]) -> dict:
-    return {
-        "state": "unknown" if any(f.category == "MNPI" for f in findings) else "not_detected",
-        "evidence": [],
-        "reason": "broad signals alone do not establish contextual MNPI",
-    }
 
 
 def sensitivity(text: str, findings: list[Any]) -> dict:

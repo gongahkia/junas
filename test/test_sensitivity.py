@@ -56,3 +56,36 @@ def test_person_context_does_not_turn_business_fields_or_invalid_dates_into_pii(
 def test_unknown_email_association_is_visible_abstention():
     result = review("Address: abc123@example.test")
     assert result.sensitivity["pii"]["state"] == "unknown"
+
+
+def test_mnpi_requires_issuer_materiality_and_nonpublic_in_same_context():
+    text = (
+        "Acme Ltd. signed a binding acquisition of all outstanding shares. "
+        "It is price-sensitive and has not been publicly disclosed."
+    )
+    output = review(text).sensitivity["mnpi"]
+    assert output["state"] == "present"
+    assert not output["public_status_verified"]
+    assert {c["kind"] for c in output["evidence"][0]["components"]} == {
+        "issuer",
+        "event",
+        "materiality",
+        "claimed_nonpublic",
+    }
+    for item in output["evidence"]:
+        assert text[item["start_char"] : item["end_char"]] == item["matched_text"]
+        for part in item["components"]:
+            assert text[part["start_char"] : part["end_char"]] == part["matched_text"]
+
+
+def test_mnpi_does_not_promote_public_hypothetical_negated_or_unlinked_claims():
+    for text in [
+        "Acme Ltd. publicly announced a material acquisition of all shares.",
+        "Hypothetical training example: Acme Ltd. signed a material acquisition not yet publicly disclosed.",
+        "Acme Ltd. has no material acquisition; no price-sensitive information has been publicly disclosed.",
+        "Acme Ltd. considers an immaterial acquisition not yet publicly disclosed.",
+        "Acme Ltd. has a material acquisition.\n\nThe unrelated service rota has not been publicly disclosed.",
+        "Acme Ltd. has a material acquisition not yet publicly disclosed, but it was already publicly announced.",
+        "The acquisition has not been publicly disclosed.",
+    ]:
+        assert review(text).sensitivity["mnpi"]["state"] != "present", text
