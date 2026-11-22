@@ -1,0 +1,378 @@
+{
+  "schema_version": "junas.model_corpus_usd25_results.v1",
+  "date": "2026-11-22",
+  "status": "completed",
+  "observed_complete_at_utc": "2026-11-22 08:18:11 UTC",
+  "scope": "One user-authorized synthetic-only 200-document job, with aggregate USD25 cap across all execution segments. No additional batch started.",
+  "models": {
+    "generator": "gpt-6.2-sol",
+    "judges": [
+      "gpt-6.1-terra",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra"
+    ],
+    "reasoning_effort": "high",
+    "judge_mode": "same_model_repeats",
+    "interpretation": "Three separate samples of one judge model; cross-model or statistical independence not established."
+  },
+  "corpus": {
+    "attempted_candidates": 214,
+    "completed_annotations": 212,
+    "accepted_documents": 200,
+    "quadrant_counts": {
+      "both": 50,
+      "mnpi_only": 50,
+      "neither": 50,
+      "pii_only": 50
+    },
+    "targets_met": true,
+    "retained_unknown_candidates": 12,
+    "retained_incomplete_candidates": 2,
+    "retained_challenges_total": 14,
+    "accepted_document_vote_tiers": {
+      "unanimous": 190,
+      "majority": 10
+    },
+    "accepted_documents_with_span_disagreement": 112,
+    "accepted_documents_with_pii_span_disagreement": 6,
+    "pii_label_counts": {
+      "EMAIL": 155,
+      "PERSONAL_RECORD_ID": 120,
+      "PERSON_NAME": 220,
+      "DATE_OF_BIRTH": 17,
+      "POSTAL_ADDRESS": 13,
+      "GOVERNMENT_ID": 3,
+      "PHONE": 2,
+      "QUASI_IDENTIFIER_COMBINATION": 1
+    },
+    "missing_positive_pii_labels": [
+      "BANK_ACCOUNT"
+    ],
+    "sparse_positive_pii_labels": {
+      "PHONE": 2,
+      "GOVERNMENT_ID": 3,
+      "QUASI_IDENTIFIER_COMBINATION": 1
+    },
+    "known_validation_corrections": [
+      {
+        "document_id": "synthetic-0054",
+        "judge_pass": 1,
+        "attempts": 2,
+        "validation_failures": [
+          "fabricated evidence or incorrect offsets"
+        ]
+      },
+      {
+        "document_id": "synthetic-0158",
+        "judge_pass": 1,
+        "attempts": 2,
+        "validation_failures": [
+          "fabricated evidence or incorrect offsets"
+        ]
+      },
+      {
+        "document_id": "synthetic-0210",
+        "judge_pass": 2,
+        "attempts": 2,
+        "validation_failures": [
+          "fabricated evidence or incorrect offsets"
+        ]
+      }
+    ],
+    "label_origin": "model_consensus",
+    "human_annotations": 0,
+    "protected_holdout": false,
+    "training_or_classifier_tuning": false
+  },
+  "budget": {
+    "cap_usd": "25",
+    "settled_configured_rate_usage_ceiling_usd": "7.02338950",
+    "full_unconfirmed_request_reservations_usd": "0.17327875",
+    "aggregate_accounted_or_reserved_ceiling_usd": "7.19666825",
+    "cap_headroom_usd": "17.80333175",
+    "cap_reached": false,
+    "stop_condition": "accepted quotas filled",
+    "interpretation": "Conservative configured-rate token accounting, not verified provider invoice or credit consumption. Both unconfirmed request reserves remain held.",
+    "credits_fx_fees": "Credit eligibility and actual bank FX/taxes/fees remain unverified; original SGD planning buffers are retained in the preparation review.",
+    "by_model_received_usage": {
+      "gpt-6.2-sol": {
+        "received_calls": 214,
+        "input_tokens": 37733,
+        "output_tokens": 89704,
+        "cost_ceiling_usd": "1.0668385"
+      },
+      "gpt-6.1-terra": {
+        "received_calls": 640,
+        "input_tokens": 1331096,
+        "output_tokens": 592317,
+        "cost_ceiling_usd": "5.95655100"
+      }
+    }
+  },
+  "execution": {
+    "segments": [
+      "live",
+      "continued",
+      "continued-2"
+    ],
+    "received_calls": 854,
+    "received_generation_calls": 214,
+    "received_judge_calls": 640,
+    "unconfirmed_completion_requests": [
+      267,
+      462
+    ],
+    "total_reserved_completion_requests": 856,
+    "interruption_1": {
+      "type": "process exit 143 / SIGTERM",
+      "cause": "unverified",
+      "candidate_excluded": "synthetic-0067",
+      "unretried_request": 267
+    },
+    "interruption_2": {
+      "type": "UncertainRequest, response/usage not verifiable",
+      "cause": "original generic error did not preserve a more specific cause; do not assert timeout",
+      "candidate_excluded": "synthetic-0116",
+      "unretried_request": 462
+    },
+    "recovery": "Explicit operator-reviewed checkpoint continuations used new candidates and carried all previous settled costs and full uncertain reserves into the same USD25 cap. No uncertain request or source was retried. Original artifacts and the independently audited 107-document checkpoint remain unchanged.",
+    "continuation_checks": "8 first-controller mocked tests and 9 diagnostic-controller mocked tests passed; Ruff passed. Models, prompts, limits and ordinary request timeout unchanged; diagnostics record exception types/status only.",
+    "active_inference_processes_after_completion": 0
+  },
+  "classifier_comparison": {
+    "interpretation": "Agreement with synthetic model-voted references; not independent accuracy or legal MNPI truth. Any strict category finding is a positive document prediction, which is broader than the narrow person-associated annotation target.",
+    "document_presence": {
+      "by_quadrant": {
+        "both": {
+          "mnpi": {
+            "fn": 4,
+            "fp": 0,
+            "tn": 0,
+            "tp": 46,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 49,
+            "unknown": 0
+          }
+        },
+        "mnpi_only": {
+          "mnpi": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 49,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 21,
+            "tn": 29,
+            "tp": 0,
+            "unknown": 0
+          }
+        },
+        "neither": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 24,
+            "tn": 26,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 46,
+            "tn": 4,
+            "tp": 0,
+            "unknown": 0
+          }
+        },
+        "pii_only": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 10,
+            "tn": 40,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 50,
+            "unknown": 0
+          }
+        }
+      },
+      "counts": {
+        "mnpi": {
+          "fn": 5,
+          "fp": 34,
+          "tn": 66,
+          "tp": 95,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 1,
+          "fp": 67,
+          "tn": 33,
+          "tp": 99,
+          "unknown": 0
+        }
+      },
+      "prediction_rule": "any strict finding in the category; MNPI signals are not verified legal MNPI conclusions",
+      "reference": "model-majority labels, not independent truth; unknown labels never count as negatives"
+    },
+    "pii_exact_and_overlap": {
+      "exact": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 326,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 157,
+        "gold": 531,
+        "labeled_span_recall": 0.3860640301318267,
+        "matched": 205,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 368,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 6,
+        "unmatched_predictions": 163
+      },
+      "overlap": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 300,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 135,
+        "gold": 531,
+        "labeled_span_recall": 0.4350282485875706,
+        "matched": 231,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 368,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 2,
+        "unmatched_predictions": 137
+      }
+    },
+    "pii_annotation_completeness": {
+      "exhaustive": 194,
+      "unknown": 6
+    },
+    "unmapped_pii_predictions": {
+      "personal_attribute_inference": 5,
+      "postal_address": 37,
+      "sg_sgx_counter": 1
+    },
+    "negative_signal_rules": {
+      "unit": "model-negative reference documents with each strict finding rule; a document can have several rules",
+      "rules": {
+        "PII": {
+          "email_address": 67,
+          "postal_address": 1
+        },
+        "MNPI": {
+          "material_event": 13,
+          "financial_amount": 10,
+          "conjunctive_mnpi": 9,
+          "large_number": 8,
+          "embargo_marker": 6,
+          "nonpublic_marker": 2,
+          "contingent_mnpi_language": 1
+        }
+      },
+      "interpretation": "signal/reference disagreements, not independently adjudicated detector errors"
+    },
+    "main_scope_issue": "Email rule appears in all 67 PII-negative document signal disagreements. Judge definitions exclude generic/shared corporate contacts. Inspect scope and context before treating these as adjudicated detector errors.",
+    "precision_and_f2": "Unavailable for the pooled PII occurrence dataset because six accepted documents lack unanimous span/completeness agreement; declared completeness is itself unverified."
+  },
+  "verification": {
+    "accepted_documents": 200,
+    "all_judge_inputs_linked_to_new_generator_outputs": true,
+    "budget_journal_reconciled": true,
+    "call_roles": {
+      "generator": 214,
+      "judge": 640
+    },
+    "candidate_records": 214,
+    "charged_or_reserved_ceiling_usd": "7.19666825",
+    "consensus_and_quota_recomputed": true,
+    "grounded_annotations_validated": true,
+    "human_ground_truth": false,
+    "original_interrupted_call_never_retried": true,
+    "original_interrupted_candidate_excluded": true,
+    "outstanding_or_uncertain_calls": [
+      267,
+      462
+    ],
+    "protected_holdout": false,
+    "received_calls": 854,
+    "recorded_raw_responses": 854,
+    "request_fingerprints_unique_no_replay": true,
+    "retained_challenges": 14,
+    "settled_cost_ceiling_usd": "7.02338950",
+    "source_config_sha256": "e6eb6beed92ca9417c3104aa450302e0acab5b18e95236ebc0f496f0b9e5f089",
+    "status": "passed",
+    "strict_evaluation_reproduced_offline": true,
+    "usage_and_response_ids_linked_to_ledger": true,
+    "label_output_source_linkage": {
+      "candidate_records": 214,
+      "generator_record_links_validated": 214,
+      "manual_label_changes_detected": false,
+      "note": "Linkage/grounding verification, not independent semantic truth.",
+      "recorded_annotation_outputs_equal_actual_model_payloads": 637,
+      "status": "passed"
+    },
+    "preservation_and_privacy": {
+      "status": "passed",
+      "original_fixture_report_pilot_files_unchanged": 6432,
+      "old_execution_prefix_records_journals_manifests_unchanged": true,
+      "controllers_unchanged_since_launch": true,
+      "runtime_source_files_unchanged": 82,
+      "preserved_prior_dirty_work": [
+        "docs/llm-governance.md",
+        "scripts/prepare_evaluation_dataset.py",
+        "test/test_annotation_preparation.py"
+      ],
+      "root_README_unchanged_this_run": true,
+      "api_key_bytes_in_run_artifacts": false,
+      "dotenv_files_in_run_artifacts": false,
+      "HEAD": "773665c605afc3ac50c893361aff082c5e44477e",
+      "committed_or_pushed": false
+    },
+    "not_run": [
+      "independent semantic/legal adjudication",
+      "confidence calibration",
+      "external corpus/holdout validation"
+    ],
+    "broader_research_mypy": "not rerun; prior handoff records 11 existing errors in unchanged evaluation scripts"
+  },
+  "artifacts": {
+    "private_run_directory": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run",
+    "accepted_corpus": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/accepted-final.jsonl",
+    "retained_challenges": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/challenges-final.jsonl",
+    "combined_raw_records": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/continued-2/combined-records.jsonl",
+    "full_execution_report": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/continued-2/report.json",
+    "offline_audit": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/audit-final.json",
+    "prior_107_document_checkpoint": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/accepted.jsonl",
+    "archive_hash_manifest": "artifact-sha256.json"
+  },
+  "reproducibility": {
+    "config_sha256": "e6eb6beed92ca9417c3104aa450302e0acab5b18e95236ebc0f496f0b9e5f089",
+    "frozen_source_directory": "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run/source",
+    "accepted_corpus_sha256": "a2c5ebc9ad74ca3fdf2a0b900b3b5be9a1e6a8ec8e564c908a660fafd262cb0b",
+    "challenges_sha256": "72a53bdc768e4ff9877e7867f04b39da8a5bdc63d3385749c14316d6d8929078",
+    "completed_report_sha256": "82c1359e61a2f2da205044e0a261b51e2a96e2503fffa034ed0748fa48ca4d66"
+  },
+  "limitations": [
+    "Synthetic Singapore-focused development data, deliberately balanced rather than representative production prevalence.",
+    "Repeated samples of one judge share possible errors; unanimity and confidence self-reports are not calibrated correctness.",
+    "Some PII subtypes are absent or sparse; quadrant completion does not establish comprehensive subtype/jurisdiction coverage.",
+    "No independent annotation, external dataset or protected holdout evaluation was performed.",
+    "Corpus has been inspected during development; do not call it an untouched held-out benchmark."
+  ]
+}
