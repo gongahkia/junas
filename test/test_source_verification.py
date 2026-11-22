@@ -6,7 +6,7 @@ Five guarantees:
    medium and source_verification stays not_checked. Item 36's core invariant.
 3. Strict-profile MNPI with public-language + in-document http(s) URL softens to low and
    flips source_verification to public_source_matched.
-4. Audit-grade with retriever returning sources → MNPI findings flip to public_source_matched.
+4. Audit-grade retrieval candidates remain ambiguous without claim-level verification.
 5. Audit-grade with retriever returning queried+empty → MNPI findings flip to
    no_public_source_found.
 """
@@ -57,8 +57,12 @@ class SourceVerificationTests(unittest.TestCase):
         engine = PreSendReviewEngine()
         text = "Contact Dr Jane Tan at jane@example.com about NRIC S1234567D."
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         pii = [f for f in result.findings if f.category == "PII"]
@@ -71,8 +75,12 @@ class SourceVerificationTests(unittest.TestCase):
         engine = PreSendReviewEngine()
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         material = [f for f in result.findings if f.rule == "material_event"]
@@ -88,23 +96,29 @@ class SourceVerificationTests(unittest.TestCase):
             "(see https://acme.example.com/press/01)."
         )
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         material = [f for f in result.findings if f.rule == "material_event"]
         self.assertEqual(len(material), 1)
         self.assertEqual(material[0].severity, "low")
-        self.assertEqual(
-            material[0].source_verification, SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
-        )
+        self.assertEqual(material[0].source_verification, SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED)
 
-    def test_audit_grade_retriever_match_flips_to_public_source_matched(self):
+    def test_audit_grade_retrieval_candidates_do_not_verify_claims(self):
         engine = PreSendReviewEngine(public_evidence_retriever=_RetrieverWithSources())
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id="Acme Corp",
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         # the deterministic-engine PUBLIC_RE softener no longer fires without a URL, so the
@@ -113,23 +127,29 @@ class SourceVerificationTests(unittest.TestCase):
         self.assertGreater(len(mnpi), 0)
         for f in mnpi:
             self.assertEqual(
-                f.source_verification, SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED,
-                f"{f.rule} should have flipped",
+                f.source_verification,
+                SOURCE_VERIFICATION_AMBIGUOUS,
+                f"{f.rule} remains unverified",
             )
 
     def test_audit_grade_retriever_empty_flips_to_no_public_source_found(self):
         engine = PreSendReviewEngine(public_evidence_retriever=_RetrieverNoSources())
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id="Acme Corp",
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         mnpi = [f for f in result.findings if f.category == "MNPI"]
         self.assertGreater(len(mnpi), 0)
         for f in mnpi:
             self.assertEqual(
-                f.source_verification, SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
+                f.source_verification,
+                SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
                 f"{f.rule} should reflect retriever miss",
             )
 
@@ -137,37 +157,49 @@ class SourceVerificationTests(unittest.TestCase):
         engine = PreSendReviewEngine(public_evidence_retriever=_RetrieverWithSources())
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = engine.review(
-            text=text, source_jurisdiction="HK", destination_jurisdiction="HK",
-            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="HK",
+            destination_jurisdiction="HK",
+            entity_id="Acme Corp",
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         mnpi = [f for f in result.findings if f.category == "MNPI"]
         self.assertGreater(len(mnpi), 0)
         for f in mnpi:
             self.assertEqual(f.source_verification, SOURCE_VERIFICATION_AMBIGUOUS)
-            self.assertEqual(f.metadata.get("hk_public_status"), "available_but_not_generally_known")
+            self.assertEqual(f.metadata.get("claim_verification"), "not_established")
 
-    def test_hk_market_source_flips_to_public_source_matched(self):
+    def test_hk_market_domain_does_not_prove_a_specific_claim(self):
         engine = PreSendReviewEngine(public_evidence_retriever=_RetrieverWithHKMarketSource())
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = engine.review(
-            text=text, source_jurisdiction="HK", destination_jurisdiction="HK",
-            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="HK",
+            destination_jurisdiction="HK",
+            entity_id="Acme Corp",
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         mnpi = [f for f in result.findings if f.category == "MNPI"]
         self.assertGreater(len(mnpi), 0)
         for f in mnpi:
-            self.assertEqual(f.source_verification, SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED)
-            self.assertNotIn("hk_public_status", f.metadata)
+            self.assertEqual(f.source_verification, SOURCE_VERIFICATION_AMBIGUOUS)
+            self.assertEqual(f.metadata["retrieval_verification"], "candidate_sources_only")
 
     def test_strict_without_retriever_leaves_mnpi_not_checked(self):
         # no retriever wired, no in-doc URL: even high-severity MNPI must carry not_checked.
         engine = PreSendReviewEngine()
         text = "Confidential acquisition of GlobalTech for $2.5 billion. Material non-public."
         result = engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         mnpi = [f for f in result.findings if f.category == "MNPI"]

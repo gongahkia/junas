@@ -89,9 +89,7 @@ class TinyfishAdapterTests(unittest.TestCase):
 
         httpx.Client = factory  # type: ignore[assignment]
         try:
-            payload = retriever.retrieve(
-                text="Acme Corp acquisition press release.", entity_id="Acme Corp"
-            )
+            payload = retriever.retrieve(text="Acme Corp acquisition press release.", entity_id="Acme Corp")
         finally:
             httpx.Client = original  # type: ignore[assignment]
 
@@ -436,7 +434,8 @@ class RemoteLLMOptInTests(unittest.TestCase):
 
         self.assertEqual(result["status"], "adjudicated")
         self.assertEqual(result["risk_label"], "SAFE")
-        self.assertEqual(result["public_status"], "public")
+        self.assertEqual(result["public_status"], "not_checked")
+        self.assertEqual(result["proposed_public_status"], "public")
         self.assertEqual(result["input_mode"], "structured_tokens")
         self.assertIn("llm.example.com", captured["url"])
 
@@ -605,7 +604,14 @@ class RemoteLLMOptInTests(unittest.TestCase):
             calls.append(str(request.url))
             if len(calls) == 1:
                 return httpx.Response(400, json={"error": {"message": "The requested operation is unsupported."}})
-            return httpx.Response(200, json={"output_text": json.dumps({"warnings": ["check provenance"]})})
+            return httpx.Response(
+                200,
+                json={
+                    "output_text": json.dumps(
+                        {"warnings": [{"rule_guess": "uncovered_signal", "why": "check provenance", "confidence": 0.5}]}
+                    )
+                },
+            )
 
         auditor = RuntimeLLMCoverageAuditor(
             _llm_settings(
@@ -626,11 +632,12 @@ class RemoteLLMOptInTests(unittest.TestCase):
 
         httpx.Client = factory  # type: ignore[assignment]
         try:
-            warnings = auditor.audit(findings=[], body_hash="abc", document_type="email")
+            warnings = auditor.audit(findings=[], body_hash="a" * 64, document_type="generic")
         finally:
             httpx.Client = original  # type: ignore[assignment]
 
-        self.assertEqual(warnings, ["check provenance"])
+        self.assertEqual(warnings[0]["why"], "check provenance")
+        self.assertTrue(warnings[0]["advisory_only"])
         self.assertIn("/openai/deployments/gpt-oss-20b/chat/completions", calls[0])
         self.assertIn("/openai/v1/responses", calls[1])
 

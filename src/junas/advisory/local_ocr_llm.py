@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import ipaddress
 import json
+import math
 import os
 from dataclasses import dataclass
 from typing import Any, Iterable
@@ -132,12 +133,18 @@ class LocalOcrRegionClassifier:
             parsed = _json_object_from_text(response_text)
         except Exception:
             return self._result("error", "ambiguous", 0.0, "model_call_failed", clipped, text_hash)
-        label = str(parsed.get("label", "") or "").strip().lower()
-        if label not in ALLOWED_LABELS:
-            label = "ambiguous"
-        reason = str(parsed.get("reason", "") or "").strip().lower()
-        if reason not in ALLOWED_REASONS:
-            reason = "ambiguous"
+        label, reason, model_confidence = parsed.get("label"), parsed.get("reason"), parsed.get("confidence")
+        if (
+            not isinstance(label, str)
+            or label.strip().lower() not in ALLOWED_LABELS
+            or not isinstance(reason, str)
+            or reason.strip().lower() not in ALLOWED_REASONS
+            or type(model_confidence) not in (int, float)
+            or not math.isfinite(model_confidence)
+            or not 0 <= model_confidence <= 1
+        ):
+            return self._result("error", "ambiguous", 0.0, "malformed_model_output", clipped, text_hash)
+        label, reason = label.strip().lower(), reason.strip().lower()
         return self._result(
             "classified", label, _clamp_confidence(parsed.get("confidence")), reason, clipped, text_hash
         )

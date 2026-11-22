@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 import ipaddress
 import re
 from dataclasses import dataclass, field, replace
@@ -1125,10 +1126,9 @@ NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES = frozenset({"spa", "nda", "sha", "term_she
 #   1. the review profile is `audit_grade` (caller opted in), AND
 #   2. an LLM adjudicator + public-evidence retriever are wired into the engine, AND
 #   3. the MNPI score lands in the ambiguous band [LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER).
-# Documents with mnpi_score < LOWER are confidently SAFE on deterministic signal alone;
-# documents with mnpi_score >= UPPER are confidently risky and the LLM cannot soften them
-# below the deterministic-floor invariant anyway. The band keeps p95 latency bounded for
-# the 90% case by only spending LLM tokens where the verdict can actually move.
+# the band is an existing cost/router policy, not a coverage or confidence guarantee.
+# PII-only and high-MNPI documents do not engage this tier. Model advice cannot
+# change the deterministic classification inside or outside the band.
 #
 # Defaults below were picked from the score-from-severity table:
 #   single medium finding score ≈ 55; two medium findings ≈ 58; one high ≈ 85.
@@ -2082,71 +2082,6 @@ def _ip_version(value: str) -> int | None:
         return None
 
 
-def _clamped_llm_warning_severity(warning: dict[str, Any]) -> str:
-    requested = str(warning.get("severity") or "").strip().lower()
-    if requested == "low":
-        return "low"
-    return "medium"
-
-
-def _structured_reason_for_warning(warning: dict[str, Any]) -> str:
-    from junas.advisory.llm_adjudicator.structured_query import STRUCTURED_REASONS
-
-    candidate = str(warning.get("structured_reason") or warning.get("materiality_reason") or "").strip().lower()
-    if candidate in STRUCTURED_REASONS:
-        return candidate
-    return "ambiguous_unconstrained"
-
-
-def _category_for_llm_warning(warning: dict[str, Any]) -> str:
-    category = str(warning.get("category") or "").strip().upper()
-    if category == "PII":
-        return "PII"
-    return "MNPI"
-
-
-def _llm_raised_findings_from_warnings(
-    *,
-    warnings: list[dict[str, Any]],
-    jurisdiction: str,
-    pii_legal_basis: str,
-    mnpi_legal_basis: str,
-    idx_start: int,
-) -> list[ReviewFinding]:
-    out: list[ReviewFinding] = []
-    for offset, warning in enumerate(warnings):
-        rule_guess = str(warning.get("rule_guess") or "unknown").strip() or "unknown"
-        why = str(warning.get("why") or "").strip()
-        category = _category_for_llm_warning(warning)
-        finding = _new_finding(
-            idx=idx_start + offset,
-            category=category,
-            rule="llm_raised_finding",
-            jurisdiction=jurisdiction,
-            severity=_clamped_llm_warning_severity(warning),
-            matched_text="[LLM_COVERAGE_WARNING]",
-            start=0,
-            end=0,
-            reason=f"LLM coverage audit raised possible {rule_guess}: {why}".strip(),
-            legal_basis=pii_legal_basis if category == "PII" else mnpi_legal_basis,
-            metadata={
-                "origin": "llm",
-                "coverage_warning_id": f"coverage_warning:{offset}",
-                "llm_rule_guess": rule_guess,
-                "llm_confidence": warning.get("confidence"),
-                "requested_severity": str(warning.get("severity") or ""),
-                "structured_reason": _structured_reason_for_warning(warning),
-                "context_window_hash": str(warning.get("context_window_hash") or warning.get("body_hash") or ""),
-                "context_window_hash_kind": "body_hash",
-                "body_hash": str(warning.get("body_hash") or ""),
-                "coverage_warning": dict(warning),
-            },
-        )
-        finding.source = "llm_coverage_audit"
-        out.append(finding)
-    return out
-
-
 # Rules whose span "wins" over phone_number when the two overlap on the same bytes.
 # These are all primary-identifier detectors: a NRIC or UEN that happens to match the
 # loose PHONE_RE alternation is canonically the identifier, not a phone number.
@@ -2207,39 +2142,6 @@ _HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset(
 )
 
 
-_HK_MARKET_KNOWN_DOMAINS = (
-    "hkexnews.hk",
-    "hkex.com.hk",
-    "sfc.hk",
-    "hksi.org",
-    "aastocks.com",
-    "etnet.com.hk",
-    "reuters.com",
-    "bloomberg.com",
-)
-_HK_MARKET_KNOWN_TEXT = (
-    "hkex",
-    "stock exchange of hong kong",
-    "securities and futures commission",
-    "issuer announcement",
-    "inside information announcement",
-    "regulatory announcement",
-    "press release",
-    "investor relations",
-)
-
-
-def _hk_market_known_source(source: Any) -> bool:
-    if not isinstance(source, dict):
-        return False
-    text = " ".join(
-        str(source.get(key) or "") for key in ("url", "title", "author", "source", "site_name", "text")
-    ).casefold()
-    return any(domain in text for domain in _HK_MARKET_KNOWN_DOMAINS) or any(
-        marker in text for marker in _HK_MARKET_KNOWN_TEXT
-    )
-
-
 def _apply_retrieval_verification(
     findings: list["ReviewFinding"],
     public_evidence: dict[str, Any] | None,
@@ -2248,10 +2150,9 @@ def _apply_retrieval_verification(
 ) -> None:
     """Mutate MNPI findings' source_verification based on retriever output.
 
-    Aggregate model: the retriever returns one verdict for the whole doc, so all MNPI
-    findings inherit that verdict. PII findings are never touched (public-status is not
-    meaningful for personal data). MNPI findings already marked public_source_matched
-    by an in-doc URL (see _mnpi_findings material_event branch) are not overwritten."""
+    Retrieval supplies candidate sources, not claim-level verification. PII findings
+    are untouched. Existing deterministic in-document citation handling is preserved;
+    it is distinct from an AI/retrieval assertion of verified public status."""
     if not public_evidence:
         return
     status = str(public_evidence.get("status") or "")
@@ -2259,17 +2160,8 @@ def _apply_retrieval_verification(
         return
     sources = public_evidence.get("sources") or []
     unverified = public_evidence.get("unverified_claims") or []
-    jurisdiction_key = (jurisdiction or "").upper()
-    hk_available_only = False
-    if sources and jurisdiction_key == "HK":
-        market_known = [_hk_market_known_source(source) for source in sources]
-        if any(market_known):
-            verdict = SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
-        else:
-            verdict = SOURCE_VERIFICATION_AMBIGUOUS
-            hk_available_only = True
-    elif sources:
-        verdict = SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
+    if sources:
+        verdict = SOURCE_VERIFICATION_AMBIGUOUS
     elif unverified:
         verdict = SOURCE_VERIFICATION_AMBIGUOUS
     else:
@@ -2280,10 +2172,11 @@ def _apply_retrieval_verification(
         if f.source_verification == SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED:
             continue
         f.source_verification = verdict
-        if hk_available_only:
+        if sources:
             f.metadata = {
                 **f.metadata,
-                "hk_public_status": "available_but_not_generally_known",
+                "retrieval_verification": "candidate_sources_only",
+                "claim_verification": "not_established",
             }
 
 
@@ -3897,13 +3790,13 @@ class PreSendReviewEngine:
     ):
         self.public_evidence_retriever = public_evidence_retriever
         self.llm_adjudicator = llm_adjudicator
-        # audit_grade-only LLM helper that catches preamble defined-term patterns the
-        # deterministic regex misses (`hereinafter referred to as "X"`, etc.). cached by
-        # document hash so paired-doc workflows don't re-pay the LLM cost.
+        # audit_grade-only LLM helper that proposes preamble defined-term patterns the
+        # deterministic regex misses. proposals are advisory; attributable cache v2
+        # includes document, provider, model and prompt identity.
         self.llm_defined_term_extractor = llm_defined_term_extractor
         # audit_grade-only inverse audit. given the deterministic findings + a doc hash,
-        # advises on patterns that may have been missed. output is journaled as
-        # `coverage_warning` events and surfaced on ReviewResult; advisory only — never
+        # advises on patterns that may have been missed. output is surfaced in
+        # ReviewResult.coverage_warnings; advisory only — never
         # mutates findings, scores, or classification.
         self.llm_coverage_auditor = llm_coverage_auditor
         # item 73: entity revenue / market-cap source. env providers are operator-driven;
@@ -4737,6 +4630,21 @@ class PreSendReviewEngine:
             result = self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
         except Exception as exc:
             raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {exc}") from exc
+        if not isinstance(result, dict) or result.get("status") not in ("queried", "skipped", "error", "disabled"):
+            raise ReviewLayerError("public_evidence", "public-evidence retrieval returned invalid output")
+        if any(
+            not isinstance(result.get(key, []), list)
+            for key in ("sources", "queries", "privacy_ledger", "unverified_claims")
+        ):
+            raise ReviewLayerError("public_evidence", "public-evidence retrieval returned invalid arrays")
+        if any(
+            not isinstance(item, dict)
+            for key in ("sources", "queries", "privacy_ledger")
+            for item in result.get(key, [])
+        ):
+            raise ReviewLayerError("public_evidence", "public-evidence retrieval returned invalid records")
+        if result.get("status") == "disabled":
+            raise ReviewLayerError("public_evidence", "configured public-evidence provider is disabled")
         if isinstance(result, dict) and result.get("status") == "error":
             detail = str(result.get("detail") or result.get("review_recommendation") or "provider returned error")
             raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {detail}")
@@ -4744,7 +4652,7 @@ class PreSendReviewEngine:
             detail = str(result.get("detail") or "")
             if "key" in detail.lower() and "not configured" in detail.lower():
                 raise ReviewLayerError("public_evidence", f"public-evidence retrieval failed: {detail}")
-        return result
+        return {**result, "verification_scope": "retrieval_candidates_only", "claim_verification": "not_established"}
 
     def _maybe_llm_adjudication(
         self,
@@ -4760,34 +4668,31 @@ class PreSendReviewEngine:
             return None
         if self.llm_adjudicator is None or overall_risk == Classification.SAFE:
             return None
-        # adjudicate() accepts findings + entity_id as optional kwargs so
-        # structured-tokens mode has the data it needs. raw_text mode ignores them.
-        # using kwargs-with-default avoids breaking callers that implement the older
-        # interface (dummy adjudicators in tests, etc.).
         try:
-            result = self.llm_adjudicator.adjudicate(
+            from junas.advisory.llm_adjudicator.contracts import advisory_result, model_provenance
+
+            kwargs = dict(
                 text=text,
                 current_classification=overall_risk.value,
                 public_evidence=public_evidence,
                 findings=findings,
                 entity_id=entity_id,
             )
-        except TypeError:
-            # backwards-compat shim: older adjudicators reject the new kwargs.
-            try:
-                result = self.llm_adjudicator.adjudicate(
-                    text=text,
-                    current_classification=overall_risk.value,
-                    public_evidence=public_evidence,
-                )
-            except Exception as retry_exc:
-                raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {retry_exc}") from retry_exc
+            # support the older injected interface without retrying an internal
+            # TypeError after a provider may already have received a request.
+            parameters = inspect.signature(self.llm_adjudicator.adjudicate).parameters
+            if not any(p.kind == inspect.Parameter.VAR_KEYWORD for p in parameters.values()):
+                kwargs = {k: v for k, v in kwargs.items() if k in parameters}
+            result = self.llm_adjudicator.adjudicate(**kwargs)
+            if not isinstance(result, dict) or result.get("status") != "adjudicated":
+                raise ValueError("LLM adjudicator did not return a completed advisory result")
+            advice = advisory_result(result, provenance=model_provenance(self.llm_adjudicator))
+            mode = getattr(self.llm_adjudicator, "llm_input_mode", getattr(self.llm_adjudicator, "input_mode", None))
+            advice["input_mode"] = mode if mode in ("raw_text", "structured_tokens") else "unattributed"
+            advice["output_clamped"] = result.get("output_clamped") is True
+            return advice
         except Exception as exc:
             raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {exc}") from exc
-        if isinstance(result, dict) and result.get("status") == "error":
-            detail = str(result.get("review_recommendation") or result.get("detail") or "provider returned error")
-            raise ReviewLayerError("llm_adjudicator", f"LLM adjudication failed: {detail}")
-        return result
 
     def review(
         self,
@@ -4837,18 +4742,28 @@ class PreSendReviewEngine:
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
         privacy_ledger: list[dict[str, Any]] = []
         defined_terms = extract_defined_terms(text) | {term.casefold() for term in (context_terms or set())}
-        # audit_grade-only LLM pre-pass over the preamble to catch defined terms the regex
-        # misses. cached by document hash; raw doc body is not sent (the helper sees only
-        # the first PREAMBLE_CHAR_CAP characters).
+        defined_term_advice = None
+        # model proposals never enter the deterministic suppression set.
         if review_profile == "audit_grade" and self.llm_defined_term_extractor is not None:
-            from junas.review.llm_defined_terms import extract_with_cache
+            from junas.advisory.llm_adjudicator.contracts import model_provenance
+            from junas.review.llm_defined_terms import document_hash, extract_with_cache
 
             try:
-                defined_terms = defined_terms | extract_with_cache(
+                proposals = extract_with_cache(
                     text=text,
                     extractor=self.llm_defined_term_extractor,
                     fail_closed=True,
                 )
+                defined_term_advice = {
+                    "source": "llm_defined_terms",
+                    "origin": "llm",
+                    "advisory_only": True,
+                    "evidence_status": "unverified",
+                    "classification_applied": False,
+                    "terms": sorted(proposals),
+                    "body_hash": document_hash(text),
+                    "provenance": model_provenance(self.llm_defined_term_extractor),
+                }
                 privacy_ledger.extend(_drain_privacy_ledger_events(self.llm_defined_term_extractor))
             except Exception as exc:
                 _drain_privacy_ledger_events(self.llm_defined_term_extractor)
@@ -4925,14 +4840,7 @@ class PreSendReviewEngine:
         public_evidence = self._maybe_public_evidence(
             text=text, entity_id=entity_id, mnpi_score=mnpi_score, engage=engage_llm_tier
         )
-        # item 36: after retrieval, attribute a source-verification state to every MNPI finding.
-        # aggregate semantics (the retriever returns one verdict for the document, not per-finding):
-        #   queried + sources non-empty   -> public_source_matched
-        #   queried + sources empty       -> no_public_source_found
-        #   queried + sources empty + an unverified_claim signal -> ambiguous
-        #   any other status              -> leave whatever _mnpi_findings already set
-        # MNPI findings that already self-cited via _INDOC_URL_RE keep their public_source_matched
-        # state (per-finding evidence beats document-aggregate retrieval evidence).
+        # document-wide source candidates do not establish any specific claim.
         _apply_retrieval_verification(findings, public_evidence, jurisdiction=jurisdiction_label)
         for spec in detect_conjunctive_mnpi(
             text=text,
@@ -4985,19 +4893,14 @@ class PreSendReviewEngine:
                     "input_mode": str(llm_adjudication.get("input_mode") or ""),
                 }
             )
-        if llm_adjudication and llm_adjudication.get("status") == "adjudicated":
-            label = llm_adjudication.get("risk_label")
-            if label in Classification.__members__ and max(pii_score, mnpi_score) < 85.0:
-                overall_risk = Classification(label)
-
-        # inverse-audit "what did we miss?" — audit_grade only. warnings still surface
-        # as coverage_warning events; LLM warnings are also promoted to capped, reviewer-
-        # adjudicated findings so missed recalls are visible in the normal decision path.
+        # model advice is visible separately; it cannot replace the scored risk.
         coverage_warnings: list[dict[str, Any]] = driver_license_coverage_warnings(
             text,
             packs=packs,
             review_profile=review_profile,
         )
+        if defined_term_advice is not None:
+            coverage_warnings.append(defined_term_advice)
         llm_coverage_warnings: list[dict[str, Any]] = []
         if engage_llm_tier and self.llm_coverage_auditor is not None:
             from junas.review.llm_coverage_audit import run_coverage_audit
@@ -5015,20 +4918,6 @@ class PreSendReviewEngine:
             except Exception as exc:
                 _drain_privacy_ledger_events(self.llm_coverage_auditor)
                 raise ReviewLayerError("llm_coverage_audit", f"LLM coverage audit failed: {exc}") from exc
-        if llm_coverage_warnings:
-            findings.extend(
-                _llm_raised_findings_from_warnings(
-                    warnings=llm_coverage_warnings,
-                    jurisdiction=jurisdiction_label,
-                    pii_legal_basis=pii_legal_basis,
-                    mnpi_legal_basis=mnpi_legal_basis,
-                    idx_start=len(findings),
-                )
-            )
-            pii_score = self._score(findings, "PII")
-            mnpi_score = self._score(findings, "MNPI")
-            document_score = max(pii_score, mnpi_score)
-            overall_risk = _risk_from_score(document_score)
         findings = _deduplicate_findings(findings)
         _validate_finding_spans(text, findings)
         _annotate_jurisdiction_attribution(

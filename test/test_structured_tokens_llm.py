@@ -8,10 +8,11 @@ Four guarantees:
    SHA-256(body), per-finding context-window hashes, public-evidence summary counts.
 3. If the LLM tries to emit a materiality_reason outside the closed vocabulary,
    the server clamps it and sets output_clamped=True.
-4. raw_text mode is unaffected: behaviour is byte-identical to before, and the
-   new input_mode field reports "raw_text" with output_clamped=False.
+4. raw_text mode still requires consent and includes the document; responses are
+   validated advisory proposals rather than classification authority.
 """
 
+import hashlib
 import json
 import unittest
 from types import SimpleNamespace
@@ -42,18 +43,26 @@ def _llm_settings(*, mode: str = "structured_tokens") -> SimpleNamespace:
 
 def _make_finding(rule: str, matched: str, start: int, end: int, severity: str = "high"):
     return SimpleNamespace(
-        rule=rule, category="MNPI", severity=severity, jurisdiction="SG",
-        matched_text=matched, start_char=start, end_char=end,
+        rule=rule,
+        category="MNPI",
+        severity=severity,
+        jurisdiction="SG",
+        matched_text=matched,
+        start_char=start,
+        end_char=end,
     )
 
 
 class StructuredQueryBuilderTests(unittest.TestCase):
     def test_query_contains_hashes_not_raw_text(self):
         text = "Confidential acquisition of GlobalTech for $2.5 billion."
-        findings = [_make_finding("transaction_codename", "Project X", 5, 14)]
+        findings = [_make_finding("material_event", "acquisition", 13, 24)]
         query = build_structured_query(
-            text=text, findings=findings, entity_id="acme-corp",
-            current_classification="LOW_RISK", public_evidence=None,
+            text=text,
+            findings=findings,
+            entity_id="acme-corp",
+            current_classification="LOW_RISK",
+            public_evidence=None,
         )
         # the body hash is present
         self.assertEqual(len(query["body_hash"]), 64)
@@ -65,7 +74,7 @@ class StructuredQueryBuilderTests(unittest.TestCase):
         self.assertNotIn("Project X", flat)
         self.assertNotIn("$2.5 billion", flat)
         # but rule/severity/jurisdiction ARE present
-        self.assertIn("transaction_codename", flat)
+        self.assertIn("material_event", flat)
         self.assertIn("high", flat)
 
     def test_public_evidence_summary_carries_counts_not_urls(self):
@@ -82,22 +91,27 @@ class StructuredQueryBuilderTests(unittest.TestCase):
             ],
         }
         query = build_structured_query(
-            text="x", findings=findings, entity_id=None,
-            current_classification="LOW_RISK", public_evidence=pe,
+            text="x",
+            findings=findings,
+            entity_id=None,
+            current_classification="LOW_RISK",
+            public_evidence=pe,
         )
         flat = json.dumps(query)
         self.assertNotIn("secret.example.com", flat)
         self.assertEqual(query["public_evidence_summary"]["source_count"], 2)
         self.assertEqual(query["public_evidence_summary"]["blocked_query_count"], 1)
 
-    def test_entity_id_is_passed_through_unchanged(self):
-        # caller is responsible for sanitising entity_id before passing; this layer
-        # just forwards what it gets. document the contract.
+    def test_entity_id_is_hashed_at_the_boundary(self):
+        # callers cannot accidentally send a private identifier as a structured token.
         query = build_structured_query(
-            text="x", findings=[], entity_id="acme-corp",
-            current_classification="LOW_RISK", public_evidence=None,
+            text="x",
+            findings=[],
+            entity_id="acme-corp",
+            current_classification="LOW_RISK",
+            public_evidence=None,
         )
-        self.assertEqual(query["entity_id"], "acme-corp")
+        self.assertEqual(query["entity_id"], "sha256:" + hashlib.sha256(b"acme-corp").hexdigest())
 
 
 class StructuredOutputClampingTests(unittest.TestCase):
@@ -163,15 +177,17 @@ class AdjudicatorStructuredModeTests(unittest.TestCase):
             "choices": [
                 {
                     "message": {
-                        "content": json.dumps({
-                            "risk_label": "SAFE",
-                            "public_status": "public",
-                            "confidence": 0.9,
-                            "materiality_reason": materiality_reason,
-                            "matched_public_sources": [],
-                            "unverified_claims": [],
-                            "review_recommendation": "ok",
-                        })
+                        "content": json.dumps(
+                            {
+                                "risk_label": "SAFE",
+                                "public_status": "public",
+                                "confidence": 0.9,
+                                "materiality_reason": materiality_reason,
+                                "matched_public_sources": [],
+                                "unverified_claims": [],
+                                "review_recommendation": "ok",
+                            }
+                        )
                     }
                 }
             ]
@@ -201,12 +217,14 @@ class AdjudicatorStructuredModeTests(unittest.TestCase):
 
     def test_structured_mode_does_not_send_raw_text(self):
         text = "Acme will acquire GlobalTech for $2.5 billion before announcement."
-        findings = [_make_finding("transaction_codename", "GlobalTech", 17, 27)]
+        findings = [_make_finding("transaction_codename", "GlobalTech", 18, 28)]
         result, captured = self._run_with_mock_transport(
             _llm_settings(mode="structured_tokens"),
             materiality_reason="public_source_match",
-            text=text, current_classification="LOW_RISK",
-            findings=findings, entity_id="acme-corp",
+            text=text,
+            current_classification="LOW_RISK",
+            findings=findings,
+            entity_id="acme-corp",
         )
         user_message = next(m for m in captured["body"]["messages"] if m["role"] == "user")
         self.assertNotIn(text, user_message["content"])
@@ -224,8 +242,10 @@ class AdjudicatorStructuredModeTests(unittest.TestCase):
         result, _ = self._run_with_mock_transport(
             _llm_settings(mode="structured_tokens"),
             materiality_reason="the document discusses a sensitive deal",
-            text="x", current_classification="LOW_RISK",
-            findings=[], entity_id=None,
+            text="x",
+            current_classification="LOW_RISK",
+            findings=[],
+            entity_id=None,
         )
         self.assertEqual(result["materiality_reason"], "ambiguous_unconstrained")
         self.assertTrue(result["output_clamped"])
@@ -236,8 +256,10 @@ class AdjudicatorStructuredModeTests(unittest.TestCase):
         result, captured = self._run_with_mock_transport(
             _llm_settings(mode="raw_text"),
             materiality_reason="something",
-            text=text, current_classification="LOW_RISK",
-            findings=[], entity_id=None,
+            text=text,
+            current_classification="LOW_RISK",
+            findings=[],
+            entity_id=None,
         )
         user_message = next(m for m in captured["body"]["messages"] if m["role"] == "user")
         self.assertIn(text, user_message["content"])

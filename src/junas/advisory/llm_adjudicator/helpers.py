@@ -8,7 +8,28 @@ from urllib.parse import urlparse
 
 import httpx
 
+from junas.advisory.llm_adjudicator.contracts import model_provenance
+from junas.advisory.llm_adjudicator.structured_query import (
+    safe_document_type,
+    safe_finding_metadata,
+    validate_body_hash,
+)
+
 ALLOWED_HELPER_PROVIDERS = {"vllm", "ollama", "openai", "azure_openai"}
+DEFINED_TERMS_PROMPT = (
+    "Extract contract defined terms from the supplied preamble. "
+    "Return only JSON with key terms, whose value is an array of strings. "
+    "Include only terms expressly introduced as definitions or aliases. "
+    "Do not include personal names, company names, amounts, dates, statutes, "
+    "or generic nouns unless the text expressly defines them."
+)
+COVERAGE_PROMPT = (
+    "You audit deterministic PII/MNPI findings without seeing document text. "
+    "Use only the structured finding summary and body hash. Return only JSON "
+    "with key warnings, whose value is an array of objects. Each object must "
+    "have rule_guess, why, and confidence in [0,1]. Warnings are advisory; "
+    "do not repeat existing findings and do not claim certainty."
+)
 
 
 def _is_private_or_local_base_url(base_url: str) -> bool:
@@ -72,6 +93,8 @@ class RuntimeLLMHelperError(RuntimeError):
 class _RuntimeLLMHelperBase:
     name = "llm_helper"
     enabled_under_profile = "audit_grade"
+    prompt_version = "unattributed"
+    system_prompt = ""
 
     def __init__(self, settings: Any):
         self.enabled = bool(getattr(settings, "enabled", False))
@@ -87,6 +110,28 @@ class _RuntimeLLMHelperBase:
         self.azure_api_version = str(getattr(settings, "azure_api_version", "") or "")
         self._azure_use_responses = self.provider == "azure_openai" and "/openai/v1" in self.base_url
         self._privacy_ledger: list[dict[str, Any]] = []
+
+    def cache_identity(self) -> dict[str, str]:
+        health = self.health()
+        if health.get("healthy") is False:
+            raise RuntimeLLMHelperError(str(health.get("detail") or "LLM helper unavailable"))
+        identity = model_provenance(self)
+        policy = {
+            key: getattr(self, key)
+            for key in (
+                "enabled",
+                "allow_remote_base_url",
+                "allow_remote_raw_text",
+                "tenant_opt_in_openai",
+                "tenant_opt_in_azure_openai",
+                "azure_api_version",
+            )
+        }
+        identity["policy_sha256"] = _sha256_text(json.dumps(policy, sort_keys=True))
+        # credential scope affects hosted model routing; retain only a local
+        # fingerprint, never the credential or this value in outbound payloads.
+        identity["credential_scope_sha256"] = _sha256_text(self.api_key)
+        return identity
 
     def pop_privacy_ledger_events(self) -> list[dict[str, Any]]:
         events = list(self._privacy_ledger)
@@ -259,10 +304,7 @@ class _RuntimeLLMHelperBase:
                 return f"{base}{sep}api-version={self.azure_api_version}"
             if "/openai/deployments/" in base:
                 return f"{base}/chat/completions?api-version={self.azure_api_version}"
-            return (
-                f"{base}/openai/deployments/{self.model}/chat/completions"
-                f"?api-version={self.azure_api_version}"
-            )
+            return f"{base}/openai/deployments/{self.model}/chat/completions?api-version={self.azure_api_version}"
         if self.base_url.endswith("/chat/completions"):
             return self.base_url
         return f"{self.base_url}/chat/completions"
@@ -320,11 +362,7 @@ class _RuntimeLLMHelperBase:
                 raise
             payload = response.json()
 
-        content = (
-            payload.get("choices", [{}])[0]
-            .get("message", {})
-            .get("content", "{}")
-        )
+        content = payload.get("choices", [{}])[0].get("message", {}).get("content", "{}")
         if isinstance(content, dict):
             return content
         parsed = _json_object_from_text(str(content))
@@ -335,6 +373,8 @@ class _RuntimeLLMHelperBase:
 
 class RuntimeLLMDefinedTermExtractor(_RuntimeLLMHelperBase):
     name = "llm_defined_term_extractor"
+    prompt_version = "defined-terms-advisory-v2"
+    system_prompt = DEFINED_TERMS_PROMPT
 
     def health(self) -> dict[str, Any]:
         status = super().health()
@@ -364,13 +404,7 @@ class RuntimeLLMDefinedTermExtractor(_RuntimeLLMHelperBase):
             [
                 {
                     "role": "system",
-                    "content": (
-                        "Extract contract defined terms from the supplied preamble. "
-                        "Return only JSON with key terms, whose value is an array of strings. "
-                        "Include only terms expressly introduced as definitions or aliases. "
-                        "Do not include personal names, company names, amounts, dates, statutes, "
-                        "or generic nouns unless the text expressly defines them."
-                    ),
+                    "content": self.system_prompt,
                 },
                 {
                     "role": "user",
@@ -378,10 +412,12 @@ class RuntimeLLMDefinedTermExtractor(_RuntimeLLMHelperBase):
                 },
             ]
         )
-        terms = payload.get("terms", [])
+        if not isinstance(payload, dict):
+            raise RuntimeLLMHelperError("defined-term helper returned non-object JSON")
+        terms = payload.get("terms")
         if not isinstance(terms, list):
             raise RuntimeLLMHelperError("defined-term helper returned non-list terms")
-        invalid = [type(term).__name__ for term in terms if not isinstance(term, str)]
+        invalid = [type(term).__name__ for term in terms if not isinstance(term, str) or not term.strip()]
         if invalid:
             raise RuntimeLLMHelperError("defined-term helper returned non-string terms")
         return [term.strip() for term in terms if term.strip()]
@@ -389,6 +425,8 @@ class RuntimeLLMDefinedTermExtractor(_RuntimeLLMHelperBase):
 
 class RuntimeLLMCoverageAuditor(_RuntimeLLMHelperBase):
     name = "llm_coverage_auditor"
+    prompt_version = "coverage-advisory-v2"
+    system_prompt = COVERAGE_PROMPT
 
     def audit(
         self,
@@ -397,6 +435,11 @@ class RuntimeLLMCoverageAuditor(_RuntimeLLMHelperBase):
         body_hash: str,
         document_type: str,
     ) -> list[dict[str, Any]]:
+        validate_body_hash(body_hash)
+        if not isinstance(findings, list):
+            raise RuntimeLLMHelperError("coverage findings must be an array")
+        safe_findings = [safe_finding_metadata(finding) for finding in findings]
+        document_type = safe_document_type(document_type)
         self._approve(
             operation="llm_coverage_audit",
             input_mode="structured_summary",
@@ -407,13 +450,7 @@ class RuntimeLLMCoverageAuditor(_RuntimeLLMHelperBase):
             [
                 {
                     "role": "system",
-                    "content": (
-                        "You audit deterministic PII/MNPI findings without seeing document text. "
-                        "Use only the structured finding summary and body hash. Return only JSON "
-                        "with key warnings, whose value is an array of objects. Each object must "
-                        "have rule_guess, why, and confidence in [0,1]. Warnings are advisory; "
-                        "do not repeat existing findings and do not claim certainty."
-                    ),
+                    "content": self.system_prompt,
                 },
                 {
                     "role": "user",
@@ -421,7 +458,7 @@ class RuntimeLLMCoverageAuditor(_RuntimeLLMHelperBase):
                         {
                             "body_hash": body_hash,
                             "document_type": document_type,
-                            "findings": findings,
+                            "findings": safe_findings,
                         },
                         ensure_ascii=False,
                         sort_keys=True,
@@ -429,10 +466,16 @@ class RuntimeLLMCoverageAuditor(_RuntimeLLMHelperBase):
                 },
             ]
         )
-        warnings = payload.get("warnings", [])
+        if not isinstance(payload, dict):
+            raise RuntimeLLMHelperError("coverage helper returned non-object JSON")
+        warnings = payload.get("warnings")
         if not isinstance(warnings, list):
             raise RuntimeLLMHelperError("coverage-audit helper returned non-list warnings")
-        return list(warnings)
+        if any(not isinstance(w, dict) or "confidence" not in w for w in warnings):
+            raise RuntimeLLMHelperError("coverage-audit model warnings require explicit confidence")
+        from junas.review.llm_coverage_audit import normalize_warnings
+
+        return normalize_warnings(warnings, body_hash=body_hash, provenance=model_provenance(self))
 
 
 def build_llm_defined_term_extractor(settings: Any) -> RuntimeLLMDefinedTermExtractor:

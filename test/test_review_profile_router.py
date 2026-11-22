@@ -26,6 +26,8 @@ class DummyAdjudicator:
             "status": "adjudicated",
             "risk_label": "SAFE",
             "public_status": "public",
+            "confidence": 0.9,
+            "review_recommendation": "ok",
             "materiality_reason": "synthesised public sources match the claim",
             "matched_public_sources": [],
             "unverified_claims": [],
@@ -58,8 +60,12 @@ class StrictProfileTests(unittest.TestCase):
         # this text produces an ambiguous-band mnpi score (acquisition + $ amount, public context)
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = self.engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id="Acme Corp",
+            include_suggestions=False,
+            document_type="generic",
             review_profile="strict",
         )
         self.assertEqual(self.adj.calls, 0, "strict profile must not call the LLM adjudicator")
@@ -80,8 +86,12 @@ class AuditGradeProfileTests(unittest.TestCase):
     def test_audit_grade_in_band_calls_llm(self):
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = self.engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id="Acme Corp",
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         # confirm the document lands in the ambiguous band
@@ -93,8 +103,12 @@ class AuditGradeProfileTests(unittest.TestCase):
         # plain text with no MNPI signal — score should be 0.0, below LOWER
         text = "Hello, this is a perfectly normal sentence with no financial content."
         result = self.engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         self.assertLess(result.mnpi_score, LLM_TIER_MNPI_LOWER)
@@ -108,8 +122,12 @@ class AuditGradeProfileTests(unittest.TestCase):
             "Material non-public information; do not distribute."
         )
         result = self.engine.review(
-            text=text, source_jurisdiction="SG", destination_jurisdiction="SG",
-            entity_id=None, include_suggestions=False, document_type="generic",
+            text=text,
+            source_jurisdiction="SG",
+            destination_jurisdiction="SG",
+            entity_id=None,
+            include_suggestions=False,
+            document_type="generic",
             review_profile="audit_grade",
         )
         self.assertGreaterEqual(result.mnpi_score, LLM_TIER_MNPI_UPPER)
@@ -228,8 +246,12 @@ class ProfileValidationTests(unittest.TestCase):
         engine = PreSendReviewEngine()
         with self.assertRaises(ValueError):
             engine.review(
-                text="x", source_jurisdiction="SG", destination_jurisdiction="SG",
-                entity_id=None, include_suggestions=False, document_type="generic",
+                text="x",
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id=None,
+                include_suggestions=False,
+                document_type="generic",
                 review_profile="paranoid",  # not valid
             )
 

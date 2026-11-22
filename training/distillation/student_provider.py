@@ -77,6 +77,9 @@ class LocalDistilledAdjudicator:
         max_new_tokens: int = 256,
         device: str | None = None,
     ):
+        self.provider = "local_distilled"
+        self.model = base_model
+        self.prompt_version = "local-distilled-advisory-v2"
         self.adapter_path = adapter_path
         self.base_model = base_model
         self.input_mode = input_mode
@@ -213,32 +216,32 @@ class LocalDistilledAdjudicator:
                 "review_recommendation": "student emitted non-JSON output",
             }
 
-        # mirror LocalLLMAdjudicator._normalize_payload normalisation contract so
-        # the response is shape-compatible with the runtime ReviewResponse schema.
-        risk_label = str(raw.get("risk_label", "") or "").upper()
-        if risk_label not in {"SAFE", "LOW_RISK", "HIGH_RISK"}:
-            risk_label = ""
-        public_status = str(raw.get("public_status", "ambiguous") or "ambiguous").lower()
-        if public_status not in {"public", "not_public", "ambiguous", "not_checked"}:
-            public_status = "ambiguous"
         try:
-            confidence = max(0.0, min(1.0, float(raw.get("confidence", 0.0))))
-        except (TypeError, ValueError):
-            confidence = 0.0
-        return {
-            "status": "adjudicated" if risk_label else "error",
-            "provider": "local_distilled",
-            "model": str(self.adapter_path.name),
-            "risk_label": risk_label or None,
-            "public_status": public_status,
-            "confidence": confidence,
-            "materiality_reason": str(raw.get("materiality_reason", "") or ""),
-            "matched_public_sources": [str(item) for item in raw.get("matched_public_sources", []) or []],
-            "unverified_claims": [str(item) for item in raw.get("unverified_claims", []) or []],
-            "review_recommendation": str(raw.get("review_recommendation", "") or ""),
-            "input_mode": self.input_mode,
-            "output_clamped": False,
-        }
+            return self._normalize_payload(raw)
+        except (ValueError, TypeError) as exc:
+            return {**_ADJUDICATION_DEFAULT, "status": "error", "review_recommendation": str(exc)}
+
+    def _normalize_payload(self, raw):
+        # this runtime adapter shares the advisory validator, not a training change.
+        from junas.advisory.llm_adjudicator.contracts import (
+            advisory_result,
+            model_provenance,
+            validate_model_payload,
+        )
+        from junas.advisory.llm_adjudicator.structured_query import clamp_structured_output
+
+        validate_model_payload(raw)
+        clamped = False
+        if self.input_mode == "structured_tokens":
+            raw, clamped = clamp_structured_output(raw)
+        identity = model_provenance(self)
+        result = advisory_result(raw, provenance=identity)
+        result.update(input_mode=self.input_mode, output_clamped=clamped)
+        return result
+
+    @property
+    def system_prompt(self):
+        return SYSTEM_PROMPT_STRUCTURED_TOKENS if self.input_mode == "structured_tokens" else SYSTEM_PROMPT_RAW_TEXT
 
 
 def build_local_distilled_adjudicator(

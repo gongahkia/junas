@@ -1,14 +1,6 @@
-"""LLM-assisted defined-term extraction (item 6).
+"""Defined-term proposals remain advisory; attributable cache and opt-in are tested."""
 
-Three guarantees:
-1. The extractor is called and its output is merged into the defined-term suppression
-   set so a non-regex defined-term pattern stops triggering downstream named_person /
-   definitive_agreement findings.
-2. Results are cached by SHA-256(document text); a second review of the same text
-   does NOT re-call the extractor.
-3. Engine only calls the extractor when review_profile == "audit_grade".
-"""
-
+import hashlib
 import importlib
 import os
 import tempfile
@@ -24,6 +16,14 @@ class DummyExtractor:
     def __init__(self, terms=None):
         self.terms = terms or ["the Seller"]
         self.calls = 0
+
+    def cache_identity(self):
+        return {
+            "provider": "fake",
+            "model": "dummy",
+            "prompt_version": "test-v1",
+            "prompt_sha256": hashlib.sha256(b"test-prompt").hexdigest(),
+        }
 
     def extract(self, preamble: str) -> list[str]:
         self.calls += 1
@@ -101,9 +101,8 @@ class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
         os.environ.pop("JUNAS_CACHE_DIR", None)
         importlib.reload(llm_defined_terms)
 
-    def test_audit_grade_engages_extractor_and_suppresses_named_person(self):
-        # "Mr Seller" would normally fire as named_person. LLM extractor returns "Seller"
-        # so it gets suppressed (after honorific strip).
+    def test_audit_grade_keeps_ungrounded_terms_out_of_suppression(self):
+        # a model proposal is not evidence that a personal name is a defined term.
         extractor = DummyExtractor(["Seller"])
         engine = PreSendReviewEngine(llm_defined_term_extractor=extractor)
         text = "Mr Seller shall execute the contract."
@@ -118,7 +117,8 @@ class EngineLLMDefinedTermIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(extractor.calls, 1)
         named = {f.matched_text for f in result.findings if f.rule == "named_person"}
-        self.assertNotIn("Mr Seller", named)
+        self.assertIn("Mr Seller", named)
+        self.assertTrue(result.coverage_warnings[0]["advisory_only"])
 
     def test_strict_profile_skips_extractor(self):
         extractor = DummyExtractor(["Seller"])

@@ -8,8 +8,7 @@ from urllib.parse import urlparse
 
 import httpx
 
-ALLOWED_LABELS = {"SAFE", "LOW_RISK", "HIGH_RISK"}
-ALLOWED_PUBLIC_STATUS = {"public", "not_public", "ambiguous", "not_checked"}
+from junas.advisory.llm_adjudicator.contracts import advisory_result, model_provenance, validate_model_payload
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
@@ -73,6 +72,8 @@ def _azure_unsupported_operation(exc: httpx.HTTPStatusError) -> bool:
 
 
 class LocalLLMAdjudicator:
+    prompt_version = "adjudication-advisory-v2"
+
     def __init__(self, settings: Any):
         self.enabled = bool(getattr(settings, "enabled", False))
         self.provider = str(getattr(settings, "provider", "vllm") or "vllm").lower()
@@ -98,17 +99,36 @@ class LocalLLMAdjudicator:
         # model id. Read from settings or env (env wins, matches the rest of the
         # runtime). Only consulted when provider=local_distilled.
         self.distilled_adapter_path = str(
-            getattr(settings, "distilled_adapter_path", "") or os.environ.get(
-                "JUNAS_LLM_DISTILLED_ADAPTER_PATH", "",
-            ) or ""
+            getattr(settings, "distilled_adapter_path", "")
+            or os.environ.get(
+                "JUNAS_LLM_DISTILLED_ADAPTER_PATH",
+                "",
+            )
+            or ""
         )
         self.distilled_base_model = str(
-            getattr(settings, "distilled_base_model", "") or os.environ.get(
-                "JUNAS_LLM_DISTILLED_BASE_MODEL", "",
-            ) or "Qwen/Qwen2.5-1.5B-Instruct"
+            getattr(settings, "distilled_base_model", "")
+            or os.environ.get(
+                "JUNAS_LLM_DISTILLED_BASE_MODEL",
+                "",
+            )
+            or "Qwen/Qwen2.5-1.5B-Instruct"
         )
         # cached student adjudicator (lazy-built on first local_distilled call)
         self._distilled_student: Any | None = None
+        if self.provider == "local_distilled":
+            self.model = self.distilled_base_model
+            self.prompt_version = "local-distilled-advisory-v2"
+
+    @property
+    def system_prompt(self) -> str:
+        if self.provider == "local_distilled":
+            return getattr(self._distilled_student, "system_prompt", "")
+        if self.llm_input_mode == "structured_tokens":
+            return self._build_structured_messages(structured_query={})[0]["content"]
+        return self._build_messages(
+            text="", current_classification="", lexicon=None, model1=None, model2=None, public_evidence=None
+        )[0]["content"]
 
     def health(self) -> dict[str, Any]:
         if not self.enabled or self.provider == "none":
@@ -118,6 +138,8 @@ class LocalLLMAdjudicator:
                 "healthy": None,
                 "detail": "LLM adjudication is disabled",
             }
+        if self.llm_input_mode not in {"raw_text", "structured_tokens"}:
+            return {"status": "down", "configured": True, "healthy": False, "detail": "invalid LLM input mode"}
         if self.provider not in {"vllm", "ollama", "openai", "azure_openai", "local_distilled"}:
             return {
                 "status": "down",
@@ -145,8 +167,7 @@ class LocalLLMAdjudicator:
                 "configured": True,
                 "healthy": None,
                 "detail": (
-                    f"provider=local_distilled; model={self.distilled_base_model}; "
-                    f"input_mode={self.llm_input_mode}"
+                    f"provider=local_distilled; model={self.distilled_base_model}; input_mode={self.llm_input_mode}"
                 ),
             }
         if not self.base_url:
@@ -226,7 +247,7 @@ class LocalLLMAdjudicator:
                     "You are a privacy-hardened compliance adjudicator. You do NOT receive "
                     "the document text; you receive only structured tokens describing the "
                     "deterministic findings and a SHA-256 hash of the document body. "
-                    "Reason about materiality and public-status from the token shape alone. "
+                    "Offer unverified review advice; tokens alone cannot establish materiality or public status. "
                     "Return only compact JSON with keys: risk_label, public_status, confidence, "
                     "materiality_reason, matched_public_sources, unverified_claims, review_recommendation. "
                     "risk_label must be SAFE, LOW_RISK, or HIGH_RISK. "
@@ -264,8 +285,8 @@ class LocalLLMAdjudicator:
             {
                 "role": "system",
                 "content": (
-                    "You are a local-only compliance adjudicator for MNPI triage. "
-                    "Classify the document using the local text and public evidence. "
+                    "You provide unverified compliance review advice for MNPI triage. "
+                    "Do not claim that suggested sources prove a specific claim or override deterministic evidence. "
                     "Return only compact JSON with keys: risk_label, public_status, confidence, "
                     "materiality_reason, matched_public_sources, unverified_claims, review_recommendation. "
                     "risk_label must be SAFE, LOW_RISK, or HIGH_RISK. "
@@ -293,10 +314,7 @@ class LocalLLMAdjudicator:
                 return f"{base}{sep}api-version={self.azure_api_version}"
             if "/openai/deployments/" in base:
                 return f"{base}/chat/completions?api-version={self.azure_api_version}"
-            return (
-                f"{base}/openai/deployments/{self.model}/chat/completions"
-                f"?api-version={self.azure_api_version}"
-            )
+            return f"{base}/openai/deployments/{self.model}/chat/completions?api-version={self.azure_api_version}"
         if self.base_url.endswith("/chat/completions"):
             return self.base_url
         return f"{self.base_url}/chat/completions"
@@ -327,11 +345,7 @@ class LocalLLMAdjudicator:
                 raise
             payload = response.json()
 
-        content = (
-            payload.get("choices", [{}])[0]
-            .get("message", {})
-            .get("content", "{}")
-        )
+        content = payload.get("choices", [{}])[0].get("message", {}).get("content", "{}")
         if isinstance(content, dict):
             return content
         return _json_object_from_text(str(content))
@@ -364,28 +378,7 @@ class LocalLLMAdjudicator:
         return _json_object_from_text(_responses_output_text(payload))
 
     def _normalize_payload(self, payload: dict[str, Any]) -> dict[str, Any]:
-        risk_label = str(payload.get("risk_label", "") or "").upper()
-        if risk_label not in ALLOWED_LABELS:
-            risk_label = ""
-        public_status = str(payload.get("public_status", "ambiguous") or "ambiguous").lower()
-        if public_status not in ALLOWED_PUBLIC_STATUS:
-            public_status = "ambiguous"
-        try:
-            confidence = max(0.0, min(1.0, float(payload.get("confidence", 0.0))))
-        except (TypeError, ValueError):
-            confidence = 0.0
-        return {
-            "status": "adjudicated" if risk_label else "error",
-            "provider": self.provider,
-            "model": self.model,
-            "risk_label": risk_label or None,
-            "public_status": public_status,
-            "confidence": confidence,
-            "materiality_reason": str(payload.get("materiality_reason", "") or ""),
-            "matched_public_sources": [str(item) for item in payload.get("matched_public_sources", []) or []],
-            "unverified_claims": [str(item) for item in payload.get("unverified_claims", []) or []],
-            "review_recommendation": str(payload.get("review_recommendation", "") or ""),
-        }
+        return advisory_result(payload, provenance=model_provenance(self))
 
     def adjudicate(
         self,
@@ -401,16 +394,40 @@ class LocalLLMAdjudicator:
     ) -> dict[str, Any]:
         if not self.enabled or self.provider == "none":
             return self._disabled("local LLM adjudication is disabled")
+        if self.llm_input_mode not in {"raw_text", "structured_tokens"}:
+            return {**self._disabled("invalid LLM input mode"), "status": "error"}
+        if (
+            not isinstance(text, str)
+            or current_classification not in ("SAFE", "LOW_RISK", "HIGH_RISK")
+            or (entity_id is not None and not isinstance(entity_id, str))
+            or (findings is not None and not isinstance(findings, list))
+            or (
+                self.llm_input_mode == "structured_tokens"
+                and public_evidence is not None
+                and not isinstance(public_evidence, dict)
+            )
+        ):
+            return {**self._disabled("invalid LLM request fields"), "status": "error"}
         # local_distilled is a fully-local provider: no base_url, no remote-URL gate,
         # no tenant opt-in. It's the "shipped student model" path — runs entirely on
         # CPU/GPU inside the junas-server process. Delegate to LocalDistilledAdjudicator.
         if self.provider == "local_distilled":
-            return self._adjudicate_via_local_distilled(
-                text=text,
-                current_classification=current_classification,
-                findings=findings,
-                entity_id=entity_id,
-            )
+            try:
+                result = self._adjudicate_via_local_distilled(
+                    text=text,
+                    current_classification=current_classification,
+                    findings=findings,
+                    entity_id=entity_id,
+                )
+                if not isinstance(result, dict) or result.get("status") != "adjudicated":
+                    raise ValueError("local distilled provider did not return completed advice")
+                provenance = model_provenance(self._distilled_student)
+                provenance.update(provider="local_distilled", model=self.distilled_base_model)
+                result = advisory_result(result, provenance=provenance)
+                result.update(input_mode=self.llm_input_mode, output_clamped=False)
+                return result
+            except Exception as exc:
+                return {**self._disabled(f"local distilled advisory failed: {exc}"), "status": "error"}
         if not self.base_url:
             return self._disabled("local LLM base URL is not configured")
         base_is_remote = not _is_private_or_local_base_url(self.base_url)
@@ -475,9 +492,7 @@ class LocalLLMAdjudicator:
                 "materiality_reason": "",
                 "matched_public_sources": [],
                 "unverified_claims": [],
-                "review_recommendation": (
-                    "provider=openai requires tenant_opt_in_openai=true; refusing to send"
-                ),
+                "review_recommendation": ("provider=openai requires tenant_opt_in_openai=true; refusing to send"),
                 "input_mode": self.llm_input_mode,
                 "output_clamped": False,
             }
@@ -493,8 +508,7 @@ class LocalLLMAdjudicator:
                 "matched_public_sources": [],
                 "unverified_claims": [],
                 "review_recommendation": (
-                    "provider=azure_openai requires tenant_opt_in_azure_openai=true "
-                    "and azure_api_version"
+                    "provider=azure_openai requires tenant_opt_in_azure_openai=true and azure_api_version"
                 ),
                 "input_mode": self.llm_input_mode,
                 "output_clamped": False,
@@ -514,10 +528,11 @@ class LocalLLMAdjudicator:
                     findings=list(findings or []),
                     entity_id=entity_id,
                     current_classification=current_classification,
-                    public_evidence=public_evidence if isinstance(public_evidence, dict) else None,
+                    public_evidence=public_evidence,
                 )
                 messages = self._build_structured_messages(structured_query=structured_query)
                 payload = self._call_openai_compatible(messages)
+                validate_model_payload(payload)
                 clamped, was_clamped = clamp_structured_output(payload)
                 normalized = self._normalize_payload(clamped)
                 normalized["input_mode"] = "structured_tokens"

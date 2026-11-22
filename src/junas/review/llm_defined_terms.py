@@ -1,22 +1,9 @@
-"""LLM-assisted defined-term extraction (audit_grade only).
+"""Unverified defined-term proposals and attributable v2 cache (audit_grade only).
 
-The deterministic `extract_defined_terms` regex catches the two most common preamble
-patterns (`(the "Purchaser")` and `"Purchaser" means …`). The LLM tier exists to catch
-looser introductions the regex misses:
-
-    Acme Pte. Ltd. (hereinafter referred to as "the Seller")
-    we will use "X" to refer to Y throughout this document
-    For purposes of this Agreement, "Material" means …
-
-This module wraps any extractor that implements `extract(preamble) -> list[str]` and
-caches results by SHA-256 of the full document text. The preamble (first ~500 tokens
-≈ 2000 chars) is the only thing sent to the LLM; the document body never leaves the
-process boundary via this path.
-
-Cache layout: `${JUNAS_CACHE_DIR}/llm_defined_terms/{document_hash}.json` carrying
-`{"terms": [casefolded, sorted], "ts": "<iso utc>"}`. Cache reads tolerate a missing
-or malformed entry by re-running the extractor. Under the audit_grade path,
-extractor and cache-write failures fail closed instead of silently dropping this layer.
+Only the first PREAMBLE_CHAR_CAP characters are sent to an explicitly enabled
+extractor. The review engine does not use model proposals for suppression.
+Legacy document-only cache entries are ignored, never upgraded or overwritten.
+Unattributed injected extractors run without disk caching.
 """
 
 from __future__ import annotations
@@ -24,115 +11,115 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
+import tempfile
 import time
 from pathlib import Path
 from threading import Lock
 from typing import Protocol
 
-# preamble length cap for the LLM call. ~500 GPT tokens ≈ 2000 chars; we cap on chars to
-# stay provider-agnostic. Defined-term preambles in legal docs are essentially always
-# inside this window.
 PREAMBLE_CHAR_CAP = 2000
-
 _cache_lock = Lock()
 
 
 class LLMDefinedTermExtractor(Protocol):
-    """Minimal contract for the LLM-tier defined-term helper."""
-
     def extract(self, preamble: str) -> list[str]:
-        """Return a list of defined-term surface forms found in the preamble.
-        Implementations should:
-          - never send the full document body, only the `preamble` they receive
-          - return the surface forms (e.g. ['Purchaser', 'the Seller']) without quotes
-          - return an empty list if nothing is found or the call fails
-        """
+        """Return unverified surface-form proposals, not suppression authority."""
         ...
 
 
 class LLMDefinedTermError(RuntimeError):
-    """Raised when the audit_grade defined-term helper cannot produce trustworthy output."""
-
-
-def _cache_root() -> Path:
-    return Path(os.environ.get("JUNAS_CACHE_DIR", "./.junas-cache"))
-
-
-def _cache_dir() -> Path:
-    return _cache_root() / "llm_defined_terms"
+    """The configured helper or its attributable cache could not be used safely."""
 
 
 def document_hash(text: str) -> str:
-    """SHA-256 of the document text. Stable cache key across reviews of the same document."""
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def _cache_path(doc_hash: str) -> Path:
-    return _cache_dir() / f"{doc_hash}.json"
+def _cache_dir() -> Path:
+    return Path(os.environ.get("JUNAS_CACHE_DIR", "./.junas-cache")) / "llm_defined_terms" / "v2"
 
 
-def _load_cache(doc_hash: str) -> set[str] | None:
-    path = _cache_path(doc_hash)
-    if not path.exists():
+def _cache_path(cache_key: str) -> Path:
+    return _cache_dir() / f"{cache_key}.json"
+
+
+def _identity(extractor):
+    method = getattr(extractor, "cache_identity", None)
+    if not callable(method):
         return None
+    identity = method()  # runtime helpers recheck privacy/configuration gates here.
+    required = {"provider", "model", "prompt_version", "prompt_sha256"}
+    if (
+        not isinstance(identity, dict)
+        or not required <= identity.keys()
+        or any(not isinstance(k, str) or not isinstance(v, str) or not v for k, v in identity.items())
+        or any(identity[k] == "unattributed" for k in required)
+        or re.fullmatch(r"[0-9a-f]{64}", identity["prompt_sha256"]) is None
+    ):
+        raise LLMDefinedTermError("extractor cache identity is incomplete")
+    return {**identity, "preamble_char_cap": str(PREAMBLE_CHAR_CAP), "cache_contract": "v2"}
+
+
+def _validated_terms(raw) -> set[str]:
+    if not isinstance(raw, list) or any(not isinstance(t, str) or not t.strip() for t in raw):
+        raise LLMDefinedTermError("extractor terms must be an array of nonempty strings")
+    return {t.strip().casefold() for t in raw}
+
+
+def _load_cache(cache_key: str, doc_hash: str, identity: dict) -> set[str] | None:
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+        payload = json.loads(_cache_path(cache_key).read_text(encoding="utf-8"))
+        if (
+            not isinstance(payload, dict)
+            or payload.get("schema_version") != "junas.defined_terms_cache.v2"
+            or payload.get("body_hash") != doc_hash
+            or payload.get("identity") != identity
+        ):
+            return None
+        return _validated_terms(payload.get("terms"))
+    except (OSError, ValueError):
         return None
-    terms = payload.get("terms", [])
-    if not isinstance(terms, list):
-        return None
-    return {str(t).strip().casefold() for t in terms if t}
 
 
-def _store_cache(doc_hash: str, terms: set[str]) -> None:
-    path = _cache_path(doc_hash)
+def _store_cache(cache_key: str, doc_hash: str, identity: dict, terms: set[str]) -> None:
+    path = _cache_path(cache_key)
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
+        "schema_version": "junas.defined_terms_cache.v2",
+        "body_hash": doc_hash,
+        "identity": identity,
         "terms": sorted(terms),
+        "evidence_status": "unverified",
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
     }
-    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-
-
-def extract_with_cache(
-    *,
-    text: str,
-    extractor: LLMDefinedTermExtractor,
-    fail_closed: bool = False,
-) -> set[str]:
-    """Return the casefolded set of LLM-extracted defined terms for `text`, using the
-    on-disk cache when present. Cache key is SHA-256 of the full document text.
-
-    Caller guarantees `extractor` is the audit_grade-opt-in LLM helper. We send only
-    the preamble (first PREAMBLE_CHAR_CAP chars) to the extractor; this module never
-    forwards the document body."""
-    doc_hash = document_hash(text)
-    with _cache_lock:
-        cached = _load_cache(doc_hash)
-        if cached is not None:
-            return cached
-    preamble = text[:PREAMBLE_CHAR_CAP]
+    temporary = None
     try:
-        raw_terms = extractor.extract(preamble)
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(json.dumps(payload, indent=2) + "\n")
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
+def extract_with_cache(*, text: str, extractor: LLMDefinedTermExtractor, fail_closed: bool = False) -> set[str]:
+    try:
+        doc_hash = document_hash(text)
+        identity = _identity(extractor)
+        cache_key = document_hash(json.dumps({"body_hash": doc_hash, "identity": identity}, sort_keys=True))
+        if identity is not None:
+            with _cache_lock:
+                cached = _load_cache(cache_key, doc_hash, identity)
+            if cached is not None:
+                return cached
+        terms = _validated_terms(extractor.extract(text[:PREAMBLE_CHAR_CAP]))
+        if identity is not None:
+            with _cache_lock:
+                _store_cache(cache_key, doc_hash, identity, terms)
+        return terms
     except Exception as exc:
         if fail_closed:
-            raise LLMDefinedTermError(f"extractor failed: {exc}") from exc
-        raw_terms = []
-    if raw_terms is None:
-        raw_terms = []
-    if not isinstance(raw_terms, list):
-        if fail_closed:
-            raise LLMDefinedTermError("extractor returned non-list output")
-        raw_terms = []
-    invalid_terms = [type(term).__name__ for term in raw_terms if not isinstance(term, str)]
-    if invalid_terms and fail_closed:
-        raise LLMDefinedTermError("extractor returned non-string terms: " + ", ".join(invalid_terms[:3]))
-    terms = {str(t).strip().casefold() for t in raw_terms if t and isinstance(t, str)}
-    with _cache_lock:
-        try:
-            _store_cache(doc_hash, terms)
-        except OSError as exc:
-            if fail_closed:
-                raise LLMDefinedTermError(f"cache write failed: {exc}") from exc
-    return terms
+            raise LLMDefinedTermError(f"defined-term helper failed: {exc}") from exc
+        return set()
