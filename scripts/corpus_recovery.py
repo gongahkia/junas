@@ -44,6 +44,7 @@ def recover(config: dict, auth: dict, source: Path) -> dict:
         c.require(manifest.get("recovery_version") == 1, "legacy run requires a separately audited migration")
         c.require(manifest["config_sha256"] == c.identity(config), "recovery configuration mismatch")
         c.require(manifest["prompt_version"] == c.PROMPT_VERSION, "recovery prompt mismatch")
+        c.require(manifest["controller_sha256"] == c.controller_identity(), "recovery controller changed")
         c.require(Decimal(manifest["authorized_budget_usd"]) == cap, "recovery cannot change original aggregate cap")
         c.require(manifest["authorization_sha256"] == c.identity(auth), "recovery authorization mismatch")
         parent = manifest.get("parent_segment")

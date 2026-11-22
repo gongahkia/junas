@@ -11,7 +11,7 @@ def test_reserved_groups_are_disjoint_and_not_collected():
     a, b = ({g["id"] for g in groups} for groups in SCENARIO_GROUPS.values())
     assert not a & b
     slot = sampling_slot({"split": "holdout", "groups": SCENARIO_GROUPS["holdout"]}, 7)
-    assert slot["template_group"] == "holdout-research-v1"
+    assert slot["template_group"] == "holdout-benefits-v1"
 
 
 def test_partition_check_rejects_number_substitution_and_group_leakage():
@@ -33,3 +33,35 @@ def test_development_evaluation_does_not_open_holdout_labels():
     changed[0]["id"] = "dev-intake-v1"
     with pytest.raises(ValueError, match="reserved"):
         sampling_slot({"split": "holdout", "groups": changed}, 0)
+
+
+def test_near_duplicates_reuse_pilot_contamination_heuristic():
+    from scripts.corpus_partitions import check_exclusions, exclusion_registry
+
+    text = (
+        "A confidential corporate board memorandum considers a future transaction "
+        "with extensive explanatory notes for counsel."
+    )
+    registry = exclusion_registry([{"text": text}])
+    with pytest.raises(ValueError, match="conflicts"):
+        check_exclusions(text + " Extra.", "fresh-group", registry)
+
+
+def test_prepared_holdout_refuses_missing_registry_before_any_network(tmp_path, monkeypatch):
+    import json
+
+    from scripts import model_corpus as c
+    from test.test_model_corpus import authorization
+
+    config = json.loads((c.ROOT / "config/model_corpus.holdout.json").read_text())
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    with pytest.raises(ValueError, match="exclusion registry"):
+        c.run(config, authorization(config), tmp_path / "no-registry")
+    assert not (tmp_path / "no-registry").exists()
+
+
+def test_scenario_group_cycle_does_not_assign_one_group_to_each_quadrant():
+    sampling = {"split": "holdout", "groups": SCENARIO_GROUPS["holdout"]}
+    groups = [sampling_slot(sampling, i)["template_group"] for i in range(16)]
+    assert len(set(groups)) == 4
+    assert all(len(set(groups[start : start + 4])) == 1 for start in range(0, 16, 4))

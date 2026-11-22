@@ -37,7 +37,7 @@ def identifier_fields(text: str) -> list[dict]:
     spans = []
     for label, pattern in FIELD_PATTERNS.items():
         for match in pattern.finditer(text):
-            value = match.group("value").rstrip()
+            value = match.group("value").rstrip(" .,")
             line = text[
                 text.rfind("\n", 0, match.start()) + 1 : text.find("\n", match.end())
                 if "\n" in text[match.end() :]

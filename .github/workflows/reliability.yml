@@ -1,0 +1,36 @@
+name: Contextual reliability
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-reliability:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen --extra dev
+      - name: Offline sensitivity and corpus contracts
+        run: >-
+          uv run --frozen pytest -q test/test_sensitivity.py test/test_model_corpus.py
+          test/test_corpus_partitions.py test/test_corpus_diagnostics.py
+          test/test_corpus_recovery.py test/test_reliability_gates.py
+      - name: All quadrants and entity types
+        run: uv run --frozen python scripts/check_reliability.py --output reliability.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: contextual-reliability-${{ matrix.python }}
+          path: reliability.json

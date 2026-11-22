@@ -130,6 +130,12 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
                 or personal_context(text, finding.start_char, finding.end_char)
             ):
                 reason = "person association not established"
+        elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"} and re.search(
+            r"\b(?:office|corporate|company|public hotline)\b",
+            text[text.rfind("\n", 0, finding.start_char) + 1 : finding.start_char],
+            re.I,
+        ):
+            reason = "explicit organizational contact is outside the personal target"
         elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"} and not personal_context(
             text, finding.start_char, finding.end_char
         ):

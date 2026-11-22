@@ -153,3 +153,11 @@ def test_active_segment_lock_refuses_concurrent_continuation(tmp_path):
         with pytest.raises(BlockingIOError):
             c.run(cfg, auth, tmp_path / "blocked", resume_from=tmp_path / "first")
     assert not (tmp_path / "blocked").exists()
+
+
+def test_changed_controller_refuses_resume_before_network(tmp_path):
+    cfg, auth, _, _ = stopped(tmp_path)
+    with patch.object(c, "controller_identity", return_value={"changed": "source"}):
+        with pytest.raises(ValueError, match="controller changed"):
+            c.run(cfg, auth, tmp_path / "changed-controller", resume_from=tmp_path / "first")
+    assert not (tmp_path / "changed-controller").exists()

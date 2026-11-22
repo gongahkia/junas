@@ -113,3 +113,12 @@ def test_corporate_and_generic_lookalikes_are_not_personal_fields():
         "Age: 41; postal code: 123456; occupation: archivist"
     )
     assert not any(s["rule"].startswith("contextual_") for s in review(text).sensitivity["pii"]["evidence"])
+
+
+def test_mnpi_does_not_join_different_issuers_or_unrelated_private_claims():
+    for text in [
+        "Cedar Vale Ltd. has a material acquisition. Birch Grove Ltd. has not been publicly disclosed.",
+        "Cedar Vale Ltd. has a material acquisition. The unrelated service memo has not been publicly disclosed.",
+        "Cedar Vale Ltd. has a material acquisition. The employee rota has not been publicly disclosed.",
+    ]:
+        assert review(text).sensitivity["mnpi"]["state"] != "present"

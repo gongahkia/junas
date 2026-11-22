@@ -53,6 +53,7 @@ def _component(match: re.Match, offset: int, kind: str) -> dict:
 def contextual_mnpi(text: str, findings: list[Any]) -> dict:
     hypotheses = []
     unresolved = False
+    resolved_negative = False
     for block in re.finditer(r"[^\n]+(?:\n(?!\s*\n)[^\n]+)*", text):
         value = block.group()
         # a blank line bounds linkage; event and disclosure in different paragraphs abstain.
@@ -81,9 +82,27 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             if m
         ]
         if hypothetical or negated or immaterial:
-            # mixed hypothetical/actual assertions abstain rather than receiving a positive label.
-            unresolved = True
+            # mixed actual/hypothetical assertions require further context.
+            if re.search(r"\b(?:but|however|actually|in fact)\b", value, re.I):
+                unresolved = True
+            else:
+                resolved_negative = True
             continue
+        if private and event:
+            sentence_start = max(value.rfind(". ", 0, private.start()), value.rfind(";", 0, private.start())) + 1
+            prefix = value[sentence_start : private.start()]
+            other_issuers = [m for m in ORG_NAME_RE.finditer(prefix) if issuer and m.group() != issuer.group()]
+            same_sentence = event.start() >= sentence_start
+            reference = re.search(
+                r"\b(?:it|this|agreement|deal|event|transaction|information|offer price|"
+                r"termination|results|announcement)\b",
+                prefix,
+                re.I,
+            )
+            unrelated = re.search(r"\b(?:unrelated|separate|different|another)\b", prefix, re.I)
+            if other_issuers or unrelated or not (same_sentence or reference):
+                unresolved = True
+                continue
         if issuer and event and material and private and not public:
             hypotheses.append(
                 {
@@ -98,6 +117,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 }
             )
         elif public and not private:
+            resolved_negative = True
             continue
         else:
             unresolved = True
@@ -105,7 +125,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
         "state": "present"
         if hypotheses
         else "unknown"
-        if unresolved or any(f.category == "MNPI" for f in findings)
+        if unresolved or (not resolved_negative and any(f.category == "MNPI" for f in findings))
         else "not_detected",
         "evidence": hypotheses,
         "public_status_verified": False,

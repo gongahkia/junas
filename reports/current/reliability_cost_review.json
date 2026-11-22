@@ -1,0 +1,269 @@
+{
+  "aggregate_prior_plus_proposed_sgd_scenario": "32.760",
+  "empirical_estimate_total_usd": "4.03013422000",
+  "fee_multiplier": "1.2",
+  "limitations": [
+    "Empirical scaling is an estimate, not a maximum or invoice.",
+    "New prompts, retries and quota rejection may increase cost.",
+    "Hard caps may stop before quadrant/entity coverage is complete.",
+    "SGD scenario assumes stated FX and fees; actual invoice/credits remain unverified.",
+    "Refresh the holdout exclusion registry after the new development batch.",
+    "No new paid authorization has been created."
+  ],
+  "live_calls_authorized": false,
+  "paid_calls_made": 0,
+  "previous_accounted_or_reserved_usd": "8.11861575",
+  "pricing_checked_on": "2026-11-22",
+  "pricing_sources": [
+    "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+    "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+  ],
+  "proposals": [
+    {
+      "config": "config/model_corpus.coverage.json",
+      "empirical_estimate_usd": "2.59080057000",
+      "name": "coverage",
+      "plan": {
+        "budget_can_leave_coverage_shortfall": true,
+        "candidate_first_pass_token_cost_ceiling_usd": "49.96944",
+        "config_sha256": "8129d20315b7a235fd0ab8d429724f35d6b70dc40c9a4fc656965fdd806298fa",
+        "configured_token_cost_ceiling_usd": "85.25952",
+        "coverage_policy": "stop at accepted quotas or candidate/budget limit; report shortfalls without forced labels",
+        "data_scope": "new_synthetic_only",
+        "documents": 72,
+        "effective_run_token_cost_ceiling_usd": "6",
+        "entity_targets": {
+          "BANK_ACCOUNT": 3,
+          "DATE_OF_BIRTH": 3,
+          "EMAIL": 3,
+          "GOVERNMENT_ID": 3,
+          "PERSONAL_RECORD_ID": 3,
+          "PERSON_NAME": 3,
+          "PHONE": 3,
+          "POSTAL_ADDRESS": 3,
+          "QUASI_IDENTIFIER_COMBINATION": 3
+        },
+        "first_pass_model_calls": 288,
+        "human_ground_truth": false,
+        "judge_mode": "same_model_repeats",
+        "label_origin": "model_consensus",
+        "live_calls_authorized": false,
+        "max_candidates": 108,
+        "max_judge_attempts": 2,
+        "model_calls": 756,
+        "model_costs": [
+          {
+            "cost_per_attempt_ceiling_usd": "0.13592",
+            "input_rate_usd_per_million": "4.5",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.2-sol",
+            "output_rate_usd_per_million": "10",
+            "output_tokens_ceiling": 8192
+          },
+          {
+            "cost_per_attempt_ceiling_usd": "0.10892",
+            "input_rate_usd_per_million": "2.25",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.1-terra",
+            "output_rate_usd_per_million": "5",
+            "output_tokens_ceiling": 16384
+          },
+          {
+            "cost_per_attempt_ceiling_usd": "0.10892",
+            "input_rate_usd_per_million": "2.25",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.1-terra",
+            "output_rate_usd_per_million": "5",
+            "output_tokens_ceiling": 16384
+          },
+          {
+            "cost_per_attempt_ceiling_usd": "0.10892",
+            "input_rate_usd_per_million": "2.25",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.1-terra",
+            "output_rate_usd_per_million": "5",
+            "output_tokens_ceiling": 16384
+          }
+        ],
+        "models": [
+          "gpt-6.2-sol",
+          "gpt-6.1-terra",
+          "gpt-6.1-terra",
+          "gpt-6.1-terra"
+        ],
+        "prompt_version": "synthetic-quadrants-majority-v5",
+        "quadrant_targets": {
+          "both": 18,
+          "mnpi_only": 18,
+          "neither": 18,
+          "pii_only": 18
+        },
+        "sampling": {
+          "groups": [
+            {
+              "id": "dev-intake-v1",
+              "scenario": "fictional individual client intake form"
+            },
+            {
+              "id": "dev-payroll-v1",
+              "scenario": "fictional payroll correction request"
+            },
+            {
+              "id": "dev-board-v1",
+              "scenario": "fictional listed issuer board memorandum"
+            },
+            {
+              "id": "dev-public-v1",
+              "scenario": "fictional already published investor announcement"
+            }
+          ],
+          "split": "development"
+        },
+        "schema_version": "junas.model_corpus.v2",
+        "spending_limit": {
+          "cap_sgd": "50",
+          "currency": "SGD",
+          "extra_charge_multiplier": "1.2",
+          "fx_checked_on": "2026-11-22",
+          "interpretation": "USD provider cap enforced; SGD amount conditional on FX/fee assumptions, not bank invoice verification",
+          "prior_cost_reserve_usd": "18.2",
+          "provider_cap_usd": "6",
+          "sgd_per_usd_ceiling": "1.5",
+          "sgd_scenario_ceiling": "43.560"
+        },
+        "target_first_pass_token_cost_ceiling_usd": "33.31296",
+        "token_count_requests": 756,
+        "unique_judge_models": 1,
+        "voting_interpretation": "three separate samples of one model; agreement is not cross-model corroboration"
+      },
+      "proposed_cap_usd": "6",
+      "two_times_empirical_scenario_usd": "5.18160114000"
+    },
+    {
+      "config": "config/model_corpus.holdout.json",
+      "empirical_estimate_usd": "1.43933365000",
+      "name": "holdout",
+      "plan": {
+        "budget_can_leave_coverage_shortfall": true,
+        "candidate_first_pass_token_cost_ceiling_usd": "37.01440",
+        "config_sha256": "3be8bc12bf29aa23ea49fb29f48ae307f9f40a07d7660676b80aeeec7b6bf41c",
+        "configured_token_cost_ceiling_usd": "63.15520",
+        "coverage_policy": "stop at accepted quotas or candidate/budget limit; report shortfalls without forced labels",
+        "data_scope": "new_synthetic_only",
+        "documents": 40,
+        "effective_run_token_cost_ceiling_usd": "4",
+        "entity_targets": {
+          "BANK_ACCOUNT": 1,
+          "DATE_OF_BIRTH": 1,
+          "EMAIL": 1,
+          "GOVERNMENT_ID": 1,
+          "PERSONAL_RECORD_ID": 1,
+          "PERSON_NAME": 1,
+          "PHONE": 1,
+          "POSTAL_ADDRESS": 1,
+          "QUASI_IDENTIFIER_COMBINATION": 1
+        },
+        "first_pass_model_calls": 160,
+        "human_ground_truth": false,
+        "judge_mode": "same_model_repeats",
+        "label_origin": "model_consensus",
+        "live_calls_authorized": false,
+        "max_candidates": 80,
+        "max_judge_attempts": 2,
+        "model_calls": 560,
+        "model_costs": [
+          {
+            "cost_per_attempt_ceiling_usd": "0.13592",
+            "input_rate_usd_per_million": "4.5",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.2-sol",
+            "output_rate_usd_per_million": "10",
+            "output_tokens_ceiling": 8192
+          },
+          {
+            "cost_per_attempt_ceiling_usd": "0.10892",
+            "input_rate_usd_per_million": "2.25",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.1-terra",
+            "output_rate_usd_per_million": "5",
+            "output_tokens_ceiling": 16384
+          },
+          {
+            "cost_per_attempt_ceiling_usd": "0.10892",
+            "input_rate_usd_per_million": "2.25",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.1-terra",
+            "output_rate_usd_per_million": "5",
+            "output_tokens_ceiling": 16384
+          },
+          {
+            "cost_per_attempt_ceiling_usd": "0.10892",
+            "input_rate_usd_per_million": "2.25",
+            "input_tokens_ceiling": 12000,
+            "model": "gpt-6.1-terra",
+            "output_rate_usd_per_million": "5",
+            "output_tokens_ceiling": 16384
+          }
+        ],
+        "models": [
+          "gpt-6.2-sol",
+          "gpt-6.1-terra",
+          "gpt-6.1-terra",
+          "gpt-6.1-terra"
+        ],
+        "prompt_version": "synthetic-quadrants-majority-v5",
+        "quadrant_targets": {
+          "both": 10,
+          "mnpi_only": 10,
+          "neither": 10,
+          "pii_only": 10
+        },
+        "sampling": {
+          "groups": [
+            {
+              "id": "holdout-estate-v1",
+              "scenario": "fictional estate administration ledger entry"
+            },
+            {
+              "id": "holdout-benefits-v1",
+              "scenario": "fictional benefits eligibility appeal"
+            },
+            {
+              "id": "holdout-covenant-v1",
+              "scenario": "fictional issuer covenant waiver exchange"
+            },
+            {
+              "id": "holdout-research-v1",
+              "scenario": "fictional market research corrections bulletin"
+            }
+          ],
+          "split": "holdout"
+        },
+        "schema_version": "junas.model_corpus.v2",
+        "spending_limit": {
+          "cap_sgd": "50",
+          "currency": "SGD",
+          "extra_charge_multiplier": "1.2",
+          "fx_checked_on": "2026-11-22",
+          "interpretation": "USD provider cap enforced; SGD amount conditional on FX/fee assumptions, not bank invoice verification",
+          "prior_cost_reserve_usd": "18.2",
+          "provider_cap_usd": "4",
+          "sgd_per_usd_ceiling": "1.5",
+          "sgd_scenario_ceiling": "39.960"
+        },
+        "target_first_pass_token_cost_ceiling_usd": "18.50720",
+        "token_count_requests": 560,
+        "unique_judge_models": 1,
+        "voting_interpretation": "three separate samples of one model; agreement is not cross-model corroboration"
+      },
+      "proposed_cap_usd": "4",
+      "two_times_empirical_scenario_usd": "2.87866730000"
+    }
+  ],
+  "proposed_combined_additional_cap_usd": "10",
+  "rounded_prior_reserve_usd": "8.2",
+  "schema_version": "junas.reliability_cost_review.v1",
+  "sgd_allowance": "50",
+  "sgd_per_usd_ceiling": "1.5",
+  "within_allowance_scenario": true
+}

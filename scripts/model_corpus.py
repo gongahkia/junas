@@ -29,7 +29,12 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT)]
 
-from scripts.corpus_partitions import sampling_slot, validate_sampling  # noqa: E402
+from scripts.corpus_partitions import (  # noqa: E402
+    check_exclusions,
+    sampling_slot,
+    validate_exclusion_registry,
+    validate_sampling,
+)
 from scripts.prepare_evaluation_dataset import PII_RULE_MAP  # noqa: E402
 from scripts.span_metrics import Span, input_identity, occurrence_scores, reproducibility  # noqa: E402
 
@@ -142,7 +147,7 @@ def validate_config(config: Any) -> dict:
             "judges",
             "pricing_checked_on",
         }
-        | ({"judge_mode", "spending_limit", "sampling", "entity_targets"} & config.keys()),
+        | ({"judge_mode", "spending_limit", "sampling", "entity_targets", "exclusion_registry_sha256"} & config.keys()),
     )
     require(config["schema_version"] == VERSION, "unknown corpus configuration")
     require(integer(config["documents"], 1, 500), "documents must be in [1, 500]")
@@ -160,6 +165,12 @@ def validate_config(config: Any) -> dict:
     )
     if "sampling" in config:
         validate_sampling(config["sampling"])
+    if config.get("sampling", {}).get("split") == "holdout":
+        require(
+            isinstance(config.get("exclusion_registry_sha256"), str)
+            and re.fullmatch(r"[a-f0-9]{64}", config["exclusion_registry_sha256"]),
+            "fresh holdout requires a config-bound development exclusion registry",
+        )
     if "entity_targets" in config:
         exact_keys(config["entity_targets"], set(PII_RULE_MAP))
         require(
@@ -779,10 +790,17 @@ def evaluate_records(records: list[dict]) -> dict:
     }
     rule_map = {rule: label for label, rules in PII_RULE_MAP.items() for rule in rules}
     contextual_counts = {c: dict.fromkeys(("tp", "fp", "tn", "fn", "unknown"), 0) for c in document_counts}
+    contextual_by_quadrant = {
+        q: {c: dict.fromkeys(contextual_counts[c], 0) for c in document_counts} for q in QUADRANTS
+    }
     for record in records:
         if record.get("split") == "holdout" or record["status"] != "completed" or not record["accepted"]:
             continue
-        unit = ("synthetic_development", record["document_id"], "model_consensus")
+        unit = (
+            "synthetic_model_holdout" if record.get("split") == "released_holdout" else "synthetic_development",
+            record["document_id"],
+            "model_consensus",
+        )
         text = record["text"]
         texts[unit], coverage[unit] = text, record["consensus"]["coverage"]
         gold.extend(Span(unit, s["start_char"], s["end_char"], "PII", s["label"]) for s in record["consensus"]["pii"])
@@ -816,6 +834,7 @@ def evaluate_records(records: list[dict]) -> dict:
                 else ("fp" if state == "present" else "tn")
             )
             contextual_counts[category][contextual_key] += 1
+            contextual_by_quadrant[record["consensus"]["quadrant"]][category][contextual_key] += 1
             document_counts[category][key] += 1
             by_quadrant[record["consensus"]["quadrant"]][category][key] += 1
         for finding in result.findings:
@@ -834,7 +853,23 @@ def evaluate_records(records: list[dict]) -> dict:
             gold, contextual_predictions, texts=texts, coverage=coverage, categories={"PII"}
         ),
         "unmapped_pii_predictions": unmapped,
-        "contextual_document_presence": {"counts": contextual_counts, "absence_verified": False},
+        "contextual_document_presence": {
+            "counts": contextual_counts,
+            "by_quadrant": contextual_by_quadrant,
+            "absence_verified": False,
+        },
+        "contextual_pii_by_entity": {
+            label: occurrence_scores(
+                [s for s in gold if s.label == label],
+                [s for s in contextual_predictions if s.label == label],
+                texts=texts,
+                coverage=coverage,
+                categories={"PII"},
+            )
+            for label in PII_RULE_MAP
+        },
+        "independently_validated_accuracy": None,
+        "calibrated_confidence": None,
         "document_presence": {
             "counts": document_counts,
             "by_quadrant": by_quadrant,
@@ -847,7 +882,22 @@ def evaluate_records(records: list[dict]) -> dict:
     }
 
 
-def run(config: dict, auth: dict, output: Path, *, transport=None, resume_from: Path | None = None) -> dict:
+def controller_identity() -> dict:
+    return {
+        name: input_identity((ROOT / "scripts" / name).read_text())
+        for name in ("model_corpus.py", "corpus_recovery.py", "corpus_partitions.py")
+    }
+
+
+def run(
+    config: dict,
+    auth: dict,
+    output: Path,
+    *,
+    transport=None,
+    resume_from: Path | None = None,
+    exclusions: dict | None = None,
+) -> dict:
     from contextlib import ExitStack
 
     from scripts.corpus_recovery import recover
@@ -855,6 +905,13 @@ def run(config: dict, auth: dict, output: Path, *, transport=None, resume_from: 
     validate_config(config)
     validate_authorization(auth, config)
     require(not output.resolve().is_relative_to(ROOT), "model-corpus runs must be stored outside the repository")
+    if "exclusion_registry_sha256" in config:
+        require(
+            exclusions is not None and identity(exclusions) == config["exclusion_registry_sha256"],
+            "missing or changed development exclusion registry",
+        )
+    if exclusions is not None:
+        validate_exclusion_registry(exclusions)
     require(bool(os.environ.get("OPENAI_API_KEY")), "OPENAI_API_KEY must be configured locally")
     with ExitStack() as stack:
         checkpoint = None
@@ -870,10 +927,20 @@ def run(config: dict, auth: dict, output: Path, *, transport=None, resume_from: 
         output.mkdir(mode=0o700)
         lock = stack.enter_context((output / "execution.lock").open("a"))
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        return _run_segment(config, auth, output, transport=transport, checkpoint=checkpoint, resume_from=resume_from)
+        return _run_segment(
+            config,
+            auth,
+            output,
+            transport=transport,
+            checkpoint=checkpoint,
+            resume_from=resume_from,
+            exclusions=exclusions,
+        )
 
 
-def _run_segment(config: dict, auth: dict, output: Path, *, transport=None, checkpoint=None, resume_from=None) -> dict:
+def _run_segment(
+    config: dict, auth: dict, output: Path, *, transport=None, checkpoint=None, resume_from=None, exclusions=None
+) -> dict:
     from scripts.corpus_recovery import atomic_snapshot
 
     client = OpenAIResearchClient(config, auth, output, transport=transport)
@@ -886,6 +953,7 @@ def _run_segment(config: dict, auth: dict, output: Path, *, transport=None, chec
             **plan(config),
             "config": config,
             "recovery_version": 1,
+            "controller_sha256": controller_identity(),
             "authorized_budget_usd": str(client.budget.cap),
             "authorization_sha256": identity(auth),
             "parent_segment": str(resume_from.resolve()) if resume_from else None,
@@ -962,6 +1030,8 @@ def _run_segment(config: dict, auth: dict, output: Path, *, transport=None, chec
                 isinstance(text, str) and text.strip() and len(text) <= 2000 and "\0" not in text,
                 "invalid generated text",
             )
+            if exclusions is not None:
+                check_exclusions(text, slot["template_group"], exclusions)
             digest = input_identity(text)
             require(digest not in seen, "duplicate generated source; excluded")
             seen.add(digest)
@@ -1060,6 +1130,7 @@ def main(argv=None) -> int:
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--authorization", type=Path)
+    parser.add_argument("--exclusion-registry", type=Path, help="Config-bound development source metadata")
     parser.add_argument("--resume-from", type=Path, help="Continue same capped job with new candidates only")
     parser.add_argument("--env-file", type=Path, help="Explicit local dotenv file; only OPENAI_API_KEY is loaded")
     args = parser.parse_args(argv)
@@ -1073,7 +1144,8 @@ def main(argv=None) -> int:
         validate_authorization(auth, config)
         if args.env_file is not None:
             load_api_key(args.env_file)
-        result = run(config, auth, args.output, resume_from=args.resume_from)
+        exclusions = json.loads(args.exclusion_registry.read_text()) if args.exclusion_registry else None
+        result = run(config, auth, args.output, resume_from=args.resume_from, exclusions=exclusions)
         return 0 if result["status"] == "completed" else 1
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print(f"model corpus refused: {exc}", file=sys.stderr)

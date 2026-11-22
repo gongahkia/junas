@@ -106,3 +106,7 @@ The v2 contract adds mocked tests for 2/3 versus 3/3 support, fixed-denominator 
 ## Completed USD25 corpus job
 
 The approved job filled all four quotas using Sol generation and three Terra judge passes: 200 accepted from 214 candidates, with 12 unresolved and two incomplete candidates retained separately. Three known evidence/offset failures were corrected within the pre-approved attempt bounds. An offline audit verified grounding, unique request fingerprints, usage/journal linkage, quotas and deterministic evaluation. Operator-reviewed continuations preserved all old artifacts and carried full uncertain reserves forward within the same USD25 cap; neither uncertain request/source was retried. [Results and artifact links](model-corpus-usd25-results.md) distinguish model-reference agreement, target-scope disagreements, sparse subtype coverage and unverified confidence from independent accuracy.
+
+## Contextual reliability and fresh holdout workflow
+
+The next implementation adds separate contextual sensitivity predictions, 72 authored all-quadrant/entity regression cases, source-group exclusions, offline diagnostics and durable same-cap continuation. See [the implementation and cost review](reliability-implementation.md). The proposed USD6 development and USD4 holdout caps are not authorized or launched.

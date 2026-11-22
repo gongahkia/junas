@@ -32,7 +32,7 @@ def validate_sampling(sampling: dict) -> dict:
 
 def sampling_slot(sampling: dict, index: int) -> dict:
     validate_sampling(sampling)
-    group = sampling["groups"][index % len(sampling["groups"])]
+    group = sampling["groups"][(index // 4) % len(sampling["groups"])]
     return {"split": sampling["split"], "template_group": group["id"], "scenario": group["scenario"]}
 
 
@@ -58,6 +58,9 @@ def validate_partition_records(development: list[dict], holdout: list[dict]) -> 
         fingerprints.append(current_hashes)
     if groups[0] & groups[1] or fingerprints[0] & fingerprints[1]:
         raise ValueError("cross-partition group or source contamination")
+    registry = exclusion_registry(development)
+    for record in holdout if development else []:
+        check_exclusions(record["text"], record["template_group"], registry)
 
 
 def reservation() -> dict:
@@ -72,3 +75,91 @@ def reservation() -> dict:
         "independent_ground_truth": False,
         "policy": "holdout is excluded from development evaluation; one-shot release consumes it",
     }
+
+
+def exclusion_registry(records: list[dict]) -> dict:
+    from scripts.prepare_evaluation_dataset import fingerprints
+
+    return {
+        "schema_version": "junas.source_exclusions.v1",
+        "entries": [
+            {
+                "template_group": r.get("template_group", "legacy-development"),
+                "source_hashes": sorted(source_fingerprints(r["text"])),
+                "shingles": fingerprints(r["text"]),
+            }
+            for r in records
+            if "text" in r
+        ],
+    }
+
+
+def validate_exclusion_registry(registry: dict) -> None:
+    if not isinstance(registry, dict) or registry.get("schema_version") != "junas.source_exclusions.v1":
+        raise ValueError("invalid development exclusion registry")
+    if not isinstance(registry.get("entries"), list) or not registry["entries"]:
+        raise ValueError("development exclusion registry cannot be empty")
+    for entry in registry["entries"]:
+        if not isinstance(entry, dict) or set(entry) != {"template_group", "source_hashes", "shingles"}:
+            raise ValueError("invalid exclusion entry")
+        if not isinstance(entry["template_group"], str) or not entry["template_group"]:
+            raise ValueError("invalid exclusion group")
+        for field in ("source_hashes", "shingles"):
+            if (
+                not isinstance(entry[field], list)
+                or not entry[field]
+                or not all(isinstance(h, str) and re.fullmatch(r"[0-9a-f]{64}", h) for h in entry[field])
+            ):
+                raise ValueError("invalid exclusion fingerprints")
+
+
+def check_exclusions(text: str, group: str, registry: dict) -> None:
+    from scripts.prepare_evaluation_dataset import NEAR_DUPLICATE_THRESHOLD, fingerprints
+
+    validate_exclusion_registry(registry)
+    hashes, shingles = source_fingerprints(text), set(fingerprints(text))
+    for entry in registry["entries"]:
+        other = set(entry["shingles"])
+        union = shingles | other
+        if (
+            group == entry["template_group"]
+            or hashes & set(entry["source_hashes"])
+            or (union and len(shingles & other) / len(union) >= NEAR_DUPLICATE_THRESHOLD)
+        ):
+            raise ValueError("source conflicts with the development exclusion registry")
+
+
+def main() -> int:
+    import argparse
+    import json
+    from pathlib import Path
+
+    from scripts.model_corpus import identity, write_new
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--records", type=Path, nargs="+", required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--bind-config", type=Path, help="Write new holdout config with this exclusion registry hash")
+    parser.add_argument("--config", type=Path, help="Existing holdout proposal; never modified in place")
+    args = parser.parse_args()
+    records = [json.loads(line) for path in args.records for line in path.read_text().splitlines() if line.strip()]
+    if any(r.get("split", "development") != "development" for r in records):
+        raise ValueError("exclusions require development sources only")
+    if args.bind_config and not args.config:
+        raise ValueError("--bind-config requires --config")
+    registry = exclusion_registry(records)
+    validate_exclusion_registry(registry)
+    write_new(args.output, registry)
+    if args.bind_config:
+        config = json.loads(args.config.read_text())
+        config["exclusion_registry_sha256"] = identity(registry)
+        write_new(args.bind_config, config)
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    raise SystemExit(main())
