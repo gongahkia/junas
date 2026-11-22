@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
 from scripts.check_precision_risk import DEFAULT_CORPORA, _lock_path_for  # noqa: E402
-from scripts.evaluate_candidate_corpus import _evaluate_one, _summary
+from scripts.evaluate_candidate_corpus import _evaluate_one, _summary  # noqa: E402
 from scripts.span_metrics import aggregate_internal_audits  # noqa: E402
 
 
@@ -55,8 +55,10 @@ def evaluate_corpus(corpus: Path) -> dict[str, Any]:
         "lock_sha256": fingerprint([_lock_path_for(corpus)]) if _lock_path_for(corpus).is_file() else None,
         "summary": _summary(reports),
         "annotation_audit_v1": aggregate_internal_audits(r.annotation_audit_v1 for r in reports),
-        "metric_contract": {"legacy": "candidate rule/text label agreement; gate precision is hard-negative challenge agreement",
-                            "independence_fields": "historical marker-exclusion calculation, not verified independence"},
+        "metric_contract": {
+            "legacy": "candidate rule/text label agreement; gate precision is hard-negative challenge agreement",
+            "independence_fields": "historical marker-exclusion calculation, not verified independence",
+        },
         "regression_gate": {
             "passed": gate.returncode == 0,
             "returncode": gate.returncode,

@@ -18,14 +18,9 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-DEFAULT_FIXTURE = (
-    REPO_ROOT
-    / "test"
-    / "fixtures"
-    / "external"
-    / "ai4privacy-pii-masking-200k"
-    / "english_pii_43k.jsonl"
-)
+from scripts.span_metrics import Span, file_sha256, input_identity, occurrence_scores, reproducibility  # noqa: E402
+
+DEFAULT_FIXTURE = REPO_ROOT / "test" / "fixtures" / "external" / "ai4privacy-pii-masking-200k" / "english_pii_43k.jsonl"
 DEFAULT_MANIFEST = DEFAULT_FIXTURE.parent / "fixture_manifest.json"
 DEFAULT_OUTPUT = REPO_ROOT / "reports" / "current" / "ai4privacy_pii_masking_200k_en_us_en_gb_eval.json"
 DATASET_ID = "ai4privacy/pii-masking-200k"
@@ -47,6 +42,7 @@ class PrivacyMask:
     start: int
     end: int
     label: str
+    offsets_valid: bool = True
 
 
 @dataclass(frozen=True)
@@ -123,6 +119,7 @@ def _parse_masks(raw_masks: Any) -> tuple[PrivacyMask, ...]:
                 start=int(item["start"]),
                 end=int(item["end"]),
                 label=str(item.get("label") or ""),
+                offsets_valid=type(item.get("start")) is int and type(item.get("end")) is int,
             )
         )
     return tuple(masks)
@@ -191,6 +188,7 @@ def _predict(
     review_profile: str,
     source_jurisdiction: str,
     categories: set[str] | None,
+    diagnostics: list[str] | None = None,
 ) -> list[PredictedSpan]:
     result = engine.review(
         text=row.source_text,
@@ -202,6 +200,8 @@ def _predict(
         review_profile=review_profile,
     )
     predictions: list[PredictedSpan] = []
+    if diagnostics is not None and getattr(result, "degraded_modes", []):
+        diagnostics.append(f"{row.row_id}: analysis reported degraded modes")
     for finding in result.findings:
         category = str(getattr(finding, "category", ""))
         if categories is not None and category not in categories:
@@ -209,7 +209,15 @@ def _predict(
         start = int(getattr(finding, "start_char"))
         end = int(getattr(finding, "end_char"))
         if start < 0 or end <= start or end > len(row.source_text):
+            if diagnostics is not None:
+                diagnostics.append(f"{row.row_id}: invalid prediction offsets omitted by legacy scoring")
             continue
+        if diagnostics is not None and (
+            type(getattr(finding, "start_char")) is not int
+            or type(getattr(finding, "end_char")) is not int
+            or getattr(finding, "matched_text", row.source_text[start:end]) != row.source_text[start:end]
+        ):
+            diagnostics.append(f"{row.row_id}: invalid prediction offsets/text")
         predictions.append(
             PredictedSpan(
                 start=start,
@@ -229,6 +237,8 @@ def score_slice(
     source_jurisdiction: str,
     match_mode: str,
     categories: set[str] | None = {"PII"},
+    occurrence_output: dict[str, Any] | None = None,
+    annotation_coverage: str = "unknown",
 ) -> SliceScore:
     row_list = list(rows)
     gold_by_label: defaultdict[str, int] = defaultdict(int)
@@ -236,6 +246,8 @@ def score_slice(
     gold_spans = 0
     matched_spans = 0
     predicted_spans = 0
+    observations = []
+    diagnostics: list[str] = []
     for row in row_list:
         predictions = _predict(
             row,
@@ -243,7 +255,9 @@ def score_slice(
             review_profile=review_profile,
             source_jurisdiction=source_jurisdiction,
             categories=categories,
+            diagnostics=diagnostics,
         )
+        observations.append((row, predictions))
         predicted_spans += len(predictions)
         for mask in row.masks:
             gold_spans += 1
@@ -251,6 +265,12 @@ def score_slice(
             if any(_span_matches(prediction, mask, match_mode) for prediction in predictions):
                 matched_spans += 1
                 matched_by_label[mask.label] += 1
+    if occurrence_output is not None:
+        occurrence_output.update(
+            corrected_ai_measurements(
+                observations, annotation_coverage=annotation_coverage, diagnostics=diagnostics, categories=categories
+            )
+        )
     recall = matched_spans / gold_spans if gold_spans else 0.0
     return SliceScore(
         documents=len(row_list),
@@ -261,6 +281,60 @@ def score_slice(
         matched_by_label=dict(sorted(matched_by_label.items())),
         gold_by_label=dict(sorted(gold_by_label.items())),
     )
+
+
+def corrected_ai_measurements(observations, *, annotation_coverage="unknown", diagnostics=(), categories=None):
+    try:
+        observations = list(observations)
+        if diagnostics:
+            raise ValueError("; ".join(diagnostics))
+        if categories is not None and "PII" not in categories:
+            raise ValueError("PII predictions were not requested")
+        texts = {}
+        gold = []
+        predictions = []
+        originals = {}
+        for row, predicted in observations:
+            unit = ("unspecified", row.row_id, "dataset")
+            if unit in texts:
+                raise ValueError("duplicate row identity in selected slice")
+            texts[unit] = row.source_text
+            for mask in row.masks:
+                if not getattr(mask, "offsets_valid", True) or row.source_text[mask.start : mask.end] != mask.value:
+                    raise ValueError(f"{row.row_id}: invalid gold offsets/text")
+                gold.append(Span(unit, mask.start, mask.end, "PII", "mask"))
+                originals[(unit, mask.start, mask.end)] = mask.label
+            predictions.extend(Span(unit, p.start, p.end, "PII", "mask") for p in predicted if p.category == "PII")
+        scores = occurrence_scores(gold, predictions, texts=texts, coverage={u: annotation_coverage for u in texts})
+        for mode in ("exact", "overlap"):
+            if mode not in scores:
+                continue
+            matched = {(tuple(m["unit"]), m["start"], m["end"]) for m in scores[mode]["matched_gold"]}
+            scores[mode]["by_upstream_label"] = {}
+            for label in sorted(set(originals.values())):
+                subset = {k for k, v in originals.items() if v == label}
+                hits = len(matched & subset)
+                scores[mode]["by_upstream_label"][label] = {
+                    "gold": len(subset),
+                    "matched": hits,
+                    "labeled_span_recall": hits / len(subset),
+                    "precision": None,
+                    "reason": "no approved classifier-to-upstream label crosswalk",
+                }
+        return {
+            "schema_version": "junas.ai4privacy_occurrence.v1",
+            "status": scores["status"],
+            "scores": scores,
+            "documents": [{"id": r.row_id, "text_sha256": input_identity(r.source_text)} for r, _ in observations],
+            "annotation_origin": "external synthetic labels; independent human annotation not established",
+            "annotation_coverage": annotation_coverage,
+            "coverage_basis": "caller declaration; no exhaustiveness inferred",
+            "target": "binary masking vs PII findings; one-to-one per row; no entity-type crosswalk",
+            "split": "unspecified; fixture/locale proxy is not a protected evaluation split",
+            "holdout_status": "not established",
+        }
+    except (ValueError, TypeError, AttributeError) as exc:
+        return {"schema_version": "junas.ai4privacy_occurrence.v1", "status": "unavailable", "reason": str(exc)}
 
 
 def _load_manifest(path: Path) -> dict[str, Any]:
@@ -286,12 +360,19 @@ def evaluate_ai4privacy(
     review_profile: str = "strict",
     match_mode: str = "overlap",
     categories: set[str] | None = {"PII"},
+    annotation_coverage: str = "unknown",
 ) -> dict[str, Any]:
+    if max_rows_per_slice is not None and (type(max_rows_per_slice) is not int or max_rows_per_slice < 0):
+        raise ValueError("slice limit must be a nonnegative integer")
     definitions = [SLICE_DEFINITIONS[name] for name in (slice_names or list(SLICE_DEFINITIONS))]
     selected = collect_slice_rows(iter_ai4privacy_rows(fixture), definitions, max_rows_per_slice=max_rows_per_slice)
+    if len({d.name for d in definitions}) != len(definitions):
+        raise ValueError("duplicate requested slice")
     engine = engine_factory()
     slices: dict[str, Any] = {}
+    occurrences = {}
     for definition in definitions:
+        corrected: dict[str, Any] = {}
         score = score_slice(
             selected[definition.name],
             engine=engine,
@@ -299,7 +380,10 @@ def evaluate_ai4privacy(
             source_jurisdiction=definition.source_jurisdiction,
             match_mode=match_mode,
             categories=categories,
+            occurrence_output=corrected,
+            annotation_coverage=annotation_coverage,
         )
+        occurrences[definition.name] = corrected
         slices[definition.name] = {
             **asdict(score),
             "source_jurisdiction": definition.source_jurisdiction,
@@ -309,6 +393,21 @@ def evaluate_ai4privacy(
         }
     return {
         "schema_version": SCHEMA_VERSION,
+        "legacy_metric_contract": "slice_results retain many-to-one gold coverage recall; no precision was measured",
+        "occurrence_v1": occurrences,
+        "input_identity_v1": {
+            "fixture_sha256": file_sha256(fixture),
+            "manifest_sha256": file_sha256(manifest_path) if manifest_path.is_file() else None,
+            "prediction_origin": "bundled_engine"
+            if engine_factory is _default_engine_factory
+            else "caller_supplied_engine; not fingerprinted",
+        },
+        "reproducibility_v1": reproducibility(Path(__file__)),
+        "cross_slice_duplicate_row_ids": sorted(
+            set.intersection(*(set(r.row_id for r in selected[d.name]) for d in definitions))
+        )
+        if len(definitions) > 1
+        else [],
         "source": {
             "name": DATASET_ID,
             "url": DATASET_URL,
@@ -342,6 +441,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--max-rows-per-slice", type=int, default=0, help="0 means full selected slice")
     parser.add_argument("--profile", choices=("strict", "audit_grade"), default="strict")
     parser.add_argument("--match-mode", choices=("exact", "overlap"), default="overlap")
+    parser.add_argument(
+        "--annotation-coverage",
+        choices=("unknown", "partial", "exhaustive"),
+        default="unknown",
+        help="Declaration for corrected target metrics only; does not certify annotation independence",
+    )
     parser.add_argument("--categories", nargs="+", default=["PII"], help="Finding categories to score; use ALL for all")
     args = parser.parse_args(argv)
 
@@ -361,13 +466,14 @@ def main(argv: list[str] | None = None) -> int:
         review_profile=args.profile,
         match_mode=args.match_mode,
         categories=_parse_categories(args.categories),
+        annotation_coverage=args.annotation_coverage,
     )
     output = args.output if args.output.is_absolute() else REPO_ROOT / args.output
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     for name, result in report["slice_results"].items():
         print(
-            f"{name} recall={result['recall']:.6f} "
+            f"{name} legacy gold-coverage recall={result['recall']:.6f} "
             f"matched={result['matched_spans']} gold={result['gold_spans']} docs={result['documents']}"
         )
     print(output)

@@ -142,10 +142,12 @@ def is_detector_derived_provenance(text: str) -> bool:
 
 
 def label_item_has_detector_provenance(item: dict[str, Any]) -> bool:
+    """Historical item marker filter; absence does not establish independence."""
     return is_detector_derived_provenance(str(item.get("reason") or ""))
 
 
 def labels_have_detector_source(labels: dict[str, Any]) -> bool:
+    """Historical source-string filter retained for locks and provenance sidecars."""
     return is_detector_derived_provenance(str(labels.get("_label_source") or ""))
 
 
@@ -220,32 +222,57 @@ def approved_reviewed_at(labels: dict[str, Any]) -> str:
 def assess_annotation_provenance(labels: dict[str, Any], item: dict[str, Any] | None = None) -> dict[str, Any]:
     """Conservative v1 audit; historical exclusion filters above remain unchanged."""
     item = item or {}
-    metadata = {key:value for key,value in labels.items() if key.startswith('_')}
-    evidence = json.dumps({'metadata':metadata,'item':item}, sort_keys=True).lower()
+    metadata = {key: value for key, value in labels.items() if key.startswith("_")}
+    item_metadata = {
+        key: value
+        for key, value in item.items()
+        if key in {"reason", "annotation_provenance", "provenance", "label_source", "label_model"}
+    }
+    evidence = json.dumps({"metadata": metadata, "item": item_metadata}, sort_keys=True).lower()
     categories: set[str] = set()
-    reconciled = any('reconcil' in key or 'strict_realign' in key for key in metadata)
-    reconciled |= bool(re.search(r'detector.aligned|detector.reconcil|runtime.*reconcil', evidence))
+    reconciled = any("reconcil" in key or "strict_realign" in key or key == "_strict_label_cleanup" for key in metadata)
+    reconciled |= bool(re.search(r"detector.aligned|detector.reconcil|runtime.*reconcil", evidence))
     derived = is_detector_derived_provenance(evidence)
     if reconciled:
-        categories.add('reconciled_against_detector_output')
+        categories.add("reconciled_against_detector_output")
     if derived:
-        categories.add('detector_derived')
-    model = bool(labels.get('_label_model')) or bool(re.search(r'auto.label|llm|gpt|model.generated', evidence))
+        categories.add("detector_derived")
+    model_name = str(labels.get("_label_model") or "").strip().lower()
+    origin_evidence = json.dumps(
+        {key: labels.get(key) for key in ("_label_model", "_label_source", "_label_note")}, sort_keys=True
+    ).lower()
+    model = model_name not in {"", "none", "manual", "human", "n/a"} or bool(
+        re.search(r"auto.label|gpt|model.generated", origin_evidence)
+    )
     if model:
-        categories.add('model_derived')
+        categories.add("model_derived")
         if is_human_approved(labels):
-            categories.add('human_reviewed_model_proposals')
-    if labels.get('_generation_note') or model or 'synthetic' in str(labels.get('_label_source','')).lower():
-        categories.add('synthetic_generated_labels')
-    protocol = item.get('annotation_provenance', labels.get('_annotation_provenance',{}))
-    declared = isinstance(protocol,dict) and protocol.get('origin') == 'independent_human' and (
-        protocol.get('blinded_to_detector') is True and bool(protocol.get('author')) and bool(protocol.get('protocol_id')))
+            categories.add("human_reviewed_model_proposals")
+    if labels.get("_generation_note") or model or "synthetic" in str(labels.get("_label_source", "")).lower():
+        categories.add("synthetic_generated_labels")
+    protocol = item.get("annotation_provenance", labels.get("_annotation_provenance", {}))
+    declared = (
+        isinstance(protocol, dict)
+        and protocol.get("origin") == "independent_human"
+        and (
+            protocol.get("blinded_to_detector") is True
+            and bool(protocol.get("author"))
+            and bool(protocol.get("protocol_id"))
+        )
+    )
     if declared:
-        categories.add('declared_independent_human_annotations')
+        categories.add("declared_independent_human_annotations")
     if not categories:
-        categories.add('unknown_or_insufficient')
-    return {'schema_version':'junas.annotation_provenance.v1','categories':sorted(categories),
-            'human_review_recorded':is_human_approved(labels),
-            'independence_status':'declared_not_verified' if declared and not (model or derived or reconciled)
-                                  else 'not_established',
-            'note':'Metadata declarations are not independent verification; reconciliation markers apply file-wide.'}
+        categories.add("unknown_or_insufficient")
+    return {
+        "schema_version": "junas.annotation_provenance.v1",
+        "categories": sorted(categories),
+        "human_review_recorded": is_human_approved(labels),
+        "independence_status": "declared_not_verified"
+        if declared and not (model or derived or reconciled)
+        else "not_established",
+        "note": "Metadata declarations are not independent verification; reconciliation markers apply file-wide.",
+        "classification_basis": (
+            "Recorded metadata, not authenticated authorship or item-by-item derivation reconstruction."
+        ),
+    }

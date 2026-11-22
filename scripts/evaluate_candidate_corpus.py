@@ -22,13 +22,13 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 from junas.review.engine import PreSendReviewEngine  # noqa: E402
-from scripts.span_metrics import aggregate_internal_audits, internal_annotation_audit
 from scripts.candidate_review import (  # noqa: E402
     collect_detector_provenance_violations,
     collect_review_status_violations,
     label_item_has_detector_provenance,
     labels_have_detector_source,
 )
+from scripts.span_metrics import aggregate_internal_audits, internal_annotation_audit  # noqa: E402
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 LOCK_NAME = "candidate_recall.lock.json"
@@ -549,7 +549,10 @@ def main(argv: list[str] | None = None) -> int:
         "review_profile": args.profile,
         "summary": _summary(reports),
         "annotation_audit_v1": aggregate_internal_audits(r.annotation_audit_v1 for r in reports),
-        "metric_contract": "Legacy rule/text agreement, including historical provenance-exclusion fields; not independently established accuracy.",
+        "metric_contract": (
+            "Legacy rule/text agreement, including historical provenance-exclusion fields; "
+            "not independently established accuracy."
+        ),
         "documents": [report.__dict__ for report in reports],
         "note": "candidate report only; do not update recall locks without human review.",
     }

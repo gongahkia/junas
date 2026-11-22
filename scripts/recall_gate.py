@@ -209,7 +209,11 @@ def _resolve_actor() -> str:
     try:
         out = subprocess.run(
             ["git", "config", "--get", "user.email"],
-            capture_output=True, text=True, cwd=REPO_ROOT, timeout=5, check=False,
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            timeout=5,
+            check=False,
         )
         if out.returncode == 0 and out.stdout.strip():
             return out.stdout.strip()
@@ -222,7 +226,11 @@ def _resolve_commit_sha() -> str:
     try:
         out = subprocess.run(
             ["git", "rev-parse", "HEAD"],
-            capture_output=True, text=True, cwd=REPO_ROOT, timeout=5, check=False,
+            capture_output=True,
+            text=True,
+            cwd=REPO_ROOT,
+            timeout=5,
+            check=False,
         )
         if out.returncode == 0:
             return out.stdout.strip()
@@ -274,9 +282,7 @@ def _compare(current: dict[str, float], baseline: dict[str, float], *, label: st
     for rule, baseline_value in baseline.items():
         current_value = current.get(rule, 0.0)
         if current_value + REGRESSION_TOLERANCE < baseline_value:
-            regressions.append(
-                f"{label}/{rule}: regressed {baseline_value:.4f} -> {current_value:.4f}"
-            )
+            regressions.append(f"{label}/{rule}: regressed {baseline_value:.4f} -> {current_value:.4f}")
     return regressions
 
 
@@ -352,7 +358,12 @@ def main(argv: list[str] | None = None) -> int:
     independent_recall = _aggregate_independent_recall(docs)
     current_precision = _aggregate_precision(docs)
 
-    print("Legacy rule/text regression metrics; precision charges explicit hard negatives only; independence is not established.")
+    print(
+        (
+            "Legacy rule/text regression metrics; precision charges explicit hard negatives only; "
+            "independence is not established."
+        )
+    )
     print("per-rule recall:")
     for rule in sorted(current_recall):
         print(f"  {rule}: {current_recall[rule]:.4f}")
@@ -367,7 +378,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.update:
         if not args.reason.strip():
             print(
-                "--update requires --reason \"<one-line attribution>\" so auditors can reconstruct"
+                '--update requires --reason "<one-line attribution>" so auditors can reconstruct'
                 " why the baseline moved",
                 file=sys.stderr,
             )

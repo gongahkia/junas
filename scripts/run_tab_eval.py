@@ -19,7 +19,7 @@ if str(REPO_ROOT) not in sys.path:
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from scripts.span_metrics import Span, input_identity, occurrence_scores, reproducibility  # noqa: E402
+from scripts.span_metrics import Span, file_sha256, input_identity, occurrence_scores, reproducibility  # noqa: E402
 
 DEFAULT_TAB_DIR = REPO_ROOT / "test" / "fixtures" / "external" / "text-anonymization-benchmark"
 DEFAULT_OUTPUT = REPO_ROOT / "reports" / "tab-eval" / "tab_eval.json"
@@ -219,7 +219,9 @@ def run_junas_predictions(
                 if diagnostics is not None:
                     diagnostics.append(f"{doc.doc_id}: invalid prediction offsets omitted by legacy scoring")
                 continue
-            if diagnostics is not None and (type(getattr(finding, "start_char")) is not int or type(getattr(finding, "end_char")) is not int):
+            if diagnostics is not None and (
+                type(getattr(finding, "start_char")) is not int or type(getattr(finding, "end_char")) is not int
+            ):
                 diagnostics.append(f"{doc.doc_id}: non-integer prediction offsets")
             predictions.append(
                 PredictedSpan(
@@ -230,7 +232,7 @@ def run_junas_predictions(
                     category=category,
                     rule=str(getattr(finding, "rule", "")),
                     severity=str(getattr(finding, "severity", "")),
-                    split=doc.file_split or doc.split,
+                    split=getattr(doc, "file_split", "") or doc.split,
                 )
             )
     return predictions
@@ -347,9 +349,12 @@ def _git_commit(path: Path) -> str:
     return result.stdout.strip() if result.returncode == 0 else ""
 
 
-def corrected_tab_measurements(docs, gold, predictions, *, annotation_coverage="unknown", diagnostics=(), categories=None):
+def corrected_tab_measurements(
+    docs, gold, predictions, *, annotation_coverage="unknown", diagnostics=(), categories=None
+):
     """Binary masking agreement, separately per physical split and annotator."""
     try:
+        docs, gold, predictions = list(docs), list(gold), list(predictions)
         if diagnostics:
             raise ValueError("; ".join(diagnostics))
         if categories is not None and "PII" not in categories:
@@ -366,18 +371,24 @@ def corrected_tab_measurements(docs, gold, predictions, *, annotation_coverage="
             for annotation in doc.annotations.values():
                 for mention in annotation.get("entity_mentions", []):
                     if mention.get("identifier_type") in MASKED_IDENTIFIER_TYPES and (
-                        type(mention.get("start_offset")) is not int or type(mention.get("end_offset")) is not int):
+                        type(mention.get("start_offset")) is not int or type(mention.get("end_offset")) is not int
+                    ):
                         raise ValueError("gold offsets must be integers")
         by_split = {}
         for split in sorted({key[0] for key in lookup}):
-            texts = {(split, doc.doc_id, str(a)): doc.text for key, doc in lookup.items() if key[0] == split for a in doc.annotations}
+            texts = {
+                (split, doc.doc_id, str(a)): doc.text
+                for key, doc in lookup.items()
+                if key[0] == split
+                for a in doc.annotations
+            }
             g = []
             original = {}
             for item in gold:
                 if item.split != split:
                     continue
                 doc = lookup[(split, item.doc_id)]
-                if doc.text[item.start:item.end] != item.text:
+                if doc.text[item.start : item.end] != item.text:
                     raise ValueError(f"{item.doc_id}: gold span text does not match offsets")
                 unit = (split, item.doc_id, item.annotator)
                 g.append(Span(unit, item.start, item.end, "PII", "mask"))
@@ -391,39 +402,58 @@ def corrected_tab_measurements(docs, gold, predictions, *, annotation_coverage="
                 if assigned != split or item.category != "PII":
                     continue
                 doc = lookup[(split, item.doc_id)]
-                if doc.text[item.start:item.end] != item.text:
+                if doc.text[item.start : item.end] != item.text:
                     raise ValueError(f"{item.doc_id}: prediction text does not match offsets")
                 if not doc.annotations:
                     raise ValueError(f"{item.doc_id}: no annotator coverage is recorded")
                 for a in doc.annotations:
-                    p.append(Span((split,item.doc_id,str(a)), item.start,item.end,"PII","mask"))
-            if any(not doc.annotations for key,doc in lookup.items() if key[0] == split):
+                    p.append(Span((split, item.doc_id, str(a)), item.start, item.end, "PII", "mask"))
+            if any(not doc.annotations for key, doc in lookup.items() if key[0] == split):
                 raise ValueError("documents without annotations are not exhaustive negatives")
-            scores = occurrence_scores(g,p,texts=texts,coverage={u:annotation_coverage for u in texts})
-            for mode in ("exact","overlap"):
+            scores = occurrence_scores(g, p, texts=texts, coverage={u: annotation_coverage for u in texts})
+            for mode in ("exact", "overlap"):
                 if mode not in scores:
                     continue
-                matched = {(tuple(m["unit"]),m["start"],m["end"]) for m in scores[mode]["matched_gold"]}
-                for key in ("entity_type","identifier_type"):
+                matched = {(tuple(m["unit"]), m["start"], m["end"]) for m in scores[mode]["matched_gold"]}
+                for key in ("entity_type", "identifier_type"):
                     groups = {}
-                    for value in sorted({getattr(item,key) for item in original.values()}):
-                        subset = {identity for identity,item in original.items() if getattr(item,key) == value}
+                    for value in sorted({getattr(item, key) for item in original.values()}):
+                        subset = {identity for identity, item in original.items() if getattr(item, key) == value}
                         hits = len(subset & matched)
-                        groups[value] = {"gold":len(subset),"matched":hits,"labeled_span_recall":hits/len(subset),
-                            "precision":None,"reason":"no approved prediction-to-gold subtype crosswalk; global assignment retained"}
-                    scores[mode]["by_"+key] = groups
-            by_split[split] = {"documents":[{"id":doc.doc_id,"text_sha256":input_identity(doc.text)} for key,doc in sorted(lookup.items()) if key[0] == split],"scores":scores}
+                        groups[value] = {
+                            "gold": len(subset),
+                            "matched": hits,
+                            "labeled_span_recall": hits / len(subset),
+                            "precision": None,
+                            "reason": "no approved prediction-to-gold subtype crosswalk; global assignment retained",
+                        }
+                    scores[mode]["by_" + key] = groups
+            by_split[split] = {
+                "documents": [
+                    {"id": doc.doc_id, "text_sha256": input_identity(doc.text)}
+                    for key, doc in sorted(lookup.items())
+                    if key[0] == split
+                ],
+                "scores": scores,
+            }
         identities = defaultdict(set)
-        for (split,_),doc in lookup.items():
+        for (split, _), doc in lookup.items():
             identities[input_identity(doc.text)].add(split)
-        return {"schema_version":"junas.tab_occurrence.v1","status":"available" if by_split else "unavailable",
-            "target":"binary DIRECT/QUASI masking vs PII predictions; upstream entity types are not classifier rule labels",
-            "annotation_coverage":annotation_coverage,"coverage_basis":"caller declaration, not inferred from missing labels",
-            "annotator_policy":"predictions replicated per annotator; no consensus gold invented",
-            "by_split":by_split,"holdout_status":"not established; split names alone do not prove protection from tuning",
-            "cross_split_duplicate_text_hashes":sorted(k for k,v in identities.items() if len(v)>1)}
+        return {
+            "schema_version": "junas.tab_occurrence.v1",
+            "status": "available" if by_split else "unavailable",
+            "target": (
+                "binary DIRECT/QUASI masking vs PII predictions; upstream entity types are not classifier rule labels"
+            ),
+            "annotation_coverage": annotation_coverage,
+            "coverage_basis": "caller declaration, not inferred from missing labels",
+            "annotator_policy": "predictions replicated per annotator; no consensus gold invented",
+            "by_split": by_split,
+            "holdout_status": "not established; split names alone do not prove protection from tuning",
+            "cross_split_duplicate_text_hashes": sorted(k for k, v in identities.items() if len(v) > 1),
+        }
     except (ValueError, KeyError, TypeError, AttributeError) as exc:
-        return {"schema_version":"junas.tab_occurrence.v1","status":"unavailable","reason":str(exc)}
+        return {"schema_version": "junas.tab_occurrence.v1", "status": "unavailable", "reason": str(exc)}
 
 
 def build_report(
@@ -446,8 +476,18 @@ def build_report(
     doc_ids = {doc.doc_id for doc in docs}
     return {
         "schema_version": SCHEMA_VERSION,
-        "legacy_metric_contract": "summary/subgroups retain historical greedy binary matching; subgroup precision includes out-of-subgroup predictions",
-        "occurrence_v1": corrected_tab_measurements(docs, gold_spans, predictions, annotation_coverage=annotation_coverage, diagnostics=prediction_diagnostics or [], categories=categories),
+        "legacy_metric_contract": (
+            "summary/subgroups retain historical greedy binary matching; "
+            "subgroup precision includes out-of-subgroup predictions"
+        ),
+        "occurrence_v1": corrected_tab_measurements(
+            docs,
+            gold_spans,
+            predictions,
+            annotation_coverage=annotation_coverage,
+            diagnostics=prediction_diagnostics or [],
+            categories=categories,
+        ),
         "reproducibility_v1": reproducibility(Path(__file__)),
         "source": {
             "name": "Text Anonymization Benchmark",
@@ -518,6 +558,8 @@ def evaluate_tab(
         raise ValueError("duplicate requested TAB splits")
     docs = load_tab_documents(tab_dir, splits)
     if limit is not None:
+        if type(limit) is not int or limit < 0:
+            raise ValueError("TAB limit must be a nonnegative integer")
         docs = docs[:limit]
     gold_spans, warnings = extract_gold_spans(docs)
     prediction_diagnostics: list[str] = []
@@ -531,7 +573,7 @@ def evaluate_tab(
         diagnostics=prediction_diagnostics,
     )
     score = score_spans(docs, gold_spans, predictions, match_mode=match_mode)
-    return build_report(
+    report = build_report(
         tab_dir=tab_dir,
         docs=docs,
         gold_spans=gold_spans,
@@ -547,6 +589,15 @@ def evaluate_tab(
         annotation_coverage=annotation_coverage,
         prediction_diagnostics=prediction_diagnostics,
     )
+    report["occurrence_v1"]["requested_splits"] = splits
+    report["occurrence_v1"]["limit"] = limit
+    report["occurrence_v1"]["prediction_origin"] = (
+        "bundled_engine" if engine_factory is _default_engine_factory else "caller_supplied_engine; not fingerprinted"
+    )
+    report["occurrence_v1"]["input_file_sha256"] = {
+        split: file_sha256(tab_dir / TAB_SPLIT_FILES[split]) for split in splits
+    }
+    return report
 
 
 def _parse_categories(values: list[str]) -> set[str] | None:
@@ -566,7 +617,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--source-jurisdiction", default="EU")
     parser.add_argument("--destination-jurisdiction", default="EU")
     parser.add_argument("--categories", nargs="+", default=["PII"], help="Finding categories to score; use ALL for all")
-    parser.add_argument("--annotation-coverage", choices=("unknown","partial","exhaustive"), default="unknown", help="Declaration for corrected target metrics only; does not establish independence")
+    parser.add_argument(
+        "--annotation-coverage",
+        choices=("unknown", "partial", "exhaustive"),
+        default="unknown",
+        help="Declaration for corrected target metrics only; does not establish independence",
+    )
     parser.add_argument("--limit", type=int, help="Evaluate only the first N TAB docs")
     args = parser.parse_args(argv)
 

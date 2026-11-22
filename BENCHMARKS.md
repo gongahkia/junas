@@ -54,3 +54,9 @@ Use the detailed candidate report and miss-bucketing tools to select the next de
 Text detection, native-document extraction and OCR require separate evaluations. Unit tests for hidden Office content, PDF annotations, recursive attachments, image coordinates and OCR failures remain in `test/`. Text-corpus recall does not measure their accuracy. The old HTTP/rewrite performance harness was removed with the product stack.
 
 See [the baseline](docs/baseline.md) and [limitations](docs/known-limitations.md).
+
+## T3A versioned measurement contract
+
+Legacy summaries and regression locks retain their historical definitions. In particular, gate precision charges explicit `must_not_detect` challenges only, and historical independence fields are provenance-marker exclusion calculations rather than proof of blind annotation.
+
+New `annotation_audit_v1` and `occurrence_v1` outputs distinguish provenance, occurrence identity, one-to-one exact/overlap matching, physical splits and declared annotation completeness. Precision is unavailable when exhaustive target annotation is not established; a caller declaration does not certify ground truth. See [the metric definitions and holdout requirements](docs/evaluation-metrics.md). Use explicit new output paths to preserve historical reports. Current internal rule/text labels are not upgraded into occurrence ground truth.
