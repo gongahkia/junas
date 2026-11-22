@@ -8,6 +8,7 @@ from typing import Any
 
 from junas.review.contextual_identifiers import identifier_fields
 from junas.review.contextual_mnpi import contextual_mnpi
+from junas.review.contextual_people import person_names
 
 TARGET_VERSION = "junas.sensitivity.v1"
 PII_RULE_MAP = {
@@ -41,18 +42,11 @@ def evidence(text: str, start: int, end: int, label: str, rule: str, reason: str
     return dict(start_char=start, end_char=end, matched_text=text[start:end], label=label, rule=rule, reason=reason)
 
 
-NAME_TOKEN = r"[^\W\d_][^\W\d_]*(?:[’'-][^\W\d_]+)*"
-NAME_VALUE = rf"{NAME_TOKEN}(?:[ \t]+{NAME_TOKEN}){{0,4}}"
-NAME_CONTEXT = re.compile(
-    r"(?i:\b(?:name|client name|account holder|contact person|employee name|patient name|"
-    r"from|to)\s*:\s*|\b(?:Mr|Mrs|Ms|Dr)\.?[ \t]+|\b(?:company secretary|counsel|"
-    r"employee|patient|customer|client)[ \t]+)" + rf"(?P<value>{NAME_VALUE})"
-)
-ORG_WORDS = re.compile(r"\b(?:Ltd|Limited|Pte|Corp|Inc|LLC|Holdings|Group|Services|Team|Department)\b", re.I)
 RECORD_CONTEXT = re.compile(
     r"(?i:\b(?:staff|employee|patient|medical record|insurance member|individual verification|"
-    r"contact record|internal contact|personal record|client reference|customer reference)"
-    r"\s*(?:ID|number|no\.?|reference)?\s*[:#]?[ \t]+)(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
+    r"contact record|internal contact|personal record|client reference|customer reference|"
+    r"intake|holder|register|portal|secretariat|shareholder|collection|client|customer|staff ref\.?|identity document)"
+    r"\s*(?:ID|number|no\.?|reference|ref\.?)?\s*(?:as|is|:|\#)?[ \t]+)(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
 )
 DOB_CONTEXT = re.compile(
     r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*[:=]?[ \t]+)"
@@ -81,22 +75,7 @@ def personal_context(text: str, start: int, end: int) -> bool:
 
 def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dict]]:
     spans, excluded = identifier_fields(text), []
-    for match in NAME_CONTEXT.finditer(text):
-        # lower-case prose terminates a name; organization suffixes reject the whole candidate.
-        raw = match.group("value")
-        if ORG_WORDS.search(raw):
-            continue
-        tokens = list(re.finditer(NAME_TOKEN, raw))
-        selected = []
-        for token in tokens:
-            if not token.group()[0].isupper():
-                break
-            selected.append(token)
-        if selected:
-            start, end = match.start("value"), match.start("value") + selected[-1].end()
-            spans.append(
-                evidence(text, start, end, "PERSON_NAME", "contextual_person_name", "explicit personal-name context")
-            )
+    spans.extend(person_names(text))
     for pattern, label, rule in (
         (RECORD_CONTEXT, "PERSONAL_RECORD_ID", "contextual_personal_record"),
         (DOB_CONTEXT, "DATE_OF_BIRTH", "contextual_birth_date"),
@@ -108,6 +87,21 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
             if label == "PERSONAL_RECORD_ID" and not any(c.isdigit() for c in value):
                 continue
             spans.append(evidence(text, *match.span("value"), label, rule, "explicit person-linked field"))
+    if re.search(r"\b(?:individual|private)[- ]client\b|\bclient capacity\s*:|\bretail shareholder\b", text, re.I):
+        header = text.split("\n\n", 1)[0]
+        for m in re.finditer(
+            r"\b(?:Ref\.?|File|Matter)\s*[:#]?\s+(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)+)\b", header, re.I
+        ):
+            if any(c.isdigit() for c in m.group("value")):
+                spans.append(
+                    evidence(
+                        text,
+                        *m.span("value"),
+                        "PERSONAL_RECORD_ID",
+                        "contextual_client_file",
+                        "individual-client case reference",
+                    )
+                )
     mapping = {rule: label for label, rules in PII_RULE_MAP.items() for rule in rules}
     for finding in findings:
         if finding.category != "PII" or finding.rule not in mapping:

@@ -122,3 +122,37 @@ def test_mnpi_does_not_join_different_issuers_or_unrelated_private_claims():
         "Cedar Vale Ltd. has a material acquisition. The employee rota has not been publicly disclosed.",
     ]:
         assert review(text).sensitivity["mnpi"]["state"] != "present"
+
+
+def test_prose_person_names_shortened_references_and_personal_record_aliases():
+    text = (
+        "Director Amira Vale Wen (portal ID DIR-ZZ-591; amira.vale@example.test) requested paper copies. "
+        "Amira’s reply named Theo Marsh (staff ref. ZZ-832). Ms Vale requested a receipt. "
+        "The client record names “Amira Vale”."
+    )
+    pii = review(text).sensitivity["pii"]["evidence"]
+    assert {"Amira Vale Wen", "Theo Marsh", "Amira", "Vale", "Amira Vale"} <= {
+        s["matched_text"] for s in pii if s["label"] == "PERSON_NAME"
+    }
+    assert {"DIR-ZZ-591", "ZZ-832"} <= {s["matched_text"] for s in pii if s["label"] == "PERSONAL_RECORD_ID"}
+    assert all(text[s["start_char"] : s["end_char"]] == s["matched_text"] for s in pii)
+
+
+def test_unlabelled_name_anchored_by_person_action_and_government_field():
+    text = "Nalini Moss Wen (NRIC: T1234567A) requested an account update. She confirmed the spelling."
+    assert any(
+        s["matched_text"] == "Nalini Moss Wen" and s["label"] == "PERSON_NAME"
+        for s in review(text).sensitivity["pii"]["evidence"]
+    )
+
+
+def test_client_case_reference_requires_individual_linkage():
+    positive = "Individual client intake | Matter ZQ-108. Client capacity: prospective investor."
+    negative = "Corporate board memorandum | Matter ZQ-108. General governance enquiries only."
+    assert any(s["matched_text"] == "ZQ-108" for s in review(positive).sensitivity["pii"]["evidence"])
+    assert not any(s["matched_text"] == "ZQ-108" for s in review(negative).sensitivity["pii"]["evidence"])
+
+
+def test_capitalized_organization_titles_and_city_are_not_person_names():
+    text = "Company name: Cedar Vale Systems Ltd.\nFrom: Singapore Corporate Secretariat\nGeneral Board Memorandum"
+    assert not any(s["label"] == "PERSON_NAME" for s in review(text).sensitivity["pii"]["evidence"])
