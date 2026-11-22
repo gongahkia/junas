@@ -697,6 +697,7 @@ def evaluate_records(records: list[dict]) -> dict:
     engine = PreSendReviewEngine()
     gold: list[Span] = []
     predictions: list[Span] = []
+    contextual_predictions: list[Span] = []
     texts: dict[tuple[str, str, str], str] = {}
     coverage: dict[tuple[str, str, str], str] = {}
     unmapped: dict[str, int] = {}
@@ -719,6 +720,10 @@ def evaluate_records(records: list[dict]) -> dict:
             destination_jurisdiction="SG",
             entity_id=None,
             include_suggestions=False,
+        )
+        contextual_predictions.extend(
+            Span(unit, s["start_char"], s["end_char"], "PII", s["label"])
+            for s in result.sensitivity["pii"].get("evidence", [])
         )
         for category in document_counts:
             expected = record["consensus"]["document_labels"][category]["state"]
@@ -753,6 +758,9 @@ def evaluate_records(records: list[dict]) -> dict:
         "interpretation": "agreement with model-consensus supplied positives; not independent detection accuracy",
         "selection": "quota-accepted documents with resolved two-of-three document labels; raw challenges retained",
         "pii": occurrence_scores(gold, predictions, texts=texts, coverage=coverage, categories={"PII"}),
+        "contextual_pii": occurrence_scores(
+            gold, contextual_predictions, texts=texts, coverage=coverage, categories={"PII"}
+        ),
         "unmapped_pii_predictions": unmapped,
         "contextual_document_presence": {"counts": contextual_counts, "absence_verified": False},
         "document_presence": {
