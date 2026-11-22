@@ -11,7 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT), str(ROOT / "src")]
 
-from scripts.corpus_partitions import validate_partition_records  # noqa: E402
+from scripts.corpus_partitions import (  # noqa: E402
+    check_exclusions,
+    validate_exclusion_registry,
+    validate_partition_records,
+)
 from scripts.model_corpus import (  # noqa: E402
     consensus,
     entity_coverage,
@@ -30,7 +34,7 @@ def read_records(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
-def release_holdout(run_dir: Path, development: list[dict], output: Path) -> dict:
+def release_holdout(run_dir: Path, development: list[dict], output: Path, *, exclusions: dict | None = None) -> dict:
     require(not output.exists(), "report destination already exists")
     manifest = json.loads((run_dir / "manifest.json").read_text())
     require(manifest.get("sampling", {}).get("split") == "holdout", "not a reserved holdout run")
@@ -38,7 +42,7 @@ def release_holdout(run_dir: Path, development: list[dict], output: Path) -> dic
     require(bool(records) and all(r.get("split") == "holdout" for r in records), "mixed or empty holdout partition")
     ready = [r for r in records if r.get("accepted") and r.get("status") == "completed"]
     require(bool(ready), "no resolved holdout reference records")
-    require(bool(development), "development exclusion sources required")
+    require(bool(development) or exclusions is not None, "development exclusion sources required")
     config = manifest["config"]
     require(manifest["config_sha256"] == identity(config), "holdout configuration mismatch")
     require(
@@ -52,7 +56,14 @@ def release_holdout(run_dir: Path, development: list[dict], output: Path) -> dic
         for annotation in annotations:
             validate_annotations(annotation["output"], record["text"])
         require(record["consensus"] == consensus([a["output"] for a in annotations]), "holdout consensus mismatch")
-    validate_partition_records(development, [r for r in records if "text" in r])
+    sources = [r for r in records if "text" in r]
+    if exclusions is not None:
+        validate_exclusion_registry(exclusions)
+        require(identity(exclusions) == config.get("exclusion_registry_sha256"), "release exclusion registry mismatch")
+        for record in sources:
+            check_exclusions(record["text"], record["template_group"], exclusions)
+    if development:
+        validate_partition_records(development, sources)
     snapshot = reproducibility(Path(__file__))
     # consume before computing/reporting any metric; a crash leaves the release visible.
     write_new(

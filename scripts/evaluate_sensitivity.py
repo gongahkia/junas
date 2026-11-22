@@ -38,6 +38,21 @@ def scorecard(records: list[dict], targets: dict) -> dict:
             record["consensus"] == corpus.consensus([a["output"] for a in annotations]), "reference consensus mismatch"
         )
     evaluation = corpus.evaluate_records(records)
+    measurements, checks = check_targets(evaluation, targets)
+    return {
+        "schema_version": "junas.sensitivity_development.v1",
+        "passed": all(c["passed"] for c in checks.values()),
+        "reference": "development model-reference agreement after tuning; not independent accuracy",
+        "dataset_sha256": corpus.identity(records),
+        "targets": checks,
+        "measurements": measurements,
+        "evaluation": evaluation,
+        "reproducibility": reproducibility(Path(__file__)),
+    }
+
+
+def check_targets(evaluation: dict, targets: dict) -> tuple[dict, dict]:
+    """Apply fixed thresholds to an already admitted evaluation, including abstentions."""
     presence = evaluation["contextual_document_presence"]
     measurements = {}
     for category, positive_quadrants in (("pii", ("pii_only", "both")), ("mnpi", ("mnpi_only", "both"))):
@@ -70,16 +85,7 @@ def scorecard(records: list[dict], targets: dict) -> dict:
             "observed": value,
             "passed": value >= threshold if name.endswith("_min") else value <= threshold,
         }
-    return {
-        "schema_version": "junas.sensitivity_development.v1",
-        "passed": all(c["passed"] for c in checks.values()),
-        "reference": "development model-reference agreement after tuning; not independent accuracy",
-        "dataset_sha256": corpus.identity(records),
-        "targets": checks,
-        "measurements": measurements,
-        "evaluation": evaluation,
-        "reproducibility": reproducibility(Path(__file__)),
-    }
+    return measurements, checks
 
 
 def main() -> int:

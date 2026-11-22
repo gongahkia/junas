@@ -20,12 +20,23 @@ SCENARIO_GROUPS = {
     ],
 }
 
+# previous holdout families remain valid for historical replay, but are consumed.
+FRESH_HOLDOUT_GROUPS = [
+    {"id": "holdout-escrow-v2", "scenario": "fictional escrow release reconciliation note"},
+    {"id": "holdout-shareplan-v2", "scenario": "fictional employee share-plan exercise settlement instruction"},
+    {"id": "holdout-recall-v2", "scenario": "fictional listed issuer product recall briefing"},
+    {"id": "holdout-consultation-v2", "scenario": "fictional public exchange consultation digest"},
+]
+
 
 def validate_sampling(sampling: dict) -> dict:
     if not isinstance(sampling, dict) or set(sampling) != {"split", "groups"}:
         raise ValueError("sampling requires split and groups")
     split = sampling["split"]
-    if split not in SCENARIO_GROUPS or sampling["groups"] != SCENARIO_GROUPS[split]:
+    allowed = [SCENARIO_GROUPS.get(split)]
+    if split == "holdout":
+        allowed.append(FRESH_HOLDOUT_GROUPS)
+    if split not in SCENARIO_GROUPS or sampling["groups"] not in allowed:
         raise ValueError("use the reserved scenario/template groups for this partition")
     return sampling
 

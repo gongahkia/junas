@@ -1,0 +1,216 @@
+import json
+from pathlib import Path
+from unittest.mock import patch
+
+import pytest
+
+from scripts import fresh_holdout as fresh
+from scripts import model_corpus as corpus
+from scripts.corpus_partitions import (
+    FRESH_HOLDOUT_GROUPS,
+    SCENARIO_GROUPS,
+    check_exclusions,
+    exclusion_registry,
+    sampling_slot,
+)
+from scripts.corpus_report import release_holdout
+from test.test_model_corpus import QUADRANT_TEXT, config, quadrant_annotation
+
+
+def test_new_scenarios_are_disjoint_and_old_reservations_still_validate():
+    existing = {g["id"] for groups in SCENARIO_GROUPS.values() for g in groups}
+    assert not existing & {g["id"] for g in FRESH_HOLDOUT_GROUPS}
+    for groups in (SCENARIO_GROUPS["holdout"], FRESH_HOLDOUT_GROUPS):
+        sampling = {"split": "holdout", "groups": groups}
+        assert len({sampling_slot(sampling, i)["template_group"] for i in range(16)}) == 4
+    cfg = json.loads((fresh.ROOT / "config/model_corpus.holdout-v2.json").read_text())
+    corpus.validate_config(cfg)
+    assert cfg["documents"] == 40 and set(cfg["quadrant_targets"].values()) == {10}
+    assert set(cfg["entity_targets"].values()) == {3}
+    assert cfg["spending_limit"]["provider_cap_usd"] == "3"
+
+
+def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excluded(tmp_path, monkeypatch):
+    fake = tmp_path / "repo"
+    (fake / "test").mkdir(parents=True)
+    for name in ("test_sensitivity.py", "test_contextual_mnpi_scopes.py"):
+        (fake / "test" / name).write_text('TEXT = "A previous authored source, never a fresh reference."')
+    monkeypatch.setattr(fresh, "ROOT", fake)
+    monkeypatch.setattr("scripts.check_reliability.cases", lambda: [])
+    inherited = exclusion_registry([{"text": "Existing development source 1234"}])
+    prior = tmp_path / "prior"
+    prior.mkdir()
+    old_text = "Previously consumed held source about fictional records 5678"
+    corpus.write_new(
+        prior / "candidate-1.json",
+        {"text": old_text, "split": "holdout", "template_group": "old", "consensus": "never inspect labels"},
+    )
+    generated = "Rejected generated candidate, still prohibited for reuse 9988"
+    raw = {
+        "request": {"text": {"format": {"name": "generator"}}},
+        "response": {
+            "status": "completed",
+            "output": [
+                {"type": "message", "content": [{"type": "output_text", "text": json.dumps({"text": generated})}]}
+            ],
+        },
+    }
+    corpus.write_new(prior / "response-1.json", raw)
+    with (
+        patch("httpx.Client", side_effect=AssertionError("network forbidden")),
+        patch.object(corpus, "evaluate_records", side_effect=AssertionError("old sources cannot be evaluated")),
+    ):
+        registry, audit = fresh.build_exclusions(inherited, [prior])
+    assert audit["prior_candidate_sources_fingerprinted"] == 1
+    assert audit["prior_generator_responses_fingerprinted"] == 1
+    for text in (old_text, generated, "Existing development source 9876"):
+        with pytest.raises(ValueError, match="conflicts"):
+            check_exclusions(text, "fresh", registry)
+
+
+@pytest.fixture
+def bundle(tmp_path, monkeypatch):
+    # a private four-document transport fixture; production config remains forty documents.
+    fake = tmp_path / "repo"
+    fresh.snapshot(fresh.ROOT, fake)
+    cfg = config(documents=4)
+    cfg["sampling"] = {"split": "holdout", "groups": FRESH_HOLDOUT_GROUPS}
+    cfg["exclusion_registry_sha256"] = "0" * 64
+    cfg["spending_limit"] = json.loads((fresh.ROOT / "config/model_corpus.holdout-v2.json").read_text())[
+        "spending_limit"
+    ]
+    (fake / "config/model_corpus.holdout-v2.json").write_text(json.dumps(cfg))
+    baseline = tmp_path / "old"
+    fresh.snapshot(fake, baseline)
+    with (baseline / "src/junas/review/sensitivity.py").open("a") as stream:
+        stream.write("\n# distinct frozen baseline fixture\n")
+    registry = exclusion_registry(
+        [{"text": "Entirely different prior sample and reserved family", "template_group": "old"}]
+    )
+    inherited = tmp_path / "inherited.json"
+    inherited.write_text(json.dumps(registry))
+    monkeypatch.setattr(fresh, "ROOT", fake)
+    monkeypatch.setattr(fresh, "build_exclusions", lambda inherited, runs: (registry, {"test_fixture": True}))
+    target = tmp_path / "bundle"
+    with patch("httpx.Client", side_effect=AssertionError("preparation cannot use network")):
+        proposal = fresh.prepare(target, baseline, inherited, [])
+    assert proposal["paid_calls_made"] == 0 and not proposal["live_calls_authorized"]
+    assert not (target / "authorization.json").exists() and not (target / "run").exists()
+    fresh.verify_bundle(target)
+    return target
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "config.json",
+        "targets.json",
+        "exclusions.json",
+        "source/scripts/model_corpus.py",
+        "baseline/src/junas/review/sensitivity.py",
+    ],
+)
+def test_bundle_refuses_any_frozen_input_drift_before_network(bundle, name):
+    with (bundle / name).open("a") as stream:
+        stream.write(" ")
+    with patch("httpx.Client", side_effect=AssertionError("network forbidden")):
+        with pytest.raises(ValueError, match="drift"):
+            fresh.verify_bundle(bundle)
+
+
+def staged_records(bundle):
+    cfg = json.loads((bundle / "config.json").read_text())
+    run = bundle / "run"
+    run.mkdir()
+    records = []
+    for i, (q, text) in enumerate(QUADRANT_TEXT.items()):
+        raw = quadrant_annotation(q, text)
+        records.append(
+            {
+                "document_id": f"held-{i}",
+                "text": text,
+                "text_sha256": corpus.input_identity(text),
+                "split": "holdout",
+                "template_group": FRESH_HOLDOUT_GROUPS[i]["id"],
+                "accepted": True,
+                "status": "completed",
+                "annotations": [{"output": raw}] * 3,
+                "consensus": corpus.consensus([raw] * 3),
+            }
+        )
+    corpus.write_new(
+        run / "manifest.json",
+        {
+            "sampling": cfg["sampling"],
+            "config": cfg,
+            "config_sha256": corpus.identity(cfg),
+            "reproducibility": {"classifier_sha256": fresh.runtime_hash(bundle / "source")},
+        },
+    )
+    (run / "combined-records.jsonl").write_text("".join(json.dumps(r) + "\n" for r in records))
+    return records
+
+
+def test_paired_release_uses_same_records_and_consumes_before_any_metric(bundle):
+    records = staged_records(bundle)
+    original = corpus.evaluate_records
+
+    def evaluate(rows):
+        assert (bundle / "run/holdout-consumed.json").exists()
+        assert [r["text_sha256"] for r in rows] == [r["text_sha256"] for r in records]
+        return original(rows)
+
+    with patch("scripts.corpus_report.evaluate_records", side_effect=evaluate):
+        result = fresh.evaluate(bundle)
+    assert result["documents"] == 4
+    assert result["records_sha256"] == corpus.identity(records)
+    assert all(delta == 0 for delta in result["delta"].values())
+    with pytest.raises((FileExistsError, ValueError)):
+        fresh.evaluate(bundle)
+
+
+def test_release_rechecks_config_bound_fingerprints_before_consuming(bundle):
+    staged_records(bundle)
+    with pytest.raises(ValueError, match="registry mismatch"):
+        release_holdout(
+            bundle / "run", [], bundle / "result.json", exclusions=exclusion_registry([{"text": "Wrong registry"}])
+        )
+    assert not (bundle / "run/holdout-consumed.json").exists()
+
+
+def test_bad_authorization_refuses_before_loading_key_or_constructing_client(bundle):
+    bad = bundle / "not-authorized.json"
+    bad.write_text("{}")
+    with (
+        patch.object(corpus, "load_api_key", side_effect=AssertionError("must not load key")),
+        patch("httpx.Client", side_effect=AssertionError("must not construct client")),
+    ):
+        with pytest.raises(ValueError):
+            fresh.execute(bundle, bad, Path("unused.env"))
+
+
+def test_detector_environment_change_refuses_before_spending(bundle, monkeypatch):
+    monkeypatch.setenv("JUNAS_SEMANTIC_ENABLED", "changed-after-freezing")
+    with pytest.raises(ValueError, match="environment drift"):
+        fresh.verify_bundle(bundle)
+
+
+def test_budget_stop_keeps_holdout_unreleased(bundle):
+    from test.test_model_corpus import authorization
+
+    cfg = json.loads((bundle / "config.json").read_text())
+    auth = bundle / "test-authorization.json"
+    auth.write_text(json.dumps(authorization(cfg)))
+    result = {
+        "status": "stopped",
+        "stop_reason": "BudgetExhausted",
+        "accepted_documents": 0,
+        "charged_or_reserved_ceiling_usd": "0.99",
+    }
+    with (
+        patch.object(corpus, "load_api_key"),
+        patch.object(corpus, "run", return_value=result),
+        patch.object(fresh, "evaluate", side_effect=AssertionError("incomplete holdout cannot be evaluated")),
+    ):
+        assert fresh.execute(bundle, auth, Path("unused.env"))["validation_passed"] is None
+    assert not (bundle / "paired-evaluation.json").exists()
