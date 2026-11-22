@@ -102,7 +102,7 @@ def person_names(text: str) -> list[dict]:
 
     candidates = [(a, b) for a, b in candidates if not in_org(a, b)]
     starts = [m.start() for m in tokens]
-    occupied = set()
+    occupied: set[int] = set()
     for a, b in candidates + orgs:
         occupied.update(range(bisect_left(starts, a), bisect_left(starts, b)))
     aliases = set()
