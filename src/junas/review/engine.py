@@ -1272,6 +1272,7 @@ class ReviewResult:
     privacy_ledger: list[dict[str, Any]] = field(default_factory=list)
     coverage_warnings: list[dict[str, Any]] = field(default_factory=list)
     degraded_modes: list[dict[str, Any]] = field(default_factory=list)
+    sensitivity: dict[str, Any] = field(default_factory=dict)
 
 
 class ReviewLayerError(RuntimeError):
@@ -4931,6 +4932,8 @@ class PreSendReviewEngine:
         except CitationOverrideError as exc:
             raise ReviewLayerError("citation_override", f"citation override resolution failed: {exc}") from exc
 
+        from junas.review.sensitivity import sensitivity
+
         return ReviewResult(
             overall_risk=overall_risk,
             document_score=round(document_score, 3),
@@ -4945,4 +4948,5 @@ class PreSendReviewEngine:
             privacy_ledger=privacy_ledger,
             coverage_warnings=coverage_warnings,
             degraded_modes=degraded_modes,
+            sensitivity=sensitivity(text, findings),
         )

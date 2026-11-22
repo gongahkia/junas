@@ -665,7 +665,10 @@ def test_document_confusion_counts_cover_tp_fp_tn_fn_for_each_target(tmp_path):
             else ["PII", "MNPI"]
         )
         return SimpleNamespace(
-            findings=[SimpleNamespace(category=c, rule="email", start_char=0, end_char=4) for c in categories]
+            findings=[SimpleNamespace(category=c, rule="email", start_char=0, end_char=4) for c in categories],
+            sensitivity={
+                c.lower(): {"state": "present" if c in categories else "not_detected"} for c in ("PII", "MNPI")
+            },
         )
 
     with patch("junas.review.engine.PreSendReviewEngine.review", side_effect=review):

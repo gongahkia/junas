@@ -701,6 +701,7 @@ def evaluate_records(records: list[dict]) -> dict:
         q: {c: dict.fromkeys(("tp", "fp", "tn", "fn", "unknown"), 0) for c in document_counts} for q in QUADRANTS
     }
     rule_map = {rule: label for label, rules in PII_RULE_MAP.items() for rule in rules}
+    contextual_counts = {c: dict.fromkeys(("tp", "fp", "tn", "fn", "unknown"), 0) for c in document_counts}
     for record in records:
         if record["status"] != "completed" or not record["accepted"]:
             continue
@@ -725,6 +726,15 @@ def evaluate_records(records: list[dict]) -> dict:
                 if expected == "present"
                 else ("fp" if predicted else "tn")
             )
+            state = result.sensitivity[category]["state"]
+            contextual_key = (
+                "unknown"
+                if state == "unknown" or expected == "unknown"
+                else ("tp" if state == "present" else "fn")
+                if expected == "present"
+                else ("fp" if state == "present" else "tn")
+            )
+            contextual_counts[category][contextual_key] += 1
             document_counts[category][key] += 1
             by_quadrant[record["consensus"]["quadrant"]][category][key] += 1
         for finding in result.findings:
@@ -740,6 +750,7 @@ def evaluate_records(records: list[dict]) -> dict:
         "selection": "quota-accepted documents with resolved two-of-three document labels; raw challenges retained",
         "pii": occurrence_scores(gold, predictions, texts=texts, coverage=coverage, categories={"PII"}),
         "unmapped_pii_predictions": unmapped,
+        "contextual_document_presence": {"counts": contextual_counts, "absence_verified": False},
         "document_presence": {
             "counts": document_counts,
             "by_quadrant": by_quadrant,
