@@ -16,7 +16,7 @@ PRONOUN = re.compile(r"\b(?:her|his|their|she|he)\b", re.I)
 ORG_CONTACT = re.compile(
     r"\b(?:office|corporate|company|registered|firm|public|general|reception|switchboard|hotline)"
     r"(?:\s+(?:office|mailing|postal|bank|contact|telephone|phone|account|address|line|"
-    r"number|no\.?|passport|national|ID|NRIC|FIN)){0,5}\s*[:#=]?\s*$",
+    r"number|no\.?|reference|ref\.?|passport|national|ID|NRIC|FIN)){0,5}\s*[:#=]?\s*$",
     re.I,
 )
 EXAMPLE = re.compile(

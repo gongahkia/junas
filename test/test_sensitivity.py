@@ -240,3 +240,16 @@ def test_generic_editorial_roles_and_mailboxes_are_not_persons():
         "Nerali Policy Forum prepared general guidance. Comments: policy-desk@example.test."
     )
     assert review(text).sensitivity["pii"]["state"] == "not_detected"
+
+
+def test_contact_reference_is_person_linked_and_repeated_occurrences_are_retained():
+    text = (
+        "The register lists Amara Sol Mendez (contact ref. CP-Z892; amara.mendez@example.test). "
+        "The follow-up repeats CP-Z892.\nClient contact ID: CV-003-47"
+    )
+    items = review(text).sensitivity["pii"]["evidence"]
+    assert any(s["label"] == "PERSON_NAME" and s["matched_text"] == "Amara Sol Mendez" for s in items)
+    assert sum(s["matched_text"] == "CP-Z892" for s in items) == 2
+    assert any(s["label"] == "PERSONAL_RECORD_ID" and s["matched_text"] == "CV-003-47" for s in items)
+    corporate = "Company contact reference: CO-08912. Corporate contact ID: CO-01811."
+    assert review(corporate).sensitivity["pii"]["state"] == "not_detected"

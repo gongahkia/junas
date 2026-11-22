@@ -13,7 +13,8 @@ ORG_WORD = re.compile(
     r"\b(?:Ltd|Limited|Pte|Corp|Inc|LLC|LLP|Holdings|Group|Services|Team|Department|"
     r"Advisory|Systems|Infrastructure|Secretariat|Bank|Legal|Notice|Memorandum|Singapore|"
     r"Government|Board|Company|Corporate|Client|Intake|General|Date|Private|Email|Ref|File|"
-    r"Payroll|Operations|Service|Desk|Library|Review|Research|Counsel|Policy|Editor|Committee|Forum|Governance)\b",
+    r"Payroll|Operations|Service|Desk|Library|Review|Research|Counsel|Policy|Editor|Committee|Forum|Governance|"
+    r"ID|NRIC|FIN|DOB|Reference|Number)\b",
     re.I,
 )
 PREFIX = re.compile(
@@ -26,7 +27,8 @@ PREFIX = re.compile(
     re.I,
 )
 SUFFIX = re.compile(
-    r"^\s*\(\s*(?:NRIC|FIN|passport|staff|employee|client|customer|register|holder|"
+    r"^\s*\(\s*(?:NRIC|FIN|passport|staff|employee|client|contact ref\.?|contact reference|"
+    r"contact ID|customer|register|holder|"
     r"portal|secretariat|collection|correspondence|internal contact|contact record|personnel|deal-team|reader|email|"
     r"[\w.+-]+@[\w.-]+)\b|^\s*,\s*(?:Company Secretary|director|employee)\b|"
     r"^\s+(?:requested|submitted|asked|entered|confirmed|reported|seeks|holds|says|works)\b",

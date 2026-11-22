@@ -46,7 +46,8 @@ def evidence(text: str, start: int, end: int, label: str, rule: str, reason: str
 
 RECORD_CONTEXT = re.compile(
     r"(?i:\b(?:staff|employee|patient|medical record|insurance member|individual verification|"
-    r"contact record|internal contact|personal record|client reference|customer reference|"
+    r"contact record|contact reference|contact ref\.?|contact ID|client contact|internal contact|"
+    r"personal record|client reference|customer reference|"
     r"intake|holder|register|portal|secretariat|shareholder|collection|client|customer|"
     r"personnel|deal-team|reader|correspondence|staff ref\.?|identity document)"
     r"\s*(?:ID|number|no\.?|reference|ref\.?)?\s*(?:\([^\n)]{1,25}\))?\s*(?:as|is|:|\#)?[ \t]+\(?)"
