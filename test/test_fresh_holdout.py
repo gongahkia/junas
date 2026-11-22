@@ -1,4 +1,6 @@
 import json
+import os
+import shutil
 from pathlib import Path
 from unittest.mock import patch
 
@@ -68,8 +70,9 @@ def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excl
             check_exclusions(text, "fresh", registry)
 
 
-@pytest.fixture
-def bundle(tmp_path, monkeypatch):
+@pytest.fixture(scope="module")
+def prepared_master(tmp_path_factory):
+    tmp_path = tmp_path_factory.mktemp("fresh-master")
     # a private four-document transport fixture; production config remains forty documents.
     fake = tmp_path / "repo"
     fresh.snapshot(fresh.ROOT, fake)
@@ -89,14 +92,29 @@ def bundle(tmp_path, monkeypatch):
     )
     inherited = tmp_path / "inherited.json"
     inherited.write_text(json.dumps(registry))
-    monkeypatch.setattr(fresh, "ROOT", fake)
-    monkeypatch.setattr(fresh, "build_exclusions", lambda inherited, runs: (registry, {"test_fixture": True}))
     target = tmp_path / "bundle"
-    with patch("httpx.Client", side_effect=AssertionError("preparation cannot use network")):
+    with (
+        patch.object(fresh, "ROOT", fake),
+        patch.object(fresh, "build_exclusions", return_value=(registry, {"test_fixture": True})),
+        patch("httpx.Client", side_effect=AssertionError("preparation cannot use network")),
+    ):
         proposal = fresh.prepare(target, baseline, inherited, [])
     assert proposal["paid_calls_made"] == 0 and not proposal["live_calls_authorized"]
     assert not (target / "authorization.json").exists() and not (target / "run").exists()
     fresh.verify_bundle(target)
+    return target
+
+
+@pytest.fixture
+def bundle(tmp_path, prepared_master):
+    # only immutable fixture data is shared; drift tests receive private code/config copies.
+    def copy(source, target):
+        if Path(source).suffix == ".csv":
+            return os.link(source, target)
+        return shutil.copyfile(source, target)
+
+    target = tmp_path / "bundle"
+    shutil.copytree(prepared_master, target, copy_function=copy)
     return target
 
 
