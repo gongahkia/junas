@@ -375,7 +375,7 @@ def test_uncertain_completion_keeps_reserve_and_is_never_retried(tmp_path):
     assert report["stop_reason"] == "UncertainRequest" and len(requests) == 2
     assert Decimal(report["charged_or_reserved_ceiling_usd"]) == corpus.token_cost(cfg["generator"], 100, 512)
     events = [json.loads(line) for line in (tmp_path / "uncertain/requests.jsonl").read_text().splitlines()]
-    assert [e["status"] for e in events] == ["reserved", "uncertain"]
+    assert [e["status"] for e in events] == ["preflight", "reserved", "uncertain"]
 
 
 def test_unexpected_model_is_retained_for_audit_and_stops_the_run(tmp_path):

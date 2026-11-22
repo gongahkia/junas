@@ -8,6 +8,7 @@ authorization. Only newly generated text can reach the annotation models.
 from __future__ import annotations
 
 import argparse
+import fcntl
 import hashlib
 import json
 import math
@@ -33,7 +34,7 @@ from scripts.prepare_evaluation_dataset import PII_RULE_MAP  # noqa: E402
 from scripts.span_metrics import Span, input_identity, occurrence_scores, reproducibility  # noqa: E402
 
 VERSION = "junas.model_corpus.v2"
-PROMPT_VERSION = "synthetic-quadrants-majority-v4"
+PROMPT_VERSION = "synthetic-quadrants-majority-v5"
 MAX_JUDGE_ATTEMPTS = 2
 QUADRANTS = {
     "neither": ("absent", "absent"),
@@ -611,6 +612,13 @@ def write_new(path: Path, value: Any) -> None:
     with path.open("x", encoding="utf-8") as stream:
         json.dump(value, stream, ensure_ascii=False, sort_keys=True, indent=2)
         stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    descriptor = os.open(path.parent, os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 class OpenAIResearchClient:
@@ -619,6 +627,8 @@ class OpenAIResearchClient:
         key = os.environ.get("OPENAI_API_KEY", "")
         require(bool(key), "OPENAI_API_KEY must be configured locally")
         self.output, self.serial = output, 0
+        self.request_hashes: set[str] = set()
+        self.candidate: str | None = None
         self.headers = {
             "Authorization": f"Bearer {key}",
             "OpenAI-Organization": auth["organization"],
@@ -631,6 +641,33 @@ class OpenAIResearchClient:
             stream.write(json.dumps(event, sort_keys=True) + "\n")
             stream.flush()
             os.fsync(stream.fileno())
+
+    def diagnostic(self, exc: Exception, *, phase: str) -> None:
+        # exception messages and provider bodies can contain sensitive request data.
+        chain, statuses = [], []
+        current: BaseException | None = exc
+        for _ in range(5):
+            if current is None:
+                break
+            chain.append(type(current).__name__)
+            status = getattr(getattr(current, "response", None), "status_code", None)
+            if isinstance(status, int):
+                statuses.append(status)
+            current = current.__cause__
+        try:
+            write_new(
+                self.output / f"diagnostic-{self.serial:05d}.json",
+                {
+                    "call": self.serial,
+                    "phase": phase,
+                    "exception_types": chain,
+                    "http_status_codes": statuses,
+                    "request_retried": False,
+                    "messages_headers_bodies_omitted": True,
+                },
+            )
+        except OSError:
+            pass  # diagnostics must not refund or retry an uncertain request.
 
     def call(self, model: dict, *, role: str, data: dict, schema: dict) -> dict:
         self.serial += 1
@@ -654,6 +691,10 @@ class OpenAIResearchClient:
             "prompt_sha256": input_identity(prompt),
             "schema_sha256": identity(schema),
         }
+        require(event["request_sha256"] not in self.request_hashes, "request replay refused")
+        self.request_hashes.add(event["request_sha256"])
+        event["candidate"] = self.candidate
+        self.ledger({**event, "status": "preflight"})
         started = time.monotonic()
         with httpx.Client(timeout=120, transport=self.transport, trust_env=False, follow_redirects=False) as client:
             try:
@@ -665,6 +706,7 @@ class OpenAIResearchClient:
                 inputs = count.json()["input_tokens"]
                 require(integer(inputs, 0, model["max_input_tokens"]), "input token ceiling exceeded")
             except Exception as exc:
+                self.diagnostic(exc, phase="token_preflight")
                 raise UncertainRequest("token preflight failed; no completion attempted") from exc
             reserved = token_cost(model, inputs, model["max_output_tokens"])
             self.budget.reserve(reserved)
@@ -688,6 +730,7 @@ class OpenAIResearchClient:
                 actual = token_cost(model, usage["input_tokens"], usage["output_tokens"])
             except Exception as exc:
                 self.ledger({**event, "status": "uncertain", "reserved_usd": str(reserved)})
+                self.diagnostic(exc, phase="completion_or_usage")
                 raise UncertainRequest("completion/usage failed; full reserve retained; no automatic retry") from exc
         self.budget.charged -= reserved - actual
         self.ledger(
@@ -699,21 +742,25 @@ class OpenAIResearchClient:
                 "response_id": raw.get("id"),
             }
         )
-        require(raw.get("status") == "completed", "incomplete model response")
-        chunks = []
-        require(isinstance(raw.get("output"), list), "invalid response output")
-        for item in raw["output"]:
-            require(isinstance(item, dict), "invalid output item")
-            if item.get("type") == "message":
-                require(isinstance(item.get("content"), list), "invalid message content")
-                for content in item["content"]:
-                    require(
-                        isinstance(content, dict) and content.get("type") == "output_text",
-                        "model refusal or invalid output",
-                    )
-                    chunks.append(content["text"])
-        require(len(chunks) == 1 and isinstance(chunks[0], str), "expected one structured answer")
-        return json.loads(chunks[0])
+        return response_payload(raw)
+
+
+def response_payload(raw: dict) -> dict:
+    require(raw.get("status") == "completed", "incomplete model response")
+    chunks = []
+    require(isinstance(raw.get("output"), list), "invalid response output")
+    for item in raw["output"]:
+        require(isinstance(item, dict), "invalid output item")
+        if item.get("type") == "message":
+            require(isinstance(item.get("content"), list), "invalid message content")
+            for content in item["content"]:
+                require(
+                    isinstance(content, dict) and content.get("type") == "output_text",
+                    "model refusal or invalid output",
+                )
+                chunks.append(content["text"])
+    require(len(chunks) == 1 and isinstance(chunks[0], str), "expected one structured answer")
+    return json.loads(chunks[0])
 
 
 def evaluate_records(records: list[dict]) -> dict:
@@ -800,27 +847,62 @@ def evaluate_records(records: list[dict]) -> dict:
     }
 
 
-def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
+def run(config: dict, auth: dict, output: Path, *, transport=None, resume_from: Path | None = None) -> dict:
+    from contextlib import ExitStack
+
+    from scripts.corpus_recovery import recover
+
     validate_config(config)
     validate_authorization(auth, config)
     require(not output.resolve().is_relative_to(ROOT), "model-corpus runs must be stored outside the repository")
+    require(bool(os.environ.get("OPENAI_API_KEY")), "OPENAI_API_KEY must be configured locally")
+    with ExitStack() as stack:
+        checkpoint = None
+        if resume_from is not None:
+            require(not resume_from.resolve().is_relative_to(ROOT), "recovery must use private outside-repo artifacts")
+            lock = stack.enter_context((resume_from / "execution.lock").open("a"))
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            require(not (resume_from / "continued-to.json").exists(), "segment already continued; use latest segment")
+            checkpoint = recover(config, auth, resume_from)
+            require(
+                not quadrant_coverage(checkpoint["records"], config)["coverage_passed"], "job quotas already complete"
+            )
+        output.mkdir(mode=0o700)
+        lock = stack.enter_context((output / "execution.lock").open("a"))
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        return _run_segment(config, auth, output, transport=transport, checkpoint=checkpoint, resume_from=resume_from)
+
+
+def _run_segment(config: dict, auth: dict, output: Path, *, transport=None, checkpoint=None, resume_from=None) -> dict:
+    from scripts.corpus_recovery import atomic_snapshot
+
     client = OpenAIResearchClient(config, auth, output, transport=transport)
-    output.mkdir(mode=0o700)  # a run is new; there is no implicit paid resume/retry.
+    if checkpoint:
+        client.budget.charged, client.serial = checkpoint["charged"], checkpoint["last_call"]
+        client.request_hashes = checkpoint["request_hashes"]
     write_new(
         output / "manifest.json",
         {
             **plan(config),
             "config": config,
+            "recovery_version": 1,
+            "authorized_budget_usd": str(client.budget.cap),
+            "authorization_sha256": identity(auth),
+            "parent_segment": str(resume_from.resolve()) if resume_from else None,
+            "recovered_segments": checkpoint["segments"] if checkpoint else [],
             "execution_mode": "mocked_transport" if transport is not None else "live_openai",
             "live_calls_authorized": transport is None,
             "spending_gate": "config-bound caller declaration; balance/eligibility not authenticated by this script",
             "reproducibility": reproducibility(Path(__file__)),
         },
     )
-    records: list[dict] = []
-    seen: set[str] = set()
+    if resume_from:
+        write_new(resume_from / "continued-to.json", {"output": str(output.resolve())})
+    write_new(output / "ready.json", {"ready": True})
+    records: list[dict] = list(checkpoint["records"]) if checkpoint else []
+    seen: set[str] = {r["text_sha256"] for r in records if "text_sha256" in r}
     stopped = None
-    for index in range(config["max_candidates"]):
+    for index in range(len(records), config["max_candidates"]):
         coverage = quadrant_coverage(records, config)
         if coverage["coverage_passed"]:
             break
@@ -847,6 +929,9 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
             "requested_quadrant": requested_quadrant,
             "accepted": False,
         }
+        client.candidate = record["document_id"]
+        snapshot = output / f"candidate-{index + 1:04d}.json"
+        atomic_snapshot(snapshot, record)
         try:
             generated = client.call(
                 config["generator"],
@@ -881,9 +966,11 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
             require(digest not in seen, "duplicate generated source; excluded")
             seen.add(digest)
             record.update(text=text, text_sha256=digest, annotations=[])
+            atomic_snapshot(snapshot, record)
             for judge_pass, model in enumerate(config["judges"], 1):
                 annotated = annotate_document(client, model, text, judge_pass=judge_pass)
                 record["annotations"].append(annotated)
+                atomic_snapshot(snapshot, record)
                 require(
                     annotated["output"] is not None,
                     "judge validation failed after bounded attempts: " + str(annotated["validation_failures"]),
@@ -903,9 +990,12 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
             stopped = type(exc).__name__
         except (ValueError, KeyError, TypeError, AttributeError) as exc:
             record["error"] = str(exc)
+        atomic_snapshot(snapshot, record)
         records.append(record)
         with (output / "records.jsonl").open("a", encoding="utf-8") as stream:
             stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
         if stopped:
             break
     coverage = quadrant_coverage(records, config)
@@ -957,6 +1047,9 @@ def run(config: dict, auth: dict, output: Path, *, transport=None) -> dict:
         "holdout_note": "reserved model-reference corpus; not independently validated truth",
         "evaluation": evaluate_records(records),
     }
+    with (output / "combined-records.jsonl").open("x", encoding="utf-8") as stream:
+        for record in records:
+            stream.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
     write_new(output / "report.json", report)
     return report
 
@@ -967,6 +1060,7 @@ def main(argv=None) -> int:
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--authorization", type=Path)
+    parser.add_argument("--resume-from", type=Path, help="Continue same capped job with new candidates only")
     parser.add_argument("--env-file", type=Path, help="Explicit local dotenv file; only OPENAI_API_KEY is loaded")
     args = parser.parse_args(argv)
     try:
@@ -979,7 +1073,7 @@ def main(argv=None) -> int:
         validate_authorization(auth, config)
         if args.env_file is not None:
             load_api_key(args.env_file)
-        result = run(config, auth, args.output)
+        result = run(config, auth, args.output, resume_from=args.resume_from)
         return 0 if result["status"] == "completed" else 1
     except (OSError, ValueError, KeyError, TypeError) as exc:
         print(f"model corpus refused: {exc}", file=sys.stderr)
