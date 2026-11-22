@@ -32,24 +32,42 @@ def reservation_check(manifest, reservations):
     prep.require(isinstance(slots, list) and 0 < len(slots) <= prep.MAX_DOCUMENTS, "invalid reservation count")
     seen, conflicts = {d["document_id"] for d in docs}, []
     for slot in slots:
-        prep.keys(slot, {
-            "document_id", "split", "source_id", "template_family_id", "scenario_family_id", "jurisdiction",
-            "document_type", "content_status", "source_eligibility", "prior_use",
-        })
+        prep.keys(
+            slot,
+            {
+                "document_id",
+                "split",
+                "source_id",
+                "template_family_id",
+                "scenario_family_id",
+                "jurisdiction",
+                "document_type",
+                "content_status",
+                "source_eligibility",
+                "prior_use",
+            },
+        )
         for key in ("document_id", *GROUPS):
             prep.require(prep.identifier(slot[key]), f"invalid reserved {key}")
         prep.require(slot["document_id"] not in seen, "duplicate reserved document ID")
         seen.add(slot["document_id"])
         prep.require(slot["split"] == "protected_holdout", "invalid reserved partition")
-        prep.require(slot["jurisdiction"] == "SG" and slot["document_type"] == "unassigned", "invalid reservation scope")
+        prep.require(
+            slot["jurisdiction"] == "SG" and slot["document_type"] == "unassigned", "invalid reservation scope"
+        )
         prep.require(slot["content_status"] == "not_collected", "reserved content must remain uncollected")
-        prep.require(slot["source_eligibility"] == "pending" and slot["prior_use"] == "unknown", "unverified reserved eligibility")
+        prep.require(
+            slot["source_eligibility"] == "pending" and slot["prior_use"] == "unknown",
+            "unverified reserved eligibility",
+        )
         for doc in docs:
             reasons = [key for key in GROUPS if slot[key] == doc[key]]
             if reasons:
                 conflicts.append({"documents": [doc["document_id"], slot["document_id"]], "reasons": reasons})
     return {
-        "reserved_slots": len(slots), "conflicts": conflicts, "protected_holdout_readiness": "NOT READY",
+        "reserved_slots": len(slots),
+        "conflicts": conflicts,
+        "protected_holdout_readiness": "NOT READY",
         "content_comparison": "unavailable: reserved sources/text/hashes have not been collected",
         "qualification": "Disjoint planning IDs do not establish semantic separation or access protection.",
     }
@@ -57,14 +75,31 @@ def reservation_check(manifest, reservations):
 
 def blank_submission(document):
     return {
-        "schema_version": prep.REVIEW, "protocol_id": prep.PROTOCOL, "record_id": None,
-        "document_id": document["document_id"], "split": "development",
-        "canonical_text_sha256": document["canonical_text_sha256"], "reviewer_id": None,
-        "stage": "draft", "timestamp": None,
-        "provenance": {"label_origin": "unknown", "blinded_to_junas": None, "blinded_to_models": None,
-                       "blinded_to_other_annotations": None, "source_author": None, "synthetic": document["synthetic"]},
-        "coverage": {"PII": "unknown", "MNPI": "unknown"}, "pii": [], "mnpi": [], "exclusions": [],
-        "notes": "", "supersedes": None, "based_on": [], "approval": None,
+        "schema_version": prep.REVIEW,
+        "protocol_id": prep.PROTOCOL,
+        "record_id": None,
+        "document_id": document["document_id"],
+        "split": "development",
+        "canonical_text_sha256": document["canonical_text_sha256"],
+        "reviewer_id": None,
+        "stage": "draft",
+        "timestamp": None,
+        "provenance": {
+            "label_origin": "unknown",
+            "blinded_to_junas": None,
+            "blinded_to_models": None,
+            "blinded_to_other_annotations": None,
+            "source_author": None,
+            "synthetic": document["synthetic"],
+        },
+        "coverage": {"PII": "unknown", "MNPI": "unknown"},
+        "pii": [],
+        "mnpi": [],
+        "exclusions": [],
+        "notes": "",
+        "supersedes": None,
+        "based_on": [],
+        "approval": None,
     }
 
 
@@ -72,8 +107,11 @@ def declared_independent(record, by_id):
     while True:
         p = record["provenance"]
         if not (
-            p["label_origin"] == "human" and p["blinded_to_junas"] is True and p["blinded_to_models"] is True
-            and p["blinded_to_other_annotations"] is True and p["source_author"] is False
+            p["label_origin"] == "human"
+            and p["blinded_to_junas"] is True
+            and p["blinded_to_models"] is True
+            and p["blinded_to_other_annotations"] is True
+            and p["source_author"] is False
         ):
             return False
         if record["supersedes"] is None:
@@ -89,12 +127,14 @@ def workflow_status(manifest, texts, records, *, simulation=False):
         active = [by_id[i] for (d, _), i in latest.items() if d == doc_id]
         submitted = [r for r in active if r["stage"] == "submitted"]
         disagreements = [
-            [a["record_id"], b["record_id"]] for a, b in combinations(submitted, 2)
+            [a["record_id"], b["record_id"]]
+            for a, b in combinations(submitted, 2)
             if prep.snapshot_content(a) != prep.snapshot_content(b)
         ]
         adjudications = [
-            r for r in active if r["stage"] == "adjudicated"
-            and set(r["based_on"]) == {x["record_id"] for x in submitted}
+            r
+            for r in active
+            if r["stage"] == "adjudicated" and set(r["based_on"]) == {x["record_id"] for x in submitted}
         ]
         state = "unreviewed"
         if doc_id in accepted:
@@ -104,22 +144,30 @@ def workflow_status(manifest, texts, records, *, simulation=False):
         elif disagreements:
             state = "disagreement_pending"
         elif len(submitted) >= 2:
-            state = "independently_double_annotated" if all(
-                declared_independent(r, by_id) for r in submitted
-            ) else "double_annotated_unqualified"
+            state = (
+                "independently_double_annotated"
+                if all(declared_independent(r, by_id) for r in submitted)
+                else "double_annotated_unqualified"
+            )
         elif submitted:
             state = "annotated_by_one_reviewer"
         states[doc_id] = {
-            "state": state, "active_submissions": len(submitted), "disagreements": disagreements,
-            "independence": "declared_not_verified" if len(submitted) >= 2 and all(
-                declared_independent(r, by_id) for r in submitted
-            ) else "not_established",
+            "state": state,
+            "active_submissions": len(submitted),
+            "disagreements": disagreements,
+            "independence": "declared_not_verified"
+            if len(submitted) >= 2 and all(declared_independent(r, by_id) for r in submitted)
+            else "not_established",
         }
     return {
-        "schema_version": "junas.annotation_packet_status.v1", "simulation": simulation, "documents": states,
-        "recorded_events": len(records), "verified_human_events": 0,
-        "qualification": "States describe supplied records only; reviewers, attestations and approvals are not authenticated.",
-        "independent_ground_truth_readiness": "NOT READY", "protected_holdout_readiness": "NOT READY",
+        "schema_version": "junas.annotation_packet_status.v1",
+        "simulation": simulation,
+        "documents": states,
+        "recorded_events": len(records),
+        "verified_human_events": 0,
+        "qualification": "Supplied records describe stages; identities and approvals are not authenticated.",
+        "independent_ground_truth_readiness": "NOT READY",
+        "protected_holdout_readiness": "NOT READY",
     }
 
 
@@ -138,7 +186,10 @@ def build_packet(manifest_path, reservations_path, guidelines_path, output):
     guidelines = guidelines_path.read_text(encoding="utf-8")
     prep.require(prep.nonempty(guidelines), "reviewer guidelines required")
     for document in manifest["documents"]:
-        prep.require(document["source_path"] == document["text_path"], "packet pilot requires canonical-text sources")
+        prep.require(
+            document["source_sha256"] == document["canonical_text_sha256"],
+            "packet pilot requires identical source and canonical text bytes",
+        )
     output.mkdir()  # existing packets are never overwritten.
     kit = output / "reviewer-kit"
     (kit / "documents").mkdir(parents=True)
@@ -153,10 +204,22 @@ def build_packet(manifest_path, reservations_path, guidelines_path, output):
         with (output / relative).open("xb") as stream:
             stream.write(texts[doc_id].encode("utf-8"))
         document.update(source_path=relative, text_path=relative)
-        metadata.append({k: document[k] for k in (
-            "document_id", "source_id", "template_family_id", "scenario_family_id", "jurisdiction", "document_type",
-            "canonical_text_sha256", "synthetic", "generation_origin",
-        )})
+        metadata.append(
+            {
+                k: document[k]
+                for k in (
+                    "document_id",
+                    "source_id",
+                    "template_family_id",
+                    "scenario_family_id",
+                    "jurisdiction",
+                    "document_type",
+                    "canonical_text_sha256",
+                    "synthetic",
+                    "generation_origin",
+                )
+            }
+        )
         write_json(kit / "submission-templates" / f"{doc_id}.json", blank_submission(document))
     write_json(kit / "document-metadata.json", metadata)
     write_json(output / "manifest.json", generated)
@@ -164,11 +227,13 @@ def build_packet(manifest_path, reservations_path, guidelines_path, output):
     write_json(output / "reservation-check.json", check)
     prep.write_new(output / "reviews.jsonl", "")
     write_json(output / "status.json", workflow_status(generated, texts, []))
-    inventory = {
-        str(p.relative_to(output)): prep.file_sha256(p) for p in sorted(output.rglob("*")) if p.is_file()
-    }
+    inventory = {str(p.relative_to(output)): prep.file_sha256(p) for p in sorted(output.rglob("*")) if p.is_file()}
     write_json(output / "packet-hashes.json", inventory)
-    return {"development_documents": len(texts), "reserved_metadata_slots": check["reserved_slots"], "human_annotations": 0}
+    return {
+        "development_documents": len(texts),
+        "reserved_metadata_slots": check["reserved_slots"],
+        "human_annotations": 0,
+    }
 
 
 def main(argv=None):
