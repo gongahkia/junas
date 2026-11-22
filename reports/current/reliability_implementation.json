@@ -1,0 +1,1055 @@
+{
+  "date": "2026-11-22",
+  "development_reference": {
+    "accepted_records_file_sha256": "a2c5ebc9ad74ca3fdf2a0b900b3b5be9a1e6a8ec8e564c908a660fafd262cb0b",
+    "documents": 200,
+    "fresh_holdout_established": false,
+    "independent_ground_truth": false,
+    "label_origin": "model_consensus",
+    "used_for_development": true
+  },
+  "diagnostics": {
+    "by_entity": [
+      {
+        "count": 3,
+        "kind": "boundary_error",
+        "label": "PERSONAL_RECORD_ID"
+      },
+      {
+        "count": 7,
+        "kind": "boundary_error",
+        "label": "PERSON_NAME"
+      },
+      {
+        "count": 1,
+        "kind": "boundary_error",
+        "label": "POSTAL_ADDRESS"
+      },
+      {
+        "count": 2,
+        "kind": "missed_entity",
+        "label": "DATE_OF_BIRTH"
+      },
+      {
+        "count": 3,
+        "kind": "missed_entity",
+        "label": "EMAIL"
+      },
+      {
+        "count": 1,
+        "kind": "missed_entity",
+        "label": "GOVERNMENT_ID"
+      },
+      {
+        "count": 66,
+        "kind": "missed_entity",
+        "label": "PERSONAL_RECORD_ID"
+      },
+      {
+        "count": 115,
+        "kind": "missed_entity",
+        "label": "PERSON_NAME"
+      },
+      {
+        "count": 3,
+        "kind": "missed_entity",
+        "label": "POSTAL_ADDRESS"
+      },
+      {
+        "count": 1,
+        "kind": "missed_entity",
+        "label": "QUASI_IDENTIFIER_COMBINATION"
+      },
+      {
+        "count": 1,
+        "kind": "unjudged_prediction",
+        "label": "EMAIL"
+      },
+      {
+        "count": 2,
+        "kind": "unjudged_prediction",
+        "label": "PERSON_NAME"
+      },
+      {
+        "count": 1,
+        "kind": "unjudged_prediction",
+        "label": "POSTAL_ADDRESS"
+      },
+      {
+        "count": 16,
+        "kind": "unmatched_prediction",
+        "label": "EMAIL"
+      },
+      {
+        "count": 2,
+        "kind": "unmatched_prediction",
+        "label": "GOVERNMENT_ID"
+      },
+      {
+        "count": 33,
+        "kind": "unmatched_prediction",
+        "label": "PERSON_NAME"
+      },
+      {
+        "count": 1,
+        "kind": "unmatched_prediction",
+        "label": "PHONE"
+      },
+      {
+        "count": 19,
+        "kind": "unmatched_prediction",
+        "label": "POSTAL_ADDRESS"
+      },
+      {
+        "count": 41,
+        "kind": "unmatched_prediction",
+        "label": "QUASI_IDENTIFIER_COMBINATION"
+      }
+    ],
+    "by_rule": [
+      {
+        "count": 9,
+        "kind": "negative_reference_signal",
+        "rule": "conjunctive_mnpi"
+      },
+      {
+        "count": 1,
+        "kind": "negative_reference_signal",
+        "rule": "contingent_mnpi_language"
+      },
+      {
+        "count": 74,
+        "kind": "negative_reference_signal",
+        "rule": "email_address"
+      },
+      {
+        "count": 6,
+        "kind": "negative_reference_signal",
+        "rule": "embargo_marker"
+      },
+      {
+        "count": 10,
+        "kind": "negative_reference_signal",
+        "rule": "financial_amount"
+      },
+      {
+        "count": 10,
+        "kind": "negative_reference_signal",
+        "rule": "large_number"
+      },
+      {
+        "count": 14,
+        "kind": "negative_reference_signal",
+        "rule": "material_event"
+      },
+      {
+        "count": 2,
+        "kind": "negative_reference_signal",
+        "rule": "nonpublic_marker"
+      },
+      {
+        "count": 1,
+        "kind": "negative_reference_signal",
+        "rule": "postal_address"
+      },
+      {
+        "count": 1,
+        "kind": "unjudged_prediction",
+        "rule": "contextual_person_name"
+      },
+      {
+        "count": 1,
+        "kind": "unjudged_prediction",
+        "rule": "email_address"
+      },
+      {
+        "count": 1,
+        "kind": "unjudged_prediction",
+        "rule": "named_person"
+      },
+      {
+        "count": 1,
+        "kind": "unjudged_prediction",
+        "rule": "postal_address"
+      },
+      {
+        "count": 5,
+        "kind": "unmapped_rule",
+        "rule": "personal_attribute_inference"
+      },
+      {
+        "count": 1,
+        "kind": "unmapped_rule",
+        "rule": "sg_sgx_counter"
+      },
+      {
+        "count": 27,
+        "kind": "unmatched_prediction",
+        "rule": "contextual_person_name"
+      },
+      {
+        "count": 16,
+        "kind": "unmatched_prediction",
+        "rule": "email_address"
+      },
+      {
+        "count": 6,
+        "kind": "unmatched_prediction",
+        "rule": "named_person"
+      },
+      {
+        "count": 1,
+        "kind": "unmatched_prediction",
+        "rule": "phone_number"
+      },
+      {
+        "count": 19,
+        "kind": "unmatched_prediction",
+        "rule": "postal_address"
+      },
+      {
+        "count": 41,
+        "kind": "unmatched_prediction",
+        "rule": "quasi_identifier_combination"
+      },
+      {
+        "count": 2,
+        "kind": "unmatched_prediction",
+        "rule": "sg_nric_fin"
+      }
+    ],
+    "counts": {
+      "boundary_error": 11,
+      "missed_entity": 191,
+      "mnpi_abstention": 106,
+      "negative_reference_signal": 127,
+      "pii_abstention": 44,
+      "pii_document_disagreement": 23,
+      "unjudged_prediction": 4,
+      "unmapped_rule": 6,
+      "unmatched_prediction": 112
+    },
+    "documents": 200,
+    "reference": "model agreement, not independent accuracy",
+    "schema_version": "junas.corpus_diagnostics.v1"
+  },
+  "evaluation": {
+    "calibrated_confidence": null,
+    "contextual_document_presence": {
+      "absence_verified": false,
+      "by_quadrant": {
+        "both": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 18,
+            "unknown": 32
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 49,
+            "unknown": 0
+          }
+        },
+        "mnpi_only": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 10,
+            "unknown": 40
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 7,
+            "tn": 30,
+            "tp": 0,
+            "unknown": 13
+          }
+        },
+        "neither": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 26,
+            "tp": 0,
+            "unknown": 24
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 15,
+            "tn": 4,
+            "tp": 0,
+            "unknown": 31
+          }
+        },
+        "pii_only": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 40,
+            "tp": 0,
+            "unknown": 10
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 50,
+            "unknown": 0
+          }
+        }
+      },
+      "counts": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 66,
+          "tp": 28,
+          "unknown": 106
+        },
+        "pii": {
+          "fn": 1,
+          "fp": 22,
+          "tn": 34,
+          "tp": 99,
+          "unknown": 44
+        }
+      }
+    },
+    "contextual_pii": {
+      "coverage": {
+        "exhaustive": 194,
+        "unknown": 6
+      },
+      "exact": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 202,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 122,
+        "gold": 531,
+        "labeled_span_recall": 0.6195856873822976,
+        "matched": 329,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 456,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 5,
+        "unmatched_predictions": 127
+      },
+      "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+      "overlap": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 191,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 112,
+        "gold": 531,
+        "labeled_span_recall": 0.64030131826742,
+        "matched": 340,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 456,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 4,
+        "unmatched_predictions": 116
+      },
+      "schema_version": "junas.occurrence.v1",
+      "status": "available",
+      "unit": "split/document/annotator observations; half-open character offsets"
+    },
+    "contextual_pii_by_entity": {
+      "BANK_ACCOUNT": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 0,
+          "labeled_span_recall": null,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 0,
+          "labeled_span_recall": null,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "DATE_OF_BIRTH": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 2,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 17,
+          "labeled_span_recall": 0.8823529411764706,
+          "matched": 15,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 15,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 2,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 17,
+          "labeled_span_recall": 0.8823529411764706,
+          "matched": 15,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 15,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "EMAIL": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 16,
+          "gold": 155,
+          "labeled_span_recall": 0.9806451612903225,
+          "matched": 152,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 169,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 1,
+          "unmatched_predictions": 17
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 16,
+          "gold": 155,
+          "labeled_span_recall": 0.9806451612903225,
+          "matched": 152,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 169,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 1,
+          "unmatched_predictions": 17
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "GOVERNMENT_ID": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "PERSONAL_RECORD_ID": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 69,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 3,
+          "gold": 120,
+          "labeled_span_recall": 0.425,
+          "matched": 51,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 54,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 3
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 66,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 120,
+          "labeled_span_recall": 0.45,
+          "matched": 54,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 54,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "PERSON_NAME": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 122,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 39,
+          "gold": 220,
+          "labeled_span_recall": 0.44545454545454544,
+          "matched": 98,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 140,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 3,
+          "unmatched_predictions": 42
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 115,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 33,
+          "gold": 220,
+          "labeled_span_recall": 0.4772727272727273,
+          "matched": 105,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 140,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 2,
+          "unmatched_predictions": 35
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "PHONE": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 2,
+          "labeled_span_recall": 1.0,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 3,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 2,
+          "labeled_span_recall": 1.0,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 3,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "POSTAL_ADDRESS": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 4,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 20,
+          "gold": 13,
+          "labeled_span_recall": 0.6923076923076923,
+          "matched": 9,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 30,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 1,
+          "unmatched_predictions": 21
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 19,
+          "gold": 13,
+          "labeled_span_recall": 0.7692307692307693,
+          "matched": 10,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 30,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 1,
+          "unmatched_predictions": 20
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      },
+      "QUASI_IDENTIFIER_COMBINATION": {
+        "coverage": {
+          "exhaustive": 194,
+          "unknown": 6
+        },
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 41,
+          "gold": 1,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 41,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 41
+        },
+        "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 41,
+          "gold": 1,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 41,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 41
+        },
+        "schema_version": "junas.occurrence.v1",
+        "status": "available",
+        "unit": "split/document/annotator observations; half-open character offsets"
+      }
+    },
+    "document_presence": {
+      "by_quadrant": {
+        "both": {
+          "mnpi": {
+            "fn": 4,
+            "fp": 0,
+            "tn": 0,
+            "tp": 46,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 49,
+            "unknown": 0
+          }
+        },
+        "mnpi_only": {
+          "mnpi": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 49,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 21,
+            "tn": 29,
+            "tp": 0,
+            "unknown": 0
+          }
+        },
+        "neither": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 24,
+            "tn": 26,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 46,
+            "tn": 4,
+            "tp": 0,
+            "unknown": 0
+          }
+        },
+        "pii_only": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 10,
+            "tn": 40,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 50,
+            "unknown": 0
+          }
+        }
+      },
+      "counts": {
+        "mnpi": {
+          "fn": 5,
+          "fp": 34,
+          "tn": 66,
+          "tp": 95,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 1,
+          "fp": 67,
+          "tn": 33,
+          "tp": 99,
+          "unknown": 0
+        }
+      },
+      "prediction_rule": "any strict finding in the category; MNPI signals are not verified legal MNPI conclusions",
+      "reference": "model-majority labels, not independent truth; unknown labels never count as negatives"
+    },
+    "independently_validated_accuracy": null,
+    "interpretation": "agreement with model-consensus supplied positives; not independent detection accuracy",
+    "mnpi": "contextual hypotheses; no calibrated confidence or verified materiality/public-status truth",
+    "pii": {
+      "coverage": {
+        "exhaustive": 194,
+        "unknown": 6
+      },
+      "exact": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 326,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 157,
+        "gold": 531,
+        "labeled_span_recall": 0.3860640301318267,
+        "matched": 205,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 368,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 6,
+        "unmatched_predictions": 163
+      },
+      "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+      "overlap": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 300,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 135,
+        "gold": 531,
+        "labeled_span_recall": 0.4350282485875706,
+        "matched": 231,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 368,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 2,
+        "unmatched_predictions": 137
+      },
+      "schema_version": "junas.occurrence.v1",
+      "status": "available",
+      "unit": "split/document/annotator observations; half-open character offsets"
+    },
+    "selection": "quota-accepted documents with resolved two-of-three document labels; raw challenges retained",
+    "unmapped_pii_predictions": {
+      "personal_attribute_inference": 5,
+      "postal_address": 37,
+      "sg_sgx_counter": 1
+    }
+  },
+  "implementation_order": [
+    "target_definitions",
+    "grouped_holdout_reservation",
+    "automated_error_analysis",
+    "contextual_pii",
+    "contextual_mnpi",
+    "entity_coverage",
+    "capped_recovery",
+    "regression_gates"
+  ],
+  "limitations": [
+    "Contextual predictions are separate from broad risk scores, which remain unchanged.",
+    "MNPI: 28/100 reference-positive documents detected; 72 positive and 34 negative documents abstain.",
+    "PII: 99/100 reference-positive documents detected; 22 negative documents flagged and 44 negatives abstain.",
+    "All agreement is against development model-reference labels, not independent accuracy.",
+    "Fresh holdout is reserved, not generated; future collection requires cost approval.",
+    "Update source exclusion registry after any further development data before holdout collection."
+  ],
+  "new_paid_authorization_created": false,
+  "next_paid_cost_review": "reports/current/reliability_cost_review.json",
+  "paid_calls_made": 0,
+  "regression_gates": {
+    "by_entity": {
+      "BANK_ACCOUNT": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "DATE_OF_BIRTH": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "EMAIL": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "GOVERNMENT_ID": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "PERSONAL_RECORD_ID": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "PERSON_NAME": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "PHONE": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "POSTAL_ADDRESS": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      },
+      "QUASI_IDENTIFIER_COMBINATION": {
+        "documents": 8,
+        "entity_exact_hit": 4,
+        "mnpi_tn": 4,
+        "mnpi_tp": 4,
+        "pii_tn": 4,
+        "pii_tp": 4,
+        "unexpected_entities": 0
+      }
+    },
+    "by_quadrant": {
+      "both": {
+        "documents": 18,
+        "entity_exact_hit": 18,
+        "mnpi_tp": 18,
+        "pii_tp": 18,
+        "unexpected_entities": 0
+      },
+      "mnpi_only": {
+        "documents": 18,
+        "mnpi_tp": 18,
+        "pii_tn": 18
+      },
+      "neither": {
+        "documents": 18,
+        "mnpi_tn": 18,
+        "pii_tn": 18
+      },
+      "pii_only": {
+        "documents": 18,
+        "entity_exact_hit": 18,
+        "mnpi_tn": 18,
+        "pii_tp": 18,
+        "unexpected_entities": 0
+      }
+    },
+    "calibrated_confidence": null,
+    "documents": 72,
+    "failures": [],
+    "independently_validated_accuracy": null,
+    "passed": true,
+    "reference": "authored synthetic development regressions; not independent accuracy",
+    "schema_version": "junas.reliability_gates.v1"
+  },
+  "reproducibility": {
+    "classifier_sha256": "b9ced7e9e858b6226c28aabbbef7a304c3b2a00f2ef18cb4169d375886d01739",
+    "configuration_note": "Environment digests identify overrides without exposing values; retain original configuration/data artifacts separately.",
+    "dependency_lock_sha256": "28516490239eac6c5da8bfcb894aed969aa1203fe3a78008f0d7c6ab32c82099",
+    "detector_environment_value_sha256": {},
+    "evaluator_sha256": {
+      "candidate_review.py": "4bf849f7d25add089e4c90ee7e3cdb21d6d84d513342dd8d7d76c16d22358c7c",
+      "corpus_report.py": "294739d2091173747b7c15004dd0794e57c515b2d1335b1a0d5bacdbecc29bdc",
+      "span_metrics.py": "f44805620320b903633ea714ea3e98092237241626d00acde318ea7e4745339d"
+    },
+    "package_versions": {
+      "Pillow": null,
+      "numpy": "2.4.6",
+      "pypdf": null,
+      "spacy": null
+    },
+    "python": "3.12.16"
+  },
+  "schema_version": "junas.reliability_implementation.v1",
+  "status": "implemented_offline_verified",
+  "strict_parity": {
+    "changed_legacy_results": [],
+    "comparison": "all legacy ReviewResult fields; new sensitivity field validated separately",
+    "documents": 1722,
+    "duplicate_findings": 0,
+    "findings": 27034,
+    "network_connections_denied": true,
+    "span_errors": 0
+  },
+  "verification": {
+    "actual_api_key_bytes_found_in_checked_artifacts": false,
+    "broader_research_mypy": "not rerun; earlier 11 errors outside the scoped changed modules remain unresolved",
+    "external_accuracy": "not rerun; --external skip",
+    "final_reporting_followup_tests_passed": 5,
+    "full_suites": {
+      "python_3_11": {
+        "passed": 1703,
+        "subtests_passed": 254
+      },
+      "python_3_12": {
+        "passed": 1703,
+        "subtests_passed": 254
+      }
+    },
+    "hosted_ci": "not triggered; workflow added and equivalent checks run locally",
+    "isolated_wheel_smoke": "passed",
+    "locked_corpus_gates_passed": 9,
+    "paid_smoke": "not run; cost must be approved first",
+    "preexisting_modified_paths_preserved": 40,
+    "previous_paid_job_files_verified_unchanged": 1079,
+    "ruff_format_checked_files": 17,
+    "ruff_lint": "passed",
+    "scoped_mypy_source_files": 10,
+    "sdist_wheel_build": "passed"
+  }
+}

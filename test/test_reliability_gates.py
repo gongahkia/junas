@@ -75,3 +75,17 @@ def test_cost_review_is_offline_and_includes_previous_spending():
     assert report["proposed_combined_additional_cap_usd"] == "10"
     assert report["aggregate_prior_plus_proposed_sgd_scenario"] == "32.760"
     assert report["within_allowance_scenario"]
+
+
+def test_offline_development_report_records_source_and_dataset_identity(tmp_path):
+    from scripts.corpus_report import main
+
+    records, output = tmp_path / "empty.jsonl", tmp_path / "report.json"
+    records.write_text("")
+    args = ["corpus_report.py", "development", "--records", str(records), "--output", str(output)]
+    with patch("sys.argv", args), patch("httpx.Client", side_effect=AssertionError("network forbidden")):
+        assert main() == 0
+    report = json.loads(output.read_text())
+    assert report["inputs_sha256"]
+    assert report["reproducibility"]["classifier_sha256"]
+    assert report["independently_validated_accuracy"] is None

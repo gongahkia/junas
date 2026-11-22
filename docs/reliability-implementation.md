@@ -57,3 +57,20 @@ Estimates scale the previous USD7.19666825 accounted/reserved cost over 200 acce
 [OpenAI's Sol model page](https://developers.openai.com/api/docs/models/gpt-6.2-sol) lists USD2 input / USD10 output per million tokens, and [Terra's model page](https://developers.openai.com/api/docs/models/gpt-6.1-terra) lists USD1 / USD5, checked on 22 November 2026. The configurations retain conservative input ceilings of USD4.5 and USD2.25 to cover ordinary input plus the listed 30-minute cache-write prices; long cache retention is not requested. No live model inventory or inference was requested in this tranche. Pricing and FX assumptions must be fresh before a future launch.
 
 Prior accounted/reserved spending is USD8.11861575 including the earlier smoke run; the proposal rounds that to USD8.20. With a combined additional USD10 cap, a 1.5 SGD/USD ceiling and 20% fee buffer, the combined planning scenario is **S$32.76**, within the user's S$50 allowance. Each proposal also reserves USD18.20 conservatively in its existing SGD gate to earmark prior and other planned work. This planning arithmetic does not authenticate invoices, credits, actual FX/fees or unrelated account spending.
+
+## Verification and measured development agreement
+
+Full suites passed on Python 3.11 and 3.12: **1,703 tests and 254 subtests on each version**. The final offline-report provenance addition passed all five reporting/gate tests separately. Ruff formatting/lint, scoped mypy (ten changed source modules), all nine historical locked-corpus gates, sdist/wheel builds and an isolated wheel import smoke check passed. Exact replay of 1,722 historical documents / 27,034 findings preserved every legacy result field, with zero changed scores/classifications, invalid spans or duplicate findings. The added contextual evidence was also checked against source offsets.
+
+All 72 authored quadrant/entity cases passed, including exact spans and absence of extra entity predictions. These authored cases are regression checks; they are not a fresh independent evaluation corpus.
+
+The existing 200-document **development** comparison reports:
+
+| Contextual target | Positive reference: detected | Missed | Abstained | Negative reference: flagged | No candidate | Abstained |
+|---|---:|---:|---:|---:|---:|---:|
+| PII | 99 | 1 | 0 | 22 | 34 | 44 |
+| MNPI | 28 | 0 | 72 | 0 | 66 | 34 |
+
+Contextual PII matches **329/531 exact** and **340/531 overlap** model-reference spans. The former broad strict crosswalk matched 205/531 exact. This comparison uses an added contextual prediction surface and changed mapping/scope; it does not establish independent accuracy. Pooled precision/F2 remain unavailable because six documents lack unanimous model-declared exhaustive PII coverage. The 106 MNPI abstentions are a substantial remaining limitation; they must not be counted as correct negatives or silently omitted from recall interpretation.
+
+The 40 pre-existing modified-file diffs and 1,079 archived paid-job artifacts were verified unchanged. The README was not edited during this tranche. No key bytes were found in checked new code/artifacts, no new paid authorization was created, and no additional paid calls ran. External dataset measurements were intentionally skipped; hosted CI was not triggered. The broader research mypy check was not rerun, and its previously reported eleven errors outside the scoped modules remain unresolved. Detailed aggregate evidence is in `reports/current/reliability_implementation.json`.

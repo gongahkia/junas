@@ -91,7 +91,9 @@ def main() -> int:
         require(args.records is not None, "development records required")
         records = read_records(args.records)
         require(all(r.get("split", "development") == "development" for r in records), "development partition required")
-        write_new(args.output, evaluate_records(records))
+        report = evaluate_records(records)
+        report.update(reproducibility=reproducibility(Path(__file__)), inputs_sha256=identity(records))
+        write_new(args.output, report)
     else:
         require(
             args.run_dir is not None and args.development_records is not None,
