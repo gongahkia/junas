@@ -103,3 +103,40 @@ def test_counterparty_cannot_replace_the_issuer_subject():
 def test_materiality_cannot_be_borrowed_from_a_different_topic():
     text = "Orchid Estuary Ltd. has a material acquisition. The staff rota forecast has not been publicly disclosed."
     assert review(text).sensitivity["mnpi"]["state"] != "present"
+
+
+def test_general_guidance_and_routine_correspondence_do_not_inherit_broad_risk_signals():
+    for text in [
+        "General policy guidance: a listed issuer should assess whether a proposal requires an announcement.",
+        "Client name: Anika Moss. The register update concerns a courier contact. Please retain the billing address.",
+        (
+            "A public consultation does not itself change a listed issuer’s obligations. "
+            "The effective date is not confirmed."
+        ),
+    ]:
+        assert review(text).sensitivity["mnpi"]["state"] == "not_detected"
+    assert review("Confidential financial amount SGD 50 million.").sensitivity["mnpi"]["state"] == "unknown"
+
+
+def test_disclosure_cannot_borrow_distant_materiality_within_one_paragraph():
+    text = (
+        "Orchid Estuary Ltd. signed a material acquisition. "
+        + "Routine correspondence remains available. " * 120
+        + "The acquisition has not been publicly disclosed."
+    )
+    assert review(text).sensitivity["mnpi"]["state"] != "present"
+
+
+def test_repeated_disclosures_keep_evidence_local_and_source_exact():
+    from junas.review.contextual_mnpi import contextual_mnpi
+
+    block = "Orchid Estuary Ltd. signed a material acquisition. The acquisition has not been publicly disclosed. "
+    text = block * 80
+    result = contextual_mnpi(text, [])
+    assert result["state"] == "present"
+    assert len(result["evidence"]) == 80
+    for item in result["evidence"]:
+        assert text[item["start_char"] : item["end_char"]] == item["matched_text"]
+        assert item["end_char"] - item["start_char"] < 3400
+        for component in item["components"]:
+            assert text[component["start_char"] : component["end_char"]] == component["matched_text"]
