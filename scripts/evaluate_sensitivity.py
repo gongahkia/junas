@@ -17,7 +17,12 @@ from scripts.span_metrics import reproducibility  # noqa: E402
 
 def scorecard(records: list[dict], targets: dict) -> dict:
     corpus.require(bool(records), "development records required")
+    identities: set[str] = set()
     for record in records:
+        document_id = record.get("document_id")
+        corpus.require(isinstance(document_id, str) and bool(document_id), "document identity required")
+        corpus.require(document_id not in identities, "duplicate document identity; evaluate source runs separately")
+        identities.add(document_id)
         corpus.require(record.get("split", "development") == "development", "development only; holdout refused")
         corpus.require(
             record.get("status") == "completed" and record.get("accepted") is True,

@@ -70,3 +70,8 @@ def test_targets_are_checked_in_before_detector_tuning():
     targets = json.loads((ROOT / "config/sensitivity-development-gates.json").read_text())
     assert targets["pii_exact_span_agreement_min"] == 0.8
     assert targets["mnpi_positive_detection_min"] == 0.8
+
+
+def test_gate_refuses_colliding_document_ids_across_source_runs():
+    with pytest.raises(ValueError, match="duplicate document identity"):
+        scorecard(records() * 2, {})
