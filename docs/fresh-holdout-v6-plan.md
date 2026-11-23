@@ -1,4 +1,6 @@
-# Fresh holdout v6 — frozen generalization check, awaiting spending approval
+# Fresh holdout v6 — original frozen plan
+
+Subsequent execution was approved and completed; see the [original failed validation result](fresh-holdout-v6-results.md). The proposal below remains the pre-run planning record.
 
 Prepared offline on 23 November 2026. Classifier v6 is frozen; **no documents have been generated and no paid API calls have been made**. Earlier allowances are closed. The [complete cost/protocol record](../reports/current/fresh_holdout_v6_plan.json) binds the private frozen manifest, configuration and classifiers.
 
