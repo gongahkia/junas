@@ -39,6 +39,14 @@ def test_buckets_distinguish_missing_boundary_and_unknown_coverage():
     with patch("scripts.corpus_diagnostics.PreSendReviewEngine.review", return_value=output):
         report = diagnose([record])
     assert report["counts"] == {"boundary_error": 1, "missed_entity": 1, "unjudged_prediction": 1}
+    output.sensitivity["mnpi"]["state"] = "unknown"
+    with patch("scripts.corpus_diagnostics.PreSendReviewEngine.review", return_value=output):
+        report = diagnose([record])
+    assert report["details"][0]["buckets"][-1] == {
+        "kind": "mnpi_abstention",
+        "expected": "absent",
+        "observed": "unknown",
+    }
 
 
 def test_diagnostics_refuse_holdout():

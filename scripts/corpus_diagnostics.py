@@ -69,8 +69,10 @@ def diagnose(records: list[dict]) -> dict:
             state = result.sensitivity[target]["state"]
             if expected != "unknown" and state == "unknown":
                 counts[f"{target}_abstention"] += 1
+                buckets.append({"kind": f"{target}_abstention", "expected": expected, "observed": state})
             elif expected != "unknown" and (expected == "present") != (state == "present"):
                 counts[f"{target}_document_disagreement"] += 1
+                buckets.append({"kind": f"{target}_document_disagreement", "expected": expected, "observed": state})
         details.append({"document_id": record["document_id"], "quadrant": ref["quadrant"], "buckets": buckets})
     return {
         "schema_version": "junas.corpus_diagnostics.v1",
