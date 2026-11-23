@@ -23,6 +23,7 @@ def audit(run: Path) -> dict:
     corpus.require(corpus.identity(records) == marker["records_sha256"], "consumed source identity mismatch")
     states: Counter = Counter()
     flags: Counter = Counter()
+    unresolved_elements: Counter = Counter()
     details = []
     for record in records:
         if record["status"] != "completed":
@@ -39,6 +40,14 @@ def audit(run: Path) -> dict:
         issues = []
         if reference["quadrant"] == "unknown":
             issues.append("unresolved_document_votes")
+            for annotation in annotations:
+                for span in annotation["output"]["mnpi"]:
+                    unresolved_elements.update(
+                        {
+                            "public_status:" + span["public_status"]: 1,
+                            "potential_materiality:" + span["potential_materiality"]: 1,
+                        }
+                    )
         for span in reference["pii"]:
             if span["label"] != "QUASI_IDENTIFIER_COMBINATION":
                 continue
@@ -75,6 +84,7 @@ def audit(run: Path) -> dict:
         "candidates": len(records),
         "completed_reference_states": dict(states),
         "flagged_documents": dict(flags),
+        "unresolved_mnpi_span_vote_elements": dict(unresolved_elements),
         "details": details,
         "reference_labels_changed": False,
         "paid_api_calls": 0,
