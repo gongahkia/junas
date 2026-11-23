@@ -407,6 +407,10 @@ def validate_reviews(manifest, texts, records):
                 "adjudication needs all active submissions",
             )
             require(
+                all(timestamp(r["timestamp"]) >= timestamp(x["timestamp"]) for x in active),
+                "adjudication predates a referenced submission",
+            )
+            require(
                 r["reviewer_id"] not in {x["reviewer_id"] for x in active},
                 "adjudicator must be separate from annotators",
             )

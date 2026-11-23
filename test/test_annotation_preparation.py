@@ -212,6 +212,61 @@ def test_disagreements_require_separate_adjudication(dataset):
     assert report["disagreements"] == [["r1", "r2"]]  # history retained.
 
 
+@pytest.mark.parametrize("adjudicated_at", ["2025-12-31T12:00:00Z", "2026-01-01T12:30:00Z"])
+def test_adjudication_cannot_predate_any_referenced_submission(dataset, adjudicated_at):
+    manifest, texts = dataset
+    a = seal(entry(manifest))
+    b = entry(manifest, reviewer="sim-b", record_id="r2")
+    b["timestamp"] = "2026-01-01T13:00:00Z"
+    b = seal(b, [a])
+    adj = entry(manifest, reviewer="sim-adjudicator", stage="adjudicated", record_id="adj")
+    adj.update(based_on=["r1", "r2"], timestamp=adjudicated_at)
+    records = [a, b, seal(adj, [a, b])]
+    with pytest.raises(ValueError, match="adjudication predates"):
+        prep.occurrence_inputs(manifest, texts, records)
+
+
+@pytest.mark.parametrize("adjudicated_at", ["2026-01-01T13:00:00Z", "2026-01-01T21:00:00+08:00"])
+def test_adjudication_allows_equal_instants_and_submissions_received_out_of_order(dataset, adjudicated_at):
+    manifest, texts = dataset
+    a = entry(manifest)
+    a["timestamp"] = "2026-01-01T13:00:00Z"
+    a = seal(a)
+    b = seal(entry(manifest, reviewer="sim-b", record_id="r2"), [a])
+    adj = entry(manifest, reviewer="sim-adjudicator", stage="adjudicated", record_id="adj")
+    adj.update(based_on=["r1", "r2"], timestamp=adjudicated_at)
+    records = [a, b, seal(adj, [a, b])]
+    approved = accept(manifest, records[-1], records)
+    approved["timestamp"] = approved["approval"]["timestamp"] = "2026-01-01T13:00:00Z"
+    records.append(seal(approved, records))
+    report = prep.review_report(manifest, texts, records)
+    assert report["accepted_documents"] == 1
+    assert report["independent_ground_truth_readiness"] == "NOT READY"
+
+
+def test_cli_refuses_backdated_adjudication_without_writing_a_new_log(dataset, tmp_path):
+    manifest, _ = dataset
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps(manifest))
+    a = seal(entry(manifest))
+    b = seal(entry(manifest, reviewer="sim-b", record_id="r2"), [a])
+    log = tmp_path / "reviews.jsonl"
+    previous = "".join(json.dumps(r) + "\n" for r in [a, b]).encode()
+    log.write_bytes(previous)
+    adj = entry(manifest, reviewer="sim-adjudicator", stage="adjudicated", record_id="adj")
+    adj.update(based_on=["r1", "r2"], timestamp="2025-12-31T12:00:00Z")
+    entry_path = tmp_path / "entry.json"
+    entry_path.write_text(json.dumps(adj))
+    output = tmp_path / "reviews-v2.jsonl"
+    assert (
+        prep.main(
+            ["append", str(manifest_path), "--reviews", str(log), "--entry", str(entry_path), "--output", str(output)]
+        )
+        == 2
+    )
+    assert not output.exists() and log.read_bytes() == previous
+
+
 def test_corrections_are_linked_and_revoke_old_acceptance(dataset):
     manifest, texts = dataset
     a = seal(entry(manifest))
