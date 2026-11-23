@@ -77,6 +77,9 @@ def test_conflicting_public_claims_do_not_become_positive(event, reference):
         "Cobalt Estuary Ltd approved a correction, missing its bond target. Missing the target would add "
         "S$0.01 million in annual interest, against last year's S$90 million in pre-tax profit. "
         "The correction has not been publicly disclosed.",
+        "Cobalt Estuary Ltd approved a correction, missing its bond target. Suppose missing the target would add "
+        "S$8 million in annual interest, against last year's S$30 million in pre-tax profit. "
+        "The correction has not been publicly disclosed.",
         "Cobalt Estuary Ltd approved a correction, missing its bond target. Missing the target would add "
         "S$8 million in annual interest, against last year's USD30 million in pre-tax profit. "
         "The correction has not been publicly disclosed.",
@@ -134,3 +137,34 @@ def test_alternative_disclosure_wording_is_linked_and_conflicts_still_abstain(ev
     text = f"Cobalt Estuary Ltd {event} {reference} {claim}."
     assert contextual_mnpi(text, [])["state"] == "present"
     assert contextual_mnpi(text + f" {reference} was released to the market.", [])["state"] == "unknown"
+
+
+@pytest.mark.parametrize("issuer", ["Cobalt Estuary Ltd", "Méralune Grid Ltd"])
+def test_notice_and_impairment_keep_the_same_contract_impact(issuer):
+    text = (
+        f"{issuer} received a binding termination notice from Birch Summit Ltd. "
+        f"The contract accounted for 43% of {issuer}'s revenue. "
+        "Neither the notice nor the preliminary impairment estimate has been publicly disclosed."
+    )
+    output = contextual_mnpi(text, [])
+    assert output["state"] == "present", output
+    assert all(
+        c["matched_text"] == issuer for h in output["evidence"] for c in h["components"] if c["kind"] == "issuer"
+    )
+
+
+def test_financial_period_tags_do_not_turn_aliases_into_different_companies():
+    text = (
+        "Cobalt Estuary Systems Ltd — issuer memorandum\n\n"
+        "Birch Summit Ltd served a notice terminating a contract accounting for 42% of Cobalt's FY2025 revenue. "
+        "The termination is price-sensitive and has not been publicly disclosed."
+    )
+    output = contextual_mnpi(text, [])
+    assert output["state"] == "present", output
+    assert all(
+        c["matched_text"] == "Cobalt" for h in output["evidence"] for c in h["components"] if c["kind"] == "issuer"
+    )
+    ambiguous = text.replace(
+        "42% of Cobalt's FY2025 revenue", "42% of Cobalt's FY2025 revenue and 48% of Birch Summit Ltd's revenue"
+    )
+    assert contextual_mnpi(ambiguous, [])["state"] == "unknown"

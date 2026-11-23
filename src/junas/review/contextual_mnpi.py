@@ -191,7 +191,11 @@ def _org_references(
         spans = []
         for match in ORG_NAME_RE.finditer(text[a:b]):
             prefix = re.match(r"(?:Singapore|SGX|Catalist)[- ]listed\s+", match.group(), re.I)
-            spans.append((a + match.start() + (prefix.end() if prefix else 0), a + match.end()))
+            start = a + match.start() + (prefix.end() if prefix else 0)
+            preceding = re.search(r"\b(\w+)\s+$", text[a:start])
+            if preceding and preceding[1][0].isupper() and not preceding[1].isascii():
+                start = a + preceding.start(1)
+            spans.append((start, a + match.end()))
         orgs.append(spans)
     identities = {span: canonical_org(text[span[0] : span[1]]) for spans in orgs for span in spans}
     anchors: dict[tuple[str, ...], list[tuple[int, str]]] = {}
@@ -240,6 +244,7 @@ def _org_references(
                     eligible
                     and i + width < len(tokens)
                     and re.fullmatch(r"\s+", text[a + run[-1].end() : a + tokens[i + width].start()])
+                    and not re.fullmatch(r"(?:FY|CY)\d{2,4}|Q[1-4]|H[12]", tokens[i + width].group())
                 ):
                     ambiguous[frame].append((start, a + tokens[i + width].end()))
                     occupied.update(range(i, i + width + 1))
@@ -340,6 +345,21 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             diagnostic("excluded_disclosure_context", sa, sb)
             continue
         topics = _topics(statement)
+        # a notice co-referenced with its financial consequences keeps its antecedent's event topic.
+        if re.search(r"\b(?:the|this|that)\s+notice\b", statement, re.I):
+            for frame in range(max(0, index - 2), index + 1):
+                for x, y in sentences[frame]:
+                    if x < window_start or y > sa:
+                        continue
+                    antecedent = text[x:y]
+                    if (
+                        re.search(r"\bnotice\b", antecedent, re.I)
+                        and EVENT.search(antecedent)
+                        and not non_event_statement(antecedent)
+                        and not NEGATED_EVENT.search(antecedent)
+                        and not UNRELATED.search(antecedent)
+                    ):
+                        topics |= _topics(antecedent)
         previous = []
         if (
             topics
@@ -415,9 +435,16 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             material.extend(
                 (m.start(), m.end())
                 for m in QUANT_MATERIAL.finditer(text, x, y)
-                if 10 <= float(m.group("pct")) <= 100 and m.end() <= _sentence(text, sentences[frame], m.start())[1]
+                if 10 <= float(m.group("pct")) <= 100
+                and m.end() <= _sentence(text, sentences[frame], m.start())[1]
+                and not non_event_statement(text[slice(*_sentence(text, sentences[frame], m.start()))])
             )
-            material.extend(m.span() for m in COMPARATIVE_COST.finditer(text, x, y) if comparative_material(m))
+            material.extend(
+                m.span()
+                for m in COMPARATIVE_COST.finditer(text, x, y)
+                if comparative_material(m)
+                and not non_event_statement(text[slice(*_sentence(text, sentences[frame], m.start()))])
+            )
         if (
             not topics
             and not EVENT_REFERENCE.search(statement)
@@ -489,13 +516,26 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 unresolved = True
                 diagnostic("issuer_mismatch", sa, sb)
                 continue
-        issuer: tuple[int, int] | None = None
+        financial_owners = [
+            span
+            for frame in witness_indices
+            for amount in QUANT_MATERIAL.finditer(
+                text, max(units[frame][0], window_start), min(units[frame][1], window_end)
+            )
+            if 10 <= float(amount.group("pct")) <= 100 and amount.span() in material
+            for span in local_orgs(frame, amount.start(), amount.end())
+        ]
+        if len({identities[span] for span in financial_owners}) > 1:
+            unresolved = True
+            diagnostic("ambiguous_financial_owner", sa, sb)
+            continue
+        issuer: tuple[int, int] | None = financial_owners[-1] if financial_owners else None
         named_subjects = [
             (x, y)
             for x, y in private_orgs
             if local_events and x < local_events[0][0] and not non_subject(text[max(sa, x - 30) : x])
         ]
-        if named_subjects:
+        if issuer is None and named_subjects:
             issuer = named_subjects[0]
         if issuer is None:
             for frame in indices:
