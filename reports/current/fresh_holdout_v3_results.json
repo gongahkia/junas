@@ -1,0 +1,1176 @@
+{
+  "allowance_status": "closed; unused allowance is not authorization for another run",
+  "approved_cap_usd": "4",
+  "baseline_version": "junas.sensitivity.v2",
+  "calibrated_confidence": null,
+  "candidate_and_reference_audit": {
+    "accepted_annotation_coverage": {
+      "exhaustive": 40
+    },
+    "accepted_documents": 40,
+    "accepted_reference_tiers": {
+      "majority": 2,
+      "unanimous": 38
+    },
+    "approved_cap_usd": "4",
+    "attempted_candidates": 64,
+    "budget_passed": true,
+    "charged_or_reserved_ceiling_usd": "2.25448100",
+    "classifiers": {
+      "baseline_sha256": "9e28c87ad7acb888b7506ad9e061abd8d7b6f3773b1089cb29040a6a7aaf3c62",
+      "improved_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f"
+    },
+    "config_sha256": "b912c6c107d27d344b343f58130aa797b584c262342ea6a7b463d7969d3b2695",
+    "date": "2026-11-23",
+    "entity_coverage": {
+      "coverage_passed": true,
+      "observed_positive_occurrences": {
+        "BANK_ACCOUNT": 3,
+        "DATE_OF_BIRTH": 3,
+        "EMAIL": 21,
+        "GOVERNMENT_ID": 3,
+        "PERSONAL_RECORD_ID": 16,
+        "PERSON_NAME": 25,
+        "PHONE": 3,
+        "POSTAL_ADDRESS": 3,
+        "QUASI_IDENTIFIER_COMBINATION": 3
+      },
+      "reference": "model-consensus occurrences",
+      "shortfall": {
+        "BANK_ACCOUNT": 0,
+        "DATE_OF_BIRTH": 0,
+        "EMAIL": 0,
+        "GOVERNMENT_ID": 0,
+        "PERSONAL_RECORD_ID": 0,
+        "PERSON_NAME": 0,
+        "PHONE": 0,
+        "POSTAL_ADDRESS": 0,
+        "QUASI_IDENTIFIER_COMBINATION": 0
+      },
+      "targets": {
+        "BANK_ACCOUNT": 3,
+        "DATE_OF_BIRTH": 3,
+        "EMAIL": 3,
+        "GOVERNMENT_ID": 3,
+        "PERSONAL_RECORD_ID": 3,
+        "PERSON_NAME": 3,
+        "PHONE": 3,
+        "POSTAL_ADDRESS": 3,
+        "QUASI_IDENTIFIER_COMBINATION": 3
+      }
+    },
+    "failed_documents": 3,
+    "final_segment": "run-004",
+    "holdout_consumed_once": true,
+    "independently_validated_accuracy": null,
+    "network_denied_during_audit": true,
+    "provider_invoice_verified": false,
+    "quadrant_coverage": {
+      "accepted": {
+        "both": 10,
+        "mnpi_only": 10,
+        "neither": 10,
+        "pii_only": 10
+      },
+      "all_quadrants_covered": true,
+      "coverage_passed": true,
+      "interpretation": "model-voted document labels; requested generation quadrants are not reference truth",
+      "observed_including_excess": {
+        "both": 10,
+        "mnpi_only": 10,
+        "neither": 10,
+        "pii_only": 10,
+        "unknown": 21
+      },
+      "shortfall": {
+        "both": 0,
+        "mnpi_only": 0,
+        "neither": 0,
+        "pii_only": 0
+      },
+      "targets": {
+        "both": 10,
+        "mnpi_only": 10,
+        "neither": 10,
+        "pii_only": 10
+      }
+    },
+    "received_completions": {
+      "generator": 63,
+      "judge": 185
+    },
+    "received_tokens": {
+      "input": 385943,
+      "output": 212002
+    },
+    "records_sha256": "86f62c24fb4ab40cb65e8ab43b58a3f7bba000a8620d80a981231b3387a43daa",
+    "request_replays": 0,
+    "segments": 4,
+    "settled_cost_ceiling_usd": "2.08486750",
+    "source_consensus_and_response_linkage_passed": true,
+    "status": "completed",
+    "stop_reason": null,
+    "uncertain_requests": 2,
+    "uncertain_reserve_usd": "0.1696135",
+    "unresolved_documents": 21,
+    "unused_allowance_usd": "1.74551900"
+  },
+  "charged_or_reserved_ceiling_usd": "2.25448100",
+  "classifier_changed_during_run": false,
+  "classifier_predictions_used_for_selection": false,
+  "classifiers": {
+    "baseline_sha256": "9e28c87ad7acb888b7506ad9e061abd8d7b6f3773b1089cb29040a6a7aaf3c62",
+    "improved_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f"
+  },
+  "completed_at_singapore": "2026-11-23T11:59:18.885816+08:00",
+  "consensus": "two_of_three_fixed_denominator",
+  "credit_balance_and_applicability_verified": false,
+  "cumulative_accounted_reserved_usd": "17.69404350",
+  "cumulative_sgd_scenario": "31.8492783000",
+  "date": "2026-11-23",
+  "evaluation": {
+    "baseline": {
+      "document_presence": {
+        "absence_verified": false,
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 3,
+              "unknown": 7
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 4,
+              "unknown": 6
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 2,
+              "tn": 3,
+              "tp": 0,
+              "unknown": 5
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 2,
+              "tn": 5,
+              "tp": 0,
+              "unknown": 3
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 7,
+            "unknown": 13
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 4,
+            "tn": 8,
+            "tp": 20,
+            "unknown": 8
+          }
+        }
+      },
+      "pii": {
+        "exact": {
+          "f2_if_exhaustive": 0.7105263157894737,
+          "false_negatives": 26,
+          "false_positives": 6,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 80,
+          "labeled_span_recall": 0.675,
+          "matched": 54,
+          "precision_if_exhaustive": 0.9,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 60,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        },
+        "overlap": {
+          "f2_if_exhaustive": 0.7105263157894737,
+          "false_negatives": 26,
+          "false_positives": 6,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 80,
+          "labeled_span_recall": 0.675,
+          "matched": 54,
+          "precision_if_exhaustive": 0.9,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 60,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        }
+      },
+      "pii_by_entity": {
+        "BANK_ACCOUNT": {
+          "exact": {
+            "f2_if_exhaustive": 0.3571428571428571,
+            "false_negatives": 2,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 0.5,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 2,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.3571428571428571,
+            "false_negatives": 2,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 0.5,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 2,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          }
+        },
+        "DATE_OF_BIRTH": {
+          "exact": {
+            "f2_if_exhaustive": 0.3846153846153846,
+            "false_negatives": 2,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 1,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.3846153846153846,
+            "false_negatives": 2,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 1,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "EMAIL": {
+          "exact": {
+            "f2_if_exhaustive": 0.9813084112149532,
+            "false_negatives": 0,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 21,
+            "labeled_span_recall": 1.0,
+            "matched": 21,
+            "precision_if_exhaustive": 0.9130434782608695,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 23,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.9813084112149532,
+            "false_negatives": 0,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 21,
+            "labeled_span_recall": 1.0,
+            "matched": 21,
+            "precision_if_exhaustive": 0.9130434782608695,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 23,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          }
+        },
+        "GOVERNMENT_ID": {
+          "exact": {
+            "f2_if_exhaustive": 0.9375,
+            "false_negatives": 0,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 0.75,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 4,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.9375,
+            "false_negatives": 0,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 0.75,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 4,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          }
+        },
+        "PERSONAL_RECORD_ID": {
+          "exact": {
+            "f2_if_exhaustive": 0.7333333333333333,
+            "false_negatives": 5,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 16,
+            "labeled_span_recall": 0.6875,
+            "matched": 11,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 11,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.7333333333333333,
+            "false_negatives": 5,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 16,
+            "labeled_span_recall": 0.6875,
+            "matched": 11,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 11,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "PERSON_NAME": {
+          "exact": {
+            "f2_if_exhaustive": 0.603448275862069,
+            "false_negatives": 11,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 25,
+            "labeled_span_recall": 0.56,
+            "matched": 14,
+            "precision_if_exhaustive": 0.875,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 16,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.603448275862069,
+            "false_negatives": 11,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 25,
+            "labeled_span_recall": 0.56,
+            "matched": 14,
+            "precision_if_exhaustive": 0.875,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 16,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          }
+        },
+        "PHONE": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "POSTAL_ADDRESS": {
+          "exact": {
+            "f2_if_exhaustive": 1.0,
+            "false_negatives": 0,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 3,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": 1.0,
+            "false_negatives": 0,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 3,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "QUASI_IDENTIFIER_COMBINATION": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        }
+      }
+    },
+    "improved": {
+      "document_presence": {
+        "absence_verified": false,
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 3,
+              "unknown": 7
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 4,
+              "unknown": 6
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 2,
+              "tn": 3,
+              "tp": 0,
+              "unknown": 5
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 2,
+              "tn": 5,
+              "tp": 0,
+              "unknown": 3
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 7,
+            "unknown": 13
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 4,
+            "tn": 8,
+            "tp": 20,
+            "unknown": 8
+          }
+        }
+      },
+      "pii": {
+        "exact": {
+          "f2_if_exhaustive": 0.7217847769028872,
+          "false_negatives": 25,
+          "false_positives": 6,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 80,
+          "labeled_span_recall": 0.6875,
+          "matched": 55,
+          "precision_if_exhaustive": 0.9016393442622951,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 61,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        },
+        "overlap": {
+          "f2_if_exhaustive": 0.7217847769028872,
+          "false_negatives": 25,
+          "false_positives": 6,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 80,
+          "labeled_span_recall": 0.6875,
+          "matched": 55,
+          "precision_if_exhaustive": 0.9016393442622951,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 61,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        }
+      },
+      "pii_by_entity": {
+        "BANK_ACCOUNT": {
+          "exact": {
+            "f2_if_exhaustive": 0.3571428571428571,
+            "false_negatives": 2,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 0.5,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 2,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.3571428571428571,
+            "false_negatives": 2,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 0.5,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 2,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          }
+        },
+        "DATE_OF_BIRTH": {
+          "exact": {
+            "f2_if_exhaustive": 0.3846153846153846,
+            "false_negatives": 2,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 1,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.3846153846153846,
+            "false_negatives": 2,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.3333333333333333,
+            "matched": 1,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 1,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "EMAIL": {
+          "exact": {
+            "f2_if_exhaustive": 0.9813084112149532,
+            "false_negatives": 0,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 21,
+            "labeled_span_recall": 1.0,
+            "matched": 21,
+            "precision_if_exhaustive": 0.9130434782608695,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 23,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.9813084112149532,
+            "false_negatives": 0,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 21,
+            "labeled_span_recall": 1.0,
+            "matched": 21,
+            "precision_if_exhaustive": 0.9130434782608695,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 23,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          }
+        },
+        "GOVERNMENT_ID": {
+          "exact": {
+            "f2_if_exhaustive": 0.9375,
+            "false_negatives": 0,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 0.75,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 4,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.9375,
+            "false_negatives": 0,
+            "false_positives": 1,
+            "false_positives_on_exhaustive_units": 1,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 0.75,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 4,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 1
+          }
+        },
+        "PERSONAL_RECORD_ID": {
+          "exact": {
+            "f2_if_exhaustive": 0.7333333333333333,
+            "false_negatives": 5,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 16,
+            "labeled_span_recall": 0.6875,
+            "matched": 11,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 11,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.7333333333333333,
+            "false_negatives": 5,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 16,
+            "labeled_span_recall": 0.6875,
+            "matched": 11,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 11,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "PERSON_NAME": {
+          "exact": {
+            "f2_if_exhaustive": 0.6410256410256411,
+            "false_negatives": 10,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 25,
+            "labeled_span_recall": 0.6,
+            "matched": 15,
+            "precision_if_exhaustive": 0.8823529411764706,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 17,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          },
+          "overlap": {
+            "f2_if_exhaustive": 0.6410256410256411,
+            "false_negatives": 10,
+            "false_positives": 2,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 25,
+            "labeled_span_recall": 0.6,
+            "matched": 15,
+            "precision_if_exhaustive": 0.8823529411764706,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 17,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          }
+        },
+        "PHONE": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "POSTAL_ADDRESS": {
+          "exact": {
+            "f2_if_exhaustive": 1.0,
+            "false_negatives": 0,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 3,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": 1.0,
+            "false_negatives": 0,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 1.0,
+            "matched": 3,
+            "precision_if_exhaustive": 1.0,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 3,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "QUASI_IDENTIFIER_COMBINATION": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 3,
+            "false_positives": 0,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 3,
+            "labeled_span_recall": 0.0,
+            "matched": 0,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 0,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        }
+      }
+    }
+  },
+  "exact_reference_match_changes": {
+    "lost_exact_reference_matches": 0,
+    "new_exact_reference_matches": 1
+  },
+  "failed_targets": [
+    "mnpi_positive_abstention_rate_max",
+    "mnpi_positive_detection_min",
+    "pii_exact_span_agreement_min",
+    "pii_negative_abstention_rate_max",
+    "pii_negative_flag_rate_max",
+    "pii_overlap_span_agreement_min"
+  ],
+  "frozen_files": 297,
+  "frozen_manifest_sha256": "d529de4d04fc1bc96872d5ba84b172b1405ed6e4053d8ad4717edc9c407b3b8f",
+  "fx_and_fees": "SGD1.50/USD and 20% contingency are planning assumptions, not a current FX quote or provider invoice",
+  "holdout_status": "consumed once; no longer eligible as unseen validation; not retired into development in this task",
+  "human_annotations": 0,
+  "implementation_head": "c0f7e2abee8054e5d858262a97b5611dbce05784",
+  "improved_version": "junas.sensitivity.v3",
+  "independently_validated_accuracy": null,
+  "interpretation": "Fresh synthetic model-reference agreement; v3 gains are limited to one additional exact PII reference match and no change in document-presence rates. Development gains did not broadly transfer to this cohort.",
+  "limitations": [
+    "Small, deliberately balanced synthetic cohort with model-consensus reference labels; population/legal accuracy unestablished.",
+    "The same judge model supplied three separate passes; correlated errors remain possible.",
+    "All 40 accepted PII annotations were unanimously declared exhaustive; conditional precision/F2 rely on that unverified model declaration.",
+    "21 unresolved candidates and three failed candidates were retained outside the selected 40; selection was judge-only, not classifier-based.",
+    "Fingerprint and shingle exclusions are contamination heuristics; semantic novelty and model-training independence are unverified.",
+    "Confidence is uncalibrated, and materiality/public status and actual absence remain unverified.",
+    "Validation applies to frozen workspace source including pre-existing uncommitted text-only changes."
+  ],
+  "models": {
+    "generator": "gpt-6.2-sol",
+    "judge_mode": "same_model_repeats",
+    "judges": [
+      "gpt-6.1-terra",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra"
+    ],
+    "reasoning_effort": "high"
+  },
+  "paired_evaluation": {
+    "after": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": 0.65,
+      "mnpi_positive_detection": 0.35,
+      "pii_exact_span_agreement": 0.6875,
+      "pii_negative_abstention_rate": 0.4,
+      "pii_negative_flag_rate": 0.2,
+      "pii_overlap_span_agreement": 0.6875,
+      "pii_positive_abstention_rate": 0.0,
+      "pii_positive_detection": 1.0
+    },
+    "before": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": 0.65,
+      "mnpi_positive_detection": 0.35,
+      "pii_exact_span_agreement": 0.675,
+      "pii_negative_abstention_rate": 0.4,
+      "pii_negative_flag_rate": 0.2,
+      "pii_overlap_span_agreement": 0.675,
+      "pii_positive_abstention_rate": 0.0,
+      "pii_positive_detection": 1.0
+    },
+    "classifiers": {
+      "baseline_sha256": "9e28c87ad7acb888b7506ad9e061abd8d7b6f3773b1089cb29040a6a7aaf3c62",
+      "improved_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f"
+    },
+    "delta": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": 0.0,
+      "mnpi_positive_detection": 0.0,
+      "pii_exact_span_agreement": 0.012499999999999956,
+      "pii_negative_abstention_rate": 0.0,
+      "pii_negative_flag_rate": 0.0,
+      "pii_overlap_span_agreement": 0.012499999999999956,
+      "pii_positive_abstention_rate": 0.0,
+      "pii_positive_detection": 0.0
+    },
+    "documents": 40,
+    "passed": false,
+    "records_sha256": "86f62c24fb4ab40cb65e8ab43b58a3f7bba000a8620d80a981231b3387a43daa",
+    "reference": "same fresh synthetic model-consensus holdout for both frozen versions; not independent accuracy",
+    "schema_version": "junas.paired_holdout.v1",
+    "status": "consumed",
+    "targets": {
+      "mnpi_negative_abstention_rate_max": {
+        "observed": 0.0,
+        "passed": true,
+        "target": 0.25
+      },
+      "mnpi_negative_flag_rate_max": {
+        "observed": 0.0,
+        "passed": true,
+        "target": 0.05
+      },
+      "mnpi_positive_abstention_rate_max": {
+        "observed": 0.65,
+        "passed": false,
+        "target": 0.2
+      },
+      "mnpi_positive_detection_min": {
+        "observed": 0.35,
+        "passed": false,
+        "target": 0.8
+      },
+      "pii_exact_span_agreement_min": {
+        "observed": 0.6875,
+        "passed": false,
+        "target": 0.8
+      },
+      "pii_negative_abstention_rate_max": {
+        "observed": 0.4,
+        "passed": false,
+        "target": 0.25
+      },
+      "pii_negative_flag_rate_max": {
+        "observed": 0.2,
+        "passed": false,
+        "target": 0.1
+      },
+      "pii_overlap_span_agreement_min": {
+        "observed": 0.6875,
+        "passed": false,
+        "target": 0.85
+      },
+      "pii_positive_detection_min": {
+        "observed": 1.0,
+        "passed": true,
+        "target": 0.9
+      }
+    }
+  },
+  "passed_targets": 3,
+  "prior_accounted_reserved_usd": "15.43956250",
+  "private_bundle": "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v3",
+  "provider_invoice_verified": false,
+  "recovery": {
+    "aggregate_cap_reset_or_increase": false,
+    "failed_candidates": 3,
+    "operational_events": [
+      "temporary worker interruption",
+      "recovery guard refused a stale branch before any API call",
+      "temporary Python environment disappeared; resumed in persistent Python3.12.16 with matching recorded environment"
+    ],
+    "paid_request_replays": 0,
+    "runtime_models_prompts_and_thresholds_changed": false,
+    "segments": 4,
+    "token_preflight_failure_without_completion": 1,
+    "uncertain_completion_reserves_retained": 2
+  },
+  "reference_labels_or_thresholds_changed": false,
+  "schema_version": "junas.fresh_holdout_v3_results.v1",
+  "settled_cost_ceiling_usd": "2.08486750",
+  "source_exclusion_audit": {
+    "inherited_entries": 4405,
+    "limits": "exact, normalized, numeric/email skeleton and shingle checks are contamination heuristics; semantic novelty is unverified",
+    "old_holdout_use": "fingerprinting for exclusion only; no labels inspected or classifier evaluation",
+    "prior_candidate_sources_fingerprinted": 227,
+    "prior_generator_responses_fingerprinted": 445,
+    "prior_run_directories": [
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-text-only-smoke",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-coverage-holdout-usd10",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-fresh-holdout-v2"
+    ],
+    "total_entries": 4610
+  },
+  "status": "generation_and_validation_completed_targets_failed",
+  "uncertain_reserve_usd": "0.1696135",
+  "unused_allowance_usd": "1.74551900",
+  "verification": {
+    "budget_ledger_recovery": "passed",
+    "final_integrity_audit": {
+      "allowance_closed": true,
+      "artifact_files_scanned": 748,
+      "configured_key_absent_from_serialized_artifacts": true,
+      "consumption_markers": 1,
+      "current_runtime_matches_frozen": true,
+      "diagnostic_phases": {
+        "token_preflight": 1
+      },
+      "frozen_files_verified": 297,
+      "paid_worker_lock_released": true,
+      "published_metrics_verified": true
+    },
+    "frozen_bundle_integrity": "passed",
+    "full_classifier_suite_repeated": false,
+    "full_suite_basis": "unchanged v3 previously passed 1802 tests and 254 subtests on each supported Python version",
+    "network_forbidden_during_classification_and_final_audit": true,
+    "preservation": {
+      "initial_files_checked": 6771,
+      "pre_existing_uncommitted_patch_unchanged": true,
+      "previous_archives": {
+        "2026-11-22-coverage-holdout-usd10": {
+          "changed_files": 0,
+          "verified_files": 971
+        },
+        "2026-11-22-fresh-holdout-v2": {
+          "changed_files": 0,
+          "verified_files": 851
+        },
+        "2026-11-22-usd25-run": {
+          "changed_files": 0,
+          "verified_files": 1079
+        },
+        "2026-11-23-classifier-reliability-followup": {
+          "changed_files": 0,
+          "verified_files": 45
+        }
+      },
+      "readme_unchanged": true
+    },
+    "relevant_pytest_python3.11": {
+      "passed": 129
+    },
+    "relevant_pytest_python3.12": {
+      "passed": 129
+    },
+    "response_and_reference_linkage": "passed",
+    "ruff_lint_and_format": "passed on three changed Python files before launch",
+    "scoped_mypy": "passed on two sources with explicit package bases; unused configuration notes"
+  }
+}
