@@ -43,6 +43,10 @@ SHARED_MAILBOX = re.compile(
     r"(?:[._+-].*)?$",
     re.I,
 )
+FUNCTION_MAILBOX = re.compile(
+    r"(?:^|[._+-])(?:ops|operations|education|licensing|settlements?|reconciliation|publications|refunds|filings)(?:$|[._+-])",
+    re.I,
+)
 
 
 def evidence(text: str, start: int, end: int, label: str, rule: str, reason: str) -> dict:
@@ -56,13 +60,14 @@ RECORD_CONTEXT = re.compile(
     r"contact record|contact reference|contact ref\.?|contact ID|client contact|internal contact|"
     r"personal record|client reference|customer reference|"
     r"intake|holder|register|portal|secretariat|shareholder|collection|client|customer|"
-    r"personnel|deal-team|reader|correspondence|staff ref\.?|identity document|respondent|party|verification|record)"
+    r"personnel|deal-team|reader|correspondence|staff ref\.?|identity document|respondent|party|verification|record|"
+    r"claim|folio|reviewer|investor)"
     r"\s*(?P<qualifier>ID|number|no\.?|reference|ref\.?)?\s*(?:\([^\n)]{1,25}\))?"
     r"\s*(?:as|is|:|\#)?[ \t]+\(?)"
     r"(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
 )
 DOB_CONTEXT = re.compile(
-    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|in|on|:|=)?[ \t]+\(?)"
+    r"(?i:\b(?:date of birth|DOB|born|birth month and year)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|in|on|:|=)?[ \t]+\(?)"
     rf"(?P<value>\d{{1,2}}[ /-](?:[A-Za-z]+|\d{{1,2}})[ /-]\d{{4}}|\d{{4}}-\d{{2}}-\d{{2}}|"
     rf"(?i:{MONTH_NAME})\s+\d{{4}})\b"
 )
@@ -136,6 +141,17 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
                         "individual-client case reference",
                     )
                 )
+    for match in re.finditer(r"\bUnder reference\s+(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)+)", text, re.I):
+        if personal_link(text, *match.span("value"), people):
+            spans.append(
+                evidence(
+                    text,
+                    *match.span("value"),
+                    "PERSONAL_RECORD_ID",
+                    "contextual_record_reference",
+                    "locally linked individual reference",
+                )
+            )
     record_ids = {s["matched_text"] for s in spans if s["label"] == "PERSONAL_RECORD_ID"}
     for match in re.finditer(r"\b[A-Z][A-Z0-9]{1,}(?:[-/][A-Z0-9]+)*\b", text):
         if match.group() in record_ids:
@@ -167,11 +183,15 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
         reason = None
         if finding.rule == "email_address":
             local = finding.matched_text.split("@")[0]
-            shared = SHARED_MAILBOX.fullmatch(local) or re.search(
-                r"(?:^|[._+-])(?:intake|governance|payroll|disclosures?|secretariat|registry|policy|research|"
-                r"editorial|editor|review|consultation|taxdesk|listingdesk|capmarkets|records)(?:$|[._+-])",
-                local,
-                re.I,
+            shared = (
+                SHARED_MAILBOX.fullmatch(local)
+                or FUNCTION_MAILBOX.search(local)
+                or re.search(
+                    r"(?:^|[._+-])(?:intake|governance|payroll|disclosures?|secretariat|registry|policy|research|"
+                    r"editorial|editor|review|consultation|taxdesk|listingdesk|capmarkets|records)(?:$|[._+-])",
+                    local,
+                    re.I,
+                )
             )
             if shared:
                 reason = "role/shared mailbox is outside the personal-email target"

@@ -96,7 +96,7 @@ def nonpersonal(text: str, start: int, end: int, label: str) -> bool:
         return True
     if label == "GOVERNMENT_ID" and (
         EXAMPLE.search(before[-90:] + after[:160])
-        or re.search(r"\b(?:circular|company|corporate)\s+(?:reference|registration)", after[:100], re.I)
+        or re.search(r"\b(?:circular|company|corporate)\s+(?:case\s+)?(?:reference|registration)", after[:100], re.I)
         or re.search(
             r"\b(?:carton|packaging|artwork)\s+proof\s+shows\s*[“\"']?\s*"
             r"(?:ID\s+(?:No\.?|number)\s*[:#]?\s*)?$",
@@ -119,6 +119,10 @@ def nonpersonal(text: str, start: int, end: int, label: str) -> bool:
         r"(?i:\b(?:corporate|company|firm))\s+(?:[A-Z][\w’'-]*\s+){0,4}"
         r"(?i:bank\s+account\s*,?\s*(?:no\.?|number)?\s*[:#=]?\s*)$",
         before,
+    ):
+        return True
+    if label == "BANK_ACCOUNT" and re.search(
+        r"\b(?:specimen|sample|formatting example|not a payment destination)\b", before[-100:] + after[:100], re.I
     ):
         return True
     return bool(
@@ -182,6 +186,31 @@ def _span(text: str, start: int, end: int, label: str, reason: str) -> dict:
 
 def quasi_identifiers(text: str, people: list[dict]) -> list[dict]:
     spans = []
+    linked_profiles = (
+        rf"\bbirth month and year\s*\({MONTH_NAME}\s+\d{{4}}\),"
+        rf"\s*home postal sector\s*\(\d{{1,2}}\),?\s*and\s+(?:her|his|their)\s+role\s+as\s+[^.\n;]{{3,120}}",
+        rf"\b{MONTH_NAME}\s+\d{{4}}\),\s*home planning area\s*\([^)]{{2,50}}\)\s+and\s+role\s*\([^)]{{3,100}}\)",
+        rf"\b(?:[\w’'-]+\s+){{1,7}}(?:lead|supervisor|approver|manager)"
+        rf"\s*\(birth month and year:\s*{MONTH_NAME}\s+\d{{4}};\s*residential postal sector:\s*\d{{1,2}}",
+    )
+    for pattern in linked_profiles:
+        for match in re.finditer(pattern, text, re.I):
+            left, right = paragraph_bounds(text, *match.span())
+            if not any(left <= person["start_char"] < right for person in people):
+                continue
+            start = match.start()
+            article = re.match(r"the\s+", match.group(), re.I)
+            if article:
+                start += article.end()
+            spans.append(
+                _span(
+                    text,
+                    start,
+                    match.end(),
+                    "QUASI_IDENTIFIER_COMBINATION",
+                    "person-linked birth, locality and employment profile; unverified",
+                )
+            )
     individual = bool(re.search(r"\b(?:individual|private)[- ]client\b|\bclient capacity\s*:", text, re.I))
     for match in PROSE_QUASI.finditer(text):
         left, right = paragraph_bounds(text, match.start(), match.end())

@@ -14,17 +14,19 @@ ORG_WORD = re.compile(
     r"Advisory|Systems|Infrastructure|Secretariat|Bank|Legal|Notice|Memorandum|Singapore|"
     r"Government|Board|Company|Corporate|Client|Intake|General|Date|Private|Email|Ref|File|"
     r"Payroll|Operations|Service|Desk|Library|Review|Research|Counsel|Policy|Editor|Committee|Forum|Governance|"
-    r"ID|NRIC|FIN|DOB|Reference|Number|Exchange)\b",
+    r"ID|NRIC|FIN|DOB|Reference|Number|Exchange|Office|Authority|Bureau)\b",
     re.I,
 )
 PREFIX = re.compile(
     r"\b(?:name|client|applicant|beneficiary|claimant|patient|account holder|contact person|"
-    r"employee name|client name|contact|from|to|board queries|issuer contact|backup contact)\s*:\s*$|"
+    r"employee name|client name|contact|from|to|board queries|issuer contact|backup contact|proof queries|"
+    r"corrections contact(?:\s*\([^)]{0,30}\))?)\s*:\s*$|"
     r"\b(?:Mr|Mrs|Ms|Mdm|Dr|Prof|Hi|Hello|Dear)\.?\s+$|"
     r"\b(?:director|shareholder|employee|patient|customer|client|beneficiary|claimant|"
     r"company secretary|corporate secretary|registry liaison|finance director|legal analyst|deal counsel|"
     r"issuer counsel|counsel|signatory|recipient|trustee|contact|applicant|respondent|participant|"
-    r"coordinator|clerk|officer|representative)\s+(?:as\s+)?$|"
+    r"coordinator|clerk|officer|representative|attendee|editor|reviewer|investor|recipient)"
+    r"(?:,?\s+(?:was|is|as|of|to))?\s+$|"
     r"\b(?:seller|buyer)[’']s\s+(?:authori[sz]ed\s+)?(?:representative|signatory),?\s*$",
     re.I,
 )
@@ -32,10 +34,11 @@ SUFFIX = re.compile(
     r"^\s*\(\s*(?:fictional\s+)?(?:NRIC|FIN|passport|staff|employee|client|contact ref\.?|contact reference|"
     r"contact ID|customer|register|holder|"
     r"portal|secretariat|collection|correspondence|internal contact|contact record|personnel|deal-team|reader|email|"
-    r"date of birth|DOB|born|party|respondent|verification|record|"
+    r"date of birth|DOB|born|birth month|party|respondent|verification|record|reviewer|investor|"
     r"[\w.+-]+@[\w.-]+)\b|^\s*,\s*(?:Company Secretary|director|employee)\b|"
     r"^\s*,\s*(?:the\s+)?(?:(?:buyer|seller|issuer)[’']s\s+)?(?:treasury\s+)?contact\b|"
-    r"^\s+(?:requested|submitted|asked|entered|confirmed|reported|seeks|holds|says|works)\b",
+    r"^\s+(?:requested|submitted|asked|entered|confirmed|reported|seeks|holds|says|works)\b|"
+    r"^,\s*who\s+(?:had\s+|has\s+)?(?:paid|submitted|requested|received)\b",
     re.I,
 )
 NONPERSON_FIELD = re.compile(r"\b(?:company|corporate|issuer|organization|department|fund)\s+name\s*:\s*$", re.I)
@@ -111,6 +114,11 @@ def person_names(text: str) -> list[dict]:
         prefix, suffix = text[max(0, start - 65) : start], text[end : end + 100]
         if (
             not ORG_WORD.search(value)
+            and not (
+                len(run) == 1
+                and value.isupper()
+                and not (HONORIFIC.search(prefix) or re.search(r"\bname\s*:\s*$", prefix, re.I))
+            )
             and not NONPERSON_FIELD.search(prefix)
             and (PREFIX.search(prefix) or (len(run) >= 2 and SUFFIX.search(suffix)))
         ):
@@ -146,7 +154,7 @@ def person_names(text: str) -> list[dict]:
     }
     for match in re.finditer(r"\b([A-Z])\.[ \t]*([^\W\d_]{2,40})\b", text):
         if (match.group(1), match.group(2)) in initials and re.search(
-            r"\b(?:signed|signature|from)\b", text[max(0, match.start() - 25) : match.start()], re.I
+            r"\b(?:signed|signature|from|acknowledgement)\b", text[max(0, match.start() - 30) : match.start()], re.I
         ):
             candidates.append(match.span())
             occupied.update(range(bisect_left(starts, match.start()), bisect_left(starts, match.end())))
@@ -170,7 +178,7 @@ def person_names(text: str) -> list[dict]:
                 re.search(r"\b(?:names?|named|contact is)\s*$", text[max(0, a - 25) : a], re.I)
                 or HONORIFIC.search(text[max(0, a - 10) : a])
                 or re.match(
-                    r"(?:[’']s\b|\s+(?:says|said|holds|asked|requested|works|submitted|confirmed|reported|wrote|noted)\b)",
+                    r"(?:[’']s\b|\s+(?:as\s+(?:nominee|beneficiary)|says|said|holds|asked|requested|works|submitted|confirmed|reported|wrote|noted)\b)",
                     text[b:],
                 )
             ):
