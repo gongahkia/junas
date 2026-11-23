@@ -7,6 +7,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
@@ -22,7 +23,7 @@ from scripts.evaluate_candidate_corpus import _evaluate_one  # noqa: E402
 def _summary(fixture_path: Path, labels: dict) -> dict:
     try:
         report = _evaluate_one(fixture_path)
-        engine = {
+        engine: dict[str, Any] = {
             "matched": len(report.matched),
             "missed": len(report.missed),
             "ideal_matched": len(report.ideal_matched),

@@ -292,7 +292,7 @@ def corrected_ai_measurements(observations, *, annotation_coverage="unknown", di
             raise ValueError("PII predictions were not requested")
         texts = {}
         gold = []
-        predictions = []
+        predictions: list[Span] = []
         originals = {}
         for row, predicted in observations:
             unit = ("unspecified", row.row_id, "dataset")

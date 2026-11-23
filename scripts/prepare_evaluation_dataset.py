@@ -376,7 +376,9 @@ def validate_reviews(manifest, texts, records):
     require(set(texts) == set(docs), "canonical texts missing or extra")
     for doc_id, text in texts.items():
         require(input_identity(text) == docs[doc_id]["canonical_text_sha256"], "canonical text hash mismatch")
-    by_id, latest, accepted = {}, {}, {}
+    by_id: dict[str, dict] = {}
+    latest: dict[tuple[str, str], str] = {}
+    accepted: dict[str, str] = {}
     previous = None
     for r in records:
         require(isinstance(r, dict) and r.get("document_id") in docs, "unknown review document")
@@ -456,7 +458,8 @@ def validate_reviews(manifest, texts, records):
 def occurrence_inputs(manifest, texts, records):
     """Convert explicitly accepted development annotations; does not compute metrics."""
     by_id, _, accepted = validate_reviews(manifest, texts, records)
-    spans, units, coverage = [], {}, {}
+    spans: list[Span] = []
+    units, coverage = {}, {}
     for doc_id, record_id in accepted.items():
         r = by_id[record_id]
         unit = ("development", doc_id, r["reviewer_id"])

@@ -4,16 +4,12 @@ import csv
 import hashlib
 import os
 import re
+import tomllib
 from dataclasses import dataclass
 from datetime import date
 from importlib import resources
 from pathlib import Path
 from typing import Any
-
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
 
 
 @dataclass(frozen=True)
@@ -39,120 +35,131 @@ class _Tables:
     loaded_tables: tuple[str, ...]
 
 
-_DIRECT_UNIQUE_RULES = frozenset({
-    "email_address",
-    "phone_number",
-    "sg_nric_fin",
-    "sg_uen",
-    "passport_number",
-    "bank_account",
-    "employee_id",
-    "customer_account_number",
-    "medical_record_number",
-    "internal_session_id",
-    "bank_customer_reference",
-    "insurance_member_id",
-    "crypto_wallet_address",
-    "uk_company_number",
-    "eu_company_id",
-    "my_mykad",
-    "id_nik",
-    "th_national_id",
-    "ph_philsys",
-    "ph_tin",
-    "vn_cccd",
-    "hk_hkid",
-    "hk_cr_no",
-    "au_tfn",
-    "au_abn",
-    "au_acn",
-    "jp_my_number",
-    "jp_corporate_number",
-    "kr_rrn",
-    "kr_business_registration",
-    "us_ssn",
-    "us_ein",
-    "us_itin",
-    "us_driver_license",
-    "uk_nin",
-    "in_aadhaar",
-    "in_pan",
-    "in_gstin",
-    "in_voter_id",
-    "cn_resident_id",
-    "cn_uscc",
-    "cn_phone",
-    "cn_passport",
-    "ae_emirates_id",
-    "ae_trade_licence",
-    "ae_passport",
-    "sa_national_id",
-    "sa_iqama",
-    "sa_commercial_registration",
-    "sg_court_citation",
-    "sg_paynow",
-    "sg_mas_licence",
-    "sg_acra_transaction_number",
-    "sg_hdb_reference",
-    "sg_sla_lot_number",
-    "sg_sla_title_plan_number",
-    "sg_ura_planning_reference",
-})
-_QUASI_RULES = frozenset({
-    "named_person",
-    "date_of_birth",
-    "age_reference",
-    "sg_postal_address",
-    "uk_postal_address",
-    "au_postal_address",
-    "jp_postal_address",
-    "kr_postal_address",
-    "us_postal_address",
-    "eu_postal_address",
-    "postal_address",
-    "personal_attribute_inference",
-    "ip_address",
-    "mac_address",
-    "imei",
-    "cookie_id",
-    "advertising_id",
-    "device_serial_number",
-    "minor_data_reference",
-    "religious_belief",
-    "trade_union_membership",
-    "political_opinion",
-    "racial_ethnic_origin",
-    "health_condition",
-    "medical_treatment",
-    "biometric_identifier",
-    "genetic_data",
-    "sexual_orientation",
-    "sex_life_reference",
-}) | _DIRECT_UNIQUE_RULES
-_POSTAL_RULES = frozenset({
-    "sg_postal_address",
-    "uk_postal_address",
-    "au_postal_address",
-    "jp_postal_address",
-    "kr_postal_address",
-    "us_postal_address",
-    "eu_postal_address",
-    "postal_address",
-})
+_DIRECT_UNIQUE_RULES = frozenset(
+    {
+        "email_address",
+        "phone_number",
+        "sg_nric_fin",
+        "sg_uen",
+        "passport_number",
+        "bank_account",
+        "employee_id",
+        "customer_account_number",
+        "medical_record_number",
+        "internal_session_id",
+        "bank_customer_reference",
+        "insurance_member_id",
+        "crypto_wallet_address",
+        "uk_company_number",
+        "eu_company_id",
+        "my_mykad",
+        "id_nik",
+        "th_national_id",
+        "ph_philsys",
+        "ph_tin",
+        "vn_cccd",
+        "hk_hkid",
+        "hk_cr_no",
+        "au_tfn",
+        "au_abn",
+        "au_acn",
+        "jp_my_number",
+        "jp_corporate_number",
+        "kr_rrn",
+        "kr_business_registration",
+        "us_ssn",
+        "us_ein",
+        "us_itin",
+        "us_driver_license",
+        "uk_nin",
+        "in_aadhaar",
+        "in_pan",
+        "in_gstin",
+        "in_voter_id",
+        "cn_resident_id",
+        "cn_uscc",
+        "cn_phone",
+        "cn_passport",
+        "ae_emirates_id",
+        "ae_trade_licence",
+        "ae_passport",
+        "sa_national_id",
+        "sa_iqama",
+        "sa_commercial_registration",
+        "sg_court_citation",
+        "sg_paynow",
+        "sg_mas_licence",
+        "sg_acra_transaction_number",
+        "sg_hdb_reference",
+        "sg_sla_lot_number",
+        "sg_sla_title_plan_number",
+        "sg_ura_planning_reference",
+    }
+)
+_QUASI_RULES = (
+    frozenset(
+        {
+            "named_person",
+            "date_of_birth",
+            "age_reference",
+            "sg_postal_address",
+            "uk_postal_address",
+            "au_postal_address",
+            "jp_postal_address",
+            "kr_postal_address",
+            "us_postal_address",
+            "eu_postal_address",
+            "postal_address",
+            "personal_attribute_inference",
+            "ip_address",
+            "mac_address",
+            "imei",
+            "cookie_id",
+            "advertising_id",
+            "device_serial_number",
+            "minor_data_reference",
+            "religious_belief",
+            "trade_union_membership",
+            "political_opinion",
+            "racial_ethnic_origin",
+            "health_condition",
+            "medical_treatment",
+            "biometric_identifier",
+            "genetic_data",
+            "sexual_orientation",
+            "sex_life_reference",
+        }
+    )
+    | _DIRECT_UNIQUE_RULES
+)
+_POSTAL_RULES = frozenset(
+    {
+        "sg_postal_address",
+        "uk_postal_address",
+        "au_postal_address",
+        "jp_postal_address",
+        "kr_postal_address",
+        "us_postal_address",
+        "eu_postal_address",
+        "postal_address",
+    }
+)
 _CONTACT_RULES = frozenset({"email_address", "phone_number"})
 _DEVICE_RULES = frozenset({"ip_address", "mac_address", "imei", "cookie_id", "advertising_id", "device_serial_number"})
-_SPECIAL_CATEGORY_RULES = frozenset({
-    "religious_belief",
-    "trade_union_membership",
-    "political_opinion",
-    "racial_ethnic_origin",
-    "health_condition",
-    "medical_treatment",
-    "biometric_identifier",
-    "genetic_data",
-    "sexual_orientation",
-    "sex_life_reference",
-})
+_SPECIAL_CATEGORY_RULES = frozenset(
+    {
+        "religious_belief",
+        "trade_union_membership",
+        "political_opinion",
+        "racial_ethnic_origin",
+        "health_condition",
+        "medical_treatment",
+        "biometric_identifier",
+        "genetic_data",
+        "sexual_orientation",
+        "sex_life_reference",
+    }
+)
 _QUASI_RULE_WEIGHTS = {
     **{rule: 1.1 for rule in _DIRECT_UNIQUE_RULES},
     **{rule: 0.6 for rule in _CONTACT_RULES},
@@ -542,8 +549,7 @@ def _role_key(value: str) -> str | None:
 def _surname_from_name(value: str) -> str | None:
     stripped = _NAME_PREFIX_RE.sub("", str(value or "").strip())
     tokens = [
-        match.group(0).replace("'", "").replace("-", "").upper()
-        for match in _SURNAME_TOKEN_RE.finditer(stripped)
+        match.group(0).replace("'", "").replace("-", "").upper() for match in _SURNAME_TOKEN_RE.finditer(stripped)
     ]
     return tokens[-1] if tokens else None
 
@@ -770,9 +776,7 @@ def detect_singling_out(
                 matched_text=str(getattr(document_structure, "text", "")[start:end]) if document_structure else "",
                 start_char=start,
                 end_char=end,
-                reason=(
-                    f"{len(rules)} quasi-identifier rules co-occur in one {unit_kind}; {basis}"
-                ),
+                reason=(f"{len(rules)} quasi-identifier rules co-occur in one {unit_kind}; {basis}"),
                 metadata=metadata,
             )
         )

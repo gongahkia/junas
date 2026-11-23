@@ -10,7 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
-from typing import Any, Protocol
+from typing import Any, Protocol, cast
 
 from junas.advisory.llm_adjudicator.contracts import model_provenance
 from junas.advisory.llm_adjudicator.structured_query import safe_document_type, safe_finding_metadata
@@ -44,7 +44,9 @@ def normalize_warnings(warnings, *, body_hash, provenance):
                 raise ValueError(f"coverage warning requires nonempty {key}")
         confidence = warning.get("confidence")
         if "confidence" in warning and (
-            type(confidence) not in (int, float) or not math.isfinite(confidence) or not 0 <= confidence <= 1
+            type(confidence) not in (int, float)
+            or not math.isfinite(cast(float, confidence))
+            or not 0 <= cast(float, confidence) <= 1
         ):
             raise ValueError("coverage confidence must be a finite number in [0, 1]")
         item = {"rule_guess": warning["rule_guess"].strip(), "why": warning["why"].strip(), "confidence": confidence}

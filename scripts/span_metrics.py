@@ -28,18 +28,18 @@ class Span:
 
 def _assignment(gold: list[Span], predictions: list[Span], mode: str) -> dict[int, int]:
     groups: dict[tuple, list[int]] = defaultdict(list)
-    for index, g in enumerate(gold):
-        groups[(g.unit, g.category, g.label)].append(index)
+    for index, gold_span in enumerate(gold):
+        groups[(gold_span.unit, gold_span.category, gold_span.label)].append(index)
     edges = []
-    for p in predictions:
+    for prediction in predictions:
         edges.append(
             [
                 i
-                for i in groups[(p.unit, p.category, p.label)]
+                for i in groups[(prediction.unit, prediction.category, prediction.label)]
                 if (
-                    (p.start == gold[i].start and p.end == gold[i].end)
+                    (prediction.start == gold[i].start and prediction.end == gold[i].end)
                     if mode == "exact"
-                    else p.start < gold[i].end and gold[i].start < p.end
+                    else prediction.start < gold[i].end and gold[i].start < prediction.end
                 )
             ]
         )
@@ -177,7 +177,7 @@ def reproducibility(runner: Path) -> dict[str, Any]:
     digest = hashlib.sha256()
     for path in paths:
         digest.update(str(path.relative_to(root)).encode() + b"\0" + path.read_bytes() + b"\0")
-    versions = {}
+    versions: dict[str, str | None] = {}
     for package in ("numpy", "pypdf", "Pillow", "spacy"):
         try:
             versions[package] = importlib.metadata.version(package)

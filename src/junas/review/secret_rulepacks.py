@@ -3,15 +3,11 @@ from __future__ import annotations
 import math
 import os
 import re
+import tomllib
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
 
 ENV_GITLEAKS_RULE_PACKS = "JUNAS_GITLEAKS_RULE_PACKS"
 ENV_GITLEAKS_MAX_RULES = "JUNAS_GITLEAKS_MAX_RULES"

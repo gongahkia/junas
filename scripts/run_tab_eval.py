@@ -415,10 +415,12 @@ def corrected_tab_measurements(
                 if mode not in scores:
                     continue
                 matched = {(tuple(m["unit"]), m["start"], m["end"]) for m in scores[mode]["matched_gold"]}
-                for key in ("entity_type", "identifier_type"):
+                for subgroup_key in ("entity_type", "identifier_type"):
                     groups = {}
-                    for value in sorted({getattr(item, key) for item in original.values()}):
-                        subset = {identity for identity, item in original.items() if getattr(item, key) == value}
+                    for value in sorted({getattr(item, subgroup_key) for item in original.values()}):
+                        subset = {
+                            identity for identity, item in original.items() if getattr(item, subgroup_key) == value
+                        }
                         hits = len(subset & matched)
                         groups[value] = {
                             "gold": len(subset),
@@ -427,7 +429,7 @@ def corrected_tab_measurements(
                             "precision": None,
                             "reason": "no approved prediction-to-gold subtype crosswalk; global assignment retained",
                         }
-                    scores[mode]["by_" + key] = groups
+                    scores[mode]["by_" + subgroup_key] = groups
             by_split[split] = {
                 "documents": [
                     {"id": doc.doc_id, "text_sha256": input_identity(doc.text)}

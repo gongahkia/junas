@@ -104,7 +104,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--external", choices=("available", "require", "skip"), default="available")
     args = parser.parse_args(argv)
     corpora = [(path if path.is_absolute() else ROOT / path).resolve() for path in (args.corpus or DEFAULT_CORPORA)]
-    versions = {}
+    versions: dict[str, str | None] = {}
     for package in ("junas", "numpy", "spacy", "pypdf", "Pillow"):
         try:
             versions[package] = importlib.metadata.version(package)
@@ -178,17 +178,19 @@ def main(argv: list[str] | None = None) -> int:
                 failed |= args.external == "require"
             else:
                 print(f"Evaluating external {name} ...", flush=True)
-                result = subprocess.run(
+                process_result = subprocess.run(
                     [sys.executable, str(ROOT / external["runner"]), "--output", str(ROOT / external["output"])],
                     cwd=ROOT,
                     capture_output=True,
                     text=True,
                     check=False,
                 )
-                external["status"] = "measured" if result.returncode == 0 else "failed"
-                external["returncode"] = result.returncode
-                external["diagnostics"] = (result.stderr or result.stdout)[-4000:] if result.returncode else ""
-                failed |= result.returncode != 0
+                external["status"] = "measured" if process_result.returncode == 0 else "failed"
+                external["returncode"] = process_result.returncode
+                external["diagnostics"] = (
+                    (process_result.stderr or process_result.stdout)[-4000:] if process_result.returncode else ""
+                )
+                failed |= process_result.returncode != 0
     except (OSError, ValueError, RuntimeError, KeyError) as exc:
         report["error"] = str(exc)
         failed = True

@@ -11,18 +11,14 @@ import json
 import re
 import sys
 import tempfile
+import tomllib
 import urllib.request
 import xml.etree.ElementTree as ET
 import zipfile
 from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
-from typing import Iterable
-
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib
+from typing import Iterable, Sequence
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SUPPORTED = ("UK", "AU", "JP", "KR", "US")
@@ -35,15 +31,54 @@ SUPPORTED_TABLES = (
     "name_frequency",
     "role_frequency",
 )
-POSTAL_COLUMNS = ("postal_prefix", "postal_code", "postcode", "postcode_sector", "postcode_sectors",
-                  "postcodesectors", "poa_code_2021", "poa_code21", "poa_code", "area_code", "code")
-AREA_COLUMNS = ("area", "area_name", "municipality", "prefecture", "region", "admin_area", "name", "地域", "市区町村",
-                "都道府県", "행정구역", "시도", "시도명", "시군구", "시군구명")
+POSTAL_COLUMNS = (
+    "postal_prefix",
+    "postal_code",
+    "postcode",
+    "postcode_sector",
+    "postcode_sectors",
+    "postcodesectors",
+    "poa_code_2021",
+    "poa_code21",
+    "poa_code",
+    "area_code",
+    "code",
+)
+AREA_COLUMNS = (
+    "area",
+    "area_name",
+    "municipality",
+    "prefecture",
+    "region",
+    "admin_area",
+    "name",
+    "地域",
+    "市区町村",
+    "都道府県",
+    "행정구역",
+    "시도",
+    "시도명",
+    "시군구",
+    "시군구명",
+)
 SURNAME_COLUMNS = ("surname", "name")
 NAME_COLUMNS = ("name", "full_name", "fullname", "given_name", "givenname", "first_name", "firstname")
 ROLE_COLUMNS = ("role", "occupation", "job_title", "jobtitle", "title")
-POPULATION_COLUMNS = ("population", "total_population", "usual_residents", "persons", "total_persons", "tot_p_p",
-                      "total", "count", "総数", "人口", "인구", "총인구", "계")
+POPULATION_COLUMNS = (
+    "population",
+    "total_population",
+    "usual_residents",
+    "persons",
+    "total_persons",
+    "tot_p_p",
+    "total",
+    "count",
+    "総数",
+    "人口",
+    "인구",
+    "총인구",
+    "계",
+)
 UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)(?:[A-Z]{2})?\b", re.IGNORECASE)
 AU_POSTCODE_RE = re.compile(r"(\d{4})")
 
@@ -345,8 +380,7 @@ def _jp_prefecture_records_from_xlsx(payload: bytes) -> dict[str, int]:
             root = ET.fromstring(zf.read("xl/worksheets/sheet3.xml"))
             for row in root.findall(".//a:sheetData/a:row", ns):
                 cells = {
-                    cell.attrib.get("r", ""): _xlsx_cell_value(cell, shared_strings)
-                    for cell in row.findall("a:c", ns)
+                    cell.attrib.get("r", ""): _xlsx_cell_value(cell, shared_strings) for cell in row.findall("a:c", ns)
                 }
                 row_no = row.attrib.get("r", "")
                 pref = re.sub(r"[\s\u3000]+", "", cells.get(f"C{row_no}", ""))
@@ -359,7 +393,7 @@ def _jp_prefecture_records_from_xlsx(payload: bytes) -> dict[str, int]:
     return records
 
 
-def _column(fieldnames: list[str], candidates: tuple[str, ...]) -> str | None:
+def _column(fieldnames: Sequence[str], candidates: tuple[str, ...]) -> str | None:
     normalized = {_norm_header(field): field for field in fieldnames}
     for candidate in candidates:
         field = normalized.get(_norm_header(candidate))
@@ -405,12 +439,12 @@ def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
     reader = csv.DictReader(io.StringIO(text))
     if not reader.fieldnames:
         return {}
+    out: dict[str, int] = {}
     if spec.table in {"name_frequency", "role_frequency"}:
         key_col = _column(reader.fieldnames, NAME_COLUMNS if spec.table == "name_frequency" else ROLE_COLUMNS)
         population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
         if not key_col or not population_col:
             return {}
-        out: dict[str, int] = {}
         for row in reader:
             raw_key = str(row.get(key_col) or "").strip()
             key = re.sub(r"\s+", " ", raw_key).upper()
@@ -423,7 +457,6 @@ def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
         population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
         if not key_col or not population_col:
             return {}
-        out: dict[str, int] = {}
         for row in reader:
             raw_surname = str(row.get(key_col) or "").strip().upper()
             if raw_surname in {"ALL OTHER NAMES", "OTHER NAMES", "TOTAL"}:
@@ -434,27 +467,25 @@ def _records_from_csv(text: str, spec: JurisdictionSpec) -> dict[str, int]:
                 out[surname] = population
         return out
     if spec.jurisdiction == "KR" and spec.table == "area_population":
-        out: dict[str, int] = {}
         for row in reader:
-            key = _kr_area_key(row)
+            kr_key = _kr_area_key(row)
             population = _parse_int(str(row.get("계") or row.get("총인구") or ""))
-            if key and population is not None:
-                out[key] = out.get(key, 0) + population
+            if kr_key and population is not None:
+                out[kr_key] = out.get(kr_key, 0) + population
         return out
     key_col = _column(reader.fieldnames, POSTAL_COLUMNS if spec.table == "postal_population" else AREA_COLUMNS)
     population_col = _column(reader.fieldnames, POPULATION_COLUMNS)
     if not key_col or not population_col:
         return {}
-    out: dict[str, int] = {}
     for row in reader:
         population = _parse_int(str(row.get(population_col) or ""))
         if population is None:
             continue
         raw_key = str(row.get(key_col) or "").strip()
-        key = _postal_key(spec.jurisdiction, raw_key) if spec.table == "postal_population" else raw_key
-        if not key:
+        postal_or_area_key = _postal_key(spec.jurisdiction, raw_key) if spec.table == "postal_population" else raw_key
+        if not postal_or_area_key:
             continue
-        out[key] = out.get(key, 0) + population
+        out[postal_or_area_key] = out.get(postal_or_area_key, 0) + population
     return out
 
 
@@ -633,7 +664,9 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(_source_clearance_report(), indent=2, sort_keys=True))
         return 0
     if args.list_sources:
-        jurisdictions = DEFAULT_SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
+        jurisdictions: tuple[str, ...] = (
+            DEFAULT_SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
+        )
         profiles = {code: SPECS[code].__dict__ for code in jurisdictions if code in SPECS}
         profiles["_custom_tables"] = {
             "tables": ["name_frequency", "role_frequency"],
