@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import fcntl
 import hashlib
 import json
 import os
@@ -77,7 +78,7 @@ def constant_text(node: ast.AST) -> str | None:
     return None
 
 
-def build_exclusions(inherited: dict, runs: list[Path]) -> tuple[dict, dict]:
+def build_exclusions(inherited: dict, runs: list[Path], groups: list[dict] | None = None) -> tuple[dict, dict]:
     """Fingerprint old holdout sources without exposing their text or labels to evaluation."""
     validate_exclusion_registry(inherited)
     records = [
@@ -119,7 +120,8 @@ def build_exclusions(inherited: dict, runs: list[Path]) -> tuple[dict, dict]:
     registry = {"schema_version": inherited["schema_version"], "entries": [unique[k] for k in sorted(unique)]}
     validate_exclusion_registry(registry)
     used_groups = {entry["template_group"] for entry in registry["entries"]}
-    corpus.require(not used_groups & {g["id"] for g in FRESH_HOLDOUT_GROUPS}, "fresh scenario families already used")
+    groups = FRESH_HOLDOUT_GROUPS if groups is None else groups
+    corpus.require(not used_groups & {g["id"] for g in groups}, "fresh scenario families already used")
     return registry, {
         "inherited_entries": len(inherited["entries"]),
         "total_entries": len(unique),
@@ -134,11 +136,13 @@ def build_exclusions(inherited: dict, runs: list[Path]) -> tuple[dict, dict]:
     }
 
 
-def prepare(output: Path, baseline: Path, inherited: Path, runs: list[Path]) -> dict:
+def prepare(output: Path, baseline: Path, inherited: Path, runs: list[Path], config_path: Path | None = None) -> dict:
     corpus.require(not output.resolve().is_relative_to(ROOT), "bundle must be outside repository")
     corpus.require(not output.exists(), "bundle already exists")
-    config = json.loads((ROOT / "config/model_corpus.holdout-v2.json").read_text())
-    registry, audit = build_exclusions(json.loads(inherited.read_text()), runs)
+    config = json.loads((config_path or ROOT / "config/model_corpus.holdout-v2.json").read_text())
+    corpus.validate_config(config)
+    corpus.require(config.get("sampling", {}).get("split") == "holdout", "reserved holdout configuration required")
+    registry, audit = build_exclusions(json.loads(inherited.read_text()), runs, config["sampling"]["groups"])
     config["exclusion_registry_sha256"] = corpus.identity(registry)
     corpus.validate_config(config)
     baseline_hash, improved_hash = runtime_hash(baseline), runtime_hash(ROOT)
@@ -159,7 +163,7 @@ def prepare(output: Path, baseline: Path, inherited: Path, runs: list[Path]) -> 
         "paid_calls_made": 0,
         "live_calls_authorized": False,
         "plan": corpus.plan(config),
-        "empirical_estimate_usd": "1.75355450",
+        "empirical_estimate_usd": "2.73792225",
         "empirical_basis": (
             "completed prior 40-document stage including rejection and retries; "
             "conservative accounted cost, not invoice"
@@ -241,9 +245,10 @@ with output.open('x') as f:json.dump(result,f,sort_keys=True);f.write('\\n')
 """
 
 
-def evaluate(bundle: Path) -> dict:
+def evaluate(bundle: Path, run_dir: Path | None = None) -> dict:
     frozen = verify_bundle(bundle)
-    run_dir = bundle / "run"
+    run_dir = bundle / "run" if run_dir is None else run_dir.resolve()
+    corpus.require(run_dir.is_relative_to(bundle), "holdout segment must remain in the frozen bundle")
     manifest = json.loads((run_dir / "manifest.json").read_text())
     corpus.require(manifest["config_sha256"] == frozen["config_sha256"], "run configuration drift")
     corpus.require(
@@ -297,11 +302,29 @@ def execute(bundle: Path, authorization: Path, env_file: Path) -> dict:
     corpus.validate_authorization(auth, config)
     corpus.load_api_key(env_file)
     exclusions = json.loads((bundle / "exclusions.json").read_text())
-    result = corpus.run(config, auth, bundle / "run", exclusions=exclusions)
-    validation = evaluate(bundle) if result["status"] == "completed" else None
+    source = None
+    attempted, failures, ordinal = 0, 0, 1
+    controller_stop = None
+    with (bundle / "paid-execution.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        while True:
+            verify_bundle(bundle)
+            output = bundle / ("run" if ordinal == 1 else f"run-{ordinal:03d}")
+            result = corpus.run(config, auth, output, exclusions=exclusions, resume_from=source)
+            if result["stop_reason"] != "UncertainRequest":
+                break
+            # recovery retains every reserve and skips the entire uncertain candidate.
+            failures = failures + 1 if result["attempted_candidates"] <= attempted + 1 else 1
+            if failures >= 3:
+                controller_stop = "three_consecutive_uncertain_candidates"
+                break
+            source, attempted, ordinal = output, result["attempted_candidates"], ordinal + 1
+        validation = evaluate(bundle, output) if result["status"] == "completed" else None
     return {
         **{k: result[k] for k in ("status", "stop_reason", "accepted_documents", "charged_or_reserved_ceiling_usd")},
         "validation_passed": validation["passed"] if validation else None,
+        "controller_stop_reason": controller_stop,
+        "final_segment": output.name,
     }
 
 
@@ -310,6 +333,7 @@ def main() -> int:
     parser.add_argument("command", choices=("prepare", "run", "evaluate"))
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--baseline-source", type=Path)
+    parser.add_argument("--config", type=Path, help="Reserved holdout config; default preserves the v2 proposal")
     parser.add_argument("--inherited-exclusions", type=Path)
     parser.add_argument("--prior-run", type=Path, action="append", default=[])
     parser.add_argument("--authorization", type=Path)
@@ -323,7 +347,11 @@ def main() -> int:
             "baseline, inherited exclusions and prior runs required",
         )
         result = prepare(
-            bundle, args.baseline_source.resolve(), args.inherited_exclusions, [p.resolve() for p in args.prior_run]
+            bundle,
+            args.baseline_source.resolve(),
+            args.inherited_exclusions,
+            [p.resolve() for p in args.prior_run],
+            args.config,
         )
         print(
             json.dumps(
