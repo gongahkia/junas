@@ -21,13 +21,18 @@ EVENT = re.compile(
     r"largest[^.\n]{0,60}contract|"
     r"earnings|profit|revenue|guidance|forecast|insolvency|default|acceleration notice|"
     r"trial halt|cyber(?:attack| incident)|disposal|sale of|recall decision|recall of\s+\d[\d,]*|"
-    r"(?:approved|ordered|initiated)\s+(?:a\s+)?recall)\b",
+    r"(?:approved|ordered|initiated)\s+(?:a\s+)?recall|refinancing|bridge (?:loan|facility)|"
+    r"rescue package|share placement|withdraw\w*|cancel\w*|refus\w*\s+to\s+(?:extend|roll)|"
+    r"suspend\w*|suspension)\b",
     re.I,
+)
+EXPANDED_EVENT_WORDS = re.compile(
+    r"refinancing|bridge|rescue|share placement|withdraw|cancel|refus|suspend|suspension", re.I
 )
 MATERIAL = re.compile(
     r"\b(?:price[- ]sensitive|material(?:ly)?|largest|controlling stake|"
-    r"cash takeover|all (?:(?:outstanding|issued) )?shares)\b|\b\d{2,3}(?:\.\d+)?%\s+"
-    r"(?:premium|above\s+(?:(?:the\s+)?(?:issuer|company)[’']s\s+|its\s+|the\s+)?"
+    r"cash takeover|cash offer|all (?:(?:outstanding|issued) )?shares)\b|\b\d{2,3}(?:\.\d+)?%\s+"
+    r"(?:premium|discount|(?:above|below)\s+(?:(?:the\s+)?(?:issuer|company)[’']s\s+|its\s+|the\s+)?"
     r"(?:(?:last|previous|prior)\s+)?(?:unaffected\s+)?(?:closing|traded|close)(?:\s+price)?)\b",
     re.I,
 )
@@ -48,14 +53,17 @@ NONPUBLIC = re.compile(
     re.I,
 )
 PUBLIC = re.compile(
-    r"\b(?:publicly\s+(?:disclosed|announced|released)|already\s+published|published\s+on\s+SGXNet)\b", re.I
+    r"\b(?:publicly\s+(?:disclosed|announced|released)|already\s+published|published\s+on\s+SGXNet|"
+    r"public register entry\s+(?:posted|published|confirmed))\b",
+    re.I,
 )
 HYPOTHETICAL = re.compile(
     r"\b(?:hypothetical|training example|for illustration|suppose|if\s+.{0,60}(?:were|would))\b", re.I
 )
 NEGATED_EVENT = re.compile(
     r"\b(?:no\s+(?:material\s+|binding\s+)?(?:acquisition|merger|takeover|offer|default|contract termination)|"
-    r"(?:did|will|has|have)\s+not\s+(?:sign|acquire|merge)|no\s+price[- ]sensitive\s+(?:event|information))\b",
+    r"(?:did|will|has|have)\s+not\s+(?:sign|acquire|merge)|no\s+price[- ]sensitive\s+(?:event|information)|"
+    r"no refinancing\s+(?:was\s+)?(?:proposed|approved))\b",
     re.I,
 )
 IMMATERIAL = re.compile(r"\b(?:immaterial|not\s+(?:financially\s+)?material|not\s+price[- ]sensitive)\b", re.I)
@@ -69,20 +77,27 @@ TRANSITION = re.compile(
 )
 TOPICS = {
     "transaction": re.compile(
-        r"\b(?:acqui\w*|takeover|merger|agreement|offer|proposal|deal|terms|sale|disposal|transaction|division|scheme)\b",
+        r"\b(?:acqui\w*|takeover|merger|agreement|offer|proposal|deal|sale|disposal|transaction|division|scheme|withdraw\w*)\b",
         re.I,
     ),
     "contract": re.compile(r"\b(?:terminat\w*|contract|customer)\b", re.I),
     "earnings": re.compile(r"\b(?:profit|earnings|revenue|forecast|guidance|EBITDA|outlook)\b", re.I),
-    "debt": re.compile(r"\b(?:debt|acceleration|default|refinancing)\b", re.I),
+    "debt": re.compile(
+        r"\b(?:debt|acceleration|default|refinancing|financing|bridge|loan|placement|funding|shortfall)\b", re.I
+    ),
     "incident": re.compile(r"\b(?:cyberattack|cyber incident|trial halt|recall)\b", re.I),
+    "licence": re.compile(r"\b(?:licen[cs]e|suspend\w*|suspension|halt)\b", re.I),
 }
 BOARD_EVENT = re.compile(
     r"\b(?:the board|management)\s+(?:(?:has|have|had|now)\s+)?"
-    r"(?:approved|decided|confirmed|ordered|initiated)\b",
+    r"(?:approved|decided|confirmed|ordered|initiated|resolved)\b",
     re.I,
 )
-EVENT_REFERENCE = re.compile(r"\b(?:the|this|that)\s+(?:decision|notice|recall|termination)\b", re.I)
+EVENT_REFERENCE = re.compile(
+    r"\b(?:the|this|that)\s+(?:(?:bidder|issuer|board|company)[’']s\s+)?(?:price[- ]sensitive\s+)?"
+    r"(?:decision|approval|terms|notice|recall|termination|withdrawal|suspension|cancellation)\b",
+    re.I,
+)
 NON_SUBJECT = re.compile(r"\b(?:from|with|to|by)\s*$|\bcounterparty\s*:\s*$", re.I)
 NO_LIVE_EVENT = re.compile(
     r"\b(?:did|does)\s+not\s+relate\s+to\s+(?:any\s+)?live\b"
@@ -228,12 +243,21 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             continue
         topics = _topics(statement)
         previous = []
-        if topics or re.search(r"\b(?:it|this|(?:the|that) notice|both|neither)\b", statement, re.I):
+        if (
+            topics
+            or EVENT_REFERENCE.search(statement)
+            or re.search(r"\b(?:it|this|(?:the|that) notice|both|neither)\b", statement, re.I)
+        ):
             for prev in range(max(0, index - 2), index):
                 x, y = units[prev]
                 x, y = max(x, window_start), min(y, window_end)
                 value = text[x:y]
-                if a - y <= 1600 and EVENT.search(value) and (_topics(value) & topics) and not UNRELATED.search(value):
+                if (
+                    a - y <= 1600
+                    and EVENT.search(value)
+                    and (_topics(value) & topics or not topics and EVENT_REFERENCE.search(statement))
+                    and not UNRELATED.search(value)
+                ):
                     previous.append(prev)
         indices = previous + [index]
         witness_indices = indices[:]
@@ -277,7 +301,11 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 for m in QUANT_MATERIAL.finditer(text, x, y)
                 if 10 <= float(m.group("pct")) <= 100 and m.end() <= _sentence(text, sentences[frame], m.start())[1]
             )
-        if not topics and not re.search(r"\b(?:it|this|(?:the|that) notice|both|neither)\b", statement, re.I):
+        if (
+            not topics
+            and not EVENT_REFERENCE.search(statement)
+            and not re.search(r"\b(?:it|this|(?:the|that) notice|both|neither)\b", statement, re.I)
+        ):
             unresolved = True
             continue
         if topics:
@@ -425,6 +453,8 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                     value,
                     re.I,
                 )
+                if EXPANDED_EVENT_WORDS.match(event_match.group()) and not actual:
+                    continue
                 if not (
                     HYPOTHETICAL.search(value)
                     or NEGATED_EVENT.search(value)
