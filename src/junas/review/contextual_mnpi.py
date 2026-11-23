@@ -106,6 +106,18 @@ NO_LIVE_EVENT = re.compile(
 )
 
 
+def hypothetical_statement(value: str) -> bool:
+    for match in HYPOTHETICAL.finditer(value):
+        before = value[: match.start()]
+        # a confirmed decision can remain effective even if a separate condition changes.
+        concession = match.group().lower().startswith("if") and re.search(r"\beven\s+$", before, re.I)
+        confirmed = re.search(r"\b(?:confirmed|decided|resolved|approved|told)\b", before, re.I)
+        if concession and confirmed and EVENT.search(before):
+            continue
+        return True
+    return False
+
+
 def _org_references(
     text: str, units: list[tuple[int, int]]
 ) -> tuple[list[list[tuple[int, int]]], dict[tuple[int, int], str], list[list[tuple[int, int]]]]:
@@ -236,7 +248,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
         statement = text[sa:sb]
         if (
             UNRELATED.search(statement)
-            or HYPOTHETICAL.search(statement)
+            or hypothetical_statement(statement)
             or IMMATERIAL.search(statement)
             or NEGATED_EVENT.search(statement)
         ):
@@ -281,7 +293,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 ea, eb = _sentence(text, sentences[frame], event.start())
                 sentence = text[ea:eb]
                 if (
-                    HYPOTHETICAL.search(sentence)
+                    hypothetical_statement(sentence)
                     or NEGATED_EVENT.search(sentence)
                     or IMMATERIAL.search(sentence)
                     or NO_LIVE_EVENT.search(text[max(ea, event.start() - 200) : event.end()])
@@ -293,7 +305,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 if not (
                     IMMATERIAL.search(text[ma:mb])
                     or NEGATED_EVENT.search(text[ma:mb])
-                    or HYPOTHETICAL.search(text[ma:mb])
+                    or hypothetical_statement(text[ma:mb])
                 ):
                     material.append((match.start(), match.end()))
             material.extend(
@@ -456,7 +468,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 if EXPANDED_EVENT_WORDS.match(event_match.group()) and not actual:
                     continue
                 if not (
-                    HYPOTHETICAL.search(value)
+                    hypothetical_statement(value)
                     or NEGATED_EVENT.search(value)
                     or IMMATERIAL.search(value)
                     or NO_LIVE_EVENT.search(text[max(ea, event_match.start() - 200) : event_match.end()])

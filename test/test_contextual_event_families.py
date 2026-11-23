@@ -39,3 +39,17 @@ def test_new_events_cannot_cross_an_explicit_different_issuer():
         "Different issuer Birch Vale Ltd has not yet publicly disclosed its licence suspension."
     )
     assert review(text).sensitivity["mnpi"]["state"] != "present"
+
+
+def test_confirmed_event_is_not_hypothetical_because_of_a_separate_concession():
+    text = (
+        "Alder Basin Ltd confirmed it would withdraw its cash offer, even if the disputed shares were counted. "
+        "That decision has not yet been publicly disclosed."
+    )
+    assert review(text).sensitivity["mnpi"]["state"] == "present"
+
+
+@pytest.mark.parametrize("prefix", ["If approval were granted,", "Even if approval were granted,"])
+def test_counterfactual_offer_decisions_remain_unestablished(prefix):
+    text = f"{prefix} Alder Basin Ltd would withdraw its material cash offer. It has not yet been publicly disclosed."
+    assert review(text).sensitivity["mnpi"]["state"] != "present"
