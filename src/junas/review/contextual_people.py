@@ -14,7 +14,7 @@ ORG_WORD = re.compile(
     r"Advisory|Systems|Infrastructure|Secretariat|Bank|Legal|Notice|Memorandum|Singapore|"
     r"Government|Board|Company|Corporate|Client|Intake|General|Date|Private|Email|Ref|File|"
     r"Payroll|Operations|Service|Desk|Library|Review|Research|Counsel|Policy|Editor|Committee|Forum|Governance|"
-    r"ID|NRIC|FIN|DOB|Reference|Number)\b",
+    r"ID|NRIC|FIN|DOB|Reference|Number|Exchange)\b",
     re.I,
 )
 PREFIX = re.compile(
@@ -23,14 +23,18 @@ PREFIX = re.compile(
     r"\b(?:Mr|Mrs|Ms|Mdm|Dr|Prof|Hi|Hello|Dear)\.?\s+$|"
     r"\b(?:director|shareholder|employee|patient|customer|client|beneficiary|claimant|"
     r"company secretary|corporate secretary|registry liaison|finance director|legal analyst|deal counsel|"
-    r"issuer counsel|counsel|signatory|recipient|trustee|contact|applicant)\s+(?:as\s+)?$",
+    r"issuer counsel|counsel|signatory|recipient|trustee|contact|applicant|respondent|participant|"
+    r"coordinator|clerk|officer|representative)\s+(?:as\s+)?$|"
+    r"\b(?:seller|buyer)[’']s\s+(?:authori[sz]ed\s+)?(?:representative|signatory),?\s*$",
     re.I,
 )
 SUFFIX = re.compile(
-    r"^\s*\(\s*(?:NRIC|FIN|passport|staff|employee|client|contact ref\.?|contact reference|"
+    r"^\s*\(\s*(?:fictional\s+)?(?:NRIC|FIN|passport|staff|employee|client|contact ref\.?|contact reference|"
     r"contact ID|customer|register|holder|"
     r"portal|secretariat|collection|correspondence|internal contact|contact record|personnel|deal-team|reader|email|"
+    r"date of birth|DOB|born|party|respondent|verification|record|"
     r"[\w.+-]+@[\w.-]+)\b|^\s*,\s*(?:Company Secretary|director|employee)\b|"
+    r"^\s*,\s*(?:the\s+)?(?:(?:buyer|seller|issuer)[’']s\s+)?(?:treasury\s+)?contact\b|"
     r"^\s+(?:requested|submitted|asked|entered|confirmed|reported|seeks|holds|says|works)\b",
     re.I,
 )
@@ -58,6 +62,13 @@ LEADING = frozenset(
         "Customer",
         "Applicant",
         "Beneficiary",
+        "Coordinator",
+        "Clerk",
+        "Officer",
+        "Representative",
+        "Respondent",
+        "Participant",
+        "Signatory",
     }
 )
 

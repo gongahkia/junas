@@ -36,7 +36,7 @@ FIELD_PATTERNS = {
         r"(?:number)?\s*[:#=]?\s*)(?P<value>\+?\d[\d ()-]{1,20}\d)\b"
     ),
 }
-BANK_NUMBER = re.compile(r"\baccount\s+(?:no\.?|number)\s*[:#=]?\s*(?P<value>\d[\d -]{4,29}\d)\b", re.I)
+BANK_NUMBER = re.compile(r"\baccount\s*,?\s+(?:no\.?|number)\s*[:#=]?\s*(?P<value>\d[\d -]{4,29}\d)\b", re.I)
 PHONE_NUMBER = re.compile(r"(?<![\w\d])(?P<value>\+\d{1,3}[ -]\d[\d ()-]{5,18}\d)\b")
 ADDRESS = re.compile(
     r"\b(?P<value>\d{1,5}(?:[ \t]+[^\W\d_][\w’'-]*){1,6}[ \t]+"
@@ -68,17 +68,35 @@ def local_bounds(text: str, start: int, end: int, distance: int = 180) -> tuple[
 def nonpersonal(text: str, start: int, end: int, label: str) -> bool:
     a, b = local_bounds(text, start, end)
     before, after = text[a:start], text[end:b]
-    if ORG_CONTACT.search(before[-65:]):
+    if ORG_CONTACT.search(before[-65:].replace(",", " ")):
         return True
     if re.match(r"\s*\((?:sample|public|general|office|company|corporate|dummy|template|switchboard)\b", after, re.I):
         return True
     if label == "GOVERNMENT_ID" and (
         EXAMPLE.search(before[-90:] + after[:160])
         or re.search(r"\b(?:circular|company|corporate)\s+(?:reference|registration)", after[:100], re.I)
+        or re.search(
+            r"\b(?:carton|packaging|artwork)\s+proof\s+shows\s*[“\"']?\s*"
+            r"(?:ID\s+(?:No\.?|number)\s*[:#]?\s*)?$",
+            before,
+            re.I,
+        )
+        or re.search(
+            r"\b(?:this|it|that (?:identifier|code))\s+(?:is|was)\s+(?:(?:the|an?)\s+)?"
+            r"(?:artwork|product|batch|carton)\s+(?:reference|code|identifier)\b",
+            after[:160],
+            re.I,
+        )
     ):
         return True
     if label == "DATE_OF_BIRTH" and re.search(
         r"\b(?:incorporation|establishment) date\b|not anyone[’']s birth", after[:200], re.I
+    ):
+        return True
+    if label == "BANK_ACCOUNT" and re.search(
+        r"(?i:\b(?:corporate|company|firm))\s+(?:[A-Z][\w’'-]*\s+){0,4}"
+        r"(?i:bank\s+account\s*,?\s*(?:no\.?|number)?\s*[:#=]?\s*)$",
+        before,
     ):
         return True
     return bool(

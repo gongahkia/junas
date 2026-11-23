@@ -33,7 +33,8 @@ SHARED_MAILBOX = re.compile(
     r"compliance|legal|privacy|ir|investor[._-]?relations|reception|billing|noreply|no-reply|"
     r"registry|secretariat|announcements|disclosures?|press|media|operations|ops|records|board|companysecretary|"
     r"intake|governance|payroll|policy|policy[-_]?desk|research|research[-_]?desk|editorial|editor|"
-    r"review|consultation|taxdesk|listingdesk|capmarkets|issuer[-_]?records)(?:[._+-].*)?$",
+    r"review|consultations?|recalls?|escrow|shareplans?|taxdesk|listingdesk|capmarkets|issuer[-_]?records)"
+    r"(?:[._+-].*)?$",
     re.I,
 )
 
@@ -45,12 +46,13 @@ def evidence(text: str, start: int, end: int, label: str, rule: str, reason: str
 
 
 RECORD_CONTEXT = re.compile(
-    r"(?i:\b(?:staff|employee|patient|medical record|insurance member|individual verification|"
+    r"(?i:\b(?P<kind>staff|employee|patient|medical record|insurance member|individual verification|"
     r"contact record|contact reference|contact ref\.?|contact ID|client contact|internal contact|"
     r"personal record|client reference|customer reference|"
     r"intake|holder|register|portal|secretariat|shareholder|collection|client|customer|"
-    r"personnel|deal-team|reader|correspondence|staff ref\.?|identity document)"
-    r"\s*(?:ID|number|no\.?|reference|ref\.?)?\s*(?:\([^\n)]{1,25}\))?\s*(?:as|is|:|\#)?[ \t]+\(?)"
+    r"personnel|deal-team|reader|correspondence|staff ref\.?|identity document|respondent|party|verification|record)"
+    r"\s*(?P<qualifier>ID|number|no\.?|reference|ref\.?)?\s*(?:\([^\n)]{1,25}\))?"
+    r"\s*(?:as|is|:|\#)?[ \t]+\(?)"
     r"(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
 )
 DOB_CONTEXT = re.compile(
@@ -86,6 +88,13 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
             if label == "DATE_OF_BIRTH" and not valid_birth_date(value):
                 continue
             if label == "PERSONAL_RECORD_ID" and not any(c.isdigit() for c in value):
+                continue
+            if label == "PERSONAL_RECORD_ID" and (
+                value.isdecimal()
+                and not match.group("qualifier")
+                or match.group("kind").casefold() in {"party", "respondent", "verification", "record"}
+                and not personal_link(text, *match.span("value"), people)
+            ):
                 continue
             spans.append(evidence(text, *match.span("value"), label, rule, "explicit person-linked field"))
     if re.search(r"\b(?:individual|private)[- ]client\b|\bclient capacity\s*:|\bretail shareholder\b", text, re.I):
