@@ -1,0 +1,65 @@
+{
+  "candidate_first_pass_token_cost_ceiling_usd": "361.720800",
+  "config_sha256": "510f7f8e0fec07daf4d87bf2bce4a779dca8e8290e031357d35fe09a6e4bf42b",
+  "configured_token_cost_ceiling_usd": "560.337600",
+  "coverage_policy": "stop at accepted quotas or candidate/budget limit; report shortfalls without forced labels",
+  "data_scope": "new_synthetic_only",
+  "documents": 200,
+  "first_pass_model_calls": 800,
+  "human_ground_truth": false,
+  "label_origin": "model_consensus",
+  "live_calls_authorized": false,
+  "max_candidates": 300,
+  "max_judge_attempts": 2,
+  "model_calls": 2100,
+  "model_costs": [
+    {
+      "cost_per_attempt_ceiling_usd": "0.54368",
+      "input_rate_usd_per_million": "18",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-6.2-astra",
+      "output_rate_usd_per_million": "40",
+      "output_tokens_ceiling": 8192
+    },
+    {
+      "cost_per_attempt_ceiling_usd": "0.13592",
+      "input_rate_usd_per_million": "4.5",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-6.2-sol",
+      "output_rate_usd_per_million": "10",
+      "output_tokens_ceiling": 8192
+    },
+    {
+      "cost_per_attempt_ceiling_usd": "0.27576",
+      "input_rate_usd_per_million": "2.5",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-5.4-2026-03-05",
+      "output_rate_usd_per_million": "15",
+      "output_tokens_ceiling": 16384
+    },
+    {
+      "cost_per_attempt_ceiling_usd": "0.250376",
+      "input_rate_usd_per_million": "1.75",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-5.2-2025-12-11",
+      "output_rate_usd_per_million": "14",
+      "output_tokens_ceiling": 16384
+    }
+  ],
+  "models": [
+    "gpt-6.2-astra",
+    "gpt-6.2-sol",
+    "gpt-5.4-2026-03-05",
+    "gpt-5.2-2025-12-11"
+  ],
+  "prompt_version": "synthetic-quadrants-majority-v3",
+  "quadrant_targets": {
+    "both": 50,
+    "mnpi_only": 50,
+    "neither": 50,
+    "pii_only": 50
+  },
+  "schema_version": "junas.model_corpus.v2",
+  "target_first_pass_token_cost_ceiling_usd": "241.147200",
+  "token_count_requests": 2100
+}

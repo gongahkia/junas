@@ -1,5 +1,13 @@
 # Classifier reports
 
-The latest consolidated measurement is `core_accuracy.json`, with `core_tab_eval.json` and `core_ai4privacy_eval.json` for external breadth. `core_removal_parity.json` records the before/after detector comparison. See [baseline interpretation](../../docs/baseline.md).
+“Current” is the historical output directory, not a claim that every file measures HEAD. Preserve dated reports, source hashes and failed original holdout results.
 
-Other dated reports preserve prior measurements; do not treat every report in this directory as a fresh run of the current configuration.
+- `evaluation_closeout_v5.json`: latest local evidence, separate external prediction surfaces and clean-checkout verification.
+- `fresh_holdout_v5_plan.json`: offline proposal only; no paid inference or new validation result.
+- `classifier_reliability_v4.json`: previous local development replay.
+- `fresh_holdout_v3_results.json`: immutable original consumed holdout outcome, before later tuning.
+- `core_accuracy.json`, `core_tab_eval.json`, `core_ai4privacy_eval.json`, `core_removal_parity.json`: historical legacy-detector measurements; see [baseline interpretation](../../docs/baseline.md).
+- `T4A_REPORT.md`, `t4a_evidence.json`: 22 November mocked AI integrity assessment, including components removed by later text-only work. Saved temporary paths are historical evidence, not current execution prerequisites.
+- `text_only_automated_20261122.json`, `model_corpus_200*_plan.json`, `model_corpus_200*review.json`: earlier scope/cost proposals, not current spending authorization.
+
+Model consensus is qualified reference agreement, not independent accuracy or calibrated confidence. See [the latest closeout](../../docs/evaluation-closeout-v5.md).

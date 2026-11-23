@@ -1,4 +1,6 @@
-# Classifier baseline after product removal
+# Historical classifier baseline after product removal
+
+This is the 30 October snapshot, preserved for provenance. Its OCR/native-input checks and test counts are historical; the current package is text-only. See [evaluation closeout](evaluation-closeout-v5.md) for the latest local verification and external measurements.
 
 Measured 2026-10-30 using Python 3.12.14, the locked dependencies, and the `strict` profile. Optional local NER and semantic fallback were disabled; retrieval/LLM providers were not used. Exact package versions, detector environment overrides, corpus hashes and classifier source hash are recorded in [the internal report](../reports/current/core_accuracy.json).
 
@@ -28,7 +30,7 @@ Against the broader **ideal** labels in that corpus, recall is **42.56%** (17,16
 
 ## External breadth measurements
 
-These are fresh runs on the same classifier source, evaluated separately from the internal snapshot. The internal JSON records `external_mode: skip`; it does not incorporate or certify these separate measurements.
+These were runs on the same historical classifier source, evaluated separately from the internal snapshot. The internal JSON records `external_mode: skip`; it does not incorporate or certify these separate measurements.
 
 | Dataset / slice | Documents | Recall | Precision | F2 |
 |---|---:|---:|---:|---:|
@@ -52,12 +54,12 @@ uv run python scripts/evaluate_accuracy.py --external require
 uv run pytest -q
 ```
 
-The aggregate command regenerates the internal and external reports in one run. The committed measurements were produced with `evaluate_accuracy.py --external skip` plus the two external runners using the output paths linked above. Real OCR tests additionally require `--extra ocr` and native Tesseract.
+The aggregate command regenerates the internal and external reports in one run. The committed measurements were produced with `evaluate_accuracy.py --external skip` plus the two external runners using the output paths linked above. The historical OCR extra and native extraction support have since been removed.
 
 Before adding product features:
 
-1. Establish a protected, independently annotated holdout with exhaustive positive and negative examples, including real document/OCR cases and MNPI element reasoning.
-2. Set acceptance targets by entity type, jurisdiction and input format, including false-negative and false-positive limits. The current regression locks are preservation checks, not those targets.
+1. Establish a protected, independently annotated holdout with exhaustive positive and negative examples, including text layouts and MNPI element reasoning.
+2. Set acceptance targets by entity type, jurisdiction and text layout, including false-negative and false-positive limits. The current regression locks are preservation checks, not those targets.
 3. Use development data to improve broad PII coverage and adjudicate the remaining MNPI misses. Evaluate NER/advisory experiments separately; do not reconcile holdout labels to detector output.
 
 See [methodology](../BENCHMARKS.md) and [known limitations](known-limitations.md).

@@ -1,0 +1,159 @@
+{
+  "schema_version": "junas.model_corpus_sgd50_review.v1",
+  "prepared_on": "2026-11-22",
+  "paid_run_launched": false,
+  "paid_inference_calls_this_revision": 0,
+  "read_only_model_inventory_requests": 1,
+  "new_spending_authorization_created": false,
+  "scope": "User selected Sol generation after unavailable GPT-6.2 Terra; prepare the lower-cost job for cost review before running.",
+  "config": "config/model_corpus.200.json",
+  "config_sha256": "e6eb6beed92ca9417c3104aa450302e0acab5b18e95236ebc0f496f0b9e5f089",
+  "supersedes": "reports/current/model_corpus_200_cost_review.json",
+  "historical_distinct_config": "config/model_corpus.200.distinct.json",
+  "models": {
+    "generator": "gpt-6.2-sol",
+    "judge_passes": [
+      "gpt-6.1-terra",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra"
+    ],
+    "judge_mode": "same_model_repeats",
+    "unique_judge_models": 1,
+    "interpretation": "Repeated-sample voting from one judge model, not three-model corroboration; independence not established."
+  },
+  "availability": {
+    "gpt-6.2-terra_listed": false,
+    "gpt-6.1-terra_listed": true,
+    "gpt-6.2-sol_listed": true,
+    "inventory_sha256": "36801408465cf8d79e8c2c915391c4f40d852d408a6affae9ad5904ad4ba4245",
+    "official_requested_generator_page": "https://developers.openai.com/api/docs/models/gpt-6.2-terra",
+    "official_requested_generator_page_status": 404,
+    "new_live_inference_compatibility_test": false
+  },
+  "coverage": {
+    "accepted_target": 200,
+    "quadrant_targets": {
+      "neither": 50,
+      "pii_only": 50,
+      "mnpi_only": 50,
+      "both": 50
+    },
+    "max_candidates": 300,
+    "max_judge_attempts": 2,
+    "budget_may_stop_before_target": true,
+    "unknown_or_failed_labels_never_forced_to_fill_quotas": true
+  },
+  "budget": {
+    "user_allowance_sgd": "50",
+    "enforced_new_job_provider_cap_usd": "25",
+    "prior_smoke_accounted_cost_ceiling_usd": "0.9219475",
+    "prior_cost_reserve_usd": "1",
+    "sgd_per_usd_planning_ceiling": "1.5",
+    "extra_charge_multiplier": "1.2",
+    "combined_sgd_scenario_ceiling": "46.80",
+    "fx_reference_sgd_per_usd": "1.2920",
+    "fx_reference_date": "2026-11-20",
+    "fx_source": "https://www.uobgroup.com/assets/web-resources/research/pdf/FXI_261120.pdf",
+    "sgd_equivalent_of_usd25_at_reference_before_charges": "32.3000",
+    "interpretation": "USD cap is enforced. SGD amount is conditional on conversion/fee assumptions, not a verified future invoice or guarantee of bank charges.",
+    "credit_balance_and_applicability": "unverified; no free-credit assumption"
+  },
+  "uncapped_token_allowance_arithmetic_usd": {
+    "candidates_200_no_judge_retries": "92.53600",
+    "candidates_300_no_judge_retries": "138.80400",
+    "candidates_300_all_judge_retries": "236.83200",
+    "these_values_authorized_for_spending": false
+  },
+  "historical_usage_scenarios": {
+    "prior_sol_tokens": {
+      "candidates_200_usd": "9.76037500",
+      "candidates_300_usd": "14.64056250",
+      "interpretation": "What-if token replay, not Terra measurement or forecast; excludes new-prompt changes, refill acceptance differences and new invalid-output retries."
+    },
+    "prior_successful_gpt54_tokens": {
+      "candidates_200_usd": "22.01042500",
+      "candidates_300_usd": "33.01563750",
+      "interpretation": "What-if token replay, not Terra measurement or forecast; excludes new-prompt changes, refill acceptance differences and new invalid-output retries."
+    }
+  },
+  "pricing": {
+    "checked_on": "2026-11-22",
+    "sources": [
+      "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+    ],
+    "accounting_rates": [
+      {
+        "cost_per_attempt_ceiling_usd": "0.13592",
+        "input_rate_usd_per_million": "4.5",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.2-sol",
+        "output_rate_usd_per_million": "10",
+        "output_tokens_ceiling": 8192
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      }
+    ],
+    "tier": "default",
+    "input_conservatism": "ordinary input plus 30-minute cache write; no extended-retention request"
+  },
+  "source_hashes": {
+    "scripts/model_corpus.py": "2f5cc1485d41b6a756ba1b76901a88b60efad5dffa8e5c023216aadf4e6a158c",
+    "test/test_model_corpus.py": "951af04fc679c5eba7a02ecc0047bb38e2e19359602d0a8c298c725f1248e96a",
+    "config/model_corpus.200.json": "34744096ff99d3fd469c8f329082a3906a078b4cda10e38cac3886d07ed4d1af",
+    "config/model_corpus.200.distinct.json": "c859f3c22b2090d9311ab4490877394d552377eabb77e5aecdb97ba6e586e314",
+    "reports/current/model_corpus_200_sgd50_plan.json": "f4fe0320d8e9c069c7edb11ced2613b67a6b8ab21a7f0e9281cf6548eee7cb30"
+  },
+  "reproducibility_directory": "/home/gongahkia/.local/share/junas/research/2026-11-22-sgd50-preparation",
+  "interpretation": "Synthetic model-derived development evidence. No new model-quality, calibration, training or holdout claim.",
+  "verification": {
+    "focused_tests_passed": 84,
+    "full_suites": {
+      "311": {
+        "tests_passed": 1670,
+        "subtests_passed": 254,
+        "skips": 0,
+        "log": "pytest311.log"
+      },
+      "312": {
+        "tests_passed": 1670,
+        "subtests_passed": 254,
+        "skips": 0,
+        "log": "pytest312.log"
+      }
+    },
+    "ruff": "passed for both changed Python files",
+    "format": "passed for both changed Python files",
+    "scoped_runner_mypy": "passed",
+    "broader_research_mypy": "not rerun; 11 pre-existing errors in unchanged scripts/span_metrics.py and scripts/prepare_evaluation_dataset.py remain recorded in earlier handoff",
+    "not_run": [
+      "paid inference",
+      "new-model live schema/quality validation",
+      "confidence calibration",
+      "external corpus/holdout evaluation"
+    ],
+    "runtime_classifier_changed": false
+  }
+}

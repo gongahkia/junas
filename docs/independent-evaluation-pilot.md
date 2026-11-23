@@ -1,7 +1,64 @@
 # Independent evaluation pilot — preparation protocol v1
 
-Status: **proposal awaiting human approval**. Protocol ID: `junas.legal-pilot.v1`.
-Implementation validation is separate from annotation readiness, independent ground-truth readiness and protected-holdout readiness. No pilot documents have been collected by this tranche. No actual human annotations, gold labels or protected-holdout results are supplied. The synthetic unit-test records simulate review events; they are not human-review evidence.
+**Latest scope decision, 22 November 2026:** the user chose a text-only classifier and a completely automated synthetic generation / multi-model annotation workflow. The single-human-review schedule below is historical and is no longer the current execution prerequisite. The frozen human-review packet remains unchanged and unreviewed. New model-generated/consensus labels are a separate development corpus, never human review events or independent ground truth. Current commands and approval boundaries are in [automated corpus research](automated-corpus.md).
+
+Protocol ID: `junas.legal-pilot.v1`. The original collection proposal below remains historical; the current execution scope is the smaller T3B.2A Singapore pilot described here.
+Implementation validation is separate from annotation readiness, independent ground-truth readiness and protected-holdout readiness. The original T3B.1 infrastructure tranche did not collect pilot documents or human annotations; the later T3B.2A candidates and current readiness are recorded below. Toy tests simulate review events and are not human-review evidence.
+
+## Local research handoff — 22 November 2026
+
+The local Codex conversation is the ongoing engineering/research coordination point. Continue small offline correctness and evaluation tasks without creating a parallel annotation framework. Preserve strict deterministic behavior, original labels/locks and existing reports. Do not intentionally commit/push or edit README files without authorization. Holdout contents remain outside the development runtime. Paid inference requires the explicit authorization checklist below.
+
+### Reconciled state
+
+- Checkout: `main`, HEAD `773665c605afc3ac50c893361aff082c5e44477e`. The initial uncommitted work was the T4A governance update, test-string formatting correction and two report files. It was preserved. Recheck status/HEAD before continuing; historical `work~` commits exist, but no automatic HEAD change was observed during this handoff.
+- T4A: **technically ready to accept, PASS within mocked integrity/privacy scope**. Source, lock and saved diagnostic hashes match its [report](../reports/current/T4A_REPORT.md) and [evidence](../reports/current/t4a_evidence.json). Fresh focused verification: 158 tests and 12 subtests passed. The immediately preceding task actually executed full suites on Python 3.12 and 3.11, superseding the older runtime-unavailable handoff claim. Its recorded strict parity is 1,722 documents / 27,034 findings with zero changes.
+- Deterministic pipeline: ready for controlled development accuracy research. This is not broad accuracy acceptance, calibrated risk, native-parser process containment or unattended untrusted-file safety. Earlier T1–T3A correctness/metric contracts remain the baseline.
+- Annotation pilot: 20 model-authored synthetic SG development texts; zero review events, accepted annotations or adjudications. Ten holdout metadata reservations contain no collected sources. Independent ground truth and protected holdout remain **NOT READY**. Fresh validation and status checks agree with the frozen initial packet; its inventory hashes remain unchanged.
+- Reviewer capacity: the user chose **one human reviewer** in this conversation on 22 November. No reviewer identity, submission, timestamp, custodian approval or label acceptance is implied by that choice. The first batch is `dev-001` through `dev-005`, selected by existing ID order, not detector output. Single-reviewer results must remain qualified; no independent multi-reviewer adjudication can be claimed.
+- Existing AI: experimental opt-in advisory paths only. Coverage/defined-term proposals do not become findings or suppress deterministic evidence; adjudication does not replace scored risk. PII-only MNPI-band routing limits and no-provider audit-grade deterministic differences remain documented in [AI governance](llm-governance.md). No live-model usefulness has been demonstrated by mocked tests.
+- External benchmark fixtures: TAB and ai4privacy are absent from the local external fixture directory. Their published repository reports are historical, not freshly rerun measurements. Do not call exposed TAB train/dev/test aggregates a protected holdout or compare their headline scores directly with internal regression agreement.
+
+### Next safe task executed: review-intake chronology
+
+Hypothesis: the existing review-log validator should reject an adjudication that predates a referenced submission, while permitting real submissions to arrive out of chronological order. A synthetic tooling reproduction showed the opposite: submissions at 12:00 and 13:00 on 1 January validated with an adjudication dated 31 December, and the document reached `accepted`. No real reviewer records were involved.
+
+`scripts/prepare_evaluation_dataset.py` now checks each adjudication timestamp against every active referenced submission. Existing timezone-aware comparisons, correction/approval validation, schema and append-only behavior are retained. Invalid append attempts return exit 2 without creating a new log or changing the old one. Equal instants in different timezones and delayed submission arrival remain valid. This does not authenticate reviewers, detect all fabricated declarations or establish ground truth.
+
+Changed files: that existing validator, `test/test_annotation_preparation.py`, and this document. Five added regression cases first reproduced three failures and two legitimate successes. After the correction, 88 annotation/packet/T3A metric tests pass on both Python 3.12 and 3.11. Compatibility: previously admitted temporally inconsistent review histories are now rejected; no result schema, detector, scoring rule or annotation data changed.
+
+**Offline correction verdict: PASS.** Fresh frozen-environment verification: Python 3.12 full suite (`pytest -q`), **1,843 passed / 254 subtests passed / 2 macOS-font tests skipped**; all nine historical gates (`evaluate_accuracy.py --external skip`, 1,722 documents); conjunctive provenance, fixture scrub (6,381 files), lock freshness, changed-file Ruff format/lint, core mypy and `git diff --check`. Python 3.11 received the focused 88-test rerun; its full-suite result belongs to the preceding T4A task. Gate summaries, occurrence-annotation audits and corpus/lock hashes match T4A exactly. Classifier source hashes also match. The blank-packet rebuild matches the original hash inventory, and fresh pilot status still records zero events. Logs and machine-readable evidence are in `/tmp/junas-charter-2xq7zuxf`; historical reports and all pre-existing uncommitted work were preserved. No HEAD advance, live inference, protected-content access, annotation acceptance, commit or push occurred. Further accuracy/LLM conclusions remain conditional on actual review and explicit experiment authorization.
+
+### Start the five-document human batch
+
+Use the frozen [reviewer instructions](annotation-pilot/reviewer-kit/INSTRUCTIONS.md) and [custodian procedure](annotation-pilot/CUSTODIAN.md). Give the reviewer a separate private copy of `reviewer-kit`, with the first five IDs assigned verbally or in a private assignment record. Keep source bytes and metadata unchanged. The reviewer fills their own matching blank templates with actual identity/time, all in-scope occurrences, exact Unicode offsets, uncertainty and separate PII/MNPI completeness. They must record actual exposure; do not assert blindness merely because the template allows it. Do not show them classifier/LLM proposals for the assigned texts before submission.
+
+Submit the completed JSON files or their local private paths in this conversation for validation. Keep real submissions and append-only logs outside Git, with original submissions retained. Choose the actual private development storage location before recording them; the `/private/dev` paths in earlier examples are placeholders, not an existing approved storage location. A single reviewer may submit qualified development labels; source acceptance and any eventual gold acceptance remain explicit human decisions.
+
+For one actual completed entry, use the existing CLI from the repository root, substituting new private paths:
+
+```sh
+uv run --frozen python scripts/prepare_evaluation_dataset.py append docs/annotation-pilot/manifest.json --entry /path/to/private-development/dev-001-submission.json --output /path/to/private-development/reviews-v1.jsonl
+uv run --frozen python scripts/prepare_evaluation_dataset.py validate docs/annotation-pilot/manifest.json --reviews /path/to/private-development/reviews-v1.jsonl --output /path/to/private-development/validation-v1.json
+uv run --frozen python scripts/prepare_annotation_packet.py status docs/annotation-pilot/manifest.json --reviews /path/to/private-development/reviews-v1.jsonl --output /path/to/private-development/status-v1.json
+```
+
+Each subsequent append supplies the previous `--reviews` and a **new** output path. Do not overwrite the repository's empty pilot log or frozen status. A valid submitted entry is not an accepted annotation: acceptance must be a separately authorized human event referencing the submitted snapshot without silently changing its labels. Review the first five for taxonomy/boundary ambiguities, then proceed through the remaining 15. Record corrections and protocol changes rather than retroactively pretending the calibration was blind independent evidence.
+
+### Plan through 15 December 2026
+
+| Target dates | Work and exit condition |
+|---|---|
+| 22–25 November | Complete the intake safeguard and first five human development reviews. Resolve protocol ambiguities, retain uncertainty and confirm source/scope acceptance and private storage. If reviews are unavailable, continue bounded offline correctness work; no substitute labels. |
+| 26–30 November | Finish the remaining 15 if capacity permits. Validate exact offsets, completeness, provenance and explicit acceptance. Keep single-reviewer qualifications. Freeze the development version and comparison target before model outputs are examined. |
+| 1–4 December | Establish a deterministic PII occurrence baseline from suitable accepted examples using T3A exact/overlap measurements and the existing proposed crosswalk. Disclose unmatched/unmapped predictions and boundary/context differences; precision/F2 require justified exhaustive target coverage. Keep contextual MNPI evaluation separate. Do not infer generalization from this small synthetic pilot. |
+| 5–9 December, conditional | If labels, remote eligibility and spending are explicitly approved, prepare the smallest isolated PII challenger using the existing experimental architecture. Verify current official model/schema/pricing documentation, freeze prompt/configuration, enforce per-run budgets and perform one authorized low-cost smoke test before a larger run. Preserve abstentions and validate every proposed source span. |
+| 10–12 December, conditional | Compare deterministic and challenger occurrence results, validity/failures, repeat stability, latency and actual usage/cost. Try a hybrid only for a demonstrated error class. Prefer durable deterministic improvements when supported. No protected evaluation without a separate authorized custodian process. |
+| 13–15 December | Freeze reproducible artifacts and conclusions before the user-reported credit expiry. Preserve reviewed development data, manifests, costs and error analyses. If prerequisites remain absent, record a blocked/inconclusive feasibility outcome; do not spend merely to consume credits or add a permanent cloud dependency. |
+
+The expiry and available credits are user-reported; balance, eligibility and billing scope have not been verified. Before the first paid call, explicitly establish the API organization/project, usable balance and credit applicability, a maximum USD cap, authorized models/experiments and the selected dataset's remote-processing eligibility. Model and pricing choices remain unfrozen until verified against current provider documentation. Synthetic source authorization for local review is not remote-processing authorization. API keys must remain outside chat output, source and reports.
+
+The near-term bottleneck is genuine review and an eligible, measurable development sample. Native parser isolation, a real protected holdout, stable hosted-weight identity and claim-level public-source verification remain separate unresolved work. Avoid a new model integration while those experiment prerequisites are missing. Upcoming engineering work should remove demonstrated obstacles to that evaluation, rather than create more unreviewed examples or duplicate infrastructure.
 
 ## Domain and measurement tracks
 

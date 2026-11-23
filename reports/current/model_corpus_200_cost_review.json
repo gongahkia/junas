@@ -1,0 +1,135 @@
+{
+  "schema_version": "junas.model_corpus_cost_review.v1",
+  "prepared_on": "2026-11-22",
+  "paid_run_launched": false,
+  "paid_inference_requests_during_preparation": 0,
+  "new_authorization_created": false,
+  "approval_scope": "Implementation and offline preparation only. User explicitly requested cost before a paid 200-document run. Prior USD 5 approval is for the completed historical four-document job.",
+  "config": "config/model_corpus.200.json",
+  "config_sha256": "510f7f8e0fec07daf4d87bf2bce4a779dca8e8290e031357d35fe09a6e4bf42b",
+  "offline_plan": "reports/current/model_corpus_200_plan.json",
+  "target_accepted_documents": 200,
+  "quadrant_targets": {
+    "neither": 50,
+    "pii_only": 50,
+    "mnpi_only": 50,
+    "both": 50
+  },
+  "max_candidates": 300,
+  "judges": 3,
+  "max_judge_attempts": 2,
+  "costs_usd": {
+    "target_200_no_retries_configured_ceiling": "241.147200",
+    "max_300_no_retries_configured_ceiling": "361.720800",
+    "max_300_all_judge_retries_configured_ceiling": "560.337600",
+    "rounded_cap_covering_configured_arithmetic": "561",
+    "rounded_cap_is_authorized": false,
+    "interpretation": "Conservative configured-rate token accounting, not invoice verification or a promise of 200 accepted labels. Lower approved caps may leave coverage shortfalls."
+  },
+  "historical_usage_scenario": {
+    "status": "what-if scenario, not forecast or spending bound",
+    "prior_four_document_accounted_usd": "0.9219475",
+    "third_judge_proxy_per_four_usd": "0.36077650",
+    "proxy_model": "GPT-5.2 rates at successful GPT-5.4 annotation token counts",
+    "proxy_source_call_numbers": [
+      3,
+      13,
+      14,
+      15
+    ],
+    "scenario_200_candidates_usd": "64.13620000",
+    "scenario_300_candidates_usd": "96.20430000",
+    "includes": "historical initial/corrective token overhead plus proxy third-judge annotations",
+    "unverified_assumptions": [
+      "new prompt/schema token use resembles historical prompt",
+      "GPT-5.2 token use resembles successful GPT-5.4 annotations",
+      "quota acceptance rate fits candidate allowance"
+    ],
+    "prior_ledger_sha256": "7311d0866074302265ba1c1a1b608a6e56106e5730325aaf7e662d26ba6b104b"
+  },
+  "pricing": {
+    "checked_on": "2026-11-22",
+    "sources": [
+      "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "https://developers.openai.com/api/docs/models/gpt-5.2"
+    ],
+    "model_limits_and_accounting_rates": [
+      {
+        "cost_per_attempt_ceiling_usd": "0.54368",
+        "input_rate_usd_per_million": "18",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.2-astra",
+        "output_rate_usd_per_million": "40",
+        "output_tokens_ceiling": 8192
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.13592",
+        "input_rate_usd_per_million": "4.5",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.2-sol",
+        "output_rate_usd_per_million": "10",
+        "output_tokens_ceiling": 8192
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.27576",
+        "input_rate_usd_per_million": "2.5",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-5.4-2026-03-05",
+        "output_rate_usd_per_million": "15",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.250376",
+        "input_rate_usd_per_million": "1.75",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-5.2-2025-12-11",
+        "output_rate_usd_per_million": "14",
+        "output_tokens_ceiling": 16384
+      }
+    ],
+    "tier": "default",
+    "input_conservatism": "Astra and Sol include ordinary input plus published 30-minute cache writes; no extended-retention caching requested",
+    "credit_balance_applicability": "unverified; no free-credit assumption",
+    "all_model_ids_listed_in_prior_authenticated_inventory": true,
+    "new_live_access_or_schema_test": false
+  },
+  "verification": {
+    "focused_tests_passed": 67,
+    "includes_mocked_200_document_run": true,
+    "full_suites": {
+      "311": {
+        "tests_passed": 1653,
+        "subtests_passed": 254,
+        "skips": 0,
+        "log": "pytest311.log"
+      },
+      "312": {
+        "tests_passed": 1653,
+        "subtests_passed": 254,
+        "skips": 0,
+        "log": "pytest312.log"
+      }
+    },
+    "ruff": "passed for both changed Python files",
+    "scoped_mypy": "passed for scripts/model_corpus.py",
+    "broader_research_mypy": "not rerun; previous handoff records 11 errors in unchanged scripts/span_metrics.py and scripts/prepare_evaluation_dataset.py",
+    "not_run": [
+      "paid model inference",
+      "new-prompt/third-judge live compatibility validation",
+      "confidence calibration",
+      "external corpus/holdout evaluation"
+    ],
+    "runtime_classifier_changed": false
+  },
+  "source_hashes": {
+    "scripts/model_corpus.py": "014105be216ff5a4eab9fcfd669dd89feb93ee9ceccdfe4f054d130088614e38",
+    "test/test_model_corpus.py": "465ccd624fcf008d841dcc6f946b0860ef4bd93cfaa9e56bd1aba4e0c590b15f",
+    "config/model_corpus.200.json": "c859f3c22b2090d9311ab4490877394d552377eabb77e5aecdb97ba6e586e314",
+    "config/model_corpus.example.json": "a5840ced95db1d71f4575dd99afe585400159a4434c0e507cb8dfaae2a8ebf8f",
+    "reports/current/model_corpus_200_plan.json": "caa99bbae38128866f3b0884963085537a54ae444f39f88af42bc5aa56157814"
+  },
+  "reproducibility_directory": "/home/gongahkia/.local/share/junas/research/2026-11-22-majority-preparation",
+  "interpretation": "Synthetic model-derived development evidence. Unanimity/majority and completeness are model assertions, not independent truth or calibrated probability; no training or production-accuracy claim."
+}

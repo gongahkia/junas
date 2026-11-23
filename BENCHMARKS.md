@@ -51,7 +51,9 @@ Use the detailed candidate report and miss-bucketing tools to select the next de
 
 ## Separate measurement tracks
 
-Text detection, native-document extraction and OCR require separate evaluations. Unit tests for hidden Office content, PDF annotations, recursive attachments, image coordinates and OCR failures remain in `test/`. Text-corpus recall does not measure their accuracy. The old HTTP/rewrite performance harness was removed with the product stack.
+Junas now accepts UTF-8 text only. Native PDF/Office/email/image extraction and OCR support and their tests were removed. Historical extraction measurements do not describe the current package. Text admission, contextual sensitivity, legacy findings and optional advisory outputs retain separate validation contracts.
+
+Use `scripts/measure_external_surfaces.py --help` to measure legacy findings and contextual PII independently on TAB development and ai4privacy slices. It preserves the existing matching definitions, labels each prediction surface and records the runtime hash. Broad masking labels have no approved contextual subtype crosswalk; unavailable occurrence metrics remain unavailable when analysis degrades.
 
 See [the baseline](docs/baseline.md) and [limitations](docs/known-limitations.md).
 

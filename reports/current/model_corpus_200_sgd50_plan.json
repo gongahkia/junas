@@ -1,0 +1,81 @@
+{
+  "budget_can_leave_coverage_shortfall": true,
+  "candidate_first_pass_token_cost_ceiling_usd": "138.80400",
+  "config_sha256": "e6eb6beed92ca9417c3104aa450302e0acab5b18e95236ebc0f496f0b9e5f089",
+  "configured_token_cost_ceiling_usd": "236.83200",
+  "coverage_policy": "stop at accepted quotas or candidate/budget limit; report shortfalls without forced labels",
+  "data_scope": "new_synthetic_only",
+  "documents": 200,
+  "effective_run_token_cost_ceiling_usd": "25",
+  "first_pass_model_calls": 800,
+  "human_ground_truth": false,
+  "judge_mode": "same_model_repeats",
+  "label_origin": "model_consensus",
+  "live_calls_authorized": false,
+  "max_candidates": 300,
+  "max_judge_attempts": 2,
+  "model_calls": 2100,
+  "model_costs": [
+    {
+      "cost_per_attempt_ceiling_usd": "0.13592",
+      "input_rate_usd_per_million": "4.5",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-6.2-sol",
+      "output_rate_usd_per_million": "10",
+      "output_tokens_ceiling": 8192
+    },
+    {
+      "cost_per_attempt_ceiling_usd": "0.10892",
+      "input_rate_usd_per_million": "2.25",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-6.1-terra",
+      "output_rate_usd_per_million": "5",
+      "output_tokens_ceiling": 16384
+    },
+    {
+      "cost_per_attempt_ceiling_usd": "0.10892",
+      "input_rate_usd_per_million": "2.25",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-6.1-terra",
+      "output_rate_usd_per_million": "5",
+      "output_tokens_ceiling": 16384
+    },
+    {
+      "cost_per_attempt_ceiling_usd": "0.10892",
+      "input_rate_usd_per_million": "2.25",
+      "input_tokens_ceiling": 12000,
+      "model": "gpt-6.1-terra",
+      "output_rate_usd_per_million": "5",
+      "output_tokens_ceiling": 16384
+    }
+  ],
+  "models": [
+    "gpt-6.2-sol",
+    "gpt-6.1-terra",
+    "gpt-6.1-terra",
+    "gpt-6.1-terra"
+  ],
+  "prompt_version": "synthetic-quadrants-majority-v4",
+  "quadrant_targets": {
+    "both": 50,
+    "mnpi_only": 50,
+    "neither": 50,
+    "pii_only": 50
+  },
+  "schema_version": "junas.model_corpus.v2",
+  "spending_limit": {
+    "cap_sgd": "50",
+    "currency": "SGD",
+    "extra_charge_multiplier": "1.2",
+    "fx_checked_on": "2026-11-22",
+    "interpretation": "USD provider cap enforced; SGD amount conditional on FX/fee assumptions, not bank invoice verification",
+    "prior_cost_reserve_usd": "1",
+    "provider_cap_usd": "25",
+    "sgd_per_usd_ceiling": "1.5",
+    "sgd_scenario_ceiling": "46.80"
+  },
+  "target_first_pass_token_cost_ceiling_usd": "92.53600",
+  "token_count_requests": 2100,
+  "unique_judge_models": 1,
+  "voting_interpretation": "three separate samples of one model; agreement is not cross-model corroboration"
+}

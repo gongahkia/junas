@@ -1,0 +1,587 @@
+{
+  "artifact_sha256": {
+    "accuracy.json": "5396543ad81ec91f0b9979120343a7c8477deb1ff16ceba9eb6cdf5612608e7e",
+    "accuracy.log": "720e234b7da7396f8c38c8816cbc491f75d22774a96cb35921106d6d4ba04b8e",
+    "build.log": "175c462f48facad2ca8f314a5f1b92fe4792d62e663319c5ae27c5b209b4bfa4",
+    "cli.json": "69f7f0623846748d901d377a52981431eb11e636edbd8070aba1290366dca98d",
+    "finish.py": "7c18f416a35fffabd7ee5a2245e5ba583b9536831e605e594feaaf953d7b3d05",
+    "focused-final.log": "7300da463bdb5669d6bcb3435b5a344a23062c6cdca8393666f9d79e16a6bd3c",
+    "focused.log": "4bec8fb4ac163d4bfb827d68366f40192abdf8dff9ace3a5b8f591e36a86d014",
+    "ocr.log": "c797599410f6572ab6f3122bb31240b200a3409fe85eda6da0298bfe5aa610ac",
+    "parity.json": "542c19a6de6ca4ee53304b0a9e25792366a3b82a874e1001353a7422b4848a85",
+    "preservation.json": "d3a6f405e48c289a16d3e813eeabe6e9d3401002a8a038ea3a42d4d73d54e283",
+    "pytest.log": "7d240a6bd23a44b8ec3f7dc8a06b075cfa91305c1c9fa4efa774c1b9aa4e9ed2",
+    "pytest311.log": "5f1ea490d4cb899dd189fc3e69c90442a94d8ad29139bfce8d4f0eb6e309ddba",
+    "quality-final.json": "f58e51ae99feefa2548dc9c10e42ac0d2cf04495c28308e5c50b4487a056e8b8",
+    "quality.json": "f1e2c8c7811483fe94484ba777ba325ba45dbf105d0e51d28face69b743cd47a",
+    "replay.py": "a85ddee92504ea3f2644f0ad22864a08d67c358949c3b6f2b860751b898c7592",
+    "reproduce_after.py": "9fe21f9a7923da750d0d0b01392519c0b7895af646091317d93b46f9ca6446be",
+    "reproduction-after.json": "5a12a3eeaaab89a495fdaee177f915894d47e9ae22648f83ca2dc382e65b9b19",
+    "strict-after.json": "979287465d177dbbdc383e32593a6237715c74aca411968067835d52b51e2e07",
+    "strict-after.log": "342dde9c76fdea1b408816e228a80ce7d412461fb924c07ba708f04c88f800da",
+    "strict-before.json": "5aceeb9e01481a5d416314a0eda484ebd8868d2e724c8ece5378a9bca452c107",
+    "strict-before.log": "342dde9c76fdea1b408816e228a80ce7d412461fb924c07ba708f04c88f800da",
+    "sync311.log": "e7833411dd70f91550ff08474431c93e6a3aca76f88863c5368520389bde82a0"
+  },
+  "baseline_ref": "13e98d45bcf9d8479bd4f25a51261c8393551343",
+  "build": "sdist and wheel built successfully; strict CLI smoke completed",
+  "date": "2026-11-22",
+  "detailed_artifacts": "/tmp/junas-t4a-resumed",
+  "environment": {
+    "core_ci_python": "Python 3.11.18",
+    "lock_modified": false,
+    "primary_package_versions": {
+      "Pillow": "12.2.0",
+      "httpx": "0.28.1",
+      "junas": "0.1.0",
+      "mypy": "2.1.0",
+      "numpy": "2.4.6",
+      "pypdf": "6.12.1",
+      "pypdfium2": "5.8.0",
+      "pytesseract": "0.3.13",
+      "pytest": "9.0.3",
+      "ruff": "0.15.14"
+    },
+    "primary_python": "3.12.16",
+    "uv_lock_sha256": "d15e576d15fc74964eab95004a84d576891fb841581c51a68e2e06e646ff8f01"
+  },
+  "historical_gates": {
+    "all_nine_passed": true,
+    "corpora": [
+      {
+        "corpus": "test/fixtures/legal-corpus",
+        "corpus_sha256": "263c1664e6cd5d555f4b5fe6c7d678d66892da01f64fc69836a7a9fb0a9bc0ba",
+        "label_agreement_summary": {
+          "candidate_f2": 0.8847,
+          "candidate_precision": 0.6116,
+          "candidate_recall": 0.9959,
+          "doc_count": 147,
+          "expected_labels": 1461,
+          "matched": 1455,
+          "missed": 6,
+          "unexpected": 924
+        },
+        "lock_sha256": "a80a990e84dede99c4870d2f949e02d02b9b36dec98b8432f52d85d4702cbd30",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-adversarial",
+        "corpus_sha256": "a9c812e3723222980411cfd091a5cc6cf19242ebaa158cc9c786d4b16e97c822",
+        "label_agreement_summary": {
+          "candidate_f2": 0.8668,
+          "candidate_precision": 0.5853,
+          "candidate_recall": 0.9853,
+          "doc_count": 134,
+          "expected_labels": 1295,
+          "matched": 1276,
+          "missed": 19,
+          "unexpected": 904
+        },
+        "lock_sha256": "7d2e4bb34227eed5221854ffebe6c0ea7723b09db9d8bea8a321c0f44c3474e5",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-sea",
+        "corpus_sha256": "68422b1b040dd9c7990f655b5d8ceaea2c18fe621cf08870c3d6a12bd32798c8",
+        "label_agreement_summary": {
+          "candidate_f2": 0.7634,
+          "candidate_precision": 0.3922,
+          "candidate_recall": 1.0,
+          "doc_count": 5,
+          "expected_labels": 20,
+          "matched": 20,
+          "missed": 0,
+          "unexpected": 31
+        },
+        "lock_sha256": "8511fba141afae925dcbd3669807502b32ececf2c7a0592ae4e43a376e438678",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-hk-au-jp-kr",
+        "corpus_sha256": "54690dbce8d85be1026980cbf0d62f68d6e0b23410a01c2add4b80f66aa8ba36",
+        "label_agreement_summary": {
+          "candidate_f2": 0.8937,
+          "candidate_precision": 0.6271,
+          "candidate_recall": 1.0,
+          "doc_count": 4,
+          "expected_labels": 37,
+          "matched": 37,
+          "missed": 0,
+          "unexpected": 22
+        },
+        "lock_sha256": "4d32c7f50637e912fb7bfb2ef7ba53f76799be6ee3b8d7b2d37a86804b00687a",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-cn",
+        "corpus_sha256": "184963ea9b57adc56369e924adac7539af694d825170148e5d5c82d39b36dc77",
+        "label_agreement_summary": {
+          "candidate_f2": 0.7692,
+          "candidate_precision": 0.4,
+          "candidate_recall": 1.0,
+          "doc_count": 1,
+          "expected_labels": 6,
+          "matched": 6,
+          "missed": 0,
+          "unexpected": 9
+        },
+        "lock_sha256": "da15b325dbacc5e8d3078cdc3f5ff4314e3c2227c1e2cecddb10e56d80559596",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-in",
+        "corpus_sha256": "99be7f8fb38dbc1802426248357cf89eea65c5e33bd70144fee0422b180c148c",
+        "label_agreement_summary": {
+          "candidate_f2": 0.875,
+          "candidate_precision": 0.5833,
+          "candidate_recall": 1.0,
+          "doc_count": 1,
+          "expected_labels": 7,
+          "matched": 7,
+          "missed": 0,
+          "unexpected": 5
+        },
+        "lock_sha256": "1f86e2927c84d73adb8fb48adcb9e998133f43b38a65114cb6b59966c0775d00",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-ae",
+        "corpus_sha256": "563760abe85574a659616c4a905538d316e50f7680b7893380f850824fe98ff6",
+        "label_agreement_summary": {
+          "candidate_f2": 0.7692,
+          "candidate_precision": 0.4,
+          "candidate_recall": 1.0,
+          "doc_count": 1,
+          "expected_labels": 6,
+          "matched": 6,
+          "missed": 0,
+          "unexpected": 9
+        },
+        "lock_sha256": "39b0763c32bb0c6daa63506f2882a151310c907d305e01b0e8ff1e420da8d475",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-sa",
+        "corpus_sha256": "98da4d84623e62c18b2c3d63c68e9ed2322c57728b6d3f5f741c3685349b5b5f",
+        "label_agreement_summary": {
+          "candidate_f2": 0.8065,
+          "candidate_precision": 0.4545,
+          "candidate_recall": 1.0,
+          "doc_count": 1,
+          "expected_labels": 5,
+          "matched": 5,
+          "missed": 0,
+          "unexpected": 6
+        },
+        "lock_sha256": "9dd2c149d5a5b8c7e6ba7a7366d2717889b68dd1f9d7fe786d4a145aef9efd16",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      },
+      {
+        "corpus": "test/fixtures/legal-corpus-reviewed-candidates",
+        "corpus_sha256": "85ad18e52fbd2bc1fd4d0f88aa831742d5677cd02c4733ad945bfc6ad2818caa",
+        "label_agreement_summary": {
+          "candidate_f2": 0.9913,
+          "candidate_precision": 0.9711,
+          "candidate_recall": 0.9965,
+          "doc_count": 1428,
+          "expected_labels": 20399,
+          "matched": 20328,
+          "missed": 71,
+          "unexpected": 605
+        },
+        "lock_sha256": "a9c170c034a405f49aa69cdcaae2a5e92e05c3532f12404fc4df506d4cda4f41",
+        "regression_gate": {
+          "diagnostics": "",
+          "passed": true,
+          "returncode": 0
+        }
+      }
+    ],
+    "evaluator_sha256": "c355e4fb028207a9a02ecb0c6ba33ed527a769321f53c3becefa4045d98c3b1f",
+    "external_mode": "skip",
+    "interpretation": "historical internal label-agreement gates; not independent model accuracy",
+    "source_sha256": "91efb9f2515024928e3da28cb1da1c4fb6c889edcff6f1fa18814e4bf9efa18c"
+  },
+  "implementation_ref": "773665c605afc3ac50c893361aff082c5e44477e",
+  "initial_or_supplemental_failures": [
+    "E501 on one overlong test string; split preserving its value; final changed-file Ruff passed",
+    "supplemental whole-directory formatter flagged unchanged llm_adjudicator/__init__.py; left outside scope; final 16 changed-file checks passed"
+  ],
+  "mocked_reproduction_after": {
+    "adjudication": {
+      "findings": 2,
+      "risk": "LOW_RISK",
+      "score": 58.0,
+      "zero_spans": 0
+    },
+    "baseline": {
+      "findings": 2,
+      "risk": "LOW_RISK",
+      "score": 58.0,
+      "zero_spans": 0
+    },
+    "cache": {
+      "first": [
+        "seller"
+      ],
+      "second": [
+        "buyer"
+      ],
+      "second_calls": 1
+    },
+    "defined_terms": {
+      "after": [
+        "Mr Seller"
+      ],
+      "before": [
+        "Mr Seller"
+      ]
+    },
+    "entity_identifier_forwarded": false,
+    "nan_response": {
+      "reason": "LLM confidence must be a finite number in [0, 1]",
+      "status": "rejected"
+    },
+    "pii_only": {
+      "auditor_calls": 0,
+      "score": 0.0
+    },
+    "warnings": {
+      "1": {
+        "findings": 2,
+        "risk": "LOW_RISK",
+        "score": 58.0,
+        "zero_spans": 0
+      },
+      "20": {
+        "findings": 2,
+        "risk": "LOW_RISK",
+        "score": 58.0,
+        "zero_spans": 0
+      }
+    }
+  },
+  "mocked_reproduction_before": {
+    "adjudication": {
+      "findings": 2,
+      "risk": "SAFE",
+      "score": 58.0,
+      "zero_spans": 0
+    },
+    "baseline": {
+      "findings": 2,
+      "risk": "LOW_RISK",
+      "score": 58.0,
+      "zero_spans": 0
+    },
+    "cache": {
+      "first": [
+        "seller"
+      ],
+      "second": [
+        "seller"
+      ],
+      "second_calls": 0
+    },
+    "defined_terms": {
+      "after": [],
+      "before": [
+        "Mr Seller"
+      ]
+    },
+    "entity_identifier_forwarded": true,
+    "nan_response": {
+      "confidence": 1.0,
+      "status": "adjudicated"
+    },
+    "pii_only": {
+      "auditor_calls": 0,
+      "score": 0.0
+    },
+    "warnings": {
+      "1": {
+        "findings": 3,
+        "risk": "LOW_RISK",
+        "score": 61.0,
+        "zero_spans": 1
+      },
+      "20": {
+        "findings": 22,
+        "risk": "HIGH_RISK",
+        "score": 100.0,
+        "zero_spans": 20
+      }
+    }
+  },
+  "not_performed": [
+    "real model/provider inference",
+    "paid experiments",
+    "model training/benchmarking",
+    "external dataset evaluation",
+    "protected holdout access",
+    "annotation generation",
+    "label/lock edits",
+    "commit/push"
+  ],
+  "parity": {
+    "advisories_changed": 0,
+    "baseline_ref": "13e98d45bcf9d8479bd4f25a51261c8393551343",
+    "baseline_source_sha256": "e7f4ef8ef2cfa86f7b6f7759fd76de951e5e18859b98fe3f751f87cba746397d",
+    "changed_documents": [],
+    "classifications_changed": 0,
+    "degraded_modes_changed": 0,
+    "documents": 1722,
+    "duplicate_findings": 0,
+    "environment": "Python 3.12.16; frozen uv.lock; JUNAS_* environment overrides removed; no optional provider configured",
+    "findings": 27034,
+    "findings_changed": 0,
+    "implementation_ref": "773665c605afc3ac50c893361aff082c5e44477e",
+    "implementation_source_sha256": "2a71b221ec689a71ee982f0d7f0ea46ea303ee0b4727ecd5f3afb56a0ea07606",
+    "network": "socket connects refused in both replay processes",
+    "per_corpus": {
+      "legal-corpus": {
+        "corpus_labels_lock_sha256": "9fe684abf723ad26cc0e5e0201b8d6303fc43a61345561079a187b7780e2a4ea",
+        "documents": 147,
+        "duplicate_findings": 0,
+        "findings": 2460,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-adversarial": {
+        "corpus_labels_lock_sha256": "fd78cdad26a18a6eb870c3050c1aeb3d765b5d611cbcedbf51fcbb509e2af0e6",
+        "documents": 134,
+        "duplicate_findings": 0,
+        "findings": 2328,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-ae": {
+        "corpus_labels_lock_sha256": "208f4d638b368385003fe097f185b17a94cfcb65192c094cf2f4e0053df32f4a",
+        "documents": 1,
+        "duplicate_findings": 0,
+        "findings": 16,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-cn": {
+        "corpus_labels_lock_sha256": "0c1cd9ed8f6a6ab5ad87676e11f178299cdeef090c3685ec9d24daac1c7cfa18",
+        "documents": 1,
+        "duplicate_findings": 0,
+        "findings": 16,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-hk-au-jp-kr": {
+        "corpus_labels_lock_sha256": "d18be7ad58694d82947d291bd3aa2bf787f4b3f9268969d71e0a57f642504bb5",
+        "documents": 4,
+        "duplicate_findings": 0,
+        "findings": 60,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-in": {
+        "corpus_labels_lock_sha256": "064800c8ee65a32442e060aa87f5cb41b0915f5f6a08e6bb1509d6249c58e93a",
+        "documents": 1,
+        "duplicate_findings": 0,
+        "findings": 12,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-reviewed-candidates": {
+        "corpus_labels_lock_sha256": "c5d7d8db8d4b3b1cf954a4f181ee9b4ad61ddcb2adb7369a7d11df9962e8218f",
+        "documents": 1428,
+        "duplicate_findings": 0,
+        "findings": 22078,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-sa": {
+        "corpus_labels_lock_sha256": "91143d4b508a87f9fb2753f30db6da88de3f5f3becfb8f025720fa13e0842c06",
+        "documents": 1,
+        "duplicate_findings": 0,
+        "findings": 12,
+        "identical": true,
+        "span_errors": 0
+      },
+      "legal-corpus-sea": {
+        "corpus_labels_lock_sha256": "ff5cfcdd44c57e81b93c67571a5136fd896b926ab6225fce6724d6c822ca78f1",
+        "documents": 5,
+        "duplicate_findings": 0,
+        "findings": 52,
+        "identical": true,
+        "span_errors": 0
+      }
+    },
+    "profile": "strict",
+    "scores_changed": 0,
+    "span_errors": 0
+  },
+  "preservation": {
+    "compared_to": "13e98d45bcf9d8479bd4f25a51261c8393551343",
+    "historical_fixture_inputs_and_locks_unchanged": true,
+    "t3a_metric_and_t3b_annotation_tooling_unchanged": true,
+    "unchanged_pathspecs": [
+      "scripts",
+      "test/fixtures",
+      "docs/annotation-pilot",
+      "test/test_annotation_packet.py",
+      "test/test_metric_integrity.py",
+      "README.md",
+      "uv.lock",
+      "pyproject.toml",
+      "src/junas/pipeline.py",
+      "src/junas/configs/runtime.py",
+      "src/junas/external/privacy_guard.py"
+    ],
+    "uv_lock_sha256": "d15e576d15fc74964eab95004a84d576891fb841581c51a68e2e06e646ff8f01"
+  },
+  "provenance_fixture_checks": {
+    "check_fixture_scrub": "passed; 6381 files",
+    "check_mnpi_conjunctive_provenance": "passed",
+    "check_promoted_lock_freshness": "passed; no promoted fixture input changes",
+    "diff_check": "passed against 13e98d45"
+  },
+  "quality": {
+    "checks": [
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "src/junas/advisory/llm_adjudicator/contracts.py",
+          "src/junas/advisory/llm_adjudicator/helpers.py",
+          "src/junas/advisory/llm_adjudicator/inference.py",
+          "src/junas/advisory/llm_adjudicator/structured_query.py",
+          "src/junas/advisory/local_ocr_llm.py",
+          "src/junas/review/engine.py",
+          "src/junas/review/llm_coverage_audit.py",
+          "src/junas/review/llm_defined_terms.py",
+          "test/test_ai_output_integrity.py",
+          "test/test_llm_coverage_audit.py",
+          "test/test_llm_defined_terms.py",
+          "test/test_review_profile_router.py",
+          "test/test_source_verification.py",
+          "test/test_structured_tokens_llm.py",
+          "test/test_tinyfish_and_remote_llm.py",
+          "training/distillation/student_provider.py"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "16 files already formatted\n"
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "src/junas/advisory/llm_adjudicator/contracts.py",
+          "src/junas/advisory/llm_adjudicator/helpers.py",
+          "src/junas/advisory/llm_adjudicator/inference.py",
+          "src/junas/advisory/llm_adjudicator/structured_query.py",
+          "src/junas/advisory/local_ocr_llm.py",
+          "src/junas/review/engine.py",
+          "src/junas/review/llm_coverage_audit.py",
+          "src/junas/review/llm_defined_terms.py",
+          "test/test_ai_output_integrity.py",
+          "test/test_llm_coverage_audit.py",
+          "test/test_llm_defined_terms.py",
+          "test/test_review_profile_router.py",
+          "test/test_source_verification.py",
+          "test/test_structured_tokens_llm.py",
+          "test/test_tinyfish_and_remote_llm.py",
+          "training/distillation/student_provider.py"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "All checks passed!\n"
+      },
+      {
+        "command": [
+          "python",
+          "-m",
+          "mypy",
+          "--cache-dir",
+          "/tmp/junas-t4a-resumed/mypy-cache",
+          "src/junas/models.py",
+          "src/junas/pipeline.py",
+          "src/junas/cli.py",
+          "src/junas/configs/runtime.py"
+        ],
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Success: no issues found in 4 source files\n"
+      }
+    ],
+    "files": [
+      "src/junas/advisory/llm_adjudicator/contracts.py",
+      "src/junas/advisory/llm_adjudicator/helpers.py",
+      "src/junas/advisory/llm_adjudicator/inference.py",
+      "src/junas/advisory/llm_adjudicator/structured_query.py",
+      "src/junas/advisory/local_ocr_llm.py",
+      "src/junas/review/engine.py",
+      "src/junas/review/llm_coverage_audit.py",
+      "src/junas/review/llm_defined_terms.py",
+      "test/test_ai_output_integrity.py",
+      "test/test_llm_coverage_audit.py",
+      "test/test_llm_defined_terms.py",
+      "test/test_review_profile_router.py",
+      "test/test_source_verification.py",
+      "test/test_structured_tokens_llm.py",
+      "test/test_tinyfish_and_remote_llm.py",
+      "training/distillation/student_provider.py"
+    ]
+  },
+  "remaining_limits": [
+    "no independent protected holdout",
+    "no verified AI finding acceptance policy",
+    "no claim-level public-source verifier",
+    "configured identity does not freeze hosted weights or local adapter contents",
+    "macOS-font OCR controls unavailable on Linux",
+    "preserved PII-only router exclusion and audit-grade deterministic profile differences"
+  ],
+  "schema_version": "junas.t4a_integrity.v1",
+  "tests": {
+    "complete_python311_core_ci": "1826 passed, 14 skipped, 254 subtests passed in 184.83s (0:03:04)",
+    "complete_python312_with_ocr": "1838 passed, 2 skipped, 254 subtests passed in 267.83s (0:04:27)",
+    "focused_final": "158 passed, 12 subtests passed in 3.17s",
+    "local_ocr_ci": "36 passed, 2 skipped in 16.14s",
+    "python311_skip_details": "============================\nSKIPPED [1] test/test_pdf_image_integrity.py:90: optional pypdfium2 required\nSKIPPED [1] test/test_pdf_image_integrity.py:120: optional pypdfium2 required\nSKIPPED [2] test/test_pdf_image_integrity.py:250: optional pypdfium2 required\nSKIPPED [1] test/test_pdf_image_integrity.py:349: optional pypdfium2 required\nSKIPPED [1] test/test_pdf_image_integrity.py:361: optional pypdfium2 required\nSKIPPED [1] test/test_pdf_image_integrity.py:433: optional pypdfium2 required\nSKIPPED [1] test/test_pdf_image_integrity.py:503: optional native PDFium and Tesseract required\nSKIPPED [1] test/test_pdf_image_integrity.py:594: optional pypdfium2 required\nSKIPPED [1] test/test_pdf_image_integrity.py:620: optional pypdfium2 required\nSKIPPED [1] test/test_tesseract_ocr.py:43: optional pytesseract and native Tesseract required\nSKIPPED [1] test/test_tesseract_ocr.py:60: optional pytesseract and native Tesseract required\nSKIPPED [1] test/test_tesseract_ocr.py:101: optional pytesseract and native Tesseract required\nSKIPPED [1] test/test_tesseract_ocr.py:31: optional pytesseract and native Tesseract required\n1826 passed, 14 skipped, 254 subtests passed in 184.83s (0:03:04)",
+    "python312_skips": [
+      "macOS control font required",
+      "three macOS control fonts required"
+    ]
+  },
+  "timezone": "Asia/Singapore",
+  "verdict": "PASS (mocked T4A integrity/privacy scope)"
+}

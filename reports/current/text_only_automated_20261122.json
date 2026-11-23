@@ -1,0 +1,401 @@
+{
+  "schema_version": "junas.text_only_automated_handoff.v1",
+  "date": "2026-11-22",
+  "head": "773665c605afc3ac50c893361aff082c5e44477e",
+  "scope": {
+    "runtime": "text-only; dangling retired desktop import shim removed",
+    "research": "automated synthetic generation and separate model judging",
+    "readme_authorization": "explicitly approved by user",
+    "human_review_required": false,
+    "classifier_tuned_on_smoke": false,
+    "committed_or_pushed": false
+  },
+  "changes_since_initial_state": {
+    "modified": [
+      ".env.example",
+      ".github/workflows/ci.yml",
+      "ARCHITECTURE.md",
+      "CONTRIBUTING.md",
+      "README.md",
+      "config.toml",
+      "docs/independent-evaluation-pilot.md",
+      "docs/known-limitations.md",
+      "pyproject.toml",
+      "src/junas/__init__.py",
+      "src/junas/cli.py",
+      "src/junas/configs/runtime.py",
+      "src/junas/input_limits.py",
+      "src/junas/models.py",
+      "src/junas/pipeline.py",
+      "src/junas/review/document_structure.py",
+      "test/test_ai_output_integrity.py",
+      "test/test_core_pipeline.py",
+      "test/test_document_structure.py",
+      "test/test_finding_integrity.py",
+      "test/test_input_resource_limits.py",
+      "test/test_jurisdiction_resolution.py",
+      "test/test_runtime_settings_validation.py",
+      "uv.lock"
+    ],
+    "deleted": [
+      "src/junas/advisory/local_ocr_llm.py",
+      "src/junas/desktop",
+      "src/junas/ingest/parser_tools/parse_docs.py",
+      "src/junas/review/container_scan.py",
+      "src/junas/review/document.py",
+      "src/junas/review/image_scan.py",
+      "src/junas/review/metadata.py",
+      "test/test_document_hardening.py",
+      "test/test_email_attachment_integrity.py",
+      "test/test_image_scan.py",
+      "test/test_pdf_image_integrity.py",
+      "test/test_tesseract_ocr.py",
+      "test/test_unsupported_office.py"
+    ],
+    "new": [
+      "config/model_corpus.example.json",
+      "docs/automated-corpus.md",
+      "scripts/model_corpus.py",
+      "test/test_model_corpus.py"
+    ]
+  },
+  "verification": {
+    "python_3_12": {
+      "tests_passed": 1620,
+      "subtests_passed": 254,
+      "skips": 0,
+      "log": "pytest-indexed-final.log"
+    },
+    "python_3_11": {
+      "tests_passed": 1620,
+      "subtests_passed": 254,
+      "skips": 0,
+      "log": "pytest311-indexed-final.log"
+    },
+    "post_suite_changes": "Only a behavior-neutral list[str] annotation and removal of the already dangling desktop symlink; all 34 runner tests and scoped mypy passed after the annotation.",
+    "historical_regression_gates": {
+      "passed": true,
+      "corpora": 9,
+      "external_mode": "skip"
+    },
+    "strict_parity": {
+      "documents": 1722,
+      "findings": 27034,
+      "changed_documents": [],
+      "finding_changes": 0,
+      "score_changes": 0,
+      "classification_changes": 0,
+      "span_errors": 0,
+      "duplicates": 0,
+      "method": "same nine historical strict corpora; full ReviewResult comparison; both replay processes deny socket connections",
+      "per_corpus": {
+        "legal-corpus": {
+          "corpus_labels_lock_sha256": "9fe684abf723ad26cc0e5e0201b8d6303fc43a61345561079a187b7780e2a4ea",
+          "documents": 147,
+          "duplicate_findings": 0,
+          "findings": 2460,
+          "span_errors": 0
+        },
+        "legal-corpus-adversarial": {
+          "corpus_labels_lock_sha256": "fd78cdad26a18a6eb870c3050c1aeb3d765b5d611cbcedbf51fcbb509e2af0e6",
+          "documents": 134,
+          "duplicate_findings": 0,
+          "findings": 2328,
+          "span_errors": 0
+        },
+        "legal-corpus-ae": {
+          "corpus_labels_lock_sha256": "208f4d638b368385003fe097f185b17a94cfcb65192c094cf2f4e0053df32f4a",
+          "documents": 1,
+          "duplicate_findings": 0,
+          "findings": 16,
+          "span_errors": 0
+        },
+        "legal-corpus-cn": {
+          "corpus_labels_lock_sha256": "0c1cd9ed8f6a6ab5ad87676e11f178299cdeef090c3685ec9d24daac1c7cfa18",
+          "documents": 1,
+          "duplicate_findings": 0,
+          "findings": 16,
+          "span_errors": 0
+        },
+        "legal-corpus-hk-au-jp-kr": {
+          "corpus_labels_lock_sha256": "d18be7ad58694d82947d291bd3aa2bf787f4b3f9268969d71e0a57f642504bb5",
+          "documents": 4,
+          "duplicate_findings": 0,
+          "findings": 60,
+          "span_errors": 0
+        },
+        "legal-corpus-in": {
+          "corpus_labels_lock_sha256": "064800c8ee65a32442e060aa87f5cb41b0915f5f6a08e6bb1509d6249c58e93a",
+          "documents": 1,
+          "duplicate_findings": 0,
+          "findings": 12,
+          "span_errors": 0
+        },
+        "legal-corpus-reviewed-candidates": {
+          "corpus_labels_lock_sha256": "c5d7d8db8d4b3b1cf954a4f181ee9b4ad61ddcb2adb7369a7d11df9962e8218f",
+          "documents": 1428,
+          "duplicate_findings": 0,
+          "findings": 22078,
+          "span_errors": 0
+        },
+        "legal-corpus-sa": {
+          "corpus_labels_lock_sha256": "91143d4b508a87f9fb2753f30db6da88de3f5f3becfb8f025720fa13e0842c06",
+          "documents": 1,
+          "duplicate_findings": 0,
+          "findings": 12,
+          "span_errors": 0
+        },
+        "legal-corpus-sea": {
+          "corpus_labels_lock_sha256": "ff5cfcdd44c57e81b93c67571a5136fd896b926ab6225fce6724d6c822ca78f1",
+          "documents": 5,
+          "duplicate_findings": 0,
+          "findings": 52,
+          "span_errors": 0
+        }
+      }
+    },
+    "quality": {
+      "format-indexed-final.log": "18 files already formatted",
+      "lint-indexed-final.log": "All checks passed!",
+      "mypy-core-indexed-final.log": "Success: no issues found in 4 source files",
+      "mypy-runner-indexed-final.log": "pyproject.toml: note: unused section(s): module = ['junas.cli', 'junas.configs.runtime', 'junas.models', 'junas.pipeline']\nSuccess: no issues found in 1 source file"
+    },
+    "additional_research_mypy": {
+      "status": "failed",
+      "errors": 11,
+      "files": [
+        "scripts/span_metrics.py",
+        "scripts/prepare_evaluation_dataset.py"
+      ],
+      "unchanged_since_task_start": true,
+      "log": "mypy-existing-research-final.log"
+    },
+    "provenance": "passed",
+    "fixture_scrub": "passed, 6381 files",
+    "promoted_lock_freshness": "passed, no promoted fixture input changes",
+    "package_build": "sdist and wheel from sdist passed",
+    "isolated_wheel": "text classification passed; six retired modules absent; all 49 Python module sources match checkout; .env absent",
+    "preservation": {
+      "protected_files_checked": 6432,
+      "changed_protected_files": [],
+      "preserved_preexisting_work": [
+        "docs/llm-governance.md",
+        "scripts/prepare_evaluation_dataset.py",
+        "test/test_annotation_preparation.py",
+        "scripts/span_metrics.py"
+      ],
+      "wheel_source_modules_equal": 49,
+      "retired_modules_absent": [
+        "junas/advisory/local_ocr_llm.py",
+        "junas/ingest/parser_tools/parse_docs.py",
+        "junas/review/container_scan.py",
+        "junas/review/document.py",
+        "junas/review/image_scan.py",
+        "junas/review/metadata.py"
+      ],
+      "runtime_dependencies": "numpy, httpx",
+      "secret_dotenv_absent": true,
+      "lockfile_delivery": "uv.lock retained in checkout/private evidence, not setuptools sdist",
+      "wheel": "/tmp/junas-automated-84sd6gto/dist-verified/junas-0.1.0-py3-none-any.whl",
+      "sdist": "/tmp/junas-automated-84sd6gto/dist-verified/junas-0.1.0.tar.gz",
+      "head": "773665c605afc3ac50c893361aff082c5e44477e"
+    },
+    "not_run": [
+      "external corpus downloads/evaluation",
+      "independent real-world accuracy or protected holdout evaluation",
+      "confidence calibration"
+    ]
+  },
+  "live_smoke": {
+    "authorization": "user go-ahead for one four-document synthetic-only job with aggregate USD 5 potentially billable cap",
+    "organization_project_model_access": "authenticated read-only preflight; private IDs retained outside repository",
+    "credit_balance_and_applicability": "unknown",
+    "initial": {
+      "valid_documents": 1,
+      "failed_documents": 3,
+      "failures": {
+        "offset_mismatch": 1,
+        "output_token_truncation": 2
+      },
+      "configured_rate_cost_ceiling_usd": "0.6296100"
+    },
+    "corrected": {
+      "aggregate_budget_usd": "5",
+      "aggregate_charged_or_reserved_ceiling_usd": "0.9219475",
+      "completed_documents": 4,
+      "disputed_documents": 4,
+      "evaluation": {
+        "interpretation": "agreement with model-consensus supplied positives; not independent detection accuracy",
+        "mnpi": "contextual hypotheses; no calibrated confidence or verified materiality/public-status truth",
+        "pii": {
+          "coverage": {
+            "exhaustive": 3,
+            "unknown": 1
+          },
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 18,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 22,
+            "labeled_span_recall": 0.18181818181818182,
+            "matched": 4,
+            "matched_gold": [
+              {
+                "category": "PII",
+                "end": 271,
+                "label": "EMAIL",
+                "start": 247,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0001",
+                  "model_consensus"
+                ]
+              },
+              {
+                "category": "PII",
+                "end": 355,
+                "label": "PERSONAL_RECORD_ID",
+                "start": 348,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0001",
+                  "model_consensus"
+                ]
+              },
+              {
+                "category": "PII",
+                "end": 39,
+                "label": "EMAIL",
+                "start": 17,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0004",
+                  "model_consensus"
+                ]
+              },
+              {
+                "category": "PII",
+                "end": 80,
+                "label": "EMAIL",
+                "start": 57,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0004",
+                  "model_consensus"
+                ]
+              }
+            ],
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 7,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 1,
+            "unmatched_predictions": 3
+          },
+          "matching": "maximum-cardinality one-to-one, equal category and label; canonical tie order",
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 18,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 22,
+            "labeled_span_recall": 0.18181818181818182,
+            "matched": 4,
+            "matched_gold": [
+              {
+                "category": "PII",
+                "end": 271,
+                "label": "EMAIL",
+                "start": 247,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0001",
+                  "model_consensus"
+                ]
+              },
+              {
+                "category": "PII",
+                "end": 355,
+                "label": "PERSONAL_RECORD_ID",
+                "start": 348,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0001",
+                  "model_consensus"
+                ]
+              },
+              {
+                "category": "PII",
+                "end": 39,
+                "label": "EMAIL",
+                "start": 17,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0004",
+                  "model_consensus"
+                ]
+              },
+              {
+                "category": "PII",
+                "end": 80,
+                "label": "EMAIL",
+                "start": 57,
+                "unit": [
+                  "synthetic_development",
+                  "synthetic-0004",
+                  "model_consensus"
+                ]
+              }
+            ],
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 7,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 1,
+            "unmatched_predictions": 3
+          },
+          "schema_version": "junas.occurrence.v1",
+          "status": "available",
+          "unit": "split/document/annotator observations; half-open character offsets"
+        },
+        "selection": "generated documents whose judges completed; disagreements retained and excluded from consensus positives",
+        "unmapped_pii_predictions": {
+          "postal_address": 2
+        }
+      },
+      "failed_documents": 0,
+      "human_annotations": 0,
+      "initial_token_cost_ceiling_usd": "0.6296100",
+      "new_sources_generated": 0,
+      "prompt_regimes": "initial valid responses v1 retained; corrective GPT-5.4 passes v2 indexed evidence; all attempt histories preserved",
+      "protected_holdout": false,
+      "requested_documents": 4,
+      "source_bytes_unchanged": true,
+      "status": "completed",
+      "stop_reason": null
+    },
+    "total_completed_api_calls": 15,
+    "generation_calls": 4,
+    "judge_calls_including_invalid_attempts": 11,
+    "uncertain_requests": 0,
+    "outstanding_reservations": 0,
+    "pii_consensus_occurrences": 22,
+    "pii_disputed_occurrences": 0,
+    "mnpi_disputed_documents": 4,
+    "confidence": "separate uncalibrated model self-reports",
+    "cost_interpretation": "configured-rate usage ceiling, not verified provider invoice or credit consumption",
+    "larger_batch_started": false,
+    "source_bytes_unchanged_in_correction": true,
+    "prompt_history": "Valid v1 answers retained; only three invalid GPT-5.4 responses corrected with v2 word offsets and larger output limit; final list[str] annotation is behavior-neutral."
+  },
+  "artifacts": {
+    "private_directory": "/home/gongahkia/.local/share/junas/research/2026-11-22-text-only-smoke",
+    "corrected_records": "live-smoke/corrected-records.jsonl",
+    "corrected_report": "live-smoke/corrected-report.json",
+    "original_outputs_preserved": true,
+    "api_key_and_dotenv_included": false,
+    "archive_file_hashes": "archive-sha256.json"
+  },
+  "interpretation": "Model-derived development evidence only. Agreement and grounded offsets do not establish correctness, independent annotation, real-world recall, calibrated confidence or legal MNPI truth."
+}
