@@ -11,6 +11,7 @@ from scripts import model_corpus as corpus
 from scripts.corpus_partitions import (
     FRESH_HOLDOUT_GROUPS,
     FRESH_HOLDOUT_V3_GROUPS,
+    FRESH_HOLDOUT_V5_GROUPS,
     SCENARIO_GROUPS,
     check_exclusions,
     exclusion_registry,
@@ -40,6 +41,17 @@ def test_new_scenarios_are_disjoint_and_old_reservations_still_validate():
     assert set(v3cfg["entity_targets"].values()) == {3}
     assert v3cfg["spending_limit"]["provider_cap_usd"] == "4"
     assert corpus.validate_spending_limit(v3cfg["spending_limit"])["sgd_scenario_ceiling"] == "36.00"
+    v5cfg = json.loads((fresh.ROOT / "config/model_corpus.holdout-v5.json").read_text())
+    corpus.validate_config(v5cfg)
+    assert v5cfg["sampling"]["groups"] == FRESH_HOLDOUT_V5_GROUPS
+    v5 = {g["id"] for g in FRESH_HOLDOUT_V5_GROUPS}
+    assert not v5 & (existing | v2 | v3)
+    for i in range(16):
+        assert sampling_slot(v5cfg["sampling"], i)["template_group"] in v5
+    assert v5cfg["documents"] == 40 and set(v5cfg["quadrant_targets"].values()) == {10}
+    assert set(v5cfg["entity_targets"].values()) == {3}
+    assert v5cfg["spending_limit"]["provider_cap_usd"] == "4"
+    assert corpus.validate_spending_limit(v5cfg["spending_limit"])["sgd_scenario_ceiling"] == "39.60"
 
 
 def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excluded(tmp_path, monkeypatch):

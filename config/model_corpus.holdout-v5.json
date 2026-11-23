@@ -1,0 +1,89 @@
+{
+  "schema_version": "junas.model_corpus.v2",
+  "documents": 40,
+  "pricing_checked_on": "2026-11-23",
+  "generator": {
+    "model": "gpt-6.2-sol",
+    "reasoning_effort": "high",
+    "max_input_tokens": 12000,
+    "max_output_tokens": 8192,
+    "input_rate": "4.5",
+    "output_rate": "10"
+  },
+  "judges": [
+    {
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "high",
+      "max_input_tokens": 12000,
+      "max_output_tokens": 16384,
+      "input_rate": "2.25",
+      "output_rate": "5"
+    },
+    {
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "high",
+      "max_input_tokens": 12000,
+      "max_output_tokens": 16384,
+      "input_rate": "2.25",
+      "output_rate": "5"
+    },
+    {
+      "model": "gpt-6.1-terra",
+      "reasoning_effort": "high",
+      "max_input_tokens": 12000,
+      "max_output_tokens": 16384,
+      "input_rate": "2.25",
+      "output_rate": "5"
+    }
+  ],
+  "max_candidates": 120,
+  "quadrant_targets": {
+    "neither": 10,
+    "pii_only": 10,
+    "mnpi_only": 10,
+    "both": 10
+  },
+  "judge_mode": "same_model_repeats",
+  "spending_limit": {
+    "currency": "SGD",
+    "cap_sgd": "50",
+    "provider_cap_usd": "4",
+    "sgd_per_usd_ceiling": "1.5",
+    "extra_charge_multiplier": "1.2",
+    "prior_cost_reserve_usd": "18",
+    "fx_checked_on": "2026-11-23"
+  },
+  "sampling": {
+    "split": "holdout",
+    "groups": [
+      {
+        "id": "holdout-dividend-v5",
+        "scenario": "fictional dividend deferral and entitlement correction exchange"
+      },
+      {
+        "id": "holdout-trial-v5",
+        "scenario": "fictional clinical-trial unblinding and sponsor disclosure chronology"
+      },
+      {
+        "id": "holdout-impairment-v5",
+        "scenario": "fictional listed issuer asset impairment review memorandum"
+      },
+      {
+        "id": "holdout-sustainability-v5",
+        "scenario": "fictional public sustainability methodology correction"
+      }
+    ]
+  },
+  "entity_targets": {
+    "GOVERNMENT_ID": 3,
+    "PERSON_NAME": 3,
+    "EMAIL": 3,
+    "PHONE": 3,
+    "POSTAL_ADDRESS": 3,
+    "BANK_ACCOUNT": 3,
+    "PERSONAL_RECORD_ID": 3,
+    "DATE_OF_BIRTH": 3,
+    "QUASI_IDENTIFIER_COMBINATION": 3
+  },
+  "exclusion_registry_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+}

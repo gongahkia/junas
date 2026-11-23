@@ -38,6 +38,13 @@ FRESH_HOLDOUT_V3_GROUPS = [
     {"id": "holdout-education-v3", "scenario": "fictional public investment education erratum"},
 ]
 
+FRESH_HOLDOUT_V5_GROUPS = [
+    {"id": "holdout-dividend-v5", "scenario": "fictional dividend deferral and entitlement correction exchange"},
+    {"id": "holdout-trial-v5", "scenario": "fictional clinical-trial unblinding and sponsor disclosure chronology"},
+    {"id": "holdout-impairment-v5", "scenario": "fictional listed issuer asset impairment review memorandum"},
+    {"id": "holdout-sustainability-v5", "scenario": "fictional public sustainability methodology correction"},
+]
+
 
 def validate_sampling(sampling: dict) -> dict:
     if not isinstance(sampling, dict) or set(sampling) != {"split", "groups"}:
@@ -45,7 +52,7 @@ def validate_sampling(sampling: dict) -> dict:
     split = sampling["split"]
     allowed = [SCENARIO_GROUPS.get(split)]
     if split == "holdout":
-        allowed.extend((FRESH_HOLDOUT_GROUPS, FRESH_HOLDOUT_V3_GROUPS))
+        allowed.extend((FRESH_HOLDOUT_GROUPS, FRESH_HOLDOUT_V3_GROUPS, FRESH_HOLDOUT_V5_GROUPS))
     if split not in SCENARIO_GROUPS or sampling["groups"] not in allowed:
         raise ValueError("use the reserved scenario/template groups for this partition")
     return sampling

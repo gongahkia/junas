@@ -170,6 +170,8 @@ def prepare(output: Path, baseline: Path, inherited: Path, runs: list[Path], con
         "live_calls_authorized": False,
         "plan": corpus.plan(config),
         "empirical_estimate_usd": "2.73792225",
+        "buffered_planning_estimate_usd": "3.45",
+        "planning_estimate_basis": "higher accounted cost of prior two 40-document runs plus 25%, rounded up",
         "empirical_basis": (
             "completed prior 40-document stage including rejection and retries; "
             "conservative accounted cost, not invoice"
