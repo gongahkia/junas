@@ -1,0 +1,1114 @@
+{
+  "accepted_family_counts": {
+    "holdout-injunction-v6": 11,
+    "holdout-reserves-v6": 6,
+    "holdout-succession-v6": 12,
+    "holdout-voting-v6": 11
+  },
+  "allowance_status": "closed; unused allowance does not authorize further calls",
+  "approved_cap_usd": "4",
+  "audit": {
+    "accepted_annotation_coverage": {
+      "exhaustive": 38,
+      "unknown": 2
+    },
+    "accepted_documents": 40,
+    "accepted_reference_tiers": {
+      "majority": 7,
+      "unanimous": 33
+    },
+    "approved_cap_usd": "4",
+    "attempted_candidates": 58,
+    "budget_passed": true,
+    "charged_or_reserved_ceiling_usd": "2.50919400",
+    "classifiers": {
+      "baseline_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce",
+      "improved_sha256": "63ad99341c01445f684554e25e823e195c54f8b5c0a0a040ac7814137b1a18c5"
+    },
+    "config_sha256": "992730c90dea379e61cb1ae68d4d740e1e596e1164a6bc90b30ed627364d3af4",
+    "date": "2026-11-23",
+    "entity_coverage": {
+      "coverage_passed": true,
+      "observed_positive_occurrences": {
+        "BANK_ACCOUNT": 3,
+        "DATE_OF_BIRTH": 3,
+        "EMAIL": 17,
+        "GOVERNMENT_ID": 3,
+        "PERSONAL_RECORD_ID": 9,
+        "PERSON_NAME": 23,
+        "PHONE": 3,
+        "POSTAL_ADDRESS": 3,
+        "QUASI_IDENTIFIER_COMBINATION": 4
+      },
+      "reference": "model-consensus occurrences",
+      "shortfall": {
+        "BANK_ACCOUNT": 0,
+        "DATE_OF_BIRTH": 0,
+        "EMAIL": 0,
+        "GOVERNMENT_ID": 0,
+        "PERSONAL_RECORD_ID": 0,
+        "PERSON_NAME": 0,
+        "PHONE": 0,
+        "POSTAL_ADDRESS": 0,
+        "QUASI_IDENTIFIER_COMBINATION": 0
+      },
+      "targets": {
+        "BANK_ACCOUNT": 3,
+        "DATE_OF_BIRTH": 3,
+        "EMAIL": 3,
+        "GOVERNMENT_ID": 3,
+        "PERSONAL_RECORD_ID": 3,
+        "PERSON_NAME": 3,
+        "PHONE": 3,
+        "POSTAL_ADDRESS": 3,
+        "QUASI_IDENTIFIER_COMBINATION": 3
+      }
+    },
+    "failed_documents": 1,
+    "final_segment": "run-002",
+    "holdout_consumed_once": true,
+    "independently_validated_accuracy": null,
+    "network_denied_during_audit": true,
+    "peak_accounted_or_reserved_usd": "2.58257900",
+    "provider_invoice_verified": false,
+    "quadrant_coverage": {
+      "accepted": {
+        "both": 10,
+        "mnpi_only": 10,
+        "neither": 10,
+        "pii_only": 10
+      },
+      "all_quadrants_covered": true,
+      "coverage_passed": true,
+      "interpretation": "model-voted document labels; requested generation quadrants are not reference truth",
+      "observed_including_excess": {
+        "both": 10,
+        "mnpi_only": 10,
+        "neither": 10,
+        "pii_only": 10,
+        "unknown": 17
+      },
+      "shortfall": {
+        "both": 0,
+        "mnpi_only": 0,
+        "neither": 0,
+        "pii_only": 0
+      },
+      "targets": {
+        "both": 10,
+        "mnpi_only": 10,
+        "neither": 10,
+        "pii_only": 10
+      }
+    },
+    "received_completions": {
+      "generator": 58,
+      "judge": 172
+    },
+    "received_tokens": {
+      "input": 433469,
+      "output": 252399
+    },
+    "records_sha256": "5d6fb65c08bb08d5d7d971832ff7c8bdc14a2b685ffcc76911e55d87ab96bd8c",
+    "request_replays": 0,
+    "segments": 2,
+    "settled_cost_ceiling_usd": "2.42215750",
+    "source_consensus_and_response_linkage_passed": true,
+    "status": "completed",
+    "stop_reason": null,
+    "uncertain_requests": 1,
+    "uncertain_reserve_usd": "0.0870365",
+    "unresolved_documents": 17,
+    "unused_allowance_usd": "1.49080600"
+  },
+  "baseline": {
+    "pii_by_entity": {
+      "BANK_ACCOUNT": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      },
+      "DATE_OF_BIRTH": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 5,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 5,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        }
+      },
+      "EMAIL": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 9,
+          "gold": 17,
+          "labeled_span_recall": 1.0,
+          "matched": 17,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 26,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 9
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 9,
+          "gold": 17,
+          "labeled_span_recall": 1.0,
+          "matched": 17,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 26,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 9
+        }
+      },
+      "GOVERNMENT_ID": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        }
+      },
+      "PERSONAL_RECORD_ID": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 9,
+          "labeled_span_recall": 0.2222222222222222,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 3,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 9,
+          "labeled_span_recall": 0.2222222222222222,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 3,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        }
+      },
+      "PERSON_NAME": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 23,
+          "labeled_span_recall": 0.6956521739130435,
+          "matched": 16,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 22,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 23,
+          "labeled_span_recall": 0.6956521739130435,
+          "matched": 16,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 22,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        }
+      },
+      "PHONE": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 2,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 2,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      },
+      "POSTAL_ADDRESS": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 2,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 3,
+          "gold": 3,
+          "labeled_span_recall": 0.3333333333333333,
+          "matched": 1,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 3
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        }
+      },
+      "QUASI_IDENTIFIER_COMBINATION": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 4,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 4,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 4,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 4,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      }
+    },
+    "pii_spans": {
+      "exact": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 24,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 22,
+        "gold": 68,
+        "labeled_span_recall": 0.6470588235294118,
+        "matched": 44,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 66,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 0,
+        "unmatched_predictions": 22
+      },
+      "overlap": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 23,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 21,
+        "gold": 68,
+        "labeled_span_recall": 0.6617647058823529,
+        "matched": 45,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 66,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 0,
+        "unmatched_predictions": 21
+      }
+    },
+    "presence": {
+      "absence_verified": false,
+      "by_quadrant": {
+        "both": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 0,
+            "unknown": 10
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 9,
+            "unknown": 1
+          }
+        },
+        "mnpi_only": {
+          "mnpi": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 1,
+            "unknown": 8
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 3,
+            "tn": 6,
+            "tp": 0,
+            "unknown": 1
+          }
+        },
+        "neither": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 10,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 4,
+            "tn": 5,
+            "tp": 0,
+            "unknown": 1
+          }
+        },
+        "pii_only": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 10,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 9,
+            "unknown": 0
+          }
+        }
+      },
+      "counts": {
+        "mnpi": {
+          "fn": 1,
+          "fp": 0,
+          "tn": 20,
+          "tp": 1,
+          "unknown": 18
+        },
+        "pii": {
+          "fn": 1,
+          "fp": 7,
+          "tn": 11,
+          "tp": 18,
+          "unknown": 3
+        }
+      }
+    },
+    "unmapped_pii_predictions": {
+      "postal_address": 4,
+      "sg_uen": 1
+    }
+  },
+  "calibrated_confidence": null,
+  "cumulative_accounted_or_reserved_usd": "22.43293000",
+  "current": {
+    "pii_by_entity": {
+      "BANK_ACCOUNT": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 3,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      },
+      "DATE_OF_BIRTH": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 5,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 5,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        }
+      },
+      "EMAIL": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 9,
+          "gold": 17,
+          "labeled_span_recall": 1.0,
+          "matched": 17,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 26,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 9
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 9,
+          "gold": 17,
+          "labeled_span_recall": 1.0,
+          "matched": 17,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 26,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 9
+        }
+      },
+      "GOVERNMENT_ID": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        }
+      },
+      "PERSONAL_RECORD_ID": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 9,
+          "labeled_span_recall": 0.2222222222222222,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 3,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 9,
+          "labeled_span_recall": 0.2222222222222222,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 3,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        }
+      },
+      "PERSON_NAME": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 23,
+          "labeled_span_recall": 0.6956521739130435,
+          "matched": 16,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 22,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 6,
+          "gold": 23,
+          "labeled_span_recall": 0.6956521739130435,
+          "matched": 16,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 22,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 6
+        }
+      },
+      "PHONE": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 2,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 2,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      },
+      "POSTAL_ADDRESS": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 2,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 3,
+          "gold": 3,
+          "labeled_span_recall": 0.3333333333333333,
+          "matched": 1,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 3
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 1,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 4,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        }
+      },
+      "QUASI_IDENTIFIER_COMBINATION": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 4,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 4,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 4,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 4,
+          "labeled_span_recall": 0.0,
+          "matched": 0,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 0,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      }
+    },
+    "pii_spans": {
+      "exact": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 24,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 22,
+        "gold": 68,
+        "labeled_span_recall": 0.6470588235294118,
+        "matched": 44,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 66,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 0,
+        "unmatched_predictions": 22
+      },
+      "overlap": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 23,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 21,
+        "gold": 68,
+        "labeled_span_recall": 0.6617647058823529,
+        "matched": 45,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 66,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 0,
+        "unmatched_predictions": 21
+      }
+    },
+    "presence": {
+      "absence_verified": false,
+      "by_quadrant": {
+        "both": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 1,
+            "unknown": 9
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 0,
+            "tp": 9,
+            "unknown": 1
+          }
+        },
+        "mnpi_only": {
+          "mnpi": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 1,
+            "unknown": 8
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 3,
+            "tn": 6,
+            "tp": 0,
+            "unknown": 1
+          }
+        },
+        "neither": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 10,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 4,
+            "tn": 5,
+            "tp": 0,
+            "unknown": 1
+          }
+        },
+        "pii_only": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 10,
+            "tp": 0,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 0,
+            "tp": 9,
+            "unknown": 0
+          }
+        }
+      },
+      "counts": {
+        "mnpi": {
+          "fn": 1,
+          "fp": 0,
+          "tn": 20,
+          "tp": 2,
+          "unknown": 17
+        },
+        "pii": {
+          "fn": 1,
+          "fp": 7,
+          "tn": 11,
+          "tp": 18,
+          "unknown": 3
+        }
+      }
+    },
+    "unmapped_pii_predictions": {
+      "postal_address": 4,
+      "sg_uen": 1
+    }
+  },
+  "date": "2026-11-23",
+  "independent_accuracy": null,
+  "interruption": {
+    "cap_usd": "4",
+    "cause": "SIGTERM origin unverified",
+    "exit_code": 143,
+    "previous_segment": "run",
+    "recovered_cost_usd": "0.56277875",
+    "request_replay": false
+  },
+  "paired_evaluation": {
+    "after": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": 0.85,
+      "mnpi_positive_detection": 0.1,
+      "pii_exact_span_agreement": 0.6470588235294118,
+      "pii_negative_abstention_rate": 0.1,
+      "pii_negative_flag_rate": 0.35,
+      "pii_overlap_span_agreement": 0.6617647058823529,
+      "pii_positive_abstention_rate": 0.05,
+      "pii_positive_detection": 0.9
+    },
+    "before": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": 0.9,
+      "mnpi_positive_detection": 0.05,
+      "pii_exact_span_agreement": 0.6470588235294118,
+      "pii_negative_abstention_rate": 0.1,
+      "pii_negative_flag_rate": 0.35,
+      "pii_overlap_span_agreement": 0.6617647058823529,
+      "pii_positive_abstention_rate": 0.05,
+      "pii_positive_detection": 0.9
+    },
+    "classifiers": {
+      "baseline_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce",
+      "improved_sha256": "63ad99341c01445f684554e25e823e195c54f8b5c0a0a040ac7814137b1a18c5"
+    },
+    "delta": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": -0.050000000000000044,
+      "mnpi_positive_detection": 0.05,
+      "pii_exact_span_agreement": 0.0,
+      "pii_negative_abstention_rate": 0.0,
+      "pii_negative_flag_rate": 0.0,
+      "pii_overlap_span_agreement": 0.0,
+      "pii_positive_abstention_rate": 0.0,
+      "pii_positive_detection": 0.0
+    },
+    "documents": 40,
+    "passed": false,
+    "records_sha256": "5d6fb65c08bb08d5d7d971832ff7c8bdc14a2b685ffcc76911e55d87ab96bd8c",
+    "reference": "same fresh synthetic model-consensus holdout for both frozen versions; not independent accuracy",
+    "schema_version": "junas.paired_holdout.v1",
+    "status": "consumed",
+    "targets": {
+      "mnpi_negative_abstention_rate_max": {
+        "observed": 0.0,
+        "passed": true,
+        "target": 0.25
+      },
+      "mnpi_negative_flag_rate_max": {
+        "observed": 0.0,
+        "passed": true,
+        "target": 0.05
+      },
+      "mnpi_positive_abstention_rate_max": {
+        "observed": 0.85,
+        "passed": false,
+        "target": 0.2
+      },
+      "mnpi_positive_detection_min": {
+        "observed": 0.1,
+        "passed": false,
+        "target": 0.8
+      },
+      "pii_exact_span_agreement_min": {
+        "observed": 0.6470588235294118,
+        "passed": false,
+        "target": 0.8
+      },
+      "pii_negative_abstention_rate_max": {
+        "observed": 0.1,
+        "passed": true,
+        "target": 0.25
+      },
+      "pii_negative_flag_rate_max": {
+        "observed": 0.35,
+        "passed": false,
+        "target": 0.1
+      },
+      "pii_overlap_span_agreement_min": {
+        "observed": 0.6617647058823529,
+        "passed": false,
+        "target": 0.85
+      },
+      "pii_positive_detection_min": {
+        "observed": 0.9,
+        "passed": true,
+        "target": 0.9
+      }
+    }
+  },
+  "prior_accounted_or_reserved_usd": "19.92373600",
+  "private_evidence": "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v6/bundle",
+  "reference": "Fresh synthetic model-reference agreement; independent accuracy unavailable",
+  "schema_version": "junas.fresh_holdout_results.v6",
+  "source_commit": "e8c2cf433d37e961aff045f7ea59e24ddc289882",
+  "status": "completed_validation_failed",
+  "verification": {
+    "classification_release_count": 1,
+    "classifier_tuned_after_scores": false,
+    "frozen_source_unchanged": true,
+    "full_tests": "not repeated; classifier unchanged from verified v6",
+    "hosted_ci": "not triggered",
+    "no_request_replays": true,
+    "prior_artifacts": {
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-coverage-holdout-usd10": {
+        "files": 971,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-fresh-holdout-v2": {
+        "files": 851,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run": {
+        "files": 1079,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-classifier-reliability-followup": {
+        "files": 45,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout": {
+        "files": 492,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout/holdout-v5": {
+        "files": 645,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v3": {
+        "files": 750,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v6": {
+        "files": 312,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-mnpi-reliability-v6": {
+        "files": 369,
+        "mismatches": []
+      },
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-reliability-v4": {
+        "files": 48,
+        "mismatches": []
+      }
+    },
+    "saved_score_and_threshold_audit_passed": true
+  }
+}
