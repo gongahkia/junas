@@ -1,0 +1,207 @@
+{
+  "additional_sgd_scenario": "7.20",
+  "aggregate_sgd_scenario": "43.20",
+  "baseline_version": "junas.sensitivity.v5",
+  "budget_accounting": "conservative input ceilings of 4.5/2.25 cover standard input plus 30-minute cache writes; full output reservation before each request; no cache savings assumed",
+  "buffered_planning_estimate_usd": "3.45",
+  "bundle_path": "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v6/bundle",
+  "classifier_version": "junas.sensitivity.v6",
+  "classifiers": {
+    "baseline_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce",
+    "improved_sha256": "63ad99341c01445f684554e25e823e195c54f8b5c0a0a040ac7814137b1a18c5"
+  },
+  "date": "2026-11-23",
+  "empirical_basis": "completed prior 40-document stage including rejection and retries; conservative accounted cost, not invoice",
+  "empirical_estimate_usd": "2.73792225",
+  "exclusions": {
+    "inherited_entries": 7833,
+    "limits": "exact, normalized, numeric/email skeleton and shingle checks are contamination heuristics; semantic novelty is unverified",
+    "old_holdout_use": "fingerprinting for exclusion only; no labels inspected or classifier evaluation",
+    "prior_candidate_sources_fingerprinted": 354,
+    "prior_generator_responses_fingerprinted": 572,
+    "prior_run_directories": [
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-text-only-smoke",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-coverage-holdout-usd10",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-fresh-holdout-v2",
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v3",
+      "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout/holdout-v5"
+    ],
+    "total_entries": 8000
+  },
+  "fx_and_fees": "planning assumptions: SGD1.50/USD and 20% contingency; not a current exchange-rate quote",
+  "limits": [
+    "40 documents is a small synthetic check, not independent legal ground truth.",
+    "Three passes of the same judge model have correlated errors.",
+    "Budget or candidate limits may prevent coverage; report incomplete runs without forced labels.",
+    "Unknown request charges retain their reserve and are not automatically retried.",
+    "No authorization file or paid calls are created by preparation."
+  ],
+  "live_calls_authorized": false,
+  "novelty_limits": "Reserved IDs and source fingerprints are disjoint; semantic novelty and model-training independence are unverified. Accepted family balance is not enforced; report actual composition and rejected cases.",
+  "paid_calls_made": 0,
+  "plan": {
+    "budget_can_leave_coverage_shortfall": true,
+    "candidate_first_pass_token_cost_ceiling_usd": "55.52160",
+    "config_sha256": "992730c90dea379e61cb1ae68d4d740e1e596e1164a6bc90b30ed627364d3af4",
+    "configured_token_cost_ceiling_usd": "94.73280",
+    "coverage_policy": "stop at accepted quotas or candidate/budget limit; report shortfalls without forced labels",
+    "data_scope": "new_synthetic_only",
+    "documents": 40,
+    "effective_run_token_cost_ceiling_usd": "4",
+    "entity_targets": {
+      "BANK_ACCOUNT": 3,
+      "DATE_OF_BIRTH": 3,
+      "EMAIL": 3,
+      "GOVERNMENT_ID": 3,
+      "PERSONAL_RECORD_ID": 3,
+      "PERSON_NAME": 3,
+      "PHONE": 3,
+      "POSTAL_ADDRESS": 3,
+      "QUASI_IDENTIFIER_COMBINATION": 3
+    },
+    "first_pass_model_calls": 160,
+    "human_ground_truth": false,
+    "judge_mode": "same_model_repeats",
+    "label_origin": "model_consensus",
+    "live_calls_authorized": false,
+    "max_candidates": 120,
+    "max_judge_attempts": 2,
+    "model_calls": 840,
+    "model_costs": [
+      {
+        "cost_per_attempt_ceiling_usd": "0.13592",
+        "input_rate_usd_per_million": "4.5",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.2-sol",
+        "output_rate_usd_per_million": "10",
+        "output_tokens_ceiling": 8192
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      }
+    ],
+    "models": [
+      "gpt-6.2-sol",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra"
+    ],
+    "prompt_version": "synthetic-quadrants-majority-v5",
+    "quadrant_targets": {
+      "both": 10,
+      "mnpi_only": 10,
+      "neither": 10,
+      "pii_only": 10
+    },
+    "sampling": {
+      "groups": [
+        {
+          "id": "holdout-succession-v6",
+          "scenario": "fictional listed issuer executive succession handover log; use terse entries and natural paraphrases for the decision, economic significance and release chronology rather than stock boilerplate"
+        },
+        {
+          "id": "holdout-injunction-v6",
+          "scenario": "fictional listed issuer court injunction and plant access coordination; use correspondence with multiple organizations and distinguish their roles, economic consequences and disclosure chronology"
+        },
+        {
+          "id": "holdout-reserves-v6",
+          "scenario": "fictional listed issuer independent mineral reserve reassessment; use a technical liaison note with ordinary paraphrases, source qualifications and a chronology of release status"
+        },
+        {
+          "id": "holdout-voting-v6",
+          "scenario": "fictional listed issuer shareholder voting control agreement and registry coordination; use a question-and-answer brief separating routine records from issuer developments and publication timing"
+        }
+      ],
+      "split": "holdout"
+    },
+    "schema_version": "junas.model_corpus.v2",
+    "spending_limit": {
+      "cap_sgd": "50",
+      "currency": "SGD",
+      "extra_charge_multiplier": "1.2",
+      "fx_checked_on": "2026-11-23",
+      "interpretation": "USD provider cap enforced; SGD amount conditional on FX/fee assumptions, not bank invoice verification",
+      "prior_cost_reserve_usd": "20",
+      "provider_cap_usd": "4",
+      "sgd_per_usd_ceiling": "1.5",
+      "sgd_scenario_ceiling": "43.20"
+    },
+    "target_first_pass_token_cost_ceiling_usd": "18.50720",
+    "token_count_requests": 840,
+    "unique_judge_models": 1,
+    "voting_interpretation": "three separate samples of one model; agreement is not cross-model corroboration"
+  },
+  "planning_estimate_basis": "highest accounted cost among completed earlier 40-document stages plus 25%, rounded up",
+  "predeclared_evaluation_policy": {
+    "adaptation": "no classifier, prompt, threshold or selection changes after generation begins",
+    "outcome_policy": "preserve the first result, including failures and coverage shortfalls; no replacement cohort",
+    "references": "model-reference agreement only; independent accuracy and calibrated confidence unavailable",
+    "success_condition": "all frozen engineering targets pass; comparison with baseline is descriptive"
+  },
+  "pricing_checked_on": "2026-11-23",
+  "pricing_sources": [
+    "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+    "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+  ],
+  "prior_accounted_or_reserved_usd": "19.92373600",
+  "prior_allowances": "closed; no unused allowance reused",
+  "proposed_cap_usd": "4",
+  "published_standard_rates_per_million": {
+    "gpt-6.1-terra": {
+      "cache_write_30m": "1.25",
+      "input": "1",
+      "output": "5"
+    },
+    "gpt-6.2-sol": {
+      "cache_write_30m": "2.5",
+      "input": "2",
+      "output": "10"
+    }
+  },
+  "release": "one-shot paired evaluation after complete quadrant/entity coverage; consume before metrics; no tuning or retrying the evaluation",
+  "schema_version": "junas.fresh_holdout_proposal.v1",
+  "selection": "judge-only quadrant and subtype coverage; classifier predictions never select documents",
+  "source_commit": "0d88f23b7b09cc2be4bfac35ef5f903aa6459ec2",
+  "status": "prepared_not_generated",
+  "verification": {
+    "authorization_created": false,
+    "classifier_runtime_unchanged": true,
+    "document_links_valid": true,
+    "frozen_files": 306,
+    "frozen_manifest_sha256": "ebaf65d2bba15fac81d8cb095f9b66d8fd0e5092ff210c644f12cd01cd778637",
+    "full_classifier_suite": "not repeated; detector source unchanged from verified v6 (1925 tests and 254 subtests per Python runtime)",
+    "hosted_ci": "not triggered",
+    "mypy_files": 108,
+    "network_denied_during_preparation_and_verification": true,
+    "new_documents_generated": 0,
+    "paid_calls": 0,
+    "prior_artifact_hashes_preserved": 5250,
+    "python_3_11_focused_tests": 124,
+    "python_3_12_focused_tests": 124,
+    "resolved_quality_checks": "Initial Ruff line-length findings corrected; final lint and format checks pass.",
+    "ruff_files": 3,
+    "targets_unchanged": true
+  }
+}
