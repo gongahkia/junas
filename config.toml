@@ -1,17 +1,7 @@
-# Deterministic classifier baseline. External helpers and OCR are explicit experiments.
+# Deterministic classifier baseline. External text helpers are explicit experiments.
 [pipeline]
 layers = []
 optional_layers = []
-
-[document_ingest]
-fail_closed = true
-min_pdf_text_chars = 20
-min_pdf_chars_per_page = 20
-max_empty_pdf_page_ratio = 0.2
-reject_image_only_pdf = true
-
-[image_scan]
-provider = "none"
 
 [public_evidence]
 enabled = false

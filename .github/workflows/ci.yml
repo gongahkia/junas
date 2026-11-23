@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   core-tests:
-    name: Classifier and document pipeline tests
+    name: Text classifier tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -94,19 +94,6 @@ jobs:
         with:
           name: core-accuracy
           path: reports/current/core_accuracy.json
-
-  local-ocr:
-    name: Optional local OCR regressions
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - uses: astral-sh/setup-uv@v5
-      - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
-      - run: uv sync --frozen --extra dev --extra ocr
-      - run: uv run --frozen pytest -q test/test_tesseract_ocr.py test/test_image_scan.py test/test_core_pipeline.py
 
   security:
     name: Security checks

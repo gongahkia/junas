@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import ipaddress
-import json
 import math
 import os
 import tomllib
@@ -24,20 +23,8 @@ VALID_LAYERS = frozenset(
     )
 )
 EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
-IMAGE_SCAN_PROVIDERS = frozenset(
-    {"none", "tesseract", "openai_vision", "google_vision", "aws_rekognition", "azure_vision"}
-)
 
 KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
-    "document_ingest": frozenset(
-        {
-            "fail_closed",
-            "min_pdf_text_chars",
-            "min_pdf_chars_per_page",
-            "max_empty_pdf_page_ratio",
-            "reject_image_only_pdf",
-        }
-    ),
     "public_evidence": frozenset(
         {
             "enabled",
@@ -69,27 +56,6 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "coverage_audit_enabled",
         }
     ),
-    "image_scan": frozenset(
-        {
-            "provider",
-            "timeout_seconds",
-            "max_images",
-            "max_bytes",
-            "max_total_bytes",
-            "pdf_render_pages",
-            "pdf_render_max_pages",
-            "pdf_render_scale",
-            "model",
-            "openai_base_url",
-            "aws_region",
-            "azure_endpoint",
-            "tenant_opt_in_openai",
-            "tenant_opt_in_google",
-            "tenant_opt_in_aws",
-            "tenant_opt_in_azure",
-            "tenant_opt_ins_json",
-        }
-    ),
     "privacy": frozenset(
         {
             "external_query_policy",
@@ -110,15 +76,6 @@ class ConfigError(ValueError):
 class PipelineSettings:
     layers: tuple[str, ...]
     optional_layers: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class DocumentIngestSettings:
-    fail_closed: bool
-    min_pdf_text_chars: int
-    min_pdf_chars_per_page: int
-    max_empty_pdf_page_ratio: float
-    reject_image_only_pdf: bool
 
 
 @dataclass(frozen=True)
@@ -171,30 +128,6 @@ class LLMHelperSettings:
 
 
 @dataclass(frozen=True)
-class ImageScanSettings:
-    provider: str
-    timeout_seconds: float
-    max_images: int
-    max_bytes: int
-    max_total_bytes: int
-    pdf_render_pages: bool
-    pdf_render_max_pages: int
-    pdf_render_scale: float
-    model: str
-    openai_api_key: str
-    openai_base_url: str
-    google_credentials_path: str
-    aws_region: str
-    azure_key: str
-    azure_endpoint: str
-    tenant_opt_in_openai: bool = False
-    tenant_opt_in_google: bool = False
-    tenant_opt_in_aws: bool = False
-    tenant_opt_in_azure: bool = False
-    tenant_opt_ins: dict[str, tuple[str, ...]] = field(default_factory=dict)
-
-
-@dataclass(frozen=True)
 class PrivacySettings:
     external_query_policy: str
     max_query_chars: int
@@ -206,11 +139,9 @@ class RuntimeSettings:
     config_path: Path
     raw_config: dict[str, Any] = field(repr=False)
     pipeline: PipelineSettings
-    document_ingest: DocumentIngestSettings
     public_evidence: PublicEvidenceSettings
     llm: LLMSettings
     llm_helpers: LLMHelperSettings
-    image_scan: ImageScanSettings
     privacy: PrivacySettings
 
 
@@ -281,13 +212,6 @@ def _parse_float(value: Any, *, label: str, minimum: float | None = None) -> flo
     return parsed
 
 
-def _parse_probability(value: Any, *, label: str) -> float:
-    parsed = _parse_float(value, label=label, minimum=0.0)
-    if parsed > 1.0:
-        raise ConfigError(f"{label} must be <= 1.0, got {parsed}")
-    return parsed
-
-
 def _is_private_or_local_base_url(base_url: str) -> bool:
     parsed = urlparse(base_url)
     host = parsed.hostname or ""
@@ -298,41 +222,6 @@ def _is_private_or_local_base_url(base_url: str) -> bool:
         return addr.is_private or addr.is_loopback or addr.is_link_local
     except ValueError:
         return host.endswith(".local")
-
-
-def _parse_provider_opt_in_map(value: Any, *, label: str) -> dict[str, tuple[str, ...]]:
-    if value in (None, ""):
-        return {}
-    raw = value
-    if isinstance(value, str):
-        try:
-            raw = json.loads(value)
-        except json.JSONDecodeError as exc:
-            raise ConfigError(f"{label} must be valid JSON") from exc
-    if not isinstance(raw, Mapping):
-        raise ConfigError(f"{label} must be a JSON object")
-
-    out: dict[str, tuple[str, ...]] = {}
-    for tenant_id, providers in raw.items():
-        tenant = _parse_str(tenant_id, label=f"{label}.tenant_id")
-        if not tenant:
-            raise ConfigError(f"{label} tenant ids must not be empty")
-        if isinstance(providers, Mapping):
-            provider_names = [
-                name for name, enabled in providers.items() if _parse_bool(enabled, label=f"{label}.{tenant}.{name}")
-            ]
-        else:
-            provider_names = list(_parse_list(providers, label=f"{label}.{tenant}"))
-        normalized: list[str] = []
-        for provider in provider_names:
-            provider_name = str(provider).strip().lower()
-            if provider_name != "*" and provider_name not in IMAGE_SCAN_PROVIDERS:
-                raise ConfigError(f"{label}.{tenant} contains unknown provider: {provider_name}")
-            if provider_name == "none":
-                continue
-            normalized.append(provider_name)
-        out[tenant] = tuple(sorted(set(normalized)))
-    return out
 
 
 def _config_path_from_overrides(cli_overrides: Mapping[str, Any] | None = None) -> Path:
@@ -401,6 +290,13 @@ def _resolve_raw_value(
 
 
 def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> RuntimeSettings:
+    removed_sections = {"document_ingest", "image_scan"}
+    if any(key.partition(".")[0] in removed_sections for key in (cli_overrides or {})):
+        raise ConfigError("document ingestion and OCR settings were removed; Junas accepts text only")
+    if any(name.startswith(("JUNAS_IMAGE_SCAN_", "JUNAS_PDF_", "JUNAS_LOCAL_OCR_LLM_")) for name in os.environ) or any(
+        name in os.environ for name in ("JUNAS_DOCUMENT_FAIL_CLOSED", "JUNAS_REJECT_IMAGE_ONLY_PDF")
+    ):
+        raise ConfigError("remove retired document/OCR environment settings; Junas accepts text only")
     config_path = _config_path_from_overrides(cli_overrides)
     raw_config = load_config(config_path)
 
@@ -438,66 +334,6 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
     invalid_optional_layers = sorted(set(optional_layers) - VALID_LAYERS)
     if invalid_optional_layers:
         raise ConfigError("optional layers must be valid known layers: " + ", ".join(invalid_optional_layers))
-
-    document_ingest = DocumentIngestSettings(
-        fail_closed=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="document_ingest",
-                key="fail_closed",
-                env_vars=("JUNAS_DOCUMENT_FAIL_CLOSED",),
-                default=True,
-            ),
-            label="document_ingest.fail_closed",
-        ),
-        min_pdf_text_chars=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="document_ingest",
-                key="min_pdf_text_chars",
-                env_vars=("JUNAS_PDF_MIN_TEXT_CHARS",),
-                default=20,
-            ),
-            label="document_ingest.min_pdf_text_chars",
-            minimum=0,
-        ),
-        min_pdf_chars_per_page=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="document_ingest",
-                key="min_pdf_chars_per_page",
-                env_vars=("JUNAS_PDF_MIN_CHARS_PER_PAGE",),
-                default=20,
-            ),
-            label="document_ingest.min_pdf_chars_per_page",
-            minimum=0,
-        ),
-        max_empty_pdf_page_ratio=_parse_probability(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="document_ingest",
-                key="max_empty_pdf_page_ratio",
-                env_vars=("JUNAS_PDF_MAX_EMPTY_PAGE_RATIO",),
-                default=0.2,
-            ),
-            label="document_ingest.max_empty_pdf_page_ratio",
-        ),
-        reject_image_only_pdf=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="document_ingest",
-                key="reject_image_only_pdf",
-                env_vars=("JUNAS_REJECT_IMAGE_ONLY_PDF",),
-                default=True,
-            ),
-            label="document_ingest.reject_image_only_pdf",
-        ),
-    )
 
     public_evidence_provider = (
         _parse_str(
@@ -808,236 +644,6 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         coverage_audit_enabled=llm_coverage_audit_enabled,
     )
 
-    image_scan_provider = (
-        _parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="provider",
-                env_vars=("JUNAS_IMAGE_SCAN_PROVIDER",),
-                default="none",
-            ),
-            label="image_scan.provider",
-        ).lower()
-        or "none"
-    )
-    image_scan = ImageScanSettings(
-        provider=image_scan_provider,
-        timeout_seconds=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="timeout_seconds",
-                env_vars=("JUNAS_IMAGE_SCAN_TIMEOUT_SECONDS",),
-                default=20.0,
-            ),
-            label="image_scan.timeout_seconds",
-            minimum=0.1,
-        ),
-        max_images=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="max_images",
-                env_vars=("JUNAS_IMAGE_SCAN_MAX_IMAGES",),
-                default=32,
-            ),
-            label="image_scan.max_images",
-            minimum=1,
-            maximum=500,
-        ),
-        max_bytes=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="max_bytes",
-                env_vars=("JUNAS_IMAGE_SCAN_MAX_BYTES",),
-                default=10 * 1024 * 1024,
-            ),
-            label="image_scan.max_bytes",
-            minimum=1024,
-            maximum=50 * 1024 * 1024,
-        ),
-        max_total_bytes=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="max_total_bytes",
-                env_vars=("JUNAS_IMAGE_SCAN_MAX_TOTAL_BYTES",),
-                default=100 * 1024 * 1024,
-            ),
-            label="image_scan.max_total_bytes",
-            minimum=1024,
-            maximum=500 * 1024 * 1024,
-        ),
-        pdf_render_pages=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="pdf_render_pages",
-                env_vars=("JUNAS_IMAGE_SCAN_PDF_RENDER_PAGES",),
-                default=True,
-            ),
-            label="image_scan.pdf_render_pages",
-        ),
-        pdf_render_max_pages=_parse_int(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="pdf_render_max_pages",
-                env_vars=("JUNAS_IMAGE_SCAN_PDF_RENDER_MAX_PAGES",),
-                default=8,
-            ),
-            label="image_scan.pdf_render_max_pages",
-            minimum=1,
-            maximum=100,
-        ),
-        pdf_render_scale=_parse_float(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="pdf_render_scale",
-                env_vars=("JUNAS_IMAGE_SCAN_PDF_RENDER_SCALE",),
-                default=2.0,
-            ),
-            label="image_scan.pdf_render_scale",
-            minimum=0.25,
-        ),
-        model=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="model",
-                env_vars=("JUNAS_IMAGE_SCAN_MODEL",),
-                default="gpt-4o-mini",
-            ),
-            label="image_scan.model",
-        )
-        or "gpt-4o-mini",
-        openai_api_key=_parse_str(os.environ.get("OPENAI_API_KEY", ""), label="OPENAI_API_KEY"),
-        openai_base_url=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="openai_base_url",
-                env_vars=("JUNAS_IMAGE_SCAN_OPENAI_BASE_URL",),
-                default="https://api.openai.com/v1/responses",
-            ),
-            label="image_scan.openai_base_url",
-        )
-        or "https://api.openai.com/v1/responses",
-        google_credentials_path=_parse_str(
-            os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", ""),
-            label="GOOGLE_APPLICATION_CREDENTIALS",
-        ),
-        aws_region=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="aws_region",
-                env_vars=("AWS_REGION", "AWS_DEFAULT_REGION"),
-                default="",
-            ),
-            label="image_scan.aws_region",
-        ),
-        azure_key=_parse_str(os.environ.get("AZURE_VISION_KEY", ""), label="AZURE_VISION_KEY"),
-        azure_endpoint=_parse_str(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="azure_endpoint",
-                env_vars=("AZURE_VISION_ENDPOINT",),
-                default="",
-            ),
-            label="image_scan.azure_endpoint",
-        ),
-        tenant_opt_in_openai=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="tenant_opt_in_openai",
-                env_vars=("JUNAS_IMAGE_SCAN_TENANT_OPT_IN_OPENAI",),
-                default=False,
-            ),
-            label="image_scan.tenant_opt_in_openai",
-        ),
-        tenant_opt_in_google=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="tenant_opt_in_google",
-                env_vars=("JUNAS_IMAGE_SCAN_TENANT_OPT_IN_GOOGLE",),
-                default=False,
-            ),
-            label="image_scan.tenant_opt_in_google",
-        ),
-        tenant_opt_in_aws=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="tenant_opt_in_aws",
-                env_vars=("JUNAS_IMAGE_SCAN_TENANT_OPT_IN_AWS",),
-                default=False,
-            ),
-            label="image_scan.tenant_opt_in_aws",
-        ),
-        tenant_opt_in_azure=_parse_bool(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="tenant_opt_in_azure",
-                env_vars=("JUNAS_IMAGE_SCAN_TENANT_OPT_IN_AZURE",),
-                default=False,
-            ),
-            label="image_scan.tenant_opt_in_azure",
-        ),
-        tenant_opt_ins=_parse_provider_opt_in_map(
-            _resolve_raw_value(
-                raw_config,
-                cli_overrides,
-                section="image_scan",
-                key="tenant_opt_ins_json",
-                env_vars=("JUNAS_IMAGE_SCAN_TENANT_OPT_INS_JSON",),
-                default="",
-            ),
-            label="image_scan.tenant_opt_ins_json",
-        ),
-    )
-    if image_scan.provider not in IMAGE_SCAN_PROVIDERS:
-        raise ConfigError("image_scan.provider must be one of: " + ", ".join(sorted(IMAGE_SCAN_PROVIDERS)))
-    provider_has_tenant_map = any(
-        image_scan.provider in set(providers) or "*" in set(providers)
-        for providers in image_scan.tenant_opt_ins.values()
-    )
-    if image_scan.pdf_render_scale > 4.0:
-        raise ConfigError("image_scan.pdf_render_scale must be <= 4.0")
-    if image_scan.max_total_bytes < image_scan.max_bytes:
-        raise ConfigError("image_scan.max_total_bytes must be >= image_scan.max_bytes")
-    if image_scan.provider == "openai_vision" and not (image_scan.tenant_opt_in_openai or provider_has_tenant_map):
-        raise ConfigError("image_scan.provider=openai_vision requires image_scan.tenant_opt_in_openai=true")
-    if image_scan.provider == "google_vision" and not (image_scan.tenant_opt_in_google or provider_has_tenant_map):
-        raise ConfigError("image_scan.provider=google_vision requires image_scan.tenant_opt_in_google=true")
-    if image_scan.provider == "aws_rekognition" and not (image_scan.tenant_opt_in_aws or provider_has_tenant_map):
-        raise ConfigError("image_scan.provider=aws_rekognition requires image_scan.tenant_opt_in_aws=true")
-    if image_scan.provider == "azure_vision" and not (image_scan.tenant_opt_in_azure or provider_has_tenant_map):
-        raise ConfigError("image_scan.provider=azure_vision requires image_scan.tenant_opt_in_azure=true")
-
     privacy = PrivacySettings(
         external_query_policy=_parse_str(
             _resolve_raw_value(
@@ -1083,11 +689,9 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         config_path=config_path,
         raw_config=raw_config,
         pipeline=PipelineSettings(layers=tuple(pipeline_layers), optional_layers=tuple(optional_layers)),
-        document_ingest=document_ingest,
         public_evidence=public_evidence,
         llm=llm,
         llm_helpers=llm_helpers,
-        image_scan=image_scan,
         privacy=privacy,
     )
 

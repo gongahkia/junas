@@ -7,7 +7,6 @@ from dataclasses import asdict
 from types import SimpleNamespace as N
 from unittest.mock import patch
 
-import httpx
 import pytest
 
 from junas.advisory.llm_adjudicator.helpers import RuntimeLLMCoverageAuditor, RuntimeLLMDefinedTermExtractor
@@ -329,19 +328,6 @@ def test_unrelated_retrieved_sources_do_not_verify_each_claim():
     assert all(f.source_verification != "public_source_matched" for f in result.findings if f.category == "MNPI")
 
 
-@pytest.mark.parametrize(
-    "field,value", [("confidence", float("nan")), ("confidence", True), ("label", "invalid"), ("reason", {})]
-)
-def test_existing_local_ocr_model_rejects_malformed_output_without_inference(field, value):
-    from junas.advisory.local_ocr_llm import LocalOcrLLMSettings, LocalOcrRegionClassifier
-
-    payload = {"label": "secret_shaped", "confidence": 0.8, "reason": "credential_keyword", field: value}
-    transport = httpx.MockTransport(lambda request: httpx.Response(200, json={"response": json.dumps(payload)}))
-    scanner = LocalOcrRegionClassifier(LocalOcrLLMSettings(enabled=True, model="fake"), transport=transport)
-    result = scanner.classify_text("synthetic fragment", confidence=0.5)
-    assert result.status == "error" and result.label == "ambiguous" and result.confidence == 0
-
-
 def test_existing_distilled_runtime_adapter_uses_advisory_validation_without_loading_weights(tmp_path):
     from training.distillation.student_provider import LocalDistilledAdjudicator
 
@@ -390,7 +376,10 @@ def test_runtime_cache_identity_changes_with_endpoint_and_prompt_and_rejects_old
 
 
 def test_no_provider_audit_grade_retains_its_existing_deterministic_profile_difference():
-    text = "Dr Jane Tan (NRIC S1234567A, mobile +65 9123 4567, email jane.tan@example.sg) lives at 1 Address Lane Singapore 123456."
+    text = (
+        "Dr Jane Tan (NRIC S1234567A, mobile +65 9123 4567, email jane.tan@example.sg) "
+        "lives at 1 Address Lane Singapore 123456."
+    )
     strict = review(PreSendReviewEngine(), text, "strict")
     audit = review(PreSendReviewEngine(), text, "audit_grade")
     assert (

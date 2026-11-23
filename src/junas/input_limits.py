@@ -1,4 +1,4 @@
-"""Fixed capture and retained-text quotas; container/OCR quotas remain separate."""
+"""Fixed capture and analyzed-text quotas for the text-only classifier."""
 
 from collections.abc import Iterable
 from typing import BinaryIO, TextIO
@@ -28,23 +28,6 @@ def _utf8_size(text: str, maximum: int, label: str) -> int:
 
 def check_inline_text(text: str) -> None:
     _utf8_size(text, MAX_INLINE_TEXT_BYTES, "source text")
-
-
-def check_source_bytes(data: bytes) -> None:
-    if len(data) > MAX_SOURCE_BYTES:
-        raise ResourceLimitError(f"document exceeds the {MAX_SOURCE_BYTES}-byte source limit")
-
-
-def check_encoded_document(encoded: str) -> None:
-    if not isinstance(encoded, str):
-        raise ValueError("document_base64 must be text")
-    maximum = 4 * ((MAX_SOURCE_BYTES + 2) // 3)
-    if len(encoded) > maximum:
-        raise ResourceLimitError(f"encoded document exceeds the {MAX_SOURCE_BYTES}-byte source limit")
-    if len(encoded) % 4 == 0:
-        padding = 2 if encoded.endswith("==") else int(encoded.endswith("="))
-        if len(encoded) // 4 * 3 - padding > MAX_SOURCE_BYTES:
-            raise ResourceLimitError(f"decoded document exceeds the {MAX_SOURCE_BYTES}-byte source limit")
 
 
 def check_analyzed_text(text: str) -> None:

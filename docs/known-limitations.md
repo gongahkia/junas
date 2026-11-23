@@ -6,8 +6,7 @@
 - The internal matcher compares rule/text expectations rather than exact occurrences. Unexpected predictions may be missing annotations rather than false positives.
 - TAB and ai4privacy overlap metrics have their own annotation/matching conventions. Aggregate reports spanning training, development and test data must not be presented as held-out accuracy after tuning on them.
 - Rule-based PII/MNPI scores are not calibrated probabilities. Statutory citations provide explanatory context, not legal conclusions.
-- Native `.msg`, `7z`, macro-enabled Office files and partially readable containers have incomplete support. The default pipeline rejects unsupported extraction. Best-effort mode must retain degraded metadata.
-- OCR is optional and text-corpus scores do not measure OCR accuracy. Small glyphs, layouts and ambiguous identifier prefixes remain difficult. The preserved OCR regression fixture remains in `test/fixtures/ocr/`.
-- Native PDF signatures are not cryptographically validated. Embedded content, notes, forms and archives use bounded traversal.
+- Junas is text-only. Native PDF/Office/email/archive/image inputs, OCR and base64-document ingestion were removed. Externally prepared text may omit information from its original file; Junas cannot assess the completeness of that external conversion. Historical OCR/document fixtures and reports remain archived evidence, not supported entrypoints.
+- Automated model-consensus corpora are synthetic development evidence. Different models can share errors, and their confidence scores are uncalibrated self-reports. Conditional agreement metrics against model-declared exhaustive labels are not independently validated accuracy; see [the research contract](automated-corpus.md).
 - Optional NER, retrieval and LLM configurations change what is measured. Record configuration and evaluate them separately; strict mode does not call retrieval/LLM helpers.
 - No product enforcement, approvals, audit journal, rewriting, re-identification, tenant authentication or hosted service is provided by this research tree.

@@ -67,10 +67,10 @@ def run_rules_test(args: argparse.Namespace, *, stdout: TextIO | None = None) ->
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Junas PII/MNPI classifier research tools")
     commands = parser.add_subparsers(dest="command", required=True)
-    classify = commands.add_parser("classify", help="Analyze local text or a document and emit JSON")
+    classify = commands.add_parser("classify", help="Analyze local text and emit JSON")
     inputs = classify.add_mutually_exclusive_group(required=True)
     inputs.add_argument("--text", help="Inline text; use --file - to read standard input")
-    inputs.add_argument("--file", help="Document path, or - for text on standard input")
+    inputs.add_argument("--file", help="UTF-8 text file path, or - for standard input")
     classify.add_argument("--source-jurisdiction", default="SG")
     classify.add_argument("--destination-jurisdiction")
     classify.add_argument("--document-type", default="generic")

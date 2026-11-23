@@ -1,4 +1,4 @@
-"""Local PII/MNPI classification and document analysis."""
+"""Local text-only PII/MNPI classification."""
 
 from .models import Classification, DocumentInput
 from .pipeline import AnalysisResult, ReviewPipeline, classify_text

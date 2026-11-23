@@ -104,11 +104,11 @@ def test_invalid_identifiers_are_rejected_instead_of_synthesizing_packs(value, r
 
 
 @pytest.mark.parametrize("source,dest", [("SNGAPORE", None), ("US", "SNGAPORE"), ("SG", ""), ("SG", False)])
-def test_pipeline_refuses_before_extraction_or_ocr(source, dest):
-    with patch("junas.pipeline.extract_review_document") as extract:
+def test_pipeline_refuses_before_engine_construction(source, dest):
+    with patch("junas.pipeline.build_review_engine") as construct:
         with pytest.raises(ValueError, match="jurisdiction"):
             ReviewPipeline().review_text("S1234567D", source_jurisdiction=source, destination_jurisdiction=dest)
-        extract.assert_not_called()
+        construct.assert_not_called()
 
 
 def test_library_convenience_function_propagates_resolution_failure():
@@ -337,14 +337,6 @@ def test_none_preserves_existing_omitted_defaults():
     assert [p.code for p in j.resolve_rule_packs(None, None)] == ["SG"]
     result = ReviewPipeline().review_text("S1234567D", source_jurisdiction=None)
     assert result.review.jurisdictions_applied == ["SG"]
-
-
-def test_invalid_jurisdiction_is_not_accepted_in_best_effort():
-    from junas.configs.runtime import get_runtime_settings
-
-    pipeline = ReviewPipeline(get_runtime_settings({"document_ingest.fail_closed": False}))
-    with pytest.raises(ValueError, match="jurisdiction"):
-        pipeline.review_text("S1234567D", source_jurisdiction="SNGAPORE")
 
 
 def test_invalid_custom_directory_expansion_is_a_resolution_error(custom):

@@ -1,15 +1,11 @@
 """Occurrence-aware evidence and duplicate-insensitive scoring regressions."""
 
-import base64
 from dataclasses import replace
 from unittest.mock import patch
 
 import pytest
 
-from junas import DocumentInput, ReviewPipeline
-from junas.configs.runtime import get_runtime_settings
 from junas.review.engine import PreSendReviewEngine, ReviewFinding, ReviewLayerError, _risk_from_score
-from test.test_image_scan import FakeImageScanner, _png_bytes
 
 
 def _review(text, *, engine=None, profile="strict"):
@@ -233,18 +229,3 @@ def test_operator_calendar_evidence_keeps_real_coordinates_or_external_provenanc
         start = len("Date: 1 Aug 2026\n") + len(prefix)
         assert finding.start_char == start
         _assert_spans(text, result.findings)
-
-
-def test_ocr_evidence_uses_appended_text_and_preserves_image_provenance():
-    settings = get_runtime_settings({"image_scan.provider": "tesseract"})
-    line = "Acme acquisition merger is pending."
-    payload = DocumentInput(document_base64=base64.b64encode(_png_bytes()).decode(), document_filename="scan.png")
-    with patch("junas.pipeline.build_image_scanner", return_value=FakeImageScanner(text=f"{line}\n{line}")):
-        result = ReviewPipeline(settings).review(payload)
-    _assert_spans(result.document.text, result.review.findings)
-    events = [f for f in result.review.findings if f.rule == "material_event"]
-    assert len(events) == 2
-    assert events[0].start_char > 0
-    assert events[0].end_char < events[1].start_char
-    assert all(f.source == "image_ocr" and f.image_locator["container_path"] == "scan.png" for f in events)
-    assert all(f.image_ocr_regions for f in events)

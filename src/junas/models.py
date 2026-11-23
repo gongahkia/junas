@@ -3,7 +3,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from junas.input_limits import check_encoded_document, check_inline_text
+from junas.input_limits import check_inline_text
 
 
 class Classification(str, Enum):
@@ -14,19 +14,11 @@ class Classification(str, Enum):
 
 @dataclass(frozen=True)
 class DocumentInput:
-    text: str | None = None
-    document_base64: str | None = None
-    document_filename: str | None = None
-    document_mime_type: str | None = None
+    text: str
 
     def __post_init__(self) -> None:
-        if (self.text is None) == (self.document_base64 is None):
-            raise ValueError("supply exactly one of text or document_base64")
-        if self.text is not None:
-            check_inline_text(self.text)
-        if self.document_base64 is not None:
-            check_encoded_document(self.document_base64)
-        if self.text is not None and not self.text.strip():
+        check_inline_text(self.text)
+        if not self.text.strip():
             raise ValueError("text must contain non-whitespace content")
-        if self.document_base64 is not None and not self.document_base64:
-            raise ValueError("document_base64 must not be empty")
+        if "\x00" in self.text:
+            raise ValueError("binary NUL bytes are not accepted as text")

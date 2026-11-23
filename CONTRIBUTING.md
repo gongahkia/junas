@@ -1,6 +1,6 @@
 # Contributing
 
-Work on classifier accuracy, document/OCR coverage, evaluation independence and reproducibility. Product interfaces and deployment work are deferred until detection quality is established.
+Work on text-classifier accuracy, source-evidence integrity, evaluation quality and reproducibility. Native-document/OCR support and product interfaces are outside the current scope. The opt-in automated synthetic-corpus workflow is described in [its research contract](docs/automated-corpus.md).
 
 ```sh
 uv sync --extra dev
