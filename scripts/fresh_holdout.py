@@ -93,6 +93,7 @@ def build_exclusions(inherited: dict, runs: list[Path], groups: list[dict] | Non
         "test_contextual_mnpi_scopes.py",
         "test_contextual_generalization.py",
         "test_contextual_event_families.py",
+        "test_contextual_mnpi_financial_events.py",
     ):
         for node in ast.walk(ast.parse((ROOT / "test" / name).read_text())):
             value = constant_text(node)

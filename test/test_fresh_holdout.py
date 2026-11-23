@@ -63,6 +63,7 @@ def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excl
         "test_contextual_mnpi_scopes.py",
         "test_contextual_generalization.py",
         "test_contextual_event_families.py",
+        "test_contextual_mnpi_financial_events.py",
     ):
         (fake / "test" / name).write_text('TEXT = "A previous authored source, never a fresh reference."')
     monkeypatch.setattr(fresh, "ROOT", fake)
