@@ -26,6 +26,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen --extra dev
       - run: uv run --frozen pytest -q
+      - run: uv run --frozen mypy --explicit-package-bases src scripts
       - run: uv build
       - run: uv run --frozen junas classify --text 'Contact alice@example.test'
 
