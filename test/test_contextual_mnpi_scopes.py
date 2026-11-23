@@ -140,3 +140,125 @@ def test_repeated_disclosures_keep_evidence_local_and_source_exact():
         assert item["end_char"] - item["start_char"] < 3400
         for component in item["components"]:
             assert text[component["start_char"] : component["end_char"]] == component["matched_text"]
+
+
+@pytest.mark.parametrize("issuer", ["Alder Estuary Systems Ltd", "Silver Lantern Networks Ltd"])
+def test_short_issuer_references_link_to_qualified_anchors_only(issuer):
+    alias = " ".join(issuer.split()[:2])
+    text = (
+        f"Issuer contact at {issuer}.\n\n{alias} received a termination notice from its "
+        "largest customer. The contract accounted for 42% of annual revenue. "
+        "The termination is price-sensitive and has not been publicly disclosed."
+    )
+    result = review(text).sensitivity["mnpi"]
+    assert result["state"] == "present", result
+    subjects = [c for h in result["evidence"] for c in h["components"] if c["kind"] == "issuer"]
+    assert any(c["matched_text"] == alias for c in subjects)
+    assert all(text[c["start_char"] : c["end_char"]] == c["matched_text"] for c in subjects)
+
+
+@pytest.mark.parametrize(
+    "intro,alias",
+    [
+        ("Alder Estuary Systems Ltd and Alder Estuary Holdings Ltd", "Alder Estuary"),
+        ("Alder Estuary Systems Ltd", "Alder Estuary Networks"),
+    ],
+)
+def test_ambiguous_or_different_company_suffix_cannot_borrow_an_issuer_anchor(intro, alias):
+    text = (
+        f"Background: {intro}.\n\n{alias} signed a material acquisition. "
+        "The agreement is price-sensitive and has not been publicly disclosed."
+    )
+    assert review(text).sensitivity["mnpi"]["state"] != "present"
+
+
+def test_board_decision_and_following_materiality_share_one_named_issuer_context():
+    text = (
+        "Alder Estuary Systems Ltd — listing review\n\n"
+        "The board has approved a recall of 21,000 battery packs. "
+        "The recall has not been publicly disclosed.\n\n"
+        "The disclosure committee considers the decision price-sensitive. "
+        "The announcement has not been released."
+    )
+    result = review(text).sensitivity["mnpi"]
+    assert result["state"] == "present", result
+    assert any(
+        c["matched_text"] == "Alder Estuary Systems Ltd"
+        for h in result["evidence"]
+        for c in h["components"]
+        if c["kind"] == "issuer"
+    )
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "The board approved a price-sensitive recall of 21,000 units that has not been publicly disclosed.",
+        (
+            "Alder Estuary Ltd and Silver Lantern Ltd.\n\n"
+            "The board approved a price-sensitive recall of 21,000 units that has not been publicly disclosed."
+        ),
+        (
+            "Alder Estuary Ltd.\n\nThe board should approve a recall of 21,000 units in a "
+            "hypothetical exercise. This is price-sensitive and has not been publicly disclosed."
+        ),
+        (
+            "Alder Estuary Ltd received a termination notice that has not been publicly disclosed.\n\n"
+            "Silver Lantern Ltd considers its unrelated decision price-sensitive."
+        ),
+        (
+            "Alder Estuary Ltd received a termination notice that has not been publicly disclosed.\n\n"
+            "The decision is price-sensitive and was already publicly announced."
+        ),
+    ],
+)
+def test_board_and_forward_materiality_links_require_unambiguous_uncontradicted_context(text):
+    assert review(text).sensitivity["mnpi"]["state"] != "present"
+
+
+@pytest.mark.parametrize("owner", ["the issuer’s", "its", "the"])
+@pytest.mark.parametrize("benchmark", ["last", "previous", "prior unaffected"])
+def test_price_premium_keeps_possessive_closing_price_link(owner, benchmark):
+    text = (
+        "Alder Estuary Ltd signed a binding takeover agreement at 32% above "
+        f"{owner} {benchmark} closing price. The agreement has not been publicly disclosed."
+    )
+    assert review(text).sensitivity["mnpi"]["state"] == "present"
+
+
+def test_no_live_event_denial_is_scoped_to_its_clause():
+    negative = (
+        "Alder Estuary Ltd — training briefing\n\n"
+        "The briefing did not relate to any live defect investigation, stop-sale instruction or recall decision."
+    )
+    assert review(negative).sensitivity["mnpi"]["state"] == "not_detected"
+    positive = negative[:-1] + (
+        "; however the board approved a recall of 21,000 battery packs this morning. "
+        "The recall is price-sensitive and has not been publicly disclosed."
+    )
+    assert review(positive).sensitivity["mnpi"]["state"] == "present"
+
+
+def test_counterparty_field_and_shortened_name_do_not_replace_the_issuer_header():
+    text = (
+        "Alder Estuary Systems Ltd — issuer\n\nCounterparty: Silver Lantern Holdings Ltd\n\n"
+        "The issuer received a termination notice from Silver Lantern. The contract accounted "
+        "for 32% of annual revenue. The termination is price-sensitive and has not been publicly disclosed."
+    )
+    result = review(text).sensitivity["mnpi"]
+    assert result["state"] == "present"
+    assert all(
+        c["matched_text"] == "Alder Estuary Systems Ltd"
+        for h in result["evidence"]
+        for c in h["components"]
+        if c["kind"] == "issuer"
+    )
+
+
+def test_short_name_cannot_borrow_a_distant_qualified_anchor():
+    text = (
+        "Alder Estuary Systems Ltd. "
+        + "Routine correspondence remains available. " * 80
+        + "Alder Estuary received a material termination notice that has not been publicly disclosed."
+    )
+    assert review(text).sensitivity["mnpi"]["state"] != "present"

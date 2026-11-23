@@ -20,13 +20,15 @@ EVENT = re.compile(
     r"takeover|proposal|offer|buy|binding agreement|agreement to sell|termination|terminat\w*|"
     r"largest[^.\n]{0,60}contract|"
     r"earnings|profit|revenue|guidance|forecast|insolvency|default|acceleration notice|"
-    r"trial halt|cyber(?:attack| incident)|disposal|sale of)\b",
+    r"trial halt|cyber(?:attack| incident)|disposal|sale of|recall decision|recall of\s+\d[\d,]*|"
+    r"(?:approved|ordered|initiated)\s+(?:a\s+)?recall)\b",
     re.I,
 )
 MATERIAL = re.compile(
     r"\b(?:price[- ]sensitive|material(?:ly)?|largest|controlling stake|"
-    r"cash takeover|all (?:(?:outstanding|issued) )?shares)\b|\b\d{2,3}(?:\.\d+)?%[^.\n]{0,40}"
-    r"(?:premium|above[^.\n]{0,15}(?:closing|traded|close))\b",
+    r"cash takeover|all (?:(?:outstanding|issued) )?shares)\b|\b\d{2,3}(?:\.\d+)?%\s+"
+    r"(?:premium|above\s+(?:(?:the\s+)?(?:issuer|company)[’']s\s+|its\s+|the\s+)?"
+    r"(?:(?:last|previous|prior)\s+)?(?:unaffected\s+)?(?:closing|traded|close)(?:\s+price)?)\b",
     re.I,
 )
 # percentages are evidence of potential significance, not a legal materiality threshold.
@@ -73,8 +75,81 @@ TOPICS = {
     "contract": re.compile(r"\b(?:terminat\w*|contract|customer)\b", re.I),
     "earnings": re.compile(r"\b(?:profit|earnings|revenue|forecast|guidance|EBITDA|outlook)\b", re.I),
     "debt": re.compile(r"\b(?:debt|acceleration|default|refinancing)\b", re.I),
-    "incident": re.compile(r"\b(?:cyberattack|cyber incident|trial halt)\b", re.I),
+    "incident": re.compile(r"\b(?:cyberattack|cyber incident|trial halt|recall)\b", re.I),
 }
+BOARD_EVENT = re.compile(
+    r"\b(?:the board|management)\s+(?:(?:has|have|had|now)\s+)?"
+    r"(?:approved|decided|confirmed|ordered|initiated)\b",
+    re.I,
+)
+EVENT_REFERENCE = re.compile(r"\b(?:the|this|that)\s+(?:decision|notice|recall|termination)\b", re.I)
+NON_SUBJECT = re.compile(r"\b(?:from|with|to|by)\s*$|\bcounterparty\s*:\s*$", re.I)
+NO_LIVE_EVENT = re.compile(
+    r"\b(?:did|does)\s+not\s+relate\s+to\s+(?:any\s+)?live\b"
+    r"(?:(?!\b(?:but|however)\b)[^.;\n]){0,140}$",
+    re.I,
+)
+
+
+def _org_references(
+    text: str, units: list[tuple[int, int]]
+) -> tuple[list[list[tuple[int, int]]], dict[tuple[int, int], str], list[list[tuple[int, int]]]]:
+    orgs = [[(a + m.start(), a + m.end()) for m in ORG_NAME_RE.finditer(text[a:b])] for a, b in units]
+    identities = {span: canonical_org(text[span[0] : span[1]]) for spans in orgs for span in spans}
+    anchors: dict[tuple[str, ...], list[tuple[int, str]]] = {}
+    for span, identity in identities.items():
+        parts = tuple(re.findall(r"\w+", identity))
+        if len(parts) < 2 or any(len(p) < 2 for p in parts[:2]):
+            continue
+        for width in range(2, len(parts) + 1):
+            anchors.setdefault(parts[:width], []).append((span[1], identity))
+    for entries in anchors.values():
+        entries.sort()
+    ambiguous: list[list[tuple[int, int]]] = [[] for _ in units]
+    for frame, (a, b) in enumerate(units):
+        qualified = orgs[frame][:]
+        qualified_starts = [x for x, _ in qualified]
+        tokens = list(re.finditer(r"\b[A-Z][\w’'-]*\b", text[a:b]))
+        occupied: set[int] = set()
+        for i, token in enumerate(tokens):
+            if i in occupied:
+                continue
+            start = a + token.start()
+            owner = bisect_right(qualified_starts, start) - 1
+            if owner >= 0 and start < qualified[owner][1]:
+                continue
+            for width in range(min(6, len(tokens) - i), 1, -1):
+                run = tokens[i : i + width]
+                if any(not re.fullmatch(r"\s+", text[a + x.end() : a + y.start()]) for x, y in zip(run, run[1:])):
+                    continue
+                end = a + run[-1].end()
+                if text[start:end].endswith(("’s", "'s")):
+                    end -= 2
+                key = tuple(re.findall(r"\w+", canonical_org(text[start:end])))
+                entries = anchors.get(key, [])
+                lo = bisect_left(entries, (max(0, start - 2000), ""))
+                hi = bisect_right(entries, (start, "\uffff"))
+                eligible = {identity for _, identity in entries[lo:hi]}
+                if (
+                    eligible
+                    and i + width < len(tokens)
+                    and re.fullmatch(r"\s+", text[a + run[-1].end() : a + tokens[i + width].start()])
+                ):
+                    ambiguous[frame].append((start, a + tokens[i + width].end()))
+                    occupied.update(range(i, i + width + 1))
+                    break
+                if len(eligible) == 1:
+                    span = (start, end)
+                    orgs[frame].append(span)
+                    identities[span] = next(iter(eligible))
+                    occupied.update(range(i, i + width))
+                    break
+                if eligible:
+                    ambiguous[frame].append((start, end))
+                    occupied.update(range(i, i + width))
+                    break
+        orgs[frame] = sorted(set(orgs[frame]))
+    return orgs, identities, ambiguous
 
 
 def _topics(value: str) -> set[str]:
@@ -114,7 +189,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
         return {"state": "not_detected", "evidence": [], "public_status_verified": False, "reason": "no event evidence"}
     starts = [a for a, _ in units]
     sentences = [_sentences(text, a, b) for a, b in units]
-    orgs = [[(a + m.start(), a + m.end()) for m in ORG_NAME_RE.finditer(text[a:b])] for a, b in units]
+    orgs, identities, ambiguous = _org_references(text, units)
     private_matches = list(NONPUBLIC.finditer(text))
     private_starts = [p.start() for p in private_matches]
     public_matches = []
@@ -136,6 +211,12 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             continue
         a, b = units[index]
         window_start, window_end = max(0, private.start() - 1600), min(len(text), private.end() + 1600)
+        if any(
+            window_start <= x < private.start() and not NON_SUBJECT.search(text[max(a, x - 30) : x])
+            for x, _ in ambiguous[index]
+        ):
+            unresolved = True
+            continue
         sa, sb = _sentence(text, sentences[index], private.start())
         statement = text[sa:sb]
         if (
@@ -155,15 +236,32 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 if a - y <= 1600 and EVENT.search(value) and (_topics(value) & topics) and not UNRELATED.search(value):
                     previous.append(prev)
         indices = previous + [index]
+        witness_indices = indices[:]
+        if index + 1 < len(units):
+            x, y = units[index + 1]
+            following = text[x : min(y, window_end)]
+            if (
+                x - b <= 1600
+                and not orgs[index + 1]
+                and EVENT_REFERENCE.search(following)
+                and MATERIAL.search(following)
+                and not UNRELATED.search(following)
+            ):
+                witness_indices.append(index + 1)
         events = []
         material = []
-        for frame in indices:
+        for frame in witness_indices:
             x, y = units[frame]
             x, y = max(x, window_start), min(y, window_end)
-            for event in EVENT.finditer(text, x, y):
+            for event in EVENT.finditer(text, x, y) if frame in indices else []:
                 ea, eb = _sentence(text, sentences[frame], event.start())
                 sentence = text[ea:eb]
-                if HYPOTHETICAL.search(sentence) or NEGATED_EVENT.search(sentence) or IMMATERIAL.search(sentence):
+                if (
+                    HYPOTHETICAL.search(sentence)
+                    or NEGATED_EVENT.search(sentence)
+                    or IMMATERIAL.search(sentence)
+                    or NO_LIVE_EVENT.search(text[max(ea, event.start() - 200) : event.end()])
+                ):
                     continue
                 events.append((event.start(), event.end()))
             for match in MATERIAL.finditer(text, x, y):
@@ -197,12 +295,16 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             continue
         private_orgs = local_orgs(index, sa, sb)
         local_events = [e for e in events if sa <= e[0] < sb]
-        private_subjects = [(x, y) for x, y in private_orgs if local_events and x < local_events[0][0]]
+        private_subjects = [
+            (x, y)
+            for x, y in private_orgs
+            if local_events and x < local_events[0][0] and not NON_SUBJECT.search(text[max(sa, x - 30) : x])
+        ]
         # public statements about the same event conflict unless a later development is explicit.
         conflicting = False
         for pub in public_matches[bisect_left(public_starts, window_start) : bisect_right(public_starts, window_end)]:
             frame = bisect_right(starts, pub.start()) - 1
-            if frame not in indices:
+            if frame not in witness_indices:
                 continue
             pa, pb = _sentence(text, sentences[frame], pub.start())
             public_statement = text[pa:pb]
@@ -211,13 +313,13 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 private_subjects
                 and public_orgs
                 and not any(
-                    canonical_org(text[x:y]) == canonical_org(text[u:v])
-                    for x, y in private_subjects
-                    for u, v in public_orgs
+                    identities[(x, y)] == identities[(u, v)] for x, y in private_subjects for u, v in public_orgs
                 )
             ):
                 continue
-            same_topics = bool(_topics(public_statement) & topics)
+            same_topics = bool(_topics(public_statement) & topics) or (
+                frame > index and bool(EVENT_REFERENCE.search(public_statement))
+            )
             if (pa == sa or same_topics) and not (
                 pub.end() < private.start() and TRANSITION.search(text[pub.end() : private.start()])
             ):
@@ -231,7 +333,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
         if private_orgs and event_sentence != (sa, sb):
             event_orgs = [span for frame in indices for span in local_orgs(frame, window_start, sa)]
             if event_orgs and not any(
-                canonical_org(text[x:y]) == canonical_org(text[u:v]) for x, y in private_orgs for u, v in event_orgs
+                identities[(x, y)] == identities[(u, v)] for x, y in private_orgs for u, v in event_orgs
             ):
                 unresolved = True
                 continue
@@ -239,16 +341,14 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
         named_subjects = [
             (x, y)
             for x, y in private_orgs
-            if local_events
-            and x < local_events[0][0]
-            and not re.search(r"\b(?:from|with|to|by)\s*$", text[max(sa, x - 20) : x], re.I)
+            if local_events and x < local_events[0][0] and not NON_SUBJECT.search(text[max(sa, x - 30) : x])
         ]
         if named_subjects:
             issuer = named_subjects[0]
         if issuer is None:
             for frame in indices:
                 for x, y in local_orgs(frame, window_start, window_end):
-                    if re.search(r"\b(?:from|with|to|by)\s*$", text[max(units[frame][0], x - 20) : x], re.I):
+                    if NON_SUBJECT.search(text[max(units[frame][0], x - 30) : x]):
                         continue
                     issuer = (x, y)
                     break
@@ -261,13 +361,23 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             for prev in range(index - 1, max(-1, index - 5), -1):
                 if orgs[prev] and a - units[prev][1] <= 2000:
                     candidates = [
-                        (x, y)
-                        for x, y in orgs[prev]
-                        if not re.search(r"\b(?:from|with|to|by)\s*$", text[max(units[prev][0], x - 20) : x], re.I)
+                        (x, y) for x, y in orgs[prev] if not NON_SUBJECT.search(text[max(units[prev][0], x - 30) : x])
                     ]
+                    if not candidates:
+                        continue
                     if len(candidates) == 1:
                         issuer = candidates[0]
                     break
+        if issuer is None and BOARD_EVENT.search(text[max(a, window_start) : min(b, window_end)]):
+            preceding_orgs = [
+                span
+                for prev in range(max(0, index - 4), index)
+                if a - units[prev][1] <= 2000
+                for span in orgs[prev]
+                if not NON_SUBJECT.search(text[max(units[prev][0], span[0] - 30) : span[0]])
+            ]
+            if len({identities[span] for span in preceding_orgs}) == 1:
+                issuer = preceding_orgs[-1]
         if issuer is None:
             for frame in indices:
                 issuer_match = ISSUER.search(text, max(units[frame][0], window_start), min(units[frame][1], window_end))
@@ -315,9 +425,12 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                     value,
                     re.I,
                 )
-                if not (HYPOTHETICAL.search(value) or NEGATED_EVENT.search(value) or IMMATERIAL.search(value)) and (
-                    not normative or actual
-                ):
+                if not (
+                    HYPOTHETICAL.search(value)
+                    or NEGATED_EVENT.search(value)
+                    or IMMATERIAL.search(value)
+                    or NO_LIVE_EVENT.search(text[max(ea, event_match.start() - 200) : event_match.end()])
+                ) and (not normative or actual):
                     partial_event = True
                     break
         partial_event |= bool(
