@@ -1,0 +1,804 @@
+{
+  "additional_cost_usd": "0",
+  "authored_new_regression_cases": 39,
+  "authored_quadrant_gate": true,
+  "build": "sdist and wheel passed",
+  "classifier_version": "junas.sensitivity.v4",
+  "datasets": {
+    "200": {
+      "document_presence": {
+        "absence_verified": false,
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 40,
+              "unknown": 10
+            },
+            "pii": {
+              "fn": 1,
+              "fp": 0,
+              "tn": 0,
+              "tp": 49,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 50,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 50,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 100,
+            "tp": 90,
+            "unknown": 10
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 100,
+            "tp": 99,
+            "unknown": 0
+          }
+        }
+      },
+      "documents": 200,
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.1,
+        "mnpi_positive_detection": 0.9,
+        "pii_exact_span_agreement": 0.8926553672316384,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 0.9001883239171374,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 0.99
+      },
+      "passed": true,
+      "pii": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 57,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 12,
+          "gold": 531,
+          "labeled_span_recall": 0.8926553672316384,
+          "matched": 474,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 487,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 1,
+          "unmatched_predictions": 13
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 53,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 8,
+          "gold": 531,
+          "labeled_span_recall": 0.9001883239171374,
+          "matched": 478,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 487,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 1,
+          "unmatched_predictions": 9
+        }
+      },
+      "source_sha256": "777028406ad24995de53ad2a615fc7f2f35a281adbb5b84d58aa2d86200824f1",
+      "targets": {
+        "mnpi_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "mnpi_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.05
+        },
+        "mnpi_positive_abstention_rate_max": {
+          "observed": 0.1,
+          "passed": true,
+          "target": 0.2
+        },
+        "mnpi_positive_detection_min": {
+          "observed": 0.9,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_exact_span_agreement_min": {
+          "observed": 0.8926553672316384,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "pii_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.1
+        },
+        "pii_overlap_span_agreement_min": {
+          "observed": 0.9001883239171374,
+          "passed": true,
+          "target": 0.85
+        },
+        "pii_positive_detection_min": {
+          "observed": 0.99,
+          "passed": true,
+          "target": 0.9
+        }
+      }
+    },
+    "40": {
+      "document_presence": {
+        "absence_verified": false,
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 9,
+              "unknown": 1
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 19,
+            "unknown": 1
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 20,
+            "unknown": 0
+          }
+        }
+      },
+      "documents": 40,
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.05,
+        "mnpi_positive_detection": 0.95,
+        "pii_exact_span_agreement": 0.9875,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 1.0,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 1.0
+      },
+      "passed": true,
+      "pii": {
+        "exact": {
+          "f2_if_exhaustive": 0.9850374064837906,
+          "false_negatives": 1,
+          "false_positives": 2,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 80,
+          "labeled_span_recall": 0.9875,
+          "matched": 79,
+          "precision_if_exhaustive": 0.9753086419753086,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 81,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        },
+        "overlap": {
+          "f2_if_exhaustive": 0.9975062344139651,
+          "false_negatives": 0,
+          "false_positives": 1,
+          "false_positives_on_exhaustive_units": 1,
+          "gold": 80,
+          "labeled_span_recall": 1.0,
+          "matched": 80,
+          "precision_if_exhaustive": 0.9876543209876543,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 81,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 1
+        }
+      },
+      "source_sha256": "a6508763f1fe3e6bee54112c1142fb328b82670ee958325d64339bb9fc617268",
+      "targets": {
+        "mnpi_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "mnpi_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.05
+        },
+        "mnpi_positive_abstention_rate_max": {
+          "observed": 0.05,
+          "passed": true,
+          "target": 0.2
+        },
+        "mnpi_positive_detection_min": {
+          "observed": 0.95,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_exact_span_agreement_min": {
+          "observed": 0.9875,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "pii_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.1
+        },
+        "pii_overlap_span_agreement_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.85
+        },
+        "pii_positive_detection_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.9
+        }
+      }
+    },
+    "72": {
+      "document_presence": {
+        "absence_verified": false,
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 36,
+            "tp": 36,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 36,
+            "tp": 36,
+            "unknown": 0
+          }
+        }
+      },
+      "documents": 72,
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.0,
+        "mnpi_positive_detection": 1.0,
+        "pii_exact_span_agreement": 0.9457364341085271,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 0.9612403100775194,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 1.0
+      },
+      "passed": true,
+      "pii": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 7,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 4,
+          "gold": 129,
+          "labeled_span_recall": 0.9457364341085271,
+          "matched": 122,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 126,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 4
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 5,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 2,
+          "gold": 129,
+          "labeled_span_recall": 0.9612403100775194,
+          "matched": 124,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 126,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 2
+        }
+      },
+      "source_sha256": "c9ee57df18a824309a0e3c81af7d7dde8822e3df6cd8ae6db695602fd35a2dcb",
+      "targets": {
+        "mnpi_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "mnpi_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.05
+        },
+        "mnpi_positive_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.2
+        },
+        "mnpi_positive_detection_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_exact_span_agreement_min": {
+          "observed": 0.9457364341085271,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "pii_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.1
+        },
+        "pii_overlap_span_agreement_min": {
+          "observed": 0.9612403100775194,
+          "passed": true,
+          "target": 0.85
+        },
+        "pii_positive_detection_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.9
+        }
+      }
+    },
+    "prior40": {
+      "document_presence": {
+        "absence_verified": false,
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 20,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 20,
+            "unknown": 0
+          }
+        }
+      },
+      "documents": 40,
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.0,
+        "mnpi_positive_detection": 1.0,
+        "pii_exact_span_agreement": 1.0,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 1.0,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 1.0
+      },
+      "passed": true,
+      "pii": {
+        "exact": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 71,
+          "labeled_span_recall": 1.0,
+          "matched": 71,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 71,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "f2_if_exhaustive": null,
+          "false_negatives": 0,
+          "false_positives": null,
+          "false_positives_on_exhaustive_units": 0,
+          "gold": 71,
+          "labeled_span_recall": 1.0,
+          "matched": 71,
+          "precision_if_exhaustive": null,
+          "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+          "predictions": 71,
+          "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+          "unjudged_predictions": 0,
+          "unmatched_predictions": 0
+        }
+      },
+      "source_sha256": "4ca32238ca1128dee62d3ac9a228ac96d84774f001b744ac653267e86928557c",
+      "targets": {
+        "mnpi_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "mnpi_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.05
+        },
+        "mnpi_positive_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.2
+        },
+        "mnpi_positive_detection_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_exact_span_agreement_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.8
+        },
+        "pii_negative_abstention_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.25
+        },
+        "pii_negative_flag_rate_max": {
+          "observed": 0.0,
+          "passed": true,
+          "target": 0.1
+        },
+        "pii_overlap_span_agreement_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.85
+        },
+        "pii_positive_detection_min": {
+          "observed": 1.0,
+          "passed": true,
+          "target": 0.9
+        }
+      }
+    }
+  },
+  "diagnostic_counts_after": {
+    "boundary_error": 1,
+    "mnpi_abstention": 1,
+    "negative_reference_signal": 30,
+    "unmapped_rule": 2,
+    "unmatched_prediction": 1
+  },
+  "diagnostic_counts_before": {
+    "missed_entity": 25,
+    "mnpi_abstention": 13,
+    "negative_reference_signal": 30,
+    "pii_abstention": 8,
+    "pii_document_disagreement": 4,
+    "unmapped_rule": 2,
+    "unmatched_prediction": 6
+  },
+  "fresh_unseen_validation_performed": false,
+  "implementation_head": "6cc2492e2117cea78fe0f578d1e86992d0657237",
+  "independently_validated_accuracy": null,
+  "latest_cohort_before": {
+    "mnpi_positive_detected": 7,
+    "mnpi_positive_reference": 20,
+    "pii_exact_gold": 80,
+    "pii_exact_matched": 55,
+    "pii_negative_flags": 4,
+    "pii_negative_unknowns": 8
+  },
+  "locked_corpus_gates": {
+    "count": 9,
+    "external": "skipped",
+    "passed": true
+  },
+  "paid_api_calls": 0,
+  "preservation": {
+    "archives_unchanged": {
+      "2026-11-22-coverage-holdout-usd10": 971,
+      "2026-11-22-fresh-holdout-v2": 851,
+      "2026-11-22-usd25-run": 1079,
+      "2026-11-23-classifier-reliability-followup": 45,
+      "2026-11-23-fresh-holdout-v3": 750
+    },
+    "initial_files_checked": 6775,
+    "paid_calls": 0,
+    "pre_existing_patch_unchanged": true,
+    "readme_unchanged": true
+  },
+  "private_evidence_directory": "/home/gongahkia/.local/share/junas/research/2026-11-23-reliability-v4",
+  "pytest": {
+    "3.11": "1845 passed, 254 subtests passed in 242.95s (0:04:02)",
+    "3.12": "1845 passed, 254 subtests passed in 236.79s (0:03:56)"
+  },
+  "reference": "retired model-reference development replays after tuning; not fresh holdout accuracy",
+  "remaining_limits": [
+    "One exact PII boundary disagreement, two unmatched exact PII predictions and one positive MNPI abstention remain on the latest retired cohort.",
+    "Earlier 200-document development set retains one missed PII-positive document and ten positive MNPI abstentions; earlier PII spans remain incomplete.",
+    "Finite role/event grammars and bounded linkage do not establish unseen generalization.",
+    "Model references and confidence remain uncalibrated and unverified; original validation reports remain unchanged."
+  ],
+  "ruff": "10 changed Python files pass lint and format",
+  "runtime_sha256": "2d311c9eb04d9f7bfa21802e6603ca4164de915d9a1e7c355000a23203745c3c",
+  "schema_version": "junas.classifier_reliability_v4.v1",
+  "scoped_mypy": "6 sources pass with silent imports; full-project mypy not run; unused configuration notes",
+  "status": "development_gates_and_full_suites_passed",
+  "wheel_smoke": {
+    "cases": 4,
+    "cli_exit_code": 0,
+    "installed_package": "/home/gongahkia/.local/share/junas/research/2026-11-23-reliability-v4/wheel-env/lib/python3.12/site-packages/junas",
+    "network_connections_denied": true,
+    "passed": true,
+    "runtime_sha256": "2d311c9eb04d9f7bfa21802e6603ca4164de915d9a1e7c355000a23203745c3c"
+  }
+}
