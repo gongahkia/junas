@@ -12,6 +12,7 @@ from scripts.corpus_partitions import (
     FRESH_HOLDOUT_GROUPS,
     FRESH_HOLDOUT_V3_GROUPS,
     FRESH_HOLDOUT_V5_GROUPS,
+    FRESH_HOLDOUT_V6_GROUPS,
     SCENARIO_GROUPS,
     check_exclusions,
     exclusion_registry,
@@ -52,6 +53,37 @@ def test_new_scenarios_are_disjoint_and_old_reservations_still_validate():
     assert set(v5cfg["entity_targets"].values()) == {3}
     assert v5cfg["spending_limit"]["provider_cap_usd"] == "4"
     assert corpus.validate_spending_limit(v5cfg["spending_limit"])["sgd_scenario_ceiling"] == "39.60"
+
+
+def test_v6_generalization_plan_preserves_targets_models_and_historical_reservations():
+    previous = {
+        g["id"]
+        for groups in [
+            *SCENARIO_GROUPS.values(),
+            FRESH_HOLDOUT_GROUPS,
+            FRESH_HOLDOUT_V3_GROUPS,
+            FRESH_HOLDOUT_V5_GROUPS,
+        ]
+        for g in groups
+    }
+    cfg = json.loads((fresh.ROOT / "config/model_corpus.holdout-v6.json").read_text())
+    old = json.loads((fresh.ROOT / "config/model_corpus.holdout-v5.json").read_text())
+    corpus.validate_config(cfg)
+    assert cfg["sampling"]["groups"] == FRESH_HOLDOUT_V6_GROUPS
+    assert not previous & {g["id"] for g in FRESH_HOLDOUT_V6_GROUPS}
+    assert len({sampling_slot(cfg["sampling"], i)["template_group"] for i in range(16)}) == 4
+    for key in (
+        "documents",
+        "quadrant_targets",
+        "entity_targets",
+        "generator",
+        "judges",
+        "judge_mode",
+        "max_candidates",
+    ):
+        assert cfg[key] == old[key]
+    assert cfg["spending_limit"]["provider_cap_usd"] == "4"
+    assert corpus.validate_spending_limit(cfg["spending_limit"])["sgd_scenario_ceiling"] == "43.20"
 
 
 def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excluded(tmp_path, monkeypatch):
@@ -236,14 +268,15 @@ def test_recovered_segment_can_be_released_once_but_not_outside_the_bundle(bundl
         fresh.evaluate(bundle, resumed)
 
 
-def test_custom_reserved_config_is_bound_before_snapshotting(tmp_path, prepared_master):
-    config_path = tmp_path / "v3-config.json"
+@pytest.mark.parametrize("groups", [FRESH_HOLDOUT_V3_GROUPS, FRESH_HOLDOUT_V6_GROUPS])
+def test_custom_reserved_config_is_bound_before_snapshotting(tmp_path, prepared_master, groups):
+    config_path = tmp_path / "reserved-config.json"
     cfg = json.loads((prepared_master / "config.json").read_text())
-    cfg["sampling"]["groups"] = FRESH_HOLDOUT_V3_GROUPS
+    cfg["sampling"]["groups"] = groups
     cfg["spending_limit"].update(provider_cap_usd="4", prior_cost_reserve_usd="16")
     config_path.write_text(json.dumps(cfg))
     registry = json.loads((prepared_master / "exclusions.json").read_text())
-    output = tmp_path / "v3-bundle"
+    output = tmp_path / "reserved-bundle"
     with (
         patch.object(fresh, "ROOT", prepared_master / "source"),
         patch.object(fresh, "build_exclusions", return_value=(registry, {})) as exclusions,
@@ -252,10 +285,11 @@ def test_custom_reserved_config_is_bound_before_snapshotting(tmp_path, prepared_
         result = fresh.prepare(
             output, prepared_master / "baseline", prepared_master / "exclusions.json", [], config_path
         )
-    assert exclusions.call_args.args[2] == FRESH_HOLDOUT_V3_GROUPS
+    assert exclusions.call_args.args[2] == groups
     assert result["proposed_cap_usd"] == "4"
     bound = json.loads((output / "config.json").read_text())
-    assert bound["sampling"]["groups"] == FRESH_HOLDOUT_V3_GROUPS
+    assert bound["sampling"]["groups"] == groups
+    assert "all frozen engineering targets pass" in result["predeclared_evaluation_policy"]["success_condition"]
     assert json.loads((output / "frozen.json").read_text())["config_sha256"] == corpus.identity(bound)
     assert not (output / "authorization.json").exists() and not (output / "run").exists()
 

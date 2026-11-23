@@ -172,7 +172,9 @@ def prepare(output: Path, baseline: Path, inherited: Path, runs: list[Path], con
         "plan": corpus.plan(config),
         "empirical_estimate_usd": "2.73792225",
         "buffered_planning_estimate_usd": "3.45",
-        "planning_estimate_basis": "higher accounted cost of prior two 40-document runs plus 25%, rounded up",
+        "planning_estimate_basis": (
+            "highest accounted cost among completed earlier 40-document stages plus 25%, rounded up"
+        ),
         "empirical_basis": (
             "completed prior 40-document stage including rejection and retries; "
             "conservative accounted cost, not invoice"
@@ -196,6 +198,14 @@ def prepare(output: Path, baseline: Path, inherited: Path, runs: list[Path], con
         ),
         "classifiers": {"baseline_sha256": baseline_hash, "improved_sha256": improved_hash},
         "selection": "judge-only quadrant and subtype coverage; classifier predictions never select documents",
+        "predeclared_evaluation_policy": {
+            "success_condition": "all frozen engineering targets pass; comparison with baseline is descriptive",
+            "adaptation": "no classifier, prompt, threshold or selection changes after generation begins",
+            "outcome_policy": (
+                "preserve the first result, including failures and coverage shortfalls; no replacement cohort"
+            ),
+            "references": "model-reference agreement only; independent accuracy and calibrated confidence unavailable",
+        },
         "release": (
             "one-shot paired evaluation after complete quadrant/entity coverage; "
             "consume before metrics; no tuning or retrying the evaluation"

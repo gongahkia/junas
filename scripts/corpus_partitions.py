@@ -45,6 +45,37 @@ FRESH_HOLDOUT_V5_GROUPS = [
     {"id": "holdout-sustainability-v5", "scenario": "fictional public sustainability methodology correction"},
 ]
 
+FRESH_HOLDOUT_V6_GROUPS = [
+    {
+        "id": "holdout-succession-v6",
+        "scenario": (
+            "fictional listed issuer executive succession handover log; use terse entries and natural "
+            "paraphrases for the decision, economic significance and release chronology rather than stock boilerplate"
+        ),
+    },
+    {
+        "id": "holdout-injunction-v6",
+        "scenario": (
+            "fictional listed issuer court injunction and plant access coordination; use correspondence with "
+            "multiple organizations and distinguish their roles, economic consequences and disclosure chronology"
+        ),
+    },
+    {
+        "id": "holdout-reserves-v6",
+        "scenario": (
+            "fictional listed issuer independent mineral reserve reassessment; use a technical liaison note "
+            "with ordinary paraphrases, source qualifications and a chronology of release status"
+        ),
+    },
+    {
+        "id": "holdout-voting-v6",
+        "scenario": (
+            "fictional listed issuer shareholder voting control agreement and registry coordination; use "
+            "a question-and-answer brief separating routine records from issuer developments and publication timing"
+        ),
+    },
+]
+
 
 def validate_sampling(sampling: dict) -> dict:
     if not isinstance(sampling, dict) or set(sampling) != {"split", "groups"}:
@@ -52,7 +83,9 @@ def validate_sampling(sampling: dict) -> dict:
     split = sampling["split"]
     allowed = [SCENARIO_GROUPS.get(split)]
     if split == "holdout":
-        allowed.extend((FRESH_HOLDOUT_GROUPS, FRESH_HOLDOUT_V3_GROUPS, FRESH_HOLDOUT_V5_GROUPS))
+        allowed.extend(
+            (FRESH_HOLDOUT_GROUPS, FRESH_HOLDOUT_V3_GROUPS, FRESH_HOLDOUT_V5_GROUPS, FRESH_HOLDOUT_V6_GROUPS)
+        )
     if split not in SCENARIO_GROUPS or sampling["groups"] not in allowed:
         raise ValueError("use the reserved scenario/template groups for this partition")
     return sampling
