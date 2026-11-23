@@ -1,0 +1,186 @@
+{
+  "accounting": "conservative input plus 30-minute cache-write rates; reserve full output before completion",
+  "approved_cap_usd": "4",
+  "authorization": "explicit current-user billable cap; credit balance/applicability unknown",
+  "authorization_sha256": "e11d8e4bea120042d46680a600a5dd683a046eec8241cf1107244c467e3c9e9d",
+  "baseline_version": "junas.sensitivity.v2",
+  "classifier_runtime_changed_this_task": false,
+  "classifiers": {
+    "baseline_sha256": "9e28c87ad7acb888b7506ad9e061abd8d7b6f3773b1089cb29040a6a7aaf3c62",
+    "improved_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f"
+  },
+  "config_sha256": "b912c6c107d27d344b343f58130aa797b584c262342ea6a7b463d7969d3b2695",
+  "date": "2026-11-23",
+  "entity_targets_each": 3,
+  "exclusion_audit": {
+    "inherited_entries": 4405,
+    "limits": "exact, normalized, numeric/email skeleton and shingle checks are contamination heuristics; semantic novelty is unverified",
+    "old_holdout_use": "fingerprinting for exclusion only; no labels inspected or classifier evaluation",
+    "prior_candidate_sources_fingerprinted": 227,
+    "prior_generator_responses_fingerprinted": 445,
+    "prior_run_directories": [
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-text-only-smoke",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-usd25-run",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-coverage-holdout-usd10",
+      "/home/gongahkia/.local/share/junas/research/2026-11-22-fresh-holdout-v2"
+    ],
+    "total_entries": 4610
+  },
+  "frozen_files": 297,
+  "frozen_manifest_sha256": "d529de4d04fc1bc96872d5ba84b172b1405ed6e4053d8ad4717edc9c407b3b8f",
+  "implementation_head": "c0f7e2abee8054e5d858262a97b5611dbce05784",
+  "improved_version": "junas.sensitivity.v3",
+  "limitations": [
+    "40 documents is a small synthetic check, not independent legal ground truth.",
+    "Three passes of the same judge model have correlated errors.",
+    "Budget or candidate limits may prevent coverage; report incomplete runs without forced labels.",
+    "Unknown request charges retain their reserve and are not automatically retried.",
+    "No authorization file or paid calls are created by preparation."
+  ],
+  "model_plan": {
+    "budget_can_leave_coverage_shortfall": true,
+    "candidate_first_pass_token_cost_ceiling_usd": "55.52160",
+    "config_sha256": "b912c6c107d27d344b343f58130aa797b584c262342ea6a7b463d7969d3b2695",
+    "configured_token_cost_ceiling_usd": "94.73280",
+    "coverage_policy": "stop at accepted quotas or candidate/budget limit; report shortfalls without forced labels",
+    "data_scope": "new_synthetic_only",
+    "documents": 40,
+    "effective_run_token_cost_ceiling_usd": "4",
+    "entity_targets": {
+      "BANK_ACCOUNT": 3,
+      "DATE_OF_BIRTH": 3,
+      "EMAIL": 3,
+      "GOVERNMENT_ID": 3,
+      "PERSONAL_RECORD_ID": 3,
+      "PERSON_NAME": 3,
+      "PHONE": 3,
+      "POSTAL_ADDRESS": 3,
+      "QUASI_IDENTIFIER_COMBINATION": 3
+    },
+    "first_pass_model_calls": 160,
+    "human_ground_truth": false,
+    "judge_mode": "same_model_repeats",
+    "label_origin": "model_consensus",
+    "live_calls_authorized": false,
+    "max_candidates": 120,
+    "max_judge_attempts": 2,
+    "model_calls": 840,
+    "model_costs": [
+      {
+        "cost_per_attempt_ceiling_usd": "0.13592",
+        "input_rate_usd_per_million": "4.5",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.2-sol",
+        "output_rate_usd_per_million": "10",
+        "output_tokens_ceiling": 8192
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      },
+      {
+        "cost_per_attempt_ceiling_usd": "0.10892",
+        "input_rate_usd_per_million": "2.25",
+        "input_tokens_ceiling": 12000,
+        "model": "gpt-6.1-terra",
+        "output_rate_usd_per_million": "5",
+        "output_tokens_ceiling": 16384
+      }
+    ],
+    "models": [
+      "gpt-6.2-sol",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra",
+      "gpt-6.1-terra"
+    ],
+    "prompt_version": "synthetic-quadrants-majority-v5",
+    "quadrant_targets": {
+      "both": 10,
+      "mnpi_only": 10,
+      "neither": 10,
+      "pii_only": 10
+    },
+    "sampling": {
+      "groups": [
+        {
+          "id": "holdout-refinancing-v3",
+          "scenario": "fictional listed issuer emergency refinancing allocation instruction"
+        },
+        {
+          "id": "holdout-licence-v3",
+          "scenario": "fictional listed issuer operating licence suspension chronology"
+        },
+        {
+          "id": "holdout-tender-v3",
+          "scenario": "fictional tender-offer withdrawal registrar reconciliation"
+        },
+        {
+          "id": "holdout-education-v3",
+          "scenario": "fictional public investment education erratum"
+        }
+      ],
+      "split": "holdout"
+    },
+    "schema_version": "junas.model_corpus.v2",
+    "spending_limit": {
+      "cap_sgd": "50",
+      "currency": "SGD",
+      "extra_charge_multiplier": "1.2",
+      "fx_checked_on": "2026-11-23",
+      "interpretation": "USD provider cap enforced; SGD amount conditional on FX/fee assumptions, not bank invoice verification",
+      "prior_cost_reserve_usd": "16",
+      "provider_cap_usd": "4",
+      "sgd_per_usd_ceiling": "1.5",
+      "sgd_scenario_ceiling": "36.00"
+    },
+    "target_first_pass_token_cost_ceiling_usd": "18.50720",
+    "token_count_requests": 840,
+    "unique_judge_models": 1,
+    "voting_interpretation": "three separate samples of one model; agreement is not cross-model corroboration"
+  },
+  "new_synthetic_documents": 40,
+  "planning_estimate_usd": "3.45",
+  "pre_existing_patch_unchanged_at_start": true,
+  "pricing_checked_on": "2026-11-23",
+  "pricing_sources": [
+    "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+    "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+  ],
+  "prior_allowances_reused": false,
+  "private_bundle": "/home/gongahkia/.local/share/junas/research/2026-11-23-fresh-holdout-v3",
+  "quadrant_targets": {
+    "both": 10,
+    "mnpi_only": 10,
+    "neither": 10,
+    "pii_only": 10
+  },
+  "readme_changed": false,
+  "recovery": "same config and authorization; retain uncertain reserves; skip failed candidates; stop after three consecutive uncertain candidates",
+  "schema_version": "junas.fresh_holdout_v3_plan.v1",
+  "selection": "judge-only quadrant and entity quotas; no classifier predictions before one-shot release",
+  "status": "approved_and_started",
+  "stopping": "complete coverage, budget reservation limit, 120 candidates or consecutive failure limit; no forced labels",
+  "verification": {
+    "actual_bundle_integrity": "passed before launch",
+    "full_classifier_suite_repeated": false,
+    "full_suite_basis": "unchanged v3 previously passed 1802 tests and 254 subtests on Python 3.11 and 3.12",
+    "python3.11": "129 relevant tests passed",
+    "python3.12": "129 relevant tests passed",
+    "required_models_available": true,
+    "ruff": "lint and format passed on three changed Python files",
+    "runtime_hash_matches_prior_verified_v3": true,
+    "scoped_mypy": "passed on two source files with --explicit-package-bases --follow-imports=silent; unused configuration notes"
+  }
+}
