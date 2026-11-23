@@ -87,7 +87,13 @@ def build_exclusions(inherited: dict, runs: list[Path], groups: list[dict] | Non
     from scripts.check_reliability import cases
 
     records.extend({"text": r["text"], "template_group": "authored-regression"} for r in cases())
-    for name in ("test_sensitivity.py", "test_contextual_identity_scopes.py", "test_contextual_mnpi_scopes.py"):
+    for name in (
+        "test_sensitivity.py",
+        "test_contextual_identity_scopes.py",
+        "test_contextual_mnpi_scopes.py",
+        "test_contextual_generalization.py",
+        "test_contextual_event_families.py",
+    ):
         for node in ast.walk(ast.parse((ROOT / "test" / name).read_text())):
             value = constant_text(node)
             if value is not None and len(value.strip()) >= 20:

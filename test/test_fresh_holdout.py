@@ -45,7 +45,13 @@ def test_new_scenarios_are_disjoint_and_old_reservations_still_validate():
 def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excluded(tmp_path, monkeypatch):
     fake = tmp_path / "repo"
     (fake / "test").mkdir(parents=True)
-    for name in ("test_sensitivity.py", "test_contextual_identity_scopes.py", "test_contextual_mnpi_scopes.py"):
+    for name in (
+        "test_sensitivity.py",
+        "test_contextual_identity_scopes.py",
+        "test_contextual_mnpi_scopes.py",
+        "test_contextual_generalization.py",
+        "test_contextual_event_families.py",
+    ):
         (fake / "test" / name).write_text('TEXT = "A previous authored source, never a fresh reference."')
     monkeypatch.setattr(fresh, "ROOT", fake)
     monkeypatch.setattr("scripts.check_reliability.cases", lambda: [])

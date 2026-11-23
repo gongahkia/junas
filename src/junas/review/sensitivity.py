@@ -16,7 +16,7 @@ from junas.review.contextual_identifiers import (
 from junas.review.contextual_mnpi import contextual_mnpi
 from junas.review.contextual_people import person_names
 
-TARGET_VERSION = "junas.sensitivity.v3"
+TARGET_VERSION = "junas.sensitivity.v4"
 PII_RULE_MAP = {
     "GOVERNMENT_ID": ("sg_nric_fin", "us_ssn", "uk_nin", "au_tfn", "passport_number"),
     "PERSON_NAME": ("named_person",),
