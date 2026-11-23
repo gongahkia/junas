@@ -231,6 +231,11 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
         return spans[bisect_left(spans, (lower, -1)) : bisect_left(spans, (upper, -1))]
 
     hypotheses = []
+    diagnostics = []
+
+    def diagnostic(code: str, start: int, end: int) -> None:
+        diagnostics.append({"code": code, **_item(text, start, end, "unresolved_link")})
+
     unresolved = False
     for private in private_matches:
         index = bisect_right(starts, private.start()) - 1
@@ -243,6 +248,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             for x, _ in ambiguous[index]
         ):
             unresolved = True
+            diagnostic("ambiguous_issuer", *private.span())
             continue
         sa, sb = _sentence(text, sentences[index], private.start())
         statement = text[sa:sb]
@@ -252,6 +258,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             or IMMATERIAL.search(statement)
             or NEGATED_EVENT.search(statement)
         ):
+            diagnostic("excluded_disclosure_context", sa, sb)
             continue
         topics = _topics(statement)
         previous = []
@@ -319,6 +326,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             and not re.search(r"\b(?:it|this|(?:the|that) notice|both|neither)\b", statement, re.I)
         ):
             unresolved = True
+            diagnostic("unlinked_disclosure", sa, sb)
             continue
         if topics:
 
@@ -332,6 +340,10 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
             material = [span for span in material if related(span)]
         if not events or not material:
             unresolved = True
+            if not events:
+                diagnostic("missing_event", sa, sb)
+            if not material:
+                diagnostic("missing_materiality", sa, sb)
             continue
         private_orgs = local_orgs(index, sa, sb)
         local_events = [e for e in events if sa <= e[0] < sb]
@@ -367,6 +379,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 break
         if conflicting:
             unresolved = True
+            diagnostic("contradictory_public_claim", sa, sb)
             continue
         # an explicit subject in the disclosure sentence cannot borrow another issuer's event.
         event_sentence = _sentence(text, sentences[index], events[-1][0]) if events[-1][0] >= a else None
@@ -376,6 +389,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                 identities[(x, y)] == identities[(u, v)] for x, y in private_orgs for u, v in event_orgs
             ):
                 unresolved = True
+                diagnostic("issuer_mismatch", sa, sb)
                 continue
         issuer: tuple[int, int] | None = None
         named_subjects = [
@@ -426,6 +440,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
                     break
         if issuer is None:
             unresolved = True
+            diagnostic("missing_issuer", sa, sb)
             continue
         event_span = events[-1]
         components = [
@@ -486,6 +501,7 @@ def contextual_mnpi(text: str, findings: list[Any]) -> dict:
     return {
         "state": "present" if hypotheses else "unknown" if unresolved or partial_event else "not_detected",
         "evidence": hypotheses,
+        "diagnostics": diagnostics,
         "public_status_verified": False,
         "reason": "text-claimed event hypotheses; unresolved links and contradictory claims abstain",
     }

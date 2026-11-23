@@ -105,6 +105,15 @@ def test_materiality_cannot_be_borrowed_from_a_different_topic():
     assert review(text).sensitivity["mnpi"]["state"] != "present"
 
 
+def test_abstention_exposes_missing_link_with_source_exact_bounds():
+    text = "Orchid Estuary Ltd signed an acquisition. The acquisition has not been publicly disclosed."
+    output = review(text).sensitivity["mnpi"]
+    assert output["state"] == "unknown"
+    assert {d["code"] for d in output["diagnostics"]} == {"missing_materiality"}
+    for item in output["diagnostics"]:
+        assert text[item["start_char"] : item["end_char"]] == item["matched_text"]
+
+
 def test_general_guidance_and_routine_correspondence_do_not_inherit_broad_risk_signals():
     for text in [
         "General policy guidance: a listed issuer should assess whether a proposal requires an announcement.",

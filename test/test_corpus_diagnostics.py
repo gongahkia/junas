@@ -46,7 +46,12 @@ def test_buckets_distinguish_missing_boundary_and_unknown_coverage():
         "kind": "mnpi_abstention",
         "expected": "absent",
         "observed": "unknown",
+        "decision_diagnostics": [],
     }
+    output.sensitivity["mnpi"]["diagnostics"] = [{"code": "missing_materiality"}]
+    with patch("scripts.corpus_diagnostics.PreSendReviewEngine.review", return_value=output):
+        report = diagnose([record])
+    assert report["details"][0]["buckets"][-1]["decision_diagnostics"] == [{"code": "missing_materiality"}]
 
 
 def test_diagnostics_refuse_holdout():
