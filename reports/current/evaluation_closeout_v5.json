@@ -1,0 +1,743 @@
+{
+  "classifier_version": "junas.sensitivity.v5",
+  "date": "2026-11-23",
+  "external": {
+    "contextual_pii": {
+      "ai4privacy": {
+        "en-GB": {
+          "documents": 933,
+          "gold_spans": 2907,
+          "matched_spans": 152,
+          "recall": 0.052288
+        },
+        "en-US": {
+          "documents": 2032,
+          "gold_spans": 7051,
+          "matched_spans": 1023,
+          "recall": 0.145086
+        }
+      },
+      "ai4privacy_cross_slice_duplicate_ids": 16,
+      "ai4privacy_occurrence_status": {
+        "en-GB": "unavailable",
+        "en-US": "unavailable"
+      },
+      "tab_dev": {
+        "occurrence_status": "unavailable",
+        "summary": {
+          "documents": 127,
+          "f2": 0.188204,
+          "false_negative": 17084,
+          "false_positive": 441,
+          "gold_spans": 20273,
+          "precision": 0.878512,
+          "predicted_spans": 1017,
+          "recall": 0.157303,
+          "true_positive": 3189
+        }
+      }
+    },
+    "findings": {
+      "ai4privacy": {
+        "en-GB": {
+          "documents": 933,
+          "gold_spans": 2907,
+          "matched_spans": 315,
+          "recall": 0.108359
+        },
+        "en-US": {
+          "documents": 2032,
+          "gold_spans": 7051,
+          "matched_spans": 2692,
+          "recall": 0.38179
+        }
+      },
+      "ai4privacy_cross_slice_duplicate_ids": 16,
+      "ai4privacy_occurrence_status": {
+        "en-GB": "unavailable",
+        "en-US": "unavailable"
+      },
+      "tab_dev": {
+        "occurrence_status": "unavailable",
+        "summary": {
+          "documents": 127,
+          "f2": 0.226339,
+          "false_negative": 16418,
+          "false_positive": 213,
+          "gold_spans": 20273,
+          "precision": 0.94764,
+          "predicted_spans": 1176,
+          "recall": 0.190154,
+          "true_positive": 3855
+        }
+      }
+    }
+  },
+  "external_degradation_example": {
+    "dataset": "TAB dev",
+    "degraded_modes": [
+      {
+        "detail": {
+          "affected_finding_count": 2
+        },
+        "mode": "materiality_lookup_not_configured",
+        "reason": "no entity_size_lookup configured or entity_id not provided; financial_amount / financial_percentage findings kept at default severity. SAB 99 5% / ASX GN8 entity-relative scaling unavailable.",
+        "status": "skipped"
+      }
+    ],
+    "document_id": "001-95183"
+  },
+  "external_interpretation": "Separate surfaces against broad masking labels; historical metrics only. Corrected occurrence metrics unavailable on degradation. Not a new protected holdout, calibrated confidence or MNPI accuracy.",
+  "limitations": [
+    "Retired development replays are exposed and tuned, not fresh validation.",
+    "PII boundary and birth-subentity questions remain flagged without rewriting references.",
+    "21 rejected MNPI-unknown candidates remain unresolved.",
+    "Broad external PII masking coverage is low.",
+    "Model consensus is not independent ground truth; confidence is uncalibrated."
+  ],
+  "new_holdout_status": "prepared_not_generated",
+  "original_readme_update_preserved": true,
+  "original_v3_results_and_thresholds_unchanged": true,
+  "paid_api_calls_this_task": 0,
+  "preservation": {
+    "2026-11-22-coverage-holdout-usd10": {
+      "files_checked": 971,
+      "mismatches": []
+    },
+    "2026-11-22-fresh-holdout-v2": {
+      "files_checked": 851,
+      "mismatches": []
+    },
+    "2026-11-22-usd25-run": {
+      "files_checked": 1079,
+      "mismatches": []
+    },
+    "2026-11-23-classifier-reliability-followup": {
+      "files_checked": 45,
+      "mismatches": []
+    },
+    "2026-11-23-fresh-holdout-v3": {
+      "files_checked": 750,
+      "mismatches": []
+    },
+    "2026-11-23-reliability-v4": {
+      "files_checked": 48,
+      "mismatches": []
+    }
+  },
+  "private_evidence": "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout",
+  "reference_audit": {
+    "calibrated_confidence": null,
+    "candidates": 64,
+    "completed_reference_states": {
+      "both": 10,
+      "mnpi_only": 10,
+      "neither": 10,
+      "pii_only": 10,
+      "unknown": 21
+    },
+    "details": [
+      {
+        "accepted": false,
+        "document_id": "synthetic-0001",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0002",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "absent": 1,
+            "unknown": 2
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0003",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0004",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0005",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0006",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0018",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "absent": 1,
+            "unknown": 2
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0022",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "absent": 1,
+            "unknown": 2
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0028",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": true,
+        "document_id": "synthetic-0034",
+        "flags": [
+          "trailing_delimiter_boundary"
+        ],
+        "votes": {
+          "mnpi": {
+            "absent": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0038",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0039",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0040",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0041",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0042",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0043",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0044",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0049",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": true,
+        "document_id": "synthetic-0052",
+        "flags": [
+          "unlabelled_birth_subentity"
+        ],
+        "votes": {
+          "mnpi": {
+            "present": 3
+          },
+          "pii": {
+            "present": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0053",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0058",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0059",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      },
+      {
+        "accepted": false,
+        "document_id": "synthetic-0060",
+        "flags": [
+          "unresolved_document_votes"
+        ],
+        "votes": {
+          "mnpi": {
+            "unknown": 3
+          },
+          "pii": {
+            "absent": 3
+          }
+        }
+      }
+    ],
+    "flagged_documents": {
+      "trailing_delimiter_boundary": 1,
+      "unlabelled_birth_subentity": 1,
+      "unresolved_document_votes": 21
+    },
+    "independent_ground_truth": false,
+    "interpretation": "QA candidates only; flags neither adjudicate correctness nor resolve unknown votes",
+    "paid_api_calls": 0,
+    "records_sha256": "86f62c24fb4ab40cb65e8ab43b58a3f7bba000a8620d80a981231b3387a43daa",
+    "reference_labels_changed": false,
+    "schema_version": "junas.reference_audit.v1",
+    "unresolved_mnpi_span_vote_elements": {
+      "potential_materiality:not_established": 70,
+      "potential_materiality:not_material": 1,
+      "potential_materiality:potentially_material": 28,
+      "public_status:claimed_public": 19,
+      "public_status:unknown": 80
+    }
+  },
+  "replays": {
+    "dev200": {
+      "dataset_sha256": "777028406ad24995de53ad2a615fc7f2f35a281adbb5b84d58aa2d86200824f1",
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.1,
+        "mnpi_positive_detection": 0.9,
+        "pii_exact_span_agreement": 0.8926553672316384,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 0.9001883239171374,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 0.99
+      },
+      "passed": true,
+      "presence_counts": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 100,
+          "tp": 90,
+          "unknown": 10
+        },
+        "pii": {
+          "fn": 1,
+          "fp": 0,
+          "tn": 100,
+          "tp": 99,
+          "unknown": 0
+        }
+      },
+      "spans": {
+        "exact": {
+          "gold": 531,
+          "matched": 474,
+          "predictions": 487,
+          "unmatched_predictions": 13
+        },
+        "overlap": {
+          "gold": 531,
+          "matched": 478,
+          "predictions": 487,
+          "unmatched_predictions": 9
+        }
+      }
+    },
+    "dev72": {
+      "dataset_sha256": "c9ee57df18a824309a0e3c81af7d7dde8822e3df6cd8ae6db695602fd35a2dcb",
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.0,
+        "mnpi_positive_detection": 1.0,
+        "pii_exact_span_agreement": 0.9457364341085271,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 0.9612403100775194,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 1.0
+      },
+      "passed": true,
+      "presence_counts": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 36,
+          "tp": 36,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 36,
+          "tp": 36,
+          "unknown": 0
+        }
+      },
+      "spans": {
+        "exact": {
+          "gold": 129,
+          "matched": 122,
+          "predictions": 126,
+          "unmatched_predictions": 4
+        },
+        "overlap": {
+          "gold": 129,
+          "matched": 124,
+          "predictions": 126,
+          "unmatched_predictions": 2
+        }
+      }
+    },
+    "latest40": {
+      "dataset_sha256": "a6508763f1fe3e6bee54112c1142fb328b82670ee958325d64339bb9fc617268",
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.0,
+        "mnpi_positive_detection": 1.0,
+        "pii_exact_span_agreement": 0.9875,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 1.0,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 1.0
+      },
+      "passed": true,
+      "presence_counts": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 20,
+          "tp": 20,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 20,
+          "tp": 20,
+          "unknown": 0
+        }
+      },
+      "spans": {
+        "exact": {
+          "gold": 80,
+          "matched": 79,
+          "predictions": 81,
+          "unmatched_predictions": 2
+        },
+        "overlap": {
+          "gold": 80,
+          "matched": 80,
+          "predictions": 81,
+          "unmatched_predictions": 1
+        }
+      }
+    },
+    "prior40": {
+      "dataset_sha256": "4ca32238ca1128dee62d3ac9a228ac96d84774f001b744ac653267e86928557c",
+      "measurements": {
+        "mnpi_negative_abstention_rate": 0.0,
+        "mnpi_negative_flag_rate": 0.0,
+        "mnpi_positive_abstention_rate": 0.0,
+        "mnpi_positive_detection": 1.0,
+        "pii_exact_span_agreement": 1.0,
+        "pii_negative_abstention_rate": 0.0,
+        "pii_negative_flag_rate": 0.0,
+        "pii_overlap_span_agreement": 1.0,
+        "pii_positive_abstention_rate": 0.0,
+        "pii_positive_detection": 1.0
+      },
+      "passed": true,
+      "presence_counts": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 20,
+          "tp": 20,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 20,
+          "tp": 20,
+          "unknown": 0
+        }
+      },
+      "spans": {
+        "exact": {
+          "gold": 71,
+          "matched": 71,
+          "predictions": 71,
+          "unmatched_predictions": 0
+        },
+        "overlap": {
+          "gold": 71,
+          "matched": 71,
+          "predictions": 71,
+          "unmatched_predictions": 0
+        }
+      }
+    }
+  },
+  "runtime_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce",
+  "schema_version": "junas.evaluation_closeout.v5",
+  "source_commit": "95e47a456737cf9a01cd8381f80ceb632ebc72e5",
+  "verification": {
+    "clean_before_and_after": true,
+    "clean_clone": "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout/clean",
+    "fixture_scrub_files": 6392,
+    "full_mypy_sources": 108,
+    "hosted_ci": "not triggered; local equivalents executed",
+    "installed_wheel": {
+      "cases": 4,
+      "cli_exit_code": 0,
+      "installed_package": "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout/wheel-env/lib/python3.12/site-packages/junas",
+      "network_connections_denied": true,
+      "passed": true,
+      "runtime_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce"
+    },
+    "lock_freshness": "no promoted fixture input changes",
+    "locked_corpus_documents": 1722,
+    "locked_corpus_gates": 9,
+    "locked_corpus_passed": true,
+    "optional_ner_and_live_advisory": "not exercised; defaults disabled",
+    "provenance_check_passed": true,
+    "python_3_11": {
+      "failed": 0,
+      "skipped": 0,
+      "subtests": 254,
+      "tests": 1850
+    },
+    "python_3_12": {
+      "failed": 0,
+      "skipped": 0,
+      "subtests": 254,
+      "tests": 1850
+    },
+    "quality": {
+      "ruff check": {
+        "exit": 0,
+        "files": 35,
+        "output": "All checks passed!\n"
+      },
+      "ruff format --check": {
+        "exit": 0,
+        "files": 35,
+        "output": "35 files already formatted\n"
+      }
+    },
+    "sdist_and_wheel_built": true
+  }
+}

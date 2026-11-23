@@ -1,0 +1,191 @@
+{
+  "by_entity_type": {
+    "CODE": {
+      "f2": 0.213497,
+      "false_negative": 1760,
+      "false_positive": 3496,
+      "precision": 0.14061,
+      "recall": 0.245283,
+      "true_positive": 572
+    },
+    "DATETIME": {
+      "f2": 0.276105,
+      "false_negative": 6810,
+      "false_positive": 1849,
+      "precision": 0.545477,
+      "recall": 0.245764,
+      "true_positive": 2219
+    },
+    "DEM": {
+      "f2": 0.219276,
+      "false_negative": 600,
+      "false_positive": 3724,
+      "precision": 0.084562,
+      "recall": 0.364407,
+      "true_positive": 344
+    },
+    "LOC": {
+      "f2": 0.116959,
+      "false_negative": 998,
+      "false_positive": 3860,
+      "precision": 0.051131,
+      "recall": 0.172471,
+      "true_positive": 208
+    },
+    "MISC": {
+      "f2": 0.093708,
+      "false_negative": 365,
+      "false_positive": 3956,
+      "precision": 0.027532,
+      "recall": 0.234801,
+      "true_positive": 112
+    },
+    "ORG": {
+      "f2": 0.226133,
+      "false_negative": 1188,
+      "false_positive": 3581,
+      "precision": 0.119715,
+      "recall": 0.290746,
+      "true_positive": 487
+    },
+    "PERSON": {
+      "f2": 0.473534,
+      "false_negative": 2087,
+      "false_positive": 2175,
+      "precision": 0.465339,
+      "recall": 0.475628,
+      "true_positive": 1893
+    },
+    "QUANTITY": {
+      "f2": 0.138889,
+      "false_negative": 447,
+      "false_positive": 3885,
+      "precision": 0.044985,
+      "recall": 0.290476,
+      "true_positive": 183
+    }
+  },
+  "by_identifier_type": {
+    "DIRECT": {
+      "f2": 0.612079,
+      "false_negative": 242,
+      "false_positive": 2860,
+      "precision": 0.296952,
+      "recall": 0.833103,
+      "true_positive": 1208
+    },
+    "QUASI": {
+      "f2": 0.200542,
+      "false_negative": 15640,
+      "false_positive": 885,
+      "precision": 0.782448,
+      "recall": 0.169102,
+      "true_positive": 3183
+    }
+  },
+  "classifier_runtime_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce",
+  "evaluation": {
+    "beta": 2,
+    "destination_jurisdiction": "EU",
+    "finding_categories": [
+      "PII"
+    ],
+    "match_mode": "overlap",
+    "multi_annotator_policy": "predictions are expanded per TAB annotator before span-level scoring",
+    "never_updates_promotion_lock": true,
+    "review_profile": "strict",
+    "separate_from_candidate_corpus": true,
+    "source_jurisdiction": "EU"
+  },
+  "legacy_metric_contract": "summary/subgroups retain historical greedy binary matching; subgroup precision includes out-of-subgroup predictions",
+  "occurrence_v1": {
+    "input_file_sha256": {
+      "dev": "8c3c7306f46b8d54debeb38ae11d8b0b8bcf4bdccbc3b6f13c12ad7be16893ec"
+    },
+    "limit": null,
+    "prediction_origin": "caller_supplied_engine; not fingerprinted",
+    "reason": "001-95183: analysis reported degraded modes; 001-83617: analysis reported degraded modes; 001-57508: analysis reported degraded modes; 001-86146: analysis reported degraded modes; 001-109046: analysis reported degraded modes; 001-67466: analysis reported degraded modes; 001-111540: analysis reported degraded modes; 001-60696: analysis reported degraded modes; 001-87407: analysis reported degraded modes; 001-88502: analysis reported degraded modes; 001-108409: analysis reported degraded modes; 001-93953: analysis reported degraded modes; 001-87515: analysis reported degraded modes; 001-87426: analysis reported degraded modes; 001-87405: analysis reported degraded modes; 001-91286: analysis reported degraded modes; 001-58039: analysis reported degraded modes; 001-169481: analysis reported degraded modes; 001-70364: analysis reported degraded modes; 001-60613: analysis reported degraded modes; 001-60499: analysis reported degraded modes; 001-82501: analysis reported degraded modes; 001-58284: analysis reported degraded modes; 001-95364: analysis reported degraded modes; 001-108462: analysis reported degraded modes; 001-81359: analysis reported degraded modes; 001-97149: analysis reported degraded modes",
+    "requested_splits": [
+      "dev"
+    ],
+    "schema_version": "junas.tab_occurrence.v1",
+    "status": "unavailable"
+  },
+  "prediction_rule_counts": {
+    "age_reference": 1,
+    "consent_withdrawal_marker": 2,
+    "date_of_birth": 8,
+    "medical_treatment": 1,
+    "named_person": 488,
+    "personal_attribute_inference": 18,
+    "phone_number": 3,
+    "postal_address": 644,
+    "quasi_identifier_combination": 11
+  },
+  "prediction_surface": "findings",
+  "reproducibility_v1": {
+    "classifier_sha256": "62849d0115fa6416041e21c44461929333cd570bcf5171c78957177ad4ac82ce",
+    "configuration_note": "Environment digests identify overrides without exposing values; retain original configuration/data artifacts separately.",
+    "dependency_lock_sha256": "28516490239eac6c5da8bfcb894aed969aa1203fe3a78008f0d7c6ab32c82099",
+    "detector_environment_value_sha256": {},
+    "evaluator_sha256": {
+      "candidate_review.py": "4bf849f7d25add089e4c90ee7e3cdb21d6d84d513342dd8d7d76c16d22358c7c",
+      "run_tab_eval.py": "5f268fd54b2632745d67273001049ecd5a54f040cb56e60ee52698c904f22932",
+      "span_metrics.py": "7cb716e2853af8aeab178d4fd9e690fb5cc575c6743171b62f20bc6638fdfa6d"
+    },
+    "package_versions": {
+      "Pillow": null,
+      "numpy": "2.4.6",
+      "pypdf": null,
+      "spacy": null
+    },
+    "python": "3.12.16"
+  },
+  "schema_version": "junas.tab_eval.v2",
+  "scope": "external masking-label agreement; no approved entity-type crosswalk; no MNPI accuracy or calibrated confidence; not a new protected holdout",
+  "singling_out_validation": {
+    "external_gold_source": "TAB QUASI annotations and entity_id co-reference groups",
+    "gold_quasi_coreference_groups": 1380,
+    "gold_quasi_coreference_spans": 3889,
+    "gold_quasi_docs": 127,
+    "gold_quasi_spans": 18823,
+    "quasi_identifier_combination_docs": 9,
+    "quasi_identifier_combination_overlap_score": {
+      "f2": 0.002589,
+      "false_negative": 18784,
+      "false_positive": 0,
+      "precision": 1.0,
+      "recall": 0.002072,
+      "true_positive": 39
+    },
+    "quasi_identifier_combination_predictions": 11,
+    "validation_note": "Uses external TAB quasi-identifier/coreference annotations; no Junas-authored singling-out labels are used."
+  },
+  "source": {
+    "document_count": 127,
+    "fixture_commit": "558e09e26d6b36f5f78440074e6a233946d98bd9",
+    "fixture_path": "/home/gongahkia/.local/share/junas/research/2026-11-23-evaluation-closeout/external/tab",
+    "gold_label_source": "TAB annotations only; no Junas-authored labels",
+    "masked_identifier_types": [
+      "DIRECT",
+      "QUASI"
+    ],
+    "name": "Text Anonymization Benchmark",
+    "repo": "https://github.com/NorskRegnesentral/text-anonymization-benchmark",
+    "splits": [
+      "dev"
+    ]
+  },
+  "summary": {
+    "documents": 127,
+    "f2": 0.226339,
+    "false_negative": 16418,
+    "false_positive": 213,
+    "gold_spans": 20273,
+    "precision": 0.94764,
+    "predicted_spans": 1176,
+    "recall": 0.190154,
+    "true_positive": 3855
+  },
+  "warnings": []
+}

@@ -5,6 +5,9 @@ Start with `uv run python scripts/evaluate_accuracy.py`. It writes a source/corp
 - `recall_gate.py`: per-rule regression checks.
 - `evaluate_candidate_corpus.py`: detailed matched, missed, unexpected and ideal-label results.
 - `run_tab_eval.py`, `run_ai4privacy_eval.py`, `run_singling_out_pack_eval.py`: external breadth checks.
+- `measure_external_surfaces.py`: separate legacy/contextual PII measurements on TAB dev and ai4privacy; never merges their scores.
+- `audit_model_references.py`: read-only QA of consumed model references; flags do not adjudicate labels.
+- `fresh_holdout.py`: offline freeze and separately authorized capped generation/one-shot validation.
 - `fetch_tab_fixture.sh`, `fetch_ai4privacy_fixture.py`: explicit external dataset acquisition.
 - `run_layer_attribution_eval.py`, `bucket_candidate_misses.py`, `miss_concentration.py`: gap analysis.
 - `candidate_review.py`, `review_candidate_fixture.py`, `check_candidate_stage_gate.py`, `promote_candidate_fixtures.py`: label review and promotion.
