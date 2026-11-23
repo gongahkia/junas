@@ -1,5 +1,7 @@
 # Evaluation closeout v5
 
+This is the pre-run closeout. The subsequent approved USD4-capped run is recorded separately in [fresh holdout results](fresh-holdout-v5-results.md).
+
 23 November 2026. Items 6 and 8 are completed locally; item 7 is frozen and prepared, awaiting the separately required spending approval. This task made **zero paid API calls**. [Machine-readable evidence](../reports/current/evaluation_closeout_v5.json) and the [next holdout proposal](fresh-holdout-v5-plan.md) preserve the distinction between implementation verification, development agreement and unseen validation.
 
 ## Remaining local disagreements

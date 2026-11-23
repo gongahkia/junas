@@ -1,4 +1,6 @@
-# Fresh v5 holdout — prepared, awaiting paid-run approval
+# Fresh v5 holdout — original proposal
+
+Subsequent execution was approved and completed on 23 November; see the [results](fresh-holdout-v5-results.md). The original offline proposal below and its JSON remain the planning record.
 
 Prepared offline on 23 November 2026. No sources have been generated, no authorization file exists and no paid inference was made by this task. Earlier spending allowances are closed. See the [complete proposal](../reports/current/fresh_holdout_v5_plan.json).
 
