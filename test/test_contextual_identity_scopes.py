@@ -61,3 +61,39 @@ def test_product_identifier_scope_is_explicit_and_does_not_bleed_into_worker_ide
     assert any(s["label"] == "GOVERNMENT_ID" for s in review(personal).sensitivity["pii"]["evidence"])
     corporate = "Client name: Elin Vale\nCorporate Cedar Bank account, no. 914-258-6321"
     assert not any(s["label"] == "BANK_ACCOUNT" for s in review(corporate).sensitivity["pii"]["evidence"])
+
+
+@pytest.mark.parametrize("month", ["April 1991", "Apr 1991", "December 1984"])
+def test_birth_month_and_linked_work_locality_attributes_preserve_minimal_spans(month):
+    detail = f"born in {month}, resident in postal district 12 and assigned to the evening payroll desk"
+    text = f"Client name: Elin Vale. Her personnel record says {detail}."
+    items = review(text).sensitivity["pii"]["evidence"]
+    assert any(s["label"] == "DATE_OF_BIRTH" and s["matched_text"] == month for s in items)
+    assert any(s["label"] == "QUASI_IDENTIFIER_COMBINATION" and s["matched_text"] == detail for s in items)
+    assert all(text[s["start_char"] : s["end_char"]] == s["matched_text"] for s in items)
+
+
+def test_redacted_person_can_still_be_singled_out_by_age_locality_and_unique_job():
+    detail = (
+        "42-year-old resident of Alder Court who joined in April 2019 "
+        "and is the issuer’s only overnight payroll supervisor"
+    )
+    items = review(f"The redacted employee record describes a {detail}.").sensitivity["pii"]["evidence"]
+    assert any(s["label"] == "QUASI_IDENTIFIER_COMBINATION" and s["matched_text"] == detail for s in items)
+
+
+@pytest.mark.parametrize("separator", ["\n\n", "\r\n\r\n", "\n \n"])
+def test_generic_prose_attribute_template_cannot_borrow_a_person_from_another_paragraph(separator):
+    detail = "born in April 1991, resident in postal district 12 and assigned to the evening payroll desk"
+    text = f"Client name: Elin Vale.{separator}Template example: {detail}."
+    assert not any(s["label"] == "QUASI_IDENTIFIER_COMBINATION" for s in review(text).sensitivity["pii"]["evidence"])
+
+
+def test_multi_part_email_can_link_to_a_distant_name_within_the_same_paragraph_only():
+    opening = "Eira Vale-Sol (staff ref. ES-712) confirmed receipt. "
+    text = opening + "The attendance confirmation remains filed for reconciliation. " * 5
+    text += "The confirmation was sent to eira.vale-sol@example.test."
+    items = review(text).sensitivity["pii"]["evidence"]
+    assert any(s["label"] == "EMAIL" and s["matched_text"] == "eira.vale-sol@example.test" for s in items)
+    isolated = opening + "\n\nUnknown address: eira.vale-sol@example.test"
+    assert not any(s["label"] == "EMAIL" for s in review(isolated).sensitivity["pii"]["evidence"])

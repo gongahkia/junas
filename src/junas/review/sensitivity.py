@@ -6,7 +6,13 @@ import re
 from datetime import datetime
 from typing import Any
 
-from junas.review.contextual_identifiers import identifier_fields, nonpersonal, personal_link
+from junas.review.contextual_identifiers import (
+    MONTH_NAME,
+    identifier_fields,
+    nonpersonal,
+    personal_email_link,
+    personal_link,
+)
 from junas.review.contextual_mnpi import contextual_mnpi
 from junas.review.contextual_people import person_names
 
@@ -56,13 +62,17 @@ RECORD_CONTEXT = re.compile(
     r"(?P<value>[A-Z0-9]+(?:[-/][A-Z0-9]+)*)\b"
 )
 DOB_CONTEXT = re.compile(
-    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|:|=)?[ \t]+\(?)"
-    r"(?P<value>\d{1,2}[ /-](?:[A-Za-z]+|\d{1,2})[ /-]\d{4}|\d{4}-\d{2}-\d{2})\b"
+    r"(?i:\b(?:date of birth|DOB|born)(?:[ \t]*\([^\n)]{0,50}\))?\s*(?:as|is|in|on|:|=)?[ \t]+\(?)"
+    rf"(?P<value>\d{{1,2}}[ /-](?:[A-Za-z]+|\d{{1,2}})[ /-]\d{{4}}|\d{{4}}-\d{{2}}-\d{{2}}|"
+    rf"(?i:{MONTH_NAME})\s+\d{{4}})\b"
 )
 
 
 def valid_birth_date(value: str) -> bool:
-    return any(_date_matches(value, fmt) for fmt in ("%d %B %Y", "%d %b %Y", "%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d"))
+    return any(
+        _date_matches(value, fmt)
+        for fmt in ("%d %B %Y", "%d %b %Y", "%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%d", "%B %Y", "%b %Y")
+    )
 
 
 def _date_matches(value: str, fmt: str) -> bool:
@@ -168,6 +178,7 @@ def contextual_pii(text: str, findings: list[Any]) -> tuple[list[dict], list[dic
             elif not (
                 re.fullmatch(r"[^\W\d_]+[._-][^\W\d_.-]+", local)
                 or personal_link(text, finding.start_char, finding.end_char, people)
+                or personal_email_link(text, finding.start_char, finding.end_char, people)
             ):
                 reason = "person association not established"
         elif item["label"] in {"PHONE", "POSTAL_ADDRESS", "BANK_ACCOUNT"}:

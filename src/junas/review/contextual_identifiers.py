@@ -57,12 +57,34 @@ QUASI_FIELDS = (
     re.compile(r"\b(?:postcode|postal code)\s*:\s*[A-Z0-9 -]{3,10}\b", re.I),
     re.compile(r"\b(?:occupation|job title)\s*:\s*[^;\n.]{2,50}", re.I),
 )
+MONTH_NAME = (
+    r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|"
+    r"Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+)
+PROSE_QUASI = re.compile(
+    rf"\b(?:\d{{1,3}}[- ]year[- ]old\s+resident\s+(?:of|in)\s+[^.\n;]{{2,60}}?"
+    rf"\s+who\s+joined\s+in\s+{MONTH_NAME}\s+\d{{4}}\s+and\s+is\s+"
+    r"(?:the\s+)?issuer[’']s\s+only\s+[^.\n;]{3,100}|"
+    rf"born\s+in\s+{MONTH_NAME}\s+\d{{4}},?\s+resident\s+in\s+postal\s+"
+    r"(?:sector|district)\s+\d{1,2},?\s+and\s+(?:formerly\s+)?"
+    r"(?:(?:the\s+)?issuer[’']s\s+only\s+|assigned\s+to\s+)[^.\n;]{3,100})",
+    re.I,
+)
 
 
 def local_bounds(text: str, start: int, end: int, distance: int = 180) -> tuple[int, int]:
     a = max(text.rfind("\n", max(0, start - distance), start) + 1, start - distance, 0)
     b = text.find("\n", end, end + distance)
     return a, min(b if b >= 0 else len(text), end + distance)
+
+
+def paragraph_bounds(text: str, start: int, end: int, distance: int = 1200) -> tuple[int, int]:
+    lower, upper = max(0, start - distance), min(len(text), end + distance)
+    left = lower
+    for match in re.finditer(r"\r?\n[ \t]*\r?\n", text[lower:start]):
+        left = lower + match.end()
+    following = re.search(r"\r?\n[ \t]*\r?\n", text[end:upper])
+    return left, end + following.start() if following else upper
 
 
 def nonpersonal(text: str, start: int, end: int, label: str) -> bool:
@@ -125,10 +147,25 @@ def personal_link(text: str, start: int, end: int, people: list[dict]) -> bool:
     )
     # a personal pronoun needs an anchored person elsewhere in the paragraph.
     if field or PRONOUN.search(value):
-        left = max(0, start - 1200, text.rfind("\n\n", max(0, start - 1200), start) + 2)
-        right = text.find("\n\n", end, end + 1200)
+        left, right = paragraph_bounds(text, start, end)
         index = bisect_left(people, left, key=lambda s: s["start_char"])
-        return index < len(people) and people[index]["start_char"] < (right if right >= 0 else end + 1200)
+        return index < len(people) and people[index]["start_char"] < right
+    return False
+
+
+def personal_email_link(text: str, start: int, end: int, people: list[dict]) -> bool:
+    """Link multi-part mailboxes to an anchored name in the same bounded paragraph."""
+    local = text[start:end].split("@", 1)[0]
+    parts = re.findall(r"[^\W\d_]+", local.casefold())
+    if not 2 <= len(parts) <= 5 or re.search(r"\d", local):
+        return False
+    left, limit = paragraph_bounds(text, start, end)
+    index = bisect_left(people, left, key=lambda s: s["start_char"])
+    stop = bisect_left(people, limit, key=lambda s: s["start_char"])
+    for position in range(index, stop):
+        person = people[position]
+        if parts == re.findall(r"[^\W\d_]+", person["matched_text"].casefold()):
+            return True
     return False
 
 
@@ -146,6 +183,23 @@ def _span(text: str, start: int, end: int, label: str, reason: str) -> dict:
 def quasi_identifiers(text: str, people: list[dict]) -> list[dict]:
     spans = []
     individual = bool(re.search(r"\b(?:individual|private)[- ]client\b|\bclient capacity\s*:", text, re.I))
+    for match in PROSE_QUASI.finditer(text):
+        left, right = paragraph_bounds(text, match.start(), match.end())
+        index = bisect_left(people, left, key=lambda s: s["start_char"])
+        anchored = index < len(people) and people[index]["start_char"] < right
+        if anchored or re.search(r"\bissuer[’']s\s+only\b", match.group(), re.I):
+            end = match.end()
+            while end > match.start() and text[end - 1].isspace():
+                end -= 1
+            spans.append(
+                _span(
+                    text,
+                    match.start(),
+                    end,
+                    "QUASI_IDENTIFIER_COMBINATION",
+                    "linked age/birth, locality and employment attributes; identifying potential is unverified",
+                )
+            )
     for block in re.finditer(r"[^\n]+", text):
         value = block.group()
         fields = [p.search(value) for p in QUASI_FIELDS]
