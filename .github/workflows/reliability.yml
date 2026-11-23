@@ -27,6 +27,8 @@ jobs:
           uv run --frozen pytest -q test/test_sensitivity.py test/test_model_corpus.py
           test/test_corpus_partitions.py test/test_corpus_diagnostics.py
           test/test_corpus_recovery.py test/test_reliability_gates.py
+          test/test_contextual_mnpi_scopes.py test/test_contextual_event_families.py
+          test/test_contextual_mnpi_financial_events.py
       - name: All quadrants and entity types
         run: uv run --frozen python scripts/check_reliability.py --output reliability.json
       - uses: actions/upload-artifact@v4
