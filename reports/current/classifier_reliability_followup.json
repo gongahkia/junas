@@ -1,0 +1,1376 @@
+{
+  "additional_cost_usd": "0",
+  "calibrated_confidence": null,
+  "classifier_version": "junas.sensitivity.v3",
+  "datasets": {
+    "200": {
+      "after": {
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 40,
+              "unknown": 10
+            },
+            "pii": {
+              "fn": 1,
+              "fp": 0,
+              "tn": 0,
+              "tp": 49,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 50,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 50,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 50,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 100,
+            "tp": 90,
+            "unknown": 10
+          },
+          "pii": {
+            "fn": 1,
+            "fp": 0,
+            "tn": 100,
+            "tp": 99,
+            "unknown": 0
+          }
+        },
+        "dataset_sha256": "777028406ad24995de53ad2a615fc7f2f35a281adbb5b84d58aa2d86200824f1",
+        "entities": {
+          "BANK_ACCOUNT": {
+            "exact": {
+              "gold": 0,
+              "labeled_span_recall": null,
+              "matched": 0
+            },
+            "overlap": {
+              "gold": 0,
+              "labeled_span_recall": null,
+              "matched": 0
+            }
+          },
+          "DATE_OF_BIRTH": {
+            "exact": {
+              "gold": 17,
+              "labeled_span_recall": 1.0,
+              "matched": 17
+            },
+            "overlap": {
+              "gold": 17,
+              "labeled_span_recall": 1.0,
+              "matched": 17
+            }
+          },
+          "EMAIL": {
+            "exact": {
+              "gold": 155,
+              "labeled_span_recall": 0.9935483870967742,
+              "matched": 154
+            },
+            "overlap": {
+              "gold": 155,
+              "labeled_span_recall": 0.9935483870967742,
+              "matched": 154
+            }
+          },
+          "GOVERNMENT_ID": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "PERSONAL_RECORD_ID": {
+            "exact": {
+              "gold": 120,
+              "labeled_span_recall": 0.8666666666666667,
+              "matched": 104
+            },
+            "overlap": {
+              "gold": 120,
+              "labeled_span_recall": 0.8833333333333333,
+              "matched": 106
+            }
+          },
+          "PERSON_NAME": {
+            "exact": {
+              "gold": 220,
+              "labeled_span_recall": 0.8363636363636363,
+              "matched": 184
+            },
+            "overlap": {
+              "gold": 220,
+              "labeled_span_recall": 0.8454545454545455,
+              "matched": 186
+            }
+          },
+          "PHONE": {
+            "exact": {
+              "gold": 2,
+              "labeled_span_recall": 1.0,
+              "matched": 2
+            },
+            "overlap": {
+              "gold": 2,
+              "labeled_span_recall": 1.0,
+              "matched": 2
+            }
+          },
+          "POSTAL_ADDRESS": {
+            "exact": {
+              "gold": 13,
+              "labeled_span_recall": 0.6923076923076923,
+              "matched": 9
+            },
+            "overlap": {
+              "gold": 13,
+              "labeled_span_recall": 0.6923076923076923,
+              "matched": 9
+            }
+          },
+          "QUASI_IDENTIFIER_COMBINATION": {
+            "exact": {
+              "gold": 1,
+              "labeled_span_recall": 0.0,
+              "matched": 0
+            },
+            "overlap": {
+              "gold": 1,
+              "labeled_span_recall": 0.0,
+              "matched": 0
+            }
+          }
+        },
+        "measurements": {
+          "mnpi_negative_abstention_rate": 0.0,
+          "mnpi_negative_flag_rate": 0.0,
+          "mnpi_positive_abstention_rate": 0.1,
+          "mnpi_positive_detection": 0.9,
+          "pii_exact_span_agreement": 0.8907721280602636,
+          "pii_negative_abstention_rate": 0.0,
+          "pii_negative_flag_rate": 0.0,
+          "pii_overlap_span_agreement": 0.8983050847457628,
+          "pii_positive_abstention_rate": 0.0,
+          "pii_positive_detection": 0.99
+        },
+        "passed": true,
+        "pii": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 58,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 11,
+            "gold": 531,
+            "labeled_span_recall": 0.8907721280602636,
+            "matched": 473,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 485,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 1,
+            "unmatched_predictions": 12
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 54,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 7,
+            "gold": 531,
+            "labeled_span_recall": 0.8983050847457628,
+            "matched": 477,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 485,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 1,
+            "unmatched_predictions": 8
+          }
+        },
+        "targets": {
+          "mnpi_negative_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.25
+          },
+          "mnpi_negative_flag_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.05
+          },
+          "mnpi_positive_abstention_rate_max": {
+            "observed": 0.1,
+            "passed": true,
+            "target": 0.2
+          },
+          "mnpi_positive_detection_min": {
+            "observed": 0.9,
+            "passed": true,
+            "target": 0.8
+          },
+          "pii_exact_span_agreement_min": {
+            "observed": 0.8907721280602636,
+            "passed": true,
+            "target": 0.8
+          },
+          "pii_negative_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.25
+          },
+          "pii_negative_flag_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.1
+          },
+          "pii_overlap_span_agreement_min": {
+            "observed": 0.8983050847457628,
+            "passed": true,
+            "target": 0.85
+          },
+          "pii_positive_detection_min": {
+            "observed": 0.99,
+            "passed": true,
+            "target": 0.9
+          }
+        }
+      },
+      "documents": 200,
+      "provenance": "earlier synthetic development"
+    },
+    "40": {
+      "after": {
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 10,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 10,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 20,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 20,
+            "tp": 20,
+            "unknown": 0
+          }
+        },
+        "dataset_sha256": "4ca32238ca1128dee62d3ac9a228ac96d84774f001b744ac653267e86928557c",
+        "entities": {
+          "BANK_ACCOUNT": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "DATE_OF_BIRTH": {
+            "exact": {
+              "gold": 4,
+              "labeled_span_recall": 1.0,
+              "matched": 4
+            },
+            "overlap": {
+              "gold": 4,
+              "labeled_span_recall": 1.0,
+              "matched": 4
+            }
+          },
+          "EMAIL": {
+            "exact": {
+              "gold": 20,
+              "labeled_span_recall": 1.0,
+              "matched": 20
+            },
+            "overlap": {
+              "gold": 20,
+              "labeled_span_recall": 1.0,
+              "matched": 20
+            }
+          },
+          "GOVERNMENT_ID": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "PERSONAL_RECORD_ID": {
+            "exact": {
+              "gold": 10,
+              "labeled_span_recall": 1.0,
+              "matched": 10
+            },
+            "overlap": {
+              "gold": 10,
+              "labeled_span_recall": 1.0,
+              "matched": 10
+            }
+          },
+          "PERSON_NAME": {
+            "exact": {
+              "gold": 22,
+              "labeled_span_recall": 1.0,
+              "matched": 22
+            },
+            "overlap": {
+              "gold": 22,
+              "labeled_span_recall": 1.0,
+              "matched": 22
+            }
+          },
+          "PHONE": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "POSTAL_ADDRESS": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "QUASI_IDENTIFIER_COMBINATION": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          }
+        },
+        "measurements": {
+          "mnpi_negative_abstention_rate": 0.0,
+          "mnpi_negative_flag_rate": 0.0,
+          "mnpi_positive_abstention_rate": 0.0,
+          "mnpi_positive_detection": 1.0,
+          "pii_exact_span_agreement": 1.0,
+          "pii_negative_abstention_rate": 0.0,
+          "pii_negative_flag_rate": 0.0,
+          "pii_overlap_span_agreement": 1.0,
+          "pii_positive_abstention_rate": 0.0,
+          "pii_positive_detection": 1.0
+        },
+        "passed": true,
+        "pii": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 0,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 71,
+            "labeled_span_recall": 1.0,
+            "matched": 71,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 71,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 0,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 0,
+            "gold": 71,
+            "labeled_span_recall": 1.0,
+            "matched": 71,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 71,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 0
+          }
+        },
+        "targets": {
+          "mnpi_negative_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.25
+          },
+          "mnpi_negative_flag_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.05
+          },
+          "mnpi_positive_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.2
+          },
+          "mnpi_positive_detection_min": {
+            "observed": 1.0,
+            "passed": true,
+            "target": 0.8
+          },
+          "pii_exact_span_agreement_min": {
+            "observed": 1.0,
+            "passed": true,
+            "target": 0.8
+          },
+          "pii_negative_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.25
+          },
+          "pii_negative_flag_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.1
+          },
+          "pii_overlap_span_agreement_min": {
+            "observed": 1.0,
+            "passed": true,
+            "target": 0.85
+          },
+          "pii_positive_detection_min": {
+            "observed": 1.0,
+            "passed": true,
+            "target": 0.9
+          }
+        }
+      },
+      "documents": 40,
+      "provenance": "retired consumed holdout; now development only"
+    },
+    "72": {
+      "after": {
+        "by_quadrant": {
+          "both": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            }
+          },
+          "mnpi_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "neither": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            }
+          },
+          "pii_only": {
+            "mnpi": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 18,
+              "tp": 0,
+              "unknown": 0
+            },
+            "pii": {
+              "fn": 0,
+              "fp": 0,
+              "tn": 0,
+              "tp": 18,
+              "unknown": 0
+            }
+          }
+        },
+        "counts": {
+          "mnpi": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 36,
+            "tp": 36,
+            "unknown": 0
+          },
+          "pii": {
+            "fn": 0,
+            "fp": 0,
+            "tn": 36,
+            "tp": 36,
+            "unknown": 0
+          }
+        },
+        "dataset_sha256": "c9ee57df18a824309a0e3c81af7d7dde8822e3df6cd8ae6db695602fd35a2dcb",
+        "entities": {
+          "BANK_ACCOUNT": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "DATE_OF_BIRTH": {
+            "exact": {
+              "gold": 6,
+              "labeled_span_recall": 1.0,
+              "matched": 6
+            },
+            "overlap": {
+              "gold": 6,
+              "labeled_span_recall": 1.0,
+              "matched": 6
+            }
+          },
+          "EMAIL": {
+            "exact": {
+              "gold": 27,
+              "labeled_span_recall": 1.0,
+              "matched": 27
+            },
+            "overlap": {
+              "gold": 27,
+              "labeled_span_recall": 1.0,
+              "matched": 27
+            }
+          },
+          "GOVERNMENT_ID": {
+            "exact": {
+              "gold": 4,
+              "labeled_span_recall": 1.0,
+              "matched": 4
+            },
+            "overlap": {
+              "gold": 4,
+              "labeled_span_recall": 1.0,
+              "matched": 4
+            }
+          },
+          "PERSONAL_RECORD_ID": {
+            "exact": {
+              "gold": 29,
+              "labeled_span_recall": 0.9655172413793104,
+              "matched": 28
+            },
+            "overlap": {
+              "gold": 29,
+              "labeled_span_recall": 0.9655172413793104,
+              "matched": 28
+            }
+          },
+          "PERSON_NAME": {
+            "exact": {
+              "gold": 43,
+              "labeled_span_recall": 0.9302325581395349,
+              "matched": 40
+            },
+            "overlap": {
+              "gold": 43,
+              "labeled_span_recall": 0.9302325581395349,
+              "matched": 40
+            }
+          },
+          "PHONE": {
+            "exact": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            },
+            "overlap": {
+              "gold": 3,
+              "labeled_span_recall": 1.0,
+              "matched": 3
+            }
+          },
+          "POSTAL_ADDRESS": {
+            "exact": {
+              "gold": 7,
+              "labeled_span_recall": 1.0,
+              "matched": 7
+            },
+            "overlap": {
+              "gold": 7,
+              "labeled_span_recall": 1.0,
+              "matched": 7
+            }
+          },
+          "QUASI_IDENTIFIER_COMBINATION": {
+            "exact": {
+              "gold": 7,
+              "labeled_span_recall": 0.5714285714285714,
+              "matched": 4
+            },
+            "overlap": {
+              "gold": 7,
+              "labeled_span_recall": 0.8571428571428571,
+              "matched": 6
+            }
+          }
+        },
+        "measurements": {
+          "mnpi_negative_abstention_rate": 0.0,
+          "mnpi_negative_flag_rate": 0.0,
+          "mnpi_positive_abstention_rate": 0.0,
+          "mnpi_positive_detection": 1.0,
+          "pii_exact_span_agreement": 0.9457364341085271,
+          "pii_negative_abstention_rate": 0.0,
+          "pii_negative_flag_rate": 0.0,
+          "pii_overlap_span_agreement": 0.9612403100775194,
+          "pii_positive_abstention_rate": 0.0,
+          "pii_positive_detection": 1.0
+        },
+        "passed": true,
+        "pii": {
+          "exact": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 7,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 4,
+            "gold": 129,
+            "labeled_span_recall": 0.9457364341085271,
+            "matched": 122,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 126,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 4
+          },
+          "overlap": {
+            "f2_if_exhaustive": null,
+            "false_negatives": 5,
+            "false_positives": null,
+            "false_positives_on_exhaustive_units": 2,
+            "gold": 129,
+            "labeled_span_recall": 0.9612403100775194,
+            "matched": 124,
+            "precision_if_exhaustive": null,
+            "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+            "predictions": 126,
+            "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+            "unjudged_predictions": 0,
+            "unmatched_predictions": 2
+          }
+        },
+        "targets": {
+          "mnpi_negative_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.25
+          },
+          "mnpi_negative_flag_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.05
+          },
+          "mnpi_positive_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.2
+          },
+          "mnpi_positive_detection_min": {
+            "observed": 1.0,
+            "passed": true,
+            "target": 0.8
+          },
+          "pii_exact_span_agreement_min": {
+            "observed": 0.9457364341085271,
+            "passed": true,
+            "target": 0.8
+          },
+          "pii_negative_abstention_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.25
+          },
+          "pii_negative_flag_rate_max": {
+            "observed": 0.0,
+            "passed": true,
+            "target": 0.1
+          },
+          "pii_overlap_span_agreement_min": {
+            "observed": 0.9612403100775194,
+            "passed": true,
+            "target": 0.85
+          },
+          "pii_positive_detection_min": {
+            "observed": 1.0,
+            "passed": true,
+            "target": 0.9
+          }
+        }
+      },
+      "documents": 72,
+      "provenance": "earlier synthetic development"
+    }
+  },
+  "date": "2026-11-23",
+  "implementation_head": "f5d5c7a3a663a30619fa9c1739fe017f62258a2c",
+  "independently_validated_accuracy": null,
+  "limitations": [
+    "Latest retired40 result is tuned development; fresh unseen transfer unverified.",
+    "200-document development set retains 58 exact unmatched reference spans, one missed PII-positive document and ten positive MNPI abstentions.",
+    "72-document development set retains seven exact unmatched reference spans.",
+    "Unknown reference coverage prevents pooled PII precision/F2; no absence or legal/public-status verification.",
+    "Three judge passes use the same model; agreement is not independent accuracy.",
+    "Full-project mypy and external corpus acquisition not run.",
+    "Verification applies to workspace including pre-existing uncommitted changes."
+  ],
+  "next_holdout_cost_proposal": {
+    "accounting_rates_per_million_usd": {
+      "gpt-6.1-terra": {
+        "input": "2.25",
+        "output": "5"
+      },
+      "gpt-6.2-sol": {
+        "input": "4.5",
+        "output": "10"
+      }
+    },
+    "buffered_estimate_usd": "3.4224028125",
+    "cap_approved": false,
+    "completion_guaranteed": false,
+    "consensus": "two_of_three",
+    "cumulative_budget_scenario": {
+      "additional_planning_ceiling_sgd": "7.20",
+      "additional_proposed_cap_usd": "4",
+      "combined_planning_ceiling_sgd": "36",
+      "credit_balance_verified": false,
+      "current_fx_quote": false,
+      "extra_charge_multiplier": "1.2",
+      "planning_sgd_per_usd": "1.5",
+      "prior_accounted_reserved_usd": "15.43956250",
+      "prior_rounded_reserve_usd": "16",
+      "provider_invoice_verified": false
+    },
+    "empirical_last_run_accounted_usd": "2.73792225",
+    "entity_targets_each": 3,
+    "fresh_documents": 40,
+    "generator": {
+      "model": "gpt-6.2-sol",
+      "reasoning_effort": "high"
+    },
+    "judge_mode": "same_model_repeats; separate passes, correlated model errors possible",
+    "judges": [
+      {
+        "model": "gpt-6.1-terra",
+        "reasoning_effort": "high"
+      },
+      {
+        "model": "gpt-6.1-terra",
+        "reasoning_effort": "high"
+      },
+      {
+        "model": "gpt-6.1-terra",
+        "reasoning_effort": "high"
+      }
+    ],
+    "paid_run_started": false,
+    "planning_buffer_multiplier": "1.25",
+    "pricing_checked_on": "2026-11-23",
+    "pricing_sources": [
+      "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "https://developers.openai.com/api/docs/models/gpt-6.1-terra"
+    ],
+    "proposed_cap_usd": "4",
+    "quadrant_targets": {
+      "both": 10,
+      "mnpi_only": 10,
+      "neither": 10,
+      "pii_only": 10
+    },
+    "requirements_before_generation": [
+      "new scenario families reserved",
+      "exclude every prior candidate and authored regression",
+      "freeze v3 source and baseline before generation",
+      "bind approved budget and cumulative reserves to new artifacts"
+    ],
+    "rounded_estimate_usd": "3.45",
+    "standard_rates_per_million_usd": {
+      "gpt-6.1-terra": {
+        "cache_write_30m": "1.25",
+        "input": "1",
+        "output": "5"
+      },
+      "gpt-6.2-sol": {
+        "cache_write_30m": "2.5",
+        "input": "2",
+        "output": "10"
+      }
+    },
+    "status": "cost_proposal_only_not_authorized_not_prepared"
+  },
+  "old_usd10_consumed_holdout_used": false,
+  "original_fresh_validation_preserved": true,
+  "paid_api_calls": 0,
+  "preservation": {
+    "initial_files_checked": 6766,
+    "new_holdout_started": false,
+    "original_uncommitted_patch_unchanged": true,
+    "paid_api_calls_this_task": 0,
+    "paid_archives": {
+      "2026-11-22-coverage-holdout-usd10": {
+        "changed_files": [],
+        "files_verified": 971
+      },
+      "2026-11-22-fresh-holdout-v2": {
+        "changed_files": [],
+        "files_verified": 851
+      },
+      "2026-11-22-usd25-run": {
+        "changed_files": [],
+        "files_verified": 1079
+      }
+    },
+    "readme_unchanged": true,
+    "unexpected_changes": []
+  },
+  "private_evidence_directory": "/home/gongahkia/.local/share/junas/research/2026-11-23-classifier-reliability-followup",
+  "reference": "tuned development model-reference agreement; retired holdout replay is not unseen validation",
+  "reference_labels_changed": false,
+  "reproducibility": {
+    "classifier_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f",
+    "configuration_note": "Environment digests identify overrides without exposing values; retain original configuration/data artifacts separately.",
+    "dependency_lock_sha256": "28516490239eac6c5da8bfcb894aed969aa1203fe3a78008f0d7c6ab32c82099",
+    "detector_environment_value_sha256": {},
+    "evaluator_sha256": {
+      "candidate_review.py": "4bf849f7d25add089e4c90ee7e3cdb21d6d84d513342dd8d7d76c16d22358c7c",
+      "evaluate_sensitivity.py": "838b981ffb91e568bf201a2a652e1784f59713b788426303641fbd02793ebdc6",
+      "span_metrics.py": "f44805620320b903633ea714ea3e98092237241626d00acde318ea7e4745339d"
+    },
+    "package_versions": {
+      "Pillow": null,
+      "numpy": "2.4.6",
+      "pypdf": null,
+      "spacy": null
+    },
+    "python": "3.12.16"
+  },
+  "retired_40_before": {
+    "by_quadrant": {
+      "both": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 7,
+          "unknown": 3
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 9,
+          "unknown": 1
+        }
+      },
+      "mnpi_only": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 7,
+          "unknown": 3
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 1,
+          "tn": 6,
+          "tp": 0,
+          "unknown": 3
+        }
+      },
+      "neither": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 10,
+          "tp": 0,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 4,
+          "tn": 2,
+          "tp": 0,
+          "unknown": 4
+        }
+      },
+      "pii_only": {
+        "mnpi": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 10,
+          "tp": 0,
+          "unknown": 0
+        },
+        "pii": {
+          "fn": 0,
+          "fp": 0,
+          "tn": 0,
+          "tp": 10,
+          "unknown": 0
+        }
+      }
+    },
+    "counts": {
+      "mnpi": {
+        "fn": 0,
+        "fp": 0,
+        "tn": 20,
+        "tp": 14,
+        "unknown": 6
+      },
+      "pii": {
+        "fn": 0,
+        "fp": 5,
+        "tn": 8,
+        "tp": 19,
+        "unknown": 8
+      }
+    },
+    "dataset_sha256": "4ca32238ca1128dee62d3ac9a228ac96d84774f001b744ac653267e86928557c",
+    "entities": {
+      "BANK_ACCOUNT": {
+        "exact": {
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2
+        },
+        "overlap": {
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2
+        }
+      },
+      "DATE_OF_BIRTH": {
+        "exact": {
+          "gold": 4,
+          "labeled_span_recall": 0.5,
+          "matched": 2
+        },
+        "overlap": {
+          "gold": 4,
+          "labeled_span_recall": 0.5,
+          "matched": 2
+        }
+      },
+      "EMAIL": {
+        "exact": {
+          "gold": 20,
+          "labeled_span_recall": 0.9,
+          "matched": 18
+        },
+        "overlap": {
+          "gold": 20,
+          "labeled_span_recall": 0.9,
+          "matched": 18
+        }
+      },
+      "GOVERNMENT_ID": {
+        "exact": {
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3
+        },
+        "overlap": {
+          "gold": 3,
+          "labeled_span_recall": 1.0,
+          "matched": 3
+        }
+      },
+      "PERSONAL_RECORD_ID": {
+        "exact": {
+          "gold": 10,
+          "labeled_span_recall": 0.3,
+          "matched": 3
+        },
+        "overlap": {
+          "gold": 10,
+          "labeled_span_recall": 0.3,
+          "matched": 3
+        }
+      },
+      "PERSON_NAME": {
+        "exact": {
+          "gold": 22,
+          "labeled_span_recall": 0.6363636363636364,
+          "matched": 14
+        },
+        "overlap": {
+          "gold": 22,
+          "labeled_span_recall": 0.6363636363636364,
+          "matched": 14
+        }
+      },
+      "PHONE": {
+        "exact": {
+          "gold": 3,
+          "labeled_span_recall": 0.3333333333333333,
+          "matched": 1
+        },
+        "overlap": {
+          "gold": 3,
+          "labeled_span_recall": 0.3333333333333333,
+          "matched": 1
+        }
+      },
+      "POSTAL_ADDRESS": {
+        "exact": {
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2
+        },
+        "overlap": {
+          "gold": 3,
+          "labeled_span_recall": 0.6666666666666666,
+          "matched": 2
+        }
+      },
+      "QUASI_IDENTIFIER_COMBINATION": {
+        "exact": {
+          "gold": 3,
+          "labeled_span_recall": 0.0,
+          "matched": 0
+        },
+        "overlap": {
+          "gold": 3,
+          "labeled_span_recall": 0.0,
+          "matched": 0
+        }
+      }
+    },
+    "measurements": {
+      "mnpi_negative_abstention_rate": 0.0,
+      "mnpi_negative_flag_rate": 0.0,
+      "mnpi_positive_abstention_rate": 0.3,
+      "mnpi_positive_detection": 0.7,
+      "pii_exact_span_agreement": 0.6338028169014085,
+      "pii_negative_abstention_rate": 0.35,
+      "pii_negative_flag_rate": 0.25,
+      "pii_overlap_span_agreement": 0.6338028169014085,
+      "pii_positive_abstention_rate": 0.05,
+      "pii_positive_detection": 0.95
+    },
+    "passed": false,
+    "pii": {
+      "exact": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 26,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 5,
+        "gold": 71,
+        "labeled_span_recall": 0.6338028169014085,
+        "matched": 45,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 50,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 0,
+        "unmatched_predictions": 5
+      },
+      "overlap": {
+        "f2_if_exhaustive": null,
+        "false_negatives": 26,
+        "false_positives": null,
+        "false_positives_on_exhaustive_units": 5,
+        "gold": 71,
+        "labeled_span_recall": 0.6338028169014085,
+        "matched": 45,
+        "precision_if_exhaustive": null,
+        "precision_note": "conditional on caller-declared exhaustive target annotation; otherwise unavailable",
+        "predictions": 50,
+        "recall_note": "Supplied-positive annotation agreement; partial labels do not establish population recall.",
+        "unjudged_predictions": 0,
+        "unmatched_predictions": 5
+      }
+    },
+    "targets": {
+      "mnpi_negative_abstention_rate_max": {
+        "observed": 0.0,
+        "passed": true,
+        "target": 0.25
+      },
+      "mnpi_negative_flag_rate_max": {
+        "observed": 0.0,
+        "passed": true,
+        "target": 0.05
+      },
+      "mnpi_positive_abstention_rate_max": {
+        "observed": 0.3,
+        "passed": false,
+        "target": 0.2
+      },
+      "mnpi_positive_detection_min": {
+        "observed": 0.7,
+        "passed": false,
+        "target": 0.8
+      },
+      "pii_exact_span_agreement_min": {
+        "observed": 0.6338028169014085,
+        "passed": false,
+        "target": 0.8
+      },
+      "pii_negative_abstention_rate_max": {
+        "observed": 0.35,
+        "passed": false,
+        "target": 0.25
+      },
+      "pii_negative_flag_rate_max": {
+        "observed": 0.25,
+        "passed": false,
+        "target": 0.1
+      },
+      "pii_overlap_span_agreement_min": {
+        "observed": 0.6338028169014085,
+        "passed": false,
+        "target": 0.85
+      },
+      "pii_positive_detection_min": {
+        "observed": 0.95,
+        "passed": true,
+        "target": 0.9
+      }
+    }
+  },
+  "runtime_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f",
+  "schema_version": "junas.classifier_reliability_followup.v1",
+  "status": "local_verification_passed",
+  "thresholds_changed": false,
+  "verification": {
+    "authored_all_quadrants": {
+      "documents": 72,
+      "entity_types": 9,
+      "passed": true
+    },
+    "historical_replay": {
+      "changed_legacy_results": [],
+      "comparison": "all legacy ReviewResult fields; new sensitivity field validated separately",
+      "documents": 1722,
+      "duplicate_findings": 0,
+      "findings": 27034,
+      "network_connections_denied": true,
+      "span_errors": 0
+    },
+    "initial_suite_failures": {
+      "cause": "OSError 122 Disk quota exceeded on /tmp",
+      "complete_reruns_passed": true,
+      "python3.11": 59,
+      "python3.12": 63
+    },
+    "locked_corpus_gates": {
+      "count": 9,
+      "external_mode": "skip",
+      "passed": true
+    },
+    "pytest": {
+      "3.11": {
+        "api_key_removed_from_environment": true,
+        "failed": 0,
+        "passed": 1802,
+        "subtests_passed": 254,
+        "summary": "1802 passed, 254 subtests passed in 189.76s (0:03:09)",
+        "temporary_directory": "workspace disk; not /tmp"
+      },
+      "3.12": {
+        "api_key_removed_from_environment": true,
+        "failed": 0,
+        "passed": 1802,
+        "subtests_passed": 254,
+        "summary": "1802 passed, 254 subtests passed in 189.18s (0:03:09)",
+        "temporary_directory": "workspace disk; not /tmp"
+      }
+    },
+    "ruff_format": "passed: all ten changed Python files",
+    "ruff_lint": "passed: all ten changed Python files",
+    "scoped_mypy": {
+      "follow_imports": "silent",
+      "full_project_run": false,
+      "note": "unused configuration section junas.cli",
+      "passed_sources": 6
+    },
+    "sdist_wheel_build": "passed",
+    "wheel_install": "offline cache; numpy 2.4.6 and httpx 0.28.1",
+    "wheel_smoke": {
+      "cases": 4,
+      "cli_exit_code": 0,
+      "installed_package": "/home/gongahkia/.local/share/junas/research/2026-11-23-classifier-reliability-followup/wheel-env/lib/python3.12/site-packages/junas",
+      "network_connections_denied": true,
+      "passed": true,
+      "runtime_sha256": "7ec08c5a4570c1868f51b53b4741ee2312e1a3379b75b1e47e0d081b21d6df3f"
+    }
+  }
+}
