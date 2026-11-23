@@ -86,7 +86,7 @@ TOPICS = {
         r"\b(?:debt|acceleration|default|refinancing|financing|bridge|loan|placement|funding|shortfall)\b", re.I
     ),
     "incident": re.compile(r"\b(?:cyberattack|cyber incident|trial halt|recall)\b", re.I),
-    "licence": re.compile(r"\b(?:licen[cs]e|suspend\w*|suspension|halt)\b", re.I),
+    "licence": re.compile(r"\b(?:licen[cs]e|suspend\w*|suspension)\b", re.I),
 }
 BOARD_EVENT = re.compile(
     r"\b(?:the board|management)\s+(?:(?:has|have|had|now)\s+)?"
