@@ -26,7 +26,7 @@ PREFIX = re.compile(
     r"company secretary|corporate secretary|registry liaison|finance director|legal analyst|deal counsel|"
     r"issuer counsel|counsel|signatory|recipient|trustee|contact|applicant|respondent|participant|"
     r"coordinator|clerk|officer|representative|attendee|editor|reviewer|investor|recipient)"
-    r"(?:,?\s+(?:was|is|as|of|to))?\s+$|"
+    r"(?:\s+(?:was|is|as|of|to))?,?\s+$|"
     r"\b(?:seller|buyer)[’']s\s+(?:authori[sz]ed\s+)?(?:representative|signatory),?\s*$",
     re.I,
 )
@@ -38,7 +38,8 @@ SUFFIX = re.compile(
     r"[\w.+-]+@[\w.-]+)\b|^\s*,\s*(?:Company Secretary|director|employee)\b|"
     r"^\s*,\s*(?:the\s+)?(?:(?:buyer|seller|issuer)[’']s\s+)?(?:treasury\s+)?contact\b|"
     r"^\s+(?:requested|submitted|asked|entered|confirmed|reported|seeks|holds|says|works)\b|"
-    r"^,\s*who\s+(?:had\s+|has\s+)?(?:paid|submitted|requested|received)\b",
+    r"^,\s*who\s+(?:had\s+|has\s+)?(?:paid|submitted|requested|received)\b|"
+    r"^,\s*(?:the\s+)?[^.\n;()]{0,80}\b(?:lead|supervisor|approver|controller)\s*\(birth month",
     re.I,
 )
 NONPERSON_FIELD = re.compile(r"\b(?:company|corporate|issuer|organization|department|fund)\s+name\s*:\s*$", re.I)

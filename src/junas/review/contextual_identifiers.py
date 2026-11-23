@@ -318,6 +318,14 @@ def identifier_fields(text: str, people: list[dict] | None = None) -> list[dict]
     spans = []
     patterns = [(label, p) for label, p in FIELD_PATTERNS.items()] + [
         ("BANK_ACCOUNT", BANK_NUMBER),
+        (
+            "BANK_ACCOUNT",
+            re.compile(
+                r"\b(?:personal|her|his|their)\s+account\s+(?:at|with)\s+"
+                r"[^.\n;]{2,70}?\bBank,?\s+no\.?\s*(?P<value>\d[\d -]{4,29}\d)\b",
+                re.I,
+            ),
+        ),
         ("PHONE", PHONE_NUMBER),
         ("POSTAL_ADDRESS", ADDRESS),
         ("POSTAL_ADDRESS", QUOTED_ADDRESS),
