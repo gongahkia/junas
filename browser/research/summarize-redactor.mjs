@@ -1,0 +1,62 @@
+import { readFile, writeFile } from "node:fs/promises";
+import { parseArgs } from "node:util";
+import { resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { makeCases } from "../eval/cases.js";
+import screenIds from "../eval/screening-ids.json" with { type: "json" };
+import { MODEL_IDS } from "../src/contract.js";
+import { scoreResults } from "../src/evaluation.js";
+import { redactorMetrics } from "./redactor-metrics.js";
+import { shadowFindings } from "./shadow-policy.js";
+
+const { values } = parseArgs({ options: { evidence: { type: "string" }, validation: { type: "string" }, output: { type: "string" }, "allow-partial": { type: "boolean", default: false } } });
+if (!values.evidence || !values.validation || !values.output) throw Error("Use --evidence PRIVATE_DIR --validation FROZEN_JSON --output NEW_JSON [--allow-partial].");
+const root = resolve(values.evidence), development = makeCases(), files = {};
+async function read(name) {
+  try {
+    const bytes = await readFile(resolve(root, name));
+    files[name] = createHash("sha256").update(bytes).digest("hex");
+    return JSON.parse(bytes);
+  } catch (error) { if (values["allow-partial"] && error.code === "ENOENT") return null; throw error; }
+}
+function percentile(list, p) {
+  const ordered = list.filter(Number.isFinite).sort((a, b) => a - b);
+  return ordered.length ? ordered[Math.ceil(ordered.length * p) - 1] : null;
+}
+const policy = { pii: true, mnpi: true, threshold: .85, mnpiExtent: "evidence" };
+function score(cases, report, split = "development") {
+  if (!report) return null;
+  if (!values["allow-partial"] && (!report.completed || report.rows.length !== cases.length)) throw Error("Cannot finalize an incomplete run.");
+  const rows = report.rows;
+  return { model: report.model ?? MODEL_IDS[0], completed: report.completed, received: rows.length, documents: cases.length,
+    request_version: report.request_version, artifact_sha256: report.artifact_sha256 ?? report.model_identity?.build_sha256 ?? null,
+    classification: scoreResults(cases, rows, { split }), default_policy: redactorMetrics(cases, rows, policy),
+    shadow_policy: redactorMetrics(cases, rows, policy, shadowFindings),
+    attempt_wall_ms: { samples: rows.length, p50: percentile(rows.map(r => r.wall_ms), .5), p95: percentile(rows.map(r => r.wall_ms), .95) },
+    successful_inference_ms: { samples: rows.filter(r => Number.isFinite(r.inference_ms)).length, p50: percentile(rows.map(r => r.inference_ms), .5), p95: percentile(rows.map(r => r.inference_ms), .95) },
+    rows };
+}
+const baseline = score(development, await read("redactor-baseline-v1.json"));
+const screens = [];
+for (const model of MODEL_IDS) {
+  const name = `anchored-v2-screen-${model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";
+  screens.push(score(screenIds.map(id => development.find(c => c.id === id)), await read(name)));
+}
+const freeze = await read("anchored-v2-freeze.json");
+let selectedDevelopment = null, validation = null;
+if (freeze) {
+  const manifest = await read("anchored-v2-manifest.json");
+  if (freeze.artifact_sha256 !== manifest?.artifact_sha256) throw Error("Freeze/manifest identity mismatch.");
+  const key = stage => `anchored-v2-${stage}-${freeze.model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";
+  selectedDevelopment = score(development, await read(key("development")));
+  const bytes = await readFile(values.validation);
+  if (createHash("sha256").update(bytes).digest("hex") !== freeze.validation_sha256) throw Error("Validation reference hash mismatch.");
+  validation = score(JSON.parse(bytes), await read(key("validation")), "validation");
+  for (const report of [selectedDevelopment, validation].filter(Boolean)) if (report.artifact_sha256 !== freeze.artifact_sha256 || report.rows.some(r => r.model_identity && r.model_identity.build_sha256 !== freeze.artifact_sha256)) throw Error("Evaluated artifact differs from the freeze.");
+}
+const output = { generated_at: new Date().toISOString(), status: values["allow-partial"] ? "partial_snapshot_not_final" : "completed",
+  reference_kind: "authored_synthetic_development_and_validation_expectations", interpretation: "Authored agreement, not independent accuracy or calibrated confidence. MNPI paragraph allowance cannot establish minimal-span correctness.",
+  paid_api_calls: 0, new_paid_api_spend_usd: 0, production_candidate_enabled: false, policy, source_files_sha256: files,
+  baseline, screens, freeze, selected_development: selectedDevelopment, validation };
+await writeFile(values.output, JSON.stringify(output, null, 2) + "\n", { flag: "wx" });
+console.log(JSON.stringify({ status: output.status, baseline_received: baseline?.received, screening_received: screens.map(r => r?.received ?? 0), validation_received: validation?.received ?? 0 }));
