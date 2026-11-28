@@ -1,26 +1,29 @@
 // browser-panel preview transport; production extension uses Chrome offscreen messaging.
-import { ProcessingSession } from "../src/session.js";
+import { captureSelection, replaceSelection } from "../src/page-redaction.js";
 const frame = document.getElementById("popup");
-const session = new ProcessingSession({
-  createWorker: () => new Worker("worker.js", { type: "module" }),
-  getAdapter: () => navigator.gpu?.requestAdapter(),
-});
-setInterval(() => session.expire(), 30_000);
+let listener;
+globalThis.chrome ??= {};
+chrome.runtime = {
+  id: "junas-panel-preview",
+  onMessage: { addListener: callback => { listener = callback; } },
+  sendMessage: async message => {
+    if (message.target === "badge") return;
+    if (message.target === "apply-redaction") {
+      try { return { ok: replaceSelection(message.jobId, message.text) }; }
+      catch { return { ok: false }; }
+    }
+  },
+};
+await import("../src/offscreen.js");
+function command(message) {
+  return new Promise(resolve => listener({ ...message, target: "offscreen" }, { id: chrome.runtime.id }, resolve));
+}
 addEventListener("message", async event => {
   if (event.origin !== location.origin || event.source !== frame.contentWindow || event.data?.target !== "panel-session") return;
   const message = event.data;
   try {
-    let state;
-    switch (message.kind) {
-      case "get": state = session.snapshot(); break;
-      case "draft": state = session.draft(message.text, message.model); break;
-      case "start": state = await session.start(message.text, message.model); break;
-      case "cancel": state = session.cancel(); break;
-      case "clear": state = session.clear(); break;
-      case "selection": event.source.postMessage({ id: message.id, panelReply: true, selection: getSelection()?.toString() || "" }, location.origin); return;
-      default: throw Error("Unknown preview command.");
-    }
-    event.source.postMessage({ id: message.id, panelReply: true, ok: true, state }, location.origin);
+    const response = await command(message);
+    event.source.postMessage({ id: message.id, panelReply: true, ...response }, location.origin);
   } catch (error) { event.source.postMessage({ id: message.id, panelReply: true, ok: false, error: error.message }, location.origin); }
 });
 document.getElementById("toggle").onclick = () => {
@@ -38,6 +41,10 @@ document.getElementById("sample").addEventListener("contextmenu", event => {
 });
 menu.onclick = async () => {
   menu.hidden = true;
-  try { await session.start(selected); }
+  try {
+    const jobId = crypto.randomUUID(); captureSelection(selected, jobId);
+    const response = await command({ kind: "capture", text: selected, jobId, destination: { tabId: 0, frameIds: [0] } });
+    if (!response.ok) throw Error(response.error);
+  }
   catch (error) { document.getElementById("preview-status").textContent = error.message; }
 };

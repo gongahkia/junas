@@ -1,6 +1,13 @@
 # Junas browser research prototype
 
-Highlight text, right-click and choose **Process selected text with Junas**. Assessment starts immediately in the background. Open the toolbar popup when you want to review progress, evidence or redaction; it has no text-entry or manual Process controls. A Chrome offscreen document hosts the local WebLLM worker so closing the popup does not cancel processing. Review its proposed evidence, select findings to redact, then preview and explicitly copy the redacted text. The original page is never edited by this prototype.
+Highlight text, right-click and choose **Redact with Junas**. Junas captures that exact selection and starts local processing in the background. Findings in enabled categories that meet the configured model-estimated confidence threshold are replaced in the original selection. It does not open a popup or tab. Use the browser's extensions toolbar to open settings and recent local history.
+
+The popup saves the selected model, threshold (default 85%), and PII/MNPI switches. Confidence is an **uncalibrated model estimate**, not independently validated accuracy. Incomplete assessments, unknown categories, invalid quotations and findings below the threshold do not trigger automatic replacement. First use downloads model assets.
+
+The most recent **20** inputs, redacted outputs and outcomes are stored in the extension's IndexedDB, including sensitive source text. History survives closing the browser; individual deletion and clear-all are available. Settings persist separately. No remote history service or analytics was added. Source/result expiry in the active processing session does not delete saved history.
+
+Replacement uses a captured DOM range or textarea/input selection rather than searching for repeated text. Changed/disconnected/expired source selections are refused. Page replacements insert plain text, so selected formatting can be flattened. Protected pages or frames may deny injection, and application-managed editors may revert DOM changes; these are explicit failure/compatibility limits, not a guarantee of universal page support.
+
 
 ## Build and load
 
@@ -21,12 +28,12 @@ The candidate is `Qwen3-1.7B-q4f16_1-MLC` with WebLLM 0.2.89. Weight and compile
 
 - First processing downloads model/tokenizer/compiled assets from Hugging Face and the MLC library repository. Weights are additional to the extension bundle. Cached assets can remain on the device.
 - There is no API key, remote classification endpoint, cloud fallback or autonomous tool loop. The worker rejects `fetch` after model initialization. A newly created real worker successfully loaded cached assets and processed one smoke passage with its isolated browser context offline; see the live report for device and timing limits.
-- Capture uses only the browser’s explicit `selectionText` event. No page scripts, `activeTab`, scripting or broad host permissions are requested.
+- Capture uses only the browser’s explicit `selectionText` event. A one-shot `activeTab`/`scripting` injection anchors and replaces that selection after the explicit menu action. No persistent content scripts or broad host permissions are requested.
 - The offscreen session keeps the current passage and result in memory. Context-menu processing does not open a popup or tab; the toolbar badge indicates progress or completion. Closing a review view leaves processing running. Cancellation terminates the worker. The idle model is released after five minutes; source/results expire after fifteen minutes without an assessment or settings change. Browser shutdown clears the in-memory session.
 - Input is capped at 1,024 UTF-8 bytes, with an additional conservative full-prompt/context check that can reject shorter passages. The prototype does not silently truncate. It handles a single selected passage, not full-document coverage.
 - A fixed structured response is checked for valid shape, categories, unique exact quotations, source bounds and contradictory state/evidence combinations. Offsets use Unicode code points, matching Python. These checks establish quotation grounding; they do not establish semantic linkage, legal materiality, truth of public status or exhaustive PII coverage.
 - Incomplete output, invalid evidence, an unavailable model/device, cancellation and timeout produce explicit failure/uncertainty. A complete model response can still be wrong.
-- Redaction is optional and operates on an explicit copy. Findings are initially unchecked. Quoted MNPI components are redacted as their containing evidence interval, which may include intervening text; the preview exposes this before copy. Editing the source invalidates findings and the preview.
+- Manual redaction review in the popup operates on a copy; the context-menu action applies the saved automatic policy to the page. Findings are initially unchecked. Quoted MNPI components are redacted as their containing evidence interval, which may include intervening text; the preview exposes this before copy. Editing the source invalidates findings and the preview.
 
 The browser model emits `junas.browser.proposal.v1`, marked `classification_applied: false`. It is separate from the Python `junas.review.v2` deterministic result. An optional comparison panel imports CLI JSON for **exactly the same text**; it does not invoke Python from the browser or fuse decisions. Automatic Python bridging and a model-assisted primary classifier remain future work, contingent on measured quality.
 
@@ -96,3 +103,5 @@ python research/serve.py --output /absolute/private/research-output
 Open port 8766 `/panel.html` in T3 for the compact UI, or `/benchmark.html` for research. The research-only server writes bounded, atomic checkpoints on loopback. It is not part of the distributed extension. After opening the benchmark, importing `/research-automatic.js` and calling `runResearch()` runs the fixed 32-case screens, freezes the strongest exploratory candidate, evaluates all 144 development passages, then evaluates 48 frozen authored validation passages. No paid endpoint is used, and failed gates do not trigger model promotion. The validation set is separate from the prompt and selection set; its authored labels and template dependence do not establish independent accuracy.
 
 The popup uses neutral light/charcoal surfaces and muted green, with progress, evidence and explicit redaction; selected source text is available in a collapsed read-only section. Model selection and diagnostics are tucked into details. The layout takes inspiration from [Obsidian Web Clipper](https://obsidian.md/clipper), with no purple colorway.
+
+The confidence-enabled redaction request is identified as `redaction-estimates-v1`. Historical v3 classification benchmarks do not validate the accuracy or calibration of this new request. Research preview data is origin-local and separate from installed-extension history.
