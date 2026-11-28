@@ -87,6 +87,16 @@ export function validateProposal(text, raw, finishReason = "stop") {
   };
 }
 
+export function decodeProposal(text, choice) {
+  if (choice?.finish_reason !== "stop") throw Error("Generation was incomplete; no classification or redaction is available.");
+  const content = choice.message?.content;
+  if (typeof content !== "string") throw Error("Missing model response content.");
+  // WebLLM 0.2.89 inserts this exact empty header into outputIds when thinking is disabled.
+  const emptyThinkingHeader = "<think>\n\n</think>\n\n";
+  const json = content.startsWith(emptyThinkingHeader) ? content.slice(emptyThinkingHeader.length) : content;
+  return validateProposal(text, JSON.parse(json), choice.finish_reason);
+}
+
 export function previewRedaction(text, evidence) {
   const chars = Array.from(text);
   const spans = evidence.map(item => {

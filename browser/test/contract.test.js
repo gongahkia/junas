@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { admitText, inferenceRequest, previewRedaction, validateProposal, validateComparison, MAX_BYTES } from "../src/contract.js";
+import { admitText, decodeProposal, inferenceRequest, previewRedaction, validateProposal, validateComparison, MAX_BYTES } from "../src/contract.js";
 import { consumeSelection, queueSelection } from "../src/selection.js";
 
 const text = "🙂 Alice Tan at alice.tan@example.com. Orchid Ltd signed a material acquisition, not publicly announced.";
@@ -52,6 +52,18 @@ test("partial assessment remains unknown even with grounded candidates", () => {
   const result = validateProposal(text, raw);
   assert.equal(result.sensitivity.pii.state, "unknown");
   assert.equal(result.sensitivity.mnpi.state, "unknown");
+});
+test("only the exact empty WebLLM thinking header is accepted before JSON", () => {
+  const json = JSON.stringify(positive());
+  for (const content of [json, "<think>\n\n</think>\n\n" + json]) {
+    assert.equal(decodeProposal(text, { message: { content }, finish_reason: "stop" }).sensitivity.pii.state, "present");
+  }
+  for (const content of ["<think>invented reasoning</think>" + json, "```json\n" + json + "\n```", json + " trailing text"]) {
+    assert.throws(() => decodeProposal(text, { message: { content }, finish_reason: "stop" }));
+  }
+  assert.throws(() => decodeProposal(text, { message: { content: json }, finish_reason: "length" }), /incomplete/);
+  const bad = positive(); bad.pii[0].quote = "fabricated";
+  assert.throws(() => decodeProposal(text, { message: { content: "<think>\n\n</think>\n\n" + JSON.stringify(bad) }, finish_reason: "stop" }), /missing/);
 });
 test("input bounds are bytes and no truncation is performed", () => {
   for (const input of ["", " ", "a\0b", 42, "🙂".repeat(MAX_BYTES / 4 + 1)]) assert.throws(() => admitText(input));
