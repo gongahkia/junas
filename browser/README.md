@@ -34,7 +34,7 @@ The browser model emits `junas.browser.proposal.v1`, marked `classification_appl
 
 Open the extension's `benchmark.html` page by replacing `process.html` in its URL. Clicking **Run local benchmark** processes 144 authored short cases through the same worker and evidence validation. It records all four quadrants, family-level agreement, typed PII span matches, failure counts, individual inference timings, p50/p95 and model/build identities. Load time is separate from inference. Missing/error cases remain in denominators. Three consecutive failures stop the run; per-case timeouts and a 20-minute loop deadline bound work. Stop produces a partial report rather than discarding failures. Downloading a report is explicit.
 
-The cases cover 16 issuer-event families with two wording/layout variants and all quadrants, plus eight edge-case families. They include all nine contextual PII subtypes. **These are authored development expectations, not independently validated legal labels or a fresh holdout.** Repeated entities and template structure limit independence. All cases are added to future synthetic holdout exclusion fingerprints. Existing holdouts, annotations and locked gates remain unchanged.
+The cases cover 16 issuer-event families with two wording/layout variants and all quadrants, plus eight edge-case families. They include all nine contextual PII subtypes. **These are authored development expectations, not independently validated legal labels or a fresh holdout.** Repeated entities and template structure limit independence. All cases are added to future synthetic holdout exclusion fingerprints. Existing holdouts, annotations and locked gates remain unchanged. Rejected model proposals are recorded as validation failures while the same worker continues; three consecutive infrastructure failures still stop the run.
 
 Replay the deterministic classifier and score its results without model calls:
 
@@ -59,3 +59,24 @@ JUNAS_CHROMIUM=/usr/bin/chromium npm run test:browser
 ```
 
 On the development machine's standard headless Chromium, WebGPU was exposed but no adapter was available. An additional software-adapter probe lacked `shader-f16`. **Actual model execution, cold/warm loading, offline-ready behavior, hardware resource use and end-to-end native context-menu interaction remain unverified.** No weights or paid inference were used for the recorded checks. The browser CI workflow is prepared; hosted CI has not run locally.
+
+## Live Linux research harness
+
+For a real-model session on this Linux machine, use an isolated persistent profile and a private evidence directory:
+
+```sh
+JUNAS_CHROMIUM=/usr/bin/chromium \
+JUNAS_LIVE_OUTPUT=/absolute/private/evidence-directory npm run test:live
+```
+
+The harness opens a headed Chromium window with explicit X11/Vulkan/WebGPU test flags, loads only the unpacked Junas extension, reports the observed adapter, and accepts one JSON command per stdin line. It does not use a mocked worker or a paid API. Use fictional data; explicitly saved evaluations and screenshots can include the source text. Model assets remain cached in the private profile for warm/offline checks. The test flags are process-local and do not modify the user's browser configuration.
+
+```json
+{"action":"goto","url":"/benchmark.html"}
+{"action":"click","selector":"#run"}
+{"action":"snapshot"}
+{"action":"download","selector":"#download","name":"benchmark.json"}
+{"action":"close"}
+```
+
+Other supported actions are `fill`, `press`, `mouse`, `upload`, `evaluate` (optionally `save`), `screenshot`, `newest` and `offline`. Native context-menu selection still needs native browser interaction; programmatically injecting session storage is not equivalent evidence. The initial headless limitations above are historical; a successful live run must be reported separately with its actual hardware, flags, build identity, failures and timing coverage.
