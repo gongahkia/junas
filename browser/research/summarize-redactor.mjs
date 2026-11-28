@@ -6,11 +6,13 @@ import { makeCases } from "../eval/cases.js";
 import screenIds from "../eval/screening-ids.json" with { type: "json" };
 import { MODEL_IDS } from "../src/contract.js";
 import { scoreResults } from "../src/evaluation.js";
-import { redactorMetrics } from "./redactor-metrics.js";
+import { redactorMetrics, redactionPolicyScore } from "./redactor-metrics.js";
 import { shadowFindings } from "./shadow-policy.js";
 
-const { values } = parseArgs({ options: { evidence: { type: "string" }, validation: { type: "string" }, output: { type: "string" }, "allow-partial": { type: "boolean", default: false } } });
+const { values } = parseArgs({ options: { evidence: { type: "string" }, validation: { type: "string" }, output: { type: "string" }, candidate: { type: "string", default: "anchored-v3" }, "allow-partial": { type: "boolean", default: false } } });
 if (!values.evidence || !values.validation || !values.output) throw Error("Use --evidence PRIVATE_DIR --validation FROZEN_JSON --output NEW_JSON [--allow-partial].");
+if (!/^anchored-v\d+$/.test(values.candidate)) throw Error("Invalid candidate version.");
+const prefix = values.candidate;
 const root = resolve(values.evidence), development = makeCases(), files = {};
 async function read(name) {
   try {
@@ -34,7 +36,7 @@ function score(cases, report, split = "development") {
   const rows = report.rows;
   return { model: report.model ?? MODEL_IDS[0], completed: report.completed, received: rows.length, documents: cases.length,
     request_version: report.request_version, artifact_sha256: report.artifact_sha256 ?? report.model_identity?.build_sha256 ?? null,
-    classification: scoreResults(cases, rows, { split }), default_policy: redactorMetrics(cases, rows, policy),
+    classification: scoreResults(cases, rows, { split }), policy_decisions: redactionPolicyScore(cases, rows, policy, split), default_policy: redactorMetrics(cases, rows, policy),
     separately_frozen_shadow_policy: shadowFreeze ? redactorMetrics(cases, rows, policy, shadowFindings) : null,
     attempt_wall_ms: { samples: rows.length, p50: percentile(rows.map(r => r.wall_ms), .5), p95: percentile(rows.map(r => r.wall_ms), .95) },
     successful_inference_ms: { samples: rows.filter(r => Number.isFinite(r.inference_ms)).length, p50: percentile(rows.map(r => r.inference_ms), .5), p95: percentile(rows.map(r => r.inference_ms), .95) },
@@ -43,15 +45,15 @@ function score(cases, report, split = "development") {
 const baseline = score(development, await read("redactor-baseline-v1.json"));
 const screens = [];
 for (const model of MODEL_IDS) {
-  const name = `anchored-v2-screen-${model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";
+  const name = `${prefix}-screen-${model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";
   screens.push(score(screenIds.map(id => development.find(c => c.id === id)), await read(name)));
 }
-const freeze = await read("anchored-v2-freeze.json");
+const freeze = await read(`${prefix}-freeze.json`);
 let selectedDevelopment = null, validation = null;
 if (freeze) {
-  const manifest = await read("anchored-v2-manifest.json");
+  const manifest = await read(`${prefix}-manifest.json`);
   if (freeze.artifact_sha256 !== manifest?.artifact_sha256) throw Error("Freeze/manifest identity mismatch.");
-  const key = stage => `anchored-v2-${stage}-${freeze.model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";
+  const key = stage => `${prefix}-${stage}-${freeze.model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";
   selectedDevelopment = score(development, await read(key("development")));
   const bytes = await readFile(values.validation);
   if (createHash("sha256").update(bytes).digest("hex") !== freeze.validation_sha256) throw Error("Validation reference hash mismatch.");
