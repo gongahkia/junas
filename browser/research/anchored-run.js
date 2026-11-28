@@ -31,7 +31,7 @@ function summary(cases, rows, split = "development") {
     shadow_policy: redactorMetrics(cases, rows, policy, shadowFindings), sweeps };
 }
 async function runBatch(cases, model, stage, initial = []) {
-  const key = `${prefix}-${stage}-${model}`;
+  const key = `${prefix}-${stage}-${model}`.replace(/[^a-zA-Z0-9_-]/g, "_");
   const checkpoint = await saved(key);
   if (checkpoint && (checkpoint.request_version !== ANCHORED_REQUEST_VERSION || checkpoint.artifact_sha256 !== __JUNAS_BUILD_ID__)) throw Error("Checkpoint configuration mismatch.");
   if (checkpoint?.completed) return checkpoint;
