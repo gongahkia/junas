@@ -7,6 +7,7 @@ import { runValidation } from "./run-validation.js";
 const validation = makeValidationCases();
 let stage = "screening", saving = Promise.resolve();
 function save(name, data) {
+  name = name.replace(/[^a-zA-Z0-9_-]/g, "_");
   saving = saving.then(async () => {
     const response = await fetch("/checkpoint", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, data }) });
     if (!response.ok) throw Error("Research checkpoint failed; stop rather than discard evidence.");
