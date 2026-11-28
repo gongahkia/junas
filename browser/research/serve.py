@@ -56,8 +56,9 @@ class Handler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--directory", default="dist")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    server = ThreadingHTTPServer(("127.0.0.1", 8766), partial(Handler, directory="dist"))
+    server = ThreadingHTTPServer(("127.0.0.1", 8766), partial(Handler, directory=args.directory))
     server.output = args.output
     server.serve_forever()
