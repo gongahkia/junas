@@ -1,7 +1,9 @@
 import { makeCases } from "../eval/cases.js";
 import { scoreResults, validateCases } from "./evaluation.js";
 import { MODEL } from "./contract.js";
-const cases = validateCases(makeCases());
+import screeningIds from "../eval/screening-ids.json" with { type: "json" };
+const allCases = validateCases(makeCases());
+let cases = allCases;
 const $ = id => document.getElementById(id);
 let worker, timer, rejectPending, stopped = false, rows = [], report;
 function stopWorker() { worker?.terminate(); worker = undefined; clearTimeout(timer); }
@@ -29,7 +31,8 @@ function processCase(item) {
 $("stop").onclick = () => { stopped = true; stopWorker(); rejectPending?.(Error("cancelled")); };
 $("run").onclick = async () => {
   rows = []; stopped = false; report = undefined;
-  $("run").disabled = $("model").disabled = true; $("stop").hidden = false; $("download").disabled = true;
+  cases = $("suite").value === "screening" ? allCases.filter(c => screeningIds.includes(c.id)) : allCases;
+  $("run").disabled = $("model").disabled = $("suite").disabled = true; $("stop").hidden = false; $("download").disabled = true;
   let errors = 0;
   const started = performance.now();
   let identity;
@@ -54,7 +57,7 @@ $("run").onclick = async () => {
         else if (++errors >= 3) break;
       }
     }
-    report = { ...scoreResults(cases, rows), selected_model: $("model").value, model_identity: identity ?? null, elapsed_ms: performance.now() - started,
+    report = { ...scoreResults(cases, rows), selected_suite: $("suite").value, selected_model: $("model").value, model_identity: identity ?? null, elapsed_ms: performance.now() - started,
       completed: rows.length === cases.length && !stopped, rows };
     // research automation reads the same complete report offered by the download button.
     globalThis.junasBenchmarkReport = structuredClone(report);
@@ -62,7 +65,7 @@ $("run").onclick = async () => {
     $("status").textContent = `Recorded ${rows.length} / ${cases.length} cases. Missing and failed cases are included as errors. Results are development agreement only.`;
     $("download").disabled = false;
   } catch (error) { $("status").textContent = error.message; }
-  finally { stopWorker(); rejectPending = undefined; $("run").disabled = $("model").disabled = false; $("stop").hidden = true; }
+  finally { stopWorker(); rejectPending = undefined; $("run").disabled = $("model").disabled = $("suite").disabled = false; $("stop").hidden = true; }
 };
 $("download").onclick = () => {
   const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));

@@ -6,6 +6,14 @@ import { scoreResults, validateCases } from "../src/evaluation.js";
 import { inferenceRequest } from "../src/contract.js";
 const cases = makeCases();
 const rows = cases.map(c => ({ id: c.id, text: c.text, states: c.expected, pii_evidence: c.pii_evidence, inference_ms: 20 }));
+test("fixed comparison screen retains every family, PII type and balanced core quadrants", async () => {
+  const ids = JSON.parse(await readFile(new URL("../eval/screening-ids.json", import.meta.url)));
+  const screen = cases.filter(c => ids.includes(c.id));
+  assert.equal(ids.length, 32); assert.equal(new Set(ids).size, 32); assert.equal(screen.length, 32);
+  assert.equal(new Set(screen.map(c => c.family)).size, 24);
+  assert.equal(new Set(screen.flatMap(c => c.pii_evidence.map(e => e.label))).size, 9);
+  for (const q of ["both", "pii_only", "mnpi_only", "neither"]) assert.equal(screen.filter(c => c.quadrant === q).length, 6);
+});
 test("corpus is reproducible, broad, balanced and within the full prompt budget", async () => {
   assert.deepEqual(JSON.parse(await readFile(new URL("../eval/cases.json", import.meta.url))), cases);
   assert.equal(validateCases(cases).length, 144);

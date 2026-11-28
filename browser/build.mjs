@@ -11,7 +11,7 @@ async function sources(directory) {
   return files;
 }
 const hash = createHash("sha256");
-const files = [...await sources("src"), ...await sources("public"), "eval/cases.js", "package-lock.json", "build.mjs", "../config/sensitivity-development-gates.json"];
+const files = [...await sources("src"), ...await sources("public"), "eval/cases.js", "eval/screening-ids.json", "package-lock.json", "build.mjs", "../config/sensitivity-development-gates.json"];
 for (const file of files.sort()) { hash.update(file); hash.update("\0"); hash.update(await readFile(file)); hash.update("\0"); }
 const identity = hash.digest("hex");
 
