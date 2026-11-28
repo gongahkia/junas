@@ -30,19 +30,29 @@ function percentile(list, p) {
   return ordered.length ? ordered[Math.ceil(ordered.length * p) - 1] : null;
 }
 const policy = { pii: true, mnpi: true, threshold: .85, mnpiExtent: "evidence" };
-function score(cases, report, split = "development") {
+function score(cases, report, split = "development", documentedStop = null) {
   if (!report) return null;
-  if (!values["allow-partial"] && (!report.completed || report.rows.length !== cases.length)) throw Error("Cannot finalize an incomplete run.");
+  if (!values["allow-partial"] && !documentedStop && (!report.completed || report.rows.length !== cases.length)) throw Error("Cannot finalize an incomplete run.");
   const rows = report.rows;
   return { model: report.model ?? MODEL_IDS[0], completed: report.completed, received: rows.length, documents: cases.length,
-    request_version: report.request_version, artifact_sha256: report.artifact_sha256 ?? report.model_identity?.build_sha256 ?? null,
+    documented_stop: documentedStop, request_version: report.request_version, artifact_sha256: report.artifact_sha256 ?? report.model_identity?.build_sha256 ?? null,
     classification: scoreResults(cases, rows, { split }), policy_decisions: redactionPolicyScore(cases, rows, policy, split), default_policy: redactorMetrics(cases, rows, policy),
     separately_frozen_shadow_policy: shadowFreeze ? redactorMetrics(cases, rows, policy, shadowFindings) : null,
     attempt_wall_ms: { samples: rows.length, p50: percentile(rows.map(r => r.wall_ms), .5), p95: percentile(rows.map(r => r.wall_ms), .95) },
     successful_inference_ms: { samples: rows.filter(r => Number.isFinite(r.inference_ms)).length, p50: percentile(rows.map(r => r.inference_ms), .5), p95: percentile(rows.map(r => r.inference_ms), .95) },
     rows };
 }
-const baseline = score(development, await read("redactor-baseline-v1.json"));
+const baselineRows = await read("redactor-baseline-v1.json"), baselineStop = await read("baseline-futility-stop.json");
+if (baselineStop) {
+  if (baselineStop.received !== baselineRows.rows.length) throw Error("Baseline changed after its documented stop.");
+  for (const [category, minimum] of [["pii", .9], ["mnpi", .8]]) {
+    const positives = development.filter(c => c.expected[category] === "present");
+    const byId = new Map(baselineRows.rows.map(r => [r.id, r]));
+    const upper = positives.filter(c => !byId.has(c.id) || byId.get(c.id).states?.[category] === "present").length / positives.length;
+    if (upper >= minimum || upper !== baselineStop.bounds[category].maximum_possible_final_detection) throw Error("Baseline futility claim does not match saved evidence.");
+  }
+}
+const baseline = score(development, baselineRows, "development", baselineStop);
 const screens = [];
 for (const model of MODEL_IDS) {
   const name = `${prefix}-screen-${model}`.replace(/[^a-zA-Z0-9_-]/g, "_") + ".json";

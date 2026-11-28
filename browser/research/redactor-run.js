@@ -9,6 +9,9 @@ async function save(data) {
   if (!r.ok) throw Error("Checkpoint failed; stop evaluation.");
 }
 export async function run() {
+  const stopped = await fetch("/saved/baseline-futility-stop");
+  if (stopped.ok) { document.getElementById("status").textContent = "Original baseline intentionally stopped: its locked detection targets are unreachable. Partial evidence is preserved."; return; }
+  if (stopped.status !== 404) throw Error("Cannot verify baseline stop status.");
   const previous = await fetch(`/saved/${key}`);
   const checkpoint = previous.ok ? await previous.json() : {};
   if (checkpoint.completed) { document.getElementById("status").textContent = "Saved baseline already complete."; return; }
