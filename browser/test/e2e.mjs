@@ -12,7 +12,7 @@ try {
   context = await chromium.launchPersistentContext(profile, {
     executablePath: process.env.JUNAS_CHROMIUM || undefined,
     headless: true,
-    args: [`--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
+    args: ["--disable-gpu", `--disable-extensions-except=${extension}`, `--load-extension=${extension}`],
   });
   const background = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
   const base = background.url().replace("background.js", "");
@@ -126,6 +126,21 @@ try {
   await sourcePage.evaluate(`(${captureSelection.toString()})("alice.tan@example.com","input-one")`);
   await sourcePage.evaluate(`(${replaceSelection.toString()})("input-one","[REDACTED]")`);
   assert.equal(await sourcePage.locator('#input').inputValue(), 'Before [REDACTED] after');
+  await sourcePage.setContent('<p id="outside"><em>alice.tan@example.com</em></p><p id="sample"><strong>alice.tan@example.com</strong></p>');
+  await sourcePage.evaluate(selectSample);
+  await sourcePage.evaluate(`(${captureSelection.toString()})("alice.tan@example.com","repeated-outside-selection")`);
+  await sourcePage.evaluate(`(${replaceSelection.toString()})("repeated-outside-selection","[REDACTED] <img src=x>")`);
+  assert.equal(await sourcePage.locator('#outside em').textContent(), 'alice.tan@example.com');
+  assert.equal(await sourcePage.locator('#sample').textContent(), '[REDACTED] <img src=x>');
+  assert.equal(await sourcePage.locator('img').count(), 0);
+  await sourcePage.setContent('<p id="sample">Source text.</p>');
+  await sourcePage.evaluate(selectSample);
+  await sourcePage.evaluate(`(${captureSelection.toString()})("Source text.","disconnected-source")`);
+  await sourcePage.locator('#sample').evaluate(e => e.outerHTML = '<p id="sample">Source text.</p>');
+  await assert.rejects(sourcePage.evaluate(`(${replaceSelection.toString()})("disconnected-source","replacement")`), /changed/);
+  await sourcePage.setContent('<p id="sample">Selected <button>control</button> text.</p>');
+  await sourcePage.evaluate(selectSample);
+  await assert.rejects(sourcePage.evaluate(`(${captureSelection.toString()})("Selected control text.","embedded-control")`), /embedded controls/);
   await offscreenEvaluate(`(async()=>{const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('junas-local',1);r.onsuccess=()=>resolve(r.result);r.onerror=reject;});await new Promise((resolve,reject)=>{const tx=db.transaction('history','readwrite');for(let i=0;i<25;i++)tx.objectStore('history').put({id:'old-'+i,created:i,source:'synthetic',outcome:'test'});tx.oncomplete=resolve;tx.onerror=reject;});db.close();})()`);
   await page.evaluate(text => chrome.runtime.sendMessage({target:'session',kind:'capture',text,jobId:'history-test',destination:{tabId:999999,frameIds:[0]}}), source);
   await page.waitForFunction(async () => { const r=await chrome.runtime.sendMessage({target:'session',kind:'get'});return r.state.history.some(x=>x.id==='history-test'&&x.outcome!=='processing'); });
