@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Junas</title><link rel="stylesheet" href="style.css"></head>
+<body class="popup"><main>
+  <header class="toolbar"><strong>Junas</strong><span class="local">On device</span></header>
+  <h1>Review selected text</h1>
+  <p class="muted intro">Experimental assessment. Review evidence before use.</p>
+  <div class="field-heading"><label for="source">Selected text</label><button id="capture" class="quiet">Use page selection</button></div>
+  <textarea id="source" rows="4" spellcheck="false" placeholder="Highlight text on a page or paste a short passage."></textarea>
+  <p id="size" class="muted"></p>
+  <div class="actions"><button id="process">Process locally</button><button id="cancel" class="secondary" hidden>Cancel</button><button id="clear" class="quiet">Clear</button></div>
+  <p id="status" role="status" aria-live="polite">Connecting to local session…</p>
+  <section id="results" hidden>
+    <div class="decisions"><div><span>PII</span><strong id="pii-state"></strong></div><div><span>MNPI</span><strong id="mnpi-state"></strong></div></div>
+    <p class="muted">Only this passage was assessed. Public status is unverified.</p>
+    <div id="evidence"></div>
+    <button id="preview" class="secondary">Preview selected redactions</button>
+    <section id="redaction" hidden><label for="redacted">Redacted copy</label><textarea id="redacted" rows="3" readonly></textarea><button id="copy">Copy redacted text</button><p class="muted">Only selected findings are redacted. Original text unchanged.</p></section>
+    <p id="timing" class="muted"></p>
+    <details><summary>Compare CLI result</summary><input id="comparison" type="file" accept="application/json,.json"><p id="comparison-result"></p></details>
+    <details><summary>Inspect evidence</summary><pre id="json"></pre></details>
+  </section>
+  <details class="options"><summary>Options</summary><label for="model">Local model</label><select id="model"><option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B</option><option value="Llama-3.2-3B-Instruct-q4f16_1-MLC">Llama 3.2 3B Instruct</option><option value="Qwen3-4B-q4f16_1-MLC">Qwen3 4B</option></select><p class="muted">Research candidates; reliability is not established. First use downloads model files. Text stays on this device. Cached files remain after clearing.</p><p class="muted">Processing continues if this view closes. Results expire after 15 minutes; the idle model is released after 5 minutes.</p></details>
+  <footer><a href="process.html" target="_blank">Open full view</a></footer>
+</main><script type="module" src="app.js"></script></body></html>

@@ -18,11 +18,11 @@ const identity = hash.digest("hex");
 await rm("dist", { recursive: true, force: true });
 await mkdir("dist");
 await build({
-  entryPoints: ["src/app.js", "src/worker.js", "src/background.js", "src/benchmark.js"],
+  entryPoints: ["src/app.js", "src/worker.js", "src/background.js", "src/benchmark.js", "src/offscreen.js"],
   outdir: "dist", bundle: true, format: "esm", target: "chrome120",
   minify: true, sourcemap: false,
   define: { __JUNAS_BUILD_ID__: JSON.stringify(identity) },
 });
-for (const file of ["manifest.json", "process.html", "style.css", "benchmark.html"]) {
+for (const file of ["manifest.json", "process.html", "popup.html", "offscreen.html", "style.css", "benchmark.html"]) {
   await cp(`public/${file}`, `dist/${file}`);
 }
