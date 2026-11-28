@@ -30,3 +30,24 @@ test("MNPI scope defaults to its evidence interval and optionally expands within
   assert.ok(expanded.endsWith("Other context."));
   assert.throws(() => validateSettings({ ...DEFAULT_SETTINGS, mnpiExtent: "document" }), /extent/);
 });
+test("all quadrants obey category switches, threshold boundaries and MNPI scope", () => {
+  for (const pii of [false, true]) for (const mnpi of [false, true]) {
+    const financial = "Listed Aster PLC agreed a material merger; this event is confidential.";
+    const text = `🙂 Public context. ${pii ? "Personal email: a@example.org. " : "Lunch starts at noon. "}${mnpi ? financial : "The public report is available."} Other context.`;
+    const raw = { pii_state: pii ? "present" : "not_detected", pii: pii ? [{ label: "EMAIL", quote: "a@example.org", confidence: .85 }] : [],
+      mnpi_state: mnpi ? "present" : "not_detected", mnpi: mnpi ? [{ issuer: "Aster PLC", event: "agreed a material merger", materiality: "material", claimed_nonpublic: "confidential", confidence: .85 }] : [], complete: true };
+    const proposal = decodeProposal(text, { finish_reason: "stop", message: { content: JSON.stringify(raw) } }, true);
+    for (const enabledPii of [false, true]) for (const enabledMnpi of [false, true]) for (const threshold of [0, .5, .7, .85, .95, 1]) for (const mnpiExtent of ["evidence", "sentences"]) {
+      const result = automaticRedaction(proposal, { ...DEFAULT_SETTINGS, pii: enabledPii, mnpi: enabledMnpi, threshold, mnpiExtent });
+      const removePii = pii && enabledPii && threshold <= .85, removeMnpi = mnpi && enabledMnpi && threshold <= .85;
+      assert.equal(result.findings, Number(removePii) + Number(removeMnpi));
+      assert.equal(result.text.includes("a@example.org"), pii && !removePii);
+      assert.equal(result.text.includes("Aster PLC"), mnpi && !removeMnpi);
+      assert.ok(result.text.startsWith("🙂 Public context. "));
+      assert.ok(result.text.endsWith("Other context."));
+      if (!removePii && !removeMnpi) assert.equal(result.text, text);
+      if (removeMnpi && mnpiExtent === "evidence") assert.ok(result.text.includes("Listed [REDACTED]."));
+      if (removeMnpi && mnpiExtent === "sentences") assert.ok(!result.text.includes("Listed "));
+    }
+  }
+});
