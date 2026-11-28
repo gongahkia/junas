@@ -8,7 +8,7 @@ import { join, resolve } from "node:path";
 const profile = await mkdtemp(join(tmpdir(), "junas-extension-test-"));
 let context;
 try {
-  const extension = resolve("dist");
+  const extension = resolve(process.env.JUNAS_EXTENSION_DIR || "dist");
   context = await chromium.launchPersistentContext(profile, {
     executablePath: process.env.JUNAS_CHROMIUM || undefined,
     headless: true,
@@ -61,7 +61,7 @@ try {
           const start = Array.from(text.slice(0, text.indexOf(quote))).length;
           this.onmessage?.({ data: { type: "result", timing: { load_ms: 1, inference_ms: 2 }, proposal: {
             document: { text }, complete: true, sensitivity: {
-              pii: { state: "present", evidence: [{ label: "EMAIL", matched_text: quote, start_char: start, end_char: start + quote.length }] },
+              pii: { state: "present", evidence: [{ label: "EMAIL", matched_text: quote, start_char: start, end_char: start + quote.length, confidence: .95 }] },
               mnpi: { state: "not_detected", evidence: [] }, absence_verified: false,
             }
           } } });
@@ -103,6 +103,39 @@ try {
   assert.equal(await page.locator("#results").isVisible(), false);
   await page.setViewportSize({ width: 375, height: 812 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  const preferences = { model: "Qwen3-1.7B-q4f16_1-MLC", threshold: .9, pii: true, mnpi: false };
+  await page.evaluate(settings => chrome.runtime.sendMessage({ target: "session", kind: "settings", settings }), preferences);
+  const sourcePage = await context.newPage();
+  await sourcePage.setContent('<p id="sample">Private email: alice.tan@example.com.</p><textarea id="input">Before alice.tan@example.com after</textarea>');
+  const { captureSelection, replaceSelection } = await import('../src/page-redaction.js');
+  const selectSample = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById("sample")); getSelection().removeAllRanges(); getSelection().addRange(r); };
+  await sourcePage.evaluate(selectSample);
+  await sourcePage.evaluate(`(${captureSelection.toString()})("Private email: alice.tan@example.com.","range-one")`);
+  await sourcePage.evaluate(`(${replaceSelection.toString()})("range-one","Private email: [REDACTED].")`);
+  assert.equal(await sourcePage.locator('#sample').textContent(), 'Private email: [REDACTED].');
+  await sourcePage.evaluate(selectSample);
+  await sourcePage.evaluate(`(${captureSelection.toString()})("Private email: [REDACTED].","stale")`);
+  await sourcePage.locator('#sample').evaluate(e => { e.textContent = 'Changed while processing.'; });
+  await assert.rejects(sourcePage.evaluate(`(${replaceSelection.toString()})("stale","replacement")`), /changed/);
+  await sourcePage.locator('#input').evaluate(e => { e.focus(); e.setSelectionRange(7,28); });
+  await sourcePage.evaluate(`(${captureSelection.toString()})("alice.tan@example.com","input-one")`);
+  await sourcePage.evaluate(`(${replaceSelection.toString()})("input-one","[REDACTED]")`);
+  assert.equal(await sourcePage.locator('#input').inputValue(), 'Before [REDACTED] after');
+  await offscreenEvaluate(`(async()=>{const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('junas-local',1);r.onsuccess=()=>resolve(r.result);r.onerror=reject;});await new Promise((resolve,reject)=>{const tx=db.transaction('history','readwrite');for(let i=0;i<25;i++)tx.objectStore('history').put({id:'old-'+i,created:i,source:'synthetic',outcome:'test'});tx.oncomplete=resolve;tx.onerror=reject;});db.close();})()`);
+  await page.evaluate(text => chrome.runtime.sendMessage({target:'session',kind:'capture',text,jobId:'history-test',destination:{tabId:999999,frameIds:[0]}}), source);
+  await page.waitForFunction(async () => { const r=await chrome.runtime.sendMessage({target:'session',kind:'get'});return r.state.history.some(x=>x.id==='history-test'&&x.outcome!=='processing'); });
+  const stored=await page.evaluate(()=>chrome.runtime.sendMessage({target:'session',kind:'get'}));
+  assert.equal(stored.state.history.length,20);
+  assert.equal(stored.state.history[0].source,source);
+  await background.evaluate(()=>chrome.offscreen.closeDocument());
+  const restored=await page.evaluate(()=>chrome.runtime.sendMessage({target:'session',kind:'get'}));
+  assert.deepEqual(restored.state.settings,preferences);
+  assert.equal(restored.state.history.length,20);
+  await page.evaluate(()=>chrome.runtime.sendMessage({target:'session',kind:'delete-history',id:'history-test'}));
+  assert.equal((await page.evaluate(()=>chrome.runtime.sendMessage({target:'session',kind:'get'}))).state.history.length,19);
+  await page.evaluate(()=>chrome.runtime.sendMessage({target:'session',kind:'delete-history'}));
+  assert.equal((await page.evaluate(()=>chrome.runtime.sendMessage({target:'session',kind:'get'}))).state.history.length,0);
+  await sourcePage.close();
   const benchmark = await context.newPage();
   await benchmark.addInitScript(() => {
     globalThis.benchmarkWorkers = 0;

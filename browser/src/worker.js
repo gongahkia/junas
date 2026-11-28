@@ -14,7 +14,7 @@ self.onmessage = async ({ data }) => {
     const text = admitText(data.text);
     const model = data.model_id ?? MODEL;
     const config = modelConfig(model);
-    const request = inferenceRequest(text, model);
+    const request = inferenceRequest(text, model, data.confidence === true);
     const started = performance.now();
     phase = "model_loading";
     if (engine && loadedModel !== model) { await engine.unload(); engine = undefined; }
@@ -33,9 +33,9 @@ self.onmessage = async ({ data }) => {
     const reply = await engine.chat.completions.create(request);
     const choice = reply.choices?.[0];
     phase = "validation";
-    const proposal = decodeProposal(text, choice);
+    const proposal = decodeProposal(text, choice, data.confidence === true);
     proposal.model = model;
-    self.postMessage({ type: "result", proposal, model_identity: { model, request_version: REQUEST_VERSION, inference_options: request.extra_body ?? null, build_sha256: __JUNAS_BUILD_ID__, weights_revision: WEIGHTS_REVISIONS[model], library_revision: LIBRARY_REVISION, runtime: "@mlc-ai/web-llm@0.2.89" }, timing: {
+    self.postMessage({ type: "result", proposal, model_identity: { model, request_version: data.confidence ? "redaction-estimates-v1" : REQUEST_VERSION, inference_options: request.extra_body ?? null, build_sha256: __JUNAS_BUILD_ID__, weights_revision: WEIGHTS_REVISIONS[model], library_revision: LIBRARY_REVISION, runtime: "@mlc-ai/web-llm@0.2.89" }, timing: {
       load_ms: loaded - started, inference_ms: performance.now() - loaded,
       total_ms: performance.now() - started,
     }, usage: reply.usage ?? null });

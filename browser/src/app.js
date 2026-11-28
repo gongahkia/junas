@@ -1,7 +1,7 @@
 import { MODEL, previewRedaction, validateComparison } from "./contract.js";
 
 const $ = id => document.getElementById(id);
-let revision = -1, resultRevision, findings = [], current, polling = false;
+let historySignature, revision = -1, resultRevision, findings = [], current, polling = false;
 const status = message => { $("status").textContent = message; };
 function resetResults() {
   findings = []; current = undefined;
@@ -21,7 +21,24 @@ function render(state) {
   $("source").textContent = state.text;
   $("cancel").hidden = !state.busy;
   $("model").disabled = state.busy;
-  $("model").value = state.model;
+  const preferences = state.settings ?? { model: state.model, threshold: .85, pii: true, mnpi: true };
+  if (!["model", "threshold", "redact-pii", "redact-mnpi"].includes(document.activeElement?.id)) {
+    $("model").value = preferences.model; $("threshold").value = preferences.threshold;
+    $("threshold-value").textContent = `${Math.round(preferences.threshold * 100)}%`;
+    $("redact-pii").checked = preferences.pii; $("redact-mnpi").checked = preferences.mnpi;
+  }
+  const signatureHistory = JSON.stringify(state.history ?? []);
+  if (signatureHistory !== historySignature) {
+    historySignature = signatureHistory; $("history").replaceChildren();
+    for (const record of state.history ?? []) {
+      const entry = document.createElement("details"), title = document.createElement("summary"), source = document.createElement("pre"), result = document.createElement("pre"), remove = document.createElement("button");
+      title.textContent = `${new Date(record.created).toLocaleString()} · ${record.outcome}`;
+      source.textContent = record.source; result.textContent = record.redacted ?? record.status;
+      remove.textContent = "Delete"; remove.onclick = async () => { try { render(await request("delete-history", { id: record.id })); } catch (error) { status(error.message); } };
+      entry.append(title, source, result, remove); $("history").append(entry);
+    }
+    if (!state.history?.length) $("history").textContent = "No recent redactions.";
+  }
   status(state.status);
   if (!state.result) { resetResults(); resultRevision = undefined; return; }
   const signature = JSON.stringify(state.result);
@@ -45,10 +62,15 @@ function render(state) {
   $("preview").disabled = !findings.length;
   $("json").textContent = JSON.stringify(current, null, 2);
 }
-$("model").onchange = async () => {
-  try { const state = await request("get"); render(await request("draft", { text: state.text, model: $("model").value })); }
-  catch (error) { status(error.message); }
-};
+async function updateSettings() {
+  try {
+    render(await request("settings", { settings: { model: $("model").value, threshold: Number($("threshold").value), pii: $("redact-pii").checked, mnpi: $("redact-mnpi").checked } }));
+    $("settings-status").textContent = "Settings saved on this device.";
+  } catch (error) { $("settings-status").textContent = error.message; }
+}
+for (const id of ["model", "threshold", "redact-pii", "redact-mnpi"]) $(id).onchange = updateSettings;
+$("threshold").oninput = () => { $("threshold-value").textContent = `${Math.round(Number($("threshold").value) * 100)}%`; };
+$("clear-history").onclick = async () => { try { render(await request("delete-history")); } catch (error) { status(error.message); } };
 $("cancel").onclick = async () => {
   try { render(await request("cancel")); } catch (error) { status(error.message); }
 };

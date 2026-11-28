@@ -15,7 +15,7 @@ test("a reopened client sees a result completed without a connected view", async
     await session.start("Nothing personal.");
     const closedClientSnapshot = session.snapshot();
     assert.equal(closedClientSnapshot.busy, true);
-    worker.onmessage({ data: result("Nothing personal.") });
+    await worker.onmessage({ data: result("Nothing personal.") });
     const reopened = session.snapshot();
     assert.equal(reopened.busy, false);
     assert.equal(reopened.result.proposal.complete, true);
@@ -54,7 +54,7 @@ test("busy edits, unsupported models, bad input and mismatched results fail expl
     await session.start("Original.");
     assert.throws(() => session.draft("Changed."), /Cancel/);
     await assert.rejects(session.start("Other."), /already running/);
-    worker.onmessage({ data: result("Different.") });
+    await worker.onmessage({ data: result("Different.") });
     assert.equal(session.snapshot().result, null);
     assert.match(session.snapshot().status, /mismatch/);
   } finally { session.clear(); }
