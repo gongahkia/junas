@@ -3,14 +3,14 @@ import screeningIds from "../eval/screening-ids.json" with { type: "json" };
 import { MODEL_IDS } from "../src/contract.js";
 import { scoreResults } from "../src/evaluation.js";
 import { runValidation } from "./run-validation.js";
-import { redactorMetrics } from "./redactor-metrics.js";
+import { redactorMetrics, redactionPolicyScore } from "./redactor-metrics.js";
 import { shadowFindings } from "./shadow-policy.js";
 import { ANCHORED_REQUEST_VERSION } from "./anchored-request.js";
 
 const development = makeCases(), screen = screeningIds.map(id => development.find(c => c.id === id));
 const policy = { pii: true, mnpi: true, threshold: .85, mnpiExtent: "evidence" };
 const status = message => { document.getElementById("status").textContent = message; };
-const prefix = "anchored-v2";
+const prefix = "anchored-v3";
 async function save(name, data) {
   const response = await fetch("/checkpoint", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, data }) });
   if (!response.ok) throw Error("Checkpoint failed; stop rather than discard evidence.");
@@ -27,7 +27,7 @@ function summary(cases, rows, split = "development") {
     const { examples, ...metrics } = redactorMetrics(cases, rows, { threshold, pii, mnpi, mnpiExtent });
     sweeps.push(metrics);
   }
-  return { classification: scoreResults(cases, rows, { split }), default_policy: redactorMetrics(cases, rows, policy),
+  return { classification: scoreResults(cases, rows, { split }), policy_decisions: redactionPolicyScore(cases, rows, policy, split), default_policy: redactorMetrics(cases, rows, policy),
     shadow_policy: redactorMetrics(cases, rows, policy, shadowFindings), sweeps };
 }
 async function runBatch(cases, model, stage, initial = []) {
@@ -57,13 +57,13 @@ export async function run() {
   // select on fixed development evidence only; validation cannot affect this order or policy.
   const usable = screens.filter(r => r.rows.some(row => row.proposal?.complete));
   const weakest = r => Math.min(r.default_policy.pii_char_recall ?? 0, r.default_policy.mnpi_documents_redacted / r.default_policy.mnpi_positive_documents);
-  usable.sort((a, b) => weakest(b) - weakest(a) || a.default_policy.negative_documents_changed - b.default_policy.negative_documents_changed || a.classification.failed - b.classification.failed || MODEL_IDS.indexOf(a.model) - MODEL_IDS.indexOf(b.model));
+  usable.sort((a, b) => Number(b.policy_decisions.passed && b.classification.passed) - Number(a.policy_decisions.passed && a.classification.passed) || weakest(b) - weakest(a) || a.default_policy.negative_documents_changed - b.default_policy.negative_documents_changed || a.classification.failed - b.classification.failed || MODEL_IDS.indexOf(a.model) - MODEL_IDS.indexOf(b.model));
   if (!usable.length) throw Error("No complete candidate. Validation remains untouched.");
   const selected = usable[0];
   const all = await runBatch(development, selected.model, "development", selected.rows);
   const freeze = { model: selected.model, artifact_sha256: __JUNAS_BUILD_ID__, validation_sha256: __JUNAS_VALIDATION_SHA256__, request_version: ANCHORED_REQUEST_VERSION, policy,
-    screening_order: usable.map(r => r.model), development_gates_passed: all.classification.passed,
-    status: all.classification.passed ? "candidate_for_authored_validation" : "exploratory_candidate_with_failed_development_gates",
+    screening_order: usable.map(r => r.model), development_gates_passed: all.classification.passed && all.policy_decisions.passed,
+    status: all.classification.passed && all.policy_decisions.passed ? "candidate_for_authored_validation" : "exploratory_candidate_with_failed_development_gates",
     classification_applied: false, paid_api_calls: 0, interpretation: "Frozen authored-development selection; no independent accuracy or calibrated-confidence claim." };
   await save(`${prefix}-freeze`, freeze);
   const response = await fetch("frozen-validation.json");
