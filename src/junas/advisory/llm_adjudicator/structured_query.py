@@ -96,7 +96,7 @@ def build_structured_query(
 ) -> dict[str, Any]:
     if not isinstance(text, str) or (entity_id is not None and not isinstance(entity_id, str)):
         raise ValueError("structured text/identifier must be strings")
-    if current_classification not in ("SAFE", "LOW_RISK", "HIGH_RISK"):
+    if current_classification not in ("present", "not_detected", "unknown", "SAFE", "LOW_RISK", "HIGH_RISK"):
         raise ValueError("invalid current classification")
     if not isinstance(findings, list) or (public_evidence is not None and not isinstance(public_evidence, dict)):
         raise ValueError("invalid structured findings/public evidence")

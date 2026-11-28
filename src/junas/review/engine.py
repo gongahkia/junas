@@ -8,7 +8,6 @@ from typing import Any
 
 from junas.external.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
 from junas.input_limits import check_analyzed_text, check_inline_text
-from junas.models import Classification
 from junas.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from junas.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from junas.review.defined_terms import extract_defined_terms, is_defined_term
@@ -1116,27 +1115,10 @@ _MINOR_FP_LEADING_GRADE = re.compile(
 )
 
 
-SEVERITY_SCORE = {"low": 25.0, "medium": 55.0, "high": 85.0}
+SEVERITY_ORDER = {"low": 0, "medium": 1, "high": 2}
 
-# document types where a named person reference is materially sensitive (counterparty principals,
-# signatories, beneficial owners). lifts named_person severity from low to high.
+# document types where a named person reference is materially sensitive.
 NAMED_PERSON_HIGH_SEVERITY_DOC_TYPES = frozenset({"spa", "nda", "sha", "term_sheet", "shareholders_agreement"})
-
-# Two-tier router defaults. The LLM tier engages when:
-#   1. the review profile is `audit_grade` (caller opted in), AND
-#   2. an LLM adjudicator + public-evidence retriever are wired into the engine, AND
-#   3. the MNPI score lands in the ambiguous band [LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER).
-# the band is an existing cost/router policy, not a coverage or confidence guarantee.
-# PII-only and high-MNPI documents do not engage this tier. Model advice cannot
-# change the deterministic classification inside or outside the band.
-#
-# Defaults below were picked from the score-from-severity table:
-#   single medium finding score ≈ 55; two medium findings ≈ 58; one high ≈ 85.
-# So the band [25, 70) covers documents with at least one medium finding but no high.
-# `scripts/calibrate_escalation_threshold.py` writes tenant-specific bounds into
-# junas.configs.runtime once enough journal-replay data exists.
-LLM_TIER_MNPI_LOWER = 25.0
-LLM_TIER_MNPI_UPPER = 70.0
 
 VALID_REVIEW_PROFILES = frozenset({"strict", "audit_grade"})
 
@@ -1234,7 +1216,6 @@ class ReviewFinding:
     rule: str
     jurisdiction: str
     severity: str
-    score: float
     matched_text: str
     start_char: int
     end_char: int
@@ -1259,10 +1240,6 @@ class ReviewSuggestion:
 
 @dataclass
 class ReviewResult:
-    overall_risk: Classification
-    document_score: float
-    pii_score: float
-    mnpi_score: float
     jurisdictions_applied: list[str]
     jurisdiction_policy: str
     findings: list[ReviewFinding] = field(default_factory=list)
@@ -1273,6 +1250,7 @@ class ReviewResult:
     coverage_warnings: list[dict[str, Any]] = field(default_factory=list)
     degraded_modes: list[dict[str, Any]] = field(default_factory=list)
     sensitivity: dict[str, Any] = field(default_factory=dict)
+    schema_version: str = "junas.review.v2"
 
 
 class ReviewLayerError(RuntimeError):
@@ -1292,12 +1270,10 @@ def _drain_privacy_ledger_events(component: Any | None) -> list[dict[str, Any]]:
     return [dict(event) for event in events if isinstance(event, dict)]
 
 
-def _risk_from_score(score: float) -> Classification:
-    if score >= 70.0:
-        return Classification.HIGH_RISK
-    if score >= 35.0:
-        return Classification.LOW_RISK
-    return Classification.SAFE
+def mnpi_advice_eligible(findings: list[ReviewFinding]) -> bool:
+    """Route non-high MNPI evidence to explicitly configured advisory providers."""
+    mnpi = [finding for finding in findings if finding.category == "MNPI"]
+    return bool(mnpi) and not any(finding.severity == "high" for finding in mnpi)
 
 
 def _line_span(text: str, start: int, end: int) -> tuple[int, int]:
@@ -1362,7 +1338,6 @@ def _new_finding(
         rule=rule,
         jurisdiction=jurisdiction,
         severity=severity,
-        score=SEVERITY_SCORE[severity],
         matched_text=matched_text,
         start_char=start,
         end_char=end,
@@ -2232,7 +2207,6 @@ def _amplify_co_occurring_low_mnpi(findings: list["ReviewFinding"]) -> None:
         for lo, hi in trigger_spans:
             if f_lo <= hi and lo <= f_hi:
                 f.severity = "medium"
-                f.score = SEVERITY_SCORE["medium"]
                 f.reason = f.reason + " — escalated due to adjacent MNPI substrate within ±200 chars"
                 break
 
@@ -2788,7 +2762,6 @@ def _amplify_pseudonymised_when_linked(findings: list["ReviewFinding"]) -> None:
         if f.rule not in _PSEUDONYMISED_LINKABLE_RULES or f.severity != "medium":
             continue
         f.severity = "high"
-        f.score = SEVERITY_SCORE["high"]
         f.reason = f.reason + " — escalated due to named_person re-link risk (GDPR Recital 26)"
 
 
@@ -2816,7 +2789,7 @@ def _amplify_pseudonymised_when_linked(findings: list["ReviewFinding"]) -> None:
 
 # Per-jurisdiction tier ladders. Threshold = fraction-of-base (revenue or market_cap). Tier
 # at or above threshold yields the named severity. Walk from highest tier downward; first
-# threshold met wins. Existing SEVERITY_SCORE only defines low/medium/high — we collapse the
+# threshold met wins. The severity ordering only defines low/medium/high — we collapse the
 # would-be "critical" top into "high" rather than expand the global severity vocabulary.
 _MATERIALITY_TIERS_US: tuple[tuple[float, str], ...] = (
     (0.05, "high"),  # SAB 99 "5% rule of thumb"
@@ -3239,12 +3212,11 @@ def _scale_financial_by_entity_size(
             )
             continue
         new_tier = _tier_for(fraction, ladder)
-        if new_tier is None or SEVERITY_SCORE[new_tier] <= SEVERITY_SCORE[f.severity]:
+        if new_tier is None or SEVERITY_ORDER[new_tier] <= SEVERITY_ORDER[f.severity]:
             # Tier ladder did not exceed the deterministic floor. Leave severity intact.
             f.reason = f.reason + f" — entity-relative {fraction:.2%} (below scaling tier)"
             continue
         f.severity = new_tier
-        f.score = SEVERITY_SCORE[new_tier]
         f.reason = (
             f.reason + f" — escalated to {new_tier} per SAB 99 / ASX GN8 entity-relative tier ({fraction:.2%} of base)"
         )
@@ -4536,12 +4508,6 @@ class PreSendReviewEngine:
                 idx += 1
         return findings
 
-    def _score(self, findings: list[ReviewFinding], category: str) -> float:
-        matches = [finding.score for finding in _deduplicate_findings(findings) if finding.category == category]
-        if not matches:
-            return 0.0
-        return min(100.0, max(matches) + max(0, len(matches) - 1) * 3.0)
-
     def _suggestions(
         self,
         findings: list[ReviewFinding],
@@ -4595,37 +4561,21 @@ class PreSendReviewEngine:
             )
         return suggestions
 
-    def _llm_tier_engaged(self, *, review_profile: str, mnpi_score: float) -> bool:
-        """Return True when the document is eligible for LLM-tier reasoning.
+    def _llm_tier_engaged(self, *, review_profile: str, findings: list[ReviewFinding]) -> bool:
+        """Keep advice opt-in, evidence-gated and separate from classification."""
+        return (
+            review_profile == "audit_grade"
+            and any(
+                helper is not None
+                for helper in (self.public_evidence_retriever, self.llm_adjudicator, self.llm_coverage_auditor)
+            )
+            and mnpi_advice_eligible(findings)
+        )
 
-        Three gates, all must hold:
-          - profile opt-in: `audit_grade` (caller asked for the LLM tier)
-          - score band: mnpi_score in [LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER)
-          - components available: at least one of (public_evidence_retriever, llm_adjudicator)
-
-        This is the two-tier engine's router: a document outside the ambiguous band either
-        can't be moved by the LLM (score already high enough to be a deterministic high) or
-        doesn't need the LLM (score already SAFE on deterministic signal). The router keeps
-        p95 latency bounded for the 90% case.
-        """
-        if review_profile != "audit_grade":
-            return False
-        # any of the three LLM-tier helpers is sufficient to engage the band gate;
-        # individual helpers still self-gate on their own preconditions further down.
-        if (
-            self.public_evidence_retriever is None
-            and self.llm_adjudicator is None
-            and self.llm_coverage_auditor is None
-        ):
-            return False
-        return LLM_TIER_MNPI_LOWER <= mnpi_score < LLM_TIER_MNPI_UPPER
-
-    def _maybe_public_evidence(
-        self, *, text: str, entity_id: str | None, mnpi_score: float, engage: bool
-    ) -> dict[str, Any] | None:
+    def _maybe_public_evidence(self, *, text: str, entity_id: str | None, engage: bool) -> dict[str, Any] | None:
         if not engage:
             return None
-        if mnpi_score <= 0 or self.public_evidence_retriever is None:
+        if self.public_evidence_retriever is None:
             return None
         try:
             result = self.public_evidence_retriever.retrieve(text=text, entity_id=entity_id, lexicon=None)
@@ -4659,7 +4609,7 @@ class PreSendReviewEngine:
         self,
         *,
         text: str,
-        overall_risk: Classification,
+        current_assessment: str,
         public_evidence: dict[str, Any] | None,
         engage: bool,
         findings: list | None = None,
@@ -4667,14 +4617,14 @@ class PreSendReviewEngine:
     ) -> dict[str, Any] | None:
         if not engage:
             return None
-        if self.llm_adjudicator is None or overall_risk == Classification.SAFE:
+        if self.llm_adjudicator is None:
             return None
         try:
             from junas.advisory.llm_adjudicator.contracts import advisory_result, model_provenance
 
             kwargs = dict(
                 text=text,
-                current_classification=overall_risk.value,
+                current_classification=current_assessment,
                 public_evidence=public_evidence,
                 findings=findings,
                 entity_id=entity_id,
@@ -4785,7 +4735,7 @@ class PreSendReviewEngine:
         )
         findings = _deduplicate_findings(findings)
         # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
-        # Mutates in place before scoring so the escalated severity feeds into mnpi_score.
+        # retain qualitative severity on the evidence itself.
         _amplify_co_occurring_low_mnpi(findings)
 
         # item 73: entity-size-relative materiality (SAB 99 + ASX GN8). Mutates
@@ -4832,15 +4782,9 @@ class PreSendReviewEngine:
         )
         findings = _suppress_redundant_numeric_findings(text, findings)
         _validate_finding_spans(text, findings)
-        pii_score = self._score(findings, "PII")
-        mnpi_score = self._score(findings, "MNPI")
-        document_score = max(pii_score, mnpi_score)
-        overall_risk = _risk_from_score(document_score)
 
-        engage_llm_tier = self._llm_tier_engaged(review_profile=review_profile, mnpi_score=mnpi_score)
-        public_evidence = self._maybe_public_evidence(
-            text=text, entity_id=entity_id, mnpi_score=mnpi_score, engage=engage_llm_tier
-        )
+        engage_llm_tier = self._llm_tier_engaged(review_profile=review_profile, findings=findings)
+        public_evidence = self._maybe_public_evidence(text=text, entity_id=entity_id, engage=engage_llm_tier)
         # document-wide source candidates do not establish any specific claim.
         _apply_retrieval_verification(findings, public_evidence, jurisdiction=jurisdiction_label)
         for spec in detect_conjunctive_mnpi(
@@ -4867,14 +4811,13 @@ class PreSendReviewEngine:
                 )
             )
         _apply_retrieval_verification(findings, public_evidence, jurisdiction=jurisdiction_label)
-        pii_score = self._score(findings, "PII")
-        mnpi_score = self._score(findings, "MNPI")
-        document_score = max(pii_score, mnpi_score)
-        overall_risk = _risk_from_score(document_score)
+        from junas.review.sensitivity import sensitivity
+
+        assessment = sensitivity(text, findings)
         privacy_ledger.extend(list((public_evidence or {}).get("privacy_ledger", [])))
         llm_adjudication = self._maybe_llm_adjudication(
             text=text,
-            overall_risk=overall_risk,
+            current_assessment=assessment["mnpi"]["state"],
             public_evidence=public_evidence,
             engage=engage_llm_tier,
             findings=findings,
@@ -4894,7 +4837,7 @@ class PreSendReviewEngine:
                     "input_mode": str(llm_adjudication.get("input_mode") or ""),
                 }
             )
-        # model advice is visible separately; it cannot replace the scored risk.
+        # model advice is visible separately; it cannot replace contextual decisions.
         coverage_warnings: list[dict[str, Any]] = driver_license_coverage_warnings(
             text,
             packs=packs,
@@ -4932,13 +4875,7 @@ class PreSendReviewEngine:
         except CitationOverrideError as exc:
             raise ReviewLayerError("citation_override", f"citation override resolution failed: {exc}") from exc
 
-        from junas.review.sensitivity import sensitivity
-
         return ReviewResult(
-            overall_risk=overall_risk,
-            document_score=round(document_score, 3),
-            pii_score=round(pii_score, 3),
-            mnpi_score=round(mnpi_score, 3),
             jurisdictions_applied=[pack.code for pack in packs],
             jurisdiction_policy="strictest_wins",
             findings=findings,
@@ -4948,5 +4885,5 @@ class PreSendReviewEngine:
             privacy_ledger=privacy_ledger,
             coverage_warnings=coverage_warnings,
             degraded_modes=degraded_modes,
-            sensitivity=sensitivity(text, findings),
+            sensitivity=assessment,
         )

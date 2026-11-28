@@ -1,15 +1,8 @@
 """Transport-independent inputs and labels for the classifier."""
 
 from dataclasses import dataclass
-from enum import Enum
 
 from junas.input_limits import check_inline_text
-
-
-class Classification(str, Enum):
-    SAFE = "SAFE"
-    LOW_RISK = "LOW_RISK"
-    HIGH_RISK = "HIGH_RISK"
 
 
 @dataclass(frozen=True)

@@ -42,7 +42,7 @@ class ConjunctiveMNPITests(unittest.TestCase):
     def test_lexicalised_materiality_state(self):
         finding, result = self._conjunctive("Confidential Acme Corp acquisition before announcement.")
         self.assertEqual(finding.severity, "medium")
-        self.assertEqual(result.overall_risk.value, "HIGH_RISK")
+        self.assertTrue(any(f.severity == "high" for f in result.findings))
         self.assertEqual(finding.metadata["materiality_state"], "lexicalised")
         self.assertTrue(finding.metadata["non_public_element_satisfied"])
         self.assertTrue(finding.metadata["entity_element_satisfied"])
@@ -128,7 +128,7 @@ class ConjunctiveMNPITests(unittest.TestCase):
         for text in probes:
             with self.subTest(text=text):
                 finding, result = self._conjunctive(text)
-                self.assertNotEqual(result.document_score, 0.0)
+                self.assertTrue(result.findings)
                 self.assertEqual(finding.severity, "high")
                 self.assertEqual(finding.metadata["materiality_state"], "lexicalised")
                 self.assertTrue(finding.metadata["possession_or_duty_element_satisfied"])

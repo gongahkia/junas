@@ -90,7 +90,7 @@ def test_default_and_explicit_sg_are_identical():
     )
     assert default == explicit
     assert default["jurisdictions_applied"] == ["SG"]
-    assert default["overall_risk"] == "HIGH_RISK"
+    assert default["sensitivity"]["pii"]["state"] == "present"
 
 
 @pytest.mark.parametrize("value", ["SNGAPORE", "ZZ", "GENERIC", "", "   ", 0, False, [], {}])
@@ -128,7 +128,7 @@ def test_source_destination_union_and_attribution_remain_strictest_wins():
     for source, destination in [("US", "SINGAPORE"), ("SINGAPORE", "USA")]:
         result = _engine(source, destination)
         assert "sg_nric_fin" in {f.rule for f in result.findings}
-        assert result.overall_risk.value == "HIGH_RISK"
+        assert next(f for f in result.findings if f.rule == "sg_nric_fin").severity == "high"
         assert set(result.jurisdictions_applied) == {"SG", "US"}
         f = next(f for f in result.findings if f.rule == "sg_nric_fin")
         assert f.metadata["jurisdiction_policy"] == "strictest_wins"

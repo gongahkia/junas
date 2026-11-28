@@ -1,4 +1,4 @@
-"""Mocked coverage advice stays outside source findings and scoring."""
+"""Mocked coverage advice stays outside source findings and contextual decisions."""
 
 import unittest
 
@@ -47,7 +47,7 @@ class CoverageAuditPrivacyTests(unittest.TestCase):
     def test_auditor_never_sees_matched_text_or_spans(self):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
-        text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
+        text = "Acme acquisition for $2.5 billion is pending."  # non-high MNPI findings
         engine.review(
             text=text,
             source_jurisdiction="SG",
@@ -111,10 +111,10 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
             document_type="memo",
             review_profile="audit_grade",
         )
-        self.assertEqual(result.document_score, baseline.document_score)
-        self.assertEqual(result.overall_risk, baseline.overall_risk)
+        self.assertEqual(result.findings, baseline.findings)
+        self.assertEqual(result.sensitivity, baseline.sensitivity)
 
-    def test_below_band_documents_do_not_call_auditor_or_gain_findings(self):
+    def test_documents_without_mnpi_do_not_call_auditor_or_gain_findings(self):
         auditor = DummyAuditor()
         engine = PreSendReviewEngine(llm_coverage_auditor=auditor)
         text = "Lunch invite for Friday."
@@ -136,7 +136,7 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
             document_type="generic",
             review_profile="audit_grade",
         )
-        self.assertEqual(result_strict.overall_risk, result_audit.overall_risk)
+        self.assertEqual(result_strict.sensitivity, result_audit.sensitivity)
         self.assertEqual(len(result_strict.findings), len(result_audit.findings))
         self.assertEqual(auditor.calls, 0)
 
@@ -171,7 +171,7 @@ class CoverageAuditResultIntegrationTests(unittest.TestCase):
 
     def test_failing_auditor_fails_closed_under_engine(self):
         engine = PreSendReviewEngine(llm_coverage_auditor=FailingAuditor())
-        text = "Acme acquisition for $2.5 billion is pending."  # in ambiguous band
+        text = "Acme acquisition for $2.5 billion is pending."  # non-high MNPI findings
         with self.assertRaises(ReviewLayerError) as ctx:
             engine.review(
                 text=text,

@@ -65,7 +65,6 @@ class AnalysisResult:
 
     def to_dict(self) -> dict[str, Any]:
         result = asdict(self.review)
-        result["overall_risk"] = self.review.overall_risk.value
         result["status"] = "degraded" if self.review.degraded_modes else "completed"
         result["document"] = asdict(self.document)
         return result

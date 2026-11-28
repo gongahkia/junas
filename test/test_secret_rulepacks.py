@@ -3,7 +3,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from junas.models import Classification
 from junas.review.engine import PreSendReviewEngine
 from junas.review.secret_rulepacks import (
     DEFAULT_GITLEAKS_MAX_MATCHES,
@@ -73,8 +72,6 @@ class SecretRulePackTests(unittest.TestCase):
         self.assertEqual(finding.legal_basis, "EXTERNAL_SECRET_RULE_PACK")
         self.assertEqual(finding.metadata["detector_source"], "gitleaks")
         self.assertEqual(finding.metadata["rule_id"], "acme-api-token")
-        self.assertEqual(result.overall_risk, Classification.HIGH_RISK)
-        self.assertGreaterEqual(result.pii_score, 85.0)
         self.assertTrue(any(suggestion.finding_id == finding.id for suggestion in result.suggestions))
 
     def test_gitleaks_allowlists_suppress_matches(self):

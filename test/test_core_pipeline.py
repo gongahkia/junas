@@ -92,7 +92,7 @@ def test_text_pipeline_preserves_offsets_and_has_no_workflow_decision():
     assert output["document"]["text"][email["start_char"] : email["end_char"]] == "alice@example.com"
     assert "send_allowed" not in output
     assert "policy_decision" not in output
-    assert classify_text("S1234567D").pii_score > 0
+    assert classify_text("S1234567D").sensitivity["pii"]["state"] == "present"
 
 
 def test_strict_does_not_construct_optional_advisory_providers():

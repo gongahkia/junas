@@ -41,10 +41,7 @@ def _candidate_payload(corpus: Path, *, review_profile: str) -> dict[str, Any]:
     paths = sorted(corpus.glob("**/*.txt"))
     if not paths:
         raise FileNotFoundError(f"no candidate fixtures found in {corpus}")
-    reports = [
-        evaluate_candidate_corpus._evaluate_one(path, review_profile=review_profile)
-        for path in paths
-    ]
+    reports = [evaluate_candidate_corpus._evaluate_one(path, review_profile=review_profile) for path in paths]
     return {
         "generated_at_unix": int(time.time()),
         "corpus": str(corpus),
@@ -103,10 +100,7 @@ def run_attribution(
             "bucket_summary": bucket_payload["summary"],
             "concentration_summary": concentration_payload["summary"],
         }
-        bad = (
-            candidate_payload["summary"]["missed"]
-            or candidate_payload["summary"]["must_not_detect_violations"]
-        )
+        bad = candidate_payload["summary"]["missed"] or candidate_payload["summary"]["must_not_detect_violations"]
         if fail_on_missed and bad:
             rc = 1
     manifest_path = output_dir / f"{run_id}_manifest.json"
@@ -145,11 +139,11 @@ def audit_grade_cost_estimate(
     output_usd_per_m: float = DEFAULT_OUTPUT_USD_PER_M,
     output_tokens_per_doc: int = DEFAULT_OUTPUT_TOKENS_PER_DOC,
 ) -> dict[str, Any]:
-    from junas.review.engine import LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER, PreSendReviewEngine
+    from junas.review.engine import PreSendReviewEngine, mnpi_advice_eligible
 
     engine = PreSendReviewEngine()
     docs = 0
-    band_docs = 0
+    eligible_docs = 0
     input_tokens = 0
     for path in sorted(corpus.glob("**/*.txt")):
         text, labels = evaluate_candidate_corpus._load_pair(path)
@@ -163,16 +157,16 @@ def audit_grade_cost_estimate(
             document_type=labels.get("document_type", "generic"),
             review_profile="strict",
         )
-        if LLM_TIER_MNPI_LOWER <= result.mnpi_score < LLM_TIER_MNPI_UPPER:
-            band_docs += 1
+        # the runtime routes before appending conjunctive findings.
+        routing_findings = [finding for finding in result.findings if finding.rule != "conjunctive_mnpi"]
+        if mnpi_advice_eligible(routing_findings):
+            eligible_docs += 1
             input_tokens += max(1, len(text) // 4) + 1500
-    output_tokens = band_docs * max(0, output_tokens_per_doc)
-    estimated_cost = (input_tokens / 1_000_000 * input_usd_per_m) + (
-        output_tokens / 1_000_000 * output_usd_per_m
-    )
+    output_tokens = eligible_docs * max(0, output_tokens_per_doc)
+    estimated_cost = (input_tokens / 1_000_000 * input_usd_per_m) + (output_tokens / 1_000_000 * output_usd_per_m)
     return {
         "docs": docs,
-        "audit_grade_band_docs": band_docs,
+        "audit_grade_eligible_docs": eligible_docs,
         "estimated_input_tokens": input_tokens,
         "estimated_output_tokens": output_tokens,
         "input_usd_per_m": input_usd_per_m,

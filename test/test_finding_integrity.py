@@ -1,11 +1,11 @@
-"""Occurrence-aware evidence and duplicate-insensitive scoring regressions."""
+"""Occurrence-aware evidence and duplicate-insensitive evidence regressions."""
 
 from dataclasses import replace
 from unittest.mock import patch
 
 import pytest
 
-from junas.review.engine import PreSendReviewEngine, ReviewFinding, ReviewLayerError, _risk_from_score
+from junas.review.engine import PreSendReviewEngine, ReviewFinding, ReviewLayerError, _deduplicate_findings
 
 
 def _review(text, *, engine=None, profile="strict"):
@@ -32,7 +32,6 @@ def _finding():
         rule="material_event",
         jurisdiction="SG",
         severity="medium",
-        score=55.0,
         matched_text="acquisition",
         start_char=0,
         end_char=11,
@@ -66,8 +65,7 @@ def test_multiple_event_keywords_on_one_line_are_one_detection():
     events = [f for f in result.findings if f.rule == "material_event"]
     assert len(events) == 1
     assert events[0].matched_text == text
-    assert result.mnpi_score == 55.0
-    assert result.overall_risk.value == "LOW_RISK"
+    assert events[0].severity == "medium"
 
 
 def test_repeated_text_retains_each_occurrence():
@@ -79,7 +77,6 @@ def test_repeated_text_retains_each_occurrence():
         (2, 2 + len(line)),
         (len(line) + 6, 2 * len(line) + 6),
     ]
-    assert result.mnpi_score == 58.0
     _assert_spans(text, result.findings)
 
 
@@ -89,7 +86,6 @@ def test_overlapping_different_rules_are_preserved():
     findings = [f for f in result.findings if f.rule in {"material_event", "definitive_agreement"}]
     assert {f.rule for f in findings} == {"material_event", "definitive_agreement"}
     assert all((f.start_char, f.end_char) == (0, len(text)) for f in findings)
-    assert result.mnpi_score == 58.0
     _assert_spans(text, findings)
 
 
@@ -107,13 +103,11 @@ def test_eu_recognizer_overlap_is_one_exact_detection():
     assert identifiers[0].metadata["validator"] == "checksum"
 
 
-@pytest.mark.parametrize("severity,score", [("medium", 55.0), ("high", 85.0)])
-def test_duplicate_ids_cannot_inflate_score_or_risk(severity, score):
-    finding = replace(_finding(), severity=severity, score=score)
+@pytest.mark.parametrize("severity", ["medium", "high"])
+def test_duplicate_ids_do_not_duplicate_evidence(severity):
+    finding = replace(_finding(), severity=severity)
     duplicates = [replace(finding, id=f"emission:{i}") for i in range(8)]
-    engine = PreSendReviewEngine()
-    assert engine._score(duplicates, "MNPI") == score
-    assert _risk_from_score(engine._score(duplicates, "MNPI")) == _risk_from_score(score)
+    assert _deduplicate_findings(duplicates) == [duplicates[0]]
 
 
 @pytest.mark.parametrize(
@@ -130,16 +124,16 @@ def test_duplicate_ids_cannot_inflate_score_or_risk(severity, score):
 def test_same_span_with_distinct_interpretation_or_provenance_still_counts(different):
     original = _finding()
     other = replace(original, id="other", **different)
-    assert PreSendReviewEngine()._score([original, other], "MNPI") == 58.0
+    assert _deduplicate_findings([original, other]) == [original, other]
 
 
 def test_deduplication_preserves_a_high_severity_interpretation():
     original = _finding()
-    high = replace(original, id="high", severity="high", score=85.0)
-    assert PreSendReviewEngine()._score([original, high, replace(high, id="repeat")], "MNPI") == 88.0
+    high = replace(original, id="high", severity="high")
+    assert _deduplicate_findings([original, high, replace(high, id="repeat")]) == [original, high]
 
 
-def test_repeated_detector_output_does_not_change_public_findings_or_scores():
+def test_repeated_detector_output_does_not_change_public_findings_or_assessment():
     original = _finding()
     engine = PreSendReviewEngine()
     with patch.object(engine, "_mnpi_findings", return_value=[original]):

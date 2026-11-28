@@ -202,7 +202,7 @@ def _resolve_adjudicator(provider_arg: str) -> TeacherAdjudicator:
                     "status": "adjudicated",
                     "provider": "mock",
                     "model": "mock-teacher",
-                    "risk_label": current_classification,
+                    "risk_label": "LOW_RISK",
                     "public_status": "ambiguous",
                     "confidence": 0.5,
                     "materiality_reason": "mock teacher placeholder",
@@ -290,7 +290,7 @@ def collect(
                 )
                 verdict = adjudicator.adjudicate(
                     text=doc.text,
-                    current_classification=review.overall_risk.value,
+                    current_classification=review.sensitivity["mnpi"]["state"],
                     findings=review.findings,
                     entity_id=entity_id,
                 )
@@ -307,7 +307,7 @@ def collect(
                 user_content = _build_user_content_for_row(
                     input_mode=input_mode,
                     text=doc.text,
-                    classification=review.overall_risk.value,
+                    classification=review.sensitivity["mnpi"]["state"],
                     findings=review.findings,
                     entity_id=entity_id,
                 )
@@ -322,7 +322,7 @@ def collect(
                     "input_mode": input_mode,
                     "user_content": user_content,
                     "deterministic_findings": _build_findings_payload(review.findings),
-                    "deterministic_classification": review.overall_risk.value,
+                    "deterministic_sensitivity": review.sensitivity,
                     "teacher_verdict": verdict,
                 }
                 fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")

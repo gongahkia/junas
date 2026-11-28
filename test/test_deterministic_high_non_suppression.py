@@ -1,6 +1,6 @@
 import unittest
 
-from junas.review.engine import LLM_TIER_MNPI_UPPER, PreSendReviewEngine
+from junas.review.engine import PreSendReviewEngine
 
 HIGH_MNPI_TEXT = (
     "Confidential pre-announcement acquisition of GlobalTech for $2.5 billion. "
@@ -65,13 +65,25 @@ class DeterministicHighNonSuppressionTests(unittest.TestCase):
         high_findings = [
             finding for finding in result.findings if finding.category == "MNPI" and finding.severity == "high"
         ]
-        self.assertGreaterEqual(result.mnpi_score, LLM_TIER_MNPI_UPPER)
         self.assertGreater(len(high_findings), 0)
         self.assertIsNone(result.public_evidence)
         self.assertIsNone(result.llm_adjudication)
         self.assertEqual(public_evidence.calls, 0)
         self.assertEqual(llm.calls, 0)
-        self.assertNotEqual(result.overall_risk.value, "SAFE")
+        self.assertEqual(
+            result.sensitivity,
+            PreSendReviewEngine()
+            .review(
+                text=HIGH_MNPI_TEXT,
+                source_jurisdiction="SG",
+                destination_jurisdiction="SG",
+                entity_id="Acme Corp",
+                include_suggestions=False,
+                document_type="memo",
+                review_profile="audit_grade",
+            )
+            .sensitivity,
+        )
 
 
 if __name__ == "__main__":

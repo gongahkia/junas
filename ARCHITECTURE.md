@@ -7,7 +7,7 @@ flowchart LR
     Input[Text or UTF-8 text file] --> Admission[Bounded text admission]
     Admission --> Engine[PII and MNPI detection]
     Rules[Jurisdiction rules and frequency tables] --> Engine
-    Engine --> Result[Findings, scores, citations, coverage warnings]
+    Engine --> Result[Findings, contextual states, citations, coverage warnings]
     Fixtures[Labelled corpus] --> Eval[Evaluation and regression gates]
     Result --> Eval
     Eval --> Reports[Precision, recall, F2 and miss analysis]
@@ -19,7 +19,7 @@ The `strict` profile never constructs retrieval or LLM adjudicators. `audit_grad
 
 Cross-document defined terms are explicit input (`context_terms`). There is no implicit session/matter storage, approval state, journal, mapping store, tenant authentication, send policy, or telemetry service. Citation override selectors and provider opt-in fields remain part of the experimental analysis configuration; they are not an identity system.
 
-The engine's rule-based risk scores are not calibrated probabilities. A completed analysis is not proof of complete detection. Optional local NER degradation remains visible.
+The review contract is `junas.review.v2`. Contextual decisions live in `sensitivity.pii.state` and `sensitivity.mnpi.state`, with `present`, `not_detected` or `unknown` states and source evidence. Document risk scores, finding scores, the `Classification` enum and the `SAFE`/`LOW_RISK`/`HIGH_RISK` document decision were removed. A completed analysis is not proof of complete detection; `not_detected` does not establish absence. Optional local NER degradation remains visible. See the [migration](docs/review-v2-migration.md).
 
 NER is an optional text-only extra. Parser, image and cloud OCR dependencies were removed. Evaluation uses direct engine calls so transport adapters cannot alter detector measurements.
 

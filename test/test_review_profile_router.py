@@ -1,16 +1,8 @@
-"""Two-tier router + audit_grade profile gating.
-
-Three guarantees:
-1. `review_profile=strict` (default): LLM tier never engages, even when adjudicator wired.
-2. `review_profile=audit_grade` + score in [LLM_TIER_MNPI_LOWER, LLM_TIER_MNPI_UPPER): LLM fires.
-3. `review_profile=audit_grade` but score outside band: LLM does NOT fire (no wasted tokens).
-"""
+"""Explicit advice opt-in and qualitative MNPI evidence routing."""
 
 import unittest
 
 from junas.review.engine import (
-    LLM_TIER_MNPI_LOWER,
-    LLM_TIER_MNPI_UPPER,
     PreSendReviewEngine,
     ReviewLayerError,
 )
@@ -56,8 +48,8 @@ class StrictProfileTests(unittest.TestCase):
             llm_adjudicator=self.adj,
         )
 
-    def test_strict_never_calls_llm_even_with_ambiguous_score(self):
-        # this text produces an ambiguous-band mnpi score (acquisition + $ amount, public context)
+    def test_strict_never_calls_llm_even_with_mnpi_evidence(self):
+        # public transaction language yields non-high MNPI detector evidence.
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = self.engine.review(
             text=text,
@@ -83,7 +75,7 @@ class AuditGradeProfileTests(unittest.TestCase):
             llm_adjudicator=self.adj,
         )
 
-    def test_audit_grade_in_band_calls_llm(self):
+    def test_audit_grade_non_high_mnpi_calls_llm(self):
         text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
         result = self.engine.review(
             text=text,
@@ -94,13 +86,13 @@ class AuditGradeProfileTests(unittest.TestCase):
             document_type="generic",
             review_profile="audit_grade",
         )
-        # confirm the document lands in the ambiguous band
-        self.assertTrue(LLM_TIER_MNPI_LOWER <= result.mnpi_score < LLM_TIER_MNPI_UPPER)
+        self.assertTrue(any(f.category == "MNPI" for f in result.findings))
+        self.assertFalse(any(f.category == "MNPI" and f.severity == "high" for f in result.findings))
         self.assertEqual(self.adj.calls, 1)
         self.assertEqual(self.pe.calls, 1)
 
-    def test_audit_grade_below_band_skips_llm(self):
-        # plain text with no MNPI signal — score should be 0.0, below LOWER
+    def test_audit_grade_without_mnpi_skips_llm(self):
+        # plain text has no MNPI findings.
         text = "Hello, this is a perfectly normal sentence with no financial content."
         result = self.engine.review(
             text=text,
@@ -111,12 +103,12 @@ class AuditGradeProfileTests(unittest.TestCase):
             document_type="generic",
             review_profile="audit_grade",
         )
-        self.assertLess(result.mnpi_score, LLM_TIER_MNPI_LOWER)
+        self.assertFalse(any(f.category == "MNPI" for f in result.findings))
         self.assertEqual(self.adj.calls, 0)
         self.assertEqual(self.pe.calls, 0)
 
-    def test_audit_grade_above_band_skips_llm(self):
-        # high-MNPI text: confidential + acquisition + nonpublic — pushes score >= UPPER
+    def test_audit_grade_high_mnpi_skips_llm(self):
+        # explicit nonpublic markers produce high-severity findings.
         text = (
             "Confidential pre-announcement acquisition of GlobalTech for $2.5 billion. "
             "Material non-public information; do not distribute."
@@ -130,8 +122,8 @@ class AuditGradeProfileTests(unittest.TestCase):
             document_type="generic",
             review_profile="audit_grade",
         )
-        self.assertGreaterEqual(result.mnpi_score, LLM_TIER_MNPI_UPPER)
-        self.assertEqual(self.adj.calls, 0, "score above UPPER means LLM cannot lift it; skip")
+        self.assertTrue(any(f.category == "MNPI" and f.severity == "high" for f in result.findings))
+        self.assertEqual(self.adj.calls, 0, "high MNPI evidence does not engage advisory providers")
         self.assertEqual(self.pe.calls, 0)
 
     def test_public_evidence_failure_fails_closed(self):

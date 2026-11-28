@@ -398,7 +398,7 @@ class LocalLLMAdjudicator:
             return {**self._disabled("invalid LLM input mode"), "status": "error"}
         if (
             not isinstance(text, str)
-            or current_classification not in ("SAFE", "LOW_RISK", "HIGH_RISK")
+            or current_classification not in ("present", "not_detected", "unknown", "SAFE", "LOW_RISK", "HIGH_RISK")
             or (entity_id is not None and not isinstance(entity_id, str))
             or (findings is not None and not isinstance(findings, list))
             or (

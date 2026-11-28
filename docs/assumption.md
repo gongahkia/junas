@@ -1,6 +1,6 @@
 # Runtime assumptions
 
-- The baseline is a local, deterministic PII/MNPI detector. Its scores are heuristic risk scores, not probabilities.
+- The baseline is a local, deterministic PII/MNPI detector. It returns contextual states and evidence, without document risk scores or calibrated probabilities.
 - The classifier returns findings and evidence; there is no send decision, approval workflow, redaction service or HTTP endpoint.
 - Jurisdiction packs and defined-term/entity context affect classification. Context terms are supplied explicitly and are not persisted in sessions.
 - Local spaCy NER is opt-in with `JUNAS_LOCAL_NER_FALLBACK=1` and requires the `ner` extra plus a model. It is not silently included in the baseline.

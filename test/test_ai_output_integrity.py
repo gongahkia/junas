@@ -107,17 +107,12 @@ def private_cache(tmp_path, monkeypatch):
 
 
 @pytest.mark.parametrize("count", [1, 20])
-def test_coverage_advice_never_changes_evidence_scores_or_risk(count):
+def test_coverage_advice_never_changes_evidence_or_assessment(count):
     baseline = review(PreSendReviewEngine())
     auditor = Auditor(Auditor().warnings * count)
     result = review(PreSendReviewEngine(llm_coverage_auditor=auditor))
     assert [asdict(f) for f in result.findings] == [asdict(f) for f in baseline.findings]
-    assert (result.document_score, result.pii_score, result.mnpi_score, result.overall_risk) == (
-        baseline.document_score,
-        baseline.pii_score,
-        baseline.mnpi_score,
-        baseline.overall_risk,
-    )
+    assert result.sensitivity == baseline.sensitivity
     assert len(result.coverage_warnings) == 1
     w = result.coverage_warnings[0]
     assert w["advisory_only"] and w["evidence_status"] == "unverified"
@@ -142,23 +137,26 @@ def test_invalid_coverage_outputs_fail_closed(extra):
     assert exc.value.layer == "llm_coverage_audit"
 
 
-def test_adjudication_is_explicit_advice_not_a_scoreless_override():
+def test_adjudication_is_explicit_advice_not_an_assessment_override():
     baseline = review(PreSendReviewEngine())
     result = review(PreSendReviewEngine(llm_adjudicator=Adjudicator()))
-    assert result.overall_risk == baseline.overall_risk and result.document_score == baseline.document_score
+    assert result.sensitivity == baseline.sensitivity
+    assert result.findings == baseline.findings
     advice = result.llm_adjudication
     assert advice["risk_label"] == "SAFE" and advice["classification_applied"] is False
     assert advice["evidence_status"] == "unverified" and advice["origin"] == "llm"
     assert advice["public_status"] == "not_checked" and advice["proposed_public_status"] == "public"
 
 
-def test_in_band_advice_cannot_clear_deterministic_high_pii():
+def test_mnpi_advice_cannot_clear_deterministic_high_pii():
     adj = Adjudicator()
     text = TEXT + " Client NRIC S1234567D."
     baseline = review(PreSendReviewEngine(), text)
     result = review(PreSendReviewEngine(llm_adjudicator=adj), text)
-    assert adj.calls == 1 and baseline.overall_risk.value == "HIGH_RISK"
-    assert result.overall_risk == baseline.overall_risk and result.document_score == baseline.document_score
+    assert adj.calls == 1
+    assert any(f.category == "PII" and f.severity == "high" for f in baseline.findings)
+    assert result.sensitivity == baseline.sensitivity
+    assert result.findings == baseline.findings
 
 
 @pytest.mark.parametrize("output", [None, [], {}, {"status": "adjudicated", "risk_label": "invalid"}])
@@ -198,11 +196,11 @@ def test_strict_calls_no_optional_provider_and_preserves_high_floor():
     )
     with patch("httpx.Client", side_effect=AssertionError("no outbound calls")):
         result = review(engine, "Confidential acquisition. NRIC S1234567D.", "strict")
-    assert result.overall_risk.value == "HIGH_RISK"
+    assert any(f.category == "PII" and f.severity == "high" for f in result.findings)
     assert adj.calls == auditor.calls == extractor.calls == 0
 
 
-def test_pii_only_and_above_band_documents_keep_existing_router():
+def test_pii_only_and_high_mnpi_documents_keep_existing_router():
     for text in (
         "Client NRIC S1234567D.",
         "Confidential pre-announcement acquisition. Material non-public information.",

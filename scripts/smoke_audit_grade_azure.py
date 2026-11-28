@@ -2,7 +2,7 @@
 """One-document Azure audit-grade smoke test.
 
 Runs Junas's actual `azure_openai` adapter through `PreSendReviewEngine.review()`
-against one existing score-band candidate fixture. This spends at most one LLM
+against one existing advice-eligible candidate fixture. This spends at most one LLM
 request and does not write reports or recall locks.
 """
 
@@ -20,8 +20,7 @@ if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
 DEFAULT_FIXTURE = (
-    REPO_ROOT
-    / "test/fixtures/legal-corpus-candidates/ae/quasi_identifiers/"
+    REPO_ROOT / "test/fixtures/legal-corpus-candidates/ae/quasi_identifiers/"
     "ae_quasi_identifiers_privacy_notice_negative_001.txt"
 )
 
@@ -33,9 +32,7 @@ def _export_azure_mini_aliases() -> None:
         "JUNAS_LLM_BASE_URL": os.environ.get("GPT5_MINI_ENDPOINT", ""),
         "JUNAS_LLM_MODEL": os.environ.get("GPT5_MINI_DEPLOYMENT", ""),
         "JUNAS_LLM_AZURE_API_VERSION": os.environ.get("GPT5_MINI_API_VERSION", ""),
-        "JUNAS_LLM_API_KEY": (
-            os.environ.get("GPT5_MINI_API_KEY", "") or os.environ.get("JUNAS_LLM_API_KEY", "")
-        ),
+        "JUNAS_LLM_API_KEY": (os.environ.get("GPT5_MINI_API_KEY", "") or os.environ.get("JUNAS_LLM_API_KEY", "")),
         "JUNAS_LLM_TENANT_OPT_IN_AZURE_OPENAI": "1",
         "JUNAS_LLM_ALLOW_REMOTE_BASE_URL": "1",
         "JUNAS_LLM_INPUT_MODE": "structured_tokens",
@@ -80,7 +77,7 @@ def main(argv: list[str] | None = None) -> int:
         "input_mode": settings.llm.llm_input_mode,
         "timeout_seconds": settings.llm.timeout_seconds,
         "findings": len(result.findings),
-        "mnpi_score": result.mnpi_score,
+        "mnpi_state": result.sensitivity["mnpi"]["state"],
         "ledger_ops": [entry.get("operation") for entry in result.privacy_ledger],
         "ledger_allowed": [entry.get("allowed") for entry in result.privacy_ledger],
     }
