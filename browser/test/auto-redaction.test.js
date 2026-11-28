@@ -16,3 +16,17 @@ test("uncalibrated confidence does not bypass grounding, completeness or categor
   assert.ok(JSON.parse(inferenceRequest(text, DEFAULT_SETTINGS.model, true).response_format.schema).properties.pii.items.required.includes("confidence"));
   assert.throws(() => validateSettings({ ...DEFAULT_SETTINGS, threshold: NaN }), /Invalid/);
 });
+test("MNPI scope defaults to its evidence interval and optionally expands within the selected passage", () => {
+  const text = "Public context. Aster has secret news. Other context.";
+  const start = text.indexOf("secret"), end = start + "secret news".length;
+  const proposal = { document: { text }, complete: true, sensitivity: {
+    pii: { state: "not_detected", evidence: [] },
+    mnpi: { state: "present", evidence: [{ label: "CONTEXTUAL_MNPI", start_char: start, end_char: end, matched_text: "secret news", confidence: .95 }] },
+  } };
+  assert.equal(automaticRedaction(proposal, DEFAULT_SETTINGS).text, "Public context. Aster has [REDACTED]. Other context.");
+  const expanded = automaticRedaction(proposal, { ...DEFAULT_SETTINGS, mnpiExtent: "sentences" }).text;
+  assert.ok(expanded.startsWith("Public context. "));
+  assert.ok(expanded.includes("[REDACTED]"));
+  assert.ok(expanded.endsWith("Other context."));
+  assert.throws(() => validateSettings({ ...DEFAULT_SETTINGS, mnpiExtent: "document" }), /extent/);
+});

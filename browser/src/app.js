@@ -22,9 +22,10 @@ function render(state) {
   $("cancel").hidden = !state.busy;
   $("model").disabled = state.busy;
   const preferences = state.settings ?? { model: state.model, threshold: .85, pii: true, mnpi: true };
-  if (!["model", "threshold", "redact-pii", "redact-mnpi"].includes(document.activeElement?.id)) {
+  if (!["model", "threshold", "redact-pii", "redact-mnpi", "mnpi-extent"].includes(document.activeElement?.id)) {
     $("model").value = preferences.model; $("threshold").value = preferences.threshold;
     $("threshold-value").textContent = `${Math.round(preferences.threshold * 100)}%`;
+    $("mnpi-extent").value = preferences.mnpiExtent ?? "evidence";
     $("redact-pii").checked = preferences.pii; $("redact-mnpi").checked = preferences.mnpi;
   }
   const signatureHistory = JSON.stringify(state.history ?? []);
@@ -64,11 +65,11 @@ function render(state) {
 }
 async function updateSettings() {
   try {
-    render(await request("settings", { settings: { model: $("model").value, threshold: Number($("threshold").value), pii: $("redact-pii").checked, mnpi: $("redact-mnpi").checked } }));
+    render(await request("settings", { settings: { model: $("model").value, threshold: Number($("threshold").value), pii: $("redact-pii").checked, mnpi: $("redact-mnpi").checked, mnpiExtent: $("mnpi-extent").value } }));
     $("settings-status").textContent = "Settings saved on this device.";
   } catch (error) { $("settings-status").textContent = error.message; }
 }
-for (const id of ["model", "threshold", "redact-pii", "redact-mnpi"]) $(id).onchange = updateSettings;
+for (const id of ["model", "threshold", "redact-pii", "redact-mnpi", "mnpi-extent"]) $(id).onchange = updateSettings;
 $("threshold").oninput = () => { $("threshold-value").textContent = `${Math.round(Number($("threshold").value) * 100)}%`; };
 $("clear-history").onclick = async () => { try { render(await request("delete-history")); } catch (error) { status(error.message); } };
 $("cancel").onclick = async () => {

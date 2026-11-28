@@ -103,7 +103,7 @@ try {
   assert.equal(await page.locator("#results").isVisible(), false);
   await page.setViewportSize({ width: 375, height: 812 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  const preferences = { model: "Qwen3-1.7B-q4f16_1-MLC", threshold: .9, pii: true, mnpi: false };
+  const preferences = { model: "Qwen3-1.7B-q4f16_1-MLC", threshold: .9, pii: true, mnpi: false, mnpiExtent: "evidence" };
   await page.evaluate(settings => chrome.runtime.sendMessage({ target: "session", kind: "settings", settings }), preferences);
   const sourcePage = await context.newPage();
   await sourcePage.setContent('<p id="sample">Private email: alice.tan@example.com.</p><textarea id="input">Before alice.tan@example.com after</textarea>');

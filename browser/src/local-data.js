@@ -1,8 +1,10 @@
 import { MODEL, MODEL_IDS } from "./contract.js";
-export const DEFAULT_SETTINGS = { model: MODEL, threshold: 0.85, pii: true, mnpi: true };
+export const DEFAULT_SETTINGS = { model: MODEL, threshold: 0.85, pii: true, mnpi: true, mnpiExtent: "evidence" };
 export function validateSettings(value) {
   if (!value || !MODEL_IDS.includes(value.model) || !Number.isFinite(value.threshold) || value.threshold < 0 || value.threshold > 1 || typeof value.pii !== "boolean" || typeof value.mnpi !== "boolean") throw Error("Invalid redaction settings.");
-  return { model: value.model, threshold: value.threshold, pii: value.pii, mnpi: value.mnpi };
+  const mnpiExtent = value.mnpiExtent ?? "evidence";
+  if (!["evidence", "sentences"].includes(mnpiExtent)) throw Error("Invalid MNPI extent.");
+  return { model: value.model, threshold: value.threshold, pii: value.pii, mnpi: value.mnpi, mnpiExtent };
 }
 let opening;
 function database() {
