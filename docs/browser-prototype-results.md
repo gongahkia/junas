@@ -1,5 +1,7 @@
 # Browser prototype and short development evaluation
 
+This page preserves the initial deterministic replay and headless checks. The subsequent [real browser benchmark](browser-live-results.md) ran all 144 cases on Intel WebGPU and records its failed quality result, timings and native interaction checks separately.
+
 The selected-text extension prototype and broader short development suite are implemented. The old document/finding numeric scores and `SAFE`/`LOW_RISK`/`HIGH_RISK` document decision were removed in review v2. Detector evidence and contextual decisions were preserved across 1,722 regression documents after excluding only the removed fields and the new version marker. This is an API cleanup, not an accuracy improvement.
 
 ## Product flow and current boundary

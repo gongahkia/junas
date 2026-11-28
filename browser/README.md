@@ -15,12 +15,12 @@ npm run build
 
 Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select `browser/dist`. Browser installation is manual; this repository does not publish or install the extension into your normal profile.
 
-The candidate is `Qwen3-1.7B-q4f16_1-MLC` with WebLLM 0.2.89. Weight and compiled-library repository revisions are pinned in `src/model.js`; builds hash the relevant source, dependency lock, prompts and targets. This candidate has **not** been validated for MNPI quality or lightweight operation. No new model is promoted by these changes.
+The candidate is `Qwen3-1.7B-q4f16_1-MLC` with WebLLM 0.2.89. Weight and compiled-library repository revisions are pinned in `src/model.js`; builds hash the relevant source, dependency lock, prompts and targets. A [real 144-case development run](../docs/browser-live-results.md) completed on Intel WebGPU but **failed seven of nine quality targets**: 42 proposals were rejected and all 102 accepted proposals were incomplete/unknown. This candidate is not promoted. Lightweight operation and generalization are not established.
 
 ## Processing and data boundaries
 
 - First processing downloads model/tokenizer/compiled assets from Hugging Face and the MLC library repository. Weights are additional to the extension bundle. Cached assets can remain on the device.
-- There is no API key, remote classification endpoint, cloud fallback or autonomous tool loop. The worker rejects `fetch` after model initialization. Real-model offline operation still requires verification on supported hardware.
+- There is no API key, remote classification endpoint, cloud fallback or autonomous tool loop. The worker rejects `fetch` after model initialization. A newly created real worker successfully loaded cached assets and processed one smoke passage with its isolated browser context offline; see the live report for device and timing limits.
 - Capture uses the browser's explicit `selectionText` event, without a content script or permission to scrape surrounding pages. Only that selection is assessed; a passage can omit essential MNPI context.
 - Pending selections use trusted extension session storage, opaque URL references and a bounded queue. Entries expire after five minutes when next accessed/cleaned, are removed on consumption, and do not use persistent local history. Results remain in the processing tab. Clear terminates the worker and clears text/results; closing the tab stops its worker.
 - Input is capped at 1,024 UTF-8 bytes, with an additional conservative full-prompt/context check that can reject shorter passages. The prototype does not silently truncate. It handles a single selected passage, not full-document coverage.
@@ -32,7 +32,7 @@ The browser model emits `junas.browser.proposal.v1`, marked `classification_appl
 
 ## Development evaluation
 
-Open the extension's `benchmark.html` page by replacing `process.html` in its URL. Clicking **Run local benchmark** processes 144 authored short cases through the same worker and evidence validation. It records all four quadrants, family-level agreement, typed PII span matches, failure counts, individual inference timings, p50/p95 and model/build identities. Load time is separate from inference. Missing/error cases remain in denominators. Three consecutive failures stop the run; per-case timeouts and a 20-minute loop deadline bound work. Stop produces a partial report rather than discarding failures. Downloading a report is explicit.
+Open the extension's `benchmark.html` page by replacing `process.html` in its URL. Clicking **Run local benchmark** processes 144 authored short cases through the same worker and evidence validation. It records all four quadrants, family-level agreement, typed PII span matches, failure counts, individual inference timings, p50/p95 and model/build identities. Inference timings cover accepted proposals only; rejected proposals do not supply worker timing. Load time is separate from inference. Missing/error cases remain in denominators. Three consecutive infrastructure failures stop the run; per-case timeouts and a 20-minute loop deadline bound work. Stop produces a partial report rather than discarding failures. Downloading a report is explicit.
 
 The cases cover 16 issuer-event families with two wording/layout variants and all quadrants, plus eight edge-case families. They include all nine contextual PII subtypes. **These are authored development expectations, not independently validated legal labels or a fresh holdout.** Repeated entities and template structure limit independence. All cases are added to future synthetic holdout exclusion fingerprints. Existing holdouts, annotations and locked gates remain unchanged. Rejected model proposals are recorded as validation failures while the same worker continues; three consecutive infrastructure failures still stop the run.
 
@@ -58,7 +58,7 @@ npm run test:browser
 JUNAS_CHROMIUM=/usr/bin/chromium npm run test:browser
 ```
 
-On the development machine's standard headless Chromium, WebGPU was exposed but no adapter was available. An additional software-adapter probe lacked `shader-f16`. **Actual model execution, cold/warm loading, offline-ready behavior, hardware resource use and end-to-end native context-menu interaction remain unverified.** No weights or paid inference were used for the recorded checks. The browser CI workflow is prepared; hosted CI has not run locally.
+On the development machine's standard headless Chromium, WebGPU was exposed but no adapter was available. An additional software-adapter probe lacked `shader-f16`. Later headed Linux tests with explicit process-local Vulkan flags ran the real Intel GPU, native selection/context-menu handoff, cached offline processing and redaction. The [live report](../docs/browser-live-results.md) records the failed quality result, observed asset responses, latency, approximate process RSS and remaining limits. Complete cold-start timing, precise GPU memory, energy use and cross-device performance remain unverified. No paid API inference was used. The browser CI workflow is prepared; hosted CI has not run locally.
 
 ## Live Linux research harness
 

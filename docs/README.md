@@ -2,7 +2,7 @@
 
 - [Architecture](../ARCHITECTURE.md): local text-only classifier and input pipeline.
 - [Review v2 migration](review-v2-migration.md): removal of legacy numeric scoring and document risk labels.
-- [Local-model direction](local-model-direction.md) and [browser prototype](../browser/README.md): selected-text processing and optional redaction; model quality remains unverified.
+- [Local-model direction](local-model-direction.md), [browser prototype](../browser/README.md) and [real browser results](browser-live-results.md): selected-text processing and optional redaction; the first real model fails development quality targets.
 - [Evaluation methodology](../BENCHMARKS.md): repeatable measurements and limitations.
 - [Evaluation closeout](evaluation-closeout-v5.md): current reference audit, external evidence and clean-checkout verification.
 - [Fresh v5 holdout proposal](fresh-holdout-v5-plan.md): frozen validation plan and cost, awaiting spending approval.
