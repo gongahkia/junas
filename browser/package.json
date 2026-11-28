@@ -1,0 +1,20 @@
+{
+  "name": "junas-browser-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22.12"},
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node test/e2e.mjs",
+    "eval:generate": "node eval/generate.mjs"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "0.2.89"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "playwright": "1.65.1"
+  }
+}

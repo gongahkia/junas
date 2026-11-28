@@ -1,0 +1,28 @@
+name: Browser research prototype
+on:
+  pull_request:
+    paths: ["browser/**", "config/sensitivity-development-gates.json", ".github/workflows/browser.yml"]
+  push:
+    branches: [main]
+    paths: ["browser/**", "config/sensitivity-development-gates.json", ".github/workflows/browser.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: browser/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: browser
+      - run: npm test && npm run build
+        working-directory: browser
+      - run: npx playwright install --with-deps chromium
+        working-directory: browser
+      - run: npm run test:browser
+        working-directory: browser

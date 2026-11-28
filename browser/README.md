@@ -1,0 +1,61 @@
+# Junas browser research prototype
+
+Highlight text on an ordinary web page, right-click and choose **Process selected text with Junas**. A processing tab opens and runs a local WebLLM worker. Review its proposed evidence, select findings to redact, then preview and explicitly copy the redacted text. The original page is never edited by this prototype. Opening the extension's toolbar action also supports pasted text.
+
+## Build and load
+
+Requires Node 22.12+ and a Chromium browser with a usable WebGPU adapter supporting `shader-f16` for the pinned model.
+
+```sh
+cd browser
+npm ci --ignore-scripts
+npm test
+npm run build
+```
+
+Open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select `browser/dist`. Browser installation is manual; this repository does not publish or install the extension into your normal profile.
+
+The candidate is `Qwen3-1.7B-q4f16_1-MLC` with WebLLM 0.2.89. Weight and compiled-library repository revisions are pinned in `src/model.js`; builds hash the relevant source, dependency lock, prompts and targets. This candidate has **not** been validated for MNPI quality or lightweight operation. No new model is promoted by these changes.
+
+## Processing and data boundaries
+
+- First processing downloads model/tokenizer/compiled assets from Hugging Face and the MLC library repository. Weights are additional to the extension bundle. Cached assets can remain on the device.
+- There is no API key, remote classification endpoint, cloud fallback or autonomous tool loop. The worker rejects `fetch` after model initialization. Real-model offline operation still requires verification on supported hardware.
+- Capture uses the browser's explicit `selectionText` event, without a content script or permission to scrape surrounding pages. Only that selection is assessed; a passage can omit essential MNPI context.
+- Pending selections use trusted extension session storage, opaque URL references and a bounded queue. Entries expire after five minutes when next accessed/cleaned, are removed on consumption, and do not use persistent local history. Results remain in the processing tab. Clear terminates the worker and clears text/results; closing the tab stops its worker.
+- Input is capped at 1,024 UTF-8 bytes, with an additional conservative full-prompt/context check that can reject shorter passages. The prototype does not silently truncate. It handles a single selected passage, not full-document coverage.
+- A fixed structured response is checked for valid shape, categories, unique exact quotations, source bounds and contradictory state/evidence combinations. Offsets use Unicode code points, matching Python. These checks establish quotation grounding; they do not establish semantic linkage, legal materiality, truth of public status or exhaustive PII coverage.
+- Incomplete output, invalid evidence, an unavailable model/device, cancellation and timeout produce explicit failure/uncertainty. A complete model response can still be wrong.
+- Redaction is optional and operates on an explicit copy. Findings are initially unchecked. Quoted MNPI components are redacted as their containing evidence interval, which may include intervening text; the preview exposes this before copy. Editing the source invalidates findings and the preview.
+
+The browser model emits `junas.browser.proposal.v1`, marked `classification_applied: false`. It is separate from the Python `junas.review.v2` deterministic result. An optional comparison panel imports CLI JSON for **exactly the same text**; it does not invoke Python from the browser or fuse decisions. Automatic Python bridging and a model-assisted primary classifier remain future work, contingent on measured quality.
+
+## Development evaluation
+
+Open the extension's `benchmark.html` page by replacing `process.html` in its URL. Clicking **Run local benchmark** processes 144 authored short cases through the same worker and evidence validation. It records all four quadrants, family-level agreement, typed PII span matches, failure counts, individual inference timings, p50/p95 and model/build identities. Load time is separate from inference. Missing/error cases remain in denominators. Three consecutive failures stop the run; per-case timeouts and a 20-minute loop deadline bound work. Stop produces a partial report rather than discarding failures. Downloading a report is explicit.
+
+The cases cover 16 issuer-event families with two wording/layout variants and all quadrants, plus eight edge-case families. They include all nine contextual PII subtypes. **These are authored development expectations, not independently validated legal labels or a fresh holdout.** Repeated entities and template structure limit independence. All cases are added to future synthetic holdout exclusion fingerprints. Existing holdouts, annotations and locked gates remain unchanged.
+
+Replay the deterministic classifier and score its results without model calls:
+
+```sh
+# from the project root; use an environment installed with the project
+python scripts/evaluate_short_cases.py --output /tmp/junas-short-rows.json
+cd browser
+node eval/score.mjs eval/cases.json /tmp/junas-short-rows.json /tmp/junas-short-report.json
+```
+
+Outputs refuse overwrites. `npm run eval:generate` reproduces `eval/cases.json`; tests check that it matches its generator. The same nine existing development quality targets are reported without lowering thresholds. A passing authored suite would still not establish generalization.
+
+## Verification limits
+
+`npm run test:browser` uses an isolated Chromium profile and a **mocked model worker**, with HTTP(S) requests blocked. It exercises extension loading, real session-storage handoff, unavailable-device handling, processing UI, explicit redaction/copy, changed-source invalidation, clearing and narrow layouts. It does not measure model accuracy, model download size, model load/inference latency or peak GPU memory.
+
+```sh
+npx playwright install chromium
+npm run test:browser
+# alternatively, use a system Chromium:
+JUNAS_CHROMIUM=/usr/bin/chromium npm run test:browser
+```
+
+On the development machine's standard headless Chromium, WebGPU was exposed but no adapter was available. An additional software-adapter probe lacked `shader-f16`. **Actual model execution, cold/warm loading, offline-ready behavior, hardware resource use and end-to-end native context-menu interaction remain unverified.** No weights or paid inference were used for the recorded checks. The browser CI workflow is prepared; hosted CI has not run locally.

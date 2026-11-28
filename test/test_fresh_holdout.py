@@ -100,6 +100,21 @@ def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excl
         (fake / "test" / name).write_text('TEXT = "A previous authored source, never a fresh reference."')
     monkeypatch.setattr(fresh, "ROOT", fake)
     monkeypatch.setattr("scripts.check_reliability.cases", lambda: [])
+    browser_cases = fake / "browser/eval/cases.json"
+    browser_cases.parent.mkdir(parents=True)
+    browser_text = "An authored browser development source about fictional issuer events 7823"
+    browser_cases.write_text(
+        json.dumps(
+            [
+                {
+                    "text": browser_text,
+                    "family": "example",
+                    "split": "development",
+                    "reference_kind": "authored_synthetic_development_expectation",
+                }
+            ]
+        )
+    )
     inherited = exclusion_registry([{"text": "Existing development source 1234"}])
     prior = tmp_path / "prior"
     prior.mkdir()
@@ -126,7 +141,9 @@ def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excl
         registry, audit = fresh.build_exclusions(inherited, [prior])
     assert audit["prior_candidate_sources_fingerprinted"] == 1
     assert audit["prior_generator_responses_fingerprinted"] == 1
-    for text in (old_text, generated, "Existing development source 9876"):
+    assert audit["browser_development_sources_fingerprinted"] == 1
+    assert browser_cases in fresh.source_files(fake)
+    for text in (old_text, generated, browser_text, "Existing development source 9876"):
         with pytest.raises(ValueError, match="conflicts"):
             check_exclusions(text, "fresh", registry)
     used = exclusion_registry(

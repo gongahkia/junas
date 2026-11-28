@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Junas — process selected text</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+  <header><p class="eyebrow">Junas · local research prototype</p><h1>Process selected text</h1><p>Review model proposals, then optionally redact a copy.</p></header>
+  <p class="notice">Experimental findings can miss sensitive information. Model files download on first use; classification runs on this device. Only the selected passage is assessed.</p>
+  <label for="source">Selected text</label><textarea id="source" rows="7" spellcheck="false" placeholder="Highlight text on a page and choose Process selected text with Junas, or paste a short passage here."></textarea>
+  <p id="size" class="muted"></p>
+  <div class="actions"><button id="process">Process locally</button><button id="cancel" hidden>Cancel</button><button id="clear" class="secondary">Clear text and results</button></div>
+  <p id="status" role="status" aria-live="polite">Ready. A WebGPU-capable browser is required.</p>
+  <section id="results" hidden><h2>Findings to review</h2><p id="states"></p><p id="timing" class="muted"></p><div id="evidence"></div>
+    <button id="preview" class="secondary">Preview selected redactions</button>
+    <section id="redaction" hidden><label for="redacted">Redacted copy</label><textarea id="redacted" rows="6" readonly></textarea><button id="copy">Copy redacted text</button><p class="muted">The source page is unchanged. Redaction covers only the findings you selected.</p></section>
+    <details><summary>Compare with the deterministic classifier</summary><p>Optionally import CLI JSON for this exact passage. Model proposals remain separate from deterministic findings.</p><input id="comparison" type="file" accept="application/json,.json"><p id="comparison-result"></p></details>
+    <details><summary>Inspect proposal evidence</summary><pre id="json"></pre></details>
+  </section>
+</main><script type="module" src="app.js"></script></body></html>

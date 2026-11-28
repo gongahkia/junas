@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Junas — local text research prototype",
+  "version": "0.1.0",
+  "description": "Process highlighted text locally and explicitly preview redactions. Experimental model findings.",
+  "permissions": ["contextMenus", "storage", "clipboardWrite"],
+  "background": {"service_worker": "background.js", "type": "module"},
+  "action": {"default_title": "Open Junas"},
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' https://huggingface.co https://*.huggingface.co https://*.hf.co https://raw.githubusercontent.com"
+  }
+}
