@@ -81,6 +81,50 @@ try {
   assert.equal(await page.locator("#source").inputValue(), "");
   await page.setViewportSize({ width: 375, height: 812 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  const benchmark = await context.newPage();
+  await benchmark.addInitScript(() => {
+    globalThis.benchmarkWorkers = 0;
+    globalThis.Worker = class {
+      calls = 0;
+      constructor() { globalThis.benchmarkWorkers++; }
+      terminate() {}
+      postMessage() {
+        const first = ++this.calls === 1;
+        queueMicrotask(() => this.onmessage?.({ data: first
+          ? { type: "error", phase: "validation", code: "Error", message: "Rejected fabricated evidence." }
+          : { type: "result", timing: { load_ms: 0, inference_ms: 1 }, proposal: {
+            sensitivity: { pii: { state: "unknown", evidence: [] }, mnpi: { state: "unknown", evidence: [] } },
+          } } }));
+      }
+    };
+  });
+  await benchmark.goto(base + "benchmark.html");
+  await benchmark.locator("#run").click();
+  await benchmark.locator("#download").waitFor({ state: "visible" });
+  await benchmark.waitForFunction(() => !document.getElementById("download").disabled);
+  const coverage = await benchmark.locator("#report").textContent().then(JSON.parse);
+  assert.equal(coverage.received, 144);
+  assert.equal(coverage.failed, 1);
+  assert.equal(coverage.passed, false);
+  assert.equal(await benchmark.evaluate(() => globalThis.benchmarkWorkers), 1);
+  await benchmark.close();
+  const infrastructure = await context.newPage();
+  await infrastructure.addInitScript(() => {
+    globalThis.Worker = class {
+      terminate() {}
+      postMessage() { queueMicrotask(() => this.onmessage?.({ data: {
+        type: "error", phase: "inference", code: "Error", message: "Runtime unavailable.",
+      } })); }
+    };
+  });
+  await infrastructure.goto(base + "benchmark.html");
+  await infrastructure.locator("#run").click();
+  await infrastructure.waitForFunction(() => !document.getElementById("download").disabled);
+  const interrupted = await infrastructure.locator("#report").textContent().then(JSON.parse);
+  assert.equal(interrupted.received, 3);
+  assert.equal(interrupted.failed, 144);
+  assert.equal(interrupted.completed, false);
+  await infrastructure.close();
   assert.deepEqual(errors, []);
   assert.deepEqual(requests, []);
   console.log("PASS: unpacked extension loads; selection handoff, unsupported-device failure, mocked processing, redaction preview/copy, invalidation, clearing and narrow layout; no remote requests.");

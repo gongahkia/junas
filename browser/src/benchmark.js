@@ -12,7 +12,14 @@ function processCase(item) {
     worker.onerror = () => { stopWorker(); reject(Error("worker failure")); };
     worker.onmessage = ({ data }) => {
       if (data.type === "progress") $("status").textContent = data.message;
-      if (data.type === "error") { stopWorker(); reject(Error("invalid or failed processing")); }
+      if (data.type === "error") {
+        clearTimeout(timer);
+        if (data.phase !== "validation") stopWorker();
+        const error = Error(data.message || "invalid or failed processing");
+        error.phase = data.phase;
+        error.code = data.code;
+        reject(error);
+      }
       if (data.type === "result") { clearTimeout(timer); resolve(data); }
     };
     worker.postMessage({ text: item.text });
@@ -39,8 +46,10 @@ $("run").onclick = async () => {
           load_ms: data.timing.load_ms, proposal: data.proposal });
         errors = 0;
       } catch (error) {
-        rows.push({ id: item.id, text: item.text, error: error.message });
-        if (++errors >= 3) break;
+        rows.push({ id: item.id, text: item.text, error: error.message, phase: error.phase ?? "infrastructure", code: error.code ?? null });
+        // rejected proposals remain failures without preventing coverage of other families.
+        if (error.phase === "validation") errors = 0;
+        else if (++errors >= 3) break;
       }
     }
     report = { ...scoreResults(cases, rows), model_identity: identity ?? null, elapsed_ms: performance.now() - started,
