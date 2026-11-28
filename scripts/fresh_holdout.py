@@ -40,9 +40,10 @@ def source_files(root: Path) -> list[Path]:
         if p.is_file() and p.suffix in {".py", ".csv", ".toml", ".json"}
     ]
     files.extend(root / name for name in ("pyproject.toml", "uv.lock") if (root / name).is_file())
-    short_cases = root / "browser/eval/cases.json"
-    if short_cases.is_file():
-        files.append(short_cases)
+    for name in ("cases.json", "additional-sources.json"):
+        short_cases = root / "browser/eval" / name
+        if short_cases.is_file():
+            files.append(short_cases)
     corpus.require(files and not any(p.is_symlink() for p in files), "regular frozen source files required")
     return sorted(files)
 
@@ -90,21 +91,27 @@ def build_exclusions(inherited: dict, runs: list[Path], groups: list[dict] | Non
     from scripts.check_reliability import cases
 
     records.extend({"text": r["text"], "template_group": "authored-regression"} for r in cases())
-    browser_cases = ROOT / "browser/eval/cases.json"
-    browser_sources = 0
-    if browser_cases.is_file():
+    browser_sources, browser_validation_sources = 0, 0
+    for name in ("cases.json", "additional-sources.json"):
+        browser_cases = ROOT / "browser/eval" / name
+        if not browser_cases.is_file():
+            continue
         short_cases = json.loads(browser_cases.read_text())
-        corpus.require(isinstance(short_cases, list) and bool(short_cases), "browser development cases required")
+        corpus.require(isinstance(short_cases, list) and bool(short_cases), "authored browser sources required")
         for record in short_cases:
+            split = record.get("split")
             corpus.require(
-                record.get("split") == "development"
-                and record.get("reference_kind") == "authored_synthetic_development_expectation"
+                split in {"development", "validation"}
+                and record.get("reference_kind") == f"authored_synthetic_{split}_expectation"
                 and isinstance(record.get("text"), str)
                 and bool(record["text"].strip()),
-                "authored browser development source required",
+                "authored browser source required",
             )
-            records.append({"text": record["text"], "template_group": "browser-development:" + record["family"]})
-            browser_sources += 1
+            records.append({"text": record["text"], "template_group": f"browser-{split}:" + record["family"]})
+            if split == "development":
+                browser_sources += 1
+            else:
+                browser_validation_sources += 1
     for name in (
         "test_sensitivity.py",
         "test_contextual_identity_scopes.py",
@@ -153,6 +160,7 @@ def build_exclusions(inherited: dict, runs: list[Path], groups: list[dict] | Non
         "prior_candidate_sources_fingerprinted": candidates,
         "prior_generator_responses_fingerprinted": generated,
         "browser_development_sources_fingerprinted": browser_sources,
+        "browser_validation_sources_fingerprinted": browser_validation_sources,
         "prior_run_directories": [str(p) for p in runs],
         "old_holdout_use": "fingerprinting for exclusion only; no labels inspected or classifier evaluation",
         "limits": (

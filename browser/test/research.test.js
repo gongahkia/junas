@@ -6,6 +6,16 @@ import { rankCandidates } from "../research/selection.mjs";
 import { MODEL_IDS } from "../src/contract.js";
 import { scoreResults, validateCases } from "../src/evaluation.js";
 import { makeCases } from "../eval/cases.js";
+import { readFile } from "node:fs/promises";
+import { patternProbes } from "../research/pii-pattern-probes.js";
+
+test("future exclusions retain all validation and additional development sources without labels", async () => {
+  const known = JSON.parse(await readFile(new URL("../eval/additional-sources.json", import.meta.url), "utf8"));
+  const expected = makeValidationCases().map(({ id, family, text, split, reference_kind }) => ({ id, family, text, split, reference_kind }));
+  for (const { id, text } of patternProbes()) expected.push({ id: "pattern-" + id, family: "pii-pattern-layout-" + id, text, split: "development", reference_kind: "authored_synthetic_development_expectation" });
+  assert.deepEqual(known, expected);
+  assert.equal(known.length, 56);
+});
 
 test("validation is frozen, disjoint, explicitly scored and balanced without relabeling", () => {
   const cases = makeValidationCases();

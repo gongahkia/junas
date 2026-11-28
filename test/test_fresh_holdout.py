@@ -115,6 +115,27 @@ def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excl
             ]
         )
     )
+    extra_sources = browser_cases.with_name("additional-sources.json")
+    validation_text = "A reserved authored browser validation source about a new factory event 2519"
+    probe_text = "An authored layout regression source with unrelated invoice values 8134"
+    extra_sources.write_text(
+        json.dumps(
+            [
+                {
+                    "text": validation_text,
+                    "family": "factory",
+                    "split": "validation",
+                    "reference_kind": "authored_synthetic_validation_expectation",
+                },
+                {
+                    "text": probe_text,
+                    "family": "layout",
+                    "split": "development",
+                    "reference_kind": "authored_synthetic_development_expectation",
+                },
+            ]
+        )
+    )
     inherited = exclusion_registry([{"text": "Existing development source 1234"}])
     prior = tmp_path / "prior"
     prior.mkdir()
@@ -141,9 +162,11 @@ def test_old_holdout_is_only_fingerprinted_and_all_generated_candidates_are_excl
         registry, audit = fresh.build_exclusions(inherited, [prior])
     assert audit["prior_candidate_sources_fingerprinted"] == 1
     assert audit["prior_generator_responses_fingerprinted"] == 1
-    assert audit["browser_development_sources_fingerprinted"] == 1
+    assert audit["browser_development_sources_fingerprinted"] == 2
+    assert audit["browser_validation_sources_fingerprinted"] == 1
     assert browser_cases in fresh.source_files(fake)
-    for text in (old_text, generated, browser_text, "Existing development source 9876"):
+    assert extra_sources in fresh.source_files(fake)
+    for text in (old_text, generated, browser_text, validation_text, probe_text, "Existing development source 9876"):
         with pytest.raises(ValueError, match="conflicts"):
             check_exclusions(text, "fresh", registry)
     used = exclusion_registry(
