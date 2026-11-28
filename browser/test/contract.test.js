@@ -76,6 +76,14 @@ test("request reserves context before loading and uses the supported thinking op
   assert.equal(request.response_format.type, "json_object");
   assert.throws(() => inferenceRequest("x".repeat(MAX_BYTES)), /context budget/);
 });
+test("non-thinking model keeps its native reply template with the same task and schema", () => {
+  const qwen = inferenceRequest(text);
+  const llama = inferenceRequest(text, "Llama-3.2-3B-Instruct-q4f16_1-MLC");
+  assert.equal(llama.extra_body, undefined);
+  assert.deepEqual(llama.messages, qwen.messages);
+  assert.deepEqual(llama.response_format, qwen.response_format);
+  assert.throws(() => inferenceRequest(text, "untrusted"), /Unsupported/);
+});
 test("redaction refuses changed source and invalid coordinates", () => {
   for (const span of [
     { start_char: -1, end_char: 2, matched_text: "ab" },

@@ -37,8 +37,9 @@ export function admitText(text) {
   return text;
 }
 
-export function inferenceRequest(text) {
+export function inferenceRequest(text, model = MODEL) {
   admitText(text);
+  if (!MODEL_IDS.includes(model)) throw Error("Unsupported local model.");
   const input = JSON.stringify({ document_text: text });
   const schema = JSON.stringify(RESPONSE_SCHEMA);
   const messages = [{ role: "system", content: SYSTEM_PROMPT }, ...EXAMPLE, { role: "user", content: input }];
@@ -47,7 +48,8 @@ export function inferenceRequest(text) {
   return {
     messages,
     response_format: { type: "json_object", schema },
-    temperature: 0, max_tokens: 1024, extra_body: { enable_thinking: false },
+    temperature: 0, max_tokens: 1024,
+    ...(model.startsWith("Qwen3-") ? { extra_body: { enable_thinking: false } } : {}),
   };
 }
 

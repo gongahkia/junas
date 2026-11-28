@@ -14,7 +14,7 @@ self.onmessage = async ({ data }) => {
     const text = admitText(data.text);
     const model = data.model_id ?? MODEL;
     const config = modelConfig(model);
-    const request = inferenceRequest(text);
+    const request = inferenceRequest(text, model);
     const started = performance.now();
     phase = "model_loading";
     if (engine && loadedModel !== model) { await engine.unload(); engine = undefined; }
@@ -35,7 +35,7 @@ self.onmessage = async ({ data }) => {
     phase = "validation";
     const proposal = decodeProposal(text, choice);
     proposal.model = model;
-    self.postMessage({ type: "result", proposal, model_identity: { model, request_version: REQUEST_VERSION, build_sha256: __JUNAS_BUILD_ID__, weights_revision: WEIGHTS_REVISIONS[model], library_revision: LIBRARY_REVISION, runtime: "@mlc-ai/web-llm@0.2.89" }, timing: {
+    self.postMessage({ type: "result", proposal, model_identity: { model, request_version: REQUEST_VERSION, inference_options: request.extra_body ?? null, build_sha256: __JUNAS_BUILD_ID__, weights_revision: WEIGHTS_REVISIONS[model], library_revision: LIBRARY_REVISION, runtime: "@mlc-ai/web-llm@0.2.89" }, timing: {
       load_ms: loaded - started, inference_ms: performance.now() - loaded,
       total_ms: performance.now() - started,
     }, usage: reply.usage ?? null });
