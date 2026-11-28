@@ -1,12 +1,14 @@
 import { admitText } from "./contract.js";
 import TARGETS from "../../config/sensitivity-development-gates.json" with { type: "json" };
 
-export function validateCases(cases) {
+export function validateCases(cases, { split = "development" } = {}) {
+  if (!["development", "validation"].includes(split)) throw Error("Unsupported evaluation split.");
+  const referenceKind = `authored_synthetic_${split}_expectation`;
   if (!Array.isArray(cases) || !cases.length || cases.length > 1000) throw Error("Expected 1–1000 development cases.");
   const ids = new Set();
   for (const item of cases) {
     admitText(item.text);
-    if (typeof item.id !== "string" || ids.has(item.id) || item.split !== "development" || item.reference_kind !== "authored_synthetic_development_expectation") throw Error("Invalid, duplicated or non-development case identity.");
+    if (typeof item.id !== "string" || ids.has(item.id) || item.split !== split || item.reference_kind !== referenceKind) throw Error("Invalid, duplicated or wrong-split case identity.");
     ids.add(item.id);
     for (const c of ["pii", "mnpi"]) if (!["present", "not_detected", "unknown"].includes(item.expected?.[c])) throw Error("Invalid expected state.");
     for (const s of item.pii_evidence ?? []) if (Array.from(item.text).slice(s.start_char, s.end_char).join("") !== s.matched_text) throw Error("Invalid reference span.");
@@ -18,8 +20,9 @@ function quantile(values, fraction) {
   const sorted = values.filter(Number.isFinite).sort((a, b) => a - b);
   return sorted.length ? sorted[Math.max(0, Math.ceil(sorted.length * fraction) - 1)] : null;
 }
-export function scoreResults(cases, rows) {
-  validateCases(cases);
+export function scoreResults(cases, rows, options = {}) {
+  validateCases(cases, options);
+  const split = options.split ?? "development";
   const byId = new Map();
   for (const row of rows) {
     if (byId.has(row.id) || !cases.some(c => c.id === row.id)) throw Error("Duplicate or unknown result identity.");
@@ -81,8 +84,8 @@ export function scoreResults(cases, rows) {
     const value = measurements[key.slice(0, -4)];
     return [key, { target: limit, observed: value, passed: Number.isFinite(value) && (key.endsWith("_min") ? value >= limit : value <= limit) }];
   }));
-  return { schema_version: "junas.short_development_eval.v1", reference_kind: "authored_synthetic_development_expectation",
-    interpretation: "Development expectation agreement, not independent accuracy; failures remain in denominators.",
+  return { schema_version: `junas.short_${split}_eval.v1`, reference_kind: `authored_synthetic_${split}_expectation`,
+    interpretation: `${split === "development" ? "Development" : "Authored validation"} expectation agreement, not independent accuracy; failures remain in denominators.`,
     documents: cases.length, received: rows.length, failed, counts, by_family: byFamily, measurements, targets,
     passed: !failed && Object.values(targets).every(t => t.passed),
     pii_spans: { reference: gold, exact_matches: exact, overlapping_matches: overlap },

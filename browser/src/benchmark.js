@@ -56,6 +56,7 @@ $("run").onclick = async () => {
         if (error.phase === "validation") errors = 0;
         else if (++errors >= 3) break;
       }
+      dispatchEvent(new CustomEvent("junas-research-row", { detail: { model: $("model").value, suite: $("suite").value, rows: structuredClone(rows) } }));
     }
     report = { ...scoreResults(cases, rows), selected_suite: $("suite").value, selected_model: $("model").value, model_identity: identity ?? null, elapsed_ms: performance.now() - started,
       completed: rows.length === cases.length && !stopped, rows };

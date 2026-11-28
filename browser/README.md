@@ -1,6 +1,6 @@
 # Junas browser research prototype
 
-Highlight text on an ordinary web page, right-click and choose **Process selected text with Junas**. A processing tab opens and runs a local WebLLM worker. Review its proposed evidence, select findings to redact, then preview and explicitly copy the redacted text. The original page is never edited by this prototype. Opening the extension's toolbar action also supports pasted text.
+Open the Junas toolbar popup, capture the highlighted passage or paste text, then choose **Process locally**. The context-menu action also starts assessment. A Chrome offscreen document hosts the local WebLLM worker so closing the popup does not cancel processing. Review its proposed evidence, select findings to redact, then preview and explicitly copy the redacted text. The original page is never edited by this prototype. Opening the extension's toolbar action also supports pasted text.
 
 ## Build and load
 
@@ -21,8 +21,8 @@ The candidate is `Qwen3-1.7B-q4f16_1-MLC` with WebLLM 0.2.89. Weight and compile
 
 - First processing downloads model/tokenizer/compiled assets from Hugging Face and the MLC library repository. Weights are additional to the extension bundle. Cached assets can remain on the device.
 - There is no API key, remote classification endpoint, cloud fallback or autonomous tool loop. The worker rejects `fetch` after model initialization. A newly created real worker successfully loaded cached assets and processed one smoke passage with its isolated browser context offline; see the live report for device and timing limits.
-- Capture uses the browser's explicit `selectionText` event, without a content script or permission to scrape surrounding pages. Only that selection is assessed; a passage can omit essential MNPI context.
-- Pending selections use trusted extension session storage, opaque URL references and a bounded queue. Entries expire after five minutes when next accessed/cleaned, are removed on consumption, and do not use persistent local history. Results remain in the processing tab. Clear terminates the worker and clears text/results; closing the tab stops its worker.
+- Context-menu capture uses the browser's explicit `selectionText` event. Toolbar capture uses `activeTab` and `scripting` on a user gesture to return only the selection in the top frame or focused text field; password fields are excluded. There are no persistent content scripts or broad host permissions. Only that selection is assessed; a passage can omit essential MNPI context.
+- Pending selections use trusted extension session storage, opaque URL references and a bounded queue. Entries expire after five minutes when next accessed/cleaned, are removed on consumption, and do not use persistent local history. Results remain in the processing tab. Clear terminates the worker and clears text/results; closing a review view leaves processing running. The idle worker is released after five minutes; source/results expire after fifteen minutes without a new assessment or edit. Browser shutdown clears the in-memory session.
 - Input is capped at 1,024 UTF-8 bytes, with an additional conservative full-prompt/context check that can reject shorter passages. The prototype does not silently truncate. It handles a single selected passage, not full-document coverage.
 - A fixed structured response is checked for valid shape, categories, unique exact quotations, source bounds and contradictory state/evidence combinations. Offsets use Unicode code points, matching Python. These checks establish quotation grounding; they do not establish semantic linkage, legal materiality, truth of public status or exhaustive PII coverage.
 - Incomplete output, invalid evidence, an unavailable model/device, cancellation and timeout produce explicit failure/uncertainty. A complete model response can still be wrong.
@@ -32,7 +32,7 @@ The browser model emits `junas.browser.proposal.v1`, marked `classification_appl
 
 ## Development evaluation
 
-Open the extension's `benchmark.html` page by replacing `process.html` in its URL. Clicking **Run local benchmark** processes 144 authored short cases through the same worker and evidence validation. It records all four quadrants, family-level agreement, typed PII span matches, failure counts, individual inference timings, p50/p95 and model/build identities. Inference timings cover accepted proposals only; rejected proposals do not supply worker timing. Load time is separate from inference. Missing/error cases remain in denominators. Three consecutive infrastructure failures stop the run; per-case timeouts and a 20-minute loop deadline bound work. Stop produces a partial report rather than discarding failures. Downloading a report is explicit.
+Open the extension's `benchmark.html` page by replacing `process.html` in its URL. Clicking **Run local benchmark** processes 144 authored short cases through the same worker and evidence validation. It records all four quadrants, family-level agreement, typed PII span matches, failure counts, individual inference timings, p50/p95 and model/build identities. Inference timings cover accepted proposals only; rejected proposals do not supply worker timing. Load time is separate from inference. Missing/error cases remain in denominators. Three consecutive infrastructure failures stop the run; per-case timeouts and a 60-minute loop deadline bound work. Stop produces a partial report rather than discarding failures. Downloading a report is explicit.
 
 The cases cover 16 issuer-event families with two wording/layout variants and all quadrants, plus eight edge-case families. They include all nine contextual PII subtypes. **These are authored development expectations, not independently validated legal labels or a fresh holdout.** Repeated entities and template structure limit independence. All cases are added to future synthetic holdout exclusion fingerprints. Existing holdouts, annotations and locked gates remain unchanged. Rejected model proposals are recorded as validation failures while the same worker continues; three consecutive infrastructure failures still stop the run.
 
@@ -80,3 +80,19 @@ The harness opens a headed Chromium window with explicit X11/Vulkan/WebGPU test 
 ```
 
 Other supported actions are `fill`, `press`, `mouse`, `upload`, `evaluate` (optionally `save`), `screenshot`, `newest` and `offline`. Native context-menu selection still needs native browser interaction; programmatically injecting session storage is not equivalent evidence. The initial headless limitations above are historical; a successful live run must be reported separately with its actual hardware, flags, build identity, failures and timing coverage.
+
+## Browser panel research
+
+The T3 browser panel can run the real model and a preview of the popup UI. It cannot open `chrome://extensions`, so that preview does not verify toolbar installation or Chrome permissions. `npm run test:browser` separately exercises real extension/offscreen messaging with an explicitly mocked model.
+
+```sh
+cd browser
+npm run build
+node research/build-panel.mjs
+./node_modules/.bin/esbuild research/automatic.js --bundle --format=esm --outfile=dist/research-automatic.js
+python research/serve.py --output /absolute/private/research-output
+```
+
+Open port 8766 `/panel.html` in T3 for the compact UI, or `/benchmark.html` for research. The research-only server writes bounded, atomic checkpoints on loopback. It is not part of the distributed extension. After opening the benchmark, importing `/research-automatic.js` and calling `runResearch()` runs the fixed 32-case screens, freezes the strongest exploratory candidate, evaluates all 144 development passages, then evaluates 48 frozen authored validation passages. No paid endpoint is used, and failed gates do not trigger model promotion. The validation set is separate from the prompt and selection set; its authored labels and template dependence do not establish independent accuracy.
+
+The popup uses neutral light/charcoal surfaces and muted green, with the selected-text field, one primary processing action, evidence and explicit redaction. Model selection and diagnostics are tucked into details. The layout takes inspiration from [Obsidian Web Clipper](https://obsidian.md/clipper), with no purple colorway.
