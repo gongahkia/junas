@@ -105,3 +105,21 @@ Open port 8766 `/panel.html` in T3 for the compact UI, or `/benchmark.html` for 
 The popup uses neutral light/charcoal surfaces and muted green, with progress, evidence and explicit redaction; selected source text is available in a collapsed read-only section. Model selection and diagnostics are tucked into details. The layout takes inspiration from [Obsidian Web Clipper](https://obsidian.md/clipper), with no purple colorway.
 
 The confidence-enabled redaction request is identified as `redaction-estimates-v1`. Historical v3 classification benchmarks do not validate the accuracy or calibration of this new request. Research preview data is origin-local and separate from installed-extension history.
+
+### Actual redactor and source-anchored research
+
+`research/redactor-run.js` evaluates the actual confidence-enabled request and checkpoints every completed case. `research/redactor-metrics.js` replays category switches, confidence thresholds and the popup's MNPI scope setting without additional inference. Exact evidence scope is the default; optional sentence expansion is limited to the selected passage. Confidence estimates are uncalibrated. PII has authored character spans; MNPI currently has passage-level labels and an allowable event/disclosure paragraph, **not independently annotated minimal spans**. Removal within that paragraph is not evidence of minimal redaction quality.
+
+The separate source-anchored candidate restricts quotes to unique exact source substrings and uses explicit schema alternatives for category/evidence consistency. Its catalog contains up to twelve consecutive whitespace-delimited words, trimmed punctuation variants, unique lines and the full passage. This finite catalog can exclude useful subword evidence and can still permit overly broad or semantically wrong quotes. Source grounding does not verify that a quotation establishes its claimed meaning. The candidate is excluded from the distributed extension.
+
+Build into a new research directory alongside the running server's assets:
+
+```sh
+node research/build-anchored.mjs \
+  --output /absolute/research-assets/anchored-v2 \
+  --validation /absolute/private/validation-frozen.json
+```
+
+The build refuses overwrites and verifies the original 48-case reference artifact's hash. Open `/anchored-v2/anchored-eval.html?mode=smoke` in the T3 panel for eight development cases. After inspecting them, `?mode=all` runs the fixed 32-case screen for each pinned model, all 144 development cases for the selected candidate, then the 48 frozen validation cases. Completed rows are reused only for the same source and build identity. The default policy stays at 85%, both categories enabled, exact MNPI evidence scope. Selection maximizes the weaker of PII character recall and MNPI document redaction recall, then prefers fewer changed negative documents and failures. A failed development gate remains explicit; validation is then exploratory and does not authorize promotion. Validation follows a saved configuration freeze and cannot affect model selection.
+
+Each source-anchored case uses a fresh worker to bound the lifetime of per-source compiled grammars; this also adds cached model initialization overhead. Errors remain in recall denominators. Both scope choices, all four category combinations and six fixed thresholds are replayed from the same proposals. A separate shadow result combines explicit-context local PII patterns with accepted model findings. Those patterns have no probability score and bypass the model threshold only in this research comparison; they are not enabled in the product. All runs use local WebLLM inference and make no paid API calls.
