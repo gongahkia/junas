@@ -13,7 +13,12 @@ test("shadow structured-PII candidate requires explicit context and rejects shar
   assert.equal(localPiiCandidate("Her private mobile is +65 8123 9876.")[0].label, "PHONE");
   assert.equal(localPiiCandidate("Employee date of birth: 1991-07-02.")[0].matched_text, "1991-07-02");
   assert.equal(localPiiCandidate("Personal bank account: 188-332-994.")[0].label, "BANK_ACCOUNT");
+  assert.equal(localPiiCandidate("Personal bank account: 991-23456-7.")[0].matched_text, "991-23456-7");
   assert.equal(localPiiCandidate("Shared employee helpdesk: nova@example.org.").length, 0);
   assert.equal(localPiiCandidate("Shipment 1991-07-02. Price +65 8123 9876.").length, 0);
   assert.equal(localPiiCandidate("nova@example.org").length, 0);
+  assert.equal(localPiiCandidate("Person: Nadia Rios.")[0].matched_text, "Nadia Rios");
+  assert.equal(localPiiCandidate("Person: Acme Holdings Ltd.").length, 0);
+  assert.equal(localPiiCandidate("Person: not available.").length, 0);
+  assert.equal(localPiiCandidate("Home address: 44 Juniper Road, Singapore 123789.")[0].matched_text, "44 Juniper Road, Singapore 123789");
 });

@@ -1,6 +1,7 @@
 import { automaticRedaction, eligibleFindings } from "../src/auto-redaction.js";
+import { previewRedaction } from "../src/contract.js";
 
-export function redactorMetrics(cases, rows, policy) {
+export function redactorMetrics(cases, rows, policy, choose = null) {
   const byId = new Map(rows.map(r => [r.id, r]));
   let failed = 0, abstained = 0, changed = 0, piiGold = 0, piiCovered = 0, extra = 0, removed = 0, exactOutputs = 0, mnpiPositive = 0, mnpiRedacted = 0, negativeChanged = 0;
   const examples = [];
@@ -17,13 +18,16 @@ export function redactorMetrics(cases, rows, policy) {
       for (let i = start; i < start + Array.from(financial).length; i++) allowable.add(i);
     }
     if (!policy.pii && !policy.mnpi) { examples.push({ id: item.id, input: item.text, output: item.text, removed_chars: 0 }); continue; }
-    if (!row || row.error) { failed++; examples.push({ id: item.id, input: item.text, output: item.text, error: row?.error ?? "missing result", phase: row?.phase ?? "missing" }); continue; }
-    if (row.text !== item.text) throw Error("Result source mismatch.");
-    const proposal = row.proposal;
-    if (!proposal.complete || ["pii", "mnpi"].some(c => policy[c] && proposal.sensitivity[c].state === "unknown")) abstained++;
-    const findings = eligibleFindings(proposal, policy), mask = new Set();
+    if (!row || row.error) {
+      failed++;
+      if (!choose) { examples.push({ id: item.id, input: item.text, output: item.text, error: row?.error ?? "missing result", phase: row?.phase ?? "missing" }); continue; }
+    }
+    if (row && row.text !== item.text) throw Error("Result source mismatch.");
+    const proposal = row?.proposal;
+    if (!proposal?.complete || ["pii", "mnpi"].some(c => policy[c] && proposal.sensitivity[c].state === "unknown")) abstained++;
+    const findings = choose ? choose(item, row, policy) : eligibleFindings(proposal, policy), mask = new Set();
     for (const span of findings) for (let i = span.start_char; i < span.end_char; i++) mask.add(i);
-    const output = automaticRedaction(proposal, policy).text;
+    const output = choose ? previewRedaction(item.text, findings) : automaticRedaction(proposal, policy).text;
     if (mask.size) changed++;
     removed += mask.size;
     piiCovered += [...reference].filter(i => mask.has(i)).length;
@@ -34,7 +38,7 @@ export function redactorMetrics(cases, rows, policy) {
     if (!policy.mnpi || item.expected.mnpi === "not_detected") {
       if (mask.size === reference.size && [...mask].every(i => reference.has(i))) exactOutputs++;
     }
-    examples.push({ id: item.id, input: item.text, output, complete: proposal.complete, removed_chars: mask.size,
+    examples.push({ id: item.id, input: item.text, output, complete: proposal?.complete ?? false, error: row?.error, removed_chars: mask.size,
       pii_missed_chars: [...reference].filter(i => !mask.has(i)).length, outside_allowable_chars: [...mask].filter(i => !allowable.has(i)).length });
   }
   return { policy, documents: cases.length, failed, abstained, changed, pii_gold_chars: piiGold, pii_redacted_chars: piiCovered,
