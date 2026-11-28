@@ -72,7 +72,7 @@ test("input bounds are bytes and no truncation is performed", () => {
 test("request reserves context before loading and uses the supported thinking option", () => {
   const request = inferenceRequest(text);
   assert.equal(request.extra_body.enable_thinking, false);
-  assert.equal(JSON.parse(request.messages[1].content).document_text, text);
+  assert.equal(JSON.parse(request.messages.at(-1).content).document_text, text);
   assert.equal(request.response_format.type, "json_object");
   assert.throws(() => inferenceRequest("x".repeat(MAX_BYTES)), /context budget/);
 });

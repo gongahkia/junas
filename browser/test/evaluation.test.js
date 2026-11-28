@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { readFile } from "node:fs/promises";
 import { makeCases } from "../eval/cases.js";
 import { scoreResults, validateCases } from "../src/evaluation.js";
-import { SYSTEM_PROMPT, RESPONSE_SCHEMA } from "../src/contract.js";
+import { inferenceRequest } from "../src/contract.js";
 const cases = makeCases();
 const rows = cases.map(c => ({ id: c.id, text: c.text, states: c.expected, pii_evidence: c.pii_evidence, inference_ms: 20 }));
 test("corpus is reproducible, broad, balanced and within the full prompt budget", async () => {
@@ -12,7 +12,10 @@ test("corpus is reproducible, broad, balanced and within the full prompt budget"
   for (const quadrant of ["both", "pii_only", "mnpi_only", "neither"]) assert.equal(cases.filter(c => c.quadrant === quadrant).length, 32);
   assert.equal(new Set(cases.flatMap(c => c.pii_evidence.map(s => s.label))).size, 9);
   assert.equal(new Set(cases.filter(c => c.quadrant !== "edge").map(c => c.family)).size, 16);
-  for (const c of cases) assert.ok(new TextEncoder().encode(SYSTEM_PROMPT + JSON.stringify({ document_text: c.text }) + JSON.stringify(RESPONSE_SCHEMA)).length + 1536 <= 4096);
+  for (const c of cases) {
+    const request = inferenceRequest(c.text);
+    assert.ok(request.messages.reduce((n, m) => n + new TextEncoder().encode(m.content).length, 0) + 1536 <= 4096);
+  }
 });
 test("errors and missing cases stay in denominators", () => {
   const perfect = scoreResults(cases, rows);
