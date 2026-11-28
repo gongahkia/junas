@@ -25,4 +25,8 @@ test("shadow structured-PII candidate requires explicit context and rejects shar
   assert.equal(localPiiCandidate("Person: Acme Holdings Ltd.").length, 0);
   assert.equal(localPiiCandidate("Person: not available.").length, 0);
   assert.equal(localPiiCandidate("Home address: 44 Juniper Road, Singapore 123789.")[0].matched_text, "44 Juniper Road, Singapore 123789");
+  assert.equal(localPiiCandidate("Employee date of birth: unavailable. Shipment date: 1991-07-02.").length, 0);
+  assert.equal(localPiiCandidate("Employee personal email: unavailable. Vendor inbox: orders@example.org.").length, 0);
+  assert.deepEqual(localPiiCandidate("Personal email: nova@example.org. Shared helpdesk: help@example.org.").map(r => r.matched_text), ["nova@example.org"]);
+  assert.equal(localPiiCandidate("Personal bank account: 123-456-7-8-9.")[0].matched_text, "123-456-7-8-9");
 });
