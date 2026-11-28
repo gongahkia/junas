@@ -103,8 +103,13 @@ try {
   assert.equal(await page.locator("#results").isVisible(), false);
   await page.setViewportSize({ width: 375, height: 812 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  const preferences = { model: "Qwen3-1.7B-q4f16_1-MLC", threshold: .9, pii: true, mnpi: false, mnpiExtent: "evidence" };
-  await page.evaluate(settings => chrome.runtime.sendMessage({ target: "session", kind: "settings", settings }), preferences);
+  const preferences = { model: "Qwen3-1.7B-q4f16_1-MLC", threshold: .9, pii: true, mnpi: false, mnpiExtent: "sentences" };
+  await page.locator("#threshold").evaluate(input => { input.value = ".9"; input.dispatchEvent(new Event("change", { bubbles: true })); });
+  await page.waitForFunction(async () => (await chrome.runtime.sendMessage({ target: "session", kind: "get" })).state.settings.threshold === .9);
+  await page.locator("#redact-mnpi").uncheck();
+  await page.waitForFunction(async () => !(await chrome.runtime.sendMessage({ target: "session", kind: "get" })).state.settings.mnpi);
+  await page.locator("#mnpi-extent").selectOption("sentences");
+  await page.waitForFunction(async () => (await chrome.runtime.sendMessage({ target: "session", kind: "get" })).state.settings.mnpiExtent === "sentences");
   const sourcePage = await context.newPage();
   await sourcePage.setContent('<p id="sample">Private email: alice.tan@example.com.</p><textarea id="input">Before alice.tan@example.com after</textarea>');
   const { captureSelection, replaceSelection } = await import('../src/page-redaction.js');
