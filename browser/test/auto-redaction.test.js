@@ -25,9 +25,7 @@ test("MNPI scope defaults to its evidence interval and optionally expands within
   } };
   assert.equal(automaticRedaction(proposal, DEFAULT_SETTINGS).text, "Public context. Aster has [REDACTED]. Other context.");
   const expanded = automaticRedaction(proposal, { ...DEFAULT_SETTINGS, mnpiExtent: "sentences" }).text;
-  assert.ok(expanded.startsWith("Public context. "));
-  assert.ok(expanded.includes("[REDACTED]"));
-  assert.ok(expanded.endsWith("Other context."));
+  assert.equal(expanded, "Public context. [REDACTED] Other context.");
   assert.throws(() => validateSettings({ ...DEFAULT_SETTINGS, mnpiExtent: "document" }), /extent/);
 });
 test("all quadrants obey category switches, threshold boundaries and MNPI scope", () => {

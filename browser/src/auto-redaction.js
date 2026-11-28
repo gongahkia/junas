@@ -7,15 +7,16 @@ export function eligibleFindings(proposal, preferences) {
   }
   if (preferences.mnpiExtent === "sentences") {
     const text = proposal.document.text;
-    const sentences = [...new Intl.Segmenter("en", { granularity: "sentence" }).segment(text)].map(s => ({
-      start: Array.from(text.slice(0, s.index)).length,
-      end: Array.from(text.slice(0, s.index + s.segment.length)).length,
-    }));
+    const sentences = [...new Intl.Segmenter("en", { granularity: "sentence" }).segment(text)].map(s => {
+      const leading = s.segment.length - s.segment.trimStart().length;
+      return { start: Array.from(text.slice(0, s.index + leading)).length,
+        end: Array.from(text.slice(0, s.index + s.segment.trimEnd().length)).length };
+    });
     return findings.map(f => {
       if (f.label !== "CONTEXTUAL_MNPI") return f;
       const matching = sentences.filter(s => s.start < f.end_char && f.start_char < s.end);
       if (!matching.length) return f;
-      const start_char = matching[0].start, end_char = matching.at(-1).end;
+      const start_char = Math.min(f.start_char, matching[0].start), end_char = Math.max(f.end_char, matching.at(-1).end);
       return { ...f, start_char, end_char, matched_text: Array.from(text).slice(start_char, end_char).join("") };
     });
   }
