@@ -9,6 +9,25 @@ from pathlib import Path
 
 
 class Handler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path.startswith("/saved/"):
+            name = self.path.removeprefix("/saved/")
+            if not re.fullmatch(r"[a-zA-Z0-9_-]{1,120}", name):
+                self.send_error(400)
+                return
+            target = self.server.output / (name + ".json")
+            if not target.is_file():
+                self.send_error(404)
+                return
+            data = target.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
+        super().do_GET()
+
     def do_POST(self):
         if self.path != "/checkpoint" or self.headers.get("Origin") not in {"http://localhost:8766", "http://127.0.0.1:8766"}:
             self.send_error(403)

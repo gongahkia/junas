@@ -5,13 +5,13 @@ import screeningIds from "../eval/screening-ids.json" with { type: "json" };
 const allCases = validateCases(makeCases());
 let cases = allCases;
 const $ = id => document.getElementById(id);
-let worker, timer, rejectPending, stopped = false, rows = [], report;
+let worker, timer, rejectPending, stopped = false, rows = [], report, attempts = 0;
 function stopWorker() { worker?.terminate(); worker = undefined; clearTimeout(timer); }
 function processCase(item) {
   return new Promise((resolve, reject) => {
     rejectPending = reject;
     worker ??= new Worker(new URL("worker.js", import.meta.url), { type: "module" });
-    timer = setTimeout(() => { stopWorker(); reject(Error("timeout")); }, rows.length ? 120_000 : 600_000);
+    timer = setTimeout(() => { stopWorker(); reject(Error("timeout")); }, attempts++ ? 120_000 : 600_000);
     worker.onerror = () => { stopWorker(); reject(Error("worker failure")); };
     worker.onmessage = ({ data }) => {
       if (data.type === "progress") $("status").textContent = data.message;
@@ -30,8 +30,11 @@ function processCase(item) {
 }
 $("stop").onclick = () => { stopped = true; stopWorker(); rejectPending?.(Error("cancelled")); };
 $("run").onclick = async () => {
-  rows = []; stopped = false; report = undefined;
+  rows = globalThis.junasResumeRows ?? []; globalThis.junasResumeRows = undefined;
+  attempts = 0; stopped = false; report = undefined;
   cases = $("suite").value === "screening" ? allCases.filter(c => screeningIds.includes(c.id)) : allCases;
+  scoreResults(cases, rows);
+  const resumedReceived = rows.length;
   $("run").disabled = $("model").disabled = $("suite").disabled = true; $("stop").hidden = false; $("download").disabled = true;
   let errors = 0;
   const started = performance.now();
@@ -40,6 +43,7 @@ $("run").onclick = async () => {
     const adapter = await navigator.gpu?.requestAdapter();
     if (!adapter?.features.has("shader-f16")) throw Error("A usable WebGPU adapter with shader-f16 is required; no model downloaded.");
     for (const item of cases) {
+      if (rows.some(row => row.id === item.id)) continue;
       if (stopped || performance.now() - started > 3_600_000) break;
       $("status").textContent = `Processing ${rows.length + 1} / ${cases.length}: ${item.id}`;
       const attemptStarted = performance.now();
@@ -59,7 +63,8 @@ $("run").onclick = async () => {
       dispatchEvent(new CustomEvent("junas-research-row", { detail: { model: $("model").value, suite: $("suite").value, rows: structuredClone(rows) } }));
     }
     report = { ...scoreResults(cases, rows), selected_suite: $("suite").value, selected_model: $("model").value, model_identity: identity ?? null, elapsed_ms: performance.now() - started,
-      completed: rows.length === cases.length && !stopped, rows };
+      completed: rows.length === cases.length && !stopped, resumed_received: resumedReceived,
+      resume_limit: resumedReceived ? "Earlier row timings retained; earlier rows lack individual build identities. Run spans a browser/server restart." : null, rows };
     // research automation reads the same complete report offered by the download button.
     globalThis.junasBenchmarkReport = structuredClone(report);
     $("report").textContent = JSON.stringify({ ...report, rows: undefined }, null, 2);

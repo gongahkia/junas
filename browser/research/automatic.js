@@ -16,6 +16,18 @@ function save(name, data) {
 }
 addEventListener("junas-research-row", event => { save(`${stage}-${event.detail.model}-partial`, event.detail).catch(() => document.getElementById("stop").click()); });
 async function run(model, suite) {
+  const name = `${stage}-${model}`.replace(/[^a-zA-Z0-9_-]/g, "_");
+  const saved = await fetch(`/saved/${name}`);
+  if (saved.ok) {
+    const report = await saved.json();
+    if (report.completed) return report;
+  }
+  const partial = await fetch(`/saved/${name}-partial`);
+  if (partial.ok) {
+    const checkpoint = await partial.json();
+    if (checkpoint.model !== model || checkpoint.suite !== suite) throw Error("Checkpoint model/suite mismatch.");
+    globalThis.junasResumeRows = checkpoint.rows;
+  }
   document.getElementById("model").value = model;
   document.getElementById("suite").value = suite;
   globalThis.junasBenchmarkReport = null;
