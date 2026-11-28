@@ -1,7 +1,7 @@
 // research candidate: constrain syntax and grounding, without asserting semantic correctness.
 import { admitText, MODEL, MODEL_IDS, RESPONSE_SCHEMA, STATES } from "../src/contract.js";
 
-export const ANCHORED_REQUEST_VERSION = "redaction-source-anchored-v1";
+export const ANCHORED_REQUEST_VERSION = "redaction-source-anchored-v2";
 export function sourceQuotes(text) {
   admitText(text);
   const words = [...text.matchAll(/\S+/gu)], candidates = new Set([text]);

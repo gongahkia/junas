@@ -32,6 +32,6 @@ self.onmessage = async ({ data }) => {
       build_sha256: __JUNAS_BUILD_ID__, weights_revision: WEIGHTS_REVISIONS[model], library_revision: LIBRARY_REVISION, runtime: "@mlc-ai/web-llm@0.2.89" },
       timing: { load_ms: loaded - started, inference_ms: performance.now() - loaded, total_ms: performance.now() - started }, usage: reply.usage ?? null });
   } catch (error) {
-    self.postMessage({ type: "error", phase, code: error.name, message: `Candidate ${phase} failed: ${phase === "validation" ? error.message : error.name}` });
+    self.postMessage({ type: "error", phase, code: error.name, message: `Candidate ${phase} failed: ${error.name}: ${String(error.message).slice(0, 2000)}` });
   } finally { busy = false; }
 };

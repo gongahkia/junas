@@ -1,6 +1,8 @@
 // consumes a frozen authored set only after candidate selection; no reference labels enter the worker.
 export async function runValidation(cases, model, onProgress = () => {}, options = {}) {
-  let worker, consecutiveInfrastructureErrors = 0;
+  let worker, workerCases = 0, consecutiveInfrastructureErrors = 0;
+  const maxCasesPerWorker = options.maxCasesPerWorker ?? Infinity;
+  if (!(maxCasesPerWorker > 0)) throw Error("Invalid worker lifetime.");
   const rows = structuredClone(options.rows ?? []), started = performance.now();
   if (new Set(rows.map(r => r.id)).size !== rows.length || rows.some(r => !cases.some(c => c.id === r.id && c.text === r.text))) throw Error("Checkpoint identity/source mismatch.");
   let attempts = 0;
@@ -20,6 +22,7 @@ export async function runValidation(cases, model, onProgress = () => {}, options
             if (data.type === "result") { clearTimeout(timer); resolve(data); }
             if (data.type === "error") { clearTimeout(timer); reject(Object.assign(Error(data.message), { phase: data.phase, code: data.code })); }
           };
+          workerCases++;
           worker.postMessage({ text: item.text, model_id: model, confidence: options.confidence === true });
         });
         identity = data.model_identity;
@@ -30,9 +33,10 @@ export async function runValidation(cases, model, onProgress = () => {}, options
       } catch (error) {
         rows.push({ id: item.id, text: item.text, error: error.message, phase: error.phase ?? "infrastructure", code: error.code ?? null, wall_ms: performance.now() - attemptStarted });
         if (error.phase === "validation") consecutiveInfrastructureErrors = 0;
-        else { worker?.terminate(); worker = undefined; consecutiveInfrastructureErrors++; }
+        else { worker?.terminate(); worker = undefined; workerCases = 0; consecutiveInfrastructureErrors++; }
       }
       await onProgress({ completed: rows.length, total: cases.length, id: item.id, rows: structuredClone(rows) });
+      if (workerCases >= maxCasesPerWorker) { worker?.terminate(); worker = undefined; workerCases = 0; }
     }
     return { rows, model_identity: identity ?? null, model, completed: rows.length === cases.length, elapsed_ms: performance.now() - started,
       reference_kind: "authored_synthetic_validation_expectation", interpretation: "Untouched authored validation agreement; not independent accuracy." };

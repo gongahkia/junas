@@ -10,7 +10,7 @@ import { ANCHORED_REQUEST_VERSION } from "./anchored-request.js";
 const development = makeCases(), screen = screeningIds.map(id => development.find(c => c.id === id));
 const policy = { pii: true, mnpi: true, threshold: .85, mnpiExtent: "evidence" };
 const status = message => { document.getElementById("status").textContent = message; };
-const prefix = "anchored-v1";
+const prefix = "anchored-v2";
 async function save(name, data) {
   const response = await fetch("/checkpoint", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, data }) });
   if (!response.ok) throw Error("Checkpoint failed; stop rather than discard evidence.");
@@ -38,7 +38,7 @@ async function runBatch(cases, model, stage, initial = []) {
   const result = await runValidation(cases, model, async progress => {
     status(`${stage}: ${model}, ${progress.completed} / ${progress.total}, ${progress.id}`);
     if (progress.rows) await save(key, { rows: progress.rows, completed: false, request_version: ANCHORED_REQUEST_VERSION, artifact_sha256: __JUNAS_BUILD_ID__ });
-  }, { confidence: true, workerUrl: "anchored-worker.js", rows: checkpoint?.rows ?? initial.filter(r => cases.some(c => c.id === r.id && c.text === r.text)) });
+  }, { confidence: true, workerUrl: "anchored-worker.js", maxCasesPerWorker: 1, rows: checkpoint?.rows ?? initial.filter(r => cases.some(c => c.id === r.id && c.text === r.text)) });
   const report = { ...result, ...summary(cases, result.rows, stage === "validation" ? "validation" : "development"), request_version: ANCHORED_REQUEST_VERSION,
     artifact_sha256: __JUNAS_BUILD_ID__, reference_kind: `authored_synthetic_${stage === "validation" ? "validation" : "development"}_expectation` };
   await save(key, report);
