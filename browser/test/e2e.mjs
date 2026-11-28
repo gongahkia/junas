@@ -45,8 +45,7 @@ try {
     } finally { await inspector.send("Target.detachFromTarget", { sessionId }); }
   }
   await offscreenEvaluate('Object.defineProperty(navigator,"gpu",{value:undefined,configurable:true})');
-  await unsupported.locator("#source").fill("Contact alice.tan@example.com.");
-  await unsupported.locator("#process").click();
+  await unsupported.evaluate(() => chrome.runtime.sendMessage({ target: "session", kind: "capture", text: "Contact alice.tan@example.com." }));
   await unsupported.getByRole("status").filter({ hasText: "WebGPU adapter" }).waitFor();
   assert.equal(await unsupported.locator("#results").isVisible(), false);
   await offscreenEvaluate(`(${() => {
@@ -72,33 +71,31 @@ try {
     };
   }})()`);
   const source = "🙂 Contact alice.tan@example.com.";
-  await background.evaluate(async text => chrome.storage.session.set({ "selection:test-capture": { text, created: Date.now() } }), source);
+
   await context.addInitScript(() => Object.defineProperty(navigator, "gpu", { value: { requestAdapter: async () => ({ features: new Set(["shader-f16"]) }) }, configurable: true }));
   const firstView = await context.newPage();
-  await firstView.goto(base + "process.html?selection=test-capture");
+  await firstView.goto(base + "process.html");
+  await firstView.evaluate(text => chrome.runtime.sendMessage({ target: "session", kind: "capture", text }), source);
   await firstView.waitForFunction(() => !document.getElementById("cancel").hidden);
   await firstView.close();
   const page = await context.newPage();
   page.on("pageerror", error => errors.push(error.message));
   await page.goto(base + "popup.html");
   await page.locator("#results").waitFor();
-  assert.equal(await page.locator("#source").inputValue(), source);
-  assert.deepEqual(await background.evaluate(() => chrome.storage.session.get(null)), {});
+  assert.equal(await page.locator("#source").textContent(), source);
+  assert.equal(await page.locator("#process, #capture, #clear, textarea#source").count(), 0);
   assert.equal(await offscreenEvaluate("globalThis.workerCount"), 1);
   await page.locator("#evidence input").check();
   await page.locator("#preview").click();
   assert.equal(await page.locator("#redacted").inputValue(), "🙂 Contact [REDACTED].");
-  assert.equal(await page.locator("#source").inputValue(), source);
+  assert.equal(await page.locator("#source").textContent(), source);
   await page.locator("#copy").click();
   await page.getByRole("status").filter({ hasText: "saved to clipboard" }).waitFor();
-  await page.locator("#source").fill("Changed source.");
-  assert.equal(await page.locator("#results").isVisible(), false);
-  await page.locator("#clear").click();
-  await page.waitForFunction(() => document.getElementById("source").value === "");
+  await page.evaluate(() => chrome.runtime.sendMessage({ target: "session", kind: "clear" }));
+  await page.waitForFunction(() => document.getElementById("source").textContent === "");
   assert.equal(await page.locator("#redacted").inputValue(), "");
   assert.equal(await page.locator("#json").textContent(), "");
-  await page.locator("#source").fill(source);
-  await page.locator("#process").click();
+  await page.evaluate(text => chrome.runtime.sendMessage({ target: "session", kind: "capture", text }), source);
   await page.locator("#cancel").waitFor();
   await page.locator("#cancel").click();
   await page.getByRole("status").filter({ hasText: "Cancelled" }).waitFor();

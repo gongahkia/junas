@@ -18,15 +18,20 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({ id: "process", title: "Process selected text with Junas", contexts: ["selection"] });
 });
+async function showStatus(state) {
+  await chrome.action.setBadgeText({ text: state.busy ? "…" : state.result ? "✓" : state.failed ? "!" : "" });
+  await chrome.action.setTitle({ title: state.busy ? "Junas — processing" : state.result ? "Junas — assessment ready" : state.status });
+}
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (sender.id === chrome.runtime.id && message.target === "badge") showStatus(message.state).catch(() => {});
+});
 chrome.contextMenus.onClicked.addListener(async info => {
   if (info.menuItemId !== "process") return;
   try {
-    const result = await command({ kind: "start", text: info.selectionText });
+    const result = await command({ kind: "capture", text: info.selectionText });
     if (!result.ok) throw Error(result.error);
-    try { await chrome.action.openPopup(); }
-    catch { await chrome.tabs.create({ url: chrome.runtime.getURL("process.html") }); }
-  }
-  catch {
-    await chrome.tabs.create({ url: chrome.runtime.getURL("process.html?capture=failed") });
+    await showStatus(result.state);
+  } catch {
+    await showStatus({ failed: true, status: "Junas could not start. Open Junas to review the status." });
   }
 });

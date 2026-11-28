@@ -13,6 +13,4 @@ addEventListener("message", event => {
 });
 globalThis.chrome ??= {};
 chrome.runtime = { sendMessage: command => message(command) };
-chrome.tabs = { query: async () => [{ id: 1 }] };
-chrome.scripting = { executeScript: async () => [{ result: (await message({ kind: "selection" })).selection }] };
 await import("../src/app.js");

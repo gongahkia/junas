@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Process highlighted text locally and explicitly preview redactions. Experimental model findings.",
   "minimum_chrome_version": "120",
-  "permissions": ["contextMenus", "storage", "clipboardWrite", "offscreen", "activeTab", "scripting"],
+  "permissions": ["contextMenus", "clipboardWrite", "offscreen"],
   "background": {"service_worker": "background.js", "type": "module"},
   "action": {"default_title": "Open Junas", "default_popup": "popup.html"},
   "content_security_policy": {

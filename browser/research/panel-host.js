@@ -28,3 +28,16 @@ document.getElementById("toggle").onclick = () => {
   frame.src = closed ? "about:blank" : "panel-popup.html";
   document.getElementById("toggle").textContent = closed ? "Open Junas" : "Close popup";
 };
+
+const menu = document.getElementById("context-process");
+let selected = "";
+document.getElementById("sample").addEventListener("contextmenu", event => {
+  selected = getSelection()?.toString() || "";
+  if (!selected.trim()) return;
+  event.preventDefault(); menu.hidden = false;
+});
+menu.onclick = async () => {
+  menu.hidden = true;
+  try { await session.start(selected); }
+  catch (error) { document.getElementById("preview-status").textContent = error.message; }
+};
