@@ -15,14 +15,15 @@ const files = [...await sources("src"), ...await sources("public"), "eval/cases.
 for (const file of files.sort()) { hash.update(file); hash.update("\0"); hash.update(await readFile(file)); hash.update("\0"); }
 const identity = hash.digest("hex");
 
-await rm("dist", { recursive: true, force: true });
-await mkdir("dist");
+const output = process.env.JUNAS_BUILD_DIR || "dist";
+await rm(output, { recursive: true, force: true });
+await mkdir(output, { recursive: true });
 await build({
   entryPoints: ["src/app.js", "src/worker.js", "src/background.js", "src/benchmark.js", "src/offscreen.js"],
-  outdir: "dist", bundle: true, format: "esm", target: "chrome120",
+  outdir: output, bundle: true, format: "esm", target: "chrome120",
   minify: true, sourcemap: false,
   define: { __JUNAS_BUILD_ID__: JSON.stringify(identity) },
 });
 for (const file of ["manifest.json", "process.html", "popup.html", "offscreen.html", "style.css", "benchmark.html"]) {
-  await cp(`public/${file}`, `dist/${file}`);
+  await cp(`public/${file}`, `${output}/${file}`);
 }
