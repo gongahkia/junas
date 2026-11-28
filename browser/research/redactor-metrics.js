@@ -1,5 +1,20 @@
 import { automaticRedaction, eligibleFindings } from "../src/auto-redaction.js";
 import { previewRedaction } from "../src/contract.js";
+import { scoreResults } from "../src/evaluation.js";
+
+export function redactionPolicyScore(cases, rows, policy, split = "development") {
+  const decisions = rows.map(row => {
+    if (row.error || !row.proposal) return row;
+    const findings = eligibleFindings(row.proposal, policy);
+    const evidence = category => findings.filter(f => category === "mnpi" ? f.label === "CONTEXTUAL_MNPI" : f.label !== "CONTEXTUAL_MNPI");
+    const states = Object.fromEntries(["pii", "mnpi"].map(category => {
+      const state = row.proposal.sensitivity[category].state;
+      return [category, !row.proposal.complete || !policy[category] || (state === "present" && !evidence(category).length) ? "unknown" : state];
+    }));
+    return { ...row, states, pii_evidence: evidence("pii") };
+  });
+  return scoreResults(cases, decisions, { split });
+}
 
 export function redactorMetrics(cases, rows, policy, choose = null) {
   const byId = new Map(rows.map(r => [r.id, r]));

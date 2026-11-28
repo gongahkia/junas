@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { redactorMetrics } from "../research/redactor-metrics.js";
+import { redactorMetrics, redactionPolicyScore } from "../research/redactor-metrics.js";
 import { localPiiCandidate } from "../research/local-pii-candidate.js";
 test("redactor scores retain misses/errors and distinguish unnecessary removal", () => {
   const cases = [{ id: "personal", text: "Personal email: nova@example.org.", pii_evidence: [{ start_char: 16, end_char: 32 }], expected: { pii: "present", mnpi: "not_detected" } }];
@@ -12,6 +12,16 @@ test("redactor scores retain misses/errors and distinguish unnecessary removal",
   assert.throws(() => redactorMetrics(cases, [row, row], { pii: true }), /Duplicate/);
   assert.throws(() => redactorMetrics(cases, [{ ...row, text: "different source" }], { pii: true }), /wrong-source/);
   assert.throws(() => redactorMetrics(cases, [{ ...row, error: undefined, proposal: { document: { text: "different source" } } }], { pii: true }), /Proposal source/);
+});
+test("policy decisions count below-threshold positives as abstentions and retain misses", () => {
+  const text = "Personal email: nova@example.org.";
+  const evidence = { label: "EMAIL", matched_text: "nova@example.org", start_char: 16, end_char: 32, confidence: .8 };
+  const cases = [{ id: "positive", text, split: "development", reference_kind: "authored_synthetic_development_expectation", expected: { pii: "present", mnpi: "not_detected" }, pii_evidence: [evidence] }];
+  const rows = [{ id: "positive", text, proposal: { document: { text }, complete: true, sensitivity: { pii: { state: "present", evidence: [evidence] }, mnpi: { state: "not_detected", evidence: [] } } } }];
+  const report = redactionPolicyScore(cases, rows, { pii: true, mnpi: true, threshold: .85 });
+  assert.equal(report.counts.pii["present→unknown"], 1);
+  assert.equal(report.pii_spans.exact_matches, 0);
+  assert.equal(redactionPolicyScore(cases, rows, { pii: true, mnpi: true, threshold: .8 }).pii_spans.exact_matches, 1);
 });
 test("shadow structured-PII candidate requires explicit context and rejects shared contacts", () => {
   assert.equal(localPiiCandidate("Her private mobile is +65 8123 9876.")[0].label, "PHONE");
