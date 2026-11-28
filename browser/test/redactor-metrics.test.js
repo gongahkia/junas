@@ -8,6 +8,10 @@ test("redactor scores retain misses/errors and distinguish unnecessary removal",
   assert.equal(report.failed, 1); assert.equal(report.pii_char_recall, 0);
   assert.equal(report.examples[0].output, cases[0].text);
   assert.equal(redactorMetrics(cases, [], { pii: false, mnpi: false, threshold: .85 }).failed, 0);
+  const row = { id: cases[0].id, text: cases[0].text, error: "failed" };
+  assert.throws(() => redactorMetrics(cases, [row, row], { pii: true }), /Duplicate/);
+  assert.throws(() => redactorMetrics(cases, [{ ...row, text: "different source" }], { pii: true }), /wrong-source/);
+  assert.throws(() => redactorMetrics(cases, [{ ...row, error: undefined, proposal: { document: { text: "different source" } } }], { pii: true }), /Proposal source/);
 });
 test("shadow structured-PII candidate requires explicit context and rejects shared contacts", () => {
   assert.equal(localPiiCandidate("Her private mobile is +65 8123 9876.")[0].label, "PHONE");

@@ -3,6 +3,7 @@ import { previewRedaction } from "../src/contract.js";
 
 export function redactorMetrics(cases, rows, policy, choose = null) {
   const byId = new Map(rows.map(r => [r.id, r]));
+  if (byId.size !== rows.length || rows.some(r => !cases.some(c => c.id === r.id && c.text === r.text))) throw Error("Duplicate, unknown or wrong-source result.");
   let failed = 0, abstained = 0, changed = 0, piiGold = 0, piiCovered = 0, extra = 0, removed = 0, exactOutputs = 0, mnpiPositive = 0, mnpiRedacted = 0, negativeChanged = 0;
   const examples = [];
   for (const item of cases) {
@@ -13,7 +14,9 @@ export function redactorMetrics(cases, rows, policy, choose = null) {
     const allowable = new Set(reference);
     if (policy.mnpi && item.expected.mnpi === "present") {
       mnpiPositive++;
-      const financial = item.text.split(/\n+/).find(line => /(?:Listed issuer|Listed |Orchid Holdings)/.test(line)) ?? item.text.split("\n")[0];
+      let financial = item.text.split(/\n+/).find(line => /(?:Listed issuer|Listed |Orchid Holdings)/.test(line)) ?? item.text.split("\n")[0];
+      // authored validation core places the disclosure line after its event line.
+      if (item.split === "validation" && item.quadrant !== "edge") financial = item.text.split("\n").slice(0, 2).join("\n");
       const start = Array.from(item.text.slice(0, item.text.indexOf(financial))).length;
       for (let i = start; i < start + Array.from(financial).length; i++) allowable.add(i);
     }
@@ -24,6 +27,7 @@ export function redactorMetrics(cases, rows, policy, choose = null) {
     }
     if (row && row.text !== item.text) throw Error("Result source mismatch.");
     const proposal = row?.proposal;
+    if (proposal && proposal.document.text !== item.text) throw Error("Proposal source mismatch.");
     if (!proposal?.complete || ["pii", "mnpi"].some(c => policy[c] && proposal.sensitivity[c].state === "unknown")) abstained++;
     const findings = choose ? choose(item, row, policy) : eligibleFindings(proposal, policy), mask = new Set();
     for (const span of findings) for (let i = span.start_char; i < span.end_char; i++) mask.add(i);
