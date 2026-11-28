@@ -12,7 +12,7 @@ export async function runValidation(cases, model, onProgress = () => {}, options
       onProgress({ completed: rows.length, total: cases.length, id: item.id });
       const attemptStarted = performance.now();
       try {
-        worker ??= new Worker("worker.js", { type: "module" });
+        worker ??= new Worker(options.workerUrl ?? "worker.js", { type: "module" });
         const data = await new Promise((resolve, reject) => {
           const timer = setTimeout(() => { worker?.terminate(); worker = undefined; reject(Error("timeout")); }, attempts++ ? 120_000 : 600_000);
           worker.onerror = () => { clearTimeout(timer); reject(Error("worker failure")); };
